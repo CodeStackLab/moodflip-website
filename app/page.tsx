@@ -5,13 +5,18 @@ import PaidPlansSection from '@/components/PaidPlansSection';
 export default function HomePage() {
   return (
     <div>
-      {/* MoodFlip Rainbow Gradient Title */}
-      <h1 className="site-title-hero">MoodFlip</h1>
+      {/* Hero Header Area */}
+      <div className="hero-header-area">
+        <h1 className="site-title-hero">Flip Your Mood</h1>
+        <p className="hero-subtitle">
+          Select how you feel right now to unlock an instant positive shift and practical 60-second action.
+        </p>
 
-      {/* Non-medical disclaimer */}
-      <div className="medical-notice">
-        <span>ℹ️</span>
-        <span><strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
+        {/* Non-medical disclaimer */}
+        <div className="medical-notice">
+          <span>🛡️</span>
+          <span><strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
+        </div>
       </div>
 
       {/* Main Interactive Mood Tool */}
@@ -35,7 +40,8 @@ export default function HomePage() {
             { title: 'Scared of Uncertainty', slug: 'scared-uncertainty' },
           ].map((item) => (
             <a key={item.slug} href={`/mood/${item.slug}`} className="seo-directory-card">
-              ➡️ {item.title}
+              <span>{item.title}</span>
+              <span>&rarr;</span>
             </a>
           ))}
         </div>

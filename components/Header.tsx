@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [userProfile, setUserProfile] = useState<{ email: string; name?: string } | null>(null);
 
@@ -32,15 +34,14 @@ export default function Header() {
 
       {/* Navigation Links */}
       <nav className={`header-nav ${isMobileMenuOpen ? 'open' : ''}`}>
-        <a href="/" className="nav-link active">Home</a>
-        <a href="/about" className="nav-link">About</a>
-        <a href="/contact" className="nav-link">Contact</a>
-        <a href="/privacy" className="nav-link">Privacy</a>
-        <a href="/admin" className="nav-link admin-link">Admin</a>
+        <a href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>Home</a>
+        <a href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`}>About</a>
+        <a href="/contact" className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}>Contact</a>
+        <a href="/privacy" className={`nav-link ${pathname === '/privacy' ? 'active' : ''}`}>Privacy</a>
 
         {/* Dynamic User Profile or Login CTA */}
         {userProfile ? (
-          <a href="/profile" className="header-auth-btn" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
+          <a href="/profile" className="header-auth-btn" style={{ background: 'linear-gradient(135deg, #10b981, #059669)', color: '#ffffff' }}>
             👤 {userProfile.name || userProfile.email.split('@')[0]}
           </a>
         ) : (

@@ -139,26 +139,31 @@ body {
   font-weight: 700;
 }
 
-.header-auth-btn {
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-  color: white !important;
-  font-size: 0.78rem;
+.header-nav a.header-auth-btn,
+.header-nav a.header-auth-btn:hover,
+.header-nav a.header-auth-btn:focus,
+.header-nav a.header-auth-btn:active,
+.header-nav a.header-auth-btn.active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%) !important;
+  color: #ffffff !important;
+  font-size: 0.78rem !important;
   font-weight: 800 !important;
-  padding: 0.35rem 0.95rem !important;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0.38rem 1rem !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3) !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
 }
 
-.header-auth-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
+.header-nav a.header-auth-btn:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+  box-shadow: 0 6px 18px rgba(236, 72, 153, 0.4) !important;
 }
 
 .mobile-menu-toggle {

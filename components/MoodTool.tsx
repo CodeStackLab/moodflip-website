@@ -72,6 +72,7 @@ export default function MoodTool() {
   const [savedHistory, setSavedHistory] = useState<SavedCheckin[]>([]);
   const [userProfile, setUserProfile] = useState<{ email: string; name?: string } | null>(null);
   const [profileSaved, setProfileSaved] = useState<boolean>(false);
+  const [showSevenDayOffer, setShowSevenDayOffer] = useState<boolean>(false);
 
   useEffect(() => {
     const savedVisits = parseInt(localStorage.getItem('moodflip_visit_count') || '0', 10) + 1;
@@ -138,9 +139,26 @@ export default function MoodTool() {
   const handleSaveCheckinToProfile = () => {
     if (!userProfile) {
       setIsModalOpen(true);
-    } else {
-      setProfileSaved(true);
+      return;
     }
+
+    const latestCheckin = savedHistory[0];
+    if (!latestCheckin) return;
+
+    fetch('/api/checkins', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: userProfile.email, ...latestCheckin }),
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error('Unable to save check-in');
+        return response.json();
+      })
+      .then((data) => {
+        setProfileSaved(true);
+        setShowSevenDayOffer(Boolean(data.showSevenDayOffer));
+      })
+      .catch(() => setProfileSaved(false));
   };
 
   const selectedSubCategory = selectedFamily
@@ -304,6 +322,14 @@ export default function MoodTool() {
               >
                 ↺ Start over
               </button>
+            )}
+            {showSevenDayOffer && (
+              <div style={{ marginTop: '0.8rem', padding: '0.8rem', borderRadius: '12px', background: '#fff7ed', border: '1px solid #fed7aa', textAlign: 'center' }}>
+                <strong style={{ display: 'block', color: '#9a3412', fontSize: '0.85rem' }}>You have 7 saved check-ins!</strong>
+                <a href="#paid-pdf-section" style={{ color: '#b45309', fontSize: '0.8rem', fontWeight: 800 }}>
+                  View your personalised 7-day plan
+                </a>
+              </div>
             )}
           </div>
 

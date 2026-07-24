@@ -79,13 +79,13 @@ export default function MoodTool() {
         <div className="left-dark-panel">
           <div>
             {/* Step 1 */}
-            <div style={{ marginBottom: '1.75rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#e2e8f0' }}>Step 1: Choose Mood Family</h3>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#e2e8f0' }}>Step 1: Choose Mood Family</h3>
                 <span style={{ fontSize: '0.75rem', color: '#818cf8', fontWeight: 600 }}>Clickable Cloud Tiles</span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem' }}>
+              <div className="cloud-grid">
                 {MOOD_DATA.map((family) => {
                   const isSel = selectedFamily ? selectedFamily.id === family.id : false;
                   return (
@@ -111,11 +111,11 @@ export default function MoodTool() {
 
             {/* Step 2 */}
             {selectedFamily ? (
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '0.6rem' }}>
+              <div style={{ marginBottom: '1.25rem' }}>
+                <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '0.5rem' }}>
                   Step 2: How does {selectedFamily.name} feel?
                 </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+                <div className="sub-category-grid">
                   {selectedFamily.subCategories.map((sub) => {
                     const isSel = selectedSubId === sub.id;
                     return (
@@ -140,10 +140,10 @@ export default function MoodTool() {
             {/* Step 3 */}
             {selectedSubCategory ? (
               <div>
-                <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '0.6rem' }}>
+                <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '0.5rem' }}>
                   Step 3: Select Specific Feeling
                 </h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                   {selectedSubCategory.feelings.map((feeling) => {
                     const isSel = selectedFeeling ? selectedFeeling.id === feeling.id : false;
                     return (
@@ -154,12 +154,12 @@ export default function MoodTool() {
                           setIsFlipped(false);
                         }}
                         style={{
-                          padding: '0.6rem 1rem',
+                          padding: '0.55rem 0.9rem',
                           borderRadius: '12px',
                           border: isSel ? '2px solid #a855f7' : '1px solid rgba(255,255,255,0.1)',
                           background: isSel ? 'rgba(168, 85, 247, 0.25)' : 'rgba(255,255,255,0.03)',
                           color: 'white',
-                          fontSize: '0.85rem',
+                          fontSize: '0.82rem',
                           fontWeight: 600,
                           cursor: 'pointer',
                           display: 'flex',
@@ -178,7 +178,7 @@ export default function MoodTool() {
           </div>
 
           {/* Step 4: Pulsing Center Flip Button */}
-          <div style={{ marginTop: '2rem' }}>
+          <div style={{ marginTop: '1.5rem' }}>
             <button
               onClick={handleFlipMood}
               disabled={!selectedFeeling}
@@ -198,34 +198,34 @@ export default function MoodTool() {
               <div style={{ animation: 'fadeIn 0.5s ease' }}>
                 <span style={{ fontSize: '3rem', display: 'block', marginBottom: '0.5rem' }}>☀️</span>
 
-                <div style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', color: '#92400e', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.82rem', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', color: '#92400e', marginBottom: '0.25rem' }}>
                   Your Positive Target Mood Is:
                 </div>
-                <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#78350f', marginBottom: '1.25rem' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#78350f', marginBottom: '1rem' }}>
                   {result.targetMood}
                 </h2>
 
-                <div style={{ background: '#fef3c7', border: '1px solid #fde68a', borderRadius: '16px', padding: '1.25rem', marginBottom: '1.5rem' }}>
+                <div style={{ background: '#fef3c7', border: '1px solid #fde68a', borderRadius: '16px', padding: '1.1rem', marginBottom: '1.25rem' }}>
                   <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#b45309', marginBottom: '0.35rem' }}>
                     ⚡ YOUR 60-SECOND ACTION:
                   </div>
-                  <p style={{ fontSize: '1.05rem', fontWeight: 600, color: '#451a03', lineHeight: 1.5 }}>
+                  <p style={{ fontSize: '1rem', fontWeight: 600, color: '#451a03', lineHeight: 1.5 }}>
                     &quot;{result.actionText}&quot;
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                   <button
                     onClick={() => setIsModalOpen(true)}
                     style={{
                       width: '100%',
-                      padding: '0.85rem',
+                      padding: '0.8rem',
                       borderRadius: '12px',
                       border: 'none',
                       background: '#78350f',
                       color: '#fffbe6',
                       fontWeight: 700,
-                      fontSize: '0.95rem',
+                      fontSize: '0.9rem',
                       cursor: 'pointer',
                       boxShadow: '0 4px 12px rgba(120, 53, 15, 0.25)'
                     }}
@@ -248,12 +248,12 @@ export default function MoodTool() {
                 </div>
               </div>
             ) : (
-              <div style={{ padding: '2rem 1rem' }}>
-                <span style={{ fontSize: '3.5rem', display: 'block', opacity: 0.8, marginBottom: '0.75rem' }}>🌅</span>
-                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#78350f', marginBottom: '0.5rem' }}>
+              <div style={{ padding: '1.5rem 0.5rem' }}>
+                <span style={{ fontSize: '3rem', display: 'block', opacity: 0.8, marginBottom: '0.5rem' }}>🌅</span>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#78350f', marginBottom: '0.5rem' }}>
                   Ready to Shift Your State?
                 </h3>
-                <p style={{ fontSize: '0.9rem', color: '#92400e', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '0.88rem', color: '#92400e', lineHeight: 1.6 }}>
                   Select your current mood on the left panel and click the <strong>&quot;Flip My Mood&quot;</strong> button to unlock your uplifting positive target state and 60-second micro-action.
                 </p>
               </div>

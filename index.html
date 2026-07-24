@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoodFlip | Self-Help & Mood Transformation Utility</title>
+  <meta name="description" content="Flip your mood instantly with interactive CBT tools, 4-7-8 breathing exercises, ambient soundscapes, and cloud reflection logging." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="./src/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo-group">
+        <div class="logo-icon">💫</div>
+        <div>
+          <h1>MoodFlip</h1>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Self-Help & Mindset Transformation Engine</p>
+        </div>
+      </div>
+
+      <div class="status-badge" id="supabase-status-badge">
+        <span class="status-dot offline" id="status-dot"></span>
+        <span id="status-text">Checking Database Status...</span>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="app-grid">
+      <!-- 1. Mood Flipper Card -->
+      <section class="card" id="mood-flipper-section">
+        <h2 class="card-title">⚡ 1. State your Current Mood</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Select how you are feeling right now to generate an immediate mindset flip action:</p>
+        
+        <div class="mood-selector-grid" id="mood-grid">
+          <button class="mood-btn" data-mood="anxious">
+            <span class="mood-emoji">😰</span>
+            <span class="mood-name">Anxious</span>
+          </button>
+          <button class="mood-btn" data-mood="stressed">
+            <span class="mood-emoji">🤯</span>
+            <span class="mood-name">Stressed</span>
+          </button>
+          <button class="mood-btn" data-mood="low_energy">
+            <span class="mood-emoji">🪫</span>
+            <span class="mood-name">Low Energy</span>
+          </button>
+          <button class="mood-btn" data-mood="sad">
+            <span class="mood-emoji">🌧️</span>
+            <span class="mood-name">Sad</span>
+          </button>
+          <button class="mood-btn" data-mood="overwhelmed">
+            <span class="mood-emoji">🌀</span>
+            <span class="mood-name">Overwhelmed</span>
+          </button>
+        </div>
+
+        <button class="flip-btn" id="flip-btn" disabled>✨ Flip My Mood</button>
+
+        <div class="flip-result" id="flip-result">
+          <h3 style="font-size: 1.1rem; color: var(--accent-emerald); margin-bottom: 0.5rem;" id="target-mood-title">Target State</h3>
+          <p style="font-size: 0.95rem;" id="target-mood-action">Select a mood above to generate a micro-action.</p>
+        </div>
+      </section>
+
+      <!-- 2. 4-7-8 Breathwork Timer Card -->
+      <section class="card" id="breathing-section">
+        <h2 class="card-title">🫁 2. 4-7-8 Breathwork Reset</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">Calm your nervous system in under 2 minutes. Follow the expanding circle:</p>
+        
+        <div class="breath-circle-container">
+          <div class="breath-circle" id="breath-circle">
+            <span class="breath-label" id="breath-label">Ready</span>
+            <span class="breath-timer" id="breath-timer">4-7-8</span>
+          </div>
+
+          <div class="breath-controls">
+            <button class="flip-btn" id="start-breath-btn" style="width: auto; padding: 0.75rem 1.75rem;">Start 4-7-8 Breathing</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Ambient Soundscapes Card -->
+      <section class="card" id="soundscapes-section">
+        <h2 class="card-title">🎵 3. Focus & Calm Soundscapes</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">Synthesized in real-time using Web Audio API:</p>
+        
+        <div class="sound-grid">
+          <div class="sound-card" data-sound="rain">
+            <div class="sound-info">
+              <span class="sound-icon">🌧️</span>
+              <div>
+                <strong style="font-size: 0.95rem;">Gentle Rain</strong>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Soothing white noise</div>
+              </div>
+            </div>
+            <button class="play-toggle" aria-label="Toggle Rain">▶</button>
+          </div>
+
+          <div class="sound-card" data-sound="ocean">
+            <div class="sound-info">
+              <span class="sound-icon">🌊</span>
+              <div>
+                <strong style="font-size: 0.95rem;">Ocean Waves</strong>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Deep tidal rhythm</div>
+              </div>
+            </div>
+            <button class="play-toggle" aria-label="Toggle Ocean">▶</button>
+          </div>
+
+          <div class="sound-card" data-sound="harmony" style="grid-column: 1 / -1;">
+            <div class="sound-info">
+              <span class="sound-icon">🧘</span>
+              <div>
+                <strong style="font-size: 0.95rem;">432Hz Mind Harmonic Tone</strong>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Deep relaxation & meditation frequency</div>
+              </div>
+            </div>
+            <button class="play-toggle" aria-label="Toggle Harmony">▶</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Cloud Reflection & Gratitude Log -->
+      <section class="card" id="journal-section">
+        <h2 class="card-title">📝 4. Gratitude & Reflection Journal</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Write down what is on your mind. Syncs automatically with Supabase Database when deployed.</p>
+
+        <div class="reflection-form">
+          <textarea id="journal-input" placeholder="What is 1 positive thing or thought you want to capture right now?"></textarea>
+          <button class="btn-secondary" id="save-log-btn">Save Reflection Entry</button>
+        </div>
+
+        <div class="log-list" id="log-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- 5. GitHub & Vercel Auto-Deployment Instructions Banner -->
+      <section class="deploy-box" id="deploy-guide-section">
+        <h2 style="font-size: 1.3rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          🚀 How to Auto-Deploy Live to Vercel & Supabase
+        </h2>
+        <p style="font-size: 0.95rem; color: var(--text-muted);">
+          Follow these 3 simple steps to make your site live with continuous deployment on every <code style="color:#a855f7;">git push</code>:
+        </p>
+
+        <ol style="margin-left: 1.25rem; margin-top: 0.75rem; font-size: 0.9rem; line-height: 1.8;">
+          <li>
+            <strong>Push code to GitHub:</strong>
+            <div class="code-block">
+git init<br/>
+git add .<br/>
+git commit -m "Deploy MoodFlip App"<br/>
+git branch -M main<br/>
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git<br/>
+git push -u origin main
+            </div>
+          </li>
+          <li style="margin-top: 0.75rem;">
+            <strong>Import to Vercel:</strong> Go to <a href="https://vercel.com/new" target="_blank" style="color: var(--accent-cyan);">vercel.com/new</a>, import your GitHub repository.
+          </li>
+          <li style="margin-top: 0.75rem;">
+            <strong>Add Environment Variables in Vercel:</strong> Under Project Settings &gt; Environment Variables, add:
+            <div class="code-block">
+VITE_SUPABASE_URL = https://your-project.supabase.co<br/>
+VITE_SUPABASE_ANON_KEY = your-anon-key
+            </div>
+          </li>
+        </ol>
+      </section>
+    </div>
+  </div>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

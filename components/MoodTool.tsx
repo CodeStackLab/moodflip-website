@@ -1,0 +1,273 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { MOOD_DATA, getActionForFeeling, MoodFamily, FeelingDetail } from '../lib/moodData';
+import CloudVector from './CloudVector';
+import ProfileModal from './ProfileModal';
+
+export default function MoodTool() {
+  const [selectedFamily, setSelectedFamily] = useState<MoodFamily | null>(MOOD_DATA[0]);
+  const [selectedSubId, setSelectedSubId] = useState<string | null>(MOOD_DATA[0].subCategories[0].id);
+  const [selectedFeeling, setSelectedFeeling] = useState<FeelingDetail | null>(MOOD_DATA[0].subCategories[0].feelings[0]);
+
+  const [result, setResult] = useState<{ targetMood: string; actionText: string } | null>(null);
+  const [isFlipped, setIsFlipped] = useState<boolean>(false);
+
+  const [visitCount, setVisitCount] = useState<number>(1);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [, setUserProfile] = useState<{ email: string; name?: string } | null>(null);
+
+  useEffect(() => {
+    const savedVisits = parseInt(localStorage.getItem('moodflip_visit_count') || '0', 10) + 1;
+    localStorage.setItem('moodflip_visit_count', savedVisits.toString());
+    setVisitCount(savedVisits);
+
+    if (savedVisits === 2) {
+      setTimeout(() => {
+        setIsModalOpen(true);
+      }, 1200);
+    }
+
+    const savedProfile = localStorage.getItem('moodflip_profile');
+    if (savedProfile) {
+      try {
+        setUserProfile(JSON.parse(savedProfile));
+      } catch (e) {}
+    }
+  }, []);
+
+  const handleFlipMood = () => {
+    if (!selectedFeeling) return;
+    const flipped = getActionForFeeling(selectedFeeling.id, visitCount);
+    setResult(flipped);
+    setIsFlipped(true);
+
+    const history = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
+    history.unshift({
+      primaryMood: selectedFamily?.name || 'SAD',
+      subFeeling: selectedSubId || '',
+      specificFeeling: selectedFeeling.name,
+      targetMood: flipped.targetMood,
+      actionShown: flipped.actionText,
+      date: new Date().toISOString()
+    });
+    localStorage.setItem('moodflip_checkins', JSON.stringify(history));
+  };
+
+  const handleSaveProfileSubmit = async (email: string, name?: string) => {
+    const profile = { email, name };
+    localStorage.setItem('moodflip_profile', JSON.stringify(profile));
+    setUserProfile(profile);
+
+    try {
+      await fetch('/api/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, visitCount })
+      });
+    } catch (err) {
+      console.warn('Backend offline fallback:', err);
+    }
+  };
+
+  const selectedSubCategory = selectedFamily ? selectedFamily.subCategories.find(s => s.id === selectedSubId) : null;
+
+  return (
+    <div>
+      <div className="moodflip-container">
+        {/* Left Panel */}
+        <div className="left-dark-panel">
+          <div>
+            {/* Step 1 */}
+            <div style={{ marginBottom: '1.75rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#e2e8f0' }}>Step 1: Choose Mood Family</h3>
+                <span style={{ fontSize: '0.75rem', color: '#818cf8', fontWeight: 600 }}>Clickable Cloud Tiles</span>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem' }}>
+                {MOOD_DATA.map((family) => {
+                  const isSel = selectedFamily ? selectedFamily.id === family.id : false;
+                  return (
+                    <button
+                      key={family.id}
+                      onClick={() => {
+                        setSelectedFamily(family);
+                        setSelectedSubId(family.subCategories[0].id);
+                        setSelectedFeeling(family.subCategories[0].feelings[0]);
+                        setIsFlipped(false);
+                      }}
+                      className={`cloud-card ${isSel ? 'selected' : ''}`}
+                    >
+                      <CloudVector type={family.id} color={family.cloudColor} />
+                      <span style={{ fontSize: '0.75rem', fontWeight: 800, color: family.cloudColor, marginTop: '0.2rem' }}>
+                        {family.name}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            {selectedFamily ? (
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '0.6rem' }}>
+                  Step 2: How does {selectedFamily.name} feel?
+                </h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+                  {selectedFamily.subCategories.map((sub) => {
+                    const isSel = selectedSubId === sub.id;
+                    return (
+                      <div
+                        key={sub.id}
+                        onClick={() => {
+                          setSelectedSubId(sub.id);
+                          setSelectedFeeling(sub.feelings[0]);
+                          setIsFlipped(false);
+                        }}
+                        className={`feeling-tile ${isSel ? 'selected' : ''}`}
+                      >
+                        <span style={{ fontSize: '1.2rem' }}>{sub.icon}</span>
+                        <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{sub.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+
+            {/* Step 3 */}
+            {selectedSubCategory ? (
+              <div>
+                <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '0.6rem' }}>
+                  Step 3: Select Specific Feeling
+                </h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  {selectedSubCategory.feelings.map((feeling) => {
+                    const isSel = selectedFeeling ? selectedFeeling.id === feeling.id : false;
+                    return (
+                      <button
+                        key={feeling.id}
+                        onClick={() => {
+                          setSelectedFeeling(feeling);
+                          setIsFlipped(false);
+                        }}
+                        style={{
+                          padding: '0.6rem 1rem',
+                          borderRadius: '12px',
+                          border: isSel ? '2px solid #a855f7' : '1px solid rgba(255,255,255,0.1)',
+                          background: isSel ? 'rgba(168, 85, 247, 0.25)' : 'rgba(255,255,255,0.03)',
+                          color: 'white',
+                          fontSize: '0.85rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.4rem'
+                        }}
+                      >
+                        <span>{feeling.icon}</span>
+                        <span>{feeling.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          {/* Step 4: Pulsing Center Flip Button */}
+          <div style={{ marginTop: '2rem' }}>
+            <button
+              onClick={handleFlipMood}
+              disabled={!selectedFeeling}
+              className="flip-action-button"
+            >
+              ✨ Flip My Mood
+            </button>
+          </div>
+        </div>
+
+        {/* Right Panel */}
+        <div className="right-sun-panel">
+          <div className="sun-rays" />
+
+          <div className="action-card-sun">
+            {isFlipped && result ? (
+              <div style={{ animation: 'fadeIn 0.5s ease' }}>
+                <span style={{ fontSize: '3rem', display: 'block', marginBottom: '0.5rem' }}>☀️</span>
+
+                <div style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', color: '#92400e', marginBottom: '0.25rem' }}>
+                  Your Positive Target Mood Is:
+                </div>
+                <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#78350f', marginBottom: '1.25rem' }}>
+                  {result.targetMood}
+                </h2>
+
+                <div style={{ background: '#fef3c7', border: '1px solid #fde68a', borderRadius: '16px', padding: '1.25rem', marginBottom: '1.5rem' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#b45309', marginBottom: '0.35rem' }}>
+                    ⚡ YOUR 60-SECOND ACTION:
+                  </div>
+                  <p style={{ fontSize: '1.05rem', fontWeight: 600, color: '#451a03', lineHeight: 1.5 }}>
+                    &quot;{result.actionText}&quot;
+                  </p>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    style={{
+                      width: '100%',
+                      padding: '0.85rem',
+                      borderRadius: '12px',
+                      border: 'none',
+                      background: '#78350f',
+                      color: '#fffbe6',
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 12px rgba(120, 53, 15, 0.25)'
+                    }}
+                  >
+                    💾 SAVE MY PROFILE
+                  </button>
+
+                  <a
+                    href="#paid-pdf-section"
+                    style={{
+                      display: 'block',
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      color: '#92400e',
+                      textDecoration: 'underline'
+                    }}
+                  >
+                    Get Personalised 7-Day MoodFlip PDF ($7)
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <div style={{ padding: '2rem 1rem' }}>
+                <span style={{ fontSize: '3.5rem', display: 'block', opacity: 0.8, marginBottom: '0.75rem' }}>🌅</span>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#78350f', marginBottom: '0.5rem' }}>
+                  Ready to Shift Your State?
+                </h3>
+                <p style={{ fontSize: '0.9rem', color: '#92400e', lineHeight: 1.6 }}>
+                  Select your current mood on the left panel and click the <strong>&quot;Flip My Mood&quot;</strong> button to unlock your uplifting positive target state and 60-second micro-action.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* 2nd Visit Profile Modal */}
+      <ProfileModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSaveProfile={handleSaveProfileSubmit}
+      />
+    </div>
+  );
+}

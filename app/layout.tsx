@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import AdSpace from '@/components/AdSpace';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
@@ -22,30 +24,8 @@ export default function RootLayout({
           {/* Top AdSpace Slot */}
           <AdSpace position="top" />
 
-          {/* Responsive Navigation Header */}
-          <header className="nav-header">
-            <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'linear-gradient(135deg, #6366f1, #a855f7)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem' }}>
-                💫
-              </div>
-              <div style={{ textAlign: 'left' }}>
-                <span style={{ fontSize: '1.4rem', fontWeight: 800, background: 'linear-gradient(135deg, #fff, #cbd5e1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  MoodFlip
-                </span>
-                <span style={{ fontSize: '0.75rem', display: 'block', color: '#94a3b8', marginTop: '-2px' }}>
-                  moodflip.coach
-                </span>
-              </div>
-            </a>
-
-            <nav style={{ display: 'flex', gap: '1.25rem', fontSize: '0.9rem', fontWeight: 600 }}>
-              <a href="/" style={{ color: '#f8fafc', textDecoration: 'none' }}>Home</a>
-              <a href="/about" style={{ color: '#94a3b8', textDecoration: 'none' }}>About</a>
-              <a href="/contact" style={{ color: '#94a3b8', textDecoration: 'none' }}>Contact</a>
-              <a href="/privacy" style={{ color: '#94a3b8', textDecoration: 'none' }}>Privacy</a>
-              <a href="/admin" style={{ color: '#c084fc', textDecoration: 'none' }}>Admin</a>
-            </nav>
-          </header>
+          {/* Dedicated Responsive Header */}
+          <Header />
 
           {/* Main Content */}
           <main>{children}</main>
@@ -53,13 +33,8 @@ export default function RootLayout({
           {/* Bottom AdSpace Slot */}
           <AdSpace position="bottom" />
 
-          {/* Footer */}
-          <footer style={{ borderTop: '1px solid rgba(255,255,255,0.08)', marginTop: '2.5rem', padding: '1.5rem 0', textAlign: 'center', color: '#64748b', fontSize: '0.85rem' }}>
-            <p style={{ marginBottom: '0.5rem', padding: '0 0.5rem' }}>
-              <strong>Important Disclaimer:</strong> MoodFlip is a self-reflection utility. It is not therapy, not mental health treatment, and not medical advice.
-            </p>
-            <p>© 2026 MoodFlip. All rights reserved.</p>
-          </footer>
+          {/* Dedicated Responsive Footer */}
+          <Footer />
         </div>
       </body>
     </html>

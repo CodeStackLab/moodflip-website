@@ -1,390 +1,288 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MOOD_DATA, getActionForFeeling, MoodFamily, FeelingDetail } from '../lib/moodData';
-import CloudVector from './CloudVector';
+import { MOOD_DATA, getActionForFeeling, MoodFamily, MoodSubCategory } from '../lib/moodData';
+import {
+  LonelyIcon,
+  RejectedIcon,
+  HurtIcon,
+  AshamedIcon,
+  GuiltyIcon,
+  EmptyIcon,
+  OverwhelmedIcon,
+  AbandonedIcon,
+  TrashIcon,
+  MeditateIcon,
+  BotanicalSprig
+} from './FeelingIcons';
 
-interface SavedCheckin {
-  primaryMood: string;
-  subFeeling: string;
-  specificFeeling: string;
-  targetMood: string;
-  actionShown: string;
-  date: string;
-}
-
-// Cloud shape wrapping the mood family name with colorful multi-theme support
-const CloudPill = ({ id, name, color, selected }: { id: string; name: string; color: string; selected: boolean }) => (
-  <button
-    className={`cloud-pill-card ${id}-pill ${selected ? 'selected' : ''}`}
-  >
-    <div style={{ width: '22px', height: '16px', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-      <CloudVector type={id} color={selected ? color : '#94a3b8'} />
-    </div>
-    <span>
-      {name}
-    </span>
-  </button>
-);
+// Helper to render the matching line-art icon
+const renderFeelingIcon = (iconName: string, isSelected: boolean) => {
+  const iconColor = isSelected ? '#53389e' : '#475569';
+  switch (iconName) {
+    case 'Lonely':
+      return <LonelyIcon size={36} color={iconColor} />;
+    case 'Rejected':
+      return <RejectedIcon size={36} color={iconColor} />;
+    case 'Hurt':
+      return <HurtIcon size={36} color={iconColor} />;
+    case 'Ashamed':
+      return <AshamedIcon size={36} color={iconColor} />;
+    case 'Guilty':
+      return <GuiltyIcon size={36} color={iconColor} />;
+    case 'Empty':
+      return <EmptyIcon size={36} color={iconColor} />;
+    case 'Overwhelmed':
+      return <OverwhelmedIcon size={36} color={iconColor} />;
+    case 'Abandoned':
+      return <AbandonedIcon size={36} color={iconColor} />;
+    default:
+      return <LonelyIcon size={36} color={iconColor} />;
+  }
+};
 
 export default function MoodTool() {
-  const [selectedFamily, setSelectedFamily] = useState<MoodFamily | null>(MOOD_DATA[0]);
-  const [selectedSubId, setSelectedSubId] = useState<string | null>(MOOD_DATA[0].subCategories[0].id);
-  const [selectedFeeling, setSelectedFeeling] = useState<FeelingDetail | null>(MOOD_DATA[0].subCategories[0].feelings[0]);
-
-  const [result, setResult] = useState<{ targetMood: string; actionText: string; actionIndex: number } | null>(null);
+  const [selectedFamily, setSelectedFamily] = useState<MoodFamily>(MOOD_DATA[0]);
+  const [selectedSub, setSelectedSub] = useState<MoodSubCategory>(MOOD_DATA[0].subCategories[0]);
+  const [result, setResult] = useState<{ targetMood: string; actionText: string } | null>(null);
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-
   const [visitCount, setVisitCount] = useState<number>(1);
-  const [savedHistory, setSavedHistory] = useState<SavedCheckin[]>([]);
-  const [userProfile, setUserProfile] = useState<{ email: string; name?: string } | null>(null);
-  const [profileSaved, setProfileSaved] = useState<boolean>(false);
-  const [showSevenDayOffer, setShowSevenDayOffer] = useState<boolean>(false);
 
   useEffect(() => {
     const savedVisits = parseInt(localStorage.getItem('moodflip_visit_count') || '0', 10) + 1;
     localStorage.setItem('moodflip_visit_count', savedVisits.toString());
     setVisitCount(savedVisits);
-
-    const savedProfile = localStorage.getItem('moodflip_profile');
-    if (savedProfile) {
-      try { setUserProfile(JSON.parse(savedProfile)); } catch (e) {}
-    }
-    const history = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
-    setSavedHistory(history);
   }, []);
 
   const handleFlipMood = () => {
-    if (!selectedFeeling) return;
-    const flipped = getActionForFeeling(selectedFeeling.id, visitCount);
-    setResult({ ...flipped, actionIndex: (visitCount % 10) + 1 });
+    if (!selectedSub) return;
+    const flipped = getActionForFeeling(selectedSub.id, visitCount);
+    setResult(flipped);
     setIsAnimating(true);
     setIsFlipped(true);
     setTimeout(() => setIsAnimating(false), 500);
-
-    const history = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
-    const newEntry: SavedCheckin = {
-      primaryMood: selectedFamily?.name || 'Sad',
-      subFeeling: selectedSubId || '',
-      specificFeeling: selectedFeeling.name,
-      targetMood: flipped.targetMood,
-      actionShown: flipped.actionText,
-      date: new Date().toISOString()
-    };
-    history.unshift(newEntry);
-    localStorage.setItem('moodflip_checkins', JSON.stringify(history));
-    setSavedHistory(history);
-    setProfileSaved(false);
   };
 
   const handleClearSelection = () => {
     setSelectedFamily(MOOD_DATA[0]);
-    setSelectedSubId(MOOD_DATA[0].subCategories[0].id);
-    setSelectedFeeling(MOOD_DATA[0].subCategories[0].feelings[0]);
+    setSelectedSub(MOOD_DATA[0].subCategories[0]);
     setIsFlipped(false);
     setResult(null);
-    setProfileSaved(false);
   };
 
-  const handleSaveCheckinToProfile = () => {
-    if (!userProfile) {
-      window.location.href = '/login';
-      return;
-    }
-
-    const latestCheckin = savedHistory[0];
-    if (!latestCheckin) return;
-
-    fetch('/api/checkins', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: userProfile.email, ...latestCheckin }),
-    })
-      .then(async (response) => {
-        if (!response.ok) throw new Error('Unable to save check-in');
-        return response.json();
-      })
-      .then((data) => {
-        setProfileSaved(true);
-        setShowSevenDayOffer(Boolean(data.showSevenDayOffer));
-      })
-      .catch(() => setProfileSaved(false));
-  };
-
-  const selectedSubCategory = selectedFamily
-    ? selectedFamily.subCategories.find(s => s.id === selectedSubId)
-    : null;
+  const currentTargetMood = isFlipped && result ? result.targetMood : 'Peaceful';
+  const currentActionText = isFlipped && result
+    ? result.actionText
+    : 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.';
 
   return (
-    <div>
-      {/* Clean Utility bar (Links directly to /profile or /login — NO POPUPS) */}
-      <div className="mood-tool-utilities">
-        {userProfile && (
-          <span style={{ fontSize: '0.76rem', color: '#059669', background: '#ecfdf5', padding: '0.2rem 0.75rem', borderRadius: '9999px', fontWeight: 600 }}>
-            👤 {userProfile.email}
+    <div className="moodflip-wrapper">
+      {/* Centered MoodFlip Title Header matching the reference image */}
+      <div className="moodflip-brand-header">
+        <h1 className="moodflip-brand-title">
+          <span className="brand-mood">Mood</span>
+          <span className="brand-flip">
+            Flip
+            <span className="brand-heart-dot">♡</span>
           </span>
-        )}
-        <a
-          href={userProfile ? '/profile' : '/login'}
-          style={{ background: '#f3e8ff', border: '1px solid #d8b4fe', color: '#6d28d9', padding: '0.3rem 0.85rem', borderRadius: '9999px', fontSize: '0.76rem', fontWeight: 800, textDecoration: 'none' }}
-        >
-          ✨ {userProfile ? 'My Profile' : 'Create Profile'}
-        </a>
-        {savedHistory.length > 0 && (
-          <a
-            href="/profile"
-            style={{ background: '#ffffff', border: '1px solid #e2e8f0', color: '#475569', padding: '0.3rem 0.85rem', borderRadius: '9999px', fontSize: '0.76rem', fontWeight: 700, textDecoration: 'none' }}
-          >
-            📜 History ({savedHistory.length})
-          </a>
-        )}
+        </h1>
       </div>
 
-      {/* MAIN CANVAS */}
-      <div className="moodflip-canvas">
+      {/* Main Split-Canvas Frame */}
+      <div className="moodflip-main-canvas">
 
-        {/* ===== LEFT PANEL ===== */}
-        <div className="left-selection-panel">
+        {/* LEFT SELECTION PANEL */}
+        <div className="moodflip-left-panel">
 
-          {/* STEP 1 — Choose mood family */}
-          <div>
-            <div className="step-arrow-badge">
-              <span style={{ fontSize: '0.9rem' }}>☁️</span>
-              <span>Choose your current mood</span>
+          {/* Step 1 Badge */}
+          <div className="step-arrow-container">
+            <div className="step-pill-badge">
+              <span className="badge-icon-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                </svg>
+              </span>
+              <span className="badge-text">Choose your current mood</span>
             </div>
-            <div className="cloud-grid">
-              {MOOD_DATA.map((family) => {
-                const isSel = selectedFamily?.id === family.id;
-                return (
-                  <div
-                    key={family.id}
-                    onClick={() => {
-                      setSelectedFamily(family);
-                      setSelectedSubId(family.subCategories[0].id);
-                      setSelectedFeeling(family.subCategories[0].feelings[0]);
-                      setIsFlipped(false);
-                      setResult(null);
-                    }}
-                  >
-                    <CloudPill id={family.id} name={family.name} color={family.cloudColor} selected={isSel} />
+            <div className="step-arrow-line">
+              <svg width="40" height="18" viewBox="0 0 40 18" fill="none">
+                <path d="M0 9H34M34 9L27 2M34 9L27 16" stroke="#C4B5FD" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Cloud Mood Family Pills Row */}
+          <div className="cloud-pills-row">
+            {MOOD_DATA.map((family) => {
+              const isSelected = selectedFamily.id === family.id;
+              return (
+                <button
+                  key={family.id}
+                  onClick={() => {
+                    setSelectedFamily(family);
+                    setSelectedSub(family.subCategories[0]);
+                    setIsFlipped(false);
+                    setResult(null);
+                  }}
+                  className={`cloud-shape-pill ${isSelected ? 'selected' : ''}`}
+                >
+                  <svg className="cloud-svg-bg" viewBox="0 0 100 45" fill="none" preserveAspectRatio="none">
+                    <path d="M20 38 C 10 38 5 30 10 22 C 10 14 20 10 30 14 C 40 5 60 5 70 14 C 80 10 90 14 90 22 C 95 30 90 38 80 38 Z"
+                      fill={isSelected ? '#F0EBFF' : '#FFFFFF'}
+                      stroke={isSelected ? '#7C5CFC' : '#E2E8F0'}
+                      strokeWidth="2"
+                    />
+                  </svg>
+                  <span className="cloud-pill-label">{family.name}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Step 2 Badge */}
+          <div className="step-arrow-container">
+            <div className="step-pill-badge">
+              <span className="badge-icon-circle">
+                <span style={{ fontSize: '0.75rem', color: '#7C5CFC' }}>♡</span>
+              </span>
+              <span className="badge-text">Pick the feeling closest to how you feel</span>
+            </div>
+            <div className="step-arrow-line">
+              <svg width="40" height="18" viewBox="0 0 40 18" fill="none">
+                <path d="M0 9H34M34 9L27 2M34 9L27 16" stroke="#C4B5FD" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+            </div>
+          </div>
+
+          {/* 4x2 Feeling Cards Grid */}
+          <div className="feeling-grid-layout">
+            {selectedFamily.subCategories.slice(0, 8).map((sub) => {
+              const isSelected = selectedSub.id === sub.id;
+              return (
+                <button
+                  key={sub.id}
+                  onClick={() => {
+                    setSelectedSub(sub);
+                    setIsFlipped(false);
+                    setResult(null);
+                  }}
+                  className={`feeling-tile-card ${isSelected ? 'selected' : ''}`}
+                >
+                  <div className="feeling-tile-icon">
+                    {renderFeelingIcon(sub.iconName, isSelected)}
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                  <span className="feeling-tile-label">{sub.name}</span>
+                </button>
+              );
+            })}
 
-          {/* STEP 2 — Pick sub-feeling */}
-          {selectedFamily && (
-            <div>
-              <div className="step-arrow-badge">
-                <span style={{ fontSize: '0.9rem' }}>💜</span>
-                <span>Pick the feeling closest to how you feel</span>
-              </div>
-              <div className="feeling-card-grid">
-                {selectedFamily.subCategories.map((sub) => {
-                  const isSel = selectedSubId === sub.id;
-                  return (
-                    <div
-                      key={sub.id}
-                      onClick={() => {
-                        setSelectedSubId(sub.id);
-                        setSelectedFeeling(sub.feelings[0]);
-                        setIsFlipped(false);
-                        setResult(null);
-                      }}
-                      className={`feeling-square-tile ${isSel ? 'selected' : ''}`}
-                    >
-                      <span style={{ fontSize: '1.5rem' }}>{sub.icon}</span>
-                      <span style={{ fontSize: '0.76rem', fontWeight: 700, color: isSel ? '#53389e' : '#475569', textAlign: 'center', lineHeight: 1.2 }}>
-                        {sub.name}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* STEP 3 — Specific feeling nuance pills */}
-          {selectedSubCategory && selectedSubCategory.feelings.length > 1 && (
-            <div>
-              <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b', marginBottom: '0.4rem' }}>
-                Specific nuance:
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-                {selectedSubCategory.feelings.map((feeling) => {
-                  const isSel = selectedFeeling?.id === feeling.id;
-                  return (
-                    <button
-                      key={feeling.id}
-                      onClick={() => { setSelectedFeeling(feeling); setIsFlipped(false); setResult(null); }}
-                      style={{
-                        padding: '0.32rem 0.75rem',
-                        borderRadius: '9999px',
-                        border: isSel ? '2px solid #8b5cf6' : '1px solid #e2e8f0',
-                        background: isSel ? '#f3e8ff' : '#ffffff',
-                        color: isSel ? '#6d28d9' : '#475569',
-                        fontSize: '0.76rem',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        fontFamily: 'inherit',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.3rem',
-                      }}
-                    >
-                      <span>{feeling.icon}</span>
-                      <span>{feeling.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* FLIP MY MOOD button */}
-          <div style={{ paddingTop: '0.4rem' }}>
+            {/* Clear Selection Tile (at bottom left) */}
             <button
-              onClick={handleFlipMood}
-              disabled={!selectedFeeling}
-              className="flip-mood-button"
-              id="flip-mood-btn"
+              onClick={handleClearSelection}
+              className="feeling-tile-card clear-tile"
             >
-              <span>Flip My Mood</span>
-              <span style={{ fontSize: '1rem' }}>✨</span>
-            </button>
-            {isFlipped && (
-              <button
-                onClick={handleClearSelection}
-                style={{
-                  display: 'block',
-                  marginTop: '0.5rem',
-                  background: 'none',
-                  border: '1px solid #cbd5e1',
-                  color: '#64748b',
-                  padding: '0.25rem 0.75rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.72rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  fontFamily: 'inherit',
-                }}
-              >
-                ↺ Start over
-              </button>
-            )}
-            {showSevenDayOffer && (
-              <div style={{ marginTop: '0.75rem', padding: '0.75rem', borderRadius: '12px', background: '#fff7ed', border: '1px solid #fed7aa', textAlign: 'center' }}>
-                <strong style={{ display: 'block', color: '#9a3412', fontSize: '0.82rem' }}>You have 7 saved check-ins!</strong>
-                <a href="#paid-pdf-section" style={{ color: '#b45309', fontSize: '0.78rem', fontWeight: 800 }}>
-                  View your personalised 7-day plan
-                </a>
+              <div className="feeling-tile-icon">
+                <TrashIcon size={28} color="#8A92A6" />
               </div>
-            )}
+              <div className="clear-tile-text">
+                <span className="clear-title">Clear selection</span>
+                <span className="clear-sub">Start over</span>
+              </div>
+            </button>
           </div>
 
         </div>
 
-        {/* ===== RIGHT SUN PANEL ===== */}
-        <div className="right-sun-panel">
-          <div className="sun-rays-bg" />
+        {/* CENTER OVERLAPPING 3D PURPLE ARROW BUTTON */}
+        <div className="center-flip-trigger-wrapper">
+          <button
+            onClick={handleFlipMood}
+            className="purple-3d-arrow-button"
+            id="change-my-mood-btn"
+          >
+            <span className="arrow-btn-text">Change My Mood</span>
+            <span className="arrow-btn-symbol">→</span>
+          </button>
+        </div>
 
-          {/* Rising Sun Semicircle */}
-          <div className="rising-sun-element">
-            <span style={{ fontSize: '1.35rem', color: '#e11d48' }}>♡</span>
-            <span style={{
-              fontSize: '0.76rem',
-              fontWeight: 700,
-              color: '#7a5c30',
-              marginTop: '0.15rem',
-              lineHeight: 1.2,
-              padding: '0 0.4rem',
-              textAlign: 'center'
-            }}>
-              Your mood has changed to:
-            </span>
+        {/* RIGHT SUNSET SCENIC PANEL */}
+        <div className="moodflip-right-panel">
+
+          {/* Sunburst rays effect */}
+          <div className="sunburst-rays"></div>
+
+          {/* Flying bird in sky outline */}
+          <div className="sky-bird-icon">
+            <svg width="24" height="14" viewBox="0 0 24 14" fill="none" stroke="#7A8B9E" strokeWidth="1.5" strokeLinecap="round">
+              <path d="M1 8C5 4 8 2 12 7C16 2 19 4 23 8" />
+            </svg>
           </div>
 
-          {/* Target mood title */}
-          <h2 className="serif-target-title">
-            {isFlipped && result
-              ? result.targetMood.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|[\u2700-\u27BF]|[\uE000-\uF8FF]/g, '').trim()
-              : 'Peaceful'}
-          </h2>
+          {/* Rising Semicircle Sun */}
+          <div className="rising-sun-wrapper">
+            <div className="rising-sun-arc">
+              {/* Heart icon on top of sun */}
+              <div className="sun-heart-icon">♡</div>
+              <div className="sun-change-label">Your mood has changed to:</div>
+              <h2 className={`target-mood-serif-heading ${isAnimating ? 'pulse-fade' : ''}`}>
+                {currentTargetMood}
+              </h2>
+            </div>
+          </div>
 
-          {/* Action card */}
-          <div
-            className="action-white-card"
-            style={{ animation: isAnimating ? 'resultSlideIn 0.4s ease both' : undefined }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.65rem' }}>
-              <div style={{
-                width: '38px',
-                height: '38px',
-                borderRadius: '50%',
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.2rem',
-                flexShrink: 0
-              }}>
-                🧘
+          {/* Floating White Action Card */}
+          <div className="floating-action-card">
+            <div className="action-card-content">
+              {/* Meditating Circle Icon */}
+              <div className="meditate-avatar-circle">
+                <MeditateIcon size={32} color="#4A6B53" />
               </div>
-              <h4 style={{ fontSize: '0.88rem', fontWeight: 800, color: '#1e1b4b', lineHeight: 1.3 }}>
-                60-sec action to get to a {isFlipped && result
-                  ? result.targetMood.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|[\u2700-\u27BF]|[\uE000-\uF8FF]/g, '').trim().toLowerCase()
-                  : 'peaceful'} mood
-              </h4>
+
+              {/* Title & Action */}
+              <div className="action-text-container">
+                <h3 className="action-card-title">
+                  60-sec action to get to a {currentTargetMood.toLowerCase()} mood
+                </h3>
+
+                {/* Heart line divider */}
+                <div className="heart-divider-line">
+                  <span className="line-half"></span>
+                  <span className="heart-center">♡</span>
+                  <span className="line-half"></span>
+                </div>
+
+                <p className="action-card-description">
+                  {currentActionText}
+                </p>
+              </div>
             </div>
 
-            <p style={{ fontSize: '0.84rem', color: '#334155', lineHeight: 1.6, fontWeight: 500, marginBottom: '0.85rem' }}>
-              {isFlipped && result
-                ? result.actionText
-                : 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.'}
-            </p>
-
-            {/* SAVE MY PROFILE button */}
-            <button
-              onClick={handleSaveCheckinToProfile}
-              className="save-profile-button"
-              id="save-profile-btn"
-            >
-              {profileSaved
-                ? '✅ Saved to Profile!'
-                : userProfile
-                  ? '💾 Save This Check-in'
-                  : '💾 Save My Profile'}
-            </button>
-
-            {isFlipped && (
-              <div style={{ display: 'flex', justifyContent: 'center', borderTop: '1px solid #f4eefc', paddingTop: '0.65rem', marginTop: '0.45rem' }}>
-                <a href="#paid-pdf-section" style={{ fontSize: '0.76rem', fontWeight: 700, color: '#b45309', textDecoration: 'underline' }}>
-                  📘 Get 7-Day Personalised Plan ($7)
-                </a>
-              </div>
-            )}
+            {/* Decorative Botanical Branch on Right */}
+            <div className="botanical-branch-graphic">
+              <BotanicalSprig size={56} color="#6B8E73" />
+            </div>
           </div>
+
         </div>
 
       </div>
 
-      {/* ===== BOTTOM QUOTES BANNER ===== */}
-      <div className="bottom-quotes-banner">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
-          <span style={{ fontSize: '1.2rem', color: '#8b5cf6' }}>♡</span>
-          <div>
-            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>Small shifts can change how you feel.</div>
-            <div style={{ fontSize: '0.72rem', color: '#8b5cf6' }}>You&apos;ve got this.</div>
+      {/* BOTTOM QUOTES BANNER */}
+      <div className="bottom-quotes-card">
+        <div className="quote-item">
+          <span className="quote-heart-icon">♡</span>
+          <div className="quote-text-group">
+            <span className="quote-main">Small shifts can change how you feel.</span>
+            <span className="quote-sub">You&apos;ve got this.</span>
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
-          <span style={{ fontSize: '1.2rem' }}>🍃</span>
-          <div>
-            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>Be kind to yourself.</div>
-            <div style={{ fontSize: '0.72rem', color: '#8b5cf6' }}>One choice at a time.</div>
+
+        <div className="quote-item">
+          <span className="quote-leaf-icon">🍃</span>
+          <div className="quote-text-group">
+            <span className="quote-main">Be kind to yourself.</span>
+            <span className="quote-sub">One choice at a time.</span>
           </div>
         </div>
       </div>

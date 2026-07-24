@@ -5,23 +5,15 @@ import PaidPlansSection from '@/components/PaidPlansSection';
 export default function HomePage() {
   return (
     <div>
-      {/* Hero Header Area */}
-      <div className="hero-header-area">
-        <h1 className="site-title-hero">Flip Your Mood</h1>
-        <p className="hero-subtitle">
-          Select how you feel right now to unlock an instant positive shift and practical 60-second action.
-        </p>
-
-        {/* Non-medical disclaimer with icon inline equal to text */}
-        <div className="medical-notice">
-          <span>🛡️ <strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
-        </div>
+      {/* Medical disclaimer notice */}
+      <div className="medical-notice" style={{ marginTop: '0.2rem' }}>
+        <span>🛡️ <strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
       </div>
 
-      {/* Main Interactive Mood Tool */}
+      {/* Main Interactive Mood Tool Cloned Design */}
       <MoodTool />
 
-      {/* Paid Products Section (Registration & PayPal Checkout Required) */}
+      {/* Paid Products Section */}
       <PaidPlansSection />
 
       {/* SEO Mood Directory */}

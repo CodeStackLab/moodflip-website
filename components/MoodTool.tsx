@@ -13,45 +13,17 @@ interface SavedCheckin {
   date: string;
 }
 
-// Cloud shape SVG wrapping the mood family name
-const CloudPill = ({ name, color, selected }: { name: string; color: string; selected: boolean }) => (
+import CloudVector from './CloudVector';
+
+// Cloud shape wrapping the mood family name with colorful multi-theme support
+const CloudPill = ({ id, name, color, selected }: { id: string; name: string; color: string; selected: boolean }) => (
   <button
-    style={{
-      position: 'relative',
-      background: selected
-        ? `linear-gradient(135deg, ${color}33, ${color}55)`
-        : '#ffffff',
-      border: selected ? `2px solid ${color}` : '1.5px solid #e9e2f5',
-      borderRadius: '50px',
-      padding: selected ? '0.65rem 1.4rem' : '0.55rem 1.1rem',
-      cursor: 'pointer',
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      boxShadow: selected
-        ? `0 6px 20px ${color}44`
-        : '0 2px 8px rgba(124,92,191,0.04)',
-      transition: 'all 0.22s ease',
-      fontFamily: 'inherit',
-      whiteSpace: 'nowrap',
-    }}
+    className={`cloud-pill-card ${id}-pill ${selected ? 'selected' : ''}`}
   >
-    {/* Cloud bump decoration */}
-    <span style={{
-      width: '10px',
-      height: '10px',
-      borderRadius: '50%',
-      background: color,
-      display: 'inline-block',
-      opacity: selected ? 1 : 0.5,
-      flexShrink: 0,
-    }} />
-    <span style={{
-      fontSize: selected ? '0.95rem' : '0.85rem',
-      fontWeight: 800,
-      letterSpacing: '0.04em',
-      color: selected ? '#3d2878' : '#5c5268',
-    }}>
+    <div style={{ width: '24px', height: '18px', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+      <CloudVector type={id} color={selected ? color : '#94a3b8'} />
+    </div>
+    <span>
       {name}
     </span>
   </button>
@@ -216,7 +188,7 @@ export default function MoodTool() {
                       setResult(null);
                     }}
                   >
-                    <CloudPill name={family.name} color={family.cloudColor} selected={isSel} />
+                    <CloudPill id={family.id} name={family.name} color={family.cloudColor} selected={isSel} />
                   </div>
                 );
               })}

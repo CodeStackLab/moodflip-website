@@ -1,6 +1,6 @@
 # 🚀 MoodFlip Project Setup & Deployment Guide
 
-This document records the exact configuration, credentials, GitHub repository info, and automated deployment scripts for **MoodFlip**.
+This document records the exact configuration, credentials, GitHub repository info, and automated deployment status for **MoodFlip**.
 
 ---
 
@@ -12,32 +12,35 @@ This document records the exact configuration, credentials, GitHub repository in
 | **GitHub Repository** | [joykonta1-dot/moodflip-website](https://github.com/joykonta1-dot/moodflip-website) |
 | **Repository Access** | Private |
 | **Branch** | `main` |
-| **GitHub Personal Token** | `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` |
+| **Vercel Account** | `jroy66049-8476` / `akeelvercel` |
+| **Vercel Live URL** | [https://moodflip-website.vercel.app](https://moodflip-website.vercel.app) |
+| **Supabase Project Name** | `joykonta1-dot's Project` |
+| **Supabase Project Ref** | `cacgdkjevkdkshjoapgo` |
+| **Supabase URL** | `https://cacgdkjevkdkshjoapgo.supabase.co` |
 | **Domain** | `moodflip.coach` (Namecheap) |
 
 ---
 
-## 🏗️ Technical Stack
+## 🔑 Automatically Injected Environment Variables
+
+The following environment variables were automatically configured on Vercel:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://cacgdkjevkdkshjoapgo.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+VITE_SUPABASE_URL=https://cacgdkjevkdkshjoapgo.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+SUPABASE_PROJECT_REF=cacgdkjevkdkshjoapgo
+```
+
+---
+
+## 🏗️ Technical Architecture
 
 - **Framework**: Next.js 14/15 (App Router with Server Actions & Dynamic Pages)
 - **Database & ORM**: Prisma ORM with Supabase PostgreSQL (`prisma/schema.prisma`)
 - **Hosting Engine**: Vercel Native Serverless Engine
 - **Styling & UI**: Custom Split-Screen Vanilla CSS (Dark Left Selection + Sunburst Right Target State)
-
----
-
-## ⚡ Automatic Vercel Deployment Setup
-
-Once the Vercel Access Token is provided, our automated deployment script will execute:
-
-1. **Link Project**: Connect `joykonta1-dot/moodflip-website` repository to Vercel via Vercel REST API (`/v9/projects`).
-2. **Inject Environment Variables**: Automatically set:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-   - `DATABASE_URL`
-3. **Trigger Production Deployment**: Auto-deploy live to Vercel CDN.
 
 ---
 
@@ -56,7 +59,7 @@ npm run build
 # Push database schema to Supabase
 npx prisma db push
 
-# Push code updates to GitHub
+# Push code updates to GitHub (triggers Vercel auto-deploy)
 git add .
 git commit -m "Update MoodFlip feature"
 git push origin main

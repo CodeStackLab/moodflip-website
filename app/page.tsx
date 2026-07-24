@@ -12,10 +12,9 @@ export default function HomePage() {
           Select how you feel right now to unlock an instant positive shift and practical 60-second action.
         </p>
 
-        {/* Non-medical disclaimer */}
+        {/* Non-medical disclaimer with icon inline equal to text */}
         <div className="medical-notice">
-          <span>🛡️</span>
-          <span><strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
+          <span>🛡️ <strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
         </div>
       </div>
 

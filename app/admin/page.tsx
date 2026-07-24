@@ -22,6 +22,10 @@ export default function AdminPage() {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
 
+  const handleDemoAdminFill = () => {
+    setPassword('admin123');
+  };
+
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
@@ -103,9 +107,43 @@ export default function AdminPage() {
           <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.6rem', fontWeight: 800, color: '#1e1b4b' }}>
             Private Admin Dashboard
           </h1>
-          <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.25rem', marginBottom: '1.5rem' }}>
+          <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.25rem', marginBottom: '1.25rem' }}>
             Enter Joy&apos;s admin master security password.
           </p>
+
+          {/* DEMO ADMIN HELPER BOX */}
+          <div style={{
+            background: '#fcfbfe',
+            border: '1.5px solid #ddd6fe',
+            borderRadius: '14px',
+            padding: '0.85rem',
+            marginBottom: '1.25rem',
+            fontSize: '0.8rem',
+            textAlign: 'left'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+              <span style={{ fontWeight: 800, color: '#6d28d9', fontSize: '0.76rem' }}>⚡ DEMO ADMIN PASSWORD</span>
+              <button
+                type="button"
+                onClick={handleDemoAdminFill}
+                style={{
+                  background: '#6366f1',
+                  color: 'white',
+                  border: 'none',
+                  padding: '0.2rem 0.55rem',
+                  borderRadius: '6px',
+                  fontSize: '0.72rem',
+                  fontWeight: 800,
+                  cursor: 'pointer'
+                }}
+              >
+                1-Click Fill
+              </button>
+            </div>
+            <div style={{ color: '#475569' }}>
+              Password: <code>admin123</code>
+            </div>
+          </div>
 
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ position: 'relative', textAlign: 'left' }}>

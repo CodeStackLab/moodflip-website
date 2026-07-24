@@ -50,7 +50,6 @@ export default function Footer() {
             <li><a href="/about" style={{ color: '#475569', textDecoration: 'none', fontWeight: 600 }}>About MoodFlip</a></li>
             <li><a href="/contact" style={{ color: '#475569', textDecoration: 'none', fontWeight: 600 }}>Contact & Support</a></li>
             <li><a href="/privacy" style={{ color: '#475569', textDecoration: 'none', fontWeight: 600 }}>Privacy Policy</a></li>
-            <li><a href="/admin" style={{ color: '#6d28d9', textDecoration: 'none', fontWeight: 800 }}>Admin Dashboard</a></li>
           </ul>
         </div>
 
@@ -66,25 +65,25 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Non-Medical Disclaimer Box */}
+      {/* Copyright & Disclaimer Notice */}
       <div style={{
-        maxWidth: '1000px',
-        margin: '0 auto 1.5rem auto',
-        background: 'rgba(254, 242, 242, 0.7)',
-        border: '1px solid rgba(252, 165, 165, 0.3)',
-        borderRadius: '14px',
-        padding: '0.75rem 1.25rem',
-        color: '#991b1b',
-        fontSize: '0.78rem',
-        lineHeight: 1.5,
-        textAlign: 'center'
+        maxWidth: '1100px',
+        margin: '0 auto',
+        paddingTop: '1.5rem',
+        borderTop: '1px solid #f1f5f9',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1rem',
+        fontSize: '0.78rem'
       }}>
-        <strong>Important Disclaimer:</strong> MoodFlip is a self-reflection utility. It is not therapy, mental health treatment, or medical advice. In a crisis or emergency, please contact local emergency services immediately (e.g. Call or Text 988 in North America).
-      </div>
-
-      {/* Bottom Copyright */}
-      <div style={{ textAlign: 'center', fontSize: '0.78rem', color: '#94a3b8', borderTop: '1px solid #f1f5f9', paddingTop: '1.25rem' }}>
-        © 2026 MoodFlip (moodflip.coach). All rights reserved.
+        <div>
+          &copy; {new Date().getFullYear()} MoodFlip (moodflip.coach). All rights reserved.
+        </div>
+        <div style={{ color: '#94a3b8' }}>
+          Self-help utility &bull; Non-medical advice
+        </div>
       </div>
     </footer>
   );

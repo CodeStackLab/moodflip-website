@@ -30,7 +30,7 @@ export default function Header() {
         </div>
       </a>
 
-      {/* Navigation Links & Dedicated Auth Button */}
+      {/* Navigation Links */}
       <nav className={`header-nav ${isMobileMenuOpen ? 'open' : ''}`}>
         <a href="/" className="nav-link active">Home</a>
         <a href="/about" className="nav-link">About</a>
@@ -38,14 +38,16 @@ export default function Header() {
         <a href="/privacy" className="nav-link">Privacy</a>
         <a href="/admin" className="nav-link admin-link">Admin</a>
 
-        {/* Prominent Login / Register Link Button (Navigates directly to /login page) */}
-        <a
-          href="/login"
-          className="header-auth-btn"
-          id="header-login-register-btn"
-        >
-          {userProfile ? `👤 ${userProfile.name || userProfile.email.split('@')[0]}` : '✨ Login / Register'}
-        </a>
+        {/* Dynamic User Profile or Login CTA */}
+        {userProfile ? (
+          <a href="/profile" className="header-auth-btn" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
+            👤 {userProfile.name || userProfile.email.split('@')[0]}
+          </a>
+        ) : (
+          <a href="/login" className="header-auth-btn">
+            ✨ Login / Register
+          </a>
+        )}
       </nav>
 
       {/* Mobile Toggle */}

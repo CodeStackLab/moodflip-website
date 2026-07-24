@@ -26,13 +26,15 @@ export default function MoodTool() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [savedHistory, setSavedHistory] = useState<SavedCheckin[]>([]);
-  const [, setUserProfile] = useState<{ email: string; name?: string } | null>(null);
+  const [userProfile, setUserProfile] = useState<{ email: string; name?: string } | null>(null);
 
   useEffect(() => {
+    // Increment visit counter on page load
     const savedVisits = parseInt(localStorage.getItem('moodflip_visit_count') || '0', 10) + 1;
     localStorage.setItem('moodflip_visit_count', savedVisits.toString());
     setVisitCount(savedVisits);
 
+    // Trigger profile pop-up automatically on the 2nd visit
     if (savedVisits === 2) {
       setTimeout(() => {
         setIsModalOpen(true);
@@ -92,17 +94,24 @@ export default function MoodTool() {
     <div>
       {/* Top Banner Bar for Returning Visitors */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', padding: '0 0.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-        <div style={{ fontSize: '0.8rem', color: '#818cf8', fontWeight: 600 }}>
-          🔄 Action Rotation Active: Visit #{visitCount}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <span style={{ fontSize: '0.8rem', color: '#818cf8', fontWeight: 600 }}>
+            🔄 Action Rotation Active: Visit #{visitCount}
+          </span>
+          {userProfile && (
+            <span style={{ fontSize: '0.75rem', color: '#34d399', background: 'rgba(52, 211, 153, 0.15)', padding: '0.2rem 0.6rem', borderRadius: '9999px', fontWeight: 600 }}>
+              👤 Profile: {userProfile.email}
+            </span>
+          )}
         </div>
 
-        {savedHistory.length > 0 && (
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button
-            onClick={() => setIsHistoryOpen(true)}
+            onClick={() => setIsModalOpen(true)}
             style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-              color: '#cbd5e1',
+              background: 'rgba(139, 92, 246, 0.15)',
+              border: '1px solid rgba(139, 92, 246, 0.3)',
+              color: '#c084fc',
               padding: '0.35rem 0.85rem',
               borderRadius: '9999px',
               fontSize: '0.78rem',
@@ -110,9 +119,27 @@ export default function MoodTool() {
               cursor: 'pointer'
             }}
           >
-            📜 Saved Check-ins ({savedHistory.length})
+            ✨ {visitCount === 2 ? '2nd Visit Pop-up Active' : 'Create Profile'}
           </button>
-        )}
+
+          {savedHistory.length > 0 && (
+            <button
+              onClick={() => setIsHistoryOpen(true)}
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                color: '#cbd5e1',
+                padding: '0.35rem 0.85rem',
+                borderRadius: '9999px',
+                fontSize: '0.78rem',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              📜 Saved Check-ins ({savedHistory.length})
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="moodflip-container">
@@ -306,7 +333,7 @@ export default function MoodTool() {
         </div>
       </div>
 
-      {/* Saved History Modal Drawer for Profile Users */}
+      {/* Saved History Modal Drawer */}
       {isHistoryOpen && (
         <div className="modal-overlay">
           <div className="modal-card">
@@ -340,7 +367,7 @@ export default function MoodTool() {
         </div>
       )}
 
-      {/* 2nd Visit Profile Modal */}
+      {/* 2nd Visit Profile Pop-up Modal */}
       <ProfileModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

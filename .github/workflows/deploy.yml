@@ -29,8 +29,8 @@ jobs:
           npx tsc --noEmit
           npm run build
         env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || 'https://cacgdkjevkdkshjoapgo.supabase.co' }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhY2dka2pldmtka3Noam9hcGdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4ODk5NjcsImV4cCI6MjEwMDQ2NTk2N30.eU4LT-dSxDDzmuj1gyYdB_YY7vG_PeeCB8UJmXXNkS4' }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
       - name: Notify Build Status
         run: echo "Build Verification Successful! Vercel handles direct deployment."

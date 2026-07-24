@@ -1,24 +1,21 @@
-# 💫 MoodFlip - Complete Project Architecture, Secrets & Vibe-Coding Guide
+# 💫 MoodFlip - Complete Project Architecture & Deployment Guide
 
-> **AI AGENT INSTRUCTION**: Read this file first when modifying or extending MoodFlip. This document contains full system architecture, database models, live tokens, deployment pipelines, and operational commands.
+> **AI AGENT INSTRUCTION**: Read this file first when modifying or extending MoodFlip. This document contains the system architecture, database models, deployment pipelines, and operational commands.
 
 ---
 
-## 🔑 Secret Tokens & Live Credentials
+## 🔑 Services & Credential Management
 
-> ⚠️ **CONFIDENTIAL**: This file is committed only to your private GitHub repository (`joykonta1-dot/moodflip-website`). Do not share publicly.
+> Never store access tokens or private credentials in this repository. Keep local values in `.env.local`, GitHub Actions values in repository secrets, and production values in Vercel Environment Variables. Revoke and rotate any credential that was previously committed.
 
 | Service | Key / Token Type | Value |
 | :--- | :--- | :--- |
 | **GitHub** | Repository URL | [https://github.com/joykonta1-dot/moodflip-website](https://github.com/joykonta1-dot/moodflip-website) |
-| **GitHub** | Access Token | `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` |
-| **Vercel** | Access Token | `vcp_5sngAwXBDQIAOsCqblCkZNj6T2jeOBdgK5LkJVYPj8M9uJmX2H1DeFdo` |
 | **Vercel** | Live Website URL | [https://moodflip-website.vercel.app](https://moodflip-website.vercel.app) |
-| **Supabase** | Access Token | `sbp_d1d9835b9434ac53f6366851e42db9a6ae03f6da` |
 | **Supabase** | Project Name | `joykonta1-dot's Project` |
 | **Supabase** | Project Reference ID | `cacgdkjevkdkshjoapgo` |
 | **Supabase** | Project URL | `https://cacgdkjevkdkshjoapgo.supabase.co` |
-| **Supabase** | Public Anon Key | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhY2dka2pldmtka3Noam9hcGdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4ODk5NjcsImV4cCI6MjEwMDQ2NTk2N30.eU4LT-dSxDDzmuj1gyYdB_YY7vG_PeeCB8UJmXXNkS4` |
+| **Supabase** | Public Anon Key | Store as `NEXT_PUBLIC_SUPABASE_ANON_KEY` |
 | **Domain** | Target Domain | `moodflip.coach` (Namecheap) |
 
 ---

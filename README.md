@@ -87,12 +87,12 @@ git push -u origin main
 ### Step 2: Connect Repository to Vercel
 1. Go to [Vercel Dashboard](https://vercel.com/new).
 2. Click **Import Repository** next to your `YOUR_REPO_NAME` repository.
-3. Framework Preset will automatically be detected as **Vite**.
+3. Framework Preset will automatically be detected as **Next.js**.
 
 ### Step 3: Add Environment Variables in Vercel
 Before clicking Deploy, expand **Environment Variables** in Vercel:
-- Key: `VITE_SUPABASE_URL` | Value: `https://your-project.supabase.co`
-- Key: `VITE_SUPABASE_ANON_KEY` | Value: `your-supabase-anon-key`
+- Key: `NEXT_PUBLIC_SUPABASE_URL` | Value: `https://your-project.supabase.co`
+- Key: `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Value: `your-supabase-anon-key`
 
 Click **Deploy**!
 
@@ -107,3 +107,19 @@ git commit -m "Updated feature"
 git push
 ```
 **Vercel will automatically trigger a new deployment**, build your app, and update the live URL instantly without any manual intervention!
+
+### Vercel commit-author authorization
+
+Vercel Hobby projects only deploy commits attributed to a GitHub account authorized for the project. Configure this repository to use the GitHub owner's verified identity before committing:
+
+```bash
+git config user.name "joykonta1-dot"
+git config user.email "joykonta1-dot@users.noreply.github.com"
+```
+
+If a deployment reports that the commit author is not a team member, correct the author on the latest commit and update the remote branch:
+
+```bash
+git commit --amend --no-edit --reset-author
+git push --force-with-lease origin main
+```

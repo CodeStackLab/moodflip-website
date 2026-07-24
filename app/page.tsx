@@ -44,7 +44,7 @@ export default function HomePage() {
           {/* 7-Day Plan */}
           <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid #8b5cf6', borderRadius: '16px', padding: '1.75rem', position: 'relative' }}>
             <span style={{ position: 'absolute', top: '-12px', right: '16px', background: '#8b5cf6', color: 'white', fontSize: '0.7rem', fontWeight: 800, padding: '0.2rem 0.6rem', borderRadius: '9999px' }}>
-              LAUNCH PHASE 1
+              PHASE 1 (LAUNCH)
             </span>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'white' }}>7-Day Personalised Mood Plan</h3>
             <div style={{ fontSize: '2rem', fontWeight: 800, color: '#c084fc', margin: '0.5rem 0' }}>$7.00</div>
@@ -55,7 +55,7 @@ export default function HomePage() {
               <li>Downloadable high-resolution PDF format</li>
             </ul>
             <a
-              href="/api/pdf?email=demo@moodflip.coach"
+              href="/api/pdf?type=7_DAY_PDF&email=demo@moodflip.coach"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -70,36 +70,41 @@ export default function HomePage() {
                 textDecoration: 'none'
               }}
             >
-              Download Sample 7-Day PDF ($7)
+              Get 7-Day PDF Plan ($7)
             </a>
           </div>
 
           {/* 30-Day Plan */}
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', padding: '1.75rem' }}>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#94a3b8' }}>30-Day Mood Master Plan</h3>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#64748b', margin: '0.5rem 0' }}>$19.00</div>
-            <ul style={{ color: '#64748b', fontSize: '0.88rem', lineHeight: 1.8, marginBottom: '1.5rem', paddingLeft: '1.2rem' }}>
+          <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid #10b981', borderRadius: '16px', padding: '1.75rem', position: 'relative' }}>
+            <span style={{ position: 'absolute', top: '-12px', right: '16px', background: '#10b981', color: 'white', fontSize: '0.7rem', fontWeight: 800, padding: '0.2rem 0.6rem', borderRadius: '9999px' }}>
+              PHASE 2 READY
+            </span>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'white' }}>30-Day Mood Master Plan</h3>
+            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#34d399', margin: '0.5rem 0' }}>$19.00</div>
+            <ul style={{ color: '#cbd5e1', fontSize: '0.88rem', lineHeight: 1.8, marginBottom: '1.5rem', paddingLeft: '1.2rem' }}>
               <li>Full 30-day structured habit tracker</li>
               <li>30+ actions per mood support</li>
               <li>Advanced emotional progress insights</li>
               <li>Instant email PDF delivery</li>
             </ul>
-            <button
-              disabled
+            <a
+              href="/api/pdf?type=30_DAY_PDF&email=demo@moodflip.coach"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
+                display: 'block',
                 width: '100%',
                 padding: '0.85rem',
                 textAlign: 'center',
-                background: 'rgba(255,255,255,0.05)',
-                color: '#64748b',
+                background: 'linear-gradient(135deg, #10b981, #059669)',
+                color: 'white',
                 fontWeight: 700,
                 borderRadius: '12px',
-                border: 'none',
-                cursor: 'not-allowed'
+                textDecoration: 'none'
               }}
             >
-              Coming Soon (Phase 2)
-            </button>
+              Get 30-Day Master PDF ($19)
+            </a>
           </div>
         </div>
       </section>

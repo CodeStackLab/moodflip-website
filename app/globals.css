@@ -175,21 +175,23 @@ body {
 }
 
 .medical-notice {
-  max-width: 620px;
+  max-width: 640px;
   width: 100%;
   margin: 0 auto clamp(0.85rem, 2vw, 1.4rem);
-  background: rgba(239, 68, 68, 0.04);
-  border: 1px solid rgba(239, 68, 68, 0.14);
-  border-radius: 12px;
-  padding: 0.55rem 0.85rem;
-  color: #dc2626;
+  background: rgba(254, 242, 242, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(252, 165, 165, 0.4);
+  border-radius: 9999px;
+  padding: 0.5rem 1.1rem;
+  color: #991b1b;
   font-size: 0.78rem;
-  line-height: 1.45;
+  line-height: 1.4;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.05);
 }
 
 .mood-tool-utilities {

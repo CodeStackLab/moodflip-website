@@ -11,28 +11,41 @@ interface AuthModalProps {
 export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: AuthModalProps) {
   const [tab, setTab] = useState<'user' | 'admin'>(initialTab);
   
-  // User form state
+  // User step registration state
+  const [userStep, setUserStep] = useState<number>(1);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [consent, setConsent] = useState(true);
   const [userLoading, setUserLoading] = useState(false);
   const [userSubmitted, setUserSubmitted] = useState(false);
 
   // Admin form state
   const [adminPassword, setAdminPassword] = useState('');
+  const [showAdminPassword, setShowAdminPassword] = useState(false);
   const [adminError, setAdminError] = useState('');
 
   useEffect(() => {
     setTab(initialTab);
+    setUserStep(1);
+    setAdminError('');
   }, [initialTab, isOpen]);
 
   if (!isOpen) return null;
 
-  const handleUserSubmit = async (e: React.FormEvent) => {
+  const handleNextStep = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    setUserStep(2);
+  };
+
+  const handleUserSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !consent) return;
     setUserLoading(true);
     try {
-      const profile = { email, name };
+      const profile = { email, name, lastActiveAt: new Date().toISOString() };
       localStorage.setItem('moodflip_profile', JSON.stringify(profile));
       await fetch('/api/profile', {
         method: 'POST',
@@ -64,201 +77,326 @@ export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: Auth
   return (
     <div className="modal-overlay">
       <div className="modal-card">
-        {/* Modal Header Tabs */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem', borderBottom: '1px solid #f1f5f9', paddingBottom: '0.75rem' }}>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+
+        {/* TOP TAB SWITCHER */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid #f1f5f9', paddingBottom: '0.75rem' }}>
+          <div style={{ display: 'flex', gap: '0.4rem', background: '#f1f5f9', padding: '0.25rem', borderRadius: '9999px' }}>
             <button
-              onClick={() => setTab('user')}
+              type="button"
+              onClick={() => { setTab('user'); setUserStep(1); }}
               style={{
-                padding: '0.45rem 1rem',
+                padding: '0.4rem 0.95rem',
                 borderRadius: '9999px',
                 border: 'none',
-                background: tab === 'user' ? 'linear-gradient(135deg, #8b5cf6, #ec4899)' : '#f1f5f9',
+                background: tab === 'user' ? 'linear-gradient(135deg, #8b5cf6, #ec4899)' : 'transparent',
                 color: tab === 'user' ? 'white' : '#64748b',
                 fontWeight: 700,
-                fontSize: '0.82rem',
+                fontSize: '0.8rem',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
               }}
             >
-              👤 User Profile
+              👤 User Registration
             </button>
             <button
+              type="button"
               onClick={() => setTab('admin')}
               style={{
-                padding: '0.45rem 1rem',
+                padding: '0.4rem 0.95rem',
                 borderRadius: '9999px',
                 border: 'none',
-                background: tab === 'admin' ? 'linear-gradient(135deg, #6366f1, #a855f7)' : '#f1f5f9',
+                background: tab === 'admin' ? 'linear-gradient(135deg, #6366f1, #a855f7)' : 'transparent',
                 color: tab === 'admin' ? 'white' : '#64748b',
                 fontWeight: 700,
-                fontSize: '0.82rem',
+                fontSize: '0.8rem',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
               }}
             >
-              🔐 Admin Login
+              🔐 Admin Portal
             </button>
           </div>
+
           <button
+            type="button"
             onClick={onClose}
-            style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}
+            style={{ background: '#f1f5f9', border: 'none', color: '#64748b', width: '28px', height: '28px', borderRadius: '50%', fontSize: '1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
             ✕
           </button>
         </div>
 
-        {/* TAB 1: USER PROFILE / REGISTRATION */}
-        {tab === 'user' && (
+        {/* TAB 1: USER REGISTRATION */}
+        {tab === 'user' ? (
           <div>
             {!userSubmitted ? (
-              <>
-                <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-                  <span style={{ fontSize: '2.2rem' }}>💫</span>
-                  <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1e1b4b', marginTop: '0.35rem' }}>
-                    User Profile & Mood History
-                  </h2>
-                  <p style={{ fontSize: '0.82rem', color: '#64748b', marginTop: '0.2rem' }}>
-                    Register or enter your email to save check-ins and receive your personalized plans.
-                  </p>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: '50%',
+                      background: userStep === 1 ? '#8b5cf6' : '#10b981',
+                      color: 'white',
+                      fontSize: '0.75rem',
+                      fontWeight: 800,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                      {userStep === 1 ? '1' : '✓'}
+                    </span>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#1e1b4b' }}>
+                      {userStep === 1 ? 'Step 1: Profile & Email' : 'Step 2: Password & Consent'}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '0.72rem', color: '#8b5cf6', fontWeight: 700, background: '#f5f3ff', padding: '0.15rem 0.55rem', borderRadius: '9999px' }}>
+                    {userStep}/2 Steps
+                  </span>
                 </div>
 
-                <form onSubmit={handleUserSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>Your Name (Optional)</label>
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Alex"
-                      style={{
-                        width: '100%',
-                        padding: '0.65rem 0.9rem',
-                        background: '#f8fafc',
-                        border: '1.5px solid #cbd5e1',
-                        borderRadius: '10px',
-                        color: '#0f172a',
-                        fontSize: '0.88rem',
-                        outline: 'none'
-                      }}
-                    />
-                  </div>
+                {userStep === 1 ? (
+                  <form onSubmit={handleNextStep} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                        Your Full Name (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="e.g. Alex Johnson"
+                        style={{
+                          width: '100%',
+                          padding: '0.65rem 0.9rem',
+                          background: '#f8fafc',
+                          border: '1.5px solid #cbd5e1',
+                          borderRadius: '12px',
+                          color: '#0f172a',
+                          fontSize: '0.88rem',
+                          outline: 'none'
+                        }}
+                      />
+                    </div>
 
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>Email Address *</label>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="name@example.com"
-                      style={{
-                        width: '100%',
-                        padding: '0.65rem 0.9rem',
-                        background: '#f8fafc',
-                        border: '1.5px solid #cbd5e1',
-                        borderRadius: '10px',
-                        color: '#0f172a',
-                        fontSize: '0.88rem',
-                        outline: 'none'
-                      }}
-                    />
-                  </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="alex@example.com"
+                        style={{
+                          width: '100%',
+                          padding: '0.65rem 0.9rem',
+                          background: '#f8fafc',
+                          border: '1.5px solid #cbd5e1',
+                          borderRadius: '12px',
+                          color: '#0f172a',
+                          fontSize: '0.88rem',
+                          outline: 'none'
+                        }}
+                      />
+                    </div>
 
-                  {/* Approved Disclaimer */}
-                  <div style={{ background: '#f5f3ff', border: '1px solid #ddd6fe', padding: '0.65rem', borderRadius: '10px' }}>
-                    <p style={{ fontSize: '0.72rem', color: '#6d28d9', lineHeight: 1.45 }}>
-                      By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history to create personalized downloads. Inactive profiles are automatically deleted after 90 days.
-                    </p>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '0.65rem', marginTop: '0.4rem' }}>
-                    <button
-                      type="button"
-                      onClick={onClose}
-                      style={{
-                        flex: 1,
-                        padding: '0.65rem',
-                        background: '#f1f5f9',
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: '#64748b',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Cancel
-                    </button>
                     <button
                       type="submit"
-                      disabled={userLoading}
                       style={{
-                        flex: 2,
-                        padding: '0.65rem',
+                        width: '100%',
+                        padding: '0.75rem',
                         background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
                         border: 'none',
-                        borderRadius: '10px',
+                        borderRadius: '12px',
                         color: 'white',
                         fontWeight: 800,
-                        fontSize: '0.85rem',
+                        fontSize: '0.88rem',
                         cursor: 'pointer',
-                        boxShadow: '0 4px 14px rgba(139, 92, 246, 0.25)'
+                        boxShadow: '0 6px 18px rgba(139, 92, 246, 0.3)',
+                        marginTop: '0.4rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.4rem'
                       }}
                     >
-                      {userLoading ? 'Saving...' : 'Save Profile ✨'}
+                      <span>Continue to Security</span>
+                      <span>&rarr;</span>
                     </button>
-                  </div>
-                </form>
-              </>
+                  </form>
+                ) : (
+                  <form onSubmit={handleUserSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                        Create Password / PIN (Optional Security)
+                      </label>
+                      <div style={{ position: 'relative' }}>
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="Min 6 characters (e.g. Mood@2026)"
+                          style={{
+                            width: '100%',
+                            padding: '0.65rem 2.5rem 0.65rem 0.9rem',
+                            background: '#f8fafc',
+                            border: '1.5px solid #cbd5e1',
+                            borderRadius: '12px',
+                            color: '#0f172a',
+                            fontSize: '0.88rem',
+                            outline: 'none'
+                          }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          style={{
+                            position: 'absolute',
+                            right: '10px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            background: 'transparent',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: '0.95rem'
+                          }}
+                        >
+                          {showPassword ? '🙈' : '👁️'}
+                        </button>
+                      </div>
+                      {password ? (
+                        <div style={{ fontSize: '0.7rem', color: password.length >= 6 ? '#059669' : '#d97706', marginTop: '0.2rem', fontWeight: 600 }}>
+                          {password.length >= 6 ? '✓ Password format accepted' : '• Password must be at least 6 characters'}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div style={{ background: '#f5f3ff', border: '1px solid #ddd6fe', padding: '0.75rem', borderRadius: '12px' }}>
+                      <label style={{ display: 'flex', gap: '0.5rem', cursor: 'pointer', alignItems: 'flex-start' }}>
+                        <input
+                          type="checkbox"
+                          checked={consent}
+                          onChange={(e) => setConsent(e.target.checked)}
+                          style={{ marginTop: '0.15rem', accentColor: '#8b5cf6' }}
+                        />
+                        <span style={{ fontSize: '0.73rem', color: '#5b21b6', lineHeight: 1.45 }}>
+                          By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history to offer personalized downloads. Inactive profiles are deleted after 90 days.
+                        </span>
+                      </label>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.65rem', marginTop: '0.3rem' }}>
+                      <button
+                        type="button"
+                        onClick={() => setUserStep(1)}
+                        style={{
+                          flex: 1,
+                          padding: '0.65rem',
+                          background: '#f1f5f9',
+                          border: 'none',
+                          borderRadius: '12px',
+                          color: '#64748b',
+                          fontWeight: 700,
+                          fontSize: '0.85rem',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        &larr; Back
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={userLoading || !consent}
+                        style={{
+                          flex: 2,
+                          padding: '0.65rem',
+                          background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+                          border: 'none',
+                          borderRadius: '12px',
+                          color: 'white',
+                          fontWeight: 800,
+                          fontSize: '0.85rem',
+                          cursor: 'pointer',
+                          boxShadow: '0 6px 18px rgba(139, 92, 246, 0.3)'
+                        }}
+                      >
+                        {userLoading ? 'Creating...' : 'Complete Registration ✨'}
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
             ) : (
               <div style={{ textAlign: 'center', padding: '1.5rem 0' }}>
                 <span style={{ fontSize: '2.5rem' }}>🎉</span>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#166534', marginTop: '0.5rem' }}>Profile Saved!</h3>
-                <p style={{ fontSize: '0.85rem', color: '#15803d', marginTop: '0.25rem' }}>Your mood history is now connected.</p>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#166534', marginTop: '0.5rem' }}>
+                  Registration Complete!
+                </h3>
+                <p style={{ fontSize: '0.85rem', color: '#15803d', marginTop: '0.25rem' }}>
+                  Welcome to MoodFlip. Your profile and check-in history are secured.
+                </p>
               </div>
             )}
           </div>
-        )}
-
-        {/* TAB 2: ADMIN LOGIN */}
-        {tab === 'admin' && (
+        ) : (
           <div>
             <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
               <span style={{ fontSize: '2.2rem' }}>🔐</span>
               <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1e1b4b', marginTop: '0.35rem' }}>
-                Admin Access
+                Admin Portal Login
               </h2>
               <p style={{ fontSize: '0.82rem', color: '#64748b', marginTop: '0.2rem' }}>
-                Enter admin security password to access the control center and CSV export.
+                Enter Joy&apos;s admin master password to access the control center.
               </p>
             </div>
 
             <form onSubmit={handleAdminSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>Admin Password *</label>
-                <input
-                  type="password"
-                  required
-                  value={adminPassword}
-                  onChange={(e) => { setAdminPassword(e.target.value); setAdminError(''); }}
-                  placeholder="Enter Password (admin123)"
-                  style={{
-                    width: '100%',
-                    padding: '0.65rem 0.9rem',
-                    background: '#f8fafc',
-                    border: '1.5px solid #cbd5e1',
-                    borderRadius: '10px',
-                    color: '#0f172a',
-                    fontSize: '0.88rem',
-                    outline: 'none'
-                  }}
-                />
-                {adminError && (
+                <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                  Admin Master Password *
+                </label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showAdminPassword ? 'text' : 'password'}
+                    required
+                    value={adminPassword}
+                    onChange={(e) => { setAdminPassword(e.target.value); setAdminError(''); }}
+                    placeholder="Enter Master Password (admin123)"
+                    style={{
+                      width: '100%',
+                      padding: '0.65rem 2.5rem 0.65rem 0.9rem',
+                      background: '#f8fafc',
+                      border: '1.5px solid #cbd5e1',
+                      borderRadius: '12px',
+                      color: '#0f172a',
+                      fontSize: '0.88rem',
+                      outline: 'none'
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowAdminPassword(!showAdminPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '10px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '0.95rem'
+                    }}
+                  >
+                    {showAdminPassword ? '🙈' : '👁️'}
+                  </button>
+                </div>
+                {adminError ? (
                   <span style={{ color: '#ef4444', fontSize: '0.78rem', marginTop: '0.3rem', display: 'block', fontWeight: 600 }}>
                     ⚠️ {adminError}
                   </span>
-                )}
+                ) : null}
               </div>
 
               <div style={{ display: 'flex', gap: '0.65rem', marginTop: '0.4rem' }}>
@@ -270,7 +408,7 @@ export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: Auth
                     padding: '0.65rem',
                     background: '#f1f5f9',
                     border: 'none',
-                    borderRadius: '10px',
+                    borderRadius: '12px',
                     color: '#64748b',
                     fontWeight: 700,
                     fontSize: '0.85rem',
@@ -286,20 +424,21 @@ export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: Auth
                     padding: '0.65rem',
                     background: 'linear-gradient(135deg, #6366f1, #a855f7)',
                     border: 'none',
-                    borderRadius: '10px',
+                    borderRadius: '12px',
                     color: 'white',
                     fontWeight: 800,
                     fontSize: '0.85rem',
                     cursor: 'pointer',
-                    boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
+                    boxShadow: '0 6px 18px rgba(99, 102, 241, 0.3)'
                   }}
                 >
-                  Access Admin Dashboard 🔓
+                  Unlock Admin Portal 🔓
                 </button>
               </div>
             </form>
           </div>
         )}
+
       </div>
     </div>
   );

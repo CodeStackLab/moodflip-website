@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.25rem 2rem 1.25rem' }}>
+        <div className="site-shell">
           <Header />
           <main>{children}</main>
           <Footer />

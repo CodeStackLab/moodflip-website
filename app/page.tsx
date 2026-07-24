@@ -8,21 +8,7 @@ export default function HomePage() {
       <h1 className="site-title-hero">MoodFlip</h1>
 
       {/* Non-medical disclaimer */}
-      <div style={{
-        maxWidth: '600px',
-        margin: '0 auto 2rem auto',
-        background: 'rgba(239, 68, 68, 0.05)',
-        border: '1px solid rgba(239, 68, 68, 0.15)',
-        borderRadius: '12px',
-        padding: '0.6rem 1.1rem',
-        fontSize: '0.82rem',
-        color: '#dc2626',
-        textAlign: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '0.4rem'
-      }}>
+      <div className="medical-notice">
         <span>ℹ️</span>
         <span><strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
       </div>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c5cbf" />
+      <stop offset="50%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#e59849" />
+    </linearGradient>
+  </defs>
+  
+  {/* Rounded Background Badge */}
+  <rect width="100" height="100" rx="28" fill="url(#cloudGrad)" />
+  
+  {/* White Cloud Shape */}
+  <path
+    d="M30 65 C20 65, 15 54, 23 43 C18 31, 33 20, 50 26 C60 12, 82 15, 88 28 C98 32, 98 48, 88 56 C92 65, 80 65, 75 65 Z"
+    fill="#ffffff"
+  />
+  
+  {/* Cute Heart in Center of Cloud */}
+  <path
+    d="M50 42 C48 38, 42 38, 40 42 C38 46, 50 54, 50 54 C50 54, 62 46, 60 42 C58 38, 52 38, 50 42 Z"
+    fill="#e11d48"
+  />
+</svg>

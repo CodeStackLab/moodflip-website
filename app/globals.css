@@ -23,35 +23,34 @@ body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: var(--bg-page);
   background-image: 
-    radial-gradient(at 10% 10%, rgba(216, 180, 254, 0.25) 0px, transparent 50%),
-    radial-gradient(at 90% 20%, rgba(254, 215, 170, 0.25) 0px, transparent 50%),
-    radial-gradient(at 50% 80%, rgba(199, 210, 254, 0.2) 0px, transparent 50%);
+    radial-gradient(at 10% 10%, rgba(216, 180, 254, 0.2) 0px, transparent 50%),
+    radial-gradient(at 90% 20%, rgba(254, 215, 170, 0.2) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(199, 210, 254, 0.15) 0px, transparent 50%);
   background-attachment: fixed;
   color: var(--text-dark);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.5;
   overflow-x: hidden;
 }
 
 .site-shell {
-  width: min(100% - 2rem, 1160px);
+  width: min(100% - 1.5rem, 1100px);
   margin-inline: auto;
-  padding-bottom: 3rem;
+  padding-bottom: 2.5rem;
 }
 
-/* ===== SITE TITLE (MoodFlip multi-color gradient at top) ===== */
+/* ===== SITE TITLE (Minimal clean multi-color hero) ===== */
 .site-title-hero {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
   font-weight: 800;
   text-align: center;
-  margin: clamp(1rem, 2.5vw, 1.75rem) 0 clamp(0.75rem, 2vw, 1.25rem);
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 35%, #f97316 70%, #eab308 100%);
+  margin: clamp(0.75rem, 2vw, 1.25rem) 0 clamp(0.5rem, 1.5vw, 0.85rem);
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 40%, #f97316 75%, #eab308 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.02em;
-  filter: drop-shadow(0 2px 10px rgba(168, 85, 247, 0.15));
 }
 
 /* ===== HEADER ===== */
@@ -59,42 +58,42 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 0 0.8rem 0;
+  padding: 0.9rem 0 0.6rem 0;
   border-bottom: 1px solid rgba(139, 92, 246, 0.12);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
   position: relative;
 }
 
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
   text-decoration: none;
 }
 
 .header-logo-badge {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
-  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+  font-size: 1.2rem;
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.25);
   flex-shrink: 0;
-  transition: transform 0.25s ease;
+  transition: transform 0.2s ease;
 }
 
 .header-brand:hover .header-logo-badge {
-  transform: rotate(-6deg) scale(1.05);
+  transform: rotate(-5deg) scale(1.04);
 }
 
 .header-brand-name {
   display: block;
   color: #312e81;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -103,16 +102,16 @@ body {
 .header-brand-domain {
   display: block;
   color: #8b5cf6;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   line-height: 1.2;
-  margin-top: 0.15rem;
+  margin-top: 0.1rem;
 }
 
 .header-nav {
   display: flex;
-  gap: 1.6rem;
-  font-size: 0.9rem;
+  gap: 1.25rem;
+  font-size: 0.85rem;
   font-weight: 600;
   align-items: center;
 }
@@ -121,8 +120,8 @@ body {
   color: var(--text-muted);
   text-decoration: none;
   transition: all 0.2s ease;
-  padding: 0.3rem 0.6rem;
-  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
 }
 
 .header-nav a:hover {
@@ -134,33 +133,32 @@ body {
 .header-nav a.admin-link {
   color: var(--purple-dark);
   font-weight: 800;
-  background: rgba(139, 92, 246, 0.1);
+  background: rgba(139, 92, 246, 0.08);
 }
 
 .medical-notice {
-  max-width: 680px;
-  margin: 0 auto clamp(1.25rem, 3vw, 2rem);
+  max-width: 620px;
+  margin: 0 auto clamp(1rem, 2.5vw, 1.5rem);
   background: rgba(239, 68, 68, 0.04);
-  border: 1px solid rgba(239, 68, 68, 0.15);
-  border-radius: 14px;
-  padding: 0.75rem 1.2rem;
+  border: 1px solid rgba(239, 68, 68, 0.14);
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
   color: #dc2626;
-  font-size: 0.83rem;
-  line-height: 1.5;
+  font-size: 0.78rem;
+  line-height: 1.45;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.04);
+  gap: 0.45rem;
 }
 
 .mood-tool-utilities {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 0.85rem;
-  gap: 0.6rem;
+  margin-bottom: 0.65rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
@@ -169,9 +167,9 @@ body {
   background: var(--purple-light);
   border: 1px solid var(--purple-border);
   color: var(--purple-primary);
-  font-size: 1.25rem;
-  padding: 0.45rem 0.8rem;
-  border-radius: 12px;
+  font-size: 1.15rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -185,56 +183,57 @@ body {
     right: 0;
     background: #ffffff;
     border: 1px solid var(--purple-border);
-    border-radius: 18px;
-    padding: 1.25rem;
+    border-radius: 16px;
+    padding: 1rem;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.65rem;
     z-index: 50;
-    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+    box-shadow: 0 15px 35px rgba(139, 92, 246, 0.12);
     text-align: center;
   }
   .header-nav.open { display: flex; }
 }
 
-/* ===== MAIN CANVAS (Minimal modern card with multi-color accents) ===== */
+/* ===== MAIN CANVAS (Minimal modern balanced layout) ===== */
 .moodflip-canvas {
   background: #ffffff;
-  border-radius: 32px;
-  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 24px;
+  border: 1px solid rgba(139, 92, 246, 0.12);
   box-shadow: 
-    0 25px 70px rgba(139, 92, 246, 0.09),
-    0 10px 25px rgba(0, 0, 0, 0.02);
+    0 18px 50px rgba(139, 92, 246, 0.07),
+    0 4px 15px rgba(0, 0, 0, 0.015);
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.12fr 0.88fr;
   position: relative;
   overflow: hidden;
-  min-height: 640px;
+  min-height: 560px;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 920px) {
   .moodflip-canvas {
     grid-template-columns: 1fr;
     min-height: 0;
-    border-radius: 24px;
+    border-radius: 20px;
   }
 }
 
 /* ===== LEFT PANEL ===== */
 .left-selection-panel {
-  padding: clamp(1.6rem, 3.5vw, 2.75rem);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
-  border-right: 1px solid rgba(139, 92, 246, 0.1);
+  gap: 1.25rem;
+  border-right: 1px solid rgba(139, 92, 246, 0.08);
   position: relative;
 }
 
 @media (max-width: 640px) {
   .left-selection-panel {
-    padding: 1.4rem 1rem;
+    padding: 1.1rem 0.85rem;
     border-right: none;
-    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.08);
+    gap: 1.1rem;
   }
 }
 
@@ -242,24 +241,23 @@ body {
 .step-arrow-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.45rem;
   background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
   border: 1px solid #d8b4fe;
   color: #6b21a8;
-  padding: 0.55rem 1.4rem 0.55rem 1rem;
+  padding: 0.45rem 1.1rem 0.45rem 0.85rem;
   border-radius: 9999px;
-  font-size: 0.83rem;
+  font-size: 0.78rem;
   font-weight: 800;
   position: relative;
-  margin-bottom: 0.85rem;
-  box-shadow: 0 3px 10px rgba(168, 85, 247, 0.08);
+  margin-bottom: 0.65rem;
 }
 
 /* ===== MOOD CLOUD ROW (Step 1 Multi-Color Pills) ===== */
 .cloud-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
+  gap: 0.5rem;
   align-items: center;
 }
 
@@ -267,23 +265,23 @@ body {
   background: #ffffff;
   border: 1.5px solid #e2e8f0;
   border-radius: 50px;
-  padding: 0.6rem 1.25rem;
+  padding: 0.45rem 1rem;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  font-size: 0.9rem;
+  gap: 0.4rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  font-size: 0.82rem;
   font-weight: 800;
   color: #475569;
   white-space: nowrap;
 }
 
 .cloud-pill-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
 /* Specific Multi-Color Themes for Step 1 Mood Families */
@@ -291,99 +289,99 @@ body {
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
   border-color: #3b82f6;
   color: #1e40af;
-  box-shadow: 0 8px 22px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.2);
 }
 
 .cloud-pill-card.disgusted-pill.selected {
   background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
   border-color: #10b981;
   color: #065f46;
-  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.2);
 }
 
 .cloud-pill-card.angry-pill.selected {
   background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
   border-color: #ef4444;
   color: #991b1b;
-  box-shadow: 0 8px 22px rgba(239, 68, 68, 0.25);
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.2);
 }
 
 .cloud-pill-card.fearful-pill.selected {
   background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
   border-color: #a855f7;
   color: #6b21a8;
-  box-shadow: 0 8px 22px rgba(168, 85, 247, 0.25);
+  box-shadow: 0 6px 18px rgba(168, 85, 247, 0.2);
 }
 
 .cloud-pill-card.bad-pill.selected {
   background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
   border-color: #f59e0b;
   color: #92400e;
-  box-shadow: 0 8px 22px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.2);
 }
 
 /* ===== FEELING SQUARE TILES (Step 2 - 4-col grid) ===== */
 .feeling-card-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 @media (max-width: 640px) {
-  .feeling-card-grid { grid-template-columns: repeat(2, 1fr); }
+  .feeling-card-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
 }
 
 .feeling-square-tile {
   background: #ffffff;
   border: 1.5px solid #f1f5f9;
-  border-radius: 20px;
-  padding: 1.1rem 0.5rem;
+  border-radius: 16px;
+  padding: 0.85rem 0.4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.015);
 }
 
 .feeling-square-tile:hover {
   border-color: #c084fc;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(139, 92, 246, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(139, 92, 246, 0.1);
 }
 
 .feeling-square-tile.selected {
   background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
   border: 2px solid #8b5cf6;
-  box-shadow: 0 10px 24px rgba(139, 92, 246, 0.22);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.18);
 }
 
 /* ===== FLIP MY MOOD BUTTON ===== */
 .flip-mood-button {
   background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f97316 100%);
   color: white;
-  font-size: 1.1rem;
+  font-size: 0.98rem;
   font-weight: 800;
-  letter-spacing: 0.02em;
-  padding: 1.05rem 2.2rem;
+  letter-spacing: 0.01em;
+  padding: 0.85rem 1.8rem;
   border-radius: 9999px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+  transition: all 0.25s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
   animation: moodPulse 3s ease-in-out infinite;
   font-family: inherit;
 }
 
 .flip-mood-button:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 15px 40px rgba(236, 72, 153, 0.5);
+  transform: translateY(-1.5px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(236, 72, 153, 0.45);
 }
 
 .flip-mood-button:disabled {
@@ -397,16 +395,16 @@ body {
 .save-profile-button {
   display: block;
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.65rem;
   background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
   border: 1.5px solid #ddd6fe;
-  border-radius: 14px;
+  border-radius: 12px;
   color: #6d28d9;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 800;
   cursor: pointer;
   text-align: center;
-  margin-top: 0.75rem;
+  margin-top: 0.6rem;
   transition: all 0.2s ease;
   font-family: inherit;
 }
@@ -414,22 +412,22 @@ body {
 .save-profile-button:hover {
   background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
 }
 
 @keyframes moodPulse {
   0%, 100% {
-    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
   }
   50% {
-    box-shadow: 0 14px 40px rgba(236, 72, 153, 0.6);
+    box-shadow: 0 12px 32px rgba(236, 72, 153, 0.5);
   }
 }
 
 @keyframes resultSlideIn {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.96);
+    transform: translateY(16px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -437,10 +435,10 @@ body {
   }
 }
 
-/* ===== RIGHT SUN PANEL (Vibrant, Uplifting Horizon) ===== */
+/* ===== RIGHT SUN PANEL (Vibrant, Minimal Uplifting Horizon) ===== */
 .right-sun-panel {
   background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 40%, #fed7aa 75%, #fbcfe8 100%);
-  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1.75rem, 3.5vw, 3rem) clamp(1.25rem, 2.5vw, 2rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -451,7 +449,7 @@ body {
 }
 
 @media (max-width: 640px) {
-  .right-sun-panel { padding: 2.2rem 1.25rem; }
+  .right-sun-panel { padding: 1.75rem 1rem; }
 }
 
 .right-sun-panel::before {
@@ -461,7 +459,7 @@ body {
   left: -10%;
   width: 120%;
   height: 45%;
-  background: linear-gradient(180deg, transparent 0%, rgba(244, 114, 182, 0.12) 40%, rgba(192, 132, 252, 0.2) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(244, 114, 182, 0.1) 40%, rgba(192, 132, 252, 0.18) 100%);
   border-radius: 50% 50% 0 0 / 30% 30% 0 0;
   pointer-events: none;
 }
@@ -469,30 +467,30 @@ body {
 /* Rising sun semicircle */
 .rising-sun-element {
   position: relative;
-  width: 240px;
-  height: 120px;
-  border-radius: 240px 240px 0 0;
+  width: 200px;
+  height: 100px;
+  border-radius: 200px 200px 0 0;
   background: linear-gradient(180deg, #ffffff 0%, #fef08a 50%, #f59e0b 100%);
   box-shadow: 
-    0 0 70px rgba(245, 158, 11, 0.4),
-    0 0 130px rgba(251, 191, 36, 0.2);
+    0 0 50px rgba(245, 158, 11, 0.35),
+    0 0 100px rgba(251, 191, 36, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 0.85rem;
-  margin-bottom: 1.5rem;
+  padding-bottom: 0.65rem;
+  margin-bottom: 1.15rem;
   z-index: 1;
 }
 
 .sun-rays-bg {
   position: absolute;
-  top: -90px;
+  top: -80px;
   left: 50%;
   transform: translateX(-50%);
-  width: 460px;
-  height: 460px;
-  background: radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, rgba(251, 191, 36, 0) 65%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0) 65%);
   pointer-events: none;
   z-index: 0;
 }
@@ -500,27 +498,26 @@ body {
 /* Target mood title (e.g., "Peaceful") */
 .serif-target-title {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.8rem, 6vw, 4rem);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
   font-weight: 800;
   color: #15803d;
   line-height: 1.05;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.15rem;
   z-index: 1;
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 10px rgba(21, 128, 61, 0.1);
 }
 
 /* Action white card */
 .action-white-card {
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 1.85rem 2.2rem;
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 1.4rem 1.6rem;
   box-shadow: 
-    0 20px 40px rgba(120, 53, 15, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.02);
-  border: 1px solid rgba(251, 191, 36, 0.3);
-  max-width: 440px;
+    0 15px 35px rgba(120, 53, 15, 0.07),
+    0 3px 10px rgba(0, 0, 0, 0.015);
+  border: 1px solid rgba(251, 191, 36, 0.28);
+  max-width: 400px;
   width: 100%;
   position: relative;
   text-align: left;
@@ -528,29 +525,29 @@ body {
 }
 
 @media (max-width: 640px) {
-  .action-white-card { padding: 1.35rem 1.1rem; }
+  .action-white-card { padding: 1.1rem 0.95rem; }
 }
 
 /* ===== BOTTOM QUOTES BANNER ===== */
 .bottom-quotes-banner {
   background: linear-gradient(135deg, #f5f3ff 0%, #fae8ff 50%, #eff6ff 100%);
   border: 1px solid #e9d5ff;
-  border-radius: 24px;
-  padding: 1.25rem 2.25rem;
-  margin-top: 2rem;
+  border-radius: 20px;
+  padding: 0.95rem 1.75rem;
+  margin-top: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
-  box-shadow: 0 10px 25px rgba(168, 85, 247, 0.06);
+  gap: 0.85rem;
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.05);
 }
 
 @media (max-width: 640px) {
   .bottom-quotes-banner {
     flex-direction: column;
     text-align: center;
-    padding: 1.1rem 1rem;
+    padding: 0.85rem 0.85rem;
   }
 }
 
@@ -570,15 +567,15 @@ body {
 .modal-card {
   background: #ffffff;
   border: 1px solid rgba(139, 92, 246, 0.2);
-  border-radius: 28px;
-  padding: 2.25rem;
-  max-width: 460px;
+  border-radius: 24px;
+  padding: 1.85rem;
+  max-width: 440px;
   width: 100%;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
-  animation: fadeInUp 0.35s ease;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.18);
+  animation: fadeInUp 0.3s ease;
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }

@@ -39,10 +39,44 @@ export default function Header() {
         <a href="/contact" className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}>Contact</a>
         <a href="/privacy" className={`nav-link ${pathname === '/privacy' ? 'active' : ''}`}>Privacy</a>
 
-        {/* Dynamic User Profile or Login CTA */}
+        {/* Dynamic User Profile Badge or Login CTA */}
         {userProfile ? (
-          <a href="/profile" className="header-auth-btn" style={{ background: 'linear-gradient(135deg, #10b981, #059669)', color: '#ffffff' }}>
-            👤 {userProfile.name || userProfile.email.split('@')[0]}
+          <a
+            href="/profile"
+            className="header-user-profile-badge"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              padding: '0.35rem 0.85rem 0.35rem 0.45rem',
+              background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+              color: '#ffffff',
+              borderRadius: '9999px',
+              fontWeight: 800,
+              fontSize: '0.78rem',
+              textDecoration: 'none',
+              boxShadow: '0 4px 14px rgba(139, 92, 246, 0.3)',
+              transition: 'all 0.2s ease',
+              border: '1.5px solid rgba(255, 255, 255, 0.4)'
+            }}
+          >
+            <div style={{
+              width: '24px',
+              height: '24px',
+              borderRadius: '50%',
+              background: '#ffffff',
+              color: '#8b5cf6',
+              fontSize: '0.75rem',
+              fontWeight: 800,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+            }}>
+              {(userProfile.name || userProfile.email)[0].toUpperCase()}
+            </div>
+            <span>{userProfile.name || userProfile.email.split('@')[0]}</span>
+            <span style={{ fontSize: '0.65rem' }}>🟢</span>
           </a>
         ) : (
           <a href="/login" className="header-auth-btn">

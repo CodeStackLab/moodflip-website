@@ -14,12 +14,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleDemoUserFill = () => {
-    setName('Demo User');
-    setEmail('demo@moodflip.coach');
-    setPassword('user123');
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
@@ -84,41 +78,6 @@ export default function LoginPage() {
               ? 'Save your mood check-ins & receive custom emotional plans.'
               : 'Sign in with your email & password to access your dashboard.'}
           </p>
-        </div>
-
-        {/* DEMO USER HELPER BOX */}
-        <div style={{
-          background: '#fcfbfe',
-          border: '1.5px solid #ddd6fe',
-          borderRadius: '16px',
-          padding: '0.85rem 1rem',
-          marginBottom: '1.25rem',
-          fontSize: '0.82rem'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
-            <span style={{ fontWeight: 800, color: '#6d28d9', fontSize: '0.78rem' }}>⚡ DEMO USER CREDENTIALS</span>
-            <button
-              type="button"
-              onClick={handleDemoUserFill}
-              style={{
-                background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
-                color: 'white',
-                border: 'none',
-                padding: '0.25rem 0.65rem',
-                borderRadius: '8px',
-                fontSize: '0.72rem',
-                fontWeight: 800,
-                cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(139, 92, 246, 0.25)'
-              }}
-            >
-              1-Click Fill Demo
-            </button>
-          </div>
-          <div style={{ color: '#475569', lineHeight: 1.45, fontSize: '0.8rem' }}>
-            <div><strong>Email:</strong> <code>demo@moodflip.coach</code></div>
-            <div><strong>Password:</strong> <code>user123</code></div>
-          </div>
         </div>
 
         {/* Mode Selector Tabs */}
@@ -225,7 +184,7 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="demo@moodflip.coach"
+                placeholder="your.email@example.com"
                 style={{
                   width: '100%',
                   padding: '0.75rem 1rem',
@@ -250,7 +209,7 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password (user123)"
+                  placeholder="Enter account password"
                   style={{
                     width: '100%',
                     padding: '0.75rem 2.5rem 0.75rem 1rem',

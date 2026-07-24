@@ -115,7 +115,7 @@ export default function MoodTool() {
           <button
             onClick={() => setIsModalOpen(true)}
             style={{
-              background: '#f0e8f8',
+              background: '#efe8f8',
               border: '1px solid #d4c4ed',
               color: '#6346a7',
               padding: '0.4rem 0.95rem',
@@ -261,12 +261,12 @@ export default function MoodTool() {
                 onClick={handleClearSelection}
                 style={{
                   background: '#fcfbfe',
-                  border: '1px dashed #d4c4ed',
-                  borderRadius: '16px',
+                  border: '1.5px solid #eae2f5',
+                  borderRadius: '18px',
                   padding: '0.75rem 1.25rem',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.6rem',
+                  gap: '0.65rem',
                   cursor: 'pointer',
                   color: '#6e6578'
                 }}
@@ -301,25 +301,25 @@ export default function MoodTool() {
             <div style={{ animation: 'fadeIn 0.5s ease', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {/* Rising Sun Element */}
               <div className="rising-sun-element">
-                <span style={{ fontSize: '2.5rem' }}>💖</span>
-                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#78350f', letterSpacing: '0.02em', marginTop: '0.25rem' }}>
+                <span style={{ fontSize: '2rem', color: '#e11d48' }}>♡</span>
+                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#6e563b', letterSpacing: '0.02em', marginTop: '0.35rem' }}>
                   Your mood has changed to:
                 </span>
               </div>
 
               {/* Huge Serif Target Title */}
-              <h2 className="serif-target-title" style={{ marginBottom: '1.5rem' }}>
+              <h2 className="serif-target-title" style={{ color: '#2d5a37', marginBottom: '1.5rem' }}>
                 {result.targetMood}
               </h2>
 
-              {/* White Action Card */}
+              {/* White Action Card with Decorative Branch */}
               <div className="action-white-card">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                  <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: '#f0fdf4', border: '1px solid #bbf7d0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.85rem' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f0fdf4', border: '1px solid #bbf7d0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
                     🧘
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#2d2638' }}>
+                    <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#2d2638', lineHeight: 1.3 }}>
                       60-sec action to get to a {result.targetMood.toLowerCase()} mood
                     </h4>
                     <span style={{ fontSize: '0.7rem', color: '#7c5cbf', fontWeight: 700 }}>
@@ -328,9 +328,17 @@ export default function MoodTool() {
                   </div>
                 </div>
 
-                <p style={{ fontSize: '0.98rem', color: '#4a3a2c', lineHeight: 1.6, fontWeight: 500, marginBottom: '1.25rem' }}>
+                <div style={{ textAlign: 'center', color: '#e11d48', fontSize: '0.8rem', margin: '0.25rem 0 0.5rem 0' }}>♡</div>
+
+                <p style={{ fontSize: '0.98rem', color: '#4a3a2c', lineHeight: 1.65, fontWeight: 500, marginBottom: '1.25rem' }}>
                   &quot;{result.actionText}&quot;
                 </p>
+
+                {/* Decorative Leaf Branch SVG on bottom-right */}
+                <svg style={{ position: 'absolute', bottom: '12px', right: '12px', opacity: 0.25, pointerEvents: 'none' }} width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#2d5a37" strokeWidth="1.5">
+                  <path d="M12 22C12 22 17 17 17 11C17 5 12 2 12 2C12 2 7 5 7 11C7 17 12 22 12 22Z" />
+                  <path d="M12 22V2" />
+                </svg>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f4eefc', paddingTop: '0.85rem' }}>
                   <button
@@ -364,17 +372,40 @@ export default function MoodTool() {
           ) : (
             <div style={{ padding: '2rem 1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <div className="rising-sun-element">
-                <span style={{ fontSize: '2.5rem' }}>🌅</span>
-                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#78350f', marginTop: '0.25rem' }}>
-                  Ready to Shift Your State?
+                <span style={{ fontSize: '2rem', color: '#e11d48' }}>♡</span>
+                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#6e563b', marginTop: '0.35rem' }}>
+                  Your mood has changed to:
                 </span>
               </div>
-              <h2 className="serif-target-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+              <h2 className="serif-target-title" style={{ color: '#2d5a37', fontSize: '3.6rem', marginBottom: '1.25rem' }}>
                 Peaceful
               </h2>
-              <p style={{ fontSize: '0.95rem', color: '#78350f', maxWidth: '360px', lineHeight: 1.6 }}>
-                Select your feeling on the left and click <strong>&quot;Change My Mood ➔&quot;</strong> to unlock your positive target state and 60-second action.
-              </p>
+
+              {/* Sample White Action Box */}
+              <div className="action-white-card">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.75rem' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f0fdf4', border: '1px solid #bbf7d0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
+                    🧘
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#2d2638' }}>
+                      60-sec action to get to a peaceful mood
+                    </h4>
+                  </div>
+                </div>
+
+                <div style={{ textAlign: 'center', color: '#e11d48', fontSize: '0.8rem', margin: '0.25rem 0 0.5rem 0' }}>♡</div>
+
+                <p style={{ fontSize: '0.95rem', color: '#4a3a2c', lineHeight: 1.6, fontWeight: 500 }}>
+                  Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.
+                </p>
+
+                {/* Decorative Leaf Branch SVG */}
+                <svg style={{ position: 'absolute', bottom: '12px', right: '12px', opacity: 0.25, pointerEvents: 'none' }} width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#2d5a37" strokeWidth="1.5">
+                  <path d="M12 22C12 22 17 17 17 11C17 5 12 2 12 2C12 2 7 5 7 11C7 17 12 22 12 22Z" />
+                  <path d="M12 22V2" />
+                </svg>
+              </div>
             </div>
           )}
         </div>
@@ -383,7 +414,7 @@ export default function MoodTool() {
       {/* Bottom Quotes Banner */}
       <div className="bottom-quotes-banner">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '1.4rem' }}>💜</span>
+          <span style={{ fontSize: '1.4rem', color: '#7c5cbf' }}>♡</span>
           <div style={{ textAlign: 'left' }}>
             <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#4a3a2c' }}>Small shifts can change how you feel.</div>
             <div style={{ fontSize: '0.78rem', color: '#7c5cbf' }}>You&apos;ve got this.</div>

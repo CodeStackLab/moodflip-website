@@ -5,16 +5,27 @@ import { MOOD_DATA, getActionForFeeling, MoodFamily, FeelingDetail } from '../li
 import CloudVector from './CloudVector';
 import ProfileModal from './ProfileModal';
 
+interface SavedCheckin {
+  primaryMood: string;
+  subFeeling: string;
+  specificFeeling: string;
+  targetMood: string;
+  actionShown: string;
+  date: string;
+}
+
 export default function MoodTool() {
   const [selectedFamily, setSelectedFamily] = useState<MoodFamily | null>(MOOD_DATA[0]);
   const [selectedSubId, setSelectedSubId] = useState<string | null>(MOOD_DATA[0].subCategories[0].id);
   const [selectedFeeling, setSelectedFeeling] = useState<FeelingDetail | null>(MOOD_DATA[0].subCategories[0].feelings[0]);
 
-  const [result, setResult] = useState<{ targetMood: string; actionText: string } | null>(null);
+  const [result, setResult] = useState<{ targetMood: string; actionText: string; actionIndex: number } | null>(null);
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
   const [visitCount, setVisitCount] = useState<number>(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
+  const [savedHistory, setSavedHistory] = useState<SavedCheckin[]>([]);
   const [, setUserProfile] = useState<{ email: string; name?: string } | null>(null);
 
   useEffect(() => {
@@ -34,24 +45,29 @@ export default function MoodTool() {
         setUserProfile(JSON.parse(savedProfile));
       } catch (e) {}
     }
+
+    const history = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
+    setSavedHistory(history);
   }, []);
 
   const handleFlipMood = () => {
     if (!selectedFeeling) return;
     const flipped = getActionForFeeling(selectedFeeling.id, visitCount);
-    setResult(flipped);
+    setResult({ ...flipped, actionIndex: (visitCount % 10) + 1 });
     setIsFlipped(true);
 
     const history = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
-    history.unshift({
+    const newEntry: SavedCheckin = {
       primaryMood: selectedFamily?.name || 'SAD',
       subFeeling: selectedSubId || '',
       specificFeeling: selectedFeeling.name,
       targetMood: flipped.targetMood,
       actionShown: flipped.actionText,
       date: new Date().toISOString()
-    });
+    };
+    history.unshift(newEntry);
     localStorage.setItem('moodflip_checkins', JSON.stringify(history));
+    setSavedHistory(history);
   };
 
   const handleSaveProfileSubmit = async (email: string, name?: string) => {
@@ -74,6 +90,31 @@ export default function MoodTool() {
 
   return (
     <div>
+      {/* Top Banner Bar for Returning Visitors */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', padding: '0 0.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+        <div style={{ fontSize: '0.8rem', color: '#818cf8', fontWeight: 600 }}>
+          🔄 Action Rotation Active: Visit #{visitCount}
+        </div>
+
+        {savedHistory.length > 0 && (
+          <button
+            onClick={() => setIsHistoryOpen(true)}
+            style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              color: '#cbd5e1',
+              padding: '0.35rem 0.85rem',
+              borderRadius: '9999px',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              cursor: 'pointer'
+            }}
+          >
+            📜 Saved Check-ins ({savedHistory.length})
+          </button>
+        )}
+      </div>
+
       <div className="moodflip-container">
         {/* Left Panel */}
         <div className="left-dark-panel">
@@ -206,8 +247,11 @@ export default function MoodTool() {
                 </h2>
 
                 <div style={{ background: '#fef3c7', border: '1px solid #fde68a', borderRadius: '16px', padding: '1.1rem', marginBottom: '1.25rem' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#b45309', marginBottom: '0.35rem' }}>
-                    ⚡ YOUR 60-SECOND ACTION:
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#b45309' }}>⚡ YOUR 60-SECOND ACTION:</span>
+                    <span style={{ fontSize: '0.68rem', background: '#fde68a', color: '#92400e', padding: '0.1rem 0.4rem', borderRadius: '4px', fontWeight: 700 }}>
+                      Action #{result.actionIndex} of 10
+                    </span>
                   </div>
                   <p style={{ fontSize: '1rem', fontWeight: 600, color: '#451a03', lineHeight: 1.5 }}>
                     &quot;{result.actionText}&quot;
@@ -261,6 +305,40 @@ export default function MoodTool() {
           </div>
         </div>
       </div>
+
+      {/* Saved History Modal Drawer for Profile Users */}
+      {isHistoryOpen && (
+        <div className="modal-overlay">
+          <div className="modal-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'white' }}>📜 Your Saved Check-ins</h3>
+              <button
+                onClick={() => setIsHistoryOpen(false)}
+                style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxHeight: '350px', overflowY: 'auto' }}>
+              {savedHistory.map((item, idx) => (
+                <div key={idx} style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '12px', padding: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.35rem' }}>
+                    <span>{new Date(item.date).toLocaleDateString()} {new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    <span style={{ color: '#818cf8', fontWeight: 600 }}>{item.primaryMood} ➔ {item.specificFeeling}</span>
+                  </div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#34d399', marginBottom: '0.2rem' }}>
+                    Target: {item.targetMood}
+                  </div>
+                  <div style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>
+                    &quot;{item.actionShown}&quot;
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 2nd Visit Profile Modal */}
       <ProfileModal

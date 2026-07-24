@@ -4,17 +4,28 @@ import MoodTool from '@/components/MoodTool';
 export default function HomePage() {
   return (
     <div>
-      {/* Hero Intro */}
-      <div style={{ textAlign: 'center', margin: '1.5rem 0 2rem 0' }}>
-        <h1 style={{ fontSize: '2.25rem', fontWeight: 800, background: 'linear-gradient(135deg, #fff 0%, #cbd5e1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '0.5rem' }}>
-          Shift Your Mindset in 60 Seconds
+      {/* Hero Header Overview */}
+      <div style={{ textAlign: 'center', margin: '1.25rem 0 1.5rem 0' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(99, 102, 241, 0.25)', padding: '0.4rem 1rem', borderRadius: '9999px', fontSize: '0.8rem', color: '#818cf8', fontWeight: 600, marginBottom: '0.75rem' }}>
+          <span>✨</span> Self-Reflection Utility & Mindset Shift
+        </div>
+        
+        <h1 style={{ fontSize: '2.3rem', fontWeight: 800, background: 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '0.4rem', letterSpacing: '-0.02em' }}>
+          Negative Mood ➔ Positive State ➔ 60-Second Action
         </h1>
-        <p style={{ fontSize: '1.05rem', color: '#94a3b8', maxWidth: '640px', margin: '0 auto' }}>
-          Select your current mood below to unlock an immediate positive target state and practical, actionable micro-step.
+        
+        <p style={{ fontSize: '1rem', color: '#94a3b8', maxWidth: '640px', margin: '0 auto', lineHeight: 1.6 }}>
+          No typing required. Select your current mood below for a quick, gentle emotional shift with an immediate practical action.
         </p>
+
+        {/* Clear Core Disclaimer (Not Therapy / Not Medical Advice) */}
+        <div style={{ margin: '1.25rem auto 0 auto', maxWidth: '680px', background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '12px', padding: '0.65rem 1rem', fontSize: '0.82rem', color: '#fca5a5', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+          <span>ℹ️</span>
+          <span><strong>Notice:</strong> MoodFlip is a self-reflection utility. It is not therapy, mental health treatment, or medical advice.</span>
+        </div>
       </div>
 
-      {/* Main 3-Tier Mood Selector Tool */}
+      {/* Main Interactive 3-Tier Mood Selector Tool */}
       <MoodTool />
 
       {/* Paid Products Section ($7 7-Day & $19 30-Day PDF Plans) */}
@@ -44,7 +55,9 @@ export default function HomePage() {
               <li>Downloadable high-resolution PDF format</li>
             </ul>
             <a
-              href="/api/checkout?product=7_DAY_PDF"
+              href="/api/pdf?email=demo@moodflip.coach"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'block',
                 width: '100%',
@@ -57,7 +70,7 @@ export default function HomePage() {
                 textDecoration: 'none'
               }}
             >
-              Get 7-Day PDF Plan ($7)
+              Download Sample 7-Day PDF ($7)
             </a>
           </div>
 

@@ -1,12 +1,20 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { PrismaClient } from '@prisma/client';
 
-export async function GET() {
+export const dynamic = 'force-dynamic';
+
+const prisma = new PrismaClient();
+
+export async function GET(request: Request) {
   try {
+    const authHeader = request.headers.get('authorization');
+    if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const ninetyDaysAgo = new Date();
     ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
-    // Delete profiles and checkins inactive for > 90 days
     const deletedProfiles = await prisma.userProfile.deleteMany({
       where: {
         lastActiveAt: {
@@ -17,11 +25,12 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      message: `Automatic 90-day cleanup completed. ${deletedProfiles.count} inactive profiles purged.`,
-      purgedCount: deletedProfiles.count
+      message: `Successfully purged inactive profiles older than 90 days.`,
+      purgedCount: deletedProfiles.count,
+      timestamp: new Date().toISOString()
     });
   } catch (error) {
     console.error('Purge error:', error);
-    return NextResponse.json({ success: false, error: 'Database purge error' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to purge inactive profiles' }, { status: 500 });
   }
 }

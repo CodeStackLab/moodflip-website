@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import AdSpace from '@/components/AdSpace';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -9,7 +9,12 @@ export const metadata: Metadata = {
   title: 'MoodFlip | Self-Reflection Utility & Mindset Shift',
   description: 'Instant self-reflection tool. Flip negative moods into positive target states with practical 60-second actions. Not therapy, not medical advice.',
   keywords: ['mood flip', 'self help utility', 'mindset shift', '60 second actions', 'feelings wheel tool'],
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1'
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { MOOD_DATA, getActionForFeeling, MoodFamily, FeelingDetail } from '../lib/moodData';
-import ProfileModal from './ProfileModal';
+import CloudVector from './CloudVector';
 
 interface SavedCheckin {
   primaryMood: string;
@@ -13,14 +13,12 @@ interface SavedCheckin {
   date: string;
 }
 
-import CloudVector from './CloudVector';
-
 // Cloud shape wrapping the mood family name with colorful multi-theme support
 const CloudPill = ({ id, name, color, selected }: { id: string; name: string; color: string; selected: boolean }) => (
   <button
     className={`cloud-pill-card ${id}-pill ${selected ? 'selected' : ''}`}
   >
-    <div style={{ width: '24px', height: '18px', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+    <div style={{ width: '22px', height: '16px', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
       <CloudVector type={id} color={selected ? color : '#94a3b8'} />
     </div>
     <span>
@@ -39,8 +37,6 @@ export default function MoodTool() {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const [visitCount, setVisitCount] = useState<number>(1);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [savedHistory, setSavedHistory] = useState<SavedCheckin[]>([]);
   const [userProfile, setUserProfile] = useState<{ email: string; name?: string } | null>(null);
   const [profileSaved, setProfileSaved] = useState<boolean>(false);
@@ -50,9 +46,7 @@ export default function MoodTool() {
     const savedVisits = parseInt(localStorage.getItem('moodflip_visit_count') || '0', 10) + 1;
     localStorage.setItem('moodflip_visit_count', savedVisits.toString());
     setVisitCount(savedVisits);
-    if (savedVisits === 2) {
-      setTimeout(() => { setIsModalOpen(true); }, 1200);
-    }
+
     const savedProfile = localStorage.getItem('moodflip_profile');
     if (savedProfile) {
       try { setUserProfile(JSON.parse(savedProfile)); } catch (e) {}
@@ -67,7 +61,7 @@ export default function MoodTool() {
     setResult({ ...flipped, actionIndex: (visitCount % 10) + 1 });
     setIsAnimating(true);
     setIsFlipped(true);
-    setTimeout(() => setIsAnimating(false), 600);
+    setTimeout(() => setIsAnimating(false), 500);
 
     const history = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
     const newEntry: SavedCheckin = {
@@ -93,24 +87,9 @@ export default function MoodTool() {
     setProfileSaved(false);
   };
 
-  const handleSaveProfileSubmit = async (email: string, name?: string) => {
-    const profile = { email, name };
-    localStorage.setItem('moodflip_profile', JSON.stringify(profile));
-    setUserProfile(profile);
-    try {
-      await fetch('/api/profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, visitCount })
-      });
-    } catch (err) {
-      console.warn('Backend offline fallback:', err);
-    }
-  };
-
   const handleSaveCheckinToProfile = () => {
     if (!userProfile) {
-      setIsModalOpen(true);
+      window.location.href = '/login';
       return;
     }
 
@@ -139,26 +118,26 @@ export default function MoodTool() {
 
   return (
     <div>
-      {/* Utility bar */}
+      {/* Clean Utility bar (Links directly to /profile or /login — NO POPUPS) */}
       <div className="mood-tool-utilities">
         {userProfile && (
-          <span style={{ fontSize: '0.78rem', color: '#059669', background: '#e6f4ea', padding: '0.2rem 0.75rem', borderRadius: '9999px', fontWeight: 600 }}>
+          <span style={{ fontSize: '0.76rem', color: '#059669', background: '#ecfdf5', padding: '0.2rem 0.75rem', borderRadius: '9999px', fontWeight: 600 }}>
             👤 {userProfile.email}
           </span>
         )}
-        <button
-          onClick={() => setIsModalOpen(true)}
-          style={{ background: '#efe8f8', border: '1px solid #d4c4ed', color: '#6346a7', padding: '0.35rem 0.9rem', borderRadius: '9999px', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer' }}
+        <a
+          href={userProfile ? '/profile' : '/login'}
+          style={{ background: '#f3e8ff', border: '1px solid #d8b4fe', color: '#6d28d9', padding: '0.3rem 0.85rem', borderRadius: '9999px', fontSize: '0.76rem', fontWeight: 800, textDecoration: 'none' }}
         >
           ✨ {userProfile ? 'My Profile' : 'Create Profile'}
-        </button>
+        </a>
         {savedHistory.length > 0 && (
-          <button
-            onClick={() => setIsHistoryOpen(true)}
-            style={{ background: '#ffffff', border: '1px solid #e2d7f5', color: '#4a3a2c', padding: '0.35rem 0.9rem', borderRadius: '9999px', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}
+          <a
+            href="/profile"
+            style={{ background: '#ffffff', border: '1px solid #e2e8f0', color: '#475569', padding: '0.3rem 0.85rem', borderRadius: '9999px', fontSize: '0.76rem', fontWeight: 700, textDecoration: 'none' }}
           >
             📜 History ({savedHistory.length})
-          </button>
+          </a>
         )}
       </div>
 
@@ -171,7 +150,7 @@ export default function MoodTool() {
           {/* STEP 1 — Choose mood family */}
           <div>
             <div className="step-arrow-badge">
-              <span style={{ fontSize: '1rem' }}>☁️</span>
+              <span style={{ fontSize: '0.9rem' }}>☁️</span>
               <span>Choose your current mood</span>
             </div>
             <div className="cloud-grid">
@@ -195,11 +174,11 @@ export default function MoodTool() {
             </div>
           </div>
 
-          {/* STEP 2 — Pick sub-feeling (square icon tiles) */}
+          {/* STEP 2 — Pick sub-feeling */}
           {selectedFamily && (
             <div>
               <div className="step-arrow-badge">
-                <span style={{ fontSize: '1rem' }}>💜</span>
+                <span style={{ fontSize: '0.9rem' }}>💜</span>
                 <span>Pick the feeling closest to how you feel</span>
               </div>
               <div className="feeling-card-grid">
@@ -216,8 +195,8 @@ export default function MoodTool() {
                       }}
                       className={`feeling-square-tile ${isSel ? 'selected' : ''}`}
                     >
-                      <span style={{ fontSize: '1.75rem' }}>{sub.icon}</span>
-                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: isSel ? '#53389e' : '#4a3a2c', textAlign: 'center', lineHeight: 1.2 }}>
+                      <span style={{ fontSize: '1.5rem' }}>{sub.icon}</span>
+                      <span style={{ fontSize: '0.76rem', fontWeight: 700, color: isSel ? '#53389e' : '#475569', textAlign: 'center', lineHeight: 1.2 }}>
                         {sub.name}
                       </span>
                     </div>
@@ -230,10 +209,10 @@ export default function MoodTool() {
           {/* STEP 3 — Specific feeling nuance pills */}
           {selectedSubCategory && selectedSubCategory.feelings.length > 1 && (
             <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#6e6578', marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b', marginBottom: '0.4rem' }}>
                 Specific nuance:
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
                 {selectedSubCategory.feelings.map((feeling) => {
                   const isSel = selectedFeeling?.id === feeling.id;
                   return (
@@ -241,13 +220,13 @@ export default function MoodTool() {
                       key={feeling.id}
                       onClick={() => { setSelectedFeeling(feeling); setIsFlipped(false); setResult(null); }}
                       style={{
-                        padding: '0.4rem 0.85rem',
+                        padding: '0.32rem 0.75rem',
                         borderRadius: '9999px',
-                        border: isSel ? '2px solid #7c5cbf' : '1px solid #eae2f5',
-                        background: isSel ? '#efe8f8' : '#ffffff',
-                        color: isSel ? '#53389e' : '#4a3a2c',
-                        fontSize: '0.8rem',
-                        fontWeight: 600,
+                        border: isSel ? '2px solid #8b5cf6' : '1px solid #e2e8f0',
+                        background: isSel ? '#f3e8ff' : '#ffffff',
+                        color: isSel ? '#6d28d9' : '#475569',
+                        fontSize: '0.76rem',
+                        fontWeight: 700,
                         cursor: 'pointer',
                         fontFamily: 'inherit',
                         display: 'flex',
@@ -265,7 +244,7 @@ export default function MoodTool() {
           )}
 
           {/* FLIP MY MOOD button */}
-          <div style={{ paddingTop: '0.5rem' }}>
+          <div style={{ paddingTop: '0.4rem' }}>
             <button
               onClick={handleFlipMood}
               disabled={!selectedFeeling}
@@ -273,20 +252,20 @@ export default function MoodTool() {
               id="flip-mood-btn"
             >
               <span>Flip My Mood</span>
-              <span style={{ fontSize: '1.2rem' }}>✨</span>
+              <span style={{ fontSize: '1rem' }}>✨</span>
             </button>
             {isFlipped && (
               <button
                 onClick={handleClearSelection}
                 style={{
                   display: 'block',
-                  marginTop: '0.6rem',
+                  marginTop: '0.5rem',
                   background: 'none',
-                  border: '1px solid #d4c4ed',
-                  color: '#9b89b3',
-                  padding: '0.3rem 0.85rem',
+                  border: '1px solid #cbd5e1',
+                  color: '#64748b',
+                  padding: '0.25rem 0.75rem',
                   borderRadius: '9999px',
-                  fontSize: '0.75rem',
+                  fontSize: '0.72rem',
                   fontWeight: 600,
                   cursor: 'pointer',
                   fontFamily: 'inherit',
@@ -296,9 +275,9 @@ export default function MoodTool() {
               </button>
             )}
             {showSevenDayOffer && (
-              <div style={{ marginTop: '0.8rem', padding: '0.8rem', borderRadius: '12px', background: '#fff7ed', border: '1px solid #fed7aa', textAlign: 'center' }}>
-                <strong style={{ display: 'block', color: '#9a3412', fontSize: '0.85rem' }}>You have 7 saved check-ins!</strong>
-                <a href="#paid-pdf-section" style={{ color: '#b45309', fontSize: '0.8rem', fontWeight: 800 }}>
+              <div style={{ marginTop: '0.75rem', padding: '0.75rem', borderRadius: '12px', background: '#fff7ed', border: '1px solid #fed7aa', textAlign: 'center' }}>
+                <strong style={{ display: 'block', color: '#9a3412', fontSize: '0.82rem' }}>You have 7 saved check-ins!</strong>
+                <a href="#paid-pdf-section" style={{ color: '#b45309', fontSize: '0.78rem', fontWeight: 800 }}>
                   View your personalised 7-day plan
                 </a>
               </div>
@@ -313,14 +292,14 @@ export default function MoodTool() {
 
           {/* Rising Sun Semicircle */}
           <div className="rising-sun-element">
-            <span style={{ fontSize: '1.5rem', color: '#e11d48' }}>♡</span>
+            <span style={{ fontSize: '1.35rem', color: '#e11d48' }}>♡</span>
             <span style={{
-              fontSize: '0.8rem',
+              fontSize: '0.76rem',
               fontWeight: 700,
               color: '#7a5c30',
-              marginTop: '0.2rem',
+              marginTop: '0.15rem',
               lineHeight: 1.2,
-              padding: '0 0.5rem',
+              padding: '0 0.4rem',
               textAlign: 'center'
             }}>
               Your mood has changed to:
@@ -337,45 +316,37 @@ export default function MoodTool() {
           {/* Action card */}
           <div
             className="action-white-card"
-            style={{ animation: isAnimating ? 'resultSlideIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both' : undefined }}
+            style={{ animation: isAnimating ? 'resultSlideIn 0.4s ease both' : undefined }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.65rem' }}>
               <div style={{
-                width: '44px',
-                height: '44px',
+                width: '38px',
+                height: '38px',
                 borderRadius: '50%',
                 background: '#f0fdf4',
                 border: '1px solid #bbf7d0',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '1.4rem',
+                fontSize: '1.2rem',
                 flexShrink: 0
               }}>
                 🧘
               </div>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#2d2638', lineHeight: 1.35 }}>
+              <h4 style={{ fontSize: '0.88rem', fontWeight: 800, color: '#1e1b4b', lineHeight: 1.3 }}>
                 60-sec action to get to a {isFlipped && result
                   ? result.targetMood.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|[\u2700-\u27BF]|[\uE000-\uF8FF]/g, '').trim().toLowerCase()
                   : 'peaceful'} mood
               </h4>
             </div>
 
-            <div style={{ textAlign: 'center', color: '#e11d48', fontSize: '0.75rem', margin: '0.2rem 0 0.5rem 0' }}>♡</div>
-
-            <p style={{ fontSize: '0.9rem', color: '#4a3a2c', lineHeight: 1.7, fontWeight: 500, marginBottom: '1rem' }}>
+            <p style={{ fontSize: '0.84rem', color: '#334155', lineHeight: 1.6, fontWeight: 500, marginBottom: '0.85rem' }}>
               {isFlipped && result
                 ? result.actionText
                 : 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.'}
             </p>
 
-            {/* Decorative leaf */}
-            <svg style={{ position: 'absolute', bottom: '10px', right: '10px', opacity: 0.15, pointerEvents: 'none' }} width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2d5a37" strokeWidth="1.5">
-              <path d="M12 22C12 22 17 17 17 11C17 5 12 2 12 2C12 2 7 5 7 11C7 17 12 22 12 22Z"/>
-              <path d="M12 22V2"/>
-            </svg>
-
-            {/* SAVE MY PROFILE button — spec §10 */}
+            {/* SAVE MY PROFILE button */}
             <button
               onClick={handleSaveCheckinToProfile}
               className="save-profile-button"
@@ -389,8 +360,8 @@ export default function MoodTool() {
             </button>
 
             {isFlipped && (
-              <div style={{ display: 'flex', justifyContent: 'center', borderTop: '1px solid #f4eefc', paddingTop: '0.75rem', marginTop: '0.5rem' }}>
-                <a href="#paid-pdf-section" style={{ fontSize: '0.78rem', fontWeight: 700, color: '#b45309', textDecoration: 'underline' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', borderTop: '1px solid #f4eefc', paddingTop: '0.65rem', marginTop: '0.45rem' }}>
+                <a href="#paid-pdf-section" style={{ fontSize: '0.76rem', fontWeight: 700, color: '#b45309', textDecoration: 'underline' }}>
                   📘 Get 7-Day Personalised Plan ($7)
                 </a>
               </div>
@@ -402,52 +373,21 @@ export default function MoodTool() {
 
       {/* ===== BOTTOM QUOTES BANNER ===== */}
       <div className="bottom-quotes-banner">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <span style={{ fontSize: '1.3rem', color: '#7c5cbf' }}>♡</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
+          <span style={{ fontSize: '1.2rem', color: '#8b5cf6' }}>♡</span>
           <div>
-            <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#4a3a2c' }}>Small shifts can change how you feel.</div>
-            <div style={{ fontSize: '0.75rem', color: '#7c5cbf' }}>You&apos;ve got this.</div>
+            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>Small shifts can change how you feel.</div>
+            <div style={{ fontSize: '0.72rem', color: '#8b5cf6' }}>You&apos;ve got this.</div>
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <span style={{ fontSize: '1.3rem' }}>🍃</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
+          <span style={{ fontSize: '1.2rem' }}>🍃</span>
           <div>
-            <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#4a3a2c' }}>Be kind to yourself.</div>
-            <div style={{ fontSize: '0.75rem', color: '#7c5cbf' }}>One choice at a time.</div>
+            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>Be kind to yourself.</div>
+            <div style={{ fontSize: '0.72rem', color: '#8b5cf6' }}>One choice at a time.</div>
           </div>
         </div>
       </div>
-
-      {/* HISTORY MODAL */}
-      {isHistoryOpen && (
-        <div className="modal-overlay">
-          <div className="modal-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'white' }}>📜 Your Saved Check-ins</h3>
-              <button onClick={() => setIsHistoryOpen(false)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', maxHeight: '340px', overflowY: 'auto' }}>
-              {savedHistory.map((item, idx) => (
-                <div key={idx} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '0.75rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
-                    <span>{new Date(item.date).toLocaleDateString()}</span>
-                    <span style={{ color: '#c084fc', fontWeight: 600 }}>{item.primaryMood} → {item.specificFeeling}</span>
-                  </div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#34d399', marginBottom: '0.2rem' }}>Target: {item.targetMood}</div>
-                  <div style={{ fontSize: '0.78rem', color: '#cbd5e1' }}>&quot;{item.actionShown}&quot;</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Profile Modal */}
-      <ProfileModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSaveProfile={handleSaveProfileSubmit}
-      />
     </div>
   );
 }

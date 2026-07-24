@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { MOOD_DATA, getActionForFeeling, MoodFamily, FeelingDetail } from '../lib/moodData';
-import CloudVector from './CloudVector';
 import ProfileModal from './ProfileModal';
 
 interface SavedCheckin {
@@ -13,6 +12,81 @@ interface SavedCheckin {
   actionShown: string;
   date: string;
 }
+
+// Simple inline SVG icons for each sub-category feeling tile
+const FeelingIcon = ({ name }: { name: string }) => {
+  const icons: Record<string, React.ReactNode> = {
+    // Sad family
+    'Lonely': (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+        <circle cx="20" cy="14" r="7"/>
+        <path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12"/>
+        <path d="M15 31 Q20 35 25 31" strokeLinecap="round"/>
+      </svg>
+    ),
+    'Rejected': (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+        <circle cx="20" cy="20" r="12"/>
+        <path d="M15 17 Q20 23 25 17" strokeLinecap="round"/>
+        <circle cx="15" cy="15" r="1.5" fill="currentColor"/>
+        <circle cx="25" cy="15" r="1.5" fill="currentColor"/>
+        <path d="M13 13 l4-4 M27 13 l-4-4" strokeLinecap="round"/>
+      </svg>
+    ),
+    'Hurt': (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+        <path d="M20 34 L8 22 C5 18 5 13 9 10 C13 7 17 9 20 13 C23 9 27 7 31 10 C35 13 35 18 32 22 Z"/>
+        <path d="M20 34 L20 20 M17 25 L23 15" strokeLinecap="round"/>
+      </svg>
+    ),
+    'Ashamed': (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+        <circle cx="20" cy="14" r="7"/>
+        <path d="M8 36c0-6.627 5.373-12 12-12s12 5.373 12 12"/>
+        <path d="M16 20 Q20 18 24 20" strokeLinecap="round"/>
+        <path d="M13 10 Q15 7 18 9" strokeLinecap="round"/>
+      </svg>
+    ),
+    'Guilty': (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+        <path d="M20 6 L22 16 L32 16 L24 22 L27 32 L20 26 L13 32 L16 22 L8 16 L18 16 Z"/>
+      </svg>
+    ),
+    'Empty': (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+        <circle cx="20" cy="20" r="13"/>
+        <circle cx="15" cy="17" r="1.5"/>
+        <circle cx="25" cy="17" r="1.5"/>
+        <path d="M15 25 h10" strokeLinecap="round"/>
+      </svg>
+    ),
+    'Overwhelmed': (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+        <circle cx="20" cy="20" r="10"/>
+        <path d="M14 28 Q20 24 26 28" strokeLinecap="round"/>
+        <path d="M12 10 Q16 6 20 8 Q24 6 28 10" strokeLinecap="round"/>
+        <path d="M10 16 Q8 20 10 24" strokeLinecap="round"/>
+        <path d="M30 16 Q32 20 30 24" strokeLinecap="round"/>
+      </svg>
+    ),
+    'Abandoned': (
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+        <circle cx="20" cy="13" r="7"/>
+        <path d="M8 36c0-6.627 5.373-12 12-12"/>
+        <path d="M30 22 L38 22 M34 18 L38 22 L34 26" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  };
+  return (
+    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {icons[name] || (
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" width="32" height="32">
+          <circle cx="20" cy="20" r="12"/>
+        </svg>
+      )}
+    </span>
+  );
+};
 
 export default function MoodTool() {
   const [selectedFamily, setSelectedFamily] = useState<MoodFamily | null>(MOOD_DATA[0]);
@@ -34,16 +108,12 @@ export default function MoodTool() {
     setVisitCount(savedVisits);
 
     if (savedVisits === 2) {
-      setTimeout(() => {
-        setIsModalOpen(true);
-      }, 1200);
+      setTimeout(() => { setIsModalOpen(true); }, 1200);
     }
 
     const savedProfile = localStorage.getItem('moodflip_profile');
     if (savedProfile) {
-      try {
-        setUserProfile(JSON.parse(savedProfile));
-      } catch (e) {}
+      try { setUserProfile(JSON.parse(savedProfile)); } catch (e) {}
     }
 
     const history = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
@@ -82,7 +152,6 @@ export default function MoodTool() {
     const profile = { email, name };
     localStorage.setItem('moodflip_profile', JSON.stringify(profile));
     setUserProfile(profile);
-
     try {
       await fetch('/api/profile', {
         method: 'POST',
@@ -94,369 +163,254 @@ export default function MoodTool() {
     }
   };
 
-  const selectedSubCategory = selectedFamily ? selectedFamily.subCategories.find(s => s.id === selectedSubId) : null;
+  const selectedSubCategory = selectedFamily
+    ? selectedFamily.subCategories.find(s => s.id === selectedSubId)
+    : null;
 
   return (
     <div>
-      {/* Action Bar Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', padding: '0 0.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '0.82rem', color: '#7c5cbf', fontWeight: 700 }}>
-            🔄 Action Rotation Active: Visit #{visitCount}
+      {/* Utility bar */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '0.75rem', gap: '0.5rem', flexWrap: 'wrap' }}>
+        {userProfile && (
+          <span style={{ fontSize: '0.78rem', color: '#059669', background: '#e6f4ea', padding: '0.2rem 0.75rem', borderRadius: '9999px', fontWeight: 600 }}>
+            👤 {userProfile.email}
           </span>
-          {userProfile && (
-            <span style={{ fontSize: '0.78rem', color: '#059669', background: '#e6f4ea', padding: '0.2rem 0.75rem', borderRadius: '9999px', fontWeight: 600 }}>
-              👤 Profile: {userProfile.email}
-            </span>
-          )}
-        </div>
-
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        )}
+        <button
+          onClick={() => setIsModalOpen(true)}
+          style={{ background: '#efe8f8', border: '1px solid #d4c4ed', color: '#6346a7', padding: '0.35rem 0.9rem', borderRadius: '9999px', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer' }}
+        >
+          ✨ Create Profile
+        </button>
+        {savedHistory.length > 0 && (
           <button
-            onClick={() => setIsModalOpen(true)}
-            style={{
-              background: '#efe8f8',
-              border: '1px solid #d4c4ed',
-              color: '#6346a7',
-              padding: '0.4rem 0.95rem',
-              borderRadius: '9999px',
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              cursor: 'pointer'
-            }}
+            onClick={() => setIsHistoryOpen(true)}
+            style={{ background: '#ffffff', border: '1px solid #e2d7f5', color: '#4a3a2c', padding: '0.35rem 0.9rem', borderRadius: '9999px', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}
           >
-            ✨ {visitCount === 2 ? '2nd Visit Pop-up Active' : 'Create Profile'}
+            📜 History ({savedHistory.length})
           </button>
-
-          {savedHistory.length > 0 && (
-            <button
-              onClick={() => setIsHistoryOpen(true)}
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e2d7f5',
-                color: '#4a3a2c',
-                padding: '0.4rem 0.95rem',
-                borderRadius: '9999px',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              📜 Saved Check-ins ({savedHistory.length})
-            </button>
-          )}
-        </div>
+        )}
       </div>
 
-      {/* Main Split Canvas */}
+      {/* MAIN CANVAS */}
       <div className="moodflip-canvas">
-        {/* Left Selection Side */}
-        <div className="left-selection-panel">
-          <div>
-            {/* Step 1 */}
-            <div style={{ marginBottom: '1.75rem' }}>
-              <div className="step-arrow-badge">
-                <span>☁️</span>
-                <span>Choose your current mood</span>
-              </div>
 
-              <div className="cloud-grid">
-                {MOOD_DATA.map((family) => {
-                  const isSel = selectedFamily ? selectedFamily.id === family.id : false;
+        {/* ===== LEFT PANEL ===== */}
+        <div className="left-selection-panel">
+
+          {/* STEP 1 — Choose mood family (cloud pills in a row) */}
+          <div>
+            <div className="step-arrow-badge">
+              <span style={{ fontSize: '1rem' }}>☁️</span>
+              <span>Choose your current mood</span>
+            </div>
+            <div className="cloud-grid">
+              {MOOD_DATA.map((family) => {
+                const isSel = selectedFamily?.id === family.id;
+                return (
+                  <button
+                    key={family.id}
+                    onClick={() => {
+                      setSelectedFamily(family);
+                      setSelectedSubId(family.subCategories[0].id);
+                      setSelectedFeeling(family.subCategories[0].feelings[0]);
+                      setIsFlipped(false);
+                    }}
+                    className={`cloud-pill-card ${isSel ? 'selected' : ''}`}
+                  >
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: family.cloudColor, display: 'inline-block', flexShrink: 0, opacity: isSel ? 1 : 0.6 }} />
+                    <span>{family.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* STEP 2 — Pick feeling closest (square icon tiles) */}
+          {selectedFamily && (
+            <div>
+              <div className="step-arrow-badge">
+                <span style={{ fontSize: '1rem' }}>💜</span>
+                <span>Pick the feeling closest to how you feel</span>
+              </div>
+              <div className="feeling-card-grid">
+                {selectedFamily.subCategories.map((sub) => {
+                  const isSel = selectedSubId === sub.id;
                   return (
-                    <button
-                      key={family.id}
+                    <div
+                      key={sub.id}
                       onClick={() => {
-                        setSelectedFamily(family);
-                        setSelectedSubId(family.subCategories[0].id);
-                        setSelectedFeeling(family.subCategories[0].feelings[0]);
+                        setSelectedSubId(sub.id);
+                        setSelectedFeeling(sub.feelings[0]);
                         setIsFlipped(false);
                       }}
-                      className={`cloud-pill-card ${isSel ? 'selected' : ''}`}
+                      className={`feeling-square-tile ${isSel ? 'selected' : ''}`}
                     >
-                      <CloudVector type={family.id} color={isSel ? '#7c5cbf' : '#9b89b3'} />
-                      <span style={{ fontSize: '0.82rem', fontWeight: 700, color: isSel ? '#53389e' : '#5c5268', marginTop: '0.3rem' }}>
-                        {family.name}
+                      <span style={{ color: isSel ? '#7c5cbf' : '#9b89b3' }}>
+                        <FeelingIcon name={sub.name} />
                       </span>
+                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: isSel ? '#53389e' : '#4a3a2c' }}>
+                        {sub.name}
+                      </span>
+                    </div>
+                  );
+                })}
+
+                {/* Clear Selection tile — last in the grid */}
+                <div
+                  onClick={handleClearSelection}
+                  className="feeling-square-tile"
+                  style={{ cursor: 'pointer', opacity: 0.65 }}
+                >
+                  <span style={{ fontSize: '1.5rem', color: '#9b89b3' }}>🗑️</span>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#6e6578' }}>Clear selection</span>
+                  <span style={{ fontSize: '0.65rem', color: '#9b89b3' }}>Start over</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Specific nuance pills (optional) */}
+          {selectedSubCategory && selectedSubCategory.feelings.length > 1 && (
+            <div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#6e6578', marginBottom: '0.5rem' }}>
+                Specific nuance:
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                {selectedSubCategory.feelings.map((feeling) => {
+                  const isSel = selectedFeeling?.id === feeling.id;
+                  return (
+                    <button
+                      key={feeling.id}
+                      onClick={() => { setSelectedFeeling(feeling); setIsFlipped(false); }}
+                      style={{
+                        padding: '0.4rem 0.8rem',
+                        borderRadius: '9999px',
+                        border: isSel ? '2px solid #7c5cbf' : '1px solid #eae2f5',
+                        background: isSel ? '#efe8f8' : '#ffffff',
+                        color: isSel ? '#53389e' : '#4a3a2c',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {feeling.icon} {feeling.name}
                     </button>
                   );
                 })}
               </div>
             </div>
+          )}
 
-            {/* Step 2 */}
-            {selectedFamily && (
-              <div style={{ marginBottom: '1.5rem' }}>
-                <div className="step-arrow-badge">
-                  <span>💜</span>
-                  <span>Pick the feeling closest to how you feel</span>
-                </div>
-
-                <div className="feeling-card-grid">
-                  {selectedFamily.subCategories.map((sub) => {
-                    const isSel = selectedSubId === sub.id;
-                    return (
-                      <div
-                        key={sub.id}
-                        onClick={() => {
-                          setSelectedSubId(sub.id);
-                          setSelectedFeeling(sub.feelings[0]);
-                          setIsFlipped(false);
-                        }}
-                        className={`feeling-square-tile ${isSel ? 'selected' : ''}`}
-                      >
-                        <span style={{ fontSize: '1.75rem' }}>{sub.icon}</span>
-                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: isSel ? '#53389e' : '#4a3a2c' }}>
-                          {sub.name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Specific Feeling Options */}
-            {selectedSubCategory && (
-              <div style={{ marginBottom: '1.5rem' }}>
-                <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#6e6578', marginBottom: '0.5rem' }}>
-                  Specific feeling nuance:
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
-                  {selectedSubCategory.feelings.map((feeling) => {
-                    const isSel = selectedFeeling ? selectedFeeling.id === feeling.id : false;
-                    return (
-                      <button
-                        key={feeling.id}
-                        onClick={() => {
-                          setSelectedFeeling(feeling);
-                          setIsFlipped(false);
-                        }}
-                        style={{
-                          padding: '0.5rem 0.9rem',
-                          borderRadius: '12px',
-                          border: isSel ? '2px solid #7c5cbf' : '1px solid #eae2f5',
-                          background: isSel ? '#efe8f8' : '#ffffff',
-                          color: isSel ? '#53389e' : '#4a3a2c',
-                          fontSize: '0.82rem',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.35rem'
-                        }}
-                      >
-                        <span>{feeling.icon}</span>
-                        <span>{feeling.name}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {/* Clear Selection Tile */}
-            <div style={{ marginTop: '1rem' }}>
-              <button
-                onClick={handleClearSelection}
-                style={{
-                  background: '#fcfbfe',
-                  border: '1.5px solid #eae2f5',
-                  borderRadius: '18px',
-                  padding: '0.75rem 1.25rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.65rem',
-                  cursor: 'pointer',
-                  color: '#6e6578'
-                }}
-              >
-                <span style={{ fontSize: '1.2rem' }}>🗑️</span>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700 }}>Clear selection</div>
-                  <div style={{ fontSize: '0.72rem', color: '#9b89b3' }}>Start over</div>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          {/* Center Action Arrow Button */}
-          <div style={{ textAlign: 'center' }}>
+          {/* CHANGE MY MOOD → button */}
+          <div style={{ paddingTop: '0.5rem' }}>
             <button
               onClick={handleFlipMood}
               disabled={!selectedFeeling}
               className="center-arrow-button"
             >
               <span>Change My Mood</span>
-              <span style={{ fontSize: '1.3rem' }}>➔</span>
+              <span style={{ fontSize: '1.1rem' }}>→</span>
             </button>
           </div>
+
         </div>
 
-        {/* Right Sun Panel */}
+        {/* ===== RIGHT SUN PANEL ===== */}
         <div className="right-sun-panel">
           <div className="sun-rays-bg" />
 
-          {isFlipped && result ? (
-            <div style={{ animation: 'fadeIn 0.5s ease', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              {/* Rising Sun Element */}
-              <div className="rising-sun-element">
-                <span style={{ fontSize: '2rem', color: '#e11d48' }}>♡</span>
-                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#6e563b', letterSpacing: '0.02em', marginTop: '0.35rem' }}>
-                  Your mood has changed to:
-                </span>
+          {/* Rising Sun Semicircle with heart + text */}
+          <div className="rising-sun-element" style={{ zIndex: 1 }}>
+            <span style={{ fontSize: '1.5rem', color: '#e11d48' }}>♡</span>
+            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#7a5c30', marginTop: '0.2rem', lineHeight: 1.2, padding: '0 0.5rem', textAlign: 'center' }}>
+              Your mood has changed to:
+            </span>
+          </div>
+
+          {/* Target mood title */}
+          <h2 className="serif-target-title">
+            {isFlipped && result ? result.targetMood : 'Peaceful'}
+          </h2>
+
+          {/* Action card */}
+          <div className="action-white-card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#f0fdf4', border: '1px solid #bbf7d0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', flexShrink: 0 }}>
+                🧘
               </div>
-
-              {/* Huge Serif Target Title */}
-              <h2 className="serif-target-title" style={{ color: '#2d5a37', marginBottom: '1.5rem' }}>
-                {result.targetMood}
-              </h2>
-
-              {/* White Action Card with Decorative Branch */}
-              <div className="action-white-card">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.85rem' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f0fdf4', border: '1px solid #bbf7d0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
-                    🧘
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#2d2638', lineHeight: 1.3 }}>
-                      60-sec action to get to a {result.targetMood.toLowerCase()} mood
-                    </h4>
-                    <span style={{ fontSize: '0.7rem', color: '#7c5cbf', fontWeight: 700 }}>
-                      Action #{result.actionIndex} of 10
-                    </span>
-                  </div>
-                </div>
-
-                <div style={{ textAlign: 'center', color: '#e11d48', fontSize: '0.8rem', margin: '0.25rem 0 0.5rem 0' }}>♡</div>
-
-                <p style={{ fontSize: '0.98rem', color: '#4a3a2c', lineHeight: 1.65, fontWeight: 500, marginBottom: '1.25rem' }}>
-                  &quot;{result.actionText}&quot;
-                </p>
-
-                {/* Decorative Leaf Branch SVG on bottom-right */}
-                <svg style={{ position: 'absolute', bottom: '12px', right: '12px', opacity: 0.25, pointerEvents: 'none' }} width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#2d5a37" strokeWidth="1.5">
-                  <path d="M12 22C12 22 17 17 17 11C17 5 12 2 12 2C12 2 7 5 7 11C7 17 12 22 12 22Z" />
-                  <path d="M12 22V2" />
-                </svg>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f4eefc', paddingTop: '0.85rem' }}>
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      color: '#7c5cbf',
-                      fontSize: '0.85rem',
-                      fontWeight: 700,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    💾 Save to Profile
-                  </button>
-
-                  <a
-                    href="#paid-pdf-section"
-                    style={{
-                      fontSize: '0.82rem',
-                      fontWeight: 700,
-                      color: '#b45309',
-                      textDecoration: 'underline'
-                    }}
-                  >
-                    Get 7-Day Plan ($7)
-                  </a>
-                </div>
-              </div>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#2d2638', lineHeight: 1.35 }}>
+                60-sec action to get to a {isFlipped && result ? result.targetMood.toLowerCase() : 'peaceful'} mood
+              </h4>
             </div>
-          ) : (
-            <div style={{ padding: '2rem 1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div className="rising-sun-element">
-                <span style={{ fontSize: '2rem', color: '#e11d48' }}>♡</span>
-                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#6e563b', marginTop: '0.35rem' }}>
-                  Your mood has changed to:
-                </span>
+
+            <div style={{ textAlign: 'center', color: '#e11d48', fontSize: '0.75rem', margin: '0.2rem 0 0.5rem 0' }}>♡</div>
+
+            <p style={{ fontSize: '0.9rem', color: '#4a3a2c', lineHeight: 1.65, fontWeight: 500 }}>
+              {isFlipped && result
+                ? result.actionText
+                : 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.'}
+            </p>
+
+            {/* Decorative leaf */}
+            <svg style={{ position: 'absolute', bottom: '10px', right: '10px', opacity: 0.18, pointerEvents: 'none' }} width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2d5a37" strokeWidth="1.5">
+              <path d="M12 22C12 22 17 17 17 11C17 5 12 2 12 2C12 2 7 5 7 11C7 17 12 22 12 22Z"/>
+              <path d="M12 22V2"/>
+            </svg>
+
+            {isFlipped && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f4eefc', paddingTop: '0.75rem', marginTop: '0.75rem' }}>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  style={{ background: 'none', border: 'none', color: '#7c5cbf', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}
+                >
+                  💾 Save to Profile
+                </button>
+                <a href="#paid-pdf-section" style={{ fontSize: '0.78rem', fontWeight: 700, color: '#b45309', textDecoration: 'underline' }}>
+                  Get 7-Day Plan ($7)
+                </a>
               </div>
-              <h2 className="serif-target-title" style={{ color: '#2d5a37', fontSize: '3.6rem', marginBottom: '1.25rem' }}>
-                Peaceful
-              </h2>
-
-              {/* Sample White Action Box */}
-              <div className="action-white-card">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.75rem' }}>
-                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f0fdf4', border: '1px solid #bbf7d0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
-                    🧘
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#2d2638' }}>
-                      60-sec action to get to a peaceful mood
-                    </h4>
-                  </div>
-                </div>
-
-                <div style={{ textAlign: 'center', color: '#e11d48', fontSize: '0.8rem', margin: '0.25rem 0 0.5rem 0' }}>♡</div>
-
-                <p style={{ fontSize: '0.95rem', color: '#4a3a2c', lineHeight: 1.6, fontWeight: 500 }}>
-                  Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.
-                </p>
-
-                {/* Decorative Leaf Branch SVG */}
-                <svg style={{ position: 'absolute', bottom: '12px', right: '12px', opacity: 0.25, pointerEvents: 'none' }} width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#2d5a37" strokeWidth="1.5">
-                  <path d="M12 22C12 22 17 17 17 11C17 5 12 2 12 2C12 2 7 5 7 11C7 17 12 22 12 22Z" />
-                  <path d="M12 22V2" />
-                </svg>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
+
       </div>
 
-      {/* Bottom Quotes Banner */}
+      {/* ===== BOTTOM QUOTES BANNER ===== */}
       <div className="bottom-quotes-banner">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '1.4rem', color: '#7c5cbf' }}>♡</span>
-          <div style={{ textAlign: 'left' }}>
-            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#4a3a2c' }}>Small shifts can change how you feel.</div>
-            <div style={{ fontSize: '0.78rem', color: '#7c5cbf' }}>You&apos;ve got this.</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <span style={{ fontSize: '1.3rem', color: '#7c5cbf' }}>♡</span>
+          <div>
+            <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#4a3a2c' }}>Small shifts can change how you feel.</div>
+            <div style={{ fontSize: '0.75rem', color: '#7c5cbf' }}>You&apos;ve got this.</div>
           </div>
         </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '1.4rem' }}>🍃</span>
-          <div style={{ textAlign: 'left' }}>
-            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#4a3a2c' }}>Be kind to yourself.</div>
-            <div style={{ fontSize: '0.78rem', color: '#7c5cbf' }}>One choice at a time.</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <span style={{ fontSize: '1.3rem' }}>🍃</span>
+          <div>
+            <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#4a3a2c' }}>Be kind to yourself.</div>
+            <div style={{ fontSize: '0.75rem', color: '#7c5cbf' }}>One choice at a time.</div>
           </div>
         </div>
       </div>
 
-      {/* Saved History Modal Drawer */}
+      {/* ===== HISTORY MODAL ===== */}
       {isHistoryOpen && (
         <div className="modal-overlay">
           <div className="modal-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'white' }}>📜 Your Saved Check-ins</h3>
-              <button
-                onClick={() => setIsHistoryOpen(false)}
-                style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}
-              >
-                ✕
-              </button>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'white' }}>📜 Your Saved Check-ins</h3>
+              <button onClick={() => setIsHistoryOpen(false)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
             </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxHeight: '350px', overflowY: 'auto' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', maxHeight: '340px', overflowY: 'auto' }}>
               {savedHistory.map((item, idx) => (
-                <div key={idx} style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '12px', padding: '0.85rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.35rem' }}>
-                    <span>{new Date(item.date).toLocaleDateString()} {new Date(item.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                    <span style={{ color: '#c084fc', fontWeight: 600 }}>{item.primaryMood} ➔ {item.specificFeeling}</span>
+                <div key={idx} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '0.75rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                    <span>{new Date(item.date).toLocaleDateString()}</span>
+                    <span style={{ color: '#c084fc', fontWeight: 600 }}>{item.primaryMood} → {item.specificFeeling}</span>
                   </div>
-                  <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#34d399', marginBottom: '0.2rem' }}>
-                    Target: {item.targetMood}
-                  </div>
-                  <div style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>
-                    &quot;{item.actionShown}&quot;
-                  </div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#34d399', marginBottom: '0.2rem' }}>Target: {item.targetMood}</div>
+                  <div style={{ fontSize: '0.78rem', color: '#cbd5e1' }}>&quot;{item.actionShown}&quot;</div>
                 </div>
               ))}
             </div>
@@ -464,7 +418,7 @@ export default function MoodTool() {
         </div>
       )}
 
-      {/* 2nd Visit Profile Modal */}
+      {/* Profile Modal */}
       <ProfileModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

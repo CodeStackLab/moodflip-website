@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-import AdSpace from '@/components/AdSpace';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import '@/app/globals.css';
@@ -30,20 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0.75rem 1rem' }}>
-          {/* Top AdSpace Slot */}
-          <AdSpace position="top" />
-
-          {/* Dedicated Responsive Header */}
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.25rem 2rem 1.25rem' }}>
           <Header />
-
-          {/* Main Content */}
           <main>{children}</main>
-
-          {/* Bottom AdSpace Slot */}
-          <AdSpace position="bottom" />
-
-          {/* Dedicated Responsive Footer */}
           <Footer />
         </div>
       </body>

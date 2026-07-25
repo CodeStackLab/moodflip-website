@@ -1,19 +1,23 @@
 import React from 'react';
 import MoodTool from '@/components/MoodTool';
 import PaidPlansSection from '@/components/PaidPlansSection';
+import AdSpace from '@/components/AdSpace';
 
 export default function HomePage() {
   return (
     <div>
-      {/* Medical disclaimer notice */}
+      {/* Top AdSense Container Space */}
+      <AdSpace position="top" />
+
+      {/* Non-medical self-reflection utility disclaimer notice */}
       <div className="medical-notice" style={{ marginTop: '0.2rem' }}>
         <span>🛡️ <strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
       </div>
 
-      {/* Main Interactive Mood Tool Cloned Design */}
+      {/* Main Interactive Mood Tool */}
       <MoodTool />
 
-      {/* Paid Products Section */}
+      {/* Paid Products Section ($7 & $19 PDF Plans) */}
       <PaidPlansSection />
 
       {/* SEO Mood Directory */}
@@ -37,6 +41,9 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* Bottom AdSense Container Space */}
+      <AdSpace position="bottom" />
     </div>
   );
 }

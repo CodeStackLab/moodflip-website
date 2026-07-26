@@ -1,62 +1,21 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { SEO_PAGES } from '@/lib/seoData';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 interface Props {
   params: { slug: string };
 }
 
-const SEO_PAGES: Record<string, { title: string; subtitle: string; content: string; targetState: string; action: string }> = {
-  'anxious-at-night': {
-    title: 'How to Flip Feeling Anxious at Night',
-    subtitle: 'Practical 60-second micro-step to calm night-time anxiety and racing thoughts.',
-    content: 'Night-time anxiety often strikes when the body slows down but the mind continues racing. When lying in bed, your nervous system can mistake quiet stillness for uncertainty.',
-    targetState: 'Calm & Peaceful Sleep 🌙',
-    action: 'Place one hand on your chest and one on your belly. Breathe in for 4 seconds, hold for 7 seconds, and exhale slowly for 8 seconds.'
-  },
-  'overwhelmed-work': {
-    title: 'Overcoming Workplace & Workload Overwhelm',
-    subtitle: 'Clear mental clutter instantly with a single 60-second focus anchor.',
-    content: 'Overwhelm happens when you view all tasks as equally urgent and massive. Shifting out of overwhelm requires micro-scaffolding.',
-    targetState: 'Organized & Focused 🎯',
-    action: 'Write down only the single next physical step you need to take. Hide all other to-do lists for the next 20 minutes.'
-  },
-  'feeling-lonely': {
-    title: 'Navigating Feelings of Loneliness & Isolation',
-    subtitle: 'Gentle self-compassion tools when feeling disconnected.',
-    content: 'Loneliness is a universal human signal for connection. Acknowledge your feeling without self-judgment.',
-    targetState: 'Connected & Supported 🤝',
-    action: 'Send a quick 1-sentence message to someone you appreciate, or place a warm hand over your heart for 60 seconds.'
-  },
-  'frustrated-angry': {
-    title: 'Releasing Frustration & Anger Safely',
-    subtitle: 'Channel intense emotional energy into calm clarity.',
-    content: 'Frustration is proof that something matters to you. When anger flares, physical tension needs a safe release valve.',
-    targetState: 'Calm & In Control ⚓',
-    action: 'Tense all your muscles tightly for 5 seconds, then release completely with a deep exhale.'
-  },
-  'low-energy-stuck': {
-    title: 'Flipping Low Energy & Emotional Fatigue',
-    subtitle: 'Recharge your mental battery with low-friction micro-movement.',
-    content: 'When energy is depleted, pushing hard causes burnout. A gentle shift in physical state re-engages motivation.',
-    targetState: 'Recharged & Vitalized ⚡',
-    action: 'Drink a glass of cold water and step outside or open a window to take 5 deep breaths of fresh air.'
-  },
-  'scared-uncertainty': {
-    title: 'Coping with Fear of the Unknown',
-    subtitle: 'Ground yourself when facing uncertainty or major decisions.',
-    content: 'Uncertainty triggers the brain\'s threat detection center. Grounding brings your awareness back to physical safety.',
-    targetState: 'Brave & Grounded 🏰',
-    action: 'Name 5 things you can see, 4 you can touch, 3 you hear, 2 you smell, and 1 you taste.'
-  }
-};
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = SEO_PAGES[params.slug];
   if (!page) return { title: 'Mood Guide | MoodFlip' };
   return {
-    title: `${page.title} | MoodFlip Guide`,
+    title: `${page.title} | MoodFlip Self-Help Guide`,
     description: page.subtitle,
+    keywords: ['mood flip', page.title.toLowerCase(), '60 second actions', 'self help utility', 'mindset shift']
   };
 }
 
@@ -64,7 +23,6 @@ export default function SEOMoodPage({ params }: Props) {
   const page = SEO_PAGES[params.slug];
   if (!page) notFound();
 
-  // Schema.org structured data
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -72,62 +30,137 @@ export default function SEOMoodPage({ params }: Props) {
     description: page.subtitle,
     author: {
       '@type': 'Organization',
+      name: 'MoodFlip',
+      url: 'https://moodflip.coach'
+    },
+    publisher: {
+      '@type': 'Organization',
       name: 'MoodFlip'
     }
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '2rem auto' }}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <div className="site-shell">
+      <Header />
 
-      <article style={{ background: 'rgba(18,24,44,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '2.5rem' }}>
-        <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: 'white', marginBottom: '0.5rem' }}>
-          {page.title}
-        </h1>
-        <p style={{ fontSize: '1.1rem', color: '#a855f7', fontWeight: 600, marginBottom: '1.5rem' }}>
-          {page.subtitle}
-        </p>
+      <main style={{ maxWidth: '860px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
 
-        <p style={{ fontSize: '1rem', color: '#cbd5e1', lineHeight: 1.7, marginBottom: '2rem' }}>
-          {page.content}
-        </p>
+        <article style={{
+          background: 'var(--card-bg)',
+          border: '1px solid var(--card-border)',
+          borderRadius: '28px',
+          padding: '3rem 2.5rem',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.04)'
+        }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#a855f7', background: 'var(--tile-selected-bg)', padding: '0.35rem 0.95rem', borderRadius: '9999px', textTransform: 'uppercase' }}>
+            MoodFlip Guide
+          </span>
 
-        {/* Action Callout */}
-        <div style={{ background: 'linear-gradient(135deg, #fffbe6, #fef3c7)', border: '2px solid #fde68a', borderRadius: '16px', padding: '1.75rem', color: '#78350f', marginBottom: '2rem' }}>
-          <div style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.05em', color: '#b45309', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
-            Recommended Positive Target State:
-          </div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#78350f', marginBottom: '1rem' }}>
-            {page.targetState}
-          </h2>
-          <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#92400e', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-            ⚡ 60-Second Micro-Action:
-          </div>
-          <p style={{ fontSize: '1.05rem', fontWeight: 700, color: '#451a03', lineHeight: 1.5 }}>
-            "{page.action}"
+          <h1 style={{
+            fontFamily: "'Fraunces', Georgia, serif",
+            fontSize: 'clamp(2.2rem, 5vw, 3.2rem)',
+            fontWeight: 700,
+            color: 'var(--text-main)',
+            margin: '0.8rem 0 0.4rem 0'
+          }}>
+            {page.title}
+          </h1>
+          <p style={{ fontSize: '1.1rem', color: '#ec4899', fontWeight: 600, marginBottom: '1.75rem' }}>
+            {page.subtitle}
           </p>
-        </div>
 
-        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-          <a
-            href="/"
-            style={{
-              display: 'inline-block',
-              padding: '0.85rem 2rem',
-              background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-              color: 'white',
-              fontWeight: 700,
-              borderRadius: '12px',
-              textDecoration: 'none'
-            }}
-          >
-            ✨ Try the Full MoodFlip Tool Now
-          </a>
-        </div>
-      </article>
+          <p style={{ fontSize: '1.02rem', color: 'var(--text-subtle)', lineHeight: 1.75, marginBottom: '2rem' }}>
+            {page.content}
+          </p>
+
+          {/* 60-SECOND ACTION CALLOUT CARD */}
+          <div style={{
+            background: 'var(--tile-selected-bg)',
+            border: '1.5px solid var(--card-border)',
+            borderRadius: '20px',
+            padding: '1.75rem',
+            marginBottom: '2.5rem'
+          }}>
+            <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#a855f7', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+              Recommended Target State:
+            </div>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem', fontFamily: "'Fraunces', Georgia, serif" }}>
+              {page.targetState}
+            </h2>
+            <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+              ⚡ 60-Second Micro-Action:
+            </div>
+            <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)', lineHeight: 1.55, margin: 0 }}>
+              "{page.action}"
+            </p>
+          </div>
+
+          {/* INTERACTIVE TOOL CTA */}
+          <div style={{ textAlign: 'center', margin: '2.5rem 0', background: 'var(--tile-bg)', padding: '2rem', borderRadius: '24px', border: '1px solid var(--card-border)' }}>
+            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.35rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.5rem' }}>
+              Ready to Flip Your Mood Right Now?
+            </h3>
+            <p style={{ color: 'var(--text-subtle)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>
+              Use the interactive tap-only tool to choose any feeling and discover instant 60-second actions.
+            </p>
+            <a
+              href="/"
+              style={{
+                display: 'inline-block',
+                padding: '0.85rem 2.2rem',
+                background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
+                color: 'white',
+                fontWeight: 700,
+                borderRadius: '9999px',
+                textDecoration: 'none',
+                fontSize: '0.95rem',
+                boxShadow: '0 6px 20px rgba(124, 84, 209, 0.3)'
+              }}
+            >
+              ✨ Launch Interactive MoodFlip Tool
+            </a>
+          </div>
+
+          {/* RELATED GUIDES INTERNAL LINKING */}
+          <div style={{ borderTop: '1px solid var(--card-border)', paddingTop: '1.75rem', marginTop: '2.5rem' }}>
+            <h4 style={{ fontSize: '0.88rem', fontWeight: 800, color: '#a855f7', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}>
+              Related Mood Guides:
+            </h4>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem' }}>
+              {page.relatedSlugs.map((slug) => {
+                const rel = SEO_PAGES[slug];
+                if (!rel) return null;
+                return (
+                  <a
+                    key={slug}
+                    href={`/mood/${slug}`}
+                    style={{
+                      display: 'block',
+                      padding: '0.85rem 1rem',
+                      background: 'var(--tile-bg)',
+                      border: '1px solid var(--card-border)',
+                      borderRadius: '12px',
+                      color: 'var(--text-main)',
+                      textDecoration: 'none',
+                      fontWeight: 600,
+                      fontSize: '0.86rem',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    📖 {rel.title}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </article>
+      </main>
+
+      <Footer />
     </div>
   );
 }

@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MOOD_DATA, getActionForFeeling, MoodFamily, MoodSubCategory, FeelingDetail } from '../lib/moodData';
+import { MOOD_DATA, getActionForFeeling } from '@/lib/moodData';
+import AuthModal from '@/components/AuthModal';
+import PaidPlansSection from '@/components/PaidPlansSection';
 import {
   LonelyIcon,
   RejectedIcon,
@@ -11,447 +13,755 @@ import {
   EmptyIcon,
   OverwhelmedIcon,
   AbandonedIcon,
+  TrashIcon,
   MeditateIcon,
   BotanicalSprig
-} from './FeelingIcons';
-import AuthModal from './AuthModal';
-import PayPalModal from './PayPalModal';
+} from '@/components/FeelingIcons';
 
-// Helper to render matching line-art icon
-// Selected cards have deep purple bg → use white icon
-const renderFeelingIcon = (iconName: string, isSelected: boolean) => {
-  const iconColor = isSelected ? '#FFFFFF' : '#6B5EA0';
-  switch (iconName) {
-    case 'Lonely':
-      return <LonelyIcon size={34} color={iconColor} />;
-    case 'Rejected':
-      return <RejectedIcon size={34} color={iconColor} />;
-    case 'Hurt':
-      return <HurtIcon size={34} color={iconColor} />;
-    case 'Ashamed':
-      return <AshamedIcon size={34} color={iconColor} />;
-    case 'Guilty':
-      return <GuiltyIcon size={34} color={iconColor} />;
-    case 'Empty':
-      return <EmptyIcon size={34} color={iconColor} />;
-    case 'Overwhelmed':
-      return <OverwhelmedIcon size={34} color={iconColor} />;
-    case 'Abandoned':
-      return <AbandonedIcon size={34} color={iconColor} />;
-    default:
-      return <LonelyIcon size={34} color={iconColor} />;
-  }
+const FEELING_ICON_MAP: Record<string, React.FC<{ size?: number; color?: string }>> = {
+  lonely: LonelyIcon,
+  isolated: LonelyIcon,
+  abandoned: AbandonedIcon,
+  rejected: RejectedIcon,
+  hurt: HurtIcon,
+  disappointed: HurtIcon,
+  grief: HurtIcon,
+  ashamed: AshamedIcon,
+  guilty: GuiltyIcon,
+  empty: EmptyIcon,
+  depressed: EmptyIcon,
+  overwhelmed: OverwhelmedIcon,
+  anxious: OverwhelmedIcon,
+  terrified: AbandonedIcon,
+  scared: AbandonedIcon,
+  panicked: OverwhelmedIcon,
+  insecure: AshamedIcon,
+  nervous: OverwhelmedIcon,
+  fearful: AbandonedIcon,
+  worried: OverwhelmedIcon,
+  helpless: AbandonedIcon,
+  frozen: EmptyIcon,
+
+  // Angry feelings
+  enraged: HurtIcon,
+  annoyed: RejectedIcon,
+  frustrated: OverwhelmedIcon,
+  resentful: HurtIcon,
+  irritated: RejectedIcon,
+  betrayed: HurtIcon,
+  furious: HurtIcon,
+  hostile: HurtIcon,
+
+  // Disgusted feelings
+  repulsed: EmptyIcon,
+  revolted: EmptyIcon,
+  repelled: EmptyIcon,
+  disapproved: RejectedIcon,
+  awful: AshamedIcon,
+  detestable: AshamedIcon,
+  hesitant: GuiltyIcon,
+  embarrassed: AshamedIcon,
+  avoidant: EmptyIcon,
+
+  // Stressed feelings
+  exhausted: EmptyIcon,
+  'burned-out': EmptyIcon,
+  burntout: EmptyIcon,
+  frazzled: OverwhelmedIcon,
+  swamped: OverwhelmedIcon,
+  pressured: OverwhelmedIcon,
+  rushed: OverwhelmedIcon,
+  restless: OverwhelmedIcon,
+  overburdened: OverwhelmedIcon
 };
 
-export default function MoodTool() {
-  const [selectedFamily, setSelectedFamily] = useState<MoodFamily>(MOOD_DATA[0]);
-  const [selectedSub, setSelectedSub] = useState<MoodSubCategory>(MOOD_DATA[0].subCategories[0]);
-  const [selectedFeeling, setSelectedFeeling] = useState<FeelingDetail>(MOOD_DATA[0].subCategories[0].feelings[0]);
-  const [result, setResult] = useState<{ targetMood: string; actionText: string } | null>(null);
-  const [isFlipped, setIsFlipped] = useState<boolean>(false);
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  const [visitCount, setVisitCount] = useState<number>(1);
-  const [isAuthOpen, setIsAuthOpen] = useState<boolean>(false);
+// Google Material 3 Arrow Banner Component with Guided Step Animation
+function GoogleArrowBanner({
+  number,
+  icon,
+  text,
+  isDone,
+  isActive
+}: {
+  number: string;
+  icon: string;
+  text: string;
+  isDone?: boolean;
+  isActive?: boolean;
+}) {
+  return (
+    <div className={`arrow-banner-item arrow-banner-animated ${isActive ? 'step-active-glow' : ''}`} style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.6rem',
+      background: isDone
+        ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(124, 84, 209, 0.12) 100%)'
+        : 'linear-gradient(135deg, rgba(124, 84, 209, 0.12) 0%, rgba(231, 124, 116, 0.12) 100%)',
+      border: isDone ? '1.5px solid #10b981' : isActive ? '1.5px solid #a855f7' : '1.5px solid var(--card-border)',
+      color: 'var(--text-main)',
+      padding: '0.65rem 1.6rem 0.65rem 0.75rem',
+      borderRadius: '9999px 24px 24px 9999px',
+      clipPath: 'polygon(0% 0%, 86% 0%, 100% 50%, 86% 100%, 0% 100%)',
+      fontSize: '0.8rem',
+      fontWeight: 600,
+      boxShadow: isActive ? '0 6px 18px rgba(168, 85, 247, 0.25)' : '0 4px 12px rgba(120, 90, 160, 0.06)',
+      position: 'relative',
+      minWidth: '200px',
+      transition: 'all 0.3s ease'
+    }}>
+      <div style={{
+        width: '28px',
+        height: '28px',
+        borderRadius: '50%',
+        background: isDone ? '#10b981' : 'var(--tile-bg)',
+        color: isDone ? '#ffffff' : '#a855f7',
+        border: '1px solid var(--card-border)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '0.85rem',
+        flexShrink: 0,
+        boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
+        fontWeight: 800
+      }}>
+        {isDone ? '✓' : icon}
+      </div>
+      <span style={{ paddingRight: '0.6rem', lineHeight: 1.25 }}>
+        <strong style={{ color: isDone ? '#10b981' : '#a855f7', marginRight: '0.25rem' }}>{number}</strong> {text}
+      </span>
+    </div>
+  );
+}
 
-  // Section 9 & 10: State for 7-checkin offer popup & PayPal modal
-  const [isOfferModalOpen, setIsOfferModalOpen] = useState<boolean>(false);
-  const [isPayPalOpen, setIsPayPalOpen] = useState<boolean>(false);
-  const [userEmail, setUserEmail] = useState<string>('');
+// Google Material 3 Cloud Chip Button
+function GoogleCloudButton({
+  name,
+  isSelected,
+  onClick
+}: {
+  name: string;
+  isSelected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        position: 'relative',
+        background: 'transparent',
+        border: 'none',
+        padding: '0.65rem 1.35rem',
+        cursor: 'pointer',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth: '94px',
+        height: '48px',
+        transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+        transform: isSelected ? 'scale(1.06)' : 'scale(1)'
+      }}
+    >
+      <svg
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 1,
+          filter: isSelected
+            ? 'drop-shadow(0 6px 16px rgba(168, 85, 247, 0.35))'
+            : 'drop-shadow(0 2px 6px rgba(0,0,0,0.03))',
+          transition: 'all 0.25s ease'
+        }}
+        viewBox="0 0 120 54"
+      >
+        <path
+          d="M 24 48 
+             C 12 48, 4 38, 10 26 
+             C 4 15, 18 5, 36 11 
+             C 46 2, 72 3, 82 13 
+             C 96 8, 108 20, 104 33 
+             C 114 40, 108 48, 94 48 
+             Z"
+          fill={isSelected ? 'var(--tile-selected-bg)' : 'var(--tile-bg)'}
+          stroke={isSelected ? '#a855f7' : 'var(--card-border)'}
+          strokeWidth={isSelected ? '2.5' : '1.6'}
+        />
+      </svg>
+
+      <span style={{
+        position: 'relative',
+        zIndex: 2,
+        fontFamily: "'Outfit', 'Inter', sans-serif",
+        fontSize: '0.88rem',
+        fontWeight: isSelected ? 700 : 600,
+        color: isSelected ? '#a855f7' : 'var(--text-main)',
+        letterSpacing: '0.01em'
+      }}>
+        {name}
+      </span>
+    </button>
+  );
+}
+
+export default function MoodTool() {
+  const [activeFamilyId, setActiveFamilyId] = useState<string>('sad');
+  const [selectedFeelingId, setSelectedFeelingId] = useState<string>('lonely');
+  const [currentFlip, setCurrentFlip] = useState<{ targetMood: string; actionText: string }>({
+    targetMood: 'Peaceful',
+    actionText: 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.'
+  });
+
+  const [flipCount, setFlipCount] = useState<number>(0);
+  const [isFlipping, setIsFlipping] = useState<boolean>(false);
+  const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [show2ndVisitModal, setShow2ndVisitModal] = useState<boolean>(false);
+  const [show7thCheckinOffer, setShow7thCheckinOffer] = useState<boolean>(false);
+  const [profile, setProfile] = useState<any>(null);
+
+  const activeFamily = MOOD_DATA.find((f) => f.id === activeFamilyId) || MOOD_DATA[0];
+  const currentFeelings = activeFamily.subCategories.flatMap((sub) => sub.feelings);
 
   useEffect(() => {
-    const savedVisits = parseInt(localStorage.getItem('moodflip_visit_count') || '0', 10) + 1;
-    localStorage.setItem('moodflip_visit_count', savedVisits.toString());
-    setVisitCount(savedVisits);
-
-    // Section 10: Automatically trigger pop-up window on 2nd visit asking to create a profile
-    if (savedVisits === 2) {
-      const hasPrompted = localStorage.getItem('moodflip_2nd_visit_prompted');
-      if (!hasPrompted) {
-        setIsAuthOpen(true);
-        localStorage.setItem('moodflip_2nd_visit_prompted', 'true');
+    if (typeof window !== 'undefined') {
+      const storedProfile = localStorage.getItem('moodflip_profile');
+      if (storedProfile) {
+        setProfile(JSON.parse(storedProfile));
       }
+
+      const visits = parseInt(localStorage.getItem('moodflip_visit_count') || '0', 10) + 1;
+      localStorage.setItem('moodflip_visit_count', visits.toString());
+
+      if (visits === 2 && !storedProfile && !localStorage.getItem('moodflip_2nd_visit_dismissed')) {
+        setShow2ndVisitModal(true);
+      }
+
+      const checkins = parseInt(localStorage.getItem('moodflip_checkin_count') || '0', 10);
+      setFlipCount(checkins);
     }
   }, []);
 
-  const handleFlipMood = () => {
-    const feelingId = selectedFeeling ? selectedFeeling.id : selectedSub.id;
-    const flipped = getActionForFeeling(feelingId, visitCount);
-    setResult(flipped);
-    setIsAnimating(true);
-    setIsFlipped(true);
-
-    // Track user check-in history if logged in
-    try {
-      const profileStr = localStorage.getItem('moodflip_profile');
-      if (profileStr) {
-        const profile = JSON.parse(profileStr);
-        setUserEmail(profile.email);
-        const checkinsKey = `moodflip_checkins_${profile.email}`;
-        const existingCheckins = JSON.parse(localStorage.getItem(checkinsKey) || '[]');
-        const newCheckin = {
-          id: Date.now().toString(),
-          primaryMood: selectedFamily.name,
-          subFeeling: selectedSub.name,
-          specificFeeling: selectedFeeling.name,
-          targetMood: flipped.targetMood,
-          actionShown: flipped.actionText,
-          createdAt: new Date().toISOString()
-        };
-        const updatedCheckins = [newCheckin, ...existingCheckins];
-        localStorage.setItem(checkinsKey, JSON.stringify(updatedCheckins));
-
-        // Sync check-in to server route
-        fetch('/api/checkins', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: profile.email, ...newCheckin })
-        }).catch(() => {});
-
-        // Section 9 & 10: After 7 saved check-ins, show offer popup for 7-day paid PDF ($7)
-        if (updatedCheckins.length === 7) {
-          const hasOffered = localStorage.getItem(`moodflip_7day_offered_${profile.email}`);
-          if (!hasOffered) {
-            setIsOfferModalOpen(true);
-            localStorage.setItem(`moodflip_7day_offered_${profile.email}`, 'true');
-          }
-        }
-      }
-    } catch (e) {
-      console.error('Check-in storage sync error:', e);
+  const handleSelectFamily = (familyId: string) => {
+    setActiveFamilyId(familyId);
+    const fam = MOOD_DATA.find((f) => f.id === familyId) || MOOD_DATA[0];
+    const firstFeeling = fam.subCategories[0]?.feelings[0];
+    if (firstFeeling) {
+      setSelectedFeelingId(firstFeeling.id);
     }
-
-    setTimeout(() => setIsAnimating(false), 500);
   };
 
-  const currentTargetMood = isFlipped && result ? result.targetMood : (selectedFeeling ? selectedFeeling.targetMood : 'Peaceful');
-  const currentActionText = isFlipped && result
-    ? result.actionText
-    : (selectedFeeling && selectedFeeling.actions ? selectedFeeling.actions[0] : 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.');
+  const handleClearSelection = () => {
+    setActiveFamilyId('sad');
+    setSelectedFeelingId('lonely');
+    setCurrentFlip({
+      targetMood: 'Peaceful',
+      actionText: 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.'
+    });
+  };
+
+  const handleFlipMood = async () => {
+    setIsFlipping(true);
+
+    const nextCount = flipCount + 1;
+    setFlipCount(nextCount);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('moodflip_checkin_count', nextCount.toString());
+    }
+
+    const newFlip = getActionForFeeling(selectedFeelingId, nextCount);
+
+    setTimeout(() => {
+      setCurrentFlip(newFlip);
+      setIsFlipping(false);
+
+      if (nextCount >= 7 && !localStorage.getItem('moodflip_7th_offer_shown')) {
+        setShow7thCheckinOffer(true);
+        localStorage.setItem('moodflip_7th_offer_shown', 'true');
+      }
+    }, 350);
+
+    if (profile?.email) {
+      try {
+        await fetch('/api/checkins', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: profile.email,
+            primaryMood: activeFamily.name,
+            subFeeling: selectedFeelingId,
+            specificFeeling: selectedFeelingId,
+            targetMood: newFlip.targetMood,
+            actionShown: newFlip.actionText
+          })
+        });
+      } catch (e) {
+        // Fallback
+      }
+    }
+  };
+
+  const displayFeelings = currentFeelings.slice(0, 8);
 
   return (
-    <div className="moodflip-wrapper">
-      {/* Centered Brand Title Header */}
-      <div className="moodflip-brand-header">
-        <h1 className="moodflip-brand-title">
-          <span className="brand-mood">Mood</span>
-          <span className="brand-flip">
-            Flip
-            <span className="brand-heart-dot">♡</span>
-          </span>
-        </h1>
-      </div>
+    <div style={{
+      maxWidth: '1280px',
+      margin: '0 auto',
+      padding: '0.5rem 0.5rem',
+      fontFamily: "'Outfit', 'Inter', -apple-system, sans-serif"
+    }}>
 
-      {/* Main Split-Canvas Frame */}
-      <div className="moodflip-main-canvas">
-
-        {/* LEFT SELECTION PANEL */}
-        <div className="moodflip-left-panel">
-
-          {/* STEP 1: Select Broad Mood Family Cloud */}
-          <div className="step-arrow-container">
-            <div className="step-pill-badge">
-              <span className="badge-icon-circle">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                </svg>
-              </span>
-              <span className="badge-text">Step 1: Choose your current mood cloud</span>
-            </div>
-          </div>
-
-          {/* 5 Cloud Family Pills - cloud SVG shape with lavender selected state */}
-          <div className="cloud-pills-row">
-            {MOOD_DATA.map((family) => {
-              const isSelected = selectedFamily.id === family.id;
-              return (
-                <button
-                  key={family.id}
-                  onClick={() => {
-                    setSelectedFamily(family);
-                    const defaultSub = family.subCategories[0];
-                    setSelectedSub(defaultSub);
-                    if (defaultSub && defaultSub.feelings && defaultSub.feelings.length > 0) {
-                      setSelectedFeeling(defaultSub.feelings[0]);
-                    }
-                    setIsFlipped(false);
-                    setResult(null);
-                  }}
-                  className={`cloud-shape-pill ${isSelected ? 'selected' : ''}`}
-                >
-                  <svg className="cloud-svg-bg" viewBox="0 0 110 50" fill="none" preserveAspectRatio="none">
-                    {/* Cloud silhouette matching reference image */}
-                    <path d="M18 40 C 8 40 3 31 8 22 C 7 12 18 8 28 13 C 36 4 62 4 72 13 C 82 8 95 13 95 22 C 100 31 95 40 85 40 Z"
-                      fill={isSelected ? '#EAE0FA' : '#FFFFFF'}
-                      stroke={isSelected ? '#9B7FE8' : '#DDD8D0'}
-                      strokeWidth="1.8"
-                    />
-                  </svg>
-                  <span className="cloud-pill-label">{family.name}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* STEP 2: Pick 2nd Layer Feeling Card */}
-          <div className="step-arrow-container">
-            <div className="step-pill-badge">
-              <span className="badge-icon-circle">
-                <span style={{ fontSize: '0.75rem', color: '#7C5CFC' }}>♡</span>
-              </span>
-              <span className="badge-text">Step 2: Pick the feeling card closest to you</span>
-            </div>
-          </div>
-
-          {/* Feeling Cards Grid */}
-          <div className="feeling-grid-layout">
-            {selectedFamily.subCategories.map((sub) => {
-              const isSelected = selectedSub.id === sub.id;
-              return (
-                <button
-                  key={sub.id}
-                  onClick={() => {
-                    setSelectedSub(sub);
-                    if (sub.feelings && sub.feelings.length > 0) {
-                      setSelectedFeeling(sub.feelings[0]);
-                    }
-                    setIsFlipped(false);
-                    setResult(null);
-                  }}
-                  className={`feeling-tile-card ${isSelected ? 'selected' : ''}`}
-                >
-                  <div className="feeling-tile-icon">
-                    {renderFeelingIcon(sub.iconName, isSelected)}
-                  </div>
-                  <span className="feeling-tile-label">{sub.name}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* STEP 3: 3rd Layer Feeling Details (if available) */}
-          {selectedSub && selectedSub.feelings && selectedSub.feelings.length > 0 ? (
-            <div style={{ marginTop: '1rem' }}>
-              <div className="step-arrow-container">
-                <div className="step-pill-badge">
-                  <span className="badge-icon-circle">✨</span>
-                  <span className="badge-text">Step 3: Select specific feeling nuance</span>
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.4rem' }}>
-                {selectedSub.feelings.map((f) => {
-                  const isSel = selectedFeeling.id === f.id;
-                  return (
-                    <button
-                      key={f.id}
-                      onClick={() => {
-                        setSelectedFeeling(f);
-                        setIsFlipped(false);
-                        setResult(null);
-                      }}
-                      style={{
-                        padding: '0.35rem 0.85rem',
-                        borderRadius: '9999px',
-                        border: isSel ? '2px solid #7C5CFC' : '1px solid #CBD5E1',
-                        background: isSel ? '#F0EBFF' : '#FFFFFF',
-                        color: isSel ? '#53389E' : '#475569',
-                        fontWeight: 700,
-                        fontSize: '0.8rem',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease'
-                      }}
-                    >
-                      {f.name}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ) : null}
-
+      {/* GOOGLE MATERIAL 3 HERO SECTION */}
+      <div style={{ textAlign: 'center', marginBottom: '2.5rem', marginTop: '0.75rem' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          background: 'var(--tile-selected-bg)',
+          border: '1px solid var(--card-border)',
+          padding: '0.45rem 1.25rem',
+          borderRadius: '9999px',
+          fontSize: '0.8rem',
+          fontWeight: 700,
+          color: '#a855f7',
+          marginBottom: '1rem',
+          boxShadow: '0 4px 14px rgba(168, 85, 247, 0.12)'
+        }}>
+          <span>✨ 100% Free Self-Help Utility</span>
+          <span style={{ opacity: 0.4 }}>•</span>
+          <span>Tap-Only</span>
+          <span style={{ opacity: 0.4 }}>•</span>
+          <span>No Sign-Up Required</span>
         </div>
 
-        {/* CENTER ARROW BUTTON - "Change My Mood" label matching reference image exactly */}
-        <div className="center-flip-trigger-wrapper">
-          <button
-            onClick={handleFlipMood}
-            className="purple-3d-arrow-button"
-            id="change-my-mood-btn"
-          >
-            <span className="arrow-btn-text">Change{"\n"}My Mood</span>
-            <span className="arrow-btn-symbol">→</span>
+        <h1 style={{
+          fontFamily: "'Fraunces', 'Playfair Display', Georgia, serif",
+          fontSize: 'clamp(2.3rem, 5.5vw, 3.9rem)',
+          fontWeight: 700,
+          margin: '0 auto 0.75rem auto',
+          letterSpacing: '-0.02em',
+          lineHeight: 1.1,
+          maxWidth: '840px'
+        }}>
+          <span style={{ color: 'var(--text-main)' }}>Shift Your Mindset in </span>
+          <span style={{
+            background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}>60 Seconds</span>
+        </h1>
+
+        <p style={{
+          fontSize: '1.05rem',
+          color: 'var(--text-subtle)',
+          maxWidth: '680px',
+          margin: '0 auto 1.5rem auto',
+          lineHeight: 1.6,
+          fontWeight: 400
+        }}>
+          Select your current negative mood, discover your positive counterpart, and get 1 practical 60-second action to regain emotional clarity.
+        </p>
+
+        {/* GOOGLE MATERIAL FEATURE BADGES */}
+        <div className="hero-feature-badges" style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1.25rem',
+          flexWrap: 'wrap',
+          fontSize: '0.84rem',
+          color: 'var(--text-main)',
+          fontWeight: 600
+        }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'var(--tile-bg)', padding: '0.4rem 0.95rem', borderRadius: '9999px', border: '1px solid var(--card-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+            ⚡ 280+ 60-Sec Actions
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'var(--tile-bg)', padding: '0.4rem 0.95rem', borderRadius: '9999px', border: '1px solid var(--card-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+            🔒 100% Private (90-Day Auto-Purge)
+          </span>
+          <button onClick={() => setShow7thCheckinOffer(true)} style={{ background: 'var(--tile-selected-bg)', border: '1px solid var(--card-border)', color: '#a855f7', padding: '0.4rem 0.95rem', borderRadius: '9999px', fontWeight: 700, fontSize: '0.84rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+            📘 Optional $7 Mindset Plan PDF &rarr;
           </button>
         </div>
+      </div>
 
-        {/* RIGHT SUNSET SCENIC PANEL */}
-        <div className="moodflip-right-panel">
+      {/* MAIN GOOGLE MATERIAL TOOL CANVAS CARD */}
+      <div style={{
+        background: 'var(--card-bg)',
+        borderRadius: '32px',
+        border: '1px solid var(--card-border)',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.08)',
+        overflow: 'hidden',
+        position: 'relative',
+        transition: 'background 0.3s ease, border-color 0.3s ease'
+      }}>
 
-          {/* Sunburst background rays */}
-          <div className="sunburst-rays"></div>
+        <div className="mood-tool-grid" style={{ minHeight: '620px', position: 'relative' }}>
 
-          {/* Flying sky bird icon */}
-          <div className="sky-bird-icon">
-            <svg width="24" height="14" viewBox="0 0 24 14" fill="none" stroke="#7A8B9E" strokeWidth="1.5" strokeLinecap="round">
-              <path d="M1 8C5 4 8 2 12 7C16 2 19 4 23 8" />
-            </svg>
-          </div>
+          {/* LEFT PANEL: MOOD SELECTORS & FEELING TILES GRID */}
+          <div className="left-panel-container" style={{
+            padding: '2.5rem 2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            borderRight: '1px solid var(--card-border)',
+            background: 'var(--left-bg)'
+          }}>
 
-          {/* Rising Sun Target Card (Section 6 Step 5: "Your positive mood is: Peaceful") */}
-          <div className="rising-sun-wrapper">
-            <div className="rising-sun-arc">
-              <div className="sun-heart-icon">♡</div>
-              <div className="sun-change-label">Your positive mood is:</div>
-              <h2 className={`target-mood-serif-heading ${isAnimating ? 'pulse-fade' : ''}`}>
-                {currentTargetMood}
-              </h2>
-            </div>
-          </div>
+            {/* 2-COLUMN INNER LAYOUT */}
+            <div className="inner-left-layout" style={{ alignItems: 'start' }}>
 
-          {/* Floating White Action Card */}
-          <div className="floating-action-card">
-            <div className="action-card-content">
-              {/* Meditating Circle Icon */}
-              <div className="meditate-avatar-circle">
-                <MeditateIcon size={32} color="#4A6B53" />
+              {/* COLUMN A: GOOGLE MATERIAL ARROW BANNERS */}
+              <div className="arrow-banners-col" style={{ display: 'flex', flexDirection: 'column', gap: '3.6rem', paddingTop: '0.2rem' }}>
+                <GoogleArrowBanner number="01" icon="☁️" text="Choose your current mood" isDone={!!activeFamilyId} isActive={!selectedFeelingId} />
+                <GoogleArrowBanner number="02" icon="♡" text="Pick the feeling closest to how you feel" isDone={!!selectedFeelingId} isActive={!!selectedFeelingId} />
               </div>
 
-              {/* Title & Action */}
-              <div className="action-text-container">
-                <h3 className="action-card-title">
-                  60-sec action to get to a {currentTargetMood.toLowerCase()} mood
-                </h3>
-
-                {/* Heart line divider */}
-                <div className="heart-divider-line">
-                  <span className="line-half"></span>
-                  <span className="heart-center">♡</span>
-                  <span className="line-half"></span>
+              {/* COLUMN B: CLOUD BUTTONS ROW & PERFECT 4x2 FEELINGS GRID */}
+              <div>
+                {/* 5 Cloud Family Buttons Row */}
+                <div className="cloud-buttons-row" style={{ display: 'flex', gap: '0.35rem', marginBottom: '1.75rem' }}>
+                  {MOOD_DATA.map((fam) => {
+                    const isSelected = fam.id === activeFamilyId;
+                    return (
+                      <GoogleCloudButton
+                        key={fam.id}
+                        name={fam.name.charAt(0) + fam.name.slice(1).toLowerCase()}
+                        isSelected={isSelected}
+                        onClick={() => handleSelectFamily(fam.id)}
+                      />
+                    );
+                  })}
                 </div>
 
-                <p className="action-card-description">
-                  {currentActionText}
-                </p>
+                {/* Perfect 4x2 Grid of 7 Feelings + 1 Clear Selection Tile */}
+                <div className="feelings-responsive-grid" style={{ gap: '0.85rem' }}>
+                  {displayFeelings.map((feeling) => {
+                    const isSelected = feeling.id === selectedFeelingId;
+                    const IconComponent = FEELING_ICON_MAP[feeling.id] || LonelyIcon;
+                    return (
+                      <button
+                        key={feeling.id}
+                        onClick={() => setSelectedFeelingId(feeling.id)}
+                        className="feeling-card-item"
+                        style={{
+                          background: isSelected ? 'var(--tile-selected-bg)' : 'var(--tile-bg)',
+                          border: isSelected ? '2px solid #a855f7' : '1.5px solid var(--card-border)',
+                          borderRadius: '18px',
+                          padding: '1.1rem 0.5rem 0.85rem 0.5rem',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.65rem',
+                          cursor: 'pointer',
+                          boxShadow: isSelected ? '0 6px 18px rgba(168, 85, 247, 0.25)' : '0 2px 8px rgba(0,0,0,0.02)',
+                          transform: isSelected ? 'scale(1.02)' : 'scale(1)'
+                        }}
+                      >
+                        <div style={{ color: isSelected ? '#a855f7' : 'var(--text-main)' }}>
+                          <IconComponent size={34} color={isSelected ? '#a855f7' : 'var(--text-main)'} />
+                        </div>
+                        <span style={{
+                          fontSize: '0.83rem',
+                          fontWeight: isSelected ? 700 : 500,
+                          color: isSelected ? '#a855f7' : 'var(--text-main)',
+                          textTransform: 'capitalize'
+                        }}>
+                          {feeling.name}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* STEP 03: FLIP MOOD BUTTON (CLEAN NON-OVERLAPPING PLACEMENT) */}
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.75rem' }}>
+                  <button
+                    onClick={handleFlipMood}
+                    disabled={isFlipping}
+                    className="pulse-button"
+                    style={{
+                      padding: '1.05rem 2.5rem',
+                      borderRadius: '9999px',
+                      border: 'none',
+                      background: 'linear-gradient(135deg, #7c54d1 0%, #523793 100%)',
+                      color: 'white',
+                      fontWeight: 800,
+                      fontSize: '1.1rem',
+                      cursor: 'pointer',
+                      boxShadow: '0 8px 24px rgba(124, 84, 209, 0.4)',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      transition: 'all 0.25s ease',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    <span>{isFlipping ? 'Flipping...' : 'Change My Mood'}</span>
+                    <span style={{ fontSize: '1.35rem' }}>&rarr;</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* RIGHT PANEL: SUNBURST PASTEL ARTWORK & OUTCOME CARD */}
+          <div style={{
+            background: 'var(--right-bg)',
+            padding: '2.5rem 2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+
+            {/* SUNBURST RAY ARTWORK OVERLAY */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              pointerEvents: 'none',
+              opacity: 0.65
+            }}>
+              <svg width="100%" height="100%" viewBox="0 0 500 500" preserveAspectRatio="none">
+                <circle cx="250" cy="190" r="150" fill="#fde68a" opacity="0.25" />
+                <path d="M0 320 Q250 250 500 320 L500 500 L0 500 Z" fill="#fef3c7" opacity="0.35" />
+                <path d="M0 380 Q250 320 500 380 L500 500 L0 500 Z" fill="#fce7f3" opacity="0.25" />
+              </svg>
+            </div>
+
+            {/* OUTCOME DISPLAY */}
+            <div style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+              <div style={{ fontSize: '1.25rem', color: '#d97706', marginBottom: '0.35rem' }}>♡</div>
+              <div style={{ fontSize: '0.98rem', color: 'var(--text-subtle)', fontWeight: 500 }}>Your mood has changed to:</div>
+              <h2 className="target-mood-animate" key={currentFlip.targetMood} style={{
+                fontFamily: "'Fraunces', 'Playfair Display', Georgia, serif",
+                fontSize: currentFlip.targetMood.length > 12 ? '2.5rem' : '3.8rem',
+                fontWeight: 700,
+                color: '#10b981',
+                margin: '0.25rem 0 1.75rem 0',
+                lineHeight: 1.1,
+                whiteSpace: 'nowrap'
+              }}>
+                {currentFlip.targetMood}
+              </h2>
+
+              {/* 60-SECOND ACTION CARD */}
+              <div style={{
+                background: 'var(--action-card-bg)',
+                border: '1.5px solid var(--card-border)',
+                borderRadius: '20px',
+                padding: '1.5rem',
+                boxShadow: '0 12px 35px rgba(0, 0, 0, 0.06)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1.1rem',
+                textAlign: 'left',
+                position: 'relative'
+              }}>
+                <div style={{
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  background: 'var(--tile-selected-bg)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <MeditateIcon size={36} color="#a855f7" />
+                </div>
+
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: '0.96rem', fontWeight: 700, color: 'var(--text-main)', margin: 0, fontFamily: "'Fraunces', Georgia, serif", lineHeight: 1.3 }}>
+                    60-sec action to get to a {currentFlip.targetMood.toLowerCase()} mood
+                  </h3>
+                  <div style={{ borderTop: '1px solid var(--card-border)', margin: '0.65rem 0', position: 'relative', textAlign: 'center' }}>
+                    <span style={{ position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)', background: 'var(--action-card-bg)', padding: '0 0.4rem', fontSize: '0.7rem', color: '#c8828a' }}>♡</span>
+                  </div>
+                  <p style={{ fontSize: '0.91rem', color: 'var(--text-subtle)', lineHeight: 1.55, margin: 0, fontWeight: 400 }}>
+                    {currentFlip.actionText}
+                  </p>
+                </div>
+
+                <div style={{ flexShrink: 0, opacity: 0.85 }}>
+                  <BotanicalSprig size={40} color="#a855f7" />
+                </div>
+              </div>
+
+              {/* SAVE MY PROFILE BUTTON (SPEC REQUIREMENT #10) */}
+              <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
+                <button
+                  onClick={() => {
+                    if (profile?.email) {
+                      window.location.href = '/profile';
+                    } else {
+                      setShowAuthModal(true);
+                    }
+                  }}
+                  style={{
+                    padding: '0.75rem 1.6rem',
+                    background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
+                    color: 'white',
+                    fontWeight: 800,
+                    fontSize: '0.85rem',
+                    borderRadius: '9999px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    boxShadow: '0 6px 18px rgba(124, 84, 209, 0.3)',
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase'
+                  }}
+                >
+                  ✨ SAVE MY PROFILE
+                </button>
               </div>
             </div>
 
-            {/* Decorative Botanical Branch */}
-            <div className="botanical-branch-graphic">
-              <BotanicalSprig size={56} color="#6B8E73" />
+          </div>
+
+        </div>
+
+        {/* BOTTOM INSPIRATIONAL BANNER */}
+        <div style={{
+          background: 'var(--banner-bg)',
+          borderTop: '1px solid var(--card-border)',
+          padding: '1rem 2rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          fontSize: '0.85rem',
+          color: 'var(--text-main)',
+          borderRadius: '0 0 32px 32px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span style={{ fontSize: '1.25rem', color: '#a855f7' }}>♡</span>
+            <div>
+              <strong>Small shifts can change how you feel.</strong>
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-subtle)' }}>You've got this.</div>
             </div>
           </div>
 
-          {/* Section 10 Requirement: "A button needs to appear right under the 60 sec action; SAVE MY PROFILE." */}
-          <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
-            <button
-              onClick={() => setIsAuthOpen(true)}
-              style={{
-                padding: '0.65rem 1.6rem',
-                background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-                border: 'none',
-                borderRadius: '9999px',
-                color: 'white',
-                fontWeight: 800,
-                fontSize: '0.88rem',
-                cursor: 'pointer',
-                boxShadow: '0 6px 20px rgba(139, 92, 246, 0.35)',
-                transition: 'all 0.25 ease',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}
-            >
-              <span>♡</span>
-              <span>SAVE MY PROFILE</span>
-            </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span style={{ fontSize: '1.25rem', color: '#a855f7' }}>🍃</span>
+            <div>
+              <strong>Be kind to yourself.</strong>
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-subtle)' }}>One choice at a time.</div>
+            </div>
           </div>
-
         </div>
 
       </div>
 
-      {/* BOTTOM QUOTES BANNER */}
-      <div className="bottom-quotes-card">
-        <div className="quote-item">
-          <span className="quote-heart-icon">♡</span>
-          <div className="quote-text-group">
-            <span className="quote-main">Small shifts can change how you feel.</span>
-            <span className="quote-sub">You&apos;ve got this.</span>
-          </div>
-        </div>
-
-        <div className="quote-item">
-          <span className="quote-leaf-icon">🍃</span>
-          <div className="quote-text-group">
-            <span className="quote-main">Be kind to yourself.</span>
-            <span className="quote-sub">One choice at a time.</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Section 9 & 10: 7-Checkin Special Offer Modal Popup */}
-      {isOfferModalOpen && (
+      {/* 2ND VISIT INVITATION MODAL */}
+      {show2ndVisitModal && (
         <div className="modal-overlay">
-          <div className="modal-card" style={{ textAlign: 'center', padding: '1.75rem' }}>
-            <span style={{ fontSize: '2.5rem' }}>🎉</span>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1e1b4b', marginTop: '0.5rem' }}>
-              Congratulations on 7 Check-ins!
-            </h2>
-            <p style={{ fontSize: '0.85rem', color: '#475569', marginTop: '0.4rem', lineHeight: 1.5 }}>
-              You&apos;ve saved 7 mood entries with MoodFlip. Get your <strong>Personalised 7-Day Mood PDF Report ($7)</strong> delivered instantly with zero repeated actions!
+          <div className="modal-card" style={{ maxWidth: '480px', background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+              <span style={{ fontSize: '2.5rem' }}>💫</span>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-main)', marginTop: '0.5rem' }}>
+                Welcome Back to MoodFlip!
+              </h3>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-subtle)', marginTop: '0.35rem', lineHeight: 1.5 }}>
+                You've used MoodFlip multiple times! Create a free profile to save your check-ins and track your positive mindset progress.
+              </p>
+            </div>
+
+            <div style={{ background: 'var(--tile-selected-bg)', border: '1px solid var(--card-border)', padding: '1rem', borderRadius: '16px', marginBottom: '1.25rem' }}>
+              <p style={{ fontSize: '0.78rem', color: '#a855f7', lineHeight: 1.5, margin: 0, fontWeight: 600 }}>
+                "By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history so we can create and offer personalized downloads."
+              </p>
+            </div>
+
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-subtle)', textAlign: 'center', marginBottom: '1.25rem' }}>
+              * The free tool always works with <strong>no profile required</strong>.
             </p>
-            <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.25rem', justifyContent: 'center' }}>
+
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
               <button
-                onClick={() => setIsOfferModalOpen(false)}
+                onClick={() => {
+                  setShow2ndVisitModal(false);
+                  localStorage.setItem('moodflip_2nd_visit_dismissed', 'true');
+                }}
                 style={{
-                  padding: '0.6rem 1.1rem',
-                  background: '#f1f5f9',
-                  border: 'none',
+                  flex: 1,
+                  padding: '0.75rem',
                   borderRadius: '12px',
-                  color: '#64748b',
+                  border: 'none',
+                  background: 'var(--tile-bg)',
+                  color: 'var(--text-subtle)',
                   fontWeight: 700,
                   fontSize: '0.85rem',
                   cursor: 'pointer'
                 }}
               >
-                Maybe Later
+                Continue Free
               </button>
+
               <button
                 onClick={() => {
-                  setIsOfferModalOpen(false);
-                  setIsPayPalOpen(true);
+                  setShow2ndVisitModal(false);
+                  setShowAuthModal(true);
                 }}
                 style={{
-                  padding: '0.6rem 1.4rem',
-                  background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-                  border: 'none',
+                  flex: 1.5,
+                  padding: '0.75rem',
                   borderRadius: '12px',
+                  border: 'none',
+                  background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
                   color: 'white',
                   fontWeight: 800,
                   fontSize: '0.85rem',
                   cursor: 'pointer',
-                  boxShadow: '0 6px 18px rgba(139, 92, 246, 0.35)'
+                  boxShadow: '0 6px 18px rgba(124, 84, 209, 0.3)'
                 }}
               >
-                Get 7-Day Plan ($7) ✨
+                Create Profile &rarr;
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Profile / Registration Auth Modal */}
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-        initialTab="user"
-      />
+      {/* 7TH CHECK-IN SALES OFFER MODAL */}
+      {show7thCheckinOffer && (
+        <div className="modal-overlay">
+          <div className="modal-card" style={{ maxWidth: '540px', background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', background: '#ecfdf5', padding: '0.2rem 0.65rem', borderRadius: '9999px' }}>
+                🎉 Milestone Unlocked: 7 Check-Ins!
+              </span>
+              <button
+                onClick={() => setShow7thCheckinOffer(false)}
+                style={{ background: 'transparent', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: 'var(--text-subtle)' }}
+              >
+                ✕
+              </button>
+            </div>
 
-      {/* PayPal Checkout Modal for 7-Day Offer */}
-      <PayPalModal
-        isOpen={isPayPalOpen}
-        onClose={() => setIsPayPalOpen(false)}
-        planType="7_DAY_PDF"
-        userEmail={userEmail}
-      />
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', margin: '0.3rem 0' }}>
+              Get Your Personal 7-Day Mindset Plan
+            </h3>
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-subtle)', lineHeight: 1.55 }}>
+              You've completed 7 mood check-ins! Get your custom-generated 7-Day Mindset PDF report based on your exact check-in history.
+            </p>
+
+            <PaidPlansSection />
+          </div>
+        </div>
+      )}
+
+      {/* AUTH MODAL */}
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+
     </div>
   );
 }

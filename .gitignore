@@ -18,3 +18,4 @@ dist-ssr
 Thumbs.db
 
 .vercel
+test-results/*.log

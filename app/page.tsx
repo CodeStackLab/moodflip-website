@@ -1,49 +1,72 @@
 import React from 'react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import MoodTool from '@/components/MoodTool';
-import PaidPlansSection from '@/components/PaidPlansSection';
-import AdSpace from '@/components/AdSpace';
 
 export default function HomePage() {
   return (
-    <div>
-      {/* Top AdSense Container Space */}
-      <AdSpace position="top" />
+    <div className="site-shell">
+      <Header />
 
-      {/* Non-medical self-reflection utility disclaimer notice */}
-      <div className="medical-notice" style={{ marginTop: '0.2rem' }}>
-        <span>🛡️ <strong>Notice:</strong> MoodFlip is a self-reflection utility — not therapy, mental health treatment, or medical advice.</span>
+      {/* TOP ADSENSE AD SPACE PLACEHOLDER (PHASE 2 READY) */}
+      <div className="adsense-top-container" style={{
+        maxWidth: '1280px',
+        margin: '0.75rem auto 0 auto',
+        padding: '0 0.5rem',
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          width: '100%',
+          maxWidth: '728px',
+          height: '90px',
+          background: 'var(--tile-bg)',
+          border: '1px dashed var(--card-border)',
+          borderRadius: '16px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.75rem',
+          color: 'var(--text-subtle)',
+          fontWeight: 600,
+          letterSpacing: '0.04em'
+        }}>
+          ✨ AdSense Space Placeholder (Top Banner)
+        </div>
       </div>
 
-      {/* Main Interactive Mood Tool */}
-      <MoodTool />
+      <main style={{ marginTop: '1rem', marginBottom: '2rem' }}>
+        <MoodTool />
+      </main>
 
-      {/* Paid Products Section ($7 & $19 PDF Plans) */}
-      <PaidPlansSection />
-
-      {/* SEO Mood Directory */}
-      <section className="seo-directory-section">
-        <h2 className="seo-directory-title">
-          Explore Popular Mood Guides
-        </h2>
-        <div className="seo-directory-grid">
-          {[
-            { title: 'Feeling Anxious at Night', slug: 'anxious-at-night' },
-            { title: 'Overwhelmed by Work', slug: 'overwhelmed-work' },
-            { title: 'Feeling Lonely & Isolated', slug: 'feeling-lonely' },
-            { title: 'Frustrated & Angry', slug: 'frustrated-angry' },
-            { title: 'Low Energy & Stuck', slug: 'low-energy-stuck' },
-            { title: 'Scared of Uncertainty', slug: 'scared-uncertainty' },
-          ].map((item) => (
-            <a key={item.slug} href={`/mood/${item.slug}`} className="seo-directory-card">
-              <span>{item.title}</span>
-              <span>&rarr;</span>
-            </a>
-          ))}
+      {/* BOTTOM ADSENSE AD SPACE PLACEHOLDER (PHASE 2 READY) */}
+      <div className="adsense-bottom-container" style={{
+        maxWidth: '1280px',
+        margin: '0 auto 1.5rem auto',
+        padding: '0 0.5rem',
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          width: '100%',
+          maxWidth: '728px',
+          height: '90px',
+          background: 'var(--tile-bg)',
+          border: '1px dashed var(--card-border)',
+          borderRadius: '16px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.75rem',
+          color: 'var(--text-subtle)',
+          fontWeight: 600,
+          letterSpacing: '0.04em'
+        }}>
+          ✨ AdSense Space Placeholder (Bottom Banner)
         </div>
-      </section>
+      </div>
 
-      {/* Bottom AdSense Container Space */}
-      <AdSpace position="bottom" />
+      <Footer />
     </div>
   );
 }

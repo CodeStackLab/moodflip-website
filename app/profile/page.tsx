@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 interface SavedCheckin {
   primaryMood: string;
@@ -38,52 +40,58 @@ export default function UserProfilePage() {
 
   if (!profile) {
     return (
-      <div style={{ maxWidth: '440px', margin: '3.5rem auto', padding: '0 1rem', textAlign: 'center' }}>
-        <div style={{
-          background: '#ffffff',
-          border: '1px solid rgba(139, 92, 246, 0.18)',
-          borderRadius: '24px',
-          padding: '2.5rem 2rem',
-          boxShadow: '0 20px 50px rgba(139, 92, 246, 0.08)'
-        }}>
+      <div className="site-shell">
+        <Header />
+
+        <main style={{ maxWidth: '480px', margin: '3.5rem auto', padding: '0 1rem', textAlign: 'center' }}>
           <div style={{
-            width: '64px',
-            height: '64px',
-            borderRadius: '20px',
-            background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '2rem',
-            color: 'white',
-            marginBottom: '1rem',
-            boxShadow: '0 8px 20px rgba(139, 92, 246, 0.25)'
+            background: 'var(--card-bg)',
+            border: '1px solid var(--card-border)',
+            borderRadius: '28px',
+            padding: '2.5rem 2rem',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.04)'
           }}>
-            👤
-          </div>
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.65rem', fontWeight: 800, color: '#1e1b4b' }}>
-            User Account Profile
-          </h1>
-          <p style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.35rem', marginBottom: '1.5rem', lineHeight: 1.5 }}>
-            Sign in or create your profile to view your saved check-in history & PDF downloads.
-          </p>
-          <a
-            href="/login"
-            style={{
-              display: 'block',
-              padding: '0.85rem',
-              background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+            <div style={{
+              width: '64px',
+              height: '64px',
+              borderRadius: '20px',
+              background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '2rem',
               color: 'white',
-              borderRadius: '12px',
-              fontWeight: 800,
-              fontSize: '0.9rem',
-              textDecoration: 'none',
-              boxShadow: '0 6px 18px rgba(139, 92, 246, 0.3)'
-            }}
-          >
-            Go to Login / Registration Page ✨
-          </a>
-        </div>
+              marginBottom: '1rem',
+              boxShadow: '0 8px 20px rgba(124, 84, 209, 0.25)'
+            }}>
+              👤
+            </div>
+            <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.65rem', fontWeight: 700, color: 'var(--text-main)' }}>
+              User Account Profile
+            </h1>
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-subtle)', marginTop: '0.35rem', marginBottom: '1.75rem', lineHeight: 1.5 }}>
+              Sign in or create your profile to view your saved check-in history & PDF downloads.
+            </p>
+            <a
+              href="/login"
+              style={{
+                display: 'block',
+                padding: '0.85rem',
+                background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
+                color: 'white',
+                borderRadius: '12px',
+                fontWeight: 700,
+                fontSize: '0.9rem',
+                textDecoration: 'none',
+                boxShadow: '0 6px 18px rgba(124, 84, 209, 0.3)'
+              }}
+            >
+              Go to Login / Registration Page ✨
+            </a>
+          </div>
+        </main>
+
+        <Footer />
       </div>
     );
   }
@@ -91,304 +99,306 @@ export default function UserProfilePage() {
   const initial = (profile.name || profile.email)[0].toUpperCase();
 
   return (
-    <div style={{ maxWidth: '960px', margin: '2rem auto', padding: '0 1rem' }}>
-      <div style={{
-        background: '#ffffff',
-        border: '1px solid rgba(139, 92, 246, 0.16)',
-        borderRadius: '24px',
-        padding: '2rem 1.75rem',
-        boxShadow: '0 20px 50px rgba(139, 92, 246, 0.06)'
-      }}>
-        
-        {/* User Header Profile */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1.25rem',
-          marginBottom: '1.75rem',
-          borderBottom: '1.5px solid #f1f5f9',
-          paddingBottom: '1.5rem'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            {/* Avatar Circle */}
-            <div style={{
-              width: '56px',
-              height: '56px',
-              borderRadius: '18px',
-              background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-              color: '#ffffff',
-              fontSize: '1.5rem',
-              fontWeight: 800,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 6px 16px rgba(139, 92, 246, 0.25)',
-              flexShrink: 0
-            }}>
-              {initial}
-            </div>
+    <div className="site-shell">
+      <Header />
 
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#059669', background: '#ecfdf5', border: '1px solid #a7f3d0', padding: '0.15rem 0.6rem', borderRadius: '9999px' }}>
-                  🟢 ACTIVE PROFILE
-                </span>
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#6d28d9', background: '#f5f3ff', padding: '0.15rem 0.6rem', borderRadius: '9999px' }}>
-                  USER DASHBOARD
-                </span>
+      <main style={{ maxWidth: '960px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{
+          background: 'var(--card-bg)',
+          border: '1px solid var(--card-border)',
+          borderRadius: '28px',
+          padding: '2.5rem 2rem',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.04)'
+        }}>
+          
+          {/* User Header Profile */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '1.25rem',
+            marginBottom: '2rem',
+            borderBottom: '1px solid var(--card-border)',
+            paddingBottom: '1.75rem'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+              <div style={{
+                width: '60px',
+                height: '60px',
+                borderRadius: '20px',
+                background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
+                color: '#ffffff',
+                fontSize: '1.65rem',
+                fontWeight: 800,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 6px 18px rgba(124, 84, 209, 0.3)',
+                flexShrink: 0
+              }}>
+                {initial}
               </div>
 
-              <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.75rem', fontWeight: 800, color: '#1e1b4b', marginTop: '0.25rem' }}>
-                Welcome back, {profile.name || profile.email.split('@')[0]}!
-              </h1>
-              <p style={{ fontSize: '0.84rem', color: '#64748b', marginTop: '0.1rem' }}>
-                Account Email: <strong>{profile.email}</strong>
-              </p>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', gap: '0.65rem' }}>
-            <a
-              href="/"
-              style={{
-                padding: '0.65rem 1rem',
-                background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
-                borderRadius: '12px',
-                color: 'white',
-                fontWeight: 800,
-                fontSize: '0.84rem',
-                textDecoration: 'none',
-                boxShadow: '0 4px 12px rgba(139, 92, 246, 0.25)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem'
-              }}
-            >
-              <span>✨ New Check-in</span>
-            </a>
-
-            <button
-              type="button"
-              onClick={handleSignOut}
-              style={{
-                padding: '0.65rem 1rem',
-                background: '#f1f5f9',
-                border: 'none',
-                borderRadius: '12px',
-                color: '#64748b',
-                fontWeight: 700,
-                fontSize: '0.84rem',
-                cursor: 'pointer'
-              }}
-            >
-              Sign Out 🚪
-            </button>
-          </div>
-        </div>
-
-        {/* Dashboard Grid Cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '1.15rem',
-          marginBottom: '2.25rem'
-        }}>
-          {/* Card 1: Check-in Count */}
-          <div style={{
-            background: '#fcfbfe',
-            border: '1.5px solid #ddd6fe',
-            borderRadius: '18px',
-            padding: '1.25rem'
-          }}>
-            <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#6d28d9', letterSpacing: '0.04em' }}>TOTAL SAVED CHECK-INS</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#1e1b4b', marginTop: '0.2rem' }}>{history.length}</div>
-            <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '0.25rem' }}>Emotional check-ins logged on this device</div>
-          </div>
-
-          {/* Card 2: 7-Day Plan */}
-          <div style={{
-            background: '#f8fafc',
-            border: '1.5px solid #a7f3d0',
-            borderRadius: '18px',
-            padding: '1.25rem'
-          }}>
-            <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#047857', letterSpacing: '0.04em' }}>7-DAY EMOTIONAL PLAN ($7)</div>
-            <p style={{ fontSize: '0.78rem', color: '#475569', marginTop: '0.25rem', marginBottom: '0.75rem' }}>
-              Personalized PDF action guide tailored to your recent check-in.
-            </p>
-            <a
-              href={`/api/pdf?type=7_DAY_PDF&email=${encodeURIComponent(profile.email)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.5rem 0.85rem',
-                background: 'linear-gradient(135deg, #10b981, #059669)',
-                color: 'white',
-                borderRadius: '10px',
-                fontWeight: 800,
-                fontSize: '0.8rem',
-                textDecoration: 'none',
-                boxShadow: '0 4px 10px rgba(16, 185, 129, 0.25)'
-              }}
-            >
-              📥 Download 7-Day PDF &rarr;
-            </a>
-          </div>
-
-          {/* Card 3: 30-Day Master Plan */}
-          <div style={{
-            background: '#faf8fc',
-            border: '1.5px solid #fbcfe8',
-            borderRadius: '18px',
-            padding: '1.25rem'
-          }}>
-            <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#be185d', letterSpacing: '0.04em' }}>30-DAY MASTER PLAN ($19)</div>
-            <p style={{ fontSize: '0.78rem', color: '#475569', marginTop: '0.25rem', marginBottom: '0.75rem' }}>
-              Comprehensive 30-day emotional regulation & mindset roadmap.
-            </p>
-            <a
-              href={`/api/pdf?type=30_DAY_PDF&email=${encodeURIComponent(profile.email)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.5rem 0.85rem',
-                background: 'linear-gradient(135deg, #ec4899, #be185d)',
-                color: 'white',
-                borderRadius: '10px',
-                fontWeight: 800,
-                fontSize: '0.8rem',
-                textDecoration: 'none',
-                boxShadow: '0 4px 10px rgba(236, 72, 153, 0.25)'
-              }}
-            >
-              📥 Download 30-Day PDF &rarr;
-            </a>
-          </div>
-        </div>
-
-        {/* History Header & Action bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.15rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1e1b4b', fontFamily: "'Playfair Display', Georgia, serif" }}>
-            Your Saved Mood Check-in History
-          </h2>
-          {history.length > 0 && (
-            <button
-              type="button"
-              onClick={handleClearHistory}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: '#94a3b8',
-                fontSize: '0.78rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-                textDecoration: 'underline'
-              }}
-            >
-              Clear Local History
-            </button>
-          )}
-        </div>
-
-        {/* History Item Cards */}
-        {history.length > 0 ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-            {history.map((entry, idx) => (
-              <div key={idx} style={{
-                background: '#f8fafc',
-                border: '1.5px solid #e2e8f0',
-                borderRadius: '16px',
-                padding: '1.15rem 1.35rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.65rem'
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                    <span style={{
-                      background: '#fee2e2',
-                      color: '#b91c1c',
-                      fontSize: '0.75rem',
-                      fontWeight: 800,
-                      padding: '0.2rem 0.6rem',
-                      borderRadius: '9999px',
-                      textTransform: 'uppercase'
-                    }}>
-                      {entry.primaryMood} &bull; {entry.specificFeeling || entry.subFeeling}
-                    </span>
-                    <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>&rarr;</span>
-                    <span style={{
-                      background: '#dcfce7',
-                      color: '#15803d',
-                      fontSize: '0.75rem',
-                      fontWeight: 800,
-                      padding: '0.2rem 0.6rem',
-                      borderRadius: '9999px'
-                    }}>
-                      {entry.targetMood} ✨
-                    </span>
-                  </div>
-
-                  <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>
-                    {entry.date}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#059669', background: '#ecfdf5', border: '1px solid #a7f3d0', padding: '0.2rem 0.65rem', borderRadius: '9999px' }}>
+                    🟢 ACTIVE PROFILE
+                  </span>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#6750a4', background: 'var(--tile-selected-bg)', padding: '0.2rem 0.65rem', borderRadius: '9999px' }}>
+                    USER DASHBOARD
                   </span>
                 </div>
 
-                <div style={{
-                  fontSize: '0.85rem',
-                  color: '#334155',
-                  background: '#ffffff',
-                  border: '1px solid #cbd5e1',
-                  borderRadius: '10px',
-                  padding: '0.65rem 0.85rem',
-                  lineHeight: 1.5
-                }}>
-                  <strong style={{ color: '#8b5cf6' }}>💡 60-Sec Action:</strong> {entry.actionShown}
-                </div>
+                <h1 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-main)', marginTop: '0.35rem' }}>
+                  Welcome back, {profile.name || profile.email.split('@')[0]}!
+                </h1>
+                <p style={{ fontSize: '0.86rem', color: 'var(--text-subtle)', marginTop: '0.1rem' }}>
+                  Account Email: <strong>{profile.email}</strong>
+                </p>
               </div>
-            ))}
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
+              <a
+                href="/"
+                style={{
+                  padding: '0.7rem 1.25rem',
+                  background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
+                  borderRadius: '12px',
+                  color: 'white',
+                  fontWeight: 700,
+                  fontSize: '0.86rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(124, 84, 209, 0.3)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem'
+                }}
+              >
+                <span>✨ New Check-in</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={handleSignOut}
+                style={{
+                  padding: '0.7rem 1.25rem',
+                  background: 'var(--tile-bg)',
+                  border: '1px solid var(--card-border)',
+                  borderRadius: '12px',
+                  color: 'var(--text-subtle)',
+                  fontWeight: 700,
+                  fontSize: '0.86rem',
+                  cursor: 'pointer'
+                }}
+              >
+                Sign Out 🚪
+              </button>
+            </div>
           </div>
-        ) : (
+
+          {/* Dashboard Cards */}
           <div style={{
-            background: '#f8fafc',
-            border: '2px dashed #cbd5e1',
-            borderRadius: '16px',
-            padding: '2.5rem',
-            textAlign: 'center',
-            color: '#64748b'
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: '1.25rem',
+            marginBottom: '2.5rem'
           }}>
-            <span style={{ fontSize: '2rem', display: 'block', marginBottom: '0.5rem' }}>💫</span>
-            <p style={{ fontSize: '0.92rem', fontWeight: 700, color: '#334155' }}>No Check-in History Recorded Yet</p>
-            <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.2rem', marginBottom: '1.15rem' }}>
-              Select how you feel on the home page to start your first 60-second mood flip.
-            </p>
-            <a
-              href="/"
-              style={{
-                display: 'inline-block',
-                padding: '0.65rem 1.25rem',
-                background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-                color: 'white',
-                borderRadius: '10px',
-                fontWeight: 800,
-                fontSize: '0.85rem',
-                textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(139, 92, 246, 0.25)'
-              }}
-            >
-              Start First Check-in Now ✨
-            </a>
+            <div style={{
+              background: 'var(--tile-bg)',
+              border: '1.5px solid var(--card-border)',
+              borderRadius: '20px',
+              padding: '1.5rem'
+            }}>
+              <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#a855f7', letterSpacing: '0.04em' }}>TOTAL SAVED CHECK-INS</div>
+              <div style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-main)', marginTop: '0.2rem' }}>{history.length}</div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-subtle)', marginTop: '0.25rem' }}>Emotional check-ins logged on this device</div>
+            </div>
+
+            <div style={{
+              background: 'var(--tile-bg)',
+              border: '1.5px solid #a7f3d0',
+              borderRadius: '20px',
+              padding: '1.5rem'
+            }}>
+              <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#047857', letterSpacing: '0.04em' }}>7-DAY EMOTIONAL PLAN ($7)</div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-subtle)', marginTop: '0.25rem', marginBottom: '1rem' }}>
+                Personalized PDF action guide tailored to your recent check-ins.
+              </p>
+              <a
+                href={`/api/pdf?type=7_DAY_PDF&email=${encodeURIComponent(profile.email)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.55rem 1rem',
+                  background: 'linear-gradient(135deg, #10b981, #059669)',
+                  color: 'white',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 10px rgba(16, 185, 129, 0.25)'
+                }}
+              >
+                📥 Download 7-Day PDF &rarr;
+              </a>
+            </div>
+
+            <div style={{
+              background: 'var(--tile-bg)',
+              border: '1.5px solid #fbcfe8',
+              borderRadius: '20px',
+              padding: '1.5rem'
+            }}>
+              <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#be185d', letterSpacing: '0.04em' }}>30-DAY MASTER PLAN ($19)</div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-subtle)', marginTop: '0.25rem', marginBottom: '1rem' }}>
+                Comprehensive 30-day emotional regulation & mindset roadmap.
+              </p>
+              <a
+                href={`/api/pdf?type=30_DAY_PDF&email=${encodeURIComponent(profile.email)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.55rem 1rem',
+                  background: 'linear-gradient(135deg, #ec4899, #be185d)',
+                  color: 'white',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 10px rgba(236, 72, 153, 0.25)'
+                }}
+              >
+                📥 Download 30-Day PDF &rarr;
+              </a>
+            </div>
           </div>
-        )}
-      </div>
+
+          {/* History Header & Action Bar */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <h2 style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--text-main)', fontFamily: "'Fraunces', Georgia, serif" }}>
+              Your Saved Mood Check-in History
+            </h2>
+            {history.length > 0 && (
+              <button
+                type="button"
+                onClick={handleClearHistory}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--text-subtle)',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  textDecoration: 'underline'
+                }}
+              >
+                Clear Local History
+              </button>
+            )}
+          </div>
+
+          {/* History Item Cards */}
+          {history.length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.95rem' }}>
+              {history.map((entry, idx) => (
+                <div key={idx} style={{
+                  background: 'var(--tile-bg)',
+                  border: '1.5px solid var(--card-border)',
+                  borderRadius: '18px',
+                  padding: '1.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.75rem'
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <span style={{
+                        background: 'rgba(239, 68, 68, 0.12)',
+                        color: '#ef4444',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        padding: '0.25rem 0.65rem',
+                        borderRadius: '9999px',
+                        textTransform: 'uppercase'
+                      }}>
+                        {entry.primaryMood} &bull; {entry.specificFeeling || entry.subFeeling}
+                      </span>
+                      <span style={{ color: 'var(--text-subtle)', fontSize: '0.85rem' }}>&rarr;</span>
+                      <span style={{
+                        background: 'rgba(16, 185, 129, 0.12)',
+                        color: '#10b981',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        padding: '0.25rem 0.65rem',
+                        borderRadius: '9999px'
+                      }}>
+                        {entry.targetMood} ✨
+                      </span>
+                    </div>
+
+                    <span style={{ fontSize: '0.78rem', color: 'var(--text-subtle)', fontWeight: 600 }}>
+                      {entry.date}
+                    </span>
+                  </div>
+
+                  <div style={{
+                    fontSize: '0.88rem',
+                    color: 'var(--text-main)',
+                    background: 'var(--tile-selected-bg)',
+                    border: '1px solid var(--card-border)',
+                    borderRadius: '12px',
+                    padding: '0.75rem 1rem',
+                    lineHeight: 1.55
+                  }}>
+                    <strong style={{ color: '#a855f7' }}>💡 60-Sec Action:</strong> {entry.actionShown}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{
+              background: 'var(--tile-bg)',
+              border: '2px dashed var(--card-border)',
+              borderRadius: '20px',
+              padding: '2.5rem',
+              textAlign: 'center',
+              color: 'var(--text-subtle)'
+            }}>
+              <span style={{ fontSize: '2rem', display: 'block', marginBottom: '0.5rem' }}>💫</span>
+              <p style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)' }}>No Check-in History Recorded Yet</p>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-subtle)', marginTop: '0.2rem', marginBottom: '1.25rem' }}>
+                Select how you feel on the home page to start your first 60-second mood flip.
+              </p>
+              <a
+                href="/"
+                style={{
+                  display: 'inline-block',
+                  padding: '0.75rem 1.5rem',
+                  background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
+                  color: 'white',
+                  borderRadius: '12px',
+                  fontWeight: 700,
+                  fontSize: '0.88rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(124, 84, 209, 0.25)'
+                }}
+              >
+                Start First Check-in Now ✨
+              </a>
+            </div>
+          )}
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

@@ -1,43 +1,89 @@
 import React from 'react';
+import type { Metadata } from 'next';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | MoodFlip Self-Help Utility',
+  description: 'Learn about what data MoodFlip stores, why it is stored, and our 90-day automatic profile deletion policy.',
+};
 
 export default function PrivacyPage() {
   return (
-    <div style={{ maxWidth: '800px', margin: '2rem auto', background: 'rgba(18,24,44,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '2.5rem' }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'white', marginBottom: '1rem' }}>
-        Privacy Policy
-      </h1>
+    <div className="site-shell">
+      <Header />
 
-      <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-        Last updated: July 2026
-      </p>
+      <main style={{ maxWidth: '860px', margin: '2.5rem auto', padding: '0 1rem' }}>
+        <div style={{
+          background: 'var(--card-bg)',
+          border: '1px solid var(--card-border)',
+          borderRadius: '28px',
+          padding: '3rem 2.5rem',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.04)'
+        }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#a855f7', background: 'var(--tile-selected-bg)', padding: '0.35rem 0.95rem', borderRadius: '9999px', textTransform: 'uppercase' }}>
+            Data Privacy
+          </span>
 
-      <section style={{ marginBottom: '1.5rem', color: '#cbd5e1', lineHeight: 1.7 }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'white', marginBottom: '0.5rem' }}>
-          1. Optional Profile Creation & Data Storage
-        </h2>
-        <p>
-          You can use the basic MoodFlip free tool completely anonymously without creating a profile. If you choose to create a voluntary profile, we store your email address, selected mood choices, dates of check-ins, actions shown, and purchase history to generate your personalized 7-day or 30-day PDF plans.
-        </p>
-      </section>
+          <h1 style={{
+            fontFamily: "'Fraunces', Georgia, serif",
+            fontSize: 'clamp(2.2rem, 5vw, 3.2rem)',
+            fontWeight: 700,
+            color: 'var(--text-main)',
+            margin: '0.8rem 0 0.5rem 0'
+          }}>
+            Privacy Policy
+          </h1>
+          <p style={{ color: 'var(--text-subtle)', fontSize: '0.88rem', marginBottom: '2rem' }}>
+            Last updated: July 2026
+          </p>
 
-      {/* Automatic 90-Day Deletion Policy */}
-      <div style={{ background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: '14px', padding: '1.25rem', marginBottom: '1.5rem' }}>
-        <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#818cf8', marginBottom: '0.5rem' }}>
-          🧹 Automatic 90-Day Inactive Profile Deletion
-        </h3>
-        <p style={{ fontSize: '0.9rem', color: '#cbd5e1', lineHeight: 1.6 }}>
-          To respect your privacy and minimize unnecessary data retention, MoodFlip enforces an <strong>automatic 90-day deletion policy</strong>. Any user profile that remains inactive for 90 consecutive days will have its profile information and associated mood check-in history permanently deleted from our database.
-        </p>
-      </div>
+          <section style={{ marginBottom: '2rem', color: 'var(--text-main)', lineHeight: 1.7 }}>
+            <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.4rem', fontWeight: 700, color: '#a855f7', marginBottom: '0.75rem' }}>
+              1. Data Storage & Voluntary Profiles
+            </h2>
+            <p style={{ color: 'var(--text-subtle)', marginBottom: '1rem' }}>
+              You can use the MoodFlip interactive tool completely anonymously without creating a profile. If you voluntarily create a profile to track check-ins or purchase personalized PDF downloads, we store strictly the following data fields:
+            </p>
 
-      <section style={{ color: '#cbd5e1', lineHeight: 1.7 }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'white', marginBottom: '0.5rem' }}>
-          2. Cookies & Advertising
-        </h2>
-        <p>
-          We use local browser storage to track repeat visits so we can personalize your experience. We may display Google AdSense advertisements on our site. Third-party vendors, including Google, use cookies to serve ads based on user visits.
-        </p>
-      </section>
+            <ul style={{ listStyleType: 'disc', paddingLeft: '1.5rem', margin: '0.75rem 0', display: 'flex', flexDirection: 'column', gap: '0.5rem', color: 'var(--text-main)', fontSize: '0.94rem' }}>
+              <li><strong>Email address</strong> (for account identification and PDF email delivery)</li>
+              <li><strong>Selected moods and check-in dates</strong> (to track your positive mindset history)</li>
+              <li><strong>Actions shown</strong> (to prevent repeating the same 60-second micro-action)</li>
+              <li><strong>Purchase status</strong> (active/inactive for 7-day or 30-day PDF plans)</li>
+              <li><strong>Last active timestamp (last_active_at)</strong> (used for automatic data purging)</li>
+              <li><strong>Check-in count</strong> (used to unlock milestones and personalized offers)</li>
+            </ul>
+          </section>
+
+          {/* AUTOMATIC 90-DAY DELETION POLICY */}
+          <div style={{
+            background: 'var(--tile-selected-bg)',
+            border: '1.5px solid var(--card-border)',
+            borderRadius: '20px',
+            padding: '1.75rem',
+            marginBottom: '2rem'
+          }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#a855f7', marginTop: 0, marginBottom: '0.5rem' }}>
+              🧹 Automatic 90-Day Data Deletion Rule
+            </h3>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-subtle)', lineHeight: 1.65, margin: 0 }}>
+              To protect your privacy and ensure we do not retain unneeded personal information, MoodFlip enforces an <strong>automatic 90-day hard-deletion policy</strong>. If your profile remains inactive (no logins or check-ins) for 90 consecutive days, your profile data, email address, and all associated check-in records are permanently hard-deleted from our database.
+            </p>
+          </div>
+
+          <section style={{ color: 'var(--text-main)', lineHeight: 1.7 }}>
+            <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.4rem', fontWeight: 700, color: '#a855f7', marginBottom: '0.75rem' }}>
+              2. AdSense & Cookie Preferences
+            </h2>
+            <p style={{ color: 'var(--text-subtle)' }}>
+              We use browser local storage to record your check-in counts and visit frequency on your device. In Phase 2, MoodFlip may display Google AdSense advertisements. Third-party ad networks may use cookies to serve relevant ads. You may manage cookie settings in your browser at any time.
+            </p>
+          </section>
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

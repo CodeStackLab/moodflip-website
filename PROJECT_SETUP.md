@@ -1,6 +1,6 @@
 # 💫 MoodFlip - Complete Project Architecture & Deployment Guide (Specification v2 Compliance)
 
-> **AI AGENT & DEVELOPER INSTRUCTION**: Read this file first when modifying, extending, or maintaining MoodFlip. This document contains the complete system architecture, database models, deployment pipelines, credentials, hosting limits, SLA maintenance targets, and exact 1-click CLI deployment commands as required by Joy's **Business Specification v2 (21 July 2026)**.
+> **AI AGENT & DEVELOPER INSTRUCTION**: Read this file first when modifying, extending, or maintaining MoodFlip. This document contains the complete system architecture, database models, deployment pipelines, credentials, hosting limits, SLA maintenance targets, custom domain DNS records, Maintenance Mode preview instructions, and exact 1-click CLI deployment commands as required by Joy's **Business Specification v2 (21 July 2026)**.
 
 ---
 
@@ -9,33 +9,61 @@
 | Service | Key / Token Type | Value / URL |
 | :--- | :--- | :--- |
 | **Custom Domain** | Primary Production Domain | [https://moodflip.coach](https://moodflip.coach) |
-| **Vercel Web URL** | Production Web App | [https://moodflip-website.vercel.app](https://moodflip-website.vercel.app) |
+| **Custom Subdomain** | WWW Production Subdomain | [https://www.moodflip.coach](https://www.moodflip.coach) |
+| **Vercel Web URL** | Production Web App (Fallback) | [https://moodflip-website.vercel.app](https://moodflip-website.vercel.app) |
 | **GitHub Repo** | Source Repository | [https://github.com/joykonta1-dot/moodflip-website](https://github.com/joykonta1-dot/moodflip-website) |
 | **Vercel CLI Token** | Production Deploy Token | `vcp_5sngAwXBDQIAOsCqblCkZNj6T2jeOBdgK5LkJVYPj8M9uJmX2H1DeFdo` |
 | **Admin Control Center** | Master Access Password | Password: `admin123` (URL: `/admin`) |
+| **Maintenance / Preview Key** | Owner Unlock Password | Password: `admin123` (URL: `https://moodflip.coach?preview=admin123`) |
 | **Supabase DB** | Project Reference ID | `cacgdkjevkdkshjoapgo` |
 | **Supabase DB** | PostgreSQL Connection | `postgresql://postgres.[ref]:[pass]@aws-0-us-east-1.pooler.supabase.com:6543/postgres` |
 
 ---
 
+## 🌐 Namecheap Custom Domain DNS Setup
+
+To point the custom domain `moodflip.coach` to Vercel, the following DNS records are configured in **Namecheap Advanced DNS**:
+
+| Record Type | Host / Name | Value / Target | TTL | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **A Record** | `@` | **`76.76.21.21`** | Automatic / 30 min | ✅ Verified & Active |
+| **CNAME Record** | `www` | **`cname.vercel-dns.com`** | Automatic / 30 min | ✅ Verified & Active |
+
+> **Note**: Delete any old URL Redirect or Default Parking records in Namecheap Advanced DNS so they do not interfere with the Vercel `A` & `CNAME` records or SSL cert validation.
+
+---
+
+## 🚧 Maintenance Mode & Owner Preview Access
+
+MoodFlip includes an automatic **Under Construction / Maintenance Guard** (`components/MaintenanceGuard.tsx`):
+
+1. **Public Visitors**: See a clean **"Website Under Construction"** notice explaining that MoodFlip is currently being upgraded.
+2. **Owner / Developer Access**:
+   - **Method A**: Open **`https://moodflip.coach?preview=admin123`** in your browser.
+   - **Method B**: Click **"🔒 Owner / Admin Preview Access"** link at the bottom of the Under Construction page and enter password **`admin123`**.
+3. **Session Persistence**: Unlocking saves `localStorage.setItem('moodflip_owner_unlocked', 'true')` so you can test the full site seamlessly on your device.
+
+---
+
 ## 🚀 1-Click Deployment Commands (FOR AI AGENT & DEVELOPERS)
+
+> ⚠️ **IMPORTANT**: GitHub credentials are NOT stored locally. `git push` will hang/fail. Use **Vercel CLI directly** as the primary deployment method below.
 
 Whenever making changes, follow these exact 2 steps to verify and deploy live:
 
-### Step 1: Verify TypeScript & Build
+### Step 1: Verify TypeScript (0 errors required)
 ```bash
 npx tsc --noEmit
 ```
 
-### Step 2: Push to GitHub & Deploy Directly to Vercel Production
+### Step 2: Deploy Directly to Vercel Production (PRIMARY METHOD)
 ```bash
-git add .
-git commit -m "Update feature or design per Specification v2"
-git push origin main
 npx vercel --token vcp_5sngAwXBDQIAOsCqblCkZNj6T2jeOBdgK5LkJVYPj8M9uJmX2H1DeFdo --prod --yes
 ```
 
-> **Note**: Vercel team seat verification requires using the Vercel CLI with the token above (`--token vcp_5sng...`). Always run `npx vercel --token ... --prod --yes` to deploy live changes instantly to `https://moodflip.coach`.
+This deploys instantly to **https://moodflip.coach** in ~2 minutes.
+
+> **Why Vercel CLI?** Vercel is connected to GitHub (`joykonta1-dot/moodflip-website`, branch: `main`) — but Windows Credential Manager does not store a local GitHub HTTPS token. Vercel CLI token deployment guarantees fast 1-click updates.
 
 ---
 
@@ -44,11 +72,11 @@ npx vercel --token vcp_5sngAwXBDQIAOsCqblCkZNj6T2jeOBdgK5LkJVYPj8M9uJmX2H1DeFdo 
 ```mermaid
 flowchart TD
     subgraph Client Layer [Next.js App Router]
-        A[5 Cloud Families & 3-Tier Selector] --> B[Flip My Mood Center Glow Button]
+        A[5 Cloud Families & 3-Tier Selector] --> B[Change My Mood Arrow Button]
         B --> C[Rising Sun Target Mood & 60s Action Card]
         C --> D[SAVE MY PROFILE CTA Button]
         D --> E[2nd Visit Pop-up & 7-Checkin Offer Modal]
-        F[SEO Mood Pages /mood/slug] --> A
+        F[MaintenanceGuard Under Construction] --> A
     end
 
     subgraph Serverless Backend [Next.js API Routes]
@@ -62,9 +90,9 @@ flowchart TD
         H --> L[(Supabase Database: cacgdkjevkdkshjoapgo)]
     end
 
-    subgraph CI/CD Production Pipeline [Vercel & GitHub]
-        M[git push origin main] --> N[GitHub Repo: joykonta1-dot/moodflip-website]
-        N --> O[Vercel CLI Direct Deploy via Token]
+    subgraph CI/CD Production Pipeline [Vercel CLI]
+        M[Local Changes] --> N[npx tsc --noEmit]
+        N --> O[npx vercel --token ... --prod --yes]
         O --> P[Live Domain: moodflip.coach]
     end
 ```
@@ -73,7 +101,7 @@ flowchart TD
 - **Database & ORM**: Prisma ORM (`prisma/schema.prisma`) connected to Supabase PostgreSQL (`cacgdkjevkdkshjoapgo`)
 - **Payment Gateway**: PayPal Express Checkout gateway modal for $7 (7-Day Plan) & $19 (30-Day Master Plan)
 - **Deployment**: Vercel Serverless Production Platform (`https://moodflip.coach`)
-- **Design System**: Split-screen custom Vanilla CSS (`app/globals.css`) with 5 pastel cloud pills (**SAD**, **DISGUSTED**, **ANGRY**, **FEARFUL**, **BAD**), SVG feeling tiles, and rising sun target card.
+- **Design System**: Responsive single-canvas layout (`app/globals.css`) matching exact Fraunces serif mockup.
 
 ---
 
@@ -81,18 +109,17 @@ flowchart TD
 
 | Section | Business Requirement | Status | Implementation Details |
 | :--- | :--- | :--- | :--- |
-| **Section 6** | 5 Mood Clouds: SAD, DISGUSTED, ANGRY, FEARFUL, BAD | ✅ COMPLETE | Cloud SVG pills with bold uppercase labels in `lib/moodData.ts` & `MoodTool.tsx`. |
-| **Section 6** | Clickable Choices Only (No free-text typing) | ✅ COMPLETE | 3-step structured visual picker (Cloud -> Card -> Nuance pill). |
-| **Section 6** | Glowing "Flip My Mood" Center Button | ✅ COMPLETE | Pulsing 3D purple button in center of split screen canvas. |
-| **Section 6** | Right Side Rising Sun Output | ✅ COMPLETE | Displays `"Your positive mood is: [Target Mood]"` + 60-second action box. |
+| **Section 6** | 5 Mood Clouds: SAD, FEARFUL, ANGRY, DISGUSTED, STRESSED | ✅ COMPLETE | Mood cloud pills with CSS bump pseudo-elements in `components/MoodTool.tsx`. |
+| **Section 6** | Clickable Choices Only (No free-text typing) | ✅ COMPLETE | 3-step visual picker (Cloud -> Card -> Arrow trigger). |
+| **Section 6** | "Change My Mood" Arrow Pentagon Button | ✅ COMPLETE | Custom clip-path arrow button in center column. |
+| **Section 6** | Right Side Rising Sun Output | ✅ COMPLETE | Displays `"Your mood has changed to: [Target Mood]"` + 60-second action box. |
 | **Section 10** | "SAVE MY PROFILE" Button below 60s Action | ✅ COMPLETE | Positioned directly underneath the action card in `MoodTool.tsx`. |
 | **Section 10** | 2nd Visit Automatic Profile Pop-up | ✅ COMPLETE | Automatically opens registration modal when `visitCount === 2`. |
 | **Section 9 & 10** | 7-Checkin Special Offer Pop-up ($7 PDF) | ✅ COMPLETE | Triggers special offer popup when user reaches 7 check-ins. |
 | **Section 10 & 11** | Privacy Consent & 90-Day Auto Deletion | ✅ COMPLETE | Standard consent text & `/api/cron/purge-inactive` cleanup route. |
 | **Section 9** | Paid PDF Downloads ($7 & $19) | ✅ COMPLETE | Dynamic `pdf-lib` generation via `/api/pdf` + PayPal Checkout modal. |
 | **Section 5 & 9** | SaaS Admin Dashboard (`/admin`) | ✅ COMPLETE | Master password (`admin123`), lead stats, and 1-Click CSV export. |
-| **Section 3 & 13** | AdSense Top & Bottom Containers | ✅ COMPLETE | `AdSpace` containers configured on top and bottom of `app/page.tsx`. |
-| **Section 16** | Remove Bin/Clear Selection Tile | ✅ COMPLETE | Removed trash icon tile per explicit Section 16 instructions. |
+| **Section 14** | Maintenance / Under Construction Mode | ✅ COMPLETE | `MaintenanceGuard.tsx` wraps site; unlocked with `admin123` or `?preview=admin123`. |
 
 ---
 
@@ -129,7 +156,7 @@ model UserCheckin {
   id              String       @id @default(uuid())
   profileId       String?
   profile         UserProfile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  primaryMood     String       // SAD, DISGUSTED, ANGRY, FEARFUL, BAD
+  primaryMood     String       // SAD, DISGUSTED, ANGRY, FEARFUL, STRESSED
   subFeeling      String       // Layer 2
   specificFeeling String       // Layer 3
   targetMood      String       // Positive target state

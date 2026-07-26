@@ -283,7 +283,7 @@ export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: Auth
                           style={{ marginTop: '0.15rem', accentColor: '#8b5cf6' }}
                         />
                         <span style={{ fontSize: '0.73rem', color: '#5b21b6', lineHeight: 1.45 }}>
-                          By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history to offer personalized downloads. Inactive profiles are deleted after 90 days.
+                          By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history so we can create and offer personalized downloads.
                         </span>
                       </label>
                     </div>

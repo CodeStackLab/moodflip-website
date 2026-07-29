@@ -42,21 +42,22 @@ const FEELINGS: Record<string, { id: string; name: string }[]> = {
 /* ── arrow tag banner ── */
 function Banner({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <div style={{
-      display:'inline-flex', alignItems:'center', gap:'0.42rem',
-      background:'rgba(234,226,252,0.82)',
-      border:'1.5px solid rgba(180,155,230,0.38)',
-      color:'#5c4a8a', padding:'0.5rem 1.35rem 0.5rem 0.58rem',
-      clipPath:'polygon(0% 0%, 87% 0%, 100% 50%, 87% 100%, 0% 100%)',
-      fontSize:'0.72rem', fontWeight:700, width:'152px', flexShrink:0,
-      letterSpacing:'0.01em', lineHeight:1.2
-    }}>
-      <div style={{ width:24,height:24,borderRadius:'50%',background:'rgba(255,255,255,0.9)',
-        border:'1.5px solid rgba(175,150,225,0.38)',display:'flex',alignItems:'center',
-        justifyContent:'center',flexShrink:0,fontSize:'0.72rem',color:'#7c54d1' }}>
-        {icon}
+    <div style={{ filter: 'drop-shadow(0 4px 8px rgba(130,100,190,0.12))' }}>
+      <div style={{
+        display:'inline-flex', alignItems:'center', gap:'0.42rem',
+        background:'#f0ebf8',
+        color:'#362854', padding:'0.5rem 1.35rem 0.5rem 0.58rem',
+        clipPath:'polygon(0% 0%, 92% 0%, 100% 50%, 92% 100%, 0% 100%)',
+        fontSize:'0.75rem', fontWeight:600, width:'152px', flexShrink:0,
+        letterSpacing:'0.01em', lineHeight:1.2
+      }}>
+        <div style={{ width:24,height:24,borderRadius:'50%',background:'#fff',
+          border:'1.5px solid #d5c8eb',display:'flex',alignItems:'center',
+          justifyContent:'center',flexShrink:0,color:'#7859c2' }}>
+          {icon}
+        </div>
+        <span style={{ paddingRight:'0.6rem' }}>{text}</span>
       </div>
-      <span style={{ paddingRight:'0.6rem' }}>{text}</span>
     </div>
   );
 }
@@ -66,21 +67,20 @@ function Cloud({ name, selected, onClick }: { name:string; selected:boolean; onC
   return (
     <button onClick={onClick} style={{
       position:'relative', background:'transparent', border:'none',
-      padding:'0.5rem 0.85rem', cursor:'pointer', display:'inline-flex',
+      padding:'0', cursor:'pointer', display:'inline-flex',
       alignItems:'center', justifyContent:'center', minWidth:'82px', height:'52px',
       flexShrink:0, transition:'transform 0.2s cubic-bezier(0.16,1,0.3,1)',
-      transform: selected ? 'scale(1.09)' : 'scale(1)'
+      transform: selected ? 'scale(1.05)' : 'scale(1)',
+      filter: selected ? 'drop-shadow(0 6px 12px rgba(120,89,194,0.25))' : 'drop-shadow(0 2px 6px rgba(0,0,0,0.04))'
     }}>
-      <svg style={{ position:'absolute',top:0,left:0,width:'100%',height:'100%',zIndex:1,
-        filter: selected ? 'drop-shadow(0 5px 16px rgba(124,84,209,0.45))' : 'drop-shadow(0 2px 6px rgba(0,0,0,0.04))',
-        transition:'all 0.25s ease' }} viewBox="0 0 120 54">
+      <svg style={{ position:'absolute',top:0,left:0,width:'100%',height:'100%',zIndex:1 }} viewBox="0 0 120 54">
         <path d="M 24 48 C 12 48, 4 38, 10 26 C 4 15, 18 5, 36 11 C 46 2, 72 3, 82 13 C 96 8, 108 20, 104 33 C 114 40, 108 48, 94 48 Z"
-          fill={selected ? '#ede5fa' : '#ffffff'}
-          stroke={selected ? '#7c54d1' : '#ddd5ee'} strokeWidth={selected ? '2.5' : '1.5'} />
+          fill={selected ? '#e7dcf4' : '#ffffff'}
+          stroke={selected ? '#8f73d3' : '#e0d8ef'} strokeWidth={selected ? '2.5' : '1.5'} />
       </svg>
       <span style={{ position:'relative',zIndex:2,fontFamily:"'Outfit','Inter',sans-serif",
-        fontSize:'0.9rem', fontWeight: selected ? 700 : 600,
-        color: selected ? '#7c54d1' : '#5c4a8a' }}>
+        fontSize:'0.9rem', fontWeight: selected ? 700 : 500,
+        color: selected ? '#362854' : '#6b5a8e' }}>
         {name}
       </span>
     </button>
@@ -243,18 +243,18 @@ export default function MoodTool() {
     const Ic=ICON_MAP[f.id]||LonelyIcon;
     return (
       <button onClick={()=>setFeelingId(f.id)} className="feeling-card-item" style={{
-        background: sel ? '#ede5fa' : '#ffffff',
-        border: sel ? '2px solid #7c54d1' : '1.5px solid #e0d7f0',
-        borderRadius:'18px', padding:'1.1rem 0.5rem 0.9rem 0.5rem',
+        background: sel ? '#f0e9f8' : '#ffffff',
+        border: sel ? '2px solid #7859c2' : '1px solid #e4dcee',
+        borderRadius:'12px', padding:'1rem 0.5rem',
         display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
-        gap:'0.58rem', cursor:'pointer',
-        boxShadow: sel ? '0 6px 20px rgba(124,84,209,0.24)' : '0 2px 8px rgba(0,0,0,0.04)',
-        transform: sel ? 'scale(1.04)' : 'scale(1)',
-        transition:'all 0.18s ease', flex:1, minWidth:0
+        gap:'0.5rem', cursor:'pointer',
+        boxShadow: sel ? '0 6px 16px rgba(120,89,194,0.15)' : '0 2px 6px rgba(0,0,0,0.02)',
+        transform: sel ? 'scale(1.03)' : 'scale(1)',
+        transition:'all 0.18s ease', flex:1, minWidth:0, height:'90px'
       }}>
-        <Ic size={34} color={sel ? '#7c54d1' : '#9488b8'} />
-        <span style={{ fontSize:'0.82rem', fontWeight: sel ? 700:500, color: sel ? '#7c54d1':'#5c4a8a',
-          textTransform:'capitalize', lineHeight:1.15, textAlign:'center' }}>
+        <Ic size={32} color={sel ? '#7859c2' : '#a093b5'} />
+        <span style={{ fontSize:'0.82rem', fontWeight: sel ? 700:500, color: '#362854',
+          textTransform:'capitalize', lineHeight:1.1, textAlign:'center' }}>
           {f.name}
         </span>
       </button>
@@ -381,35 +381,60 @@ export default function MoodTool() {
                     {/* ── "Change My Mood →" button — overflows border ── */}
                     <div className="mt-flipcell" style={{
                       display:'flex', alignItems:'center',
-                      marginRight:'-1.65rem',   /* bleeds past panel border */
+                      marginRight:'-2.4rem',   /* bleeds past panel border */
+                      marginLeft:'0.4rem',     /* gap from 'Abandoned' */
                       flexShrink:0, zIndex:20, overflow:'visible'
                     }}>
-                      <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
-                        className="flip-btn"
-                        style={{
-                          background: loading
-                            ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
-                            : 'linear-gradient(135deg,#7c54d1 0%,#523793 100%)',
-                          color:'#fff', border:'none',
-                          clipPath:'polygon(0% 0%, 76% 0%, 100% 50%, 76% 100%, 0% 100%)',
-                          padding:'1.1rem 2.8rem 1.1rem 1.65rem',
-                          fontWeight:800, fontSize:'1.05rem',
-                          cursor: loading ? 'wait' : 'pointer',
-                          display:'inline-flex', alignItems:'center', gap:'0.5rem',
-                          whiteSpace:'nowrap', lineHeight:1.25,
-                          fontFamily:"'Outfit','Inter',sans-serif",
-                          transition:'all 0.22s cubic-bezier(0.16,1,0.3,1)'
+                      <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
+                        <div style={{
+                          background: 'white',
+                          padding: '3px',
+                          clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)',
+                          display: 'inline-flex'
                         }}>
-                        <span style={{ display:'flex',flexDirection:'column',alignItems:'flex-start',gap:'0.02rem' }}>
-                          <span>{loading ? 'Flipping...' : 'Change'}</span>
-                          {!loading && <span>My Mood</span>}
-                        </span>
-                        {!loading && <span style={{ fontSize:'1.4rem',fontWeight:400,lineHeight:1 }}>→</span>}
-                      </button>
+                          <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
+                            className="flip-btn"
+                            style={{
+                              background: loading
+                                ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
+                                : 'linear-gradient(135deg,#7859c2 0%,#5a40a0 100%)',
+                              color:'#fff', border:'none',
+                              clipPath:'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
+                              padding:'1rem 2.2rem 1rem 1.6rem',
+                              fontWeight:700, fontSize:'1.1rem',
+                              cursor: loading ? 'wait' : 'pointer',
+                              display:'flex', alignItems:'center', gap:'0.4rem',
+                              textAlign:'left', lineHeight:1.2,
+                              fontFamily:"'Outfit','Inter',sans-serif",
+                              position:'relative'
+                            }}>
+                            <span style={{ display:'flex',flexDirection:'column' }}>
+                              <span>{loading ? 'Flipping...' : 'Change'}</span>
+                              {!loading && <span>My Mood</span>}
+                            </span>
+                            {!loading && <span style={{ fontSize:'1.4rem',fontWeight:400,lineHeight:1,marginTop:'0.8rem' }}>→</span>}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-
+                  {/* Grid row 3 (Clear selection) */}
+                  <div style={{ display:'flex',gap:'0.6rem' }}>
+                    <button onClick={clear} style={{
+                      flex:'0 0 calc(25% - 0.45rem)', height:'85px',
+                      background:'#f8f4fe', border:'1px solid #e4dcee',
+                      borderRadius:'12px', padding:'0.8rem 0.4rem',
+                      display:'flex', flexDirection:'column', alignItems:'center',
+                      justifyContent:'center', gap:'0.3rem', cursor:'pointer'
+                    }}>
+                      <TrashIcon size={22} color="#7859c2"/>
+                      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'0' }}>
+                        <span style={{ fontSize:'0.75rem',fontWeight:700,color:'#362854',lineHeight:1.1 }}>Clear selection</span>
+                        <span style={{ fontSize:'0.65rem',color:'#7859c2' }}>Start over</span>
+                      </div>
+                    </button>
+                  </div>
 
                 </div>
               </div>

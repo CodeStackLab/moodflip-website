@@ -136,24 +136,24 @@ export default function RegisterPage() {
       <Header />
 
       <main style={{ maxWidth: '1140px', margin: '2rem auto', padding: '0 1rem' }}>
-        {/* MAIN 2-COLUMN PORTAL CARD CONTAINER MATCHING LOGIN */}
+        {/* MAIN 2-COLUMN PORTAL CARD CONTAINER MATCHING HOMEPAGE PALETTE */}
         <div style={{
-          background: '#0f172a',
+          background: '#f8f4fe',
           borderRadius: '32px',
-          border: '1.5px solid #1e293b',
-          boxShadow: '0 25px 70px rgba(15, 23, 42, 0.4)',
+          border: '1.5px solid #e2d9f3',
+          boxShadow: '0 18px 58px rgba(76, 60, 110, 0.08)',
           overflow: 'hidden',
           display: 'flex',
           flexWrap: 'wrap',
-          color: '#ffffff'
+          color: '#362854'
         }}>
 
           {/* LEFT COLUMN: HERO / PORTAL INFO */}
           <div style={{
             flex: '1 1 440px',
             padding: '3rem 2.5rem',
-            background: 'linear-gradient(160deg, #1e1b4b 0%, #0f172a 100%)',
-            borderRight: '1px solid #1e293b',
+            background: 'linear-gradient(168deg, #ffffff 0%, #f4effb 100%)',
+            borderRight: '1.5px solid #e2d9f3',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -165,9 +165,9 @@ export default function RegisterPage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.4rem',
-                background: 'rgba(139, 92, 246, 0.15)',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                color: '#c084fc',
+                background: '#ede5fa',
+                border: '1px solid #d6c8f5',
+                color: '#7c54d1',
                 padding: '0.35rem 0.9rem',
                 borderRadius: '9999px',
                 fontSize: '0.78rem',
@@ -183,69 +183,72 @@ export default function RegisterPage() {
                 fontFamily: "'Fraunces', Georgia, serif",
                 fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)',
                 fontWeight: 800,
-                color: '#ffffff',
+                color: '#362854',
                 lineHeight: 1.15,
                 marginBottom: '0.85rem'
               }}>
-                Create Your <span style={{ background: 'linear-gradient(135deg, #c084fc, #f472b6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Mindset Profile</span>
+                Create Your <span style={{ background: 'linear-gradient(135deg, #7c54d1, #ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Mindset Profile</span>
               </h1>
-              <p style={{ fontSize: '0.92rem', color: '#94a3b8', lineHeight: 1.6, marginBottom: '2rem' }}>
+              <p style={{ fontSize: '0.92rem', color: '#665c7d', lineHeight: 1.6, marginBottom: '2rem' }}>
                 Join MoodFlip to save your check-in history, verify your email with OTP security, and receive custom 7-day emotional shift roadmaps.
               </p>
 
               {/* Highlight Cards */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                 <div style={{
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: '#ffffff',
+                  border: '1px solid #e8dff5',
                   borderRadius: '16px',
                   padding: '0.85rem 1.1rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.85rem'
+                  gap: '0.85rem',
+                  boxShadow: '0 4px 14px rgba(124, 84, 209, 0.04)'
                 }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
                     ✉️
                   </div>
                   <div>
-                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc' }}>OTP Email Security</div>
-                    <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>Verified 6-digit OTP ensures 100% account authenticity</div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#362854' }}>OTP Email Security</div>
+                    <div style={{ fontSize: '0.76rem', color: '#665c7d' }}>Verified 6-digit OTP ensures 100% account authenticity</div>
                   </div>
                 </div>
 
                 <div style={{
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: '#ffffff',
+                  border: '1px solid #e8dff5',
                   borderRadius: '16px',
                   padding: '0.85rem 1.1rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.85rem'
+                  gap: '0.85rem',
+                  boxShadow: '0 4px 14px rgba(124, 84, 209, 0.04)'
                 }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(139, 92, 246, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#f0e9f8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
                     📊
                   </div>
                   <div>
-                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc' }}>Personalized Growth Insights</div>
-                    <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>Automatic tracking of your daily negative to positive shifts</div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#362854' }}>Personalized Growth Insights</div>
+                    <div style={{ fontSize: '0.76rem', color: '#665c7d' }}>Automatic tracking of your daily negative to positive shifts</div>
                   </div>
                 </div>
 
                 <div style={{
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: '#ffffff',
+                  border: '1px solid #e8dff5',
                   borderRadius: '16px',
                   padding: '0.85rem 1.1rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.85rem'
+                  gap: '0.85rem',
+                  boxShadow: '0 4px 14px rgba(124, 84, 209, 0.04)'
                 }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(236, 72, 153, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#fce7f3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
                     📘
                   </div>
                   <div>
-                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc' }}>Instant PDF Downloads</div>
-                    <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>Custom 7-Day Mindset PDF delivered directly to email</div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#362854' }}>Instant PDF Downloads</div>
+                    <div style={{ fontSize: '0.76rem', color: '#665c7d' }}>Custom 7-Day Mindset PDF delivered directly to email</div>
                   </div>
                 </div>
               </div>
@@ -253,16 +256,18 @@ export default function RegisterPage() {
 
             {/* Quote */}
             <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              borderLeft: '3px solid #ec4899',
+              background: '#ffffff',
+              borderLeft: '3.5px solid #ec4899',
               padding: '0.85rem 1.1rem',
               borderRadius: '0 12px 12px 0',
-              marginTop: '1.5rem'
+              marginTop: '1.5rem',
+              border: '1px solid #e8dff5',
+              borderLeftWidth: '3.5px'
             }}>
-              <p style={{ fontSize: '0.8rem', color: '#cbd5e1', fontStyle: 'italic', margin: 0, lineHeight: 1.5 }}>
+              <p style={{ fontSize: '0.8rem', color: '#475569', fontStyle: 'italic', margin: 0, lineHeight: 1.5 }}>
                 &ldquo;Creating a profile allowed me to track my 7-day emotional growth and get custom PDF shift roadmaps.&rdquo;
               </p>
-              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#f472b6', display: 'block', marginTop: '0.35rem' }}>
+              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#ec4899', display: 'block', marginTop: '0.35rem' }}>
                 — David K., Verified User
               </span>
             </div>
@@ -275,7 +280,7 @@ export default function RegisterPage() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            background: '#0f172a'
+            background: '#ffffff'
           }}>
             <div style={{ maxWidth: '420px', margin: '0 auto', width: '100%' }}>
               
@@ -283,12 +288,12 @@ export default function RegisterPage() {
                 <h2 style={{
                   fontSize: '1.5rem',
                   fontWeight: 800,
-                  color: '#ffffff',
+                  color: '#362854',
                   marginBottom: '0.35rem'
                 }}>
                   Create Your Account
                 </h2>
-                <p style={{ fontSize: '0.85rem', color: '#94a3b8', margin: 0 }}>
+                <p style={{ fontSize: '0.85rem', color: '#665c7d', margin: 0 }}>
                   Complete the 3 verification steps to activate your profile.
                 </p>
               </div>
@@ -296,7 +301,8 @@ export default function RegisterPage() {
               {/* Step Navigation Pills */}
               <div style={{
                 display: 'flex',
-                background: '#1e293b',
+                background: '#f8f4fe',
+                border: '1.5px solid #e2d9f3',
                 borderRadius: '14px',
                 padding: '0.3rem',
                 marginBottom: '1.75rem',
@@ -308,7 +314,7 @@ export default function RegisterPage() {
                   padding: '0.55rem 0.2rem',
                   borderRadius: '10px',
                   background: step === 1 ? 'linear-gradient(135deg, #7c54d1, #ec4899)' : 'transparent',
-                  color: step === 1 ? '#ffffff' : '#94a3b8',
+                  color: step === 1 ? '#ffffff' : '#665c7d',
                   fontWeight: 800,
                   fontSize: '0.76rem'
                 }}>
@@ -321,7 +327,7 @@ export default function RegisterPage() {
                   padding: '0.55rem 0.2rem',
                   borderRadius: '10px',
                   background: step === 2 ? 'linear-gradient(135deg, #7c54d1, #ec4899)' : 'transparent',
-                  color: step === 2 ? '#ffffff' : '#94a3b8',
+                  color: step === 2 ? '#ffffff' : '#665c7d',
                   fontWeight: 800,
                   fontSize: '0.76rem'
                 }}>
@@ -334,7 +340,7 @@ export default function RegisterPage() {
                   padding: '0.55rem 0.2rem',
                   borderRadius: '10px',
                   background: step === 3 ? 'linear-gradient(135deg, #7c54d1, #ec4899)' : 'transparent',
-                  color: step === 3 ? '#ffffff' : '#94a3b8',
+                  color: step === 3 ? '#ffffff' : '#665c7d',
                   fontWeight: 800,
                   fontSize: '0.76rem'
                 }}>
@@ -344,9 +350,9 @@ export default function RegisterPage() {
 
               {errorMsg && (
                 <div style={{
-                  background: 'rgba(239, 68, 68, 0.15)',
-                  border: '1px solid #ef4444',
-                  color: '#fca5a5',
+                  background: '#fef2f2',
+                  border: '1px solid #fca5a5',
+                  color: '#991b1b',
                   padding: '0.75rem 1rem',
                   borderRadius: '12px',
                   fontSize: '0.85rem',
@@ -358,16 +364,16 @@ export default function RegisterPage() {
 
               {success ? (
                 <div style={{
-                  background: 'rgba(16, 185, 129, 0.15)',
-                  border: '1px solid #10b981',
-                  color: '#6ee7b7',
+                  background: '#ecfdf5',
+                  border: '1px solid #6ee7b7',
+                  color: '#065f46',
                   borderRadius: '18px',
                   padding: '1.75rem',
                   textAlign: 'center'
                 }}>
                   <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '0.5rem' }}>✨</span>
-                  <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: 0, color: '#ffffff' }}>Account Verified & Created!</h3>
-                  <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginTop: '0.4rem', margin: 0 }}>
+                  <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: 0, color: '#065f46' }}>Account Verified & Created!</h3>
+                  <p style={{ fontSize: '0.85rem', color: '#047857', marginTop: '0.4rem', margin: 0 }}>
                     Redirecting to your profile dashboard...
                   </p>
                 </div>
@@ -377,11 +383,11 @@ export default function RegisterPage() {
                   {step === 1 && (
                     <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#362854', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
                           DISPLAY NAME / USERNAME
                         </label>
                         <div style={{ position: 'relative' }}>
-                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: '#64748b' }}>
+                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: '#7c54d1' }}>
                             👤
                           </span>
                           <input
@@ -392,10 +398,10 @@ export default function RegisterPage() {
                             style={{
                               width: '100%',
                               padding: '0.8rem 1rem 0.8rem 2.6rem',
-                              background: '#1e293b',
-                              border: '1.5px solid #334155',
+                              background: '#f8f4fe',
+                              border: '1.5px solid #e2d9f3',
                               borderRadius: '12px',
-                              color: '#ffffff',
+                              color: '#362854',
                               fontSize: '0.92rem',
                               outline: 'none'
                             }}
@@ -404,11 +410,11 @@ export default function RegisterPage() {
                       </div>
 
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#362854', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
                           EMAIL ADDRESS <span style={{ color: '#ec4899' }}>*</span>
                         </label>
                         <div style={{ position: 'relative' }}>
-                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: '#64748b' }}>
+                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: '#7c54d1' }}>
                             ✉️
                           </span>
                           <input
@@ -420,10 +426,10 @@ export default function RegisterPage() {
                             style={{
                               width: '100%',
                               padding: '0.8rem 1rem 0.8rem 2.6rem',
-                              background: '#1e293b',
-                              border: '1.5px solid #334155',
+                              background: '#f8f4fe',
+                              border: '1.5px solid #e2d9f3',
                               borderRadius: '12px',
-                              color: '#ffffff',
+                              color: '#362854',
                               fontSize: '0.92rem',
                               outline: 'none'
                             }}
@@ -432,11 +438,11 @@ export default function RegisterPage() {
                       </div>
 
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#362854', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
                           PASSWORD <span style={{ color: '#ec4899' }}>*</span>
                         </label>
                         <div style={{ position: 'relative' }}>
-                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: '#64748b' }}>
+                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: '#7c54d1' }}>
                             🔒
                           </span>
                           <input
@@ -448,10 +454,10 @@ export default function RegisterPage() {
                             style={{
                               width: '100%',
                               padding: '0.8rem 2.6rem 0.8rem 2.6rem',
-                              background: '#1e293b',
-                              border: '1.5px solid #334155',
+                              background: '#f8f4fe',
+                              border: '1.5px solid #e2d9f3',
                               borderRadius: '12px',
-                              color: '#ffffff',
+                              color: '#362854',
                               fontSize: '0.92rem',
                               outline: 'none'
                             }}
@@ -488,7 +494,7 @@ export default function RegisterPage() {
                           fontWeight: 800,
                           fontSize: '0.95rem',
                           cursor: 'pointer',
-                          boxShadow: '0 8px 24px rgba(124, 84, 209, 0.4)',
+                          boxShadow: '0 8px 24px rgba(124, 84, 209, 0.35)',
                           marginTop: '0.5rem',
                           opacity: (!email || !password) ? 0.5 : 1
                         }}
@@ -502,19 +508,19 @@ export default function RegisterPage() {
                   {step === 2 && (
                     <form onSubmit={handleVerifyOtp} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
                       <div style={{
-                        background: 'rgba(124, 84, 209, 0.12)',
-                        border: '1px solid rgba(139, 92, 246, 0.3)',
+                        background: '#f4edfa',
+                        border: '1.5px solid #d6c8f5',
                         borderRadius: '16px',
                         padding: '1rem 1.15rem'
                       }}>
-                        <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#c084fc', marginBottom: '0.2rem' }}>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#7c54d1', marginBottom: '0.2rem' }}>
                           📩 OTP Code Sent to Email:
                         </div>
-                        <div style={{ fontSize: '0.92rem', color: '#ffffff', fontWeight: 700 }}>
+                        <div style={{ fontSize: '0.92rem', color: '#362854', fontWeight: 700 }}>
                           {email}
                         </div>
                         {demoOtpHint && (
-                          <div style={{ marginTop: '0.6rem', fontSize: '0.78rem', color: '#a7f3d0', background: 'rgba(16, 185, 129, 0.2)', padding: '0.4rem 0.65rem', borderRadius: '8px' }}>
+                          <div style={{ marginTop: '0.6rem', fontSize: '0.78rem', color: '#065f46', background: '#dcfce7', padding: '0.4rem 0.65rem', borderRadius: '8px' }}>
                             🔑 <strong>Demo OTP Verification Code:</strong> <span style={{ fontSize: '0.95rem', fontWeight: 900, letterSpacing: '0.1em' }}>{demoOtpHint}</span>
                             <button
                               type="button"
@@ -529,9 +535,9 @@ export default function RegisterPage() {
 
                       {otpError && (
                         <div style={{
-                          background: 'rgba(239, 68, 68, 0.15)',
-                          border: '1px solid #ef4444',
-                          color: '#fca5a5',
+                          background: '#fef2f2',
+                          border: '1px solid #fca5a5',
+                          color: '#991b1b',
                           padding: '0.75rem 1rem',
                           borderRadius: '12px',
                           fontSize: '0.85rem'
@@ -541,7 +547,7 @@ export default function RegisterPage() {
                       )}
 
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#cbd5e1', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#362854', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
                           ENTER 6-DIGIT VERIFICATION CODE <span style={{ color: '#ec4899' }}>*</span>
                         </label>
                         <input
@@ -554,10 +560,10 @@ export default function RegisterPage() {
                           style={{
                             width: '100%',
                             padding: '0.85rem 1rem',
-                            background: '#1e293b',
-                            border: '1.5px solid #334155',
+                            background: '#f8f4fe',
+                            border: '1.5px solid #e2d9f3',
                             borderRadius: '12px',
-                            color: '#ffffff',
+                            color: '#362854',
                             fontSize: '1.25rem',
                             fontWeight: 800,
                             letterSpacing: '0.25em',
@@ -580,7 +586,7 @@ export default function RegisterPage() {
                           fontWeight: 800,
                           fontSize: '0.95rem',
                           cursor: 'pointer',
-                          boxShadow: '0 8px 24px rgba(124, 84, 209, 0.4)',
+                          boxShadow: '0 8px 24px rgba(124, 84, 209, 0.35)',
                           opacity: (loading || otpInput.length < 6) ? 0.5 : 1
                         }}
                       >
@@ -591,7 +597,7 @@ export default function RegisterPage() {
                         <button
                           type="button"
                           onClick={() => setStep(1)}
-                          style={{ background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '0.82rem', cursor: 'pointer', textDecoration: 'underline' }}
+                          style={{ background: 'transparent', border: 'none', color: '#665c7d', fontSize: '0.82rem', cursor: 'pointer', textDecoration: 'underline' }}
                         >
                           ← Change Email
                         </button>
@@ -599,7 +605,7 @@ export default function RegisterPage() {
                         <button
                           type="button"
                           onClick={handleSendOtp}
-                          style={{ background: 'transparent', border: 'none', color: '#c084fc', fontSize: '0.82rem', cursor: 'pointer', fontWeight: 700 }}
+                          style={{ background: 'transparent', border: 'none', color: '#7c54d1', fontSize: '0.82rem', cursor: 'pointer', fontWeight: 700 }}
                         >
                           Resend Code 🔄
                         </button>
@@ -611,8 +617,8 @@ export default function RegisterPage() {
                   {step === 3 && (
                     <form onSubmit={handleFinalSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                       <div style={{
-                        background: 'rgba(16, 185, 129, 0.12)',
-                        border: '1px solid #10b981',
+                        background: '#dcfce7',
+                        border: '1px solid #86efac',
                         borderRadius: '16px',
                         padding: '0.85rem 1.1rem',
                         display: 'flex',
@@ -620,26 +626,26 @@ export default function RegisterPage() {
                         gap: '0.65rem'
                       }}>
                         <span style={{ fontSize: '1.3rem' }}>✅</span>
-                        <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#6ee7b7' }}>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#166534' }}>
                           Email Verified: {email}
                         </div>
                       </div>
 
                       <div style={{
-                        background: '#1e293b',
-                        border: '1.5px solid #334155',
+                        background: '#f8f4fe',
+                        border: '1.5px solid #e2d9f3',
                         borderRadius: '18px',
                         padding: '1.25rem'
                       }}>
-                        <h3 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#c084fc', margin: '0 0 0.5rem 0' }}>
+                        <h3 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#7c54d1', margin: '0 0 0.5rem 0' }}>
                           📋 MoodFlip Data Privacy Notice
                         </h3>
-                        <p style={{ fontSize: '0.84rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
+                        <p style={{ fontSize: '0.84rem', color: '#665c7d', lineHeight: 1.5, margin: 0 }}>
                           By creating a profile, you agree that MoodFlip may store your email address, selected moods/dates, actions shown, and purchase history so we can generate custom PDF reports for you.
                         </p>
                       </div>
 
-                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', cursor: 'pointer', fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.45 }}>
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', cursor: 'pointer', fontSize: '0.84rem', color: '#362854', lineHeight: 1.45 }}>
                         <input
                           type="checkbox"
                           checked={consent}
@@ -664,7 +670,7 @@ export default function RegisterPage() {
                           fontWeight: 800,
                           fontSize: '0.95rem',
                           cursor: 'pointer',
-                          boxShadow: '0 8px 24px rgba(124, 84, 209, 0.4)',
+                          boxShadow: '0 8px 24px rgba(124, 84, 209, 0.35)',
                           opacity: (loading || !consent) ? 0.5 : 1
                         }}
                       >
@@ -676,9 +682,9 @@ export default function RegisterPage() {
               )}
 
               {/* Link to Login */}
-              <div style={{ textAlign: 'center', marginTop: '1.75rem', fontSize: '0.85rem', color: '#94a3b8' }}>
+              <div style={{ textAlign: 'center', marginTop: '1.75rem', fontSize: '0.85rem', color: '#665c7d' }}>
                 Already have a MoodFlip profile?{' '}
-                <a href="/login" style={{ color: '#c084fc', fontWeight: 800, textDecoration: 'none' }}>
+                <a href="/login" style={{ color: '#7c54d1', fontWeight: 800, textDecoration: 'none' }}>
                   Log In Here
                 </a>
               </div>

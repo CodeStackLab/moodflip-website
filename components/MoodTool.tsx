@@ -314,9 +314,10 @@ export default function MoodTool() {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
   // ─── Result State ─────────────────────────────────────────────────
-  const [currentFlip, setCurrentFlip] = useState<{ targetMood: string; actionText: string }>({
+  const [currentFlip, setCurrentFlip] = useState<{ targetMood: string; actionText: string; isAiGenerated?: boolean }>({
     targetMood: 'Peaceful',
-    actionText: 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.'
+    actionText: 'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.',
+    isAiGenerated: false
   });
   const [flipCount, setFlipCount] = useState<number>(0);
   const [isFlipping, setIsFlipping] = useState<boolean>(false);
@@ -380,18 +381,61 @@ export default function MoodTool() {
       localStorage.setItem('moodflip_checkin_count', nextCount.toString());
     }
 
-    const newFlip = getActionForFeeling(selectedFeelingId, nextCount);
+    // Default static fallback
+    let newFlip = getActionForFeeling(selectedFeelingId, nextCount);
+    let isAi = false;
 
-    setTimeout(() => {
-      setCurrentFlip(newFlip);
-      setIsFlipping(false);
-      setStep(4);
+    try {
+      // Call AI endpoint to get fresh, unique 60-second action & target mood
+      const aiRes = await fetch('/api/ai/flip', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          primaryMood: activeFamily.name,
+          subFeeling: activeSubCategory?.name || activeSubCategoryId,
+          specificFeeling: selectedFeeling?.name || selectedFeelingId,
+          visitCount: nextCount
+        })
+      });
 
-      if (nextCount >= 7 && !localStorage.getItem('moodflip_7th_offer_shown')) {
-        setShow7thCheckinOffer(true);
-        localStorage.setItem('moodflip_7th_offer_shown', 'true');
+      if (aiRes.ok) {
+        const aiData = await aiRes.json();
+        if (aiData.targetMood && aiData.actionText) {
+          newFlip = {
+            targetMood: aiData.targetMood,
+            actionText: aiData.actionText
+          };
+          isAi = !!aiData.isAiGenerated;
+        }
       }
-    }, 380);
+    } catch (e) {
+      console.warn('AI call failed, using static fallback:', e);
+    }
+
+    const finalFlip = { ...newFlip, isAiGenerated: isAi };
+    setCurrentFlip(finalFlip);
+    setIsFlipping(false);
+    setStep(4);
+
+    if (nextCount >= 7 && typeof window !== 'undefined' && !localStorage.getItem('moodflip_7th_offer_shown')) {
+      setShow7thCheckinOffer(true);
+      localStorage.setItem('moodflip_7th_offer_shown', 'true');
+    }
+
+    // Save checkin locally
+    if (typeof window !== 'undefined') {
+      const existingHistory = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
+      const newEntry = {
+        primaryMood: activeFamily.name,
+        subFeeling: activeSubCategory?.name || activeSubCategoryId || '',
+        specificFeeling: selectedFeeling?.name || selectedFeelingId || '',
+        targetMood: newFlip.targetMood,
+        actionShown: newFlip.actionText,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        isAiGenerated: isAi
+      };
+      localStorage.setItem('moodflip_checkins', JSON.stringify([newEntry, ...existingHistory]));
+    }
 
     if (profile?.email) {
       try {
@@ -408,7 +452,7 @@ export default function MoodTool() {
           })
         });
       } catch (e) {
-        // Silent fallback — backend optional
+        // Silent fallback
       }
     }
   };
@@ -843,9 +887,27 @@ export default function MoodTool() {
                     </div>
 
                     <div style={{ flex: 1 }}>
-                      <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)', margin: 0, fontFamily: "'Fraunces', Georgia, serif", lineHeight: 1.3 }}>
-                        ⚡ Your 60-second action:
-                      </h3>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.2rem' }}>
+                        <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)', margin: 0, fontFamily: "'Fraunces', Georgia, serif", lineHeight: 1.3 }}>
+                          ⚡ Your 60-second action:
+                        </h3>
+                        {currentFlip.isAiGenerated && (
+                          <span style={{
+                            fontSize: '0.68rem',
+                            fontWeight: 800,
+                            color: '#7c54d1',
+                            background: 'linear-gradient(135deg, rgba(124,84,209,0.12), rgba(236,72,153,0.12))',
+                            border: '1px solid rgba(124,84,209,0.3)',
+                            padding: '0.15rem 0.55rem',
+                            borderRadius: '9999px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.25rem'
+                          }}>
+                            ✨ AI Powered
+                          </span>
+                        )}
+                      </div>
                       <div style={{ borderTop: '1px solid var(--card-border)', margin: '0.6rem 0', position: 'relative', textAlign: 'center' }}>
                         <span style={{ position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)', background: 'var(--action-card-bg)', padding: '0 0.4rem', fontSize: '0.7rem', color: '#c8828a' }}>♡</span>
                       </div>

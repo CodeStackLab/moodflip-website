@@ -159,37 +159,56 @@ export default function UserProfilePage() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', gap: '0.65rem', alignItems: 'center' }}>
+              {(profile.email.includes('admin') || profile.email === 'admin@moodflip.coach' || profile.email === 'admin@demo.com') && (
+                <a
+                  href="/admin"
+                  style={{
+                    padding: '0.65rem 1.1rem',
+                    background: '#1e1b4b',
+                    color: '#c084fc',
+                    border: '1px solid #4c1d95',
+                    borderRadius: '12px',
+                    fontWeight: 800,
+                    fontSize: '0.82rem',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 14px rgba(30, 27, 75, 0.3)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem'
+                  }}
+                >
+                  🛡️ Admin Panel →
+                </a>
+              )}
+
               <a
                 href="/"
                 style={{
-                  padding: '0.7rem 1.25rem',
+                  padding: '0.65rem 1.1rem',
                   background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
-                  borderRadius: '12px',
                   color: 'white',
-                  fontWeight: 700,
-                  fontSize: '0.86rem',
+                  borderRadius: '12px',
+                  fontWeight: 800,
+                  fontSize: '0.82rem',
                   textDecoration: 'none',
-                  boxShadow: '0 4px 14px rgba(124, 84, 209, 0.3)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem'
+                  boxShadow: '0 4px 14px rgba(124, 84, 209, 0.3)'
                 }}
               >
-                <span>✨ New Check-in</span>
+                ✨ New Check-In
               </a>
 
               <button
                 type="button"
                 onClick={handleSignOut}
                 style={{
-                  padding: '0.7rem 1.25rem',
+                  padding: '0.65rem 1rem',
                   background: 'var(--tile-bg)',
                   border: '1px solid var(--card-border)',
-                  borderRadius: '12px',
                   color: 'var(--text-subtle)',
+                  borderRadius: '12px',
                   fontWeight: 700,
-                  fontSize: '0.86rem',
+                  fontSize: '0.82rem',
                   cursor: 'pointer'
                 }}
               >

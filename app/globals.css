@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #fcf8f5;
-  --card-bg: #fffaf7;
-  --card-border: #efe6dc;
+  --bg: linear-gradient(145deg, #fdf6f0 0%, #fcf0f5 40%, #f7effd 100%);
+  --card-bg: #fffbf8;
+  --card-border: #ede1d5;
   --text-main: #362854;
   --text-subtle: #665c7d;
-  --left-bg: linear-gradient(180deg, #fffaf7 0%, #fbf3f5 100%);
-  --right-bg: linear-gradient(180deg, #fffcf5 0%, #fff7f0 50%, #faf1f5 100%);
+  --left-bg: linear-gradient(168deg, #ffffff 0%, #fdf4f7 50%, #f7effd 100%);
+  --right-bg: linear-gradient(155deg, #fffdfa 0%, #fff5ee 40%, #faf0f7 100%);
   --tile-bg: #ffffff;
-  --tile-selected-bg: #f0e8f9;
-  --tile-selected-border: #7c54d1;
-  --banner-bg: #f6edf4;
-  --header-bg: rgba(255, 252, 248, 0.88);
+  --tile-selected-bg: #f5e9f8;
+  --tile-selected-border: #ec4899;
+  --banner-bg: #f8ecf4;
+  --header-bg: rgba(255, 251, 248, 0.92);
   --action-card-bg: #ffffff;
 
   --m3-purple-primary: #6750a4;
@@ -29,17 +29,17 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0b0714;
+  --bg: linear-gradient(160deg, #0e091b 0%, #170d24 40%, #201127 100%);
   --card-bg: #150f24;
   --card-border: #2e2246;
   --text-main: #f3e8ff;
   --text-subtle: #c4b0e6;
-  --left-bg: linear-gradient(180deg, #150f24 0%, #1c1430 100%);
-  --right-bg: linear-gradient(180deg, #181129 0%, #201435 50%, #291540 100%);
+  --left-bg: linear-gradient(168deg, #18102a 0%, #211333 100%);
+  --right-bg: linear-gradient(155deg, #1a112c 0%, #251233 50%, #2b1338 100%);
   --tile-bg: #221838;
-  --tile-selected-bg: #37215c;
-  --tile-selected-border: #a855f7;
-  --banner-bg: #1c122e;
+  --tile-selected-bg: #3d1c4e;
+  --tile-selected-border: #f472b6;
+  --banner-bg: #1f1230;
   --header-bg: rgba(21, 15, 36, 0.92);
   --action-card-bg: #211736;
 }
@@ -55,10 +55,11 @@ html, body {
 body {
   font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
+  background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
   line-height: 1.5;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
   -webkit-tap-highlight-color: transparent;
 }
 

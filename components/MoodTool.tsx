@@ -325,20 +325,23 @@ export default function MoodTool() {
   const Tile=({f}:{f:{id:string;name:string}})=>{
     const sel=f.id===feelingId;
     const Ic=ICON_MAP[f.id]||LonelyIcon;
+    const fontSize = f.name.length > 10 ? '0.72rem' : '0.8rem';
     return (
       <button onClick={()=>setFeelingId(f.id)} className="feeling-card-item" style={{
         background: sel ? '#f0e9f8' : '#ffffff',
         border: sel ? '2px solid #7859c2' : '1px solid #e4dcee',
-        borderRadius:'12px', padding:'1rem 0.5rem',
+        borderRadius:'12px', padding:'0.75rem 0.3rem',
         display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
-        gap:'0.5rem', cursor:'pointer',
+        gap:'0.4rem', cursor:'pointer',
         boxShadow: sel ? '0 6px 16px rgba(120,89,194,0.15)' : '0 2px 6px rgba(0,0,0,0.02)',
         transform: sel ? 'scale(1.03)' : 'scale(1)',
-        transition:'all 0.18s ease', flex:1, minWidth:0, height:'90px'
+        transition:'all 0.18s ease', flex:1, minWidth:0, height:'90px',
+        overflow:'hidden'
       }}>
-        <Ic size={32} color={sel ? '#7859c2' : '#a093b5'} />
-        <span style={{ fontSize:'0.82rem', fontWeight: sel ? 700:500, color: '#362854',
-          textTransform:'capitalize', lineHeight:1.1, textAlign:'center' }}>
+        <Ic size={30} color={sel ? '#7859c2' : '#a093b5'} />
+        <span style={{ fontSize: fontSize, fontWeight: sel ? 700:500, color: '#362854',
+          textTransform:'capitalize', lineHeight:1.1, textAlign:'center',
+          whiteSpace:'nowrap', textOverflow:'ellipsis', maxWidth:'100%', padding:'0 2px' }}>
           {f.name}
         </span>
       </button>
@@ -364,7 +367,7 @@ export default function MoodTool() {
           .mt-right{padding: 1.8rem 1rem !important;}
           .mt-row-a, .mt-row-b {flex-direction:column !important; align-items:stretch !important;}
           .mt-row2{flex-wrap:wrap !important;}
-          .mt-flipcell{margin-right:0 !important;margin-left:0 !important;width:100% !important;justify-content:center !important;margin-top:0.6rem !important;}
+          .mt-flipcell{position:relative !important;right:auto !important;top:auto !important;transform:none !important;margin-right:0 !important;margin-left:0 !important;width:100% !important;justify-content:center !important;margin-top:0.75rem !important;}
           .mt-target-title { font-size: clamp(2.2rem, 8vw, 3.2rem) !important; white-space: normal !important; word-break: break-word !important; }
         }
       `}</style>
@@ -461,15 +464,14 @@ export default function MoodTool() {
                   </div>
 
                   {/* Grid row 2 + Change My Mood button bleeding right */}
-                  <div className="mt-row2" style={{ display:'flex',gap:'0.6rem',alignItems:'stretch',overflow:'visible' }}>
+                  <div className="mt-row2" style={{ display:'flex',gap:'0.6rem',alignItems:'stretch',overflow:'visible',position:'relative' }}>
                     {row2.map(f=><Tile key={f.id} f={f}/>)}
 
                     {/* ── "Change My Mood →" button — overflows border ── */}
                     <div className="mt-flipcell" style={{
                       display:'flex', alignItems:'center',
-                      marginRight:'-2.4rem',   /* bleeds past panel border */
-                      marginLeft:'0.4rem',     /* gap from 'Abandoned' */
-                      flexShrink:0, zIndex:20, overflow:'visible'
+                      position:'absolute', right:'-2.4rem', top:'50%', transform:'translateY(-50%)',
+                      zIndex:20, overflow:'visible'
                     }}>
                       <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
                         <div style={{

@@ -724,7 +724,7 @@ export default function MoodTool() {
                       style={{
                         padding: '1.1rem 2.75rem',
                         borderRadius: '9999px',
-                        border: 'none',
+                        border: canFlip ? 'none' : '1.5px solid var(--card-border)',
                         background: canFlip
                           ? 'linear-gradient(135deg, #7c54d1 0%, #523793 100%)'
                           : 'var(--tile-bg)',
@@ -733,7 +733,6 @@ export default function MoodTool() {
                         fontSize: '1.15rem',
                         cursor: canFlip ? 'pointer' : 'not-allowed',
                         boxShadow: canFlip ? '0 8px 28px rgba(124,84,209,0.45)' : 'none',
-                        border: canFlip ? 'none' : '1.5px solid var(--card-border)',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '0.75rem',

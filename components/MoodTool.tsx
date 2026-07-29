@@ -73,7 +73,7 @@ const FEELING_ICON_MAP: Record<string, React.FC<{ size?: number; color?: string 
 };
 
 /* =====================================================================
-   ARROW PILL BANNER (Google Material / Custom Arrow Shape)
+   LEFT ARROW PILL BANNER (Pointing right towards choices)
    ===================================================================== */
 function ArrowPillBanner({
   icon,
@@ -86,21 +86,22 @@ function ArrowPillBanner({
     <div style={{
       display: 'inline-flex',
       alignItems: 'center',
-      gap: '0.5rem',
-      background: 'linear-gradient(135deg, rgba(124, 84, 209, 0.1) 0%, rgba(231, 124, 116, 0.1) 100%)',
+      gap: '0.4rem',
+      background: 'linear-gradient(135deg, rgba(124, 84, 209, 0.08) 0%, rgba(231, 124, 116, 0.08) 100%)',
       border: '1.5px solid var(--card-border)',
       color: 'var(--text-main)',
-      padding: '0.55rem 1.4rem 0.55rem 0.65rem',
-      borderRadius: '9999px 20px 20px 9999px',
-      clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)',
-      fontSize: '0.78rem',
+      padding: '0.5rem 1.2rem 0.5rem 0.65rem',
+      borderRadius: '9999px 18px 18px 9999px',
+      clipPath: 'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
+      fontSize: '0.75rem',
       fontWeight: 600,
-      minWidth: '180px',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
+      width: '145px',
+      flexShrink: 0,
+      boxShadow: '0 2px 6px rgba(0,0,0,0.02)'
     }}>
       <div style={{
-        width: '26px',
-        height: '26px',
+        width: '24px',
+        height: '24px',
         borderRadius: '50%',
         background: 'var(--tile-bg)',
         color: '#7c54d1',
@@ -108,13 +109,13 @@ function ArrowPillBanner({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: '0.8rem',
+        fontSize: '0.75rem',
         flexShrink: 0,
         fontWeight: 700
       }}>
         {icon}
       </div>
-      <span style={{ lineHeight: 1.2, paddingRight: '0.5rem' }}>
+      <span style={{ lineHeight: 1.2, paddingRight: '0.4rem' }}>
         {text}
       </span>
     </div>
@@ -140,13 +141,14 @@ function FamilyCloudButton({
         position: 'relative',
         background: 'transparent',
         border: 'none',
-        padding: '0.55rem 1.1rem',
+        padding: '0.45rem 0.75rem',
         cursor: 'pointer',
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minWidth: '85px',
-        height: '46px',
+        minWidth: '72px',
+        height: '42px',
+        flexShrink: 0,
         transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
         transform: isSelected ? 'scale(1.06)' : 'scale(1)'
       }}
@@ -157,8 +159,8 @@ function FamilyCloudButton({
           top: 0, left: 0, width: '100%', height: '100%',
           zIndex: 1,
           filter: isSelected
-            ? 'drop-shadow(0 6px 16px rgba(124, 84, 209, 0.35))'
-            : 'drop-shadow(0 2px 6px rgba(0,0,0,0.03))',
+            ? 'drop-shadow(0 4px 12px rgba(124, 84, 209, 0.35))'
+            : 'drop-shadow(0 2px 5px rgba(0,0,0,0.03))',
           transition: 'all 0.25s ease'
         }}
         viewBox="0 0 120 54"
@@ -181,7 +183,7 @@ function FamilyCloudButton({
         position: 'relative',
         zIndex: 2,
         fontFamily: "'Outfit', 'Inter', sans-serif",
-        fontSize: '0.86rem',
+        fontSize: '0.8rem',
         fontWeight: isSelected ? 700 : 600,
         color: isSelected ? '#7c54d1' : 'var(--text-main)',
         letterSpacing: '0.01em'
@@ -214,7 +216,7 @@ export default function MoodTool() {
 
   const activeFamily = MOOD_DATA.find((f) => f.id === activeFamilyId) || MOOD_DATA[0];
   const currentFeelings = activeFamily.subCategories.flatMap((sub) => sub.feelings);
-  const displayFeelings = currentFeelings.slice(0, 7);
+  const displayFeelings = currentFeelings.slice(0, 8);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -350,7 +352,7 @@ export default function MoodTool() {
     }}>
 
       {/* HERO HEADER */}
-      <div style={{ textAlign: 'center', marginBottom: '2.5rem', marginTop: '0.75rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '2.25rem', marginTop: '0.5rem' }}>
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -362,7 +364,7 @@ export default function MoodTool() {
           fontSize: '0.8rem',
           fontWeight: 700,
           color: '#7c54d1',
-          marginBottom: '1rem',
+          marginBottom: '0.85rem',
           boxShadow: '0 4px 14px rgba(124, 84, 209, 0.12)'
         }}>
           <span>✨ 100% Free Self-Help Utility</span>
@@ -374,9 +376,9 @@ export default function MoodTool() {
 
         <h1 style={{
           fontFamily: "'Fraunces', 'Playfair Display', Georgia, serif",
-          fontSize: 'clamp(2.3rem, 5.5vw, 3.9rem)',
+          fontSize: 'clamp(2.3rem, 5.5vw, 3.8rem)',
           fontWeight: 700,
-          margin: '0 auto 0.75rem auto',
+          margin: '0 auto 0.65rem auto',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           maxWidth: '840px'
@@ -390,10 +392,10 @@ export default function MoodTool() {
         </h1>
 
         <p style={{
-          fontSize: '1.05rem',
+          fontSize: '1.02rem',
           color: 'var(--text-subtle)',
           maxWidth: '680px',
-          margin: '0 auto 1.5rem auto',
+          margin: '0 auto 1.35rem auto',
           lineHeight: 1.6,
           fontWeight: 400
         }}>
@@ -405,25 +407,25 @@ export default function MoodTool() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: '1.25rem',
+          gap: '1.1rem',
           flexWrap: 'wrap',
           fontSize: '0.84rem',
           color: 'var(--text-main)',
           fontWeight: 600
         }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'var(--tile-bg)', padding: '0.4rem 0.95rem', borderRadius: '9999px', border: '1px solid var(--card-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'var(--tile-bg)', padding: '0.38rem 0.9rem', borderRadius: '9999px', border: '1px solid var(--card-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
             🤖 AI-Powered Fresh Actions
           </span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'var(--tile-bg)', padding: '0.4rem 0.95rem', borderRadius: '9999px', border: '1px solid var(--card-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'var(--tile-bg)', padding: '0.38rem 0.9rem', borderRadius: '9999px', border: '1px solid var(--card-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
             🔒 100% Private (90-Day Auto-Purge)
           </span>
-          <button onClick={() => setShow7thCheckinOffer(true)} style={{ background: 'var(--tile-selected-bg)', border: '1px solid var(--card-border)', color: '#7c54d1', padding: '0.4rem 0.95rem', borderRadius: '9999px', fontWeight: 700, fontSize: '0.84rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+          <button onClick={() => setShow7thCheckinOffer(true)} style={{ background: 'var(--tile-selected-bg)', border: '1px solid var(--card-border)', color: '#7c54d1', padding: '0.38rem 0.9rem', borderRadius: '9999px', fontWeight: 700, fontSize: '0.84rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
             📘 Optional $7 Mindset Plan PDF &rarr;
           </button>
         </div>
       </div>
 
-      {/* MAIN TOOL CONTAINER */}
+      {/* MAIN TOOL CANVAS (MATCHING EXACT SCREENSHOT MOCKUP) */}
       <div style={{
         background: 'var(--card-bg)',
         borderRadius: '32px',
@@ -434,28 +436,35 @@ export default function MoodTool() {
         transition: 'background 0.3s ease, border-color 0.3s ease'
       }}>
 
-        {/* TOP BRAND TITLE INSIDE CARD */}
-        <div style={{ textAlign: 'center', paddingTop: '1.75rem', paddingBottom: '0.5rem' }}>
+        {/* TOP BRAND TITLE INSIDE CARD: MoodFlip */}
+        <div style={{ textAlign: 'center', paddingTop: '1.6rem', paddingBottom: '0.5rem' }}>
           <h2 style={{
             fontFamily: "'Fraunces', 'Playfair Display', Georgia, serif",
-            fontSize: '2.5rem',
+            fontSize: '2.8rem',
             fontWeight: 700,
-            background: 'linear-gradient(135deg, #4c3c6e 0%, #7c54d1 50%, #e77c74 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
             letterSpacing: '-0.02em',
             margin: 0
           }}>
-            MoodFlip
+            <span style={{ color: '#4c3c6e' }}>Mood</span>
+            <span style={{
+              background: 'linear-gradient(135deg, #7c54d1 0%, #e77c74 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}>Flip</span>
           </h2>
         </div>
 
-        {/* GRID Split (Left selection & Right outcome) */}
-        <div className="mood-tool-grid" style={{ minHeight: '580px', position: 'relative' }}>
+        {/* GRID SPLIT LAYOUT: 50% LEFT / 50% RIGHT */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          minHeight: '560px',
+          position: 'relative'
+        }}>
 
-          {/* LEFT PANEL: MOOD SELECTORS & FEELING TILES GRID */}
-          <div className="left-panel-container" style={{
-            padding: '1.5rem 2rem 2.5rem 2rem',
+          {/* LEFT PANEL: SELECTORS & 4x2 TILES GRID */}
+          <div style={{
+            padding: '1.25rem 1.75rem 2.25rem 1.75rem',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -463,12 +472,19 @@ export default function MoodTool() {
             background: 'var(--left-bg)'
           }}>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
-              {/* ROW 1: STEP 1 (Choose broad family) */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'nowrap' }}>
+              {/* STEP 1: Choose broad family (5 Clouds in ONE row) */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <ArrowPillBanner icon="☁️" text="Choose your current mood" />
-                <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap', flex: 1 }}>
+                <div style={{
+                  display: 'flex',
+                  gap: '0.2rem',
+                  alignItems: 'center',
+                  flexWrap: 'nowrap',
+                  overflowX: 'auto',
+                  flex: 1
+                }}>
                   {MOOD_DATA.map((fam) => {
                     const isSelected = fam.id === activeFamilyId;
                     return (
@@ -483,88 +499,92 @@ export default function MoodTool() {
                 </div>
               </div>
 
-              {/* ROW 2: STEP 2 (Pick exact feeling tile from 4x2 grid) */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+              {/* STEP 2: Pick feeling closest to how you feel */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
                 <ArrowPillBanner icon="♡" text="Pick the feeling closest to how you feel" />
 
-                {/* 4x2 Grid: 7 Feelings + 1 Clear Selection Tile */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '0.85rem',
-                  flex: 1
-                }}>
-                  {displayFeelings.map((feeling) => {
-                    const isSelected = feeling.id === selectedFeelingId;
-                    const IconComponent = FEELING_ICON_MAP[feeling.id] || LonelyIcon;
-                    return (
-                      <button
-                        key={feeling.id}
-                        onClick={() => setSelectedFeelingId(feeling.id)}
-                        className="feeling-card-item"
-                        style={{
-                          background: isSelected ? 'var(--tile-selected-bg)' : 'var(--tile-bg)',
-                          border: isSelected ? '2px solid #7c54d1' : '1.5px solid var(--card-border)',
-                          borderRadius: '18px',
-                          padding: '1.1rem 0.5rem 0.85rem 0.5rem',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '0.65rem',
-                          cursor: 'pointer',
-                          boxShadow: isSelected ? '0 6px 18px rgba(124, 84, 209, 0.25)' : '0 2px 8px rgba(0,0,0,0.02)',
-                          transform: isSelected ? 'scale(1.03)' : 'scale(1)',
-                          transition: 'all 0.2s ease'
-                        }}
-                      >
-                        <div style={{ color: isSelected ? '#7c54d1' : 'var(--text-main)' }}>
-                          <IconComponent size={34} color={isSelected ? '#7c54d1' : 'var(--text-main)'} />
-                        </div>
-                        <span style={{
-                          fontSize: '0.83rem',
-                          fontWeight: isSelected ? 700 : 500,
-                          color: isSelected ? '#7c54d1' : 'var(--text-main)',
-                          textTransform: 'capitalize'
-                        }}>
-                          {feeling.name}
-                        </span>
-                      </button>
-                    );
-                  })}
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {/* 4x2 Grid of 8 Feelings */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: '0.75rem'
+                  }}>
+                    {displayFeelings.map((feeling) => {
+                      const isSelected = feeling.id === selectedFeelingId;
+                      const IconComponent = FEELING_ICON_MAP[feeling.id] || LonelyIcon;
+                      return (
+                        <button
+                          key={feeling.id}
+                          onClick={() => setSelectedFeelingId(feeling.id)}
+                          className="feeling-card-item"
+                          style={{
+                            background: isSelected ? 'var(--tile-selected-bg)' : 'var(--tile-bg)',
+                            border: isSelected ? '2px solid #7c54d1' : '1.5px solid var(--card-border)',
+                            borderRadius: '18px',
+                            padding: '1rem 0.4rem 0.75rem 0.4rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.55rem',
+                            cursor: 'pointer',
+                            boxShadow: isSelected ? '0 6px 18px rgba(124, 84, 209, 0.25)' : '0 2px 8px rgba(0,0,0,0.02)',
+                            transform: isSelected ? 'scale(1.03)' : 'scale(1)',
+                            transition: 'all 0.2s ease'
+                          }}
+                        >
+                          <div style={{ color: isSelected ? '#7c54d1' : 'var(--text-main)' }}>
+                            <IconComponent size={32} color={isSelected ? '#7c54d1' : 'var(--text-main)'} />
+                          </div>
+                          <span style={{
+                            fontSize: '0.8rem',
+                            fontWeight: isSelected ? 700 : 500,
+                            color: isSelected ? '#7c54d1' : 'var(--text-main)',
+                            textTransform: 'capitalize'
+                          }}>
+                            {feeling.name}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
 
-                  {/* 8TH TILE: CLEAR SELECTION / START OVER */}
-                  <button
-                    onClick={handleClearSelection}
-                    className="feeling-card-item"
-                    style={{
-                      background: 'var(--tile-selected-bg)',
-                      border: '1.5px dashed #7c54d1',
-                      borderRadius: '18px',
-                      padding: '1.1rem 0.5rem 0.85rem 0.5rem',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.4rem',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <div style={{ color: '#7c54d1' }}>
-                      <TrashIcon size={30} color="#7c54d1" />
-                    </div>
-                    <span style={{
-                      fontSize: '0.8rem',
-                      fontWeight: 700,
-                      color: '#7c54d1',
-                      lineHeight: 1.1,
-                      textAlign: 'center'
-                    }}>
-                      Clear selection
-                    </span>
-                    <span style={{ fontSize: '0.68rem', color: 'var(--text-subtle)' }}>Start over</span>
-                  </button>
+                  {/* CLEAR SELECTION / START OVER TILE (ROW 3 LEFT) */}
+                  <div style={{ display: 'flex' }}>
+                    <button
+                      onClick={handleClearSelection}
+                      className="feeling-card-item"
+                      style={{
+                        width: 'calc(25% - 0.55rem)',
+                        background: 'var(--tile-selected-bg)',
+                        border: '1.5px dashed #7c54d1',
+                        borderRadius: '18px',
+                        padding: '0.85rem 0.4rem 0.75rem 0.4rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.35rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      <div style={{ color: '#7c54d1' }}>
+                        <TrashIcon size={26} color="#7c54d1" />
+                      </div>
+                      <span style={{
+                        fontSize: '0.76rem',
+                        fontWeight: 700,
+                        color: '#7c54d1',
+                        lineHeight: 1.1,
+                        textAlign: 'center'
+                      }}>
+                        Clear selection
+                      </span>
+                      <span style={{ fontSize: '0.66rem', color: 'var(--text-subtle)' }}>Start over</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -572,13 +592,14 @@ export default function MoodTool() {
 
           </div>
 
-          {/* CENTER 3D ARROW BUTTON ("Flip My Mood →") */}
+          {/* CENTER 3D PURPLE ARROW BUTTON ("Flip My Mood →") */}
           <div style={{
             position: 'absolute',
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)',
-            zIndex: 10
+            zIndex: 30,
+            pointerEvents: 'auto'
           }}>
             <button
               onClick={handleFlipMood}
@@ -593,7 +614,7 @@ export default function MoodTool() {
                 fontWeight: 800,
                 fontSize: '1.05rem',
                 cursor: 'pointer',
-                boxShadow: '0 8px 24px rgba(124, 84, 209, 0.45)',
+                filter: 'drop-shadow(0 8px 18px rgba(82, 55, 147, 0.45))',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.6rem',
@@ -607,10 +628,10 @@ export default function MoodTool() {
             </button>
           </div>
 
-          {/* RIGHT PANEL: SUNBURST PASTEL ARTWORK & OUTCOME CARD */}
+          {/* RIGHT PANEL: SUNBURST PASTEL ARTWORK & OUTCOME DISPLAY */}
           <div style={{
             background: 'var(--right-bg)',
-            padding: '2.5rem 2rem 2.5rem 3rem',
+            padding: '2.25rem 2rem 2.25rem 3.5rem',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -644,21 +665,21 @@ export default function MoodTool() {
                     opacity="0.18"
                   />
                 ))}
-                {/* Soft clouds & flying bird silhouette */}
-                <path d="M 420 120 Q 430 110 440 120 Q 450 110 460 120" stroke="#a855f7" strokeWidth="1.2" fill="none" opacity="0.3" />
+                {/* Flying bird silhouette */}
+                <path d="M 420 120 Q 430 110 440 120 Q 450 110 460 120" stroke="#a855f7" strokeWidth="1.2" fill="none" opacity="0.35" />
               </svg>
             </div>
 
             {/* OUTCOME DISPLAY */}
             <div style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
               <div style={{ fontSize: '1.25rem', color: '#d97706', marginBottom: '0.35rem' }}>♡</div>
-              <div style={{ fontSize: '0.98rem', color: 'var(--text-subtle)', fontWeight: 500 }}>Your mood has changed to:</div>
+              <div style={{ fontSize: '0.96rem', color: 'var(--text-subtle)', fontWeight: 500 }}>Your mood has changed to:</div>
               <h2 className="target-mood-animate" key={currentFlip.targetMood} style={{
                 fontFamily: "'Fraunces', 'Playfair Display', Georgia, serif",
                 fontSize: currentFlip.targetMood.length > 12 ? '2.5rem' : '3.8rem',
                 fontWeight: 700,
                 color: '#10b981',
-                margin: '0.25rem 0 1.75rem 0',
+                margin: '0.25rem 0 1.65rem 0',
                 lineHeight: 1.1,
                 whiteSpace: 'nowrap'
               }}>
@@ -670,7 +691,7 @@ export default function MoodTool() {
                 background: 'var(--action-card-bg)',
                 border: '1.5px solid var(--card-border)',
                 borderRadius: '20px',
-                padding: '1.5rem',
+                padding: '1.4rem 1.5rem',
                 boxShadow: '0 12px 35px rgba(0, 0, 0, 0.06)',
                 display: 'flex',
                 alignItems: 'center',
@@ -679,8 +700,8 @@ export default function MoodTool() {
                 position: 'relative'
               }}>
                 <div style={{
-                  width: '60px',
-                  height: '60px',
+                  width: '58px',
+                  height: '58px',
                   borderRadius: '50%',
                   background: 'var(--tile-selected-bg)',
                   display: 'flex',
@@ -688,12 +709,12 @@ export default function MoodTool() {
                   justifyContent: 'center',
                   flexShrink: 0
                 }}>
-                  <MeditateIcon size={36} color="#7c54d1" />
+                  <MeditateIcon size={34} color="#7c54d1" />
                 </div>
 
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.4rem' }}>
-                    <h3 style={{ fontSize: '0.96rem', fontWeight: 700, color: 'var(--text-main)', margin: 0, fontFamily: "'Fraunces', Georgia, serif", lineHeight: 1.3 }}>
+                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)', margin: 0, fontFamily: "'Fraunces', Georgia, serif", lineHeight: 1.3 }}>
                       60-sec action to get to a {currentFlip.targetMood.toLowerCase()} mood
                     </h3>
                     {currentFlip.isAiGenerated && (
@@ -711,16 +732,16 @@ export default function MoodTool() {
                     )}
                   </div>
 
-                  <div style={{ borderTop: '1px solid var(--card-border)', margin: '0.65rem 0', position: 'relative', textAlign: 'center' }}>
+                  <div style={{ borderTop: '1px solid var(--card-border)', margin: '0.6rem 0', position: 'relative', textAlign: 'center' }}>
                     <span style={{ position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)', background: 'var(--action-card-bg)', padding: '0 0.4rem', fontSize: '0.7rem', color: '#c8828a' }}>♡</span>
                   </div>
-                  <p style={{ fontSize: '0.91rem', color: 'var(--text-subtle)', lineHeight: 1.55, margin: 0, fontWeight: 400 }}>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-subtle)', lineHeight: 1.55, margin: 0, fontWeight: 400 }}>
                     {currentFlip.actionText}
                   </p>
                 </div>
 
                 <div style={{ flexShrink: 0, opacity: 0.85 }}>
-                  <BotanicalSprig size={40} color="#7c54d1" />
+                  <BotanicalSprig size={38} color="#7c54d1" />
                 </div>
               </div>
 

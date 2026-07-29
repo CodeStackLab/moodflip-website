@@ -427,15 +427,16 @@ export default function MoodTool() {
             </h2>
           </div>
 
-          {/* ── Split: left 50% | right 50% ── */}
-          <div className="mt-split" style={{ display:'flex',minHeight:'510px',overflow:'visible' }}>
+          {/* ── Split: Left Card 50% | Right Card 50% with Center Gap ── */}
+          <div className="mt-split" style={{ display:'flex',gap:'1.5rem',padding:'0 1.5rem 1.5rem 1.5rem',minHeight:'510px',overflow:'visible',position:'relative' }}>
 
-            {/* ━━━━━ LEFT PANEL ━━━━━ */}
+            {/* ━━━━━ LEFT CARD ━━━━━ */}
             <div className="mt-left" style={{
-              flex:'0 0 50%', padding:'1.4rem 1.65rem 1.85rem 1.65rem',
+              flex:'0 0 calc(50% - 0.75rem)', padding:'1.4rem 1.65rem 1.85rem 1.65rem',
               display:'flex', flexDirection:'column', gap:'1.4rem',
-              borderRight:'1px solid #e2d9f3',
-              background:'linear-gradient(168deg,#fdfaff 0%,#f4effb 100%)',
+              border:'1.5px solid #e2d9f3', borderRadius:'24px',
+              boxShadow:'0 12px 35px rgba(124,84,209,0.06)',
+              background:'linear-gradient(168deg,#ffffff 0%,#f5f0fc 100%)',
               position:'relative', overflow:'visible'
             }}>
 
@@ -487,52 +488,15 @@ export default function MoodTool() {
 
                 </div>
               </div>
+            </div>{/* end left card */}
 
-              {/* ── "Change My Mood →" button — positioned on border between left & right panels with space on left & right ── */}
-              <div className="mt-flipcell" style={{
-                display:'flex', alignItems:'center',
-                position:'absolute', right:'-2.2rem', top:'56%', transform:'translateY(-50%)',
-                zIndex:30, overflow:'visible'
-              }}>
-                <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
-                  <div style={{
-                    background: 'white',
-                    padding: '3px',
-                    clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)',
-                    display: 'inline-flex'
-                  }}>
-                    <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
-                      className="flip-btn"
-                      style={{
-                        background: loading
-                          ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
-                          : 'linear-gradient(135deg,#7859c2 0%,#5a40a0 100%)',
-                        color:'#fff', border:'none',
-                        clipPath:'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
-                        padding:'1rem 2.2rem 1rem 1.6rem',
-                        fontWeight:700, fontSize:'1.1rem',
-                        cursor: loading ? 'wait' : 'pointer',
-                        display:'flex', alignItems:'center', gap:'0.4rem',
-                        textAlign:'left', lineHeight:1.2,
-                        fontFamily:"'Outfit','Inter',sans-serif",
-                        position:'relative'
-                      }}>
-                      <span style={{ display:'flex',flexDirection:'column' }}>
-                        <span>{loading ? 'Flipping...' : 'Change'}</span>
-                        {!loading && <span>My Mood</span>}
-                      </span>
-                      {!loading && <span style={{ fontSize:'1.4rem',fontWeight:400,lineHeight:1,marginTop:'0.8rem' }}>→</span>}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>{/* end left */}
-
-            {/* ━━━━━ RIGHT PANEL ━━━━━ */}
+            {/* ━━━━━ RIGHT CARD ━━━━━ */}
             <div className="mt-right" style={{
-              flex:1,
+              flex:'0 0 calc(50% - 0.75rem)',
+              border:'1.5px solid #e2d9f3', borderRadius:'24px',
+              boxShadow:'0 12px 35px rgba(124,84,209,0.06)',
               background:'linear-gradient(155deg,#fffcf8 0%,#fff8e6 30%,#faf2f8 100%)',
-              padding:'2.1rem 1.85rem 2.1rem 3.6rem',
+              padding:'2.1rem 1.85rem 2.1rem 2.5rem',
               display:'flex', flexDirection:'column', justifyContent:'center',
               position:'relative', overflow:'hidden'
             }}>
@@ -601,7 +565,46 @@ export default function MoodTool() {
                   </button>
                 </div>
               </div>
-            </div>{/* end right */}
+            </div>{/* end right card */}
+
+            {/* ── "Change My Mood →" button — positioned in EXACT DEAD CENTER between Left & Right cards ── */}
+            <div className="mt-flipcell" style={{
+              display:'flex', alignItems:'center',
+              position:'absolute', left:'50%', top:'54%', transform:'translate(-50%, -50%)',
+              zIndex:40, overflow:'visible'
+            }}>
+              <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
+                <div style={{
+                  background: 'white',
+                  padding: '3px',
+                  clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)',
+                  display: 'inline-flex'
+                }}>
+                  <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
+                    className="flip-btn"
+                    style={{
+                      background: loading
+                        ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
+                        : 'linear-gradient(135deg,#7859c2 0%,#5a40a0 100%)',
+                      color:'#fff', border:'none',
+                      clipPath:'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
+                      padding:'1rem 2.2rem 1rem 1.6rem',
+                      fontWeight:700, fontSize:'1.1rem',
+                      cursor: loading ? 'wait' : 'pointer',
+                      display:'flex', alignItems:'center', gap:'0.4rem',
+                      textAlign:'left', lineHeight:1.2,
+                      fontFamily:"'Outfit','Inter',sans-serif",
+                      position:'relative'
+                    }}>
+                    <span style={{ display:'flex',flexDirection:'column' }}>
+                      <span>{loading ? 'Flipping...' : 'Change'}</span>
+                      {!loading && <span>My Mood</span>}
+                    </span>
+                    {!loading && <span style={{ fontSize:'1.4rem',fontWeight:400,lineHeight:1,marginTop:'0.8rem' }}>→</span>}
+                  </button>
+                </div>
+              </div>
+            </div>
 
           </div>{/* end split */}
 

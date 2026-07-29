@@ -174,6 +174,30 @@ function HeartIcon() {
   );
 }
 
+/* ── Custom Toast Component ── */
+function Toast({ msg, onClose }: { msg: string, onClose: () => void }) {
+  if (!msg) return null;
+  return (
+    <div style={{
+      position: 'fixed', bottom: '2rem', left: '50%', transform: 'translateX(-50%)',
+      background: '#fff', border: '1px solid #e0d7f0', borderRadius: '16px',
+      padding: '1.2rem', boxShadow: '0 10px 30px rgba(120,89,194,0.15)', zIndex: 9999,
+      maxWidth: '400px', width: '90%', fontFamily: "'Outfit','Inter',sans-serif",
+      textAlign: 'center', animation: 'moodIn 0.3s ease-out'
+    }}>
+      <p style={{ margin: '0 0 0.8rem', fontSize: '0.9rem', color: '#362854', fontWeight: 600, lineHeight: 1.4 }}>
+        {msg.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}
+      </p>
+      <button onClick={onClose} style={{
+        background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: '#fff', border: 'none',
+        borderRadius: '8px', padding: '0.5rem 1rem', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer'
+      }}>
+        Got it
+      </button>
+    </div>
+  );
+}
+
 /* ══════════════════════════════════════════════
    MAIN COMPONENT
 ══════════════════════════════════════════════ */
@@ -187,6 +211,7 @@ export default function MoodTool() {
   const [show2nd, setShow2nd] = useState(false);
   const [show7th, setShow7th] = useState(false);
   const [profile, setProfile] = useState<any>(null);
+  const [toastMsg, setToastMsg] = useState<string>('');
 
   const family = MOOD_DATA.find(f=>f.id===familyId)||MOOD_DATA[0];
   const feelings = FEELINGS[familyId]||FEELINGS.sad;
@@ -213,29 +238,88 @@ export default function MoodTool() {
     setFlip({targetMood:'Peaceful',actionText:'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.',isAi:false});
   };
 
-  const doFlip=async()=>{
+  const doFlip = async () => {
     setLoading(true);
-    const n=count+1; setCount(n);
-    if(typeof window!=='undefined') localStorage.setItem('moodflip_checkin_count',String(n));
-    let nf=getActionForFeeling(feelingId,n); let isAi=false;
+    const n = count + 1; 
+    setCount(n);
+    if(typeof window !== 'undefined') localStorage.setItem('moodflip_checkin_count', String(n));
+    let nf = getActionForFeeling(feelingId, n); 
+    let isAi = false;
+    
     try {
-      const r=await fetch('/api/ai/flip',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,visitCount:n})});
-      if(r.ok){const d=await r.json(); if(d.targetMood&&d.actionText){nf={targetMood:d.targetMood,actionText:d.actionText}; isAi=!!d.isAiGenerated;}}
-    } catch(_){}
-    const ff={...nf,isAi};
-    setTimeout(()=>{
-      setFlip({targetMood:ff.targetMood,actionText:ff.actionText,isAi:ff.isAi});
-      setLoading(false);
-      if(n>=7&&typeof window!=='undefined'&&!localStorage.getItem('moodflip_7th_offer_shown')){
-        setShow7th(true); localStorage.setItem('moodflip_7th_offer_shown','true');
+      const r = await fetch('/api/ai/flip',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,visitCount:n})
+      });
+      if(r.ok){
+        const d = await r.json(); 
+        if(d.targetMood && d.actionText){
+          nf={targetMood:d.targetMood, actionText:d.actionText}; 
+          isAi=!!d.isAiGenerated;
+        }
       }
-    },350);
-    if(typeof window!=='undefined'){
-      const h=JSON.parse(localStorage.getItem('moodflip_checkins')||'[]');
-      localStorage.setItem('moodflip_checkins',JSON.stringify([{primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,targetMood:nf.targetMood,actionShown:nf.actionText,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),isAiGenerated:isAi},...h]));
+    } catch(_){}
+    
+    const ff = {...nf, isAi};
+    setTimeout(() => {
+      setFlip({targetMood:ff.targetMood, actionText:ff.actionText, isAi:ff.isAi});
+      setLoading(false);
+    }, 350);
+
+    if (typeof window !== 'undefined') {
+      const todayDate = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      const h = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
+      
+      const todayCount = h.filter((c:any) => c.date === todayDate).length;
+      
+      if (profile?.email && todayCount >= 3) {
+        setToastMsg("You've saved your 3 MoodFlip check-ins for today.\nYou can still use the free tool, and you can save more check-ins tomorrow.");
+        // We still show them the action, but don't save to DB or history
+        return;
+      }
+
+      const newHistory = [{
+        primaryMood: family.name, subFeeling: feelingId, specificFeeling: feelingId,
+        targetMood: nf.targetMood, actionShown: nf.actionText, date: todayDate, isAiGenerated: isAi
+      }, ...h];
+      
+      localStorage.setItem('moodflip_checkins', JSON.stringify(newHistory));
+
+      if (profile?.email) {
+        // Calculate days and triggers for profile users
+        const uniqueDays = Array.from(new Set(newHistory.map((c: any) => c.date))).length;
+        const newTodayCount = todayCount + 1;
+        
+        try {
+          await fetch('/api/checkins', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({email:profile.email, primaryMood:family.name, subFeeling:feelingId, specificFeeling:feelingId, targetMood:nf.targetMood, actionShown:nf.actionText})
+          });
+        } catch(_) {}
+
+        if (newHistory.length === 1) {
+          setToastMsg("Your first MoodFlip check-in is saved.\nYou can save up to 3 check-ins per day. After 7 days, you'll be able to download your personalised 7-Day MoodFlip Report.");
+        } else if (uniqueDays >= 7) {
+          setToastMsg("Your 7-Day MoodFlip Report is ready.\nDownload your personalised report with your saved moods, positive moods, 60-second actions, and mood pattern summary.\n\nDownload for US$7");
+          if (!localStorage.getItem('moodflip_7th_offer_shown')) {
+            setShow7th(true);
+            localStorage.setItem('moodflip_7th_offer_shown','true');
+          }
+        } else {
+          // Progress message
+          if (uniqueDays >= 2 && newTodayCount === 1) {
+            setToastMsg(`You're building your 7-Day MoodFlip Report.\nSave up to 3 check-ins per day. Your personalised report will be available after 7 days for US$7.`);
+          } else {
+            setToastMsg(`Saved.\nToday's check-ins: [${newTodayCount}/3]\n7-Day Report progress: Day ${uniqueDays} of 7`);
+          }
+        }
+      } else {
+         if(n >= 7 && !localStorage.getItem('moodflip_7th_offer_shown')){
+           setShow7th(true); 
+           localStorage.setItem('moodflip_7th_offer_shown','true');
+         }
+      }
     }
-    if(profile?.email){try{await fetch('/api/checkins',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:profile.email,primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,targetMood:nf.targetMood,actionShown:nf.actionText})});}catch(_){}}
   };
 
   const Tile=({f}:{f:{id:string;name:string}})=>{
@@ -274,11 +358,14 @@ export default function MoodTool() {
         .feeling-card-item:active { transform:scale(0.97) !important; }
         .hide-scrollbar::-webkit-scrollbar{display:none;}
         .hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
-        @media(max-width:800px){
+        @media(max-width:850px){
           .mt-split{flex-direction:column !important;}
-          .mt-left{border-right:none !important;border-bottom:1px solid #e0d7f0 !important;}
+          .mt-left{border-right:none !important;border-bottom:1px solid #e0d7f0 !important;padding: 1.1rem 0.85rem !important;}
+          .mt-right{padding: 1.8rem 1rem !important;}
+          .mt-row-a, .mt-row-b {flex-direction:column !important; align-items:stretch !important;}
           .mt-row2{flex-wrap:wrap !important;}
-          .mt-flipcell{margin-right:0 !important;width:100% !important;justify-content:center !important;margin-top:0.6rem !important;}
+          .mt-flipcell{margin-right:0 !important;margin-left:0 !important;width:100% !important;justify-content:center !important;margin-top:0.6rem !important;}
+          .mt-target-title { font-size: clamp(2.2rem, 8vw, 3.2rem) !important; white-space: normal !important; word-break: break-word !important; }
         }
       `}</style>
 
@@ -304,7 +391,6 @@ export default function MoodTool() {
             Select your current negative mood, discover your positive counterpart, and get 1 practical 60-second action to regain emotional clarity.
           </p>
           <div style={{ display:'flex',justifyContent:'center',alignItems:'center',gap:'0.8rem',flexWrap:'wrap',fontSize:'0.8rem',color:'#362854',fontWeight:600 }}>
-            <span style={{ display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'#fff',padding:'0.33rem 0.8rem',borderRadius:'9999px',border:'1px solid #efe6dc',boxShadow:'0 2px 8px rgba(0,0,0,0.02)' }}>🤖 AI-Powered Fresh Actions</span>
             <span style={{ display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'#fff',padding:'0.33rem 0.8rem',borderRadius:'9999px',border:'1px solid #efe6dc',boxShadow:'0 2px 8px rgba(0,0,0,0.02)' }}>🔒 100% Private (90-Day Auto-Purge)</span>
             <button onClick={()=>setShow7th(true)} style={{ background:'#ede5fa',border:'1px solid #d6c8f5',color:'#7c54d1',padding:'0.33rem 0.8rem',borderRadius:'9999px',fontWeight:700,fontSize:'0.8rem',cursor:'pointer',display:'inline-flex',alignItems:'center',gap:'0.3rem' }}>
               📘 Optional $7 Mindset Plan PDF →
@@ -351,7 +437,7 @@ export default function MoodTool() {
             }}>
 
               {/* Row A: choose mood banner + clouds */}
-              <div style={{ display:'flex',alignItems:'center',gap:'0.55rem' }}>
+              <div className="mt-row-a" style={{ display:'flex',alignItems:'center',gap:'0.55rem' }}>
                 <Banner icon="☁️" text="Choose your current mood" />
                 <div className="hide-scrollbar" style={{ display:'flex',gap:'0.2rem',alignItems:'center',flexWrap:'nowrap',overflowX:'auto',flex:1 }}>
                   {MOOD_DATA.map(fam=>(
@@ -364,7 +450,7 @@ export default function MoodTool() {
               </div>
 
               {/* Row B+C: pick feeling banner + grid */}
-              <div style={{ display:'flex',alignItems:'flex-start',gap:'0.55rem',overflow:'visible' }}>
+              <div className="mt-row-b" style={{ display:'flex',alignItems:'flex-start',gap:'0.55rem',overflow:'visible' }}>
                 <Banner icon="♡" text="Pick the feeling closest to how you feel" />
 
                 <div style={{ flex:1,display:'flex',flexDirection:'column',gap:'0.65rem',minWidth:0,overflow:'visible' }}>
@@ -441,7 +527,7 @@ export default function MoodTool() {
             </div>{/* end left */}
 
             {/* ━━━━━ RIGHT PANEL ━━━━━ */}
-            <div style={{
+            <div className="mt-right" style={{
               flex:1,
               background:'linear-gradient(155deg,#fffcf8 0%,#fff8e6 30%,#faf2f8 100%)',
               padding:'2.1rem 1.85rem 2.1rem 2.6rem',
@@ -456,11 +542,11 @@ export default function MoodTool() {
                 <div style={{ fontSize:'0.96rem',color:'#8a7aaa',fontWeight:500 }}>
                   Your mood has changed to:
                 </div>
-                <h2 className="mood-animate" key={flip.targetMood} style={{
+                <h2 className="mood-animate mt-target-title" key={flip.targetMood} style={{
                   fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
                   fontSize: flip.targetMood.length>11 ? '2.5rem' : '3.8rem',
                   fontWeight:700, color:'#5a7a4a',
-                  margin:'0.18rem 0 1.4rem', lineHeight:1.05, whiteSpace:'nowrap'
+                  margin:'0.18rem 0 1.4rem', lineHeight:1.05
                 }}>
                   {flip.targetMood}
                 </h2>
@@ -587,12 +673,36 @@ export default function MoodTool() {
             <p style={{ fontSize:'0.87rem',color:'#665c7d',lineHeight:1.55 }}>
               You&apos;ve completed 7 mood check-ins! Get your custom-generated 7-Day Mindset PDF report based on your exact check-in history.
             </p>
-            <PaidPlansSection/>
+            <PaidPlansSection />
           </div>
         </div>
       )}
 
-      <AuthModal isOpen={showAuth} onClose={()=>setShowAuth(false)}/>
+      {/* 2nd Visit Profile Invitation Popup */}
+      {show2nd && (
+        <div className="modal-overlay">
+          <div className="modal-card" style={{ maxWidth: '400px', textAlign: 'center' }}>
+            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.6rem', color: '#1e1b4b', marginBottom: '0.5rem' }}>
+              Save your MoodFlip check-ins?
+            </h2>
+            <p style={{ fontSize: '0.9rem', color: '#475569', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+              Create a free profile to save your moods, actions, and progress toward your 7-Day MoodFlip Report.
+            </p>
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
+              <button onClick={() => { setShow2nd(false); localStorage.setItem('moodflip_2nd_visit_dismissed', 'true'); }} style={{ padding: '0.65rem 1rem', background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '12px', fontWeight: 600, cursor: 'pointer' }}>
+                Maybe Later
+              </button>
+              <button onClick={() => { setShow2nd(false); localStorage.setItem('moodflip_2nd_visit_dismissed', 'true'); setShowAuth(true); }} style={{ padding: '0.65rem 1.2rem', background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: 'white', border: 'none', borderRadius: '12px', fontWeight: 700, cursor: 'pointer' }}>
+                Create Free Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {toastMsg && <Toast msg={toastMsg} onClose={() => setToastMsg('')} />}
+
+      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} />
     </>
   );
 }

@@ -269,18 +269,18 @@ export default function Header() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.45rem',
-                padding: '0.45rem 1.15rem',
+                padding: '0.45rem 1.2rem',
                 background: theme === 'dark' ? '#7c54d1' : '#362854',
                 color: '#ffffff',
                 borderRadius: '9999px',
                 fontWeight: 700,
-                fontSize: '0.82rem',
+                fontSize: '0.84rem',
                 textDecoration: 'none',
                 boxShadow: '0 4px 14px rgba(54, 40, 84, 0.25)',
                 transition: 'all 0.2s ease'
               }}
             >
-              <span>✨ Login / Register</span>
+              <span>🔑 Login</span>
             </a>
           )}
         </nav>
@@ -379,7 +379,7 @@ export default function Header() {
                   textDecoration: 'none',
                 }}
               >
-                ✨ Login / Register
+                🔑 Login
               </a>
             )}
           </div>

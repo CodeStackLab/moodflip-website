@@ -328,8 +328,8 @@ export default function MoodTool() {
     const fontSize = f.name.length > 10 ? '0.72rem' : '0.8rem';
     return (
       <button onClick={()=>setFeelingId(f.id)} className="feeling-card-item" style={{
-        background: sel ? '#f0e9f8' : '#ffffff',
-        border: sel ? '2px solid #7859c2' : '1px solid #e4dcee',
+        background: sel ? 'var(--tile-selected-bg, #f0e9f8)' : 'var(--tile-bg, #ffffff)',
+        border: sel ? '2px solid var(--tile-selected-border, #7859c2)' : '1px solid var(--card-border, #e4dcee)',
         borderRadius:'12px', padding:'0.75rem 0.3rem',
         display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
         gap:'0.4rem', cursor:'pointer',
@@ -338,8 +338,8 @@ export default function MoodTool() {
         transition:'all 0.18s ease', flex:1, minWidth:0, height:'90px',
         overflow:'hidden'
       }}>
-        <Ic size={30} color={sel ? '#7859c2' : '#a093b5'} />
-        <span style={{ fontSize: fontSize, fontWeight: sel ? 700:500, color: '#362854',
+        <Ic size={30} color={sel ? '#a855f7' : '#a093b5'} />
+        <span style={{ fontSize: fontSize, fontWeight: sel ? 700:500, color: 'var(--text-main, #362854)',
           textTransform:'capitalize', lineHeight:1.1, textAlign:'center',
           whiteSpace:'nowrap', textOverflow:'ellipsis', maxWidth:'100%', padding:'0 2px' }}>
           {f.name}
@@ -352,10 +352,10 @@ export default function MoodTool() {
     <>
       <style>{`
         @keyframes moodIn { 0%{opacity:0;transform:scale(0.82) translateY(12px)} 65%{opacity:1;transform:scale(1.05) translateY(-2px)} 100%{opacity:1;transform:scale(1) translateY(0)} }
-        @keyframes btnPulse { 0%,100%{filter:drop-shadow(0 6px 22px rgba(82,55,147,0.5))} 50%{filter:drop-shadow(0 12px 30px rgba(82,55,147,0.72));transform:scale(1.028)} }
+        @keyframes btnPulse { 0%,100%{filter:drop-shadow(0 6px 22px rgba(249,115,22,0.5))} 50%{filter:drop-shadow(0 12px 30px rgba(236,72,153,0.72));transform:scale(1.028)} }
         .mood-animate { animation: moodIn 0.52s cubic-bezier(0.16,1,0.3,1) both; }
         .flip-btn { animation: btnPulse 2.6s ease-in-out infinite; }
-        .flip-btn:hover  { filter:drop-shadow(0 14px 32px rgba(82,55,147,0.75)) !important; transform:scale(1.05) !important; }
+        .flip-btn:hover  { filter:drop-shadow(0 14px 32px rgba(249,115,22,0.75)) !important; transform:scale(1.05) !important; }
         .flip-btn:active { transform:scale(0.97) !important; }
         .feeling-card-item:hover  { transform:scale(1.06) !important; box-shadow:0 8px 24px rgba(124,84,209,0.22) !important; }
         .feeling-card-item:active { transform:scale(0.97) !important; }
@@ -363,7 +363,7 @@ export default function MoodTool() {
         .hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
         @media(max-width:850px){
           .mt-split{flex-direction:column !important;}
-          .mt-left{border-right:none !important;border-bottom:1px solid #e0d7f0 !important;padding: 1.1rem 0.85rem !important;}
+          .mt-left{border-right:none !important;border-bottom:1px solid var(--card-border, #e0d7f0) !important;padding: 1.1rem 0.85rem !important;}
           .mt-right{padding: 1.8rem 1rem !important;}
           .mt-row-a, .mt-row-b {flex-direction:column !important; align-items:stretch !important;}
           .mt-row2{flex-wrap:wrap !important;}
@@ -376,8 +376,8 @@ export default function MoodTool() {
       <div style={{ maxWidth:'1280px',margin:'0 auto',padding:'0.5rem 0.75rem 0',fontFamily:"'Outfit','Inter',sans-serif" }}>
         <div style={{ textAlign:'center',marginBottom:'1.65rem',marginTop:'0.35rem' }}>
           <div style={{ display:'inline-flex',alignItems:'center',gap:'0.48rem',
-            background:'#ede5fa',border:'1px solid #d6c8f5',padding:'0.38rem 1.1rem',
-            borderRadius:'9999px',fontSize:'0.77rem',fontWeight:700,color:'#7c54d1',
+            background:'var(--banner-bg, #ede5fa)',border:'1px solid var(--card-border, #d6c8f5)',padding:'0.38rem 1.1rem',
+            borderRadius:'9999px',fontSize:'0.77rem',fontWeight:700,color:'var(--text-main, #7c54d1)',
             marginBottom:'0.7rem',boxShadow:'0 4px 14px rgba(124,84,209,0.1)' }}>
             <span>✨ 100% Free Self-Help Utility</span>
             <span style={{opacity:0.4}}>•</span><span>Tap-Only</span>
@@ -386,31 +386,32 @@ export default function MoodTool() {
           <h1 style={{ fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
             fontSize:'clamp(2rem,5vw,3.5rem)',fontWeight:700,margin:'0 auto 0.5rem',
             letterSpacing:'-0.02em',lineHeight:1.08,maxWidth:'800px' }}>
-            <span style={{color:'#362854'}}>Shift Your Mindset in </span>
+            <span style={{color:'var(--text-main, #362854)'}}>Shift Your Mindset in </span>
             <span style={{background:'linear-gradient(135deg,#7c54d1 0%,#ec4899 100%)',
               WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>60 Seconds</span>
           </h1>
-          <p style={{ fontSize:'0.97rem',color:'#665c7d',maxWidth:'630px',margin:'0 auto 1rem',lineHeight:1.6,fontWeight:400 }}>
+          <p style={{ fontSize:'0.97rem',color:'var(--text-subtle, #665c7d)',maxWidth:'630px',margin:'0 auto 1rem',lineHeight:1.6,fontWeight:400 }}>
             Select your current negative mood, discover your positive counterpart, and get 1 practical 60-second action to regain emotional clarity.
           </p>
-          <div style={{ display:'flex',justifyContent:'center',alignItems:'center',gap:'0.8rem',flexWrap:'wrap',fontSize:'0.8rem',color:'#362854',fontWeight:600 }}>
-            <span style={{ display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'#fff',padding:'0.33rem 0.8rem',borderRadius:'9999px',border:'1px solid #efe6dc',boxShadow:'0 2px 8px rgba(0,0,0,0.02)' }}>🔒 100% Private (90-Day Auto-Purge)</span>
-            <button onClick={()=>setShow7th(true)} style={{ background:'#ede5fa',border:'1px solid #d6c8f5',color:'#7c54d1',padding:'0.33rem 0.8rem',borderRadius:'9999px',fontWeight:700,fontSize:'0.8rem',cursor:'pointer',display:'inline-flex',alignItems:'center',gap:'0.3rem' }}>
+          <div style={{ display:'flex',justifyContent:'center',alignItems:'center',gap:'0.8rem',flexWrap:'wrap',fontSize:'0.8rem',color:'var(--text-main, #362854)',fontWeight:600 }}>
+            <span style={{ display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'var(--tile-bg, #fff)',padding:'0.33rem 0.8rem',borderRadius:'9999px',border:'1px solid var(--card-border, #efe6dc)',boxShadow:'0 2px 8px rgba(0,0,0,0.02)' }}>🔒 100% Private (90-Day Auto-Purge)</span>
+            <button onClick={()=>setShow7th(true)} style={{ background:'var(--banner-bg, #ede5fa)',border:'1px solid var(--card-border, #d6c8f5)',color:'var(--text-main, #7c54d1)',padding:'0.33rem 0.8rem',borderRadius:'9999px',fontWeight:700,fontSize:'0.8rem',cursor:'pointer',display:'inline-flex',alignItems:'center',gap:'0.3rem' }}>
               📘 Optional $7 Mindset Plan PDF →
             </button>
           </div>
         </div>
 
         {/* ═══════════════════════════════════════════
-            MAIN CARD — matches mockup exactly
+            MAIN CARD — matches mockup exactly with dark mode support
         ═══════════════════════════════════════════ */}
         <div style={{
-          background:'#f8f4fe',
+          background: 'var(--card-bg, #f8f4fe)',
           borderRadius:'28px',
-          border:'1.5px solid #e2d9f3',
+          border:'1.5px solid var(--card-border, #e2d9f3)',
           boxShadow:'0 18px 58px rgba(76,60,110,0.1)',
           overflow:'visible',
-          position:'relative'
+          position:'relative',
+          color: 'var(--text-main, #362854)'
         }}>
 
           {/* ── MoodFlip title ── */}
@@ -418,10 +419,10 @@ export default function MoodTool() {
             <h2 style={{ fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
               fontSize:'clamp(2.5rem,4.5vw,3.5rem)',fontWeight:700,
               letterSpacing:'-0.02em',margin:0,lineHeight:1 }}>
-              {/* "Mood" = multi-color purple→blue gradient like mockup */}
+              {/* "Mood" = multi-color purple→blue gradient */}
               <span style={{ background:'linear-gradient(110deg,#7958d8 0%,#9b70e0 40%,#5b8fd4 80%,#7c54d1 100%)',
                 WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Mood</span>
-              {/* "Flip" = warm coral→peach like mockup */}
+              {/* "Flip" = warm coral→peach */}
               <span style={{ background:'linear-gradient(135deg,#e8855a 0%,#dba048 100%)',
                 WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Flip</span>
             </h2>
@@ -434,9 +435,10 @@ export default function MoodTool() {
             <div className="mt-left" style={{
               flex:'0 0 calc(50% - 0.75rem)', padding:'1.4rem 1.65rem 1.85rem 1.65rem',
               display:'flex', flexDirection:'column', gap:'1.4rem',
-              border:'1.5px solid #e2d9f3', borderRadius:'24px',
+              border:'1.5px solid var(--card-border, #e2d9f3)', borderRadius:'24px',
               boxShadow:'0 12px 35px rgba(124,84,209,0.06)',
-              background:'linear-gradient(168deg,#ffffff 0%,#f5f0fc 100%)',
+              background: 'var(--left-bg, linear-gradient(168deg,#ffffff 0%,#f5f0fc 100%))',
+              color: 'var(--text-main, #362854)',
               position:'relative', overflow:'visible'
             }}>
 
@@ -473,15 +475,15 @@ export default function MoodTool() {
                   <div style={{ display:'flex',gap:'0.6rem' }}>
                     <button onClick={clear} style={{
                       flex:'0 0 calc(25% - 0.45rem)', height:'85px',
-                      background:'#f8f4fe', border:'1px solid #e4dcee',
+                      background:'var(--banner-bg, #f8f4fe)', border:'1px solid var(--card-border, #e4dcee)',
                       borderRadius:'12px', padding:'0.8rem 0.4rem',
                       display:'flex', flexDirection:'column', alignItems:'center',
                       justifyContent:'center', gap:'0.3rem', cursor:'pointer'
                     }}>
-                      <TrashIcon size={22} color="#7859c2"/>
+                      <TrashIcon size={22} color="#a855f7"/>
                       <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'0' }}>
-                        <span style={{ fontSize:'0.75rem',fontWeight:700,color:'#362854',lineHeight:1.1 }}>Clear selection</span>
-                        <span style={{ fontSize:'0.65rem',color:'#7859c2' }}>Start over</span>
+                        <span style={{ fontSize:'0.75rem',fontWeight:700,color:'var(--text-main, #362854)',lineHeight:1.1 }}>Clear selection</span>
+                        <span style={{ fontSize:'0.65rem',color:'#a855f7' }}>Start over</span>
                       </div>
                     </button>
                   </div>
@@ -493,9 +495,10 @@ export default function MoodTool() {
             {/* ━━━━━ RIGHT CARD ━━━━━ */}
             <div className="mt-right" style={{
               flex:'0 0 calc(50% - 0.75rem)',
-              border:'1.5px solid #e2d9f3', borderRadius:'24px',
+              border:'1.5px solid var(--card-border, #e2d9f3)', borderRadius:'24px',
               boxShadow:'0 12px 35px rgba(124,84,209,0.06)',
-              background:'linear-gradient(155deg,#fffcf8 0%,#fff8e6 30%,#faf2f8 100%)',
+              background: 'var(--right-bg, linear-gradient(155deg,#fffcf8 0%,#fff8e6 30%,#faf2f8 100%))',
+              color: 'var(--text-main, #362854)',
               padding:'2.1rem 1.85rem 2.1rem 2.5rem',
               display:'flex', flexDirection:'column', justifyContent:'center',
               position:'relative', overflow:'hidden'
@@ -505,13 +508,13 @@ export default function MoodTool() {
               <div style={{ position:'relative',zIndex:2,textAlign:'center' }}>
                 {/* heart */}
                 <div style={{ fontSize:'1.25rem',color:'#c8828a',marginBottom:'0.28rem' }}>♡</div>
-                <div style={{ fontSize:'0.96rem',color:'#8a7aaa',fontWeight:500 }}>
+                <div style={{ fontSize:'0.96rem',color:'var(--text-subtle, #8a7aaa)',fontWeight:500 }}>
                   Your mood has changed to:
                 </div>
                 <h2 className="mood-animate mt-target-title" key={flip.targetMood} style={{
                   fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
                   fontSize: flip.targetMood.length>11 ? '2.5rem' : '3.8rem',
-                  fontWeight:700, color:'#5a7a4a',
+                  fontWeight:700, color: 'var(--text-main, #5a7a4a)',
                   margin:'0.18rem 0 1.4rem', lineHeight:1.05
                 }}>
                   {flip.targetMood}
@@ -519,18 +522,18 @@ export default function MoodTool() {
 
                 {/* action card */}
                 <div style={{
-                  background:'rgba(255,255,255,0.92)', border:'1.5px solid #e8dff5',
+                  background: 'var(--action-card-bg, rgba(255,255,255,0.92))', border:'1.5px solid var(--card-border, #e8dff5)',
                   borderRadius:'22px', padding:'1.3rem 1.45rem',
                   boxShadow:'0 10px 35px rgba(76,60,110,0.09)',
                   display:'flex', alignItems:'flex-start', gap:'1rem', textAlign:'left'
                 }}>
-                  <div style={{ width:56,height:56,borderRadius:'50%',background:'#f0e9f8',
+                  <div style={{ width:56,height:56,borderRadius:'50%',background:'var(--banner-bg, #f0e9f8)',
                     display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0 }}>
                     <MeditateIcon size={32} color="#7c54d1"/>
                   </div>
                   <div style={{ flex:1 }}>
                     <div style={{ display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:'0.4rem' }}>
-                      <h3 style={{ fontSize:'1rem',fontWeight:700,color:'#362854',margin:0,
+                      <h3 style={{ fontSize:'1rem',fontWeight:700,color:'var(--text-main, #362854)',margin:0,
                         fontFamily:"'Fraunces',Georgia,serif",lineHeight:1.32 }}>
                         60-sec action to get to a {flip.targetMood.toLowerCase()} mood
                       </h3>
@@ -541,11 +544,11 @@ export default function MoodTool() {
                           borderRadius:'9999px',flexShrink:0 }}>✨ AI</span>
                       )}
                     </div>
-                    <div style={{ borderTop:'1px solid #e8dff5',margin:'0.52rem 0',position:'relative',textAlign:'center' }}>
+                    <div style={{ borderTop:'1px solid var(--card-border, #e8dff5)',margin:'0.52rem 0',position:'relative',textAlign:'center' }}>
                       <span style={{ position:'absolute',top:'-9px',left:'50%',transform:'translateX(-50%)',
-                        background:'rgba(255,255,255,0.92)',padding:'0 0.32rem',fontSize:'0.66rem',color:'#c8828a' }}>♡</span>
+                        background:'var(--action-card-bg, rgba(255,255,255,0.92))',padding:'0 0.32rem',fontSize:'0.66rem',color:'#c8828a' }}>♡</span>
                     </div>
-                    <p style={{ fontSize:'0.9rem',color:'#665c7d',lineHeight:1.6,margin:0,fontWeight:400 }}>
+                    <p style={{ fontSize:'0.9rem',color:'var(--text-subtle, #665c7d)',lineHeight:1.6,margin:0,fontWeight:400 }}>
                       {flip.actionText}
                     </p>
                   </div>
@@ -567,13 +570,13 @@ export default function MoodTool() {
               </div>
             </div>{/* end right card */}
 
-            {/* ── "Change My Mood →" button — positioned in EXACT DEAD CENTER between Left & Right cards ── */}
+            {/* ── "Change My Mood →" button — lowered to top:78% (below Row 2 tiles) so no tiles are hidden, styled with Sunset Gradient ── */}
             <div className="mt-flipcell" style={{
               display:'flex', alignItems:'center',
-              position:'absolute', left:'50%', top:'54%', transform:'translate(-50%, -50%)',
+              position:'absolute', left:'50%', top:'78%', transform:'translate(-50%, -50%)',
               zIndex:40, overflow:'visible'
             }}>
-              <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
+              <div style={{ filter: 'drop-shadow(0 12px 24px rgba(249, 115, 22, 0.42))' }}>
                 <div style={{
                   background: 'white',
                   padding: '3px',
@@ -584,17 +587,18 @@ export default function MoodTool() {
                     className="flip-btn"
                     style={{
                       background: loading
-                        ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
-                        : 'linear-gradient(135deg,#7859c2 0%,#5a40a0 100%)',
-                      color:'#fff', border:'none',
+                        ? 'linear-gradient(135deg, #f43f5e 0%, #ea580c 100%)'
+                        : 'linear-gradient(135deg, #ec4899 0%, #f97316 50%, #eab308 100%)',
+                      color:'#ffffff', border:'none',
                       clipPath:'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
                       padding:'1rem 2.2rem 1rem 1.6rem',
-                      fontWeight:700, fontSize:'1.1rem',
+                      fontWeight:800, fontSize:'1.1rem',
                       cursor: loading ? 'wait' : 'pointer',
-                      display:'flex', alignItems:'center', gap:'0.4rem',
+                      display:'flex', alignItems:'center', gap:'0.45rem',
                       textAlign:'left', lineHeight:1.2,
                       fontFamily:"'Outfit','Inter',sans-serif",
-                      position:'relative'
+                      position:'relative',
+                      boxShadow:'0 8px 25px rgba(249, 115, 22, 0.35)'
                     }}>
                     <span style={{ display:'flex',flexDirection:'column' }}>
                       <span>{loading ? 'Flipping...' : 'Change'}</span>
@@ -610,23 +614,23 @@ export default function MoodTool() {
 
           {/* ── bottom banner ── */}
           <div style={{
-            background:'rgba(234,226,252,0.42)', borderTop:'1px solid #e0d7f0',
+            background:'var(--banner-bg, rgba(234,226,252,0.42))', borderTop:'1px solid var(--card-border, #e0d7f0)',
             padding:'0.9rem 2rem', display:'flex', justifyContent:'space-between',
             alignItems:'center', flexWrap:'wrap', gap:'0.8rem',
-            fontSize:'0.83rem', color:'#362854', borderRadius:'0 0 28px 28px'
+            fontSize:'0.83rem', color:'var(--text-main, #362854)', borderRadius:'0 0 28px 28px'
           }}>
             <div style={{ display:'flex',alignItems:'center',gap:'0.65rem' }}>
               <HeartIcon/>
               <div>
                 <strong>Small shifts can change how you feel.</strong>
-                <div style={{ fontSize:'0.75rem',color:'#665c7d' }}>You&apos;ve got this.</div>
+                <div style={{ fontSize:'0.75rem',color:'var(--text-subtle, #665c7d)' }}>You&apos;ve got this.</div>
               </div>
             </div>
             <div style={{ display:'flex',alignItems:'center',gap:'0.65rem' }}>
               <LeafIcon/>
               <div>
                 <strong>Be kind to yourself.</strong>
-                <div style={{ fontSize:'0.75rem',color:'#665c7d' }}>One choice at a time.</div>
+                <div style={{ fontSize:'0.75rem',color:'var(--text-subtle, #665c7d)' }}>One choice at a time.</div>
               </div>
             </div>
           </div>

@@ -409,21 +409,7 @@ export default function MoodTool() {
                     </div>
                   </div>
 
-                  {/* Row 3 — clear tile (col 1 only) */}
-                  <div style={{ display:'flex' }}>
-                    <button onClick={clear} className="feeling-card-item" style={{
-                      flex:'0 0 calc(25% - 0.45rem)',
-                      background:'#ede5fa', border:'1.5px dashed #9b7de0',
-                      borderRadius:'18px', padding:'0.88rem 0.4rem 0.78rem',
-                      display:'flex', flexDirection:'column', alignItems:'center',
-                      justifyContent:'center', gap:'0.3rem', cursor:'pointer',
-                      transition:'all 0.18s ease'
-                    }}>
-                      <TrashIcon size={24} color="#7c54d1"/>
-                      <span style={{ fontSize:'0.75rem',fontWeight:700,color:'#7c54d1',lineHeight:1.1,textAlign:'center' }}>Clear selection</span>
-                      <span style={{ fontSize:'0.65rem',color:'#9b7de0' }}>Start over</span>
-                    </button>
-                  </div>
+
 
                 </div>
               </div>

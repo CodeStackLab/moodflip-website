@@ -120,7 +120,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Inhale warmth and exhale painful memories for 60 seconds.',
               'Remind yourself: "Pain is valid, but healing is my innate power."',
               'Drink a soothing glass of warm tea or water.',
-              'Drop your shoulders and release physical tightness in your torso.'
+              'Drop your shoulders and release physical tightness in your torso.',
+              'Write a single sentence about what you are ready to let go of.',
+              'Close your eyes and picture warm golden light filling your chest.',
+              'Take 5 slow deep breaths while softening your facial muscles.',
+              'Gently massage your own hands for 60 seconds as an act of self-care.',
+              'Say aloud: "I give myself permission to heal at my own pace."'
             ]
           },
           {
@@ -133,7 +138,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Breathe in soft peace and acknowledge your tender heart.',
               'Say quietly: "It is okay to rest and let myself feel comforted."',
               'Look at a peaceful sky or nature image for 1 minute.',
-              'Light a candle or focus on a soft comforting glow.'
+              'Light a candle or focus on a soft comforting glow.',
+              'Drink a warm cup of herbal tea slowly and mindfully.',
+              'Write down the name of someone whose memory brings you warmth.',
+              'Place your feet flat on the floor and feel the solid earth beneath you.',
+              'Allow your tears to flow for 60 seconds without judgment or resistance.',
+              'Remind yourself: "Grief is love with nowhere to go. It is sacred."'
             ]
           }
         ]
@@ -325,7 +335,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Splash cold water on your wrists to lower your heart rate.',
               'Say quietly: "I am completely safe in this room right now."',
               'Press your feet firmly into the floor and feel solid ground.',
-              'Hold a comforting object in your hands for 60 seconds.'
+              'Hold a comforting object in your hands for 60 seconds.',
+              'Look around and name 3 things that are completely still and stable.',
+              'Count backwards from 10 very slowly while breathing steadily.',
+              'Unclench your jaw and let your tongue drop away from the roof of your mouth.',
+              'Place one hand on your belly and one on your chest and feel them rise.',
+              'Repeat quietly: "This panic will pass. It always does. I am safe."'
             ]
           },
           {
@@ -338,7 +353,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Stand up tall and push your shoulders back.',
               'Inhale courage for 4 counts, exhale helplessness.',
               'Say out loud: "I have power over my immediate actions."',
-              'Take 1 tiny physical step forward.'
+              'Take 1 tiny physical step forward.',
+              'Write down one problem and then write the very next micro-step to address it.',
+              'Drink a full glass of cold water deliberately and mindfully.',
+              'Do 5 slow shoulder rolls backwards to open your chest space.',
+              'Remind yourself: "I have survived 100% of my difficult days so far."',
+              'Stretch your arms overhead for 30 seconds to activate your body.'
             ]
           }
         ]
@@ -480,7 +500,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Place your hands on a sturdy surface and ground your weight.',
               'Say quietly: "I choose peace over fury right now."',
               'Drink a cool glass of water to refresh your body.',
-              'Count down from 10 to 1 slowly.'
+              'Count down from 10 to 1 slowly.',
+              'Clench both fists for 5 seconds and then release completely.',
+              'Walk away from the situation for 60 seconds before responding.',
+              'Splash cold water on your wrists and back of neck.',
+              'Press your palms firmly together at chest height for 10 seconds.',
+              'Inhale for 4 counts, hold for 4 counts, exhale for 8 counts.'
             ]
           },
           {
@@ -493,7 +518,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Take 3 deep breaths, exhaling all sharp tension.',
               'Say softly: "I protect my inner tranquility."',
               'Unclench your chest and open your posture.',
-              'Focus on a peaceful, quiet visual in your mind.'
+              'Focus on a peaceful, quiet visual in your mind.',
+              'Drink a cool glass of water slowly and deliberately.',
+              'Loosen your grip on whatever you are holding.',
+              'Look out a window at the sky for 30 seconds.',
+              'Remind yourself: "I choose my response. I am not my reaction."',
+              'Do 5 slow deep inhales through your nose and slow exhales through your mouth.'
             ]
           }
         ]
@@ -574,7 +604,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Inhale clarity and exhale external judgment.',
               'Say: "I approve of myself and honour my own standards."',
               'Stretch your arms wide to open your upper back.',
-              'Drink a fresh glass of water mindfully.'
+              'Drink a fresh glass of water mindfully.',
+              'Write down 2 values you hold that no one can take from you.',
+              'Stand tall and take 3 power breaths with your chest open.',
+              'Remind yourself: "I do not need everyone to approve of me to thrive."',
+              'Look at yourself in a mirror and give one genuine self-compliment.',
+              'Shake out your hands as if releasing the weight of others opinions.'
             ]
           },
           {
@@ -587,7 +622,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Breathe in clean air and let go of unpleasant impressions.',
               'Say out loud: "I am fresh, clean, and renewed right now."',
               'Step out into fresh air for 60 seconds.',
-              'Smooth out your hands and exhale deeply.'
+              'Smooth out your hands and exhale deeply.',
+              'Open a window and breathe 5 deep fresh breaths.',
+              'Drink a full glass of cool lemon water to cleanse your system.',
+              'Stretch your entire spine by reaching both arms high above your head.',
+              'Close your eyes and visualize a warm shower washing away all negativity.',
+              'Say firmly: "I reclaim my sense of ease and wellbeing right now."'
             ]
           },
           {
@@ -600,7 +640,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Wipe off your hands and splash cold water.',
               'Focus on a clean, soothing natural landscape.',
               'Say: "I cleanse my energy and step into light."',
-              'Drink a cool glass of water.'
+              'Drink a cool glass of water.',
+              'Step away from the source of revulsion immediately.',
+              'Inhale a pleasant smell like citrus or mint to reset your senses.',
+              'Roll your shoulders back and breathe in clean calm air.',
+              'Visualize a bright white light clearing all unpleasant energy.',
+              'Declare: "I choose what enters my space and I choose purity."'
             ]
           }
         ]
@@ -767,7 +812,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Unclench your teeth and drop your shoulders.',
               'Say out loud: "I un-frazzle my mind step by step."',
               'Drink a slow glass of cold water.',
-              'Focus on 1 calm object in your room.'
+              'Focus on 1 calm object in your room.',
+              'Close your eyes and count 10 slow breaths in complete silence.',
+              'Splash cool water on your wrists to calm your nervous system.',
+              'Step outside or open a window for 60 seconds of fresh air.',
+              'Sit down quietly, uncross your legs, and relax your whole body.',
+              'Whisper: "I am slowing down. I am reclaiming my calm now."'
             ]
           },
           {
@@ -780,7 +830,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Close 5 open tabs on your screen to clear visual clutter.',
               'Take a deep breath and exhale out all confusion.',
               'Say: "I do not have to finish everything right now."',
-              'Drink a sip of cold water and stretch.'
+              'Drink a sip of cold water and stretch.',
+              'Write a brain dump of every task in your head, then star the single most urgent one.',
+              'Set a 5-minute focus timer and work on only one thing until it rings.',
+              'Clear your desk of everything except what you are currently working on.',
+              'Remind yourself: "A ship in harbor is safe, but progress requires movement."',
+              'Take 3 slow calming breaths and say: "I will take this one step at a time."'
             ]
           },
           {
@@ -793,7 +848,12 @@ export const MOOD_DATA: MoodFamily[] = [
               'Inhale lightness and exhale heavy obligations.',
               'Say: "I release what is not mine to carry today."',
               'Place your hands flat on your thighs and breathe deeply.',
-              'Give yourself permission to take a 60-second break.'
+              'Give yourself permission to take a 60-second break.',
+              'Write down 1 thing on your to-do list you can cancel or postpone.',
+              'Ask for help with just 1 task today — it is a strength not a weakness.',
+              'Take 5 deep slow breaths while imagining your shoulders becoming lighter.',
+              'Drink a full glass of water and do a gentle seated forward fold.',
+              'Repeat: "I am enough. I do enough. I have enough. Right now."'
             ]
           }
         ]

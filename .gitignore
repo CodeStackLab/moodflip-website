@@ -13,6 +13,9 @@ dist
 dist-ssr
 *.local
 
+# Logs & scratch
+*.log
+
 # System files
 .DS_Store
 Thumbs.db

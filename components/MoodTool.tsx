@@ -272,6 +272,8 @@ export default function MoodTool() {
         .flip-btn:active { transform:scale(0.97) !important; }
         .feeling-card-item:hover  { transform:scale(1.06) !important; box-shadow:0 8px 24px rgba(124,84,209,0.22) !important; }
         .feeling-card-item:active { transform:scale(0.97) !important; }
+        .hide-scrollbar::-webkit-scrollbar{display:none;}
+        .hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
         @media(max-width:800px){
           .mt-split{flex-direction:column !important;}
           .mt-left{border-right:none !important;border-bottom:1px solid #e0d7f0 !important;}
@@ -351,7 +353,7 @@ export default function MoodTool() {
               {/* Row A: choose mood banner + clouds */}
               <div style={{ display:'flex',alignItems:'center',gap:'0.55rem' }}>
                 <Banner icon="☁️" text="Choose your current mood" />
-                <div style={{ display:'flex',gap:'0.2rem',alignItems:'center',flexWrap:'nowrap',overflowX:'auto',flex:1 }}>
+                <div className="hide-scrollbar" style={{ display:'flex',gap:'0.2rem',alignItems:'center',flexWrap:'nowrap',overflowX:'auto',flex:1 }}>
                   {MOOD_DATA.map(fam=>(
                     <Cloud key={fam.id}
                       name={fam.name.charAt(0)+fam.name.slice(1).toLowerCase()}

@@ -5,8 +5,19 @@ import React, { useState, useEffect } from 'react';
 export default function SiteLoader() {
   const [visible, setVisible] = useState(true);
   const [fading, setFading] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
+    // Detect stored theme or system preference immediately for loading screen
+    const savedTheme = localStorage.getItem('moodflip_theme');
+    if (savedTheme === 'dark') {
+      setTheme('dark');
+    } else if (savedTheme === 'light') {
+      setTheme('light');
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+    }
+
     const fadeTimer = setTimeout(() => setFading(true), 1200);
     const hideTimer = setTimeout(() => setVisible(false), 1600);
     return () => {
@@ -17,12 +28,14 @@ export default function SiteLoader() {
 
   if (!visible) return null;
 
+  const isDark = theme === 'dark';
+
   return (
     <>
       <style>{`
         @keyframes loaderPulse {
           0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.15); opacity: 0.75; }
+          50% { transform: scale(1.15); opacity: 0.85; }
         }
         @keyframes loaderBar {
           0% { width: 0%; }
@@ -46,9 +59,11 @@ export default function SiteLoader() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #0b0714 0%, #150f24 50%, #1c1430 100%)',
+        background: isDark
+          ? 'linear-gradient(160deg, #0e091b 0%, #170d24 40%, #201127 100%)'
+          : 'linear-gradient(145deg, #fdf6f0 0%, #fcf0f5 40%, #f7effd 100%)',
         opacity: fading ? 0 : 1,
-        transition: 'opacity 0.4s ease',
+        transition: 'opacity 0.4s ease, background 0.3s ease',
         pointerEvents: fading ? 'none' : 'all'
       }}>
         {/* Logo Mark */}
@@ -60,12 +75,12 @@ export default function SiteLoader() {
             width: '72px',
             height: '72px',
             borderRadius: '22px',
-            background: 'linear-gradient(135deg, #7c54d1 0%, #e77c74 100%)',
+            background: 'linear-gradient(135deg, #7c54d1 0%, #ec4899 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '2.2rem',
-            boxShadow: '0 12px 40px rgba(124, 84, 209, 0.5)'
+            boxShadow: '0 12px 40px rgba(124, 84, 209, 0.45)'
           }}>
             💫
           </div>
@@ -74,9 +89,9 @@ export default function SiteLoader() {
         {/* Brand Name */}
         <div style={{
           fontFamily: "'Fraunces', Georgia, serif",
-          fontSize: '2rem',
+          fontSize: '2.1rem',
           fontWeight: 700,
-          color: '#f3e8ff',
+          color: isDark ? '#f3e8ff' : '#362854',
           marginBottom: '0.4rem',
           letterSpacing: '-0.01em'
         }}>
@@ -84,9 +99,9 @@ export default function SiteLoader() {
         </div>
         <div style={{
           fontSize: '0.82rem',
-          color: '#c4b0e6',
-          fontWeight: 500,
-          letterSpacing: '0.05em',
+          color: isDark ? '#c4b0e6' : '#665c7d',
+          fontWeight: 600,
+          letterSpacing: '0.06em',
           textTransform: 'uppercase',
           marginBottom: '2rem'
         }}>
@@ -100,10 +115,10 @@ export default function SiteLoader() {
               key={i}
               className="loader-dot"
               style={{
-                width: '8px',
-                height: '8px',
+                width: '9px',
+                height: '9px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #a855f7, #ec4899)',
+                background: 'linear-gradient(135deg, #7c54d1, #ec4899)',
                 animation: 'dotBounce 0.8s ease-in-out infinite',
                 animationDelay: `${i * 0.15}s`
               }}
@@ -118,7 +133,7 @@ export default function SiteLoader() {
           left: 0,
           right: 0,
           height: '3px',
-          background: 'rgba(168, 85, 247, 0.15)'
+          background: isDark ? 'rgba(168, 85, 247, 0.15)' : 'rgba(124, 84, 209, 0.12)'
         }}>
           <div style={{
             height: '100%',

@@ -89,65 +89,68 @@ function Cloud({ name, selected, onClick }: { name:string; selected:boolean; onC
 
 /* ── rich sunburst landscape for right panel ── */
 function Landscape() {
-  const rays = Array.from({length:24},(_,i)=>i*15);
+  // rays only above horizon (upper half = -180 to 0 degrees offset)
+  const rays = Array.from({length:20},(_,i)=> i * 9 - 90); // -90 to +90 in 9deg steps (upper semicircle)
   return (
     <svg style={{ position:'absolute',top:0,left:0,width:'100%',height:'100%',pointerEvents:'none' }}
-      viewBox="0 0 640 600" preserveAspectRatio="xMidYMid slice">
+      viewBox="0 0 640 560" preserveAspectRatio="xMidYMid slice">
       <defs>
-        <radialGradient id="rg1" cx="50%" cy="44%" r="56%">
-          <stop offset="0%"   stopColor="#fff9e6" stopOpacity="1"/>
-          <stop offset="42%"  stopColor="#ffe9a0" stopOpacity="0.65"/>
+        <radialGradient id="rg1" cx="50%" cy="75%" r="80%">
+          <stop offset="0%"   stopColor="#fff4d0" stopOpacity="1"/>
+          <stop offset="50%"  stopColor="#ffe9a0" stopOpacity="0.55"/>
           <stop offset="100%" stopColor="#fde8c8" stopOpacity="0"/>
         </radialGradient>
-        <radialGradient id="rg2" cx="50%" cy="50%" r="50%">
+        <radialGradient id="sunRg" cx="50%" cy="50%" r="50%">
           <stop offset="0%"   stopColor="#fff8d8" stopOpacity="1"/>
-          <stop offset="70%"  stopColor="#fcd97a" stopOpacity="0.85"/>
-          <stop offset="100%" stopColor="#f5c048" stopOpacity="0.4"/>
+          <stop offset="65%"  stopColor="#fcd97a" stopOpacity="0.9"/>
+          <stop offset="100%" stopColor="#f5c848" stopOpacity="0.5"/>
         </radialGradient>
-        <clipPath id="sunClip">
-          <rect x="0" y="0" width="640" height="600"/>
+        {/* clip so sun only shows above horizon */}
+        <clipPath id="sunHalf">
+          <rect x="0" y="0" width="640" height="390"/>
         </clipPath>
       </defs>
 
-      {/* sky wash */}
-      <ellipse cx="320" cy="265" rx="290" ry="250" fill="url(#rg1)" clipPath="url(#sunClip)"/>
+      {/* warm sky glow behind sun */}
+      <ellipse cx="320" cy="390" rx="300" ry="260" fill="url(#rg1)"/>
 
-      {/* sun rays */}
+      {/* sun rays — fan upward from horizon center */}
       {rays.map((deg,i)=>(
-        <line key={i} x1="320" y1="255"
-          x2={320+230*Math.cos((deg-90)*Math.PI/180)}
-          y2={255+230*Math.sin((deg-90)*Math.PI/180)}
-          stroke="#f5d060" strokeWidth="1.8" opacity="0.2"/>
+        <line key={i}
+          x1="320" y1="390"
+          x2={320 + 270 * Math.cos(deg * Math.PI / 180)}
+          y2={390 + 270 * Math.sin(deg * Math.PI / 180)}
+          stroke="#f5d060" strokeWidth="1.8" opacity="0.18"/>
       ))}
 
-      {/* sun body — large semicircle */}
-      <circle cx="320" cy="255" r="110" fill="url(#rg2)" opacity="0.92"/>
-      <circle cx="320" cy="255" r="78"  fill="#fff9e0" opacity="0.7"/>
-      <circle cx="320" cy="255" r="52"  fill="#fffcf0" opacity="0.55"/>
+      {/* sun body — large circle clipped to show only upper half (semicircle rising from horizon) */}
+      <circle cx="320" cy="390" r="140" fill="url(#sunRg)" opacity="0.92" clipPath="url(#sunHalf)"/>
+      <circle cx="320" cy="390" r="100" fill="#fff9e0" opacity="0.72" clipPath="url(#sunHalf)"/>
+      <circle cx="320" cy="390" r="66"  fill="#fffcf2" opacity="0.58" clipPath="url(#sunHalf)"/>
 
-      {/* distant hill — lavender */}
-      <path d="M -30 430 Q 80 300 200 345 Q 300 380 400 305 Q 480 245 580 318 Q 620 340 670 330 L 670 450 L -30 450 Z"
-        fill="#ddd5ef" opacity="0.52"/>
-      {/* mid hill — soft mauve */}
-      <path d="M -30 490 Q 90 385 195 415 Q 295 445 388 382 Q 468 328 575 398 L 670 440 L 670 600 L -30 600 Z"
-        fill="#e2cce8" opacity="0.58"/>
+      {/* far hill — lavender */}
+      <path d="M -30 430 Q 80 330 200 365 Q 310 395 420 325 Q 500 272 600 335 L 660 370 L 660 460 L -30 460 Z"
+        fill="#ddd5ef" opacity="0.55"/>
+      {/* mid hill — soft mauve/pink */}
+      <path d="M -30 480 Q 100 390 215 418 Q 318 448 412 388 Q 492 340 590 405 L 660 440 L 660 560 L -30 560 Z"
+        fill="#e2cce6" opacity="0.6"/>
       {/* near hill — warm blush */}
-      <path d="M -30 545 Q 130 448 255 475 Q 355 500 462 448 Q 535 415 660 472 L 670 600 L -30 600 Z"
-        fill="#f0dce8" opacity="0.62"/>
+      <path d="M -30 530 Q 140 445 268 472 Q 370 495 475 448 Q 548 418 660 468 L 660 560 L -30 560 Z"
+        fill="#efd8e8" opacity="0.65"/>
       {/* foreground — cream */}
-      <path d="M -30 590 Q 200 545 380 562 Q 520 575 670 545 L 670 600 L -30 600 Z"
-        fill="#f7ece8" opacity="0.7"/>
+      <path d="M -30 555 Q 210 528 390 542 Q 530 554 660 530 L 660 560 L -30 560 Z"
+        fill="#f5ece5" opacity="0.72"/>
 
       {/* sparkle stars */}
-      <text x="460" y="108" fontSize="14" fill="#c8a0e0" opacity="0.55" textAnchor="middle">✦</text>
-      <text x="518" y="145" fontSize="9"  fill="#e8c870" opacity="0.45" textAnchor="middle">✦</text>
-      <text x="150" y="132" fontSize="10" fill="#c8a0e0" opacity="0.4"  textAnchor="middle">✦</text>
-      <text x="545" y="82"  fontSize="7"  fill="#e8a8c0" opacity="0.38" textAnchor="middle">✦</text>
-      <text x="178" y="88"  fontSize="7"  fill="#d4b8f0" opacity="0.35" textAnchor="middle">✦</text>
+      <text x="468" y="95"  fontSize="13" fill="#c8a0e0" opacity="0.58" textAnchor="middle">✦</text>
+      <text x="525" y="140" fontSize="8"  fill="#e8c870" opacity="0.45" textAnchor="middle">✦</text>
+      <text x="142" y="125" fontSize="9"  fill="#c8a0e0" opacity="0.42" textAnchor="middle">✦</text>
+      <text x="552" y="76"  fontSize="7"  fill="#e8a8c0" opacity="0.36" textAnchor="middle">✦</text>
+      <text x="172" y="82"  fontSize="7"  fill="#d4b8f0" opacity="0.33" textAnchor="middle">✦</text>
 
-      {/* bird silhouette */}
-      <path d="M 538 105 Q 549 94 560 105 Q 571 94 582 105"
-        stroke="#b090d8" strokeWidth="1.6" fill="none" opacity="0.45"/>
+      {/* bird silhouette — upper right */}
+      <path d="M 538 100 Q 549 89 560 100 Q 571 89 582 100"
+        stroke="#b090d8" strokeWidth="1.6" fill="none" opacity="0.42"/>
     </svg>
   );
 }
@@ -324,11 +327,11 @@ export default function MoodTool() {
             <h2 style={{ fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
               fontSize:'clamp(2.5rem,4.5vw,3.5rem)',fontWeight:700,
               letterSpacing:'-0.02em',margin:0,lineHeight:1 }}>
-              {/* Mood: purple gradient */}
-              <span style={{ background:'linear-gradient(100deg,#6b48c8 0%,#8b5cf6 60%,#7c54d1 100%)',
+              {/* "Mood" = multi-color purple→blue gradient like mockup */}
+              <span style={{ background:'linear-gradient(110deg,#7958d8 0%,#9b70e0 40%,#5b8fd4 80%,#7c54d1 100%)',
                 WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Mood</span>
-              {/* Flip: warm coral-peach gradient */}
-              <span style={{ background:'linear-gradient(135deg,#e8784a 0%,#d4a040 100%)',
+              {/* "Flip" = warm coral→peach like mockup */}
+              <span style={{ background:'linear-gradient(135deg,#e8855a 0%,#dba048 100%)',
                 WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Flip</span>
             </h2>
           </div>

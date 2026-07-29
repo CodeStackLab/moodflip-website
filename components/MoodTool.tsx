@@ -463,48 +463,9 @@ export default function MoodTool() {
                     {row1.map(f=><Tile key={f.id} f={f}/>)}
                   </div>
 
-                  {/* Grid row 2 + Change My Mood button bleeding right */}
-                  <div className="mt-row2" style={{ display:'flex',gap:'0.6rem',alignItems:'stretch',overflow:'visible',position:'relative' }}>
+                  {/* Grid row 2 */}
+                  <div className="mt-row2" style={{ display:'flex',gap:'0.6rem',alignItems:'stretch',overflow:'visible' }}>
                     {row2.map(f=><Tile key={f.id} f={f}/>)}
-
-                    {/* ── "Change My Mood →" button — overflows border ── */}
-                    <div className="mt-flipcell" style={{
-                      display:'flex', alignItems:'center',
-                      position:'absolute', right:'-2.4rem', top:'50%', transform:'translateY(-50%)',
-                      zIndex:20, overflow:'visible'
-                    }}>
-                      <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
-                        <div style={{
-                          background: 'white',
-                          padding: '3px',
-                          clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)',
-                          display: 'inline-flex'
-                        }}>
-                          <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
-                            className="flip-btn"
-                            style={{
-                              background: loading
-                                ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
-                                : 'linear-gradient(135deg,#7859c2 0%,#5a40a0 100%)',
-                              color:'#fff', border:'none',
-                              clipPath:'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
-                              padding:'1rem 2.2rem 1rem 1.6rem',
-                              fontWeight:700, fontSize:'1.1rem',
-                              cursor: loading ? 'wait' : 'pointer',
-                              display:'flex', alignItems:'center', gap:'0.4rem',
-                              textAlign:'left', lineHeight:1.2,
-                              fontFamily:"'Outfit','Inter',sans-serif",
-                              position:'relative'
-                            }}>
-                            <span style={{ display:'flex',flexDirection:'column' }}>
-                              <span>{loading ? 'Flipping...' : 'Change'}</span>
-                              {!loading && <span>My Mood</span>}
-                            </span>
-                            {!loading && <span style={{ fontSize:'1.4rem',fontWeight:400,lineHeight:1,marginTop:'0.8rem' }}>→</span>}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
                   </div>
 
                   {/* Grid row 3 (Clear selection) */}
@@ -526,13 +487,52 @@ export default function MoodTool() {
 
                 </div>
               </div>
+
+              {/* ── "Change My Mood →" button — positioned on border between left & right panels with space on left & right ── */}
+              <div className="mt-flipcell" style={{
+                display:'flex', alignItems:'center',
+                position:'absolute', right:'-2.2rem', top:'56%', transform:'translateY(-50%)',
+                zIndex:30, overflow:'visible'
+              }}>
+                <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
+                  <div style={{
+                    background: 'white',
+                    padding: '3px',
+                    clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)',
+                    display: 'inline-flex'
+                  }}>
+                    <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
+                      className="flip-btn"
+                      style={{
+                        background: loading
+                          ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
+                          : 'linear-gradient(135deg,#7859c2 0%,#5a40a0 100%)',
+                        color:'#fff', border:'none',
+                        clipPath:'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
+                        padding:'1rem 2.2rem 1rem 1.6rem',
+                        fontWeight:700, fontSize:'1.1rem',
+                        cursor: loading ? 'wait' : 'pointer',
+                        display:'flex', alignItems:'center', gap:'0.4rem',
+                        textAlign:'left', lineHeight:1.2,
+                        fontFamily:"'Outfit','Inter',sans-serif",
+                        position:'relative'
+                      }}>
+                      <span style={{ display:'flex',flexDirection:'column' }}>
+                        <span>{loading ? 'Flipping...' : 'Change'}</span>
+                        {!loading && <span>My Mood</span>}
+                      </span>
+                      {!loading && <span style={{ fontSize:'1.4rem',fontWeight:400,lineHeight:1,marginTop:'0.8rem' }}>→</span>}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>{/* end left */}
 
             {/* ━━━━━ RIGHT PANEL ━━━━━ */}
             <div className="mt-right" style={{
               flex:1,
               background:'linear-gradient(155deg,#fffcf8 0%,#fff8e6 30%,#faf2f8 100%)',
-              padding:'2.1rem 1.85rem 2.1rem 2.6rem',
+              padding:'2.1rem 1.85rem 2.1rem 3.6rem',
               display:'flex', flexDirection:'column', justifyContent:'center',
               position:'relative', overflow:'hidden'
             }}>
@@ -664,18 +664,24 @@ export default function MoodTool() {
         </div>
       )}
 
-      {show7th&&(
+      {show7th && (
         <div className="modal-overlay">
-          <div className="modal-card" style={{ maxWidth:'540px',background:'#fff',border:'1px solid #e2d9f3' }}>
-            <div style={{ display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'0.5rem' }}>
-              <span style={{ fontSize:'0.75rem',fontWeight:800,color:'#059669',background:'#ecfdf5',padding:'0.2rem 0.65rem',borderRadius:'9999px' }}>🎉 Milestone Unlocked: 7 Check-Ins!</span>
-              <button onClick={()=>setShow7th(false)} style={{ background:'transparent',border:'none',fontSize:'1.2rem',cursor:'pointer',color:'#665c7d' }}>✕</button>
+          <div className="modal-card" style={{ maxWidth: '820px', width: '92%', background: '#ffffff', border: '1.5px solid #e2d9f3', borderRadius: '28px', padding: '2rem 1.8rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
+              <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#059669', background: '#dcfce7', padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.02em' }}>
+                🎉 Milestone Unlocked: 7 Check-Ins Saved!
+              </span>
+              <button onClick={() => setShow7th(false)} style={{ background: '#f1f5f9', border: 'none', width: '32px', height: '32px', borderRadius: '50%', fontSize: '1.1rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                ✕
+              </button>
             </div>
-            <h3 style={{ fontSize:'1.5rem',fontWeight:800,color:'#362854',margin:'0.3rem 0' }}>Get Your Personal 7-Day Mindset Plan</h3>
-            <p style={{ fontSize:'0.87rem',color:'#665c7d',lineHeight:1.55 }}>
-              You&apos;ve completed 7 mood check-ins! Get your custom-generated 7-Day Mindset PDF report based on your exact check-in history.
+            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.65rem', fontWeight: 800, color: '#1e1b4b', margin: '0.3rem 0 0.4rem 0' }}>
+              Get Your Personalized 7-Day Mindset PDF Plan
+            </h3>
+            <p style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.5, marginBottom: '1rem' }}>
+              You&apos;ve completed 7 mood check-ins! Download your custom-generated 7-Day Mindset PDF report based on your exact check-in history.
             </p>
-            <PaidPlansSection />
+            <PaidPlansSection hideHeader={true} />
           </div>
         </div>
       )}

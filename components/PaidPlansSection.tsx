@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { getAccessToken } from '@/lib/supabaseBrowser';
+import { trackEvent } from '@/lib/analytics';
 
 interface PaidPlansSectionProps {
   hideHeader?: boolean;
@@ -32,14 +34,24 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
     setLoading(true);
 
     try {
+      const token = await getAccessToken();
+      if (!token) {
+        alert('Please sign in to purchase a report based on your saved check-ins.');
+        window.location.href = '/login';
+        return;
+      }
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, planType })
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ planType })
       });
 
       const data = await res.json();
       if (data.url) {
+        trackEvent('paid_pdf_checkout_started', { product: planType });
         window.location.href = data.url;
       } else {
         alert(data.error || 'Unable to initiate checkout');

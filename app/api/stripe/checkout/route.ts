@@ -1,23 +1,44 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
+import { prisma } from '@/lib/prisma';
+import { getAuthenticatedUser } from '@/lib/serverAuth';
 
 export async function POST(req: Request) {
   try {
-    const { email, planType = '7_DAY_PDF' } = await req.json();
+    const user = await getAuthenticatedUser(req);
+    if (!user) return NextResponse.json({ error: 'Please sign in before checkout.' }, { status: 401 });
+    const { planType = '7_DAY_PDF' } = await req.json();
+    if (!['7_DAY_PDF', '30_DAY_PDF'].includes(planType)) {
+      return NextResponse.json({ error: 'Invalid plan.' }, { status: 400 });
+    }
+    const email = user.email;
 
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required for checkout' }, { status: 400 });
+    const profile = await prisma.userProfile.findUnique({
+      where: { email },
+      select: { id: true },
+    });
+    if (!profile) return NextResponse.json({ error: 'Profile not found.' }, { status: 404 });
+
+    const requiredDays = planType === '30_DAY_PDF' ? 30 : 7;
+    const savedDays = await prisma.$queryRaw<Array<{ days: bigint }>>`
+      SELECT COUNT(DISTINCT DATE("createdAt"))::bigint AS days
+      FROM "user_checkins"
+      WHERE "profileId" = ${profile.id}
+    `;
+    const calendarDays = Number(savedDays[0]?.days || 0);
+    if (calendarDays < requiredDays) {
+      return NextResponse.json({
+        error: `Your report becomes available after check-ins across ${requiredDays} calendar days. Current progress: ${calendarDays}/${requiredDays}.`,
+      }, { status: 409 });
     }
 
     const origin = req.headers.get('origin') || 'https://moodflip.coach';
 
-    // If Stripe secret key is unconfigured (test mode fallback)
     if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY.includes('mock')) {
-      return NextResponse.json({
-        url: `${origin}/profile?success=true&demo=true&email=${encodeURIComponent(email)}`
-      });
+      return NextResponse.json({ error: 'Secure checkout is temporarily unavailable.' }, { status: 503 });
     }
 
+    const is30Day = planType === '30_DAY_PDF';
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       customer_email: email,
@@ -26,11 +47,11 @@ export async function POST(req: Request) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'MoodFlip 7-Day Personalized Mindset PDF Plan',
-              description: 'Custom 7-day action guide created from your saved mood check-ins.',
+              name: `MoodFlip ${is30Day ? '30-Day' : '7-Day'} Personalised Mood Report`,
+              description: `Personalised report created from your saved MoodFlip check-ins across ${requiredDays} calendar days.`,
               images: ['https://moodflip.coach/icon.svg'],
             },
-            unit_amount: 700, // US$ 7.00
+            unit_amount: is30Day ? 1900 : 700,
           },
           quantity: 1,
         },
@@ -41,6 +62,7 @@ export async function POST(req: Request) {
       metadata: {
         email,
         planType,
+        profileId: profile.id,
       },
     });
 

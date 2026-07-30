@@ -1,13 +1,19 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { hasValidAdminSession } from '@/lib/adminAuth';
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(request: Request) {
-  const configuredPassword = process.env.ADMIN_PASSWORD || 'admin123';
-  const suppliedPassword = request.headers.get('x-admin-password');
+export async function GET(request: Request) {
+  return fetchUsers(request);
+}
 
-  if (suppliedPassword !== configuredPassword) {
+export async function POST(request: Request) {
+  return fetchUsers(request);
+}
+
+async function fetchUsers(request: Request) {
+  if (!hasValidAdminSession(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

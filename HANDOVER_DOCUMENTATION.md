@@ -65,7 +65,7 @@ All mood families, specific feeling sub-tiles, positive target states, and 60-se
 ## 3. How to Access Admin Dashboard & Export Users to CSV
 
 1. Open your browser and navigate to **`https://moodflip.coach/admin`**
-2. Enter master password: **`admin123`** (or your custom `ADMIN_PASSWORD` env var).
+2. Enter the private password configured in the server-only `ADMIN_PASSWORD` environment variable.
 3. **Features available:**
    - Real-time count of total users, active paid purchases, and total check-ins.
    - Search/filter users by name or email.
@@ -101,7 +101,7 @@ npx tsc --noEmit
 
 ### Step 2: Deploy to Production
 ```bash
-npx vercel --token vcp_5sngAwXBDQIAOsCqblCkZNj6T2jeOBdgK5LkJVYPj8M9uJmX2H1DeFdo --prod --yes
+npx vercel --prod --yes
 ```
 
 Deployment completes in ~2 minutes and goes live on `moodflip.coach`.

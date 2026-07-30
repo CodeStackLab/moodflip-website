@@ -1,12 +1,15 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getAuthenticatedUser } from '@/lib/serverAuth';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const email = String(body.email || '').trim().toLowerCase();
+    const user = await getAuthenticatedUser(request);
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const email = user.email;
     const name = String(body.name || '').trim() || null;
     const visitCount = Math.max(1, Number(body.visitCount) || 1);
 

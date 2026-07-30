@@ -12,9 +12,9 @@
 | **Custom Subdomain** | WWW Production Subdomain | [https://www.moodflip.coach](https://www.moodflip.coach) |
 | **Vercel Web URL** | Production Web App (Fallback) | [https://moodflip-website.vercel.app](https://moodflip-website.vercel.app) |
 | **GitHub Repo** | Source Repository | [https://github.com/joykonta1-dot/moodflip-website](https://github.com/joykonta1-dot/moodflip-website) |
-| **Vercel CLI Token** | Production Deploy Token | `vcp_5sngAwXBDQIAOsCqblCkZNj6T2jeOBdgK5LkJVYPj8M9uJmX2H1DeFdo` |
-| **Admin Control Center** | Master Access Password | Password: `admin123` (URL: `/admin`) |
-| **Maintenance / Preview Key** | Owner Unlock Password | Password: `admin123` (URL: `https://moodflip.coach?preview=admin123`) |
+| **Vercel deployment access** | Production deployment | Use the owner-controlled Vercel account or an ephemeral token; never store tokens in source files. |
+| **Admin Control Center** | Server-protected owner access | Configure `ADMIN_PASSWORD` and `CRON_SECRET`; never place either value in source files. |
+| **Maintenance / Preview Key** | Retired | The production site is public; temporary maintenance mode should be controlled by a server-only environment flag. |
 | **Supabase DB** | Project Reference ID | `cacgdkjevkdkshjoapgo` |
 | **Supabase DB** | PostgreSQL Connection | `postgresql://postgres.[ref]:[pass]@aws-0-us-east-1.pooler.supabase.com:6543/postgres` |
 
@@ -39,8 +39,8 @@ MoodFlip includes an automatic **Under Construction / Maintenance Guard** (`comp
 
 1. **Public Visitors**: See a clean **"Website Under Construction"** notice explaining that MoodFlip is currently being upgraded.
 2. **Owner / Developer Access**:
-   - **Method A**: Open **`https://moodflip.coach?preview=admin123`** in your browser.
-   - **Method B**: Click **"🔒 Owner / Admin Preview Access"** link at the bottom of the Under Construction page and enter password **`admin123`**.
+   - Public production mode is currently enabled.
+   - Admin access uses a secure, HTTP-only session cookie created after server-side password verification.
 3. **Session Persistence**: Unlocking saves `localStorage.setItem('moodflip_owner_unlocked', 'true')` so you can test the full site seamlessly on your device.
 
 ---
@@ -58,7 +58,7 @@ npx tsc --noEmit
 
 ### Step 2: Deploy Directly to Vercel Production (PRIMARY METHOD)
 ```bash
-npx vercel --token vcp_5sngAwXBDQIAOsCqblCkZNj6T2jeOBdgK5LkJVYPj8M9uJmX2H1DeFdo --prod --yes
+npx vercel --prod --yes
 ```
 
 This deploys instantly to **https://moodflip.coach** in ~2 minutes.
@@ -118,8 +118,8 @@ flowchart TD
 | **Section 9 & 10** | 7-Checkin Special Offer Pop-up ($7 PDF) | ✅ COMPLETE | Triggers special offer popup when user reaches 7 check-ins. |
 | **Section 10 & 11** | Privacy Consent & 90-Day Auto Deletion | ✅ COMPLETE | Standard consent text & `/api/cron/purge-inactive` cleanup route. |
 | **Section 9** | Paid PDF Downloads ($7 & $19) | ✅ COMPLETE | Dynamic `pdf-lib` generation via `/api/pdf` + PayPal Checkout modal. |
-| **Section 5 & 9** | SaaS Admin Dashboard (`/admin`) | ✅ COMPLETE | Master password (`admin123`), lead stats, and 1-Click CSV export. |
-| **Section 14** | Maintenance / Under Construction Mode | ✅ COMPLETE | `MaintenanceGuard.tsx` wraps site; unlocked with `admin123` or `?preview=admin123`. |
+| **Section 5 & 9** | SaaS Admin Dashboard (`/admin`) | ✅ COMPLETE | Server-side password verification, HTTP-only admin session, lead stats, and CSV export. |
+| **Section 14** | Public launch mode | ✅ COMPLETE | `MaintenanceGuard.tsx` currently renders the public production site. |
 
 ---
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { supabaseBrowser } from '@/lib/supabaseBrowser';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -45,17 +46,36 @@ export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: Auth
     if (!email || !consent) return;
     setUserLoading(true);
     try {
-      const profile = { email, name, lastActiveAt: new Date().toISOString() };
-      localStorage.setItem('moodflip_profile', JSON.stringify(profile));
-      await fetch('/api/profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name })
-      }).catch(() => {});
+      if (!supabaseBrowser) throw new Error('Secure registration is temporarily unavailable.');
+      const { data, error } = await supabaseBrowser.auth.signUp({
+        email: email.trim().toLowerCase(),
+        password,
+        options: {
+          data: { name: name.trim() },
+          emailRedirectTo: `${window.location.origin}/login?confirmed=true`,
+        },
+      });
+      if (error) throw error;
+      if (data.session && data.user.email) {
+        const profile = {
+          email: data.user.email,
+          name,
+          lastActiveAt: new Date().toISOString(),
+        };
+        localStorage.setItem('moodflip_profile', JSON.stringify(profile));
+        await fetch('/api/profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${data.session.access_token}`,
+          },
+          body: JSON.stringify({ name }),
+        });
+      }
       setUserSubmitted(true);
       setTimeout(() => {
         onClose();
-        window.location.reload();
+        window.location.href = data.session ? '/profile' : '/login';
       }, 1400);
     } catch (err) {
       console.error(err);
@@ -64,13 +84,19 @@ export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: Auth
     }
   };
 
-  const handleAdminSubmit = (e: React.FormEvent) => {
+  const handleAdminSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminPassword === 'admin123' || adminPassword === process.env.NEXT_PUBLIC_ADMIN_PASS) {
-      localStorage.setItem('moodflip_admin_authed', 'true');
+    setAdminError('');
+    const response = await fetch('/api/admin/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: adminPassword }),
+    });
+    if (response.ok) {
       window.location.href = '/admin';
     } else {
-      setAdminError('Incorrect admin password!');
+      const data = await response.json().catch(() => ({}));
+      setAdminError(data.error || 'Unable to authenticate.');
     }
   };
 
@@ -363,7 +389,7 @@ export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: Auth
                     required
                     value={adminPassword}
                     onChange={(e) => { setAdminPassword(e.target.value); setAdminError(''); }}
-                    placeholder="Enter Master Password (admin123)"
+                    placeholder="Enter admin password"
                     style={{
                       width: '100%',
                       padding: '0.65rem 2.5rem 0.65rem 0.9rem',

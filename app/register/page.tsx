@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { supabaseBrowser } from '@/lib/supabaseBrowser';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -14,7 +15,6 @@ export default function RegisterPage() {
   const [otpInput, setOtpInput] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
-  const [demoOtpHint, setDemoOtpHint] = useState('');
   const [otpError, setOtpError] = useState('');
 
   // Step state: 1 = Account Info, 2 = OTP Verification, 3 = Privacy & Consent
@@ -37,21 +37,22 @@ export default function RegisterPage() {
     setOtpError('');
 
     try {
-      const res = await fetch('/api/auth/otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'send', email })
+      if (!supabaseBrowser) throw new Error('Secure registration is temporarily unavailable.');
+      const { data, error } = await supabaseBrowser.auth.signUp({
+        email: email.trim().toLowerCase(),
+        password,
+        options: {
+          data: { name: name.trim() },
+          emailRedirectTo: `${window.location.origin}/login?confirmed=true`,
+        },
       });
-      const data = await res.json();
-
-      if (data.success) {
-        setOtpSent(true);
-        if (data.demoOtp) {
-          setDemoOtpHint(data.demoOtp);
-        }
-        setStep(2);
+      if (error) throw error;
+      if (data.session) {
+        setOtpVerified(true);
+        setStep(3);
       } else {
-        setErrorMsg(data.error || 'Failed to send OTP code.');
+        setOtpSent(true);
+        setStep(2);
       }
     } catch (err) {
       console.error(err);
@@ -72,18 +73,17 @@ export default function RegisterPage() {
     setOtpError('');
 
     try {
-      const res = await fetch('/api/auth/otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'verify', email, code: otpInput })
+      if (!supabaseBrowser) throw new Error('Secure verification is temporarily unavailable.');
+      const { data, error } = await supabaseBrowser.auth.verifyOtp({
+        email: email.trim().toLowerCase(),
+        token: otpInput.trim(),
+        type: 'signup',
       });
-      const data = await res.json();
-
-      if (data.success) {
+      if (!error && data.session) {
         setOtpVerified(true);
         setStep(3);
       } else {
-        setOtpError(data.error || 'Invalid verification code.');
+        setOtpError(error?.message || 'Invalid verification code.');
       }
     } catch (err) {
       console.error(err);
@@ -110,14 +110,27 @@ export default function RegisterPage() {
     setErrorMsg('');
 
     try {
-      const profile = { email, name: name || email.split('@')[0], lastActiveAt: new Date().toISOString() };
+      if (!supabaseBrowser) throw new Error('Secure registration is temporarily unavailable.');
+      const { data } = await supabaseBrowser.auth.getSession();
+      if (!data.session || !data.session.user.email) {
+        throw new Error('Please verify your email before completing registration.');
+      }
+      const profile = {
+        email: data.session.user.email,
+        name: name || data.session.user.email.split('@')[0],
+        lastActiveAt: new Date().toISOString(),
+      };
       localStorage.setItem('moodflip_profile', JSON.stringify(profile));
 
-      await fetch('/api/profile', {
+      const profileResponse = await fetch('/api/profile', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name: name || email.split('@')[0] })
-      }).catch(() => {});
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${data.session.access_token}`,
+        },
+        body: JSON.stringify({ name: profile.name }),
+      });
+      if (!profileResponse.ok) throw new Error('Unable to create your profile.');
 
       setSuccess(true);
       setTimeout(() => {
@@ -125,7 +138,7 @@ export default function RegisterPage() {
       }, 1200);
     } catch (err) {
       console.error(err);
-      setErrorMsg('Failed to create account profile.');
+      setErrorMsg(err instanceof Error ? err.message : 'Failed to create account profile.');
     } finally {
       setLoading(false);
     }
@@ -422,7 +435,7 @@ export default function RegisterPage() {
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="admin@demo.com"
+                            placeholder="you@example.com"
                             style={{
                               width: '100%',
                               padding: '0.8rem 1rem 0.8rem 2.6rem',
@@ -519,18 +532,6 @@ export default function RegisterPage() {
                         <div style={{ fontSize: '0.92rem', color: '#362854', fontWeight: 700 }}>
                           {email}
                         </div>
-                        {demoOtpHint && (
-                          <div style={{ marginTop: '0.6rem', fontSize: '0.78rem', color: '#065f46', background: '#dcfce7', padding: '0.4rem 0.65rem', borderRadius: '8px' }}>
-                            🔑 <strong>Demo OTP Verification Code:</strong> <span style={{ fontSize: '0.95rem', fontWeight: 900, letterSpacing: '0.1em' }}>{demoOtpHint}</span>
-                            <button
-                              type="button"
-                              onClick={() => setOtpInput(demoOtpHint)}
-                              style={{ marginLeft: '0.5rem', background: '#059669', color: 'white', border: 'none', padding: '0.15rem 0.5rem', borderRadius: '6px', fontSize: '0.72rem', fontWeight: 800, cursor: 'pointer' }}
-                            >
-                              Auto-Fill Code
-                            </button>
-                          </div>
-                        )}
                       </div>
 
                       {otpError && (

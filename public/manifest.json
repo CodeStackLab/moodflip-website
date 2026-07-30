@@ -1,0 +1,40 @@
+{
+  "name": "MoodFlip",
+  "short_name": "MoodFlip",
+  "description": "Flip your mood in 60 seconds. Free self-reflection utility for instant mindset shifts.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#130d1f",
+  "theme_color": "#7c54d1",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["lifestyle", "health", "productivity"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Check My Mood",
+      "short_name": "Check Mood",
+      "description": "Log your current mood and get a 60-second action",
+      "url": "/?action=checkin",
+      "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "My Profile",
+      "short_name": "Profile",
+      "description": "View your mood history and progress",
+      "url": "/profile",
+      "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

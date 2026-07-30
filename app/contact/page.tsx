@@ -6,12 +6,29 @@ import Footer from '@/components/Footer';
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', message: '', honeypot: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.honeypot) return;
-    setSubmitted(true);
+    setSubmitting(true);
+    setError('');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Message delivery failed.');
+      setSubmitted(true);
+    } catch (submissionError) {
+      setError(submissionError instanceof Error ? submissionError.message : 'Message delivery failed.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -91,10 +108,12 @@ export default function ContactPage() {
 
               <button
                 type="submit"
+                disabled={submitting}
                 style={{ padding: '0.9rem', background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: 'white', fontWeight: 700, borderRadius: '14px', border: 'none', cursor: 'pointer', marginTop: '0.5rem', fontSize: '0.95rem', boxShadow: '0 6px 18px rgba(124, 84, 209, 0.3)' }}
               >
-                Send Message &rarr;
+                {submitting ? 'Sending…' : 'Send Message →'}
               </button>
+              {error && <p role="alert" style={{ color: '#b91c1c', margin: 0, fontSize: '0.88rem' }}>{error}</p>}
             </form>
           ) : (
             <div style={{ textAlign: 'center', padding: '2.5rem 1rem' }}>

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { supabaseBrowser } from '@/lib/supabaseBrowser';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -19,14 +20,30 @@ export default function LoginPage() {
     setErrorMsg('');
 
     try {
-      const profile = { email, name: email.split('@')[0], lastActiveAt: new Date().toISOString() };
+      if (!supabaseBrowser) throw new Error('Secure sign-in is temporarily unavailable.');
+      const { data, error } = await supabaseBrowser.auth.signInWithPassword({
+        email: email.trim().toLowerCase(),
+        password,
+      });
+      if (error || !data.session || !data.user.email) {
+        throw new Error(error?.message || 'Authentication failed.');
+      }
+      const profile = {
+        email: data.user.email,
+        name: String(data.user.user_metadata?.name || data.user.email.split('@')[0]),
+        lastActiveAt: new Date().toISOString(),
+      };
       localStorage.setItem('moodflip_profile', JSON.stringify(profile));
 
-      await fetch('/api/profile', {
+      const profileResponse = await fetch('/api/profile', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name: email.split('@')[0] })
-      }).catch(() => {});
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${data.session.access_token}`,
+        },
+        body: JSON.stringify({ name: profile.name }),
+      });
+      if (!profileResponse.ok) throw new Error('Unable to load your profile.');
 
       setSuccess(true);
       setTimeout(() => {
@@ -34,7 +51,7 @@ export default function LoginPage() {
       }, 1000);
     } catch (err) {
       console.error(err);
-      setErrorMsg('Authentication failed. Please check your credentials.');
+      setErrorMsg(err instanceof Error ? err.message : 'Authentication failed. Please check your credentials.');
     } finally {
       setLoading(false);
     }
@@ -255,7 +272,7 @@ export default function LoginPage() {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="admin@demo.com"
+                        placeholder="you@example.com"
                         style={{
                           width: '100%',
                           padding: '0.8rem 1rem 0.8rem 2.6rem',

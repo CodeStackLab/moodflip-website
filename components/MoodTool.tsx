@@ -424,11 +424,12 @@ export default function MoodTool() {
         }
         .mt-row-a { display: flex; align-items: center; gap: 0.55rem; }
         .mt-row-b { display: flex; align-items: flex-start; gap: 0.55rem; overflow: visible; }
-        .mt-subcategory-row { display: flex; align-items: center; gap: .55rem; }
-        .mt-subcategory-list { display: flex; gap: .4rem; overflow-x: auto; padding: .1rem .1rem .25rem; }
-        .mt-subcategory-pill { min-height: 38px; padding: .45rem .75rem; border: 1px solid var(--card-border, #e4dcee); border-radius: 12px; color: var(--text-subtle, #6b5a8e); background: var(--tile-bg, #ffffff); font: 600 .76rem inherit; cursor: pointer; white-space: nowrap; transition: .2s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
-        .mt-subcategory-pill:hover { background: #f8f4fc; color: var(--text-main, #362854); }
-        .mt-subcategory-pill[aria-pressed="true"] { color: var(--text-main, #362854); background: #f0e9f8; border: 2px solid #7859c2; font-weight: 700; box-shadow: 0 6px 16px rgba(120,89,194,0.15); }
+        .mt-subcategory-row { display: flex; align-items: flex-start; gap: .55rem; }
+        .mt-subcategory-list { display: flex; gap: .45rem; flex-wrap: wrap; align-items: center; padding: .1rem .1rem .25rem; flex: 1; }
+        .mt-subcategory-pill { min-height: 38px; padding: .45rem .85rem; border: 1px solid var(--card-border, #e4dcee); border-radius: 12px; color: var(--text-subtle, #6b5a8e); background: var(--tile-bg, #ffffff); font: 600 .8rem inherit; cursor: pointer; white-space: nowrap; transition: .2s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .mt-subcategory-pill:hover { background: #f8f4fc; color: var(--text-main, #362854); transform: translateY(-1px); }
+        .mt-subcategory-pill[aria-pressed="true"] { color: #362854; background: #f0e9f8; border: 2px solid #7859c2; font-weight: 700; box-shadow: 0 6px 16px rgba(120,89,194,0.18); }
+
 
         .mt-row2  { display: flex; gap: 0.6rem; align-items: stretch; overflow: visible; }
         .mt-target-title {

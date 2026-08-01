@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabaseBrowser } from '@/lib/supabaseBrowser';
+import { trackEvent } from '@/lib/analytics';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -72,6 +73,7 @@ export default function AuthModal({ isOpen, onClose, initialTab = 'user' }: Auth
           body: JSON.stringify({ name }),
         });
       }
+      trackEvent('profile_creation', { method: 'email' });
       setUserSubmitted(true);
       setTimeout(() => {
         onClose();

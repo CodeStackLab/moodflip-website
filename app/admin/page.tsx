@@ -12,9 +12,45 @@ interface AdminUser {
   checkinsCount: number;
   isPaid: boolean;
   lastActiveAt: string;
+  purchasesCount?: number;
+}
+
+interface AdminCheckin {
+  id: string;
+  primaryMood: string;
+  subFeeling: string;
+  specificFeeling: string;
+  targetMood: string;
+  actionShown: string;
+  createdAt: string;
+  profile?: { email?: string } | null;
+}
+
+interface AdminPurchase {
+  id: string;
+  amount: number;
+  status: string;
+  productType: string;
+  pdfUrl?: string | null;
+  createdAt: string;
+  profile: { email: string; name?: string | null };
 }
 
 type Tab = 'overview' | 'users' | 'reports' | 'seo' | 'adsense';
+
+const csvCell = (value: unknown) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+
+function downloadCsv(filename: string, headers: string[], rows: unknown[][]) {
+  const content = [headers, ...rows].map(row => row.map(csvCell).join(',')).join('\r\n');
+  const url = URL.createObjectURL(new Blob([content], { type: 'text/csv;charset=utf-8' }));
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+}
 
 /* ─── Sidebar Nav Item ─── */
 function SidebarBtn({ icon, label, active, onClick, badge }: {
@@ -148,6 +184,7 @@ function SaveBtn({ onClick, saved }: { onClick: () => void; saved: boolean }) {
 ═══════════════════════════════════════════════════ */
 export default function AdminPage() {
   const [users, setUsers] = useState<AdminUser[]>([]);
+  const [purchases, setPurchases] = useState<AdminPurchase[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState<Tab>('overview');
@@ -181,6 +218,11 @@ export default function AdminPage() {
       })
       .then(d => { setUsers(d.users || []); setLoading(false); })
       .catch(() => setLoading(false));
+
+    fetch('/api/admin/purchases')
+      .then(response => response.ok ? response.json() : { purchases: [] })
+      .then(data => setPurchases(data.purchases || []))
+      .catch(() => setPurchases([]));
 
     // Load saved settings
     const saved = localStorage.getItem('moodflip_admin_settings');
@@ -228,6 +270,39 @@ export default function AdminPage() {
 
   const paidCount = users.filter(u => u.isPaid).length;
   const totalCheckins = users.reduce((sum, u) => sum + u.checkinsCount, 0);
+
+  const exportUsers = () => downloadCsv(
+    `moodflip-users-${new Date().toISOString().slice(0, 10)}.csv`,
+    ['Name', 'Email', 'Visits', 'Saved check-ins', 'Purchase status', 'Purchases', 'Last active'],
+    users.map(user => [user.name || '', user.email, user.visitCount, user.checkinsCount, user.isPaid ? 'PAID' : 'FREE', user.purchasesCount || 0, user.lastActiveAt])
+  );
+
+  const exportCheckins = async () => {
+    const response = await fetch('/api/admin/checkins', { method: 'POST' });
+    if (!response.ok) {
+      alert('Check-in export is temporarily unavailable.');
+      return;
+    }
+    const data = await response.json();
+    const checkins: AdminCheckin[] = data.checkins || [];
+    downloadCsv(
+      `moodflip-checkins-${new Date().toISOString().slice(0, 10)}.csv`,
+      ['Email', 'Primary mood', 'Sub-feeling', 'Specific feeling', 'Target mood', 'Action shown', 'Created at'],
+      checkins.map(item => [item.profile?.email || '', item.primaryMood, item.subFeeling, item.specificFeeling, item.targetMood, item.actionShown, item.createdAt])
+    );
+  };
+
+  const resendPurchase = async (purchaseId: string) => {
+    const response = await fetch('/api/admin/purchases', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ purchaseId }),
+    });
+    const data = await response.json();
+    if (!response.ok) return alert(data.error || 'Unable to resend this report.');
+    setPurchases(current => current.map(item => item.id === purchaseId ? { ...item, status: 'COMPLETED_DELIVERED' } : item));
+    alert('Report email resent successfully.');
+  };
 
   return (
     <div className="site-shell">
@@ -397,10 +472,10 @@ export default function AdminPage() {
                     </h1>
                   </div>
                   <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
-                    <button onClick={() => alert('Exporting check-ins CSV...')} style={{ padding: '0.6rem 1.1rem', background: '#6366f1', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: 800, fontSize: '0.82rem', cursor: 'pointer', fontFamily: 'inherit' }}>
+                    <button onClick={exportCheckins} style={{ padding: '0.6rem 1.1rem', background: '#6366f1', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: 800, fontSize: '0.82rem', cursor: 'pointer', fontFamily: 'inherit' }}>
                       📥 Export Check-ins
                     </button>
-                    <button onClick={() => alert('Exporting users CSV...')} style={{ padding: '0.6rem 1.1rem', background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: 800, fontSize: '0.82rem', cursor: 'pointer', fontFamily: 'inherit' }}>
+                    <button onClick={exportUsers} style={{ padding: '0.6rem 1.1rem', background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: 800, fontSize: '0.82rem', cursor: 'pointer', fontFamily: 'inherit' }}>
                       📥 Export Users
                     </button>
                   </div>
@@ -478,9 +553,15 @@ export default function AdminPage() {
                     Export your data as CSV for analysis in Google Sheets or Excel. Check-ins export includes mood, action, and date. Users export includes email, payment status, and activity.
                   </p>
                   <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                    <button onClick={() => alert('Exporting...')} style={{ padding: '0.7rem 1.4rem', background: '#6366f1', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 800, fontSize: '0.86rem', cursor: 'pointer', fontFamily: 'inherit' }}>📥 Export Check-ins CSV</button>
-                    <button onClick={() => alert('Exporting...')} style={{ padding: '0.7rem 1.4rem', background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 800, fontSize: '0.86rem', cursor: 'pointer', fontFamily: 'inherit' }}>📥 Export Users CSV</button>
+                    <button onClick={exportCheckins} style={{ padding: '0.7rem 1.4rem', background: '#6366f1', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 800, fontSize: '0.86rem', cursor: 'pointer', fontFamily: 'inherit' }}>📥 Export Check-ins CSV</button>
+                    <button onClick={exportUsers} style={{ padding: '0.7rem 1.4rem', background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 800, fontSize: '0.86rem', cursor: 'pointer', fontFamily: 'inherit' }}>📥 Export Users CSV</button>
                   </div>
+                </div>
+                <div style={{ marginTop: '1.25rem', background: 'var(--tile-bg)', border: '1.5px solid var(--card-border)', borderRadius: '16px', overflow: 'hidden' }}>
+                  <div style={{ padding: '1rem 1.2rem', borderBottom: '1px solid var(--card-border)', fontWeight: 800 }}>Paid report recovery</div>
+                  {purchases.length === 0 ? <p style={{ padding: '1rem 1.2rem', color: 'var(--text-subtle)' }}>No paid reports recorded yet.</p> : (
+                    <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '.8rem' }}><thead><tr>{['CUSTOMER','PRODUCT','STATUS','DATE','RECOVERY'].map(label => <th key={label} style={{ padding: '.75rem 1rem', textAlign: 'left', color: 'var(--text-subtle)', borderBottom: '1px solid var(--card-border)' }}>{label}</th>)}</tr></thead><tbody>{purchases.map(item => <tr key={item.id} style={{ borderBottom: '1px solid var(--card-border)' }}><td style={{ padding: '.8rem 1rem' }}>{item.profile.email}</td><td style={{ padding: '.8rem 1rem' }}>{item.productType === '30_DAY_PDF' ? '30-Day · $19' : '7-Day · $7'}</td><td style={{ padding: '.8rem 1rem', fontWeight: 700 }}>{item.status}</td><td style={{ padding: '.8rem 1rem' }}>{new Date(item.createdAt).toLocaleDateString()}</td><td style={{ padding: '.8rem 1rem', whiteSpace: 'nowrap' }}>{item.pdfUrl && <a href={item.pdfUrl} target="_blank" rel="noreferrer" style={{ marginRight: '.7rem', color: '#6366f1', fontWeight: 700 }}>Download</a>}<button onClick={() => resendPurchase(item.id)} style={{ border: 0, borderRadius: '8px', padding: '.42rem .65rem', background: '#ede9fe', color: '#6d28d9', fontWeight: 750, cursor: 'pointer' }}>Resend</button></td></tr>)}</tbody></table></div>
+                  )}
                 </div>
               </>
             )}

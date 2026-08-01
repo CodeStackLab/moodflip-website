@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { PDFDocument, PDFPage, PDFFont, rgb, StandardFonts } from 'pdf-lib';
 import { prisma } from '@/lib/prisma';
 import { stripe } from '@/lib/stripe';
+import { MOOD_DATA } from '@/lib/moodData';
 
 export const dynamic = 'force-dynamic';
 
@@ -80,13 +81,24 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'No saved check-ins were found for this report.' }, { status: 404 });
     }
 
-    const moodCounts = checkins.reduce<Record<string, number>>((counts, item) => {
+    const allFeelings = MOOD_DATA.flatMap(family => family.subCategories.flatMap(category => category.feelings));
+    const allActions = allFeelings.flatMap(feeling => feeling.actions);
+    const usedActions = new Set<string>();
+    const reportCheckins = checkins.map(item => {
+      const matchingFeeling = allFeelings.find(feeling => feeling.id === item.specificFeeling);
+      const candidates = [item.actionShown, ...(matchingFeeling?.actions || []), ...allActions];
+      const uniqueAction = candidates.find(action => !usedActions.has(action)) || item.actionShown;
+      usedActions.add(uniqueAction);
+      return { ...item, actionShown: uniqueAction };
+    });
+
+    const moodCounts = reportCheckins.reduce<Record<string, number>>((counts, item) => {
       const key = item.specificFeeling || item.primaryMood;
       counts[key] = (counts[key] || 0) + 1;
       return counts;
     }, {});
     const mostFrequentMood = Object.entries(moodCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'your selected moods';
-    const distinctDays = new Set(checkins.map((item) => item.createdAt.toISOString().slice(0, 10))).size;
+    const distinctDays = new Set(reportCheckins.map((item) => item.createdAt.toISOString().slice(0, 10))).size;
 
     const pdf = await PDFDocument.create();
     const regular = await pdf.embedFont(StandardFonts.Helvetica);
@@ -107,7 +119,7 @@ export async function GET(request: Request) {
       x: 46, y, size: 23, font: bold, color: rgb(0.39, 0.27, 0.73),
     });
     y -= 32;
-    page.drawText(`Prepared for ${profile.name || email}  |  ${checkins.length} check-ins across ${distinctDays} calendar days`, {
+    page.drawText(`Prepared for ${profile.name || email}  |  ${reportCheckins.length} check-ins across ${distinctDays} calendar days`, {
       x: 46, y, size: 10, font: regular, color: rgb(0.35, 0.35, 0.42),
     });
     y -= 34;
@@ -123,7 +135,7 @@ export async function GET(request: Request) {
       9.5,
     ) - 30;
 
-    checkins.forEach((item, index) => {
+    reportCheckins.forEach((item, index) => {
       ensureSpace(145);
       const timestamp = item.createdAt.toLocaleString('en-AU', {
         dateStyle: 'medium',

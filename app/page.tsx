@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MoodTool from '@/components/MoodTool';
 import SiteLoader from '@/components/SiteLoader';
-import { HowItWorksSection, TestimonialsSection, ScienceSection, FAQSection } from '@/components/HomepageSections';
+import { HowItWorksSection, ScienceSection, FAQSection } from '@/components/HomepageSections';
 
 // AdSense only shown when real publisher ID is configured
 const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true';
@@ -42,7 +42,6 @@ export default function HomePage() {
         <main style={{ marginTop: '1rem', marginBottom: '2rem' }}>
           <MoodTool />
           <HowItWorksSection />
-          <TestimonialsSection />
           <ScienceSection />
           <FAQSection />
         </main>

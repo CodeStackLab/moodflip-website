@@ -120,9 +120,10 @@ export function HowItWorksSection() {
   const { ref: cardsRef, visible: cardsVis } = useScrollReveal(0.1);
 
   const steps = [
-    { step: '01', emoji: '☁️', color: '#818cf8', title: 'Choose Your Mood Cloud', desc: 'Select one of 5 primary mood families — Sad, Fearful, Angry, Disgusted or Stressed. No typing needed.' },
-    { step: '02', emoji: '🎯', color: '#a855f7', title: 'Pick Your Exact Feeling', desc: 'From the 8-tile feelings grid, tap the one that resonates most closely with how you feel right now.' },
-    { step: '03', emoji: '⚡', color: '#ec4899', title: 'Flip & Get Your Action', desc: 'Hit the big purple button. In 1 second you get a positive target mood + a 60-second physical micro-action.' },
+    { step: '01', emoji: '☁️', color: '#818cf8', title: 'Choose a Mood Family', desc: 'Start with one of five broad mood clouds. No typing or interpretation required.' },
+    { step: '02', emoji: '🧭', color: '#a855f7', title: 'Narrow the Category', desc: 'Choose the second-layer Feelings Wheel category that feels closest to this moment.' },
+    { step: '03', emoji: '🎯', color: '#ec4899', title: 'Pick the Exact Feeling', desc: 'Tap the specific third-layer feeling that best describes what you are experiencing.' },
+    { step: '04', emoji: '⚡', color: '#e98a54', title: 'Flip & Take One Step', desc: 'Receive a supportive target mood and one practical 60-second action.' },
   ];
 
   return (
@@ -137,13 +138,13 @@ export function HowItWorksSection() {
           style={{ textAlign: 'center', marginBottom: '3rem' }}
         >
           <div className="section-pill" style={{ color: '#818cf8', background: 'rgba(129,140,248,0.12)', marginBottom: '1rem' }}>
-            ⚡ Simple 3-Step Process
+            ⚡ Simple 4-Step Process
           </div>
           <h2 className="section-heading gradient-heading" style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 'clamp(1.9rem, 4vw, 2.8rem)', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
             How MoodFlip Works in Seconds
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-subtle)', maxWidth: '560px', margin: '0 auto', lineHeight: 1.65 }}>
-            No typing, no long reads. Tap → Pick → Flip. Your emotional reset in under 60 seconds.
+            No typing and no long questionnaire. Narrow the feeling, then take one manageable next step.
           </p>
         </div>
 
@@ -151,7 +152,7 @@ export function HowItWorksSection() {
         <div
           ref={cardsRef}
           className="how-grid"
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}
         >
           {steps.map((s, i) => (
             <div
@@ -283,10 +284,10 @@ export function ScienceSection() {
   const { ref: rightRef, visible: rightVis } = useScrollReveal(0.15);
 
   const features = [
-    { icon: '🧠', title: 'Pattern Interruption', desc: 'Micro-actions break rumination cycles by snapping attention to immediate physical sensory inputs.', color: '#818cf8' },
-    { icon: '🎡', title: 'Feelings Wheel Framework', desc: 'Visual emotion categorization labels complex feelings without the overwhelm of free-text journaling.', color: '#a855f7' },
-    { icon: '🫀', title: 'Vagus Nerve Reset', desc: 'Deep exhales and grounding touches activate the parasympathetic nervous system for fast calm.', color: '#ec4899' },
-    { icon: '🔒', title: '100% Private & Free', desc: 'No logins needed. Optional check-ins auto-purge after 90 days. Zero unnecessary data collected.', color: '#10b981' },
+    { icon: '🧠', title: 'A Clear Pause', desc: 'A tiny action creates a brief pause between a difficult feeling and what you do next.', color: '#818cf8' },
+    { icon: '🎡', title: 'Visual Emotion Labels', desc: 'Feelings Wheel categories make it easier to identify a feeling without writing a long explanation.', color: '#a855f7' },
+    { icon: '🌱', title: 'One Manageable Step', desc: 'A 60-second suggestion keeps the next step small, practical, and easy to try or skip.', color: '#ec4899' },
+    { icon: '🔒', title: 'Private by Design', desc: 'The free tool needs no profile. Optional saved data is scheduled for deletion after 90 days of inactivity.', color: '#10b981' },
   ];
 
   return (
@@ -304,13 +305,13 @@ export function ScienceSection() {
           style={{ marginBottom: '2.5rem' }}
         >
           <div className="section-pill" style={{ color: '#10b981', background: 'rgba(16,185,129,0.12)', marginBottom: '1rem' }}>
-            🧬 Mindset Science
+            🌿 Thoughtful by design
           </div>
           <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 0.6rem 0' }}>
-            Why 60-Second Actions Work
+            Why the format feels manageable
           </h2>
           <p style={{ fontSize: '0.95rem', color: 'var(--text-subtle)', maxWidth: '560px', lineHeight: 1.65, margin: 0 }}>
-            Tiny intentional resets create powerful emotional momentum without hours of meditation or journaling.
+            MoodFlip reduces friction: visual choices, plain language, and one small action instead of an overwhelming programme.
           </p>
         </div>
 

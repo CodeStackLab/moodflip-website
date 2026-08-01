@@ -1,77 +1,30 @@
-import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import PageFrame from '@/components/PageFrame';
 
 export const metadata = {
   title: 'About MoodFlip | Mindset Shift Tool',
-  description: 'Learn about MoodFlip, a fast tap-only self-reflection tool designed to gently flip negative moods into positive target states with practical 60-second actions.'
+  description: 'Learn how MoodFlip turns difficult everyday moods into gentle, practical 60-second actions.'
 };
+
+const steps = [
+  ['01', 'Choose what feels closest', 'Start with a broad mood family, then tap the feeling that best matches this moment.'],
+  ['02', 'Flip the emotional direction', 'MoodFlip pairs that feeling with a more supportive target state—without asking you to type.'],
+  ['03', 'Take one tiny action', 'Try a practical 60-second reset designed to feel manageable, even on a difficult day.'],
+];
 
 export default function AboutPage() {
   return (
-    <div className="site-shell">
-      <Header />
-
-      <main style={{ maxWidth: '860px', margin: '2.5rem auto', padding: '0 1rem' }}>
-        <div style={{
-          background: 'var(--card-bg)',
-          border: '1px solid var(--card-border)',
-          borderRadius: '28px',
-          padding: '3rem 2.5rem',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.04)'
-        }}>
-          <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#a855f7', background: 'var(--tile-selected-bg)', padding: '0.35rem 0.95rem', borderRadius: '9999px', textTransform: 'uppercase' }}>
-            About The Tool
-          </span>
-
-          <h1 style={{
-            fontFamily: "'Fraunces', Georgia, serif",
-            fontSize: 'clamp(2.2rem, 5vw, 3.2rem)',
-            fontWeight: 700,
-            color: 'var(--text-main)',
-            margin: '0.8rem 0 1rem 0'
-          }}>
-            About MoodFlip
-          </h1>
-
-          <p style={{ fontSize: '1.05rem', color: 'var(--text-subtle)', lineHeight: 1.7, marginBottom: '2rem' }}>
-            MoodFlip is a simple, intuitive self-reflection utility designed to help individuals move out of stuck emotional states through immediate, actionable 60-second steps.
-          </p>
-
-          {/* Important Non-Medical & Crisis Notice Box */}
-          <div style={{
-            background: 'rgba(239, 68, 68, 0.08)',
-            border: '1.5px solid rgba(239, 68, 68, 0.3)',
-            borderRadius: '20px',
-            padding: '1.5rem',
-            marginBottom: '2.5rem'
-          }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#ef4444', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span>🚨</span> Important Notice: Not Therapy, Medical Advice, or Crisis Support
-            </h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-              MoodFlip is strictly a self-reflection tool. It is <strong>not therapy</strong>, <strong>not mental health treatment</strong>, and <strong>not medical advice</strong>.
-            </p>
-            <p style={{ fontSize: '0.88rem', color: 'var(--text-subtle)', lineHeight: 1.6, margin: 0 }}>
-              If you are experiencing a mental health emergency, crisis, or thoughts of self-harm, please reach out immediately to a licensed healthcare professional or call your local emergency crisis hotline (e.g. Call or Text <strong>988</strong> in North America or contact your local emergency services).
-            </p>
-          </div>
-
-          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem' }}>
-            How MoodFlip Works
-          </h2>
-          <p style={{ color: 'var(--text-subtle)', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-            Instead of asking you to type long free-form text or read overwhelming articles, MoodFlip utilizes visual, clickable choices based on the classic Feelings Wheel framework:
-          </p>
-          <ol style={{ color: 'var(--text-main)', paddingLeft: '1.25rem', lineHeight: 1.9, fontSize: '0.95rem' }}>
-            <li>Choose your broad primary feeling family (Sad, Fearful, Angry, Disgusted, Stressed).</li>
-            <li>Pinpoint the specific underlying emotion from visual sub-tiles.</li>
-            <li>Click <strong>Change My Mood</strong> to receive a positive target state and a practical 60-second micro-action.</li>
-          </ol>
+    <PageFrame eyebrow="Why MoodFlip" title="A small reset can change the next moment." intro="MoodFlip is a calm, tap-only self-reflection tool for moving through everyday emotional friction with one clear next step.">
+      <section className="mf-section">
+        <div className="mf-section-heading"><span>How it works</span><h2>From stuck to moving—in three gentle taps</h2></div>
+        <div className="mf-step-grid">
+          {steps.map(([number, title, copy]) => <article className="mf-step" key={number}><b>{number}</b><h3>{title}</h3><p>{copy}</p></article>)}
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </section>
+      <section className="mf-split-section">
+        <div><span className="mf-mini-label">Built for real life</span><h2>Less analysis. More momentum.</h2><p>MoodFlip uses visual choices inspired by the Feelings Wheel, then gives you a positive target state and a rotating micro-action. It is quick enough for a break between meetings, a stressful commute, or a restless night.</p></div>
+        <ul className="mf-check-list"><li>No typing or journaling required</li><li>Use the core tool without an account</li><li>Optional private check-in history</li><li>Designed for phone, tablet, and desktop</li></ul>
+      </section>
+      <aside className="mf-callout mf-callout--danger"><span>Safety first</span><div><h2>A self-help tool, not clinical care</h2><p>MoodFlip is not therapy, medical advice, diagnosis, treatment, or crisis support. If you may be in danger or need urgent help, contact local emergency services or a qualified professional.</p></div><a href="/disclaimer">Read the safety notice →</a></aside>
+    </PageFrame>
   );
 }

@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
+    "verify": "tsc --noEmit && npm run build",
+    "deploy:production": "npm run verify && npx vercel --prod --yes",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"

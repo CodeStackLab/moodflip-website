@@ -81,6 +81,45 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    const callbackName = 'moodflipGoogleTranslateInit';
+    const windowWithGoogle = window as typeof window & {
+      google?: {
+        translate?: {
+          TranslateElement?: new (
+            options: Record<string, unknown>,
+            elementId: string,
+          ) => unknown;
+        };
+      };
+      [callbackName: string]: unknown;
+    };
+
+    windowWithGoogle[callbackName] = () => {
+      const TranslateElement = windowWithGoogle.google?.translate?.TranslateElement;
+      if (TranslateElement && !document.querySelector('.goog-te-combo')) {
+        new TranslateElement(
+          {
+            pageLanguage: 'en',
+            includedLanguages: LANGUAGES.map((language) => language.gtCode).join(','),
+            autoDisplay: false,
+          },
+          'google_translate_element',
+        );
+      }
+    };
+
+    if (!document.getElementById('moodflip-google-translate-script')) {
+      const script = document.createElement('script');
+      script.id = 'moodflip-google-translate-script';
+      script.src = `https://translate.google.com/translate_a/element.js?cb=${callbackName}`;
+      script.async = true;
+      document.head.appendChild(script);
+    } else if (windowWithGoogle.google?.translate?.TranslateElement) {
+      (windowWithGoogle[callbackName] as () => void)();
+    }
+  }, []);
+
+  useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsUserDropdownOpen(false);
     setIsLangOpen(false);
@@ -107,17 +146,32 @@ export default function Header() {
     setActiveLang(lang);
     setIsLangOpen(false);
     localStorage.setItem('moodflip_lang', lang.code);
-    // Trigger Google Translate
+
+    const clearTranslationCookie = () => {
+      document.cookie = 'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT;SameSite=Lax';
+      document.cookie = 'googtrans=;path=/;domain=.moodflip.coach;expires=Thu, 01 Jan 1970 00:00:00 GMT;SameSite=Lax';
+    };
+
+    if (lang.code === 'en') {
+      clearTranslationCookie();
+      window.location.reload();
+      return;
+    }
+
+    const cookieValue = `/en/${lang.gtCode}`;
+    document.cookie = `googtrans=${cookieValue};path=/;max-age=31536000;SameSite=Lax`;
+    if (window.location.hostname.endsWith('moodflip.coach')) {
+      document.cookie = `googtrans=${cookieValue};path=/;domain=.moodflip.coach;max-age=31536000;SameSite=Lax`;
+    }
+
+    // Apply inside the current page. If the embedded widget is still loading,
+    // reload the same URL so it can read the language cookie on initialization.
     const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
     if (select) {
       select.value = lang.gtCode;
       select.dispatchEvent(new Event('change'));
     } else {
-      // Fallback: redirect with Google Translate
-      if (lang.code !== 'en') {
-        const url = `https://translate.google.com/translate?sl=en&tl=${lang.gtCode}&u=${encodeURIComponent(window.location.href)}`;
-        window.open(url, '_blank');
-      }
+      window.location.reload();
     }
   };
 
@@ -326,6 +380,72 @@ export default function Header() {
         .mobile-nav-link:hover, .mobile-nav-link.active { background: var(--tile-selected-bg); color: #7c54d1; }
         .mobile-nav-divider { height: 1px; background: var(--card-border); margin: 0.45rem 0; }
 
+        /* ─── ANIMATED MOODFLIP WORDMARK ─── */
+        .mf-wordmark-link {
+          display: inline-flex;
+          align-items: center;
+          position: relative;
+          text-decoration: none;
+          flex-shrink: 0;
+          padding: 0.1rem 0.25rem;
+          isolation: isolate;
+        }
+        .mf-wordmark {
+          display: inline-flex;
+          align-items: baseline;
+          font-family: 'Fraunces', Georgia, serif;
+          font-size: clamp(1.75rem, 3vw, 2.35rem);
+          font-weight: 800;
+          line-height: 0.95;
+          letter-spacing: -0.055em;
+          filter: drop-shadow(0 3px 8px rgba(124,84,209,0.12));
+          animation: wordmarkFloat 4s ease-in-out infinite;
+        }
+        .mf-wordmark-mood {
+          color: #8460da;
+          background: linear-gradient(100deg, #6f4dcc 5%, #a678e8 42%, #7350d0 78%, #a678e8 100%);
+          background-size: 220% 100%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: wordmarkShimmer 5s ease-in-out infinite;
+        }
+        .mf-wordmark-flip {
+          color: #e58b55;
+          background: linear-gradient(100deg, #dc7748 4%, #efa169 42%, #d96f45 76%, #f1a76e 100%);
+          background-size: 220% 100%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: wordmarkShimmer 5s ease-in-out 0.22s infinite;
+        }
+        .mf-wordmark-sparkle {
+          position: absolute;
+          right: -0.35rem;
+          top: -0.42rem;
+          color: #e9a06b;
+          font-size: 0.75rem;
+          transform-origin: center;
+          animation: wordmarkSparkle 2.4s ease-in-out infinite;
+        }
+        @keyframes wordmarkShimmer {
+          0%, 22% { background-position: 100% 50%; }
+          52%, 100% { background-position: -105% 50%; }
+        }
+        @keyframes wordmarkFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-1.5px); }
+        }
+        @keyframes wordmarkSparkle {
+          0%, 100% { opacity: 0.25; transform: scale(0.7) rotate(0deg); }
+          45% { opacity: 1; transform: scale(1.15) rotate(18deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mf-wordmark, .mf-wordmark-mood, .mf-wordmark-flip, .mf-wordmark-sparkle {
+            animation: none !important;
+          }
+        }
+
         /* ─── RESPONSIVE ─── */
         @media (max-width: 900px) {
           .desktop-nav { display: none !important; }
@@ -338,7 +458,19 @@ export default function Header() {
       `}</style>
 
       {/* ─── GOOGLE TRANSLATE (hidden widget) ─── */}
-      <div id="google_translate_element" style={{ display: 'none' }} />
+      <div
+        id="google_translate_element"
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          left: '-9999px',
+          top: '-9999px',
+          width: '1px',
+          height: '1px',
+          overflow: 'hidden',
+          pointerEvents: 'none',
+        }}
+      />
 
       <header style={{
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -354,17 +486,12 @@ export default function Header() {
       }}>
 
         {/* ── BRAND LOGO ── */}
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none', flexShrink: 0 }}>
-          <div style={{
-            width: '36px', height: '36px', borderRadius: '12px',
-            background: 'linear-gradient(135deg, #7c54d1 0%, #e77c74 100%)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '1.1rem', boxShadow: '0 4px 14px rgba(124,84,209,0.3)', flexShrink: 0,
-          }}>💫</div>
-          <div>
-            <span style={{ display: 'block', fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', lineHeight: 1 }}>MoodFlip</span>
-            <span style={{ display: 'block', color: 'var(--text-subtle)', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.04em', marginTop: '1px' }}>moodflip.coach</span>
-          </div>
+        <a href="/" className="mf-wordmark-link" aria-label="MoodFlip home">
+          <span className="mf-wordmark" aria-hidden="true">
+            <span className="mf-wordmark-mood">Mood</span>
+            <span className="mf-wordmark-flip">Flip</span>
+          </span>
+          <span className="mf-wordmark-sparkle" aria-hidden="true">✦</span>
         </a>
 
         {/* ── DESKTOP NAV ── */}
@@ -379,7 +506,7 @@ export default function Header() {
           <div className="mf-nav-sep" />
 
           {/* ── Language Selector ── */}
-          <div className="mf-lang-wrapper" ref={langDropdownRef}>
+          <div className="mf-lang-wrapper" ref={langDropdownRef} style={{ order: 3 }}>
             <button
               className="mf-lang-btn"
               onClick={() => { setIsLangOpen(p => !p); setIsUserDropdownOpen(false); }}
@@ -428,17 +555,18 @@ export default function Header() {
               background: isDark ? 'rgba(124,84,209,0.15)' : '#f4edfa',
               borderColor: isDark ? '#4c347d' : '#d8c4ef',
               color: isDark ? '#c084fc' : '#7c54d1',
+              order: 4,
             }}
           >
             {isDark ? <SunIcon /> : <MoonIcon />}
           </button>
 
           {/* ── Separator ── */}
-          <div className="mf-nav-sep" />
+          <div className="mf-nav-sep" style={{ order: 2, marginLeft: '0.15rem' }} />
 
           {/* ── User Profile / Login ── */}
           {userProfile ? (
-            <div className="user-dropdown-wrapper" ref={userDropdownRef}>
+            <div className="user-dropdown-wrapper" ref={userDropdownRef} style={{ order: 1 }}>
               <button
                 className="user-badge-btn"
                 onClick={() => setIsUserDropdownOpen(p => !p)}
@@ -498,7 +626,7 @@ export default function Header() {
               )}
             </div>
           ) : (
-            <a href="/login" className="header-login-btn" id="header-login-link">
+            <a href="/login" className="header-login-btn" id="header-login-link" style={{ order: 1 }}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
                 <polyline points="10 17 15 12 10 7" />

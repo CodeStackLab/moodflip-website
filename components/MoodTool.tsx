@@ -9,7 +9,7 @@ import PaidPlansSection from '@/components/PaidPlansSection';
 import {
   LonelyIcon, RejectedIcon, HurtIcon, AshamedIcon,
   GuiltyIcon, EmptyIcon, OverwhelmedIcon, AbandonedIcon,
-  TrashIcon, MeditateIcon, BotanicalSprig
+  MeditateIcon, BotanicalSprig
 } from '@/components/FeelingIcons';
 
 /* ── icon map ── */
@@ -196,6 +196,7 @@ function Toast({ msg, onClose }: { msg: string, onClose: () => void }) {
 ══════════════════════════════════════════════ */
 export default function MoodTool() {
   const [familyId, setFamilyId] = useState('sad');
+  const [subCategoryId, setSubCategoryId] = useState('lonely');
   const [feelingId, setFeelingId] = useState('lonely');
   const [flip, setFlip] = useState({ targetMood:'Peaceful', actionText:'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.', isAi:false });
   const [count, setCount] = useState(0);
@@ -207,7 +208,8 @@ export default function MoodTool() {
   const [toastMsg, setToastMsg] = useState<string>('');
 
   const family = MOOD_DATA.find(f=>f.id===familyId)||MOOD_DATA[0];
-  const feelings = family.subCategories.flatMap((subcategory) => subcategory.feelings).slice(0, 8);
+  const subCategory = family.subCategories.find(item => item.id === subCategoryId) || family.subCategories[0];
+  const feelings = subCategory.feelings.slice(0, 8);
   const row1 = feelings.slice(0,4);
   const row2 = feelings.slice(4,8);
 
@@ -223,13 +225,17 @@ export default function MoodTool() {
   const pickFamily=(id:string)=>{
     setFamilyId(id);
     const nextFamily = MOOD_DATA.find((item) => item.id === id) || MOOD_DATA[0];
-    const firstFeeling = nextFamily.subCategories[0]?.feelings[0];
+    const firstCategory = nextFamily.subCategories[0];
+    setSubCategoryId(firstCategory.id);
+    const firstFeeling = firstCategory?.feelings[0];
     if(firstFeeling) setFeelingId(firstFeeling.id);
   };
 
-  const clear=()=>{
-    setFamilyId('sad'); setFeelingId('lonely');
-    setFlip({targetMood:'Peaceful',actionText:'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.',isAi:false});
+  const pickSubCategory = (id: string) => {
+    setSubCategoryId(id);
+    const nextCategory = family.subCategories.find(item => item.id === id) || family.subCategories[0];
+    const firstFeeling = nextCategory.feelings[0];
+    if (firstFeeling) setFeelingId(firstFeeling.id);
   };
 
   const doFlip = async () => {
@@ -267,17 +273,15 @@ export default function MoodTool() {
       }
 
       const newHistory = [{
-        primaryMood: family.name, subFeeling: feelingId, specificFeeling: feelingId,
+        primaryMood: family.name, subFeeling: subCategory.name, specificFeeling: feelingId,
         targetMood: nf.targetMood, actionShown: nf.actionText, date: todayDate, isAiGenerated: isAi
       }, ...h];
       
       localStorage.setItem('moodflip_checkins', JSON.stringify(newHistory));
 
       if (profile?.email) {
-        // Calculate days and triggers for profile users
-        const uniqueDays = Array.from(new Set(newHistory.map((c: any) => c.date))).length;
-        const newTodayCount = todayCount + 1;
-        
+        // The API is the source of truth for calendar-day progress and the daily limit.
+        let savedProgress: { checkinCount: number; todayCount: number; calendarDays: number } | null = null;
         try {
           const token = await getAccessToken();
           if (!token) throw new Error('Please sign in again to save check-ins.');
@@ -287,7 +291,7 @@ export default function MoodTool() {
               'Content-Type':'application/json',
               Authorization: `Bearer ${token}`,
             },
-            body:JSON.stringify({primaryMood:family.name, subFeeling:feelingId, specificFeeling:feelingId, targetMood:nf.targetMood, actionShown:nf.actionText})
+            body:JSON.stringify({primaryMood:family.name, subFeeling:subCategory.name, specificFeeling:feelingId, targetMood:nf.targetMood, actionShown:nf.actionText})
           });
           const saved = await response.json();
           if (!response.ok) {
@@ -295,14 +299,19 @@ export default function MoodTool() {
             else setToastMsg('Your action is ready, but the check-in could not be saved. Please sign in again and retry.');
             return;
           }
+          savedProgress = saved;
         } catch(_) {
           setToastMsg('Your action is ready, but the check-in could not be saved. Please sign in again and retry.');
           return;
         }
 
-        if (newHistory.length === 1) {
+        const savedCount = savedProgress?.checkinCount || 1;
+        const savedToday = savedProgress?.todayCount || 1;
+        const savedDays = savedProgress?.calendarDays || 1;
+
+        if (savedCount === 1) {
           setToastMsg("Your first MoodFlip check-in is saved.\nYou can save up to 3 check-ins per day. After 7 days, you'll be able to download your personalised 7-Day MoodFlip Report.");
-        } else if (uniqueDays >= 7) {
+        } else if (savedDays >= 7) {
           setToastMsg("Your 7-Day MoodFlip Report is ready.\nDownload your personalised report with your saved moods, positive moods, 60-second actions, and mood pattern summary.\n\nDownload for US$7");
           if (!localStorage.getItem('moodflip_7th_offer_shown')) {
             setShow7th(true);
@@ -310,17 +319,14 @@ export default function MoodTool() {
           }
         } else {
           // Progress message
-          if (uniqueDays >= 2 && newTodayCount === 1) {
+          if (savedDays >= 2 && savedToday === 1) {
             setToastMsg(`You're building your 7-Day MoodFlip Report.\nSave up to 3 check-ins per day. Your personalised report will be available after 7 days for US$7.`);
           } else {
-            setToastMsg(`Saved.\nToday's check-ins: [${newTodayCount}/3]\n7-Day Report progress: Day ${uniqueDays} of 7`);
+            setToastMsg(`Saved.\nToday's check-ins: [${savedToday}/3]\n7-Day Report progress: Day ${savedDays} of 7`);
           }
         }
       } else {
-         if(n >= 7 && !localStorage.getItem('moodflip_7th_offer_shown')){
-           setShow7th(true); 
-           localStorage.setItem('moodflip_7th_offer_shown','true');
-         }
+         // Anonymous visitors may use the free tool without sales gating.
       }
     }
   };
@@ -393,17 +399,17 @@ export default function MoodTool() {
         .mt-hero-pills { display: flex; justify-content: center; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-size: 0.74rem; color: var(--text-main, #362854); font-weight: 600; }
         .mt-hero-pill { display: inline-flex; align-items: center; gap: 0.28rem; background: var(--tile-bg, #fff); padding: 0.28rem 0.7rem; border-radius: 9999px; border: 1px solid var(--card-border, #efe6dc); box-shadow: 0 2px 8px rgba(0,0,0,0.02); white-space: nowrap; }
         .mt-card { background: var(--card-bg, #f8f4fe); border-radius: 28px; border: 1.5px solid var(--card-border, #e2d9f3); box-shadow: 0 18px 58px rgba(76,60,110,0.1); overflow: visible; position: relative; color: var(--text-main, #362854); }
-        .mt-split { display: flex; gap: 1.5rem; padding: 0 1.5rem 1.5rem 1.5rem; min-height: 510px; overflow: visible; position: relative; }
+        .mt-split { display: flex; gap: 1.5rem; padding: 1.5rem; min-height: 610px; overflow: visible; position: relative; }
         .mt-left {
           flex: 0 0 calc(50% - 0.75rem); padding: 1.4rem 1.65rem 1.85rem 1.65rem;
           display: flex; flex-direction: column; gap: 1.4rem;
-          border: 1.5px solid var(--card-border, #e2d9f3); border-radius: 24px;
-          box-shadow: 0 12px 35px rgba(124,84,209,0.06);
+          border: 1px solid rgba(255,255,255,.12); border-radius: 24px;
+          box-shadow: 0 18px 42px rgba(38,22,62,.22);
           background:
-            radial-gradient(circle at 14% 5%, rgba(255,255,255,.94) 0 8%, transparent 28%),
-            radial-gradient(ellipse at 92% 8%, rgba(252,211,77,.16) 0 5%, transparent 27%),
-            linear-gradient(155deg, var(--left-bg, #ffffff) 0%, rgba(247,240,252,.96) 55%, rgba(254,242,242,.88) 100%);
-          color: var(--text-main, #362854); position: relative; overflow: visible;
+            radial-gradient(circle at 12% 0%, rgba(151,112,225,.28), transparent 34%),
+            radial-gradient(ellipse at 98% 100%, rgba(232,138,84,.13), transparent 38%),
+            linear-gradient(155deg, #2c203c 0%, #20172f 58%, #181222 100%);
+          color: #f9f5fc; position: relative; overflow: visible;
         }
         .mt-right {
           flex: 0 0 calc(50% - 0.75rem);
@@ -416,11 +422,16 @@ export default function MoodTool() {
         }
         .mt-flipcell {
           display: flex; align-items: center;
-          position: absolute; left: 50%; top: 72%; transform: translate(-50%, -50%);
+          position: absolute; left: 50%; top: 75%; transform: translate(-50%, -50%);
           z-index: 40; overflow: visible;
         }
         .mt-row-a { display: flex; align-items: center; gap: 0.55rem; }
         .mt-row-b { display: flex; align-items: flex-start; gap: 0.55rem; overflow: visible; }
+        .mt-subcategory-row { display: flex; align-items: center; gap: .55rem; }
+        .mt-subcategory-list { display: flex; gap: .4rem; overflow-x: auto; padding: .1rem .1rem .25rem; }
+        .mt-subcategory-pill { min-height: 38px; padding: .45rem .75rem; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; color: #ded3ea; background: rgba(255,255,255,.07); font: 700 .74rem inherit; cursor: pointer; white-space: nowrap; transition: .2s ease; }
+        .mt-subcategory-pill:hover { background: rgba(255,255,255,.12); }
+        .mt-subcategory-pill[aria-pressed="true"] { color: #2d2140; background: #f5edfb; border-color: #d6c4e8; box-shadow: 0 6px 16px rgba(0,0,0,.16); }
         .mt-row2  { display: flex; gap: 0.6rem; align-items: stretch; overflow: visible; }
         .mt-target-title {
           font-family: 'Fraunces','Playfair Display',Georgia,serif;
@@ -439,20 +450,21 @@ export default function MoodTool() {
 
         /* ── TABLET: 641–850px ── */
         @media (max-width: 850px) {
-          .mt-split { flex-direction: column !important; gap: 1rem !important; padding: 0 1rem 5.5rem 1rem !important; min-height: unset !important; }
+          .mt-split { flex-direction: column !important; gap: 1rem !important; padding: 1rem 1rem 5.5rem 1rem !important; min-height: unset !important; }
           .mt-left  { flex: none !important; width: 100% !important; padding: 1.2rem 1.2rem 1.4rem !important; }
           .mt-right { flex: none !important; width: 100% !important; padding: 1.6rem 1.2rem !important; }
           .mt-flipcell { position: relative !important; left: auto !important; top: auto !important; transform: none !important; justify-content: center !important; margin: 0 0 0.75rem 0 !important; width: 100% !important; }
           .mt-target-title { font-size: clamp(2rem, 8vw, 3.2rem) !important; white-space: normal !important; word-break: break-word !important; }
           .mt-row-a { flex-wrap: wrap !important; }
           .mt-row-b { flex-direction: column !important; align-items: stretch !important; }
+          .mt-subcategory-row { align-items: flex-start; }
           .mt-bottom-banner { padding: 0.8rem 1.1rem !important; }
         }
 
         /* ── MOBILE: up to 640px ── */
         @media (max-width: 640px) {
           .mt-wrapper { padding: 0.1rem 0.5rem 0 !important; }
-          .mt-split { padding: 0 0.65rem 5rem 0.65rem !important; gap: 0.75rem !important; }
+          .mt-split { padding: 0.65rem 0.65rem 5rem 0.65rem !important; gap: 0.75rem !important; }
           .mt-left, .mt-right { padding: 1rem 0.85rem !important; border-radius: 18px !important; }
           .mt-card { border-radius: 22px !important; }
           .mt-hero h1 { font-size: clamp(1.4rem, 7vw, 1.9rem) !important; }
@@ -539,29 +551,15 @@ export default function MoodTool() {
           {/* Pills — fade up last */}
           <div className="mt-hero-pills hero-pills-anim">
             <span className="mt-hero-pill">🔒 100% Private (90-Day Auto-Purge)</span>
-            <button onClick={()=>setShow7th(true)} className="mt-hero-pill"
-              style={{ background:'var(--banner-bg, #ede5fa)',border:'1px solid var(--card-border, #d6c8f5)',color:'var(--text-main, #7c54d1)',fontWeight:700,cursor:'pointer' }}>
+            <a href="/pricing" className="mt-hero-pill"
+              style={{ background:'var(--banner-bg, #ede5fa)',border:'1px solid var(--card-border, #d6c8f5)',color:'var(--text-main, #7c54d1)',fontWeight:700,textDecoration:'none' }}>
               📘 $7 Mindset Plan →
-            </button>
+            </a>
           </div>
         </div>
 
         {/* MAIN CARD — animates in after hero */}
         <div className="mt-card hero-card-anim">
-
-          {/* ── MoodFlip title ── */}
-          <div style={{ textAlign:'center',paddingTop:'1.6rem',paddingBottom:'0.55rem' }}>
-            <h2 style={{ fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
-              fontSize:'clamp(2.5rem,4.5vw,3.5rem)',fontWeight:700,
-              letterSpacing:'-0.02em',margin:0,lineHeight:1 }}>
-              {/* "Mood" = multi-color purple→blue gradient */}
-              <span style={{ background:'linear-gradient(110deg,#7958d8 0%,#9b70e0 40%,#5b8fd4 80%,#7c54d1 100%)',
-                WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Mood</span>
-              {/* "Flip" = warm coral→peach */}
-              <span style={{ background:'linear-gradient(135deg,#e8855a 0%,#dba048 100%)',
-                WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Flip</span>
-            </h2>
-          </div>
 
           {/* ── Split: Left | Right ── */}
           <div className="mt-split">
@@ -582,9 +580,21 @@ export default function MoodTool() {
                 </div>
               </div>
 
-              {/* Row B+C: pick feeling banner + grid */}
+              {/* Layer 2: choose a Feelings Wheel category */}
+              <div className="mt-subcategory-row">
+                <Banner icon="2" text="Choose the closest category" />
+                <div className="mt-subcategory-list hide-scrollbar" role="group" aria-label="Feeling category">
+                  {family.subCategories.map(category => (
+                    <button key={category.id} className="mt-subcategory-pill" aria-pressed={category.id === subCategoryId} onClick={() => pickSubCategory(category.id)}>
+                      {category.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Layer 3: choose the exact feeling */}
               <div className="mt-row-b" style={{ display:'flex',alignItems:'flex-start',gap:'0.55rem',overflow:'visible' }}>
-                <Banner icon="♡" text="Pick the feeling closest to how you feel" />
+                <Banner icon="3" text="Choose your exact feeling" />
 
                 <div style={{ flex:1,display:'flex',flexDirection:'column',gap:'0.65rem',minWidth:0,overflow:'visible' }}>
 
@@ -596,20 +606,6 @@ export default function MoodTool() {
                   {/* Grid row 2 */}
                   <div className="mt-row2" style={{ display:'flex',gap:'0.6rem',alignItems:'stretch',overflow:'visible' }}>
                     {row2.map(f=><Tile key={f.id} f={f}/>)}
-                  </div>
-
-                  {/* Grid row 3 (Clear selection) */}
-                  <div style={{ display:'flex',justifyContent:'flex-start' }}>
-                    <button onClick={clear} style={{
-                      background:'rgba(255,255,255,.66)', border:'1px solid var(--card-border, #e4dcee)',
-                      borderRadius:'9999px', padding:'0.42rem 0.75rem',
-                      display:'inline-flex', alignItems:'center',
-                      justifyContent:'center', gap:'0.35rem', cursor:'pointer',
-                      color:'var(--text-subtle, #665c7d)', fontSize:'0.7rem', fontWeight:700
-                    }}>
-                      <TrashIcon size={14} color="#8b5fd1"/>
-                      <span>Clear selection · Start over</span>
-                    </button>
                   </div>
 
                 </div>
@@ -711,7 +707,7 @@ export default function MoodTool() {
                       boxShadow:'inset 0 1px 0 rgba(255,255,255,.38)'
                     }}>
                     <span style={{ display:'flex',flexDirection:'column' }}>
-                      <span>{loading ? 'Flipping...' : 'Change'}</span>
+                      <span>{loading ? 'Flipping...' : 'Flip'}</span>
                       {!loading && <span>My Mood</span>}
                     </span>
                     {!loading && <span style={{ position:'absolute',right:'1.15rem',top:'50%',transform:'translateY(-50%)',fontFamily:'Arial,sans-serif',fontSize:'1.7rem',fontWeight:300,lineHeight:1 }}>→</span>}
@@ -749,14 +745,14 @@ export default function MoodTool() {
           <div className="modal-card" style={{ maxWidth:'480px',background:'#fff',border:'1px solid #e2d9f3' }}>
             <div style={{ textAlign:'center',marginBottom:'1rem' }}>
               <span style={{ fontSize:'2.4rem' }}>💫</span>
-              <h3 style={{ fontSize:'1.4rem',fontWeight:800,color:'#362854',marginTop:'0.5rem' }}>Welcome Back to MoodFlip!</h3>
+              <h3 style={{ fontSize:'1.4rem',fontWeight:800,color:'#362854',marginTop:'0.5rem' }}>Save your MoodFlip check-ins?</h3>
               <p style={{ fontSize:'0.87rem',color:'#665c7d',marginTop:'0.35rem',lineHeight:1.5 }}>
-                You&apos;ve used MoodFlip multiple times! Create a free profile to save your check-ins and track your progress.
+                Create a free profile to save your moods, actions, and progress toward your 7-Day MoodFlip Report.
               </p>
             </div>
             <div style={{ background:'#ede5fa',border:'1px solid #d6c8f5',padding:'1rem',borderRadius:'16px',marginBottom:'1.25rem' }}>
               <p style={{ fontSize:'0.77rem',color:'#7c54d1',lineHeight:1.5,margin:0,fontWeight:600 }}>
-                &ldquo;By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history.&rdquo;
+                &ldquo;By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history so we can create and offer personalised downloads.&rdquo;
               </p>
             </div>
             <p style={{ fontSize:'0.75rem',color:'#665c7d',textAlign:'center',marginBottom:'1.25rem' }}>
@@ -781,7 +777,7 @@ export default function MoodTool() {
           <div className="modal-card" style={{ maxWidth: '820px', width: '92%', background: '#ffffff', border: '1.5px solid #e2d9f3', borderRadius: '28px', padding: '2rem 1.8rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
               <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#059669', background: '#dcfce7', padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.02em' }}>
-                🎉 Milestone Unlocked: 7 Check-Ins Saved!
+                🎉 Milestone Unlocked: 7 Calendar Days Complete!
               </span>
               <button onClick={() => setShow7th(false)} style={{ background: '#f1f5f9', border: 'none', width: '32px', height: '32px', borderRadius: '50%', fontSize: '1.1rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 ✕
@@ -791,31 +787,9 @@ export default function MoodTool() {
               Get Your Personalized 7-Day Mindset PDF Plan
             </h3>
             <p style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.5, marginBottom: '1rem' }}>
-              You&apos;ve completed 7 mood check-ins! Download your custom-generated 7-Day Mindset PDF report based on your exact check-in history.
+              You&apos;ve saved check-ins across 7 calendar days. Your personalised report can include up to 21 saved check-ins.
             </p>
             <PaidPlansSection hideHeader={true} />
-          </div>
-        </div>
-      )}
-
-      {/* 2nd Visit Profile Invitation Popup */}
-      {show2nd && (
-        <div className="modal-overlay">
-          <div className="modal-card" style={{ maxWidth: '400px', textAlign: 'center' }}>
-            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.6rem', color: '#1e1b4b', marginBottom: '0.5rem' }}>
-              Save your MoodFlip check-ins?
-            </h2>
-            <p style={{ fontSize: '0.9rem', color: '#475569', marginBottom: '1.5rem', lineHeight: 1.5 }}>
-              Create a free profile to save your moods, actions, and progress toward your 7-Day MoodFlip Report.
-            </p>
-            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
-              <button onClick={() => { setShow2nd(false); localStorage.setItem('moodflip_2nd_visit_dismissed', 'true'); }} style={{ padding: '0.65rem 1rem', background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '12px', fontWeight: 600, cursor: 'pointer' }}>
-                Maybe Later
-              </button>
-              <button onClick={() => { setShow2nd(false); localStorage.setItem('moodflip_2nd_visit_dismissed', 'true'); setShowAuth(true); }} style={{ padding: '0.65rem 1.2rem', background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: 'white', border: 'none', borderRadius: '12px', fontWeight: 700, cursor: 'pointer' }}>
-                Create Free Profile
-              </button>
-            </div>
           </div>
         </div>
       )}

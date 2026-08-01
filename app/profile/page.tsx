@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getAccessToken, supabaseBrowser } from '@/lib/supabaseBrowser';
+import { trackEvent } from '@/lib/analytics';
 
 interface SavedCheckin {
   primaryMood: string;
@@ -26,6 +27,7 @@ export default function UserProfilePage() {
   const [history, setHistory] = useState<SavedCheckin[]>([]);
   const [purchases, setPurchases] = useState<Purchase[]>([]);
   const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'plans'>('overview');
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -52,6 +54,11 @@ export default function UserProfilePage() {
     }
     const checkins = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
     setHistory(checkins);
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') === 'true') {
+      setPaymentSuccess(true);
+      trackEvent('paid_pdf_purchase_completed');
+    }
     loadProfile();
     return () => { active = false; };
   }, []);
@@ -135,6 +142,8 @@ export default function UserProfilePage() {
   return (
     <div className="site-shell">
       <Header />
+
+      {paymentSuccess && <div role="status" style={{ maxWidth: '900px', margin: '1rem auto', padding: '1rem 1.25rem', border: '1px solid #86efac', borderRadius: '16px', color: '#065f46', background: '#ecfdf5', fontWeight: 700 }}>Payment successful. Your MoodFlip Report is ready to download. A copy has also been emailed to you.</div>}
 
       <main style={{ maxWidth: '1240px', margin: '1.5rem auto', padding: '0 0.5rem' }}>
         {/* EXECUTIVE 2-COLUMN SAAS SIDEBAR CONTAINER */}
@@ -406,6 +415,7 @@ export default function UserProfilePage() {
                 <a
                   href={sevenDayPurchase?.pdfUrl || '/pricing'}
                   target="_blank"
+                  onClick={() => sevenDayPurchase && trackEvent('pdf_delivery_download', { product: '7_DAY_PDF' })}
                   style={{
                     padding: '0.45rem 0.85rem',
                     background: '#059669',
@@ -436,6 +446,7 @@ export default function UserProfilePage() {
                 <a
                   href={thirtyDayPurchase?.pdfUrl || '/pricing'}
                   target="_blank"
+                  onClick={() => thirtyDayPurchase && trackEvent('pdf_delivery_download', { product: '30_DAY_PDF' })}
                   style={{
                     padding: '0.45rem 0.85rem',
                     background: '#ec4899',

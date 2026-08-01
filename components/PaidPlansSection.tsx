@@ -355,8 +355,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
 
           <button
             type="button"
-            onClick={() => handleBuyPlan('30_DAY_PDF')}
-            disabled={loading}
+            disabled
             className="plan-card-btn green-btn"
             style={{
               width: '100%',
@@ -367,10 +366,10 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
               color: '#047857',
               fontWeight: 800,
               fontSize: '0.9rem',
-              cursor: 'pointer'
+              cursor: 'not-allowed', opacity: 0.72
             }}
           >
-            {loading ? 'Processing...' : 'Get 30-Day Master PDF ($19)'}
+            Phase 2 · Coming Soon
           </button>
         </div>
       </div>

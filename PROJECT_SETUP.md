@@ -49,7 +49,15 @@ MoodFlip includes an automatic **Under Construction / Maintenance Guard** (`comp
 
 > ⚠️ **IMPORTANT**: GitHub credentials are NOT stored locally. `git push` will hang/fail. Use **Vercel CLI directly** as the primary deployment method below.
 
-Whenever making changes, follow these exact 2 steps to verify and deploy live:
+Whenever making changes, use the automated verified production command:
+
+```bash
+npm run deploy:production
+```
+
+This command runs TypeScript verification and a full production build first. Vercel deployment starts only if both checks pass. It does not store a Vercel token in the repository.
+
+The equivalent manual steps are:
 
 ### Step 1: Verify TypeScript (0 errors required)
 ```bash
@@ -99,7 +107,7 @@ flowchart TD
 
 - **Framework**: Next.js 14 App Router (TypeScript + React Server Components)
 - **Database & ORM**: Prisma ORM (`prisma/schema.prisma`) connected to Supabase PostgreSQL (`cacgdkjevkdkshjoapgo`)
-- **Payment Gateway**: PayPal Express Checkout gateway modal for $7 (7-Day Plan) & $19 (30-Day Master Plan)
+- **Payment Gateway**: Stripe Checkout for the eligible $7 7-Day Report. The $19 30-Day product is implemented as Phase 2 infrastructure and remains hidden/disabled until activation.
 - **Deployment**: Vercel Serverless Production Platform (`https://moodflip.coach`)
 - **Design System**: Responsive single-canvas layout (`app/globals.css`) matching exact Fraunces serif mockup.
 

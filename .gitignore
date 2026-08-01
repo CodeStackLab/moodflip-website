@@ -22,6 +22,12 @@ dist-ssr/
 .vercel
 .supabase
 
+# Sensitive Local Setup Documentation
+PROJECT_SETUP.md
+PROJECT_SETUP*.md
+*.local.md
+
+
 # Logs & testing
 *.log
 npm-debug.log*

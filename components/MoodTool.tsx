@@ -1,608 +1,691 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { MOOD_DATA, getActionForFeeling } from '@/lib/moodData';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import AuthModal from '@/components/AuthModal';
 import PaidPlansSection from '@/components/PaidPlansSection';
-import {
-  LonelyIcon, RejectedIcon, HurtIcon, AshamedIcon,
-  GuiltyIcon, EmptyIcon, OverwhelmedIcon, AbandonedIcon,
-  TrashIcon, MeditateIcon, BotanicalSprig
-} from '@/components/FeelingIcons';
 
-/* ── icon map ── */
-const ICON_MAP: Record<string, React.FC<{ size?: number; color?: string }>> = {
-  lonely: LonelyIcon, isolated: LonelyIcon, abandoned: AbandonedIcon,
-  rejected: RejectedIcon, hurt: HurtIcon, disappointed: HurtIcon,
-  grief: HurtIcon, grieving: HurtIcon, ashamed: AshamedIcon, guilty: GuiltyIcon,
-  empty: EmptyIcon, depressed: EmptyIcon, overwhelmed: OverwhelmedIcon,
-  anxious: OverwhelmedIcon, terrified: AbandonedIcon, scared: AbandonedIcon,
-  panicked: OverwhelmedIcon, insecure: AshamedIcon, nervous: OverwhelmedIcon,
-  fearful: AbandonedIcon, worried: OverwhelmedIcon, helpless: AbandonedIcon,
-  frozen: EmptyIcon, enraged: HurtIcon, annoyed: RejectedIcon,
-  frustrated: OverwhelmedIcon, resentful: HurtIcon, irritated: RejectedIcon,
-  betrayed: HurtIcon, furious: HurtIcon, hostile: HurtIcon, repulsed: EmptyIcon,
-  revolted: EmptyIcon, repelled: EmptyIcon, disapproved: RejectedIcon,
-  awful: AshamedIcon, detestable: AshamedIcon, hesitant: GuiltyIcon,
-  embarrassed: AshamedIcon, avoidant: EmptyIcon, exhausted: EmptyIcon,
-  'burned-out': EmptyIcon, burntout: EmptyIcon, frazzled: OverwhelmedIcon,
-  swamped: OverwhelmedIcon, pressured: OverwhelmedIcon, rushed: OverwhelmedIcon,
-  restless: OverwhelmedIcon, overburdened: OverwhelmedIcon
+/* ----------------------------------------------------------------
+   MoodFlip v2 — "A quiet breath between how you feel and what's next"
+   Calm, premium, minimal wellness-utility aesthetic.
+------------------------------------------------------------------- */
+
+type FamilyName = 'Sad' | 'Fearful' | 'Angry' | 'Disgusted' | 'Stressed';
+
+interface FamilyMetaEntry {
+  icon: string;
+  dot: string;
+}
+
+interface FeelingLeaf {
+  target: string;
+  action: string;
+}
+
+type CategoryMap = Record<string, Record<string, FeelingLeaf>>;
+type MoodDataShape = Record<FamilyName, CategoryMap>;
+
+const FAMILY_ORDER: FamilyName[] = ['Sad', 'Fearful', 'Angry', 'Disgusted', 'Stressed'];
+
+const FAMILY_META: Record<FamilyName, FamilyMetaEntry> = {
+  Sad: { icon: '🌧️', dot: '#7E8FBE' },
+  Fearful: { icon: '🌫️', dot: '#9583B8' },
+  Angry: { icon: '⛈️', dot: '#C97B72' },
+  Disgusted: { icon: '🌪️', dot: '#5C9490' },
+  Stressed: { icon: '💨', dot: '#C79A5D' },
 };
 
-/* ── fixed 8 feelings per family in exact mockup order ── */
-const FEELINGS: Record<string, { id: string; name: string }[]> = {
-  sad:       [{ id:'lonely',name:'Lonely' },{ id:'rejected',name:'Rejected' },{ id:'hurt',name:'Hurt' },{ id:'ashamed',name:'Ashamed' },{ id:'guilty',name:'Guilty' },{ id:'empty',name:'Empty' },{ id:'overwhelmed',name:'Overwhelmed' },{ id:'abandoned',name:'Abandoned' }],
-  fearful:   [{ id:'anxious',name:'Anxious' },{ id:'terrified',name:'Terrified' },{ id:'scared',name:'Scared' },{ id:'panicked',name:'Panicked' },{ id:'insecure',name:'Insecure' },{ id:'nervous',name:'Nervous' },{ id:'worried',name:'Worried' },{ id:'helpless',name:'Helpless' }],
-  angry:     [{ id:'enraged',name:'Enraged' },{ id:'furious',name:'Furious' },{ id:'frustrated',name:'Frustrated' },{ id:'resentful',name:'Resentful' },{ id:'irritated',name:'Irritated' },{ id:'hostile',name:'Hostile' },{ id:'annoyed',name:'Annoyed' },{ id:'betrayed',name:'Betrayed' }],
-  disgusted: [{ id:'repulsed',name:'Repulsed' },{ id:'revolted',name:'Revolted' },{ id:'repelled',name:'Repelled' },{ id:'detestable',name:'Detestable' },{ id:'awful',name:'Awful' },{ id:'embarrassed',name:'Embarrassed' },{ id:'hesitant',name:'Hesitant' },{ id:'avoidant',name:'Avoidant' }],
-  stressed:  [{ id:'overwhelmed',name:'Overwhelmed' },{ id:'exhausted',name:'Exhausted' },{ id:'frazzled',name:'Frazzled' },{ id:'pressured',name:'Pressured' },{ id:'restless',name:'Restless' },{ id:'rushed',name:'Rushed' },{ id:'overburdened',name:'Overburdened' },{ id:'burntout',name:'Burnt-Out' }],
+const MOOD_DATA: MoodDataShape = {
+  Sad: {
+    Lonely: {
+      Isolated: { target: 'Connected', action: 'Send one voice note to someone you trust. Just say hi — no big update needed.' },
+      'Left out': { target: 'Included', action: "List three people who'd want to hear from you right now. Text the first one." },
+      Abandoned: { target: 'Secure', action: 'Wrap a soft blanket around yourself and ground your feet into the floor for 60 seconds.' },
+      Hurt: { target: 'Healed', action: "Place a hand over your heart, take 3 slow breaths, and say out loud: 'I acknowledge this pain.'" },
+    },
+    Discouraged: {
+      Disappointed: { target: 'Hopeful', action: 'Write down one thing today that went slightly better than you expected.' },
+      Hopeless: { target: 'Reassured', action: 'Name one hard thing you already got through, even when it felt impossible.' },
+      Ashamed: { target: 'Self-Compassionate', action: "Say out loud: 'I am human, I make mistakes, and I am worthy of kindness.'" },
+      Guilty: { target: 'Forgiven', action: 'Write down what you can learn from this moment, then take a deep cleansing exhale.' },
+    },
+    Empty: {
+      Grieving: { target: 'Comforted', action: 'Allow yourself 60 seconds of gentle stillness with no expectations or pressure.' },
+      Numb: { target: 'Awakened', action: 'Sip a glass of cold water mindfully, paying attention to the sensation in your throat.' },
+      Exhausted: { target: 'Rested', action: 'Close your eyes for 60 seconds, unclench your teeth, and let your body sink into your chair.' },
+    },
+  },
+  Fearful: {
+    Anxious: {
+      Overwhelmed: { target: 'Grounded', action: 'Name 5 things you can see, 4 you can touch, 3 you can hear, right now.' },
+      Worried: { target: 'Steady', action: "Write the worst case. Then write what you'd actually do if it happened." },
+      Panicked: { target: 'Calm', action: 'Breathe in for 4 seconds, hold for 4, exhale for 6. Repeat 3 times slowly.' },
+      Restless: { target: 'Centered', action: 'Plant both feet flat on the floor and feel the solid ground holding you up.' },
+    },
+    Insecure: {
+      Inadequate: { target: 'Capable', action: 'List one skill you used well this week, however small it seems.' },
+      Exposed: { target: 'Safe', action: 'Wrap yourself in a blanket or hoodie for two minutes. Let your shoulders drop.' },
+      Scared: { target: 'Protected', action: 'Place one hand on your belly and breathe into your palm 5 slow times.' },
+      Terrified: { target: 'Anchored', action: 'Look around the room and name 3 physical objects that are completely stable.' },
+    },
+  },
+  Angry: {
+    Frustrated: {
+      Stuck: { target: 'Clear', action: "Write the one-sentence version of what's actually bothering you." },
+      'Let down': { target: 'Understanding', action: "Consider one reason the other person's view might make some sense." },
+      Annoyed: { target: 'Peaceful', action: 'Take one step back physically from your screen or work for 60 seconds.' },
+      Furious: { target: 'Cool', action: 'Run cold water over your wrists for 30 seconds and focus on the temperature.' },
+    },
+    Irritated: {
+      Impatient: { target: 'Patient', action: 'Breathe out for twice as long as you breathe in. Repeat four times.' },
+      Resentful: { target: 'Released', action: "Say out loud, alone, exactly what you wish you'd said. Then let it go." },
+      Hostile: { target: 'Softened', action: 'Unclench your fists, open your palms facing upward, and take a long breath.' },
+      Betrayed: { target: 'Self-Reliant', action: "Remind yourself: 'My peace belongs to me, regardless of others' actions.'" },
+    },
+  },
+  Disgusted: {
+    Disapproving: {
+      Judgmental: { target: 'Open', action: 'Ask yourself what you might not know about the full situation.' },
+      Critical: { target: 'Accepting', action: "Name one thing about this moment that's simply neutral, not good or bad." },
+      Disapproved: { target: 'Self-Validating', action: "Remind yourself that your worth doesn't depend on external approval." },
+    },
+    Repulsed: {
+      Uncomfortable: { target: 'Settled', action: 'Change your physical position. Stand, stretch, or step outside for a minute.' },
+      Avoidant: { target: 'Present', action: "Name the exact thing you're avoiding, in one short sentence." },
+      Revolted: { target: 'Cleansed', action: 'Wash your hands with warm water, noticing the comforting sensory sensation.' },
+    },
+  },
+  Stressed: {
+    Pressured: {
+      Rushed: { target: 'Paced', action: 'Pick the one task that actually matters in the next hour. Do only that.' },
+      'Burnt out': { target: 'Restored', action: 'Close your eyes for 60 seconds. Do nothing else. Let that be enough.' },
+      Overburdened: { target: 'Lightened', action: 'Identify one small thing you can delegate, postpone, or say no to today.' },
+    },
+    Tense: {
+      'Wound up': { target: 'Calm', action: 'Drop your shoulders, unclench your jaw, uncurl your fingers. Slow exhale.' },
+      'On edge': { target: 'Centered', action: 'Plant both feet flat on the floor. Notice the ground holding you up.' },
+      Frazzled: { target: 'Ordered', action: 'Take 3 slow breaths and clear off your immediate physical workspace.' },
+    },
+  },
 };
 
-/* ── arrow tag banner ── */
-function Banner({ icon, text }: { icon: React.ReactNode; text: string }) {
-  return (
-    <div style={{ filter: 'drop-shadow(0 4px 8px rgba(130,100,190,0.12))' }}>
-      <div style={{
-        display:'inline-flex', alignItems:'center', gap:'0.42rem',
-        background:'#f0ebf8',
-        color:'#362854', padding:'0.5rem 1.35rem 0.5rem 0.58rem',
-        clipPath:'polygon(0% 0%, 92% 0%, 100% 50%, 92% 100%, 0% 100%)',
-        fontSize:'0.75rem', fontWeight:600, width:'152px', flexShrink:0,
-        letterSpacing:'0.01em', lineHeight:1.2
-      }}>
-        <div style={{ width:24,height:24,borderRadius:'50%',background:'#fff',
-          border:'1.5px solid #d5c8eb',display:'flex',alignItems:'center',
-          justifyContent:'center',flexShrink:0,color:'#7859c2' }}>
-          {icon}
-        </div>
-        <span style={{ paddingRight:'0.6rem' }}>{text}</span>
-      </div>
-    </div>
-  );
+interface FaqItem {
+  q: string;
+  a: string;
 }
 
-/* ── cloud button — larger to match mockup ── */
-function Cloud({ name, selected, onClick }: { name:string; selected:boolean; onClick:()=>void }) {
-  return (
-    <button onClick={onClick} style={{
-      position:'relative', background:'transparent', border:'none',
-      padding:'0', cursor:'pointer', display:'inline-flex',
-      alignItems:'center', justifyContent:'center', minWidth:'82px', height:'52px',
-      flexShrink:0, transition:'transform 0.2s cubic-bezier(0.16,1,0.3,1)',
-      transform: selected ? 'scale(1.05)' : 'scale(1)',
-      filter: selected ? 'drop-shadow(0 6px 12px rgba(120,89,194,0.25))' : 'drop-shadow(0 2px 6px rgba(0,0,0,0.04))'
-    }}>
-      <svg style={{ position:'absolute',top:0,left:0,width:'100%',height:'100%',zIndex:1 }} viewBox="0 0 120 54">
-        <path d="M 24 48 C 12 48, 4 38, 10 26 C 4 15, 18 5, 36 11 C 46 2, 72 3, 82 13 C 96 8, 108 20, 104 33 C 114 40, 108 48, 94 48 Z"
-          fill={selected ? '#e7dcf4' : '#ffffff'}
-          stroke={selected ? '#8f73d3' : '#e0d8ef'} strokeWidth={selected ? '2.5' : '1.5'} />
-      </svg>
-      <span style={{ position:'relative',zIndex:2,fontFamily:"'Outfit','Inter',sans-serif",
-        fontSize:'0.9rem', fontWeight: selected ? 700 : 500,
-        color: selected ? '#362854' : '#6b5a8e' }}>
-        {name}
-      </span>
-    </button>
-  );
-}
+const FAQ_ITEMS: FaqItem[] = [
+  { q: 'Is MoodFlip really free?', a: 'Yes. The full tap-through tool costs nothing to use, with no account or card required.' },
+  { q: 'Do I have to make a profile?', a: 'No. You can use MoodFlip anonymously any time. Saving a profile is optional, never required.' },
+  { q: 'Is this therapy or medical advice?', a: "No. MoodFlip is a self-reflection utility, not a substitute for professional care. If you're in crisis, please contact a licensed professional or your local emergency number." },
+  { q: 'What happens to my data after 90 days?', a: 'Anything you choose to save is automatically and permanently deleted after 90 days of inactivity.' },
+  { q: "What's in the $7 Mindset Plan?", a: 'A one-time downloadable PDF with a deeper set of prompts and 60-second actions to keep, no subscription attached.' },
+];
 
-/* ── rich sunburst landscape for right panel ── */
-function Landscape() {
-  // rays only above horizon (upper half = -180 to 0 degrees offset)
-  const rays = Array.from({length:20},(_,i)=> i * 9 - 90); // -90 to +90 in 9deg steps (upper semicircle)
-  return (
-    <svg style={{ position:'absolute',top:0,left:0,width:'100%',height:'100%',pointerEvents:'none' }}
-      viewBox="0 0 640 560" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <radialGradient id="rg1" cx="50%" cy="75%" r="80%">
-          <stop offset="0%"   stopColor="#fff4d0" stopOpacity="1"/>
-          <stop offset="50%"  stopColor="#ffe9a0" stopOpacity="0.55"/>
-          <stop offset="100%" stopColor="#fde8c8" stopOpacity="0"/>
-        </radialGradient>
-        <radialGradient id="sunRg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="#fff8d8" stopOpacity="1"/>
-          <stop offset="65%"  stopColor="#fcd97a" stopOpacity="0.9"/>
-          <stop offset="100%" stopColor="#f5c848" stopOpacity="0.5"/>
-        </radialGradient>
-        {/* clip so sun only shows above horizon */}
-        <clipPath id="sunHalf">
-          <rect x="0" y="0" width="640" height="390"/>
-        </clipPath>
-      </defs>
-
-      {/* warm sky glow behind sun */}
-      <ellipse cx="320" cy="390" rx="300" ry="260" fill="url(#rg1)"/>
-
-      {/* sun rays — fan upward from horizon center */}
-      {rays.map((deg,i)=>(
-        <line key={i}
-          x1="320" y1="390"
-          x2={320 + 270 * Math.cos(deg * Math.PI / 180)}
-          y2={390 + 270 * Math.sin(deg * Math.PI / 180)}
-          stroke="#f5d060" strokeWidth="1.8" opacity="0.18"/>
-      ))}
-
-      {/* sun body — large circle clipped to show only upper half (semicircle rising from horizon) */}
-      <circle cx="320" cy="390" r="140" fill="url(#sunRg)" opacity="0.92" clipPath="url(#sunHalf)"/>
-      <circle cx="320" cy="390" r="100" fill="#fff9e0" opacity="0.72" clipPath="url(#sunHalf)"/>
-      <circle cx="320" cy="390" r="66"  fill="#fffcf2" opacity="0.58" clipPath="url(#sunHalf)"/>
-
-      {/* far hill — lavender */}
-      <path d="M -30 430 Q 80 330 200 365 Q 310 395 420 325 Q 500 272 600 335 L 660 370 L 660 460 L -30 460 Z"
-        fill="#ddd5ef" opacity="0.55"/>
-      {/* mid hill — soft mauve/pink */}
-      <path d="M -30 480 Q 100 390 215 418 Q 318 448 412 388 Q 492 340 590 405 L 660 440 L 660 560 L -30 560 Z"
-        fill="#e2cce6" opacity="0.6"/>
-      {/* near hill — warm blush */}
-      <path d="M -30 530 Q 140 445 268 472 Q 370 495 475 448 Q 548 418 660 468 L 660 560 L -30 560 Z"
-        fill="#efd8e8" opacity="0.65"/>
-      {/* foreground — cream */}
-      <path d="M -30 555 Q 210 528 390 542 Q 530 554 660 530 L 660 560 L -30 560 Z"
-        fill="#f5ece5" opacity="0.72"/>
-
-      {/* sparkle stars */}
-      <text x="468" y="95"  fontSize="13" fill="#c8a0e0" opacity="0.58" textAnchor="middle">✦</text>
-      <text x="525" y="140" fontSize="8"  fill="#e8c870" opacity="0.45" textAnchor="middle">✦</text>
-      <text x="142" y="125" fontSize="9"  fill="#c8a0e0" opacity="0.42" textAnchor="middle">✦</text>
-      <text x="552" y="76"  fontSize="7"  fill="#e8a8c0" opacity="0.36" textAnchor="middle">✦</text>
-      <text x="172" y="82"  fontSize="7"  fill="#d4b8f0" opacity="0.33" textAnchor="middle">✦</text>
-
-      {/* bird silhouette — upper right */}
-      <path d="M 538 100 Q 549 89 560 100 Q 571 89 582 100"
-        stroke="#b090d8" strokeWidth="1.6" fill="none" opacity="0.42"/>
-    </svg>
-  );
-}
-
-/* ── leaf SVG icon (matches mockup bottom bar) ── */
-function LeafIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c54d1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
-      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-    </svg>
-  );
-}
-
-/* ── heart SVG icon ── */
-function HeartIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c54d1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-    </svg>
-  );
-}
-
-/* ══════════════════════════════════════════════
-   MAIN COMPONENT
-══════════════════════════════════════════════ */
-export default function MoodTool() {
-  const [familyId, setFamilyId] = useState('sad');
-  const [feelingId, setFeelingId] = useState('lonely');
-  const [flip, setFlip] = useState({ targetMood:'Peaceful', actionText:'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.', isAi:false });
-  const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [showAuth, setShowAuth] = useState(false);
-  const [show2nd, setShow2nd] = useState(false);
-  const [show7th, setShow7th] = useState(false);
-  const [profile, setProfile] = useState<any>(null);
-
-  const family = MOOD_DATA.find(f=>f.id===familyId)||MOOD_DATA[0];
-  const feelings = FEELINGS[familyId]||FEELINGS.sad;
-  const row1 = feelings.slice(0,4);
-  const row2 = feelings.slice(4,8);
-
-  useEffect(()=>{
-    if(typeof window==='undefined') return;
-    const p=localStorage.getItem('moodflip_profile'); if(p) setProfile(JSON.parse(p));
-    const v=parseInt(localStorage.getItem('moodflip_visit_count')||'0')+1;
-    localStorage.setItem('moodflip_visit_count',String(v));
-    if(v===2&&!p&&!localStorage.getItem('moodflip_2nd_visit_dismissed')) setShow2nd(true);
-    setCount(parseInt(localStorage.getItem('moodflip_checkin_count')||'0'));
-  },[]);
-
-  const pickFamily=(id:string)=>{
-    setFamilyId(id);
-    const f=FEELINGS[id]||FEELINGS.sad;
-    if(f[0]) setFeelingId(f[0].id);
-  };
-
-  const clear=()=>{
-    setFamilyId('sad'); setFeelingId('lonely');
-    setFlip({targetMood:'Peaceful',actionText:'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.',isAi:false});
-  };
-
-  const doFlip=async()=>{
-    setLoading(true);
-    const n=count+1; setCount(n);
-    if(typeof window!=='undefined') localStorage.setItem('moodflip_checkin_count',String(n));
-    let nf=getActionForFeeling(feelingId,n); let isAi=false;
-    try {
-      const r=await fetch('/api/ai/flip',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,visitCount:n})});
-      if(r.ok){const d=await r.json(); if(d.targetMood&&d.actionText){nf={targetMood:d.targetMood,actionText:d.actionText}; isAi=!!d.isAiGenerated;}}
-    } catch(_){}
-    const ff={...nf,isAi};
-    setTimeout(()=>{
-      setFlip({targetMood:ff.targetMood,actionText:ff.actionText,isAi:ff.isAi});
-      setLoading(false);
-      if(n>=7&&typeof window!=='undefined'&&!localStorage.getItem('moodflip_7th_offer_shown')){
-        setShow7th(true); localStorage.setItem('moodflip_7th_offer_shown','true');
-      }
-    },350);
-    if(typeof window!=='undefined'){
-      const h=JSON.parse(localStorage.getItem('moodflip_checkins')||'[]');
-      localStorage.setItem('moodflip_checkins',JSON.stringify([{primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,targetMood:nf.targetMood,actionShown:nf.actionText,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),isAiGenerated:isAi},...h]));
-    }
-    if(profile?.email){try{await fetch('/api/checkins',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:profile.email,primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,targetMood:nf.targetMood,actionShown:nf.actionText})});}catch(_){}}
-  };
-
-  const Tile=({f}:{f:{id:string;name:string}})=>{
-    const sel=f.id===feelingId;
-    const Ic=ICON_MAP[f.id]||LonelyIcon;
-    return (
-      <button onClick={()=>setFeelingId(f.id)} className="feeling-card-item" style={{
-        background: sel ? '#f0e9f8' : '#ffffff',
-        border: sel ? '2px solid #7859c2' : '1px solid #e4dcee',
-        borderRadius:'12px', padding:'1rem 0.5rem',
-        display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
-        gap:'0.5rem', cursor:'pointer',
-        boxShadow: sel ? '0 6px 16px rgba(120,89,194,0.15)' : '0 2px 6px rgba(0,0,0,0.02)',
-        transform: sel ? 'scale(1.03)' : 'scale(1)',
-        transition:'all 0.18s ease', flex:1, minWidth:0, height:'90px'
-      }}>
-        <Ic size={28} color={sel ? '#7859c2' : '#a093b5'} />
-        <span style={{
-          fontSize: f.name.length > 9 ? '0.68rem' : '0.78rem',
-          fontWeight: sel ? 700 : 500,
-          color: '#362854',
-          textTransform: 'capitalize',
-          lineHeight: 1.15,
-          textAlign: 'center',
-          wordBreak: 'break-word',
-          overflowWrap: 'break-word',
-          width: '100%',
-          padding: '0 2px'
-        }}>
-          {f.name}
-        </span>
-      </button>
+function useReveal(rootRef: React.RefObject<HTMLDivElement | null>): void {
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const els = root.querySelectorAll<HTMLElement>('.mf2-reveal');
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add('mf2-in-view');
+        });
+      },
+      { threshold: 0.15 }
     );
-  };
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, [rootRef]);
+}
+
+export default function MoodTool(): React.JSX.Element {
+  const rootRef = useRef<HTMLDivElement>(null);
+  useReveal(rootRef);
+
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  const [showPlanModal, setShowPlanModal] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const [family, setFamily] = useState<FamilyName | null>(null);
+  const [category, setCategory] = useState<string | null>(null);
+  const [feeling, setFeeling] = useState<string | null>(null);
+  const [revealed, setRevealed] = useState<boolean>(false);
+  const [secondsLeft, setSecondsLeft] = useState<number>(60);
+  const [openFaq, setOpenFaq] = useState<number>(0);
+
+  useEffect(() => {
+    if (!revealed) return;
+    setSecondsLeft(60);
+    const id = setInterval(() => setSecondsLeft((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(id);
+  }, [revealed]);
+
+  const categories = family ? Object.keys(MOOD_DATA[family]) : [];
+  const feelings = family && category ? Object.keys(MOOD_DATA[family][category]) : [];
+  const result = family && category && feeling ? MOOD_DATA[family][category][feeling] : null;
+
+  function pickFamily(name: FamilyName): void { setFamily(name); setCategory(null); setFeeling(null); setRevealed(false); }
+  function pickCategory(name: string): void { setCategory(name); setFeeling(null); setRevealed(false); }
+  function pickFeeling(name: string): void { setFeeling(name); setRevealed(false); }
+  function reset() { setFamily(null); setCategory(null); setFeeling(null); setRevealed(false); }
+
+  const orbLabel = useMemo(() => {
+    if (revealed && result) return result.target;
+    if (feeling) return feeling;
+    if (category) return category;
+    if (family) return family;
+    return 'Begin';
+  }, [revealed, result, feeling, category, family]);
+
+  const crumbs = [family, category, feeling].filter(Boolean);
 
   return (
-    <>
+    <div className={`mf2-root ${revealed ? 'mf2-cleared' : ''}`} ref={rootRef}>
       <style>{`
-        @keyframes moodIn { 0%{opacity:0;transform:scale(0.82) translateY(12px)} 65%{opacity:1;transform:scale(1.05) translateY(-2px)} 100%{opacity:1;transform:scale(1) translateY(0)} }
-        @keyframes btnPulse { 0%,100%{filter:drop-shadow(0 6px 22px rgba(82,55,147,0.5))} 50%{filter:drop-shadow(0 12px 30px rgba(82,55,147,0.72));transform:scale(1.028)} }
-        .mood-animate { animation: moodIn 0.52s cubic-bezier(0.16,1,0.3,1) both; }
-        .flip-btn { animation: btnPulse 2.6s ease-in-out infinite; }
-        .flip-btn:hover  { filter:drop-shadow(0 14px 32px rgba(82,55,147,0.75)) !important; transform:scale(1.05) !important; }
-        .flip-btn:active { transform:scale(0.97) !important; }
-        .feeling-card-item:hover  { transform:scale(1.06) !important; box-shadow:0 8px 24px rgba(124,84,209,0.22) !important; }
-        .feeling-card-item:active { transform:scale(0.97) !important; }
-        .hide-scrollbar::-webkit-scrollbar{display:none;}
-        .hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
-        @media(max-width:800px){
-          .mt-split{flex-direction:column !important;}
-          .mt-left{border-right:none !important;border-bottom:1px solid #e0d7f0 !important;}
-          .mt-row2{flex-wrap:wrap !important;}
-          .mt-flipcell{margin-right:0 !important;width:100% !important;justify-content:center !important;margin-top:0.6rem !important;}
+        @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+        .mf2-root {
+          --paper: #F6F7F2;
+          --surface: #FFFFFF;
+          --ink: #1E211C;
+          --ink-soft: rgba(30,33,28,0.60);
+          --ink-faint: rgba(30,33,28,0.38);
+          --sage: #56765B;
+          --sage-deep: #3E5942;
+          --sage-soft: #E3EAE0;
+          --gold: #CBA766;
+          --line: rgba(30,33,28,0.10);
+
+          font-family: 'Manrope', sans-serif;
+          background: var(--paper);
+          color: var(--ink);
+          -webkit-font-smoothing: antialiased;
+          overflow-x: hidden;
+          transition: background 1.2s ease;
+          min-height: 100vh;
+        }
+        .mf2-root * { box-sizing: border-box; }
+        .mf2-root h1, .mf2-root h2, .mf2-root h3 { font-family: 'Newsreader', serif; font-weight: 500; letter-spacing: -0.01em; margin: 0; }
+        .mf2-root em { font-style: italic; font-weight: 500; }
+        .mf2-root p { margin: 0; }
+        .mf2-root button { font-family: inherit; cursor: pointer; }
+        .mf2-root a { color: inherit; text-decoration: none; }
+        .mf2-mono { font-family: 'Space Mono', monospace; }
+        .mf2-root :focus-visible { outline: 2px solid var(--sage-deep); outline-offset: 3px; border-radius: 4px; }
+
+        .mf2-wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+        .mf2-wrap-narrow { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+
+        /* ---------------- nav ---------------- */
+        .mf2-nav { position: sticky; top: 0; z-index: 50; padding: 22px 0; transition: all 0.35s ease; }
+        .mf2-nav.mf2-scrolled { background: rgba(246,247,242,0.92); backdrop-filter: blur(12px); padding: 14px 0; box-shadow: 0 1px 0 var(--line); }
+        .mf2-nav-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .mf2-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+        .mf2-brand-mark { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--sage), var(--sage-deep)); flex-shrink: 0; }
+        .mf2-nav-links { display: flex; align-items: center; gap: 34px; font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
+        .mf2-nav-links a:hover { color: var(--ink); }
+        .mf2-nav-right { display: flex; align-items: center; gap: 22px; }
+        .mf2-login { font-size: 14px; font-weight: 600; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; background: none; border: none; padding: 0; }
+        .mf2-login:hover { color: var(--ink); }
+        .mf2-burger { display: none; background: none; border: none; font-size: 22px; color: var(--ink); }
+
+        .mf2-btn { border-radius: 10px; padding: 13px 24px; font-weight: 700; font-size: 14.5px; border: none; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease; }
+        .mf2-btn:hover { transform: translateY(-1px); }
+        .mf2-btn-primary { background: var(--sage-deep); color: #fff; box-shadow: 0 8px 20px rgba(62,89,66,0.22); }
+        .mf2-btn-primary:hover { background: #334a36; }
+        .mf2-btn-sm { padding: 10px 18px; font-size: 13.5px; }
+
+        /* ---------------- hero ---------------- */
+        .mf2-hero { padding: 75px 0 40px; text-align: center; position: relative; }
+        .mf2-eyebrow-line { font-size: 13px; font-weight: 700; color: var(--sage-deep); letter-spacing: 0.04em; margin-bottom: 22px; text-transform: uppercase; }
+        .mf2-hero h1 { font-size: clamp(36px, 5.4vw, 56px); line-height: 1.12; max-width: 16ch; margin: 0 auto 22px; }
+        .mf2-hero-sub { font-size: 17.5px; line-height: 1.65; color: var(--ink-soft); max-width: 46ch; margin: 0 auto 30px; }
+        .mf2-hero-cta { margin-bottom: 26px; }
+        .mf2-trust-line { font-size: 13.5px; color: var(--ink-faint); font-weight: 500; }
+        .mf2-trust-line span { margin: 0 10px; opacity: 0.5; }
+
+        /* ---------------- demo section ---------------- */
+        .mf2-demo-section { padding: 30px 0 90px; }
+        .mf2-demo-card {
+          background: var(--surface); border: 1px solid var(--line); border-radius: 28px;
+          padding: 46px; display: grid; grid-template-columns: 220px 1fr; gap: 44px; align-items: center;
+          box-shadow: 0 24px 60px rgba(30,33,28,0.06);
+        }
+        .mf2-orb-col { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+        .mf2-orb-wrap { position: relative; width: 170px; height: 170px; display: flex; align-items: center; justify-content: center; }
+        .mf2-orb-ring { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 34% 30%, var(--sage-soft), rgba(227,234,224,0)); animation: mf2Breathe 5.5s ease-in-out infinite; }
+        .mf2-cleared .mf2-orb-ring { background: radial-gradient(circle at 34% 30%, #F1E4C4, rgba(241,228,196,0)); }
+        @keyframes mf2Breathe { 0%, 100% { transform: scale(0.92); opacity: 0.75; } 50% { transform: scale(1.08); opacity: 1; } }
+        .mf2-orb-core {
+          position: relative; width: 128px; height: 128px; border-radius: 50%;
+          background: var(--sage-deep); display: flex; flex-direction: column; align-items: center; justify-content: center;
+          transition: background 0.8s ease; box-shadow: 0 14px 30px rgba(62,89,66,0.25);
+        }
+        .mf2-cleared .mf2-orb-core { background: linear-gradient(140deg, var(--gold), var(--sage)); }
+        .mf2-orb-icon { font-size: 28px; margin-bottom: 4px; }
+        .mf2-orb-label { color: #fff; font-size: 13px; font-weight: 600; max-width: 95px; text-align: center; line-height: 1.3; }
+        .mf2-orb-caption { font-size: 12.5px; color: var(--ink-faint); text-align: center; font-weight: 500; }
+
+        .mf2-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 20px; margin-bottom: 16px; font-size: 13.5px; color: var(--ink-faint); }
+        .mf2-crumb-sep { opacity: 0.5; margin: 0 4px; }
+        .mf2-crumb-current { color: var(--ink); font-weight: 600; }
+        .mf2-start-over { margin-left: auto; font-size: 12.5px; text-decoration: underline; color: var(--ink-faint); background: none; border: none; font-weight: 600; }
+        .mf2-start-over:hover { color: var(--ink); }
+
+        .mf2-options-label { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; display: block; font-weight: 600; }
+        .mf2-chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+        .mf2-chip {
+          border: 1.5px solid var(--line); background: var(--paper); border-radius: 999px;
+          padding: 10px 18px 10px 14px; font-size: 14px; font-weight: 600; color: var(--ink);
+          display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+          transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+        }
+        .mf2-chip:hover { border-color: var(--sage-deep); background: var(--sage-soft); transform: translateY(-1px); }
+        .mf2-chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+        .mf2-flip-btn { background: var(--sage-deep); color: #fff; border: none; border-radius: 999px; padding: 13px 26px; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: background 0.2s ease, transform 0.15s ease; }
+        .mf2-flip-btn:hover { background: #334a36; transform: translateY(-1px); }
+
+        .mf2-result { animation: mf2Fade 0.6s ease; }
+        @keyframes mf2Fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .mf2-result-eyebrow { font-size: 13px; color: var(--ink-soft); margin-bottom: 6px; font-weight: 600; }
+        .mf2-result-mood { font-family: 'Newsreader', serif; font-size: 32px; color: var(--sage-deep); margin-bottom: 10px; font-weight: 600; }
+        .mf2-result-action { font-size: 15.5px; line-height: 1.6; color: var(--ink-soft); max-width: 48ch; margin-bottom: 16px; background: #FAF9F6; border: 1px solid var(--line); padding: 16px 20px; border-radius: 16px; }
+        .mf2-timer { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-faint); font-weight: 600; }
+        .mf2-timer-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
+
+        /* ---------------- quote strip ---------------- */
+        .mf2-quote-section { padding: 20px 0 90px; text-align: center; }
+        .mf2-quote { font-family: 'Newsreader', serif; font-style: italic; font-size: clamp(22px, 3vw, 30px); line-height: 1.5; max-width: 28ch; margin: 0 auto 14px; }
+        .mf2-quote-attr { font-size: 13.5px; color: var(--ink-faint); font-weight: 600; }
+
+        /* ---------------- generic section ---------------- */
+        .mf2-section { padding: 90px 0; }
+        .mf2-section-head { text-align: center; margin-bottom: 60px; }
+        .mf2-eyebrow { font-size: 13px; font-weight: 700; color: var(--sage-deep); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 12px; }
+        .mf2-section h2 { font-size: clamp(26px, 3.2vw, 38px); margin-bottom: 12px; }
+        .mf2-section-sub { font-size: 16px; color: var(--ink-soft); max-width: 50ch; margin: 0 auto; line-height: 1.6; }
+
+        .mf2-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .mf2-reveal.mf2-in-view { opacity: 1; transform: translateY(0); }
+
+        /* how it works — timeline */
+        .mf2-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+        .mf2-timeline::before { content: ""; position: absolute; top: 11px; left: 6%; right: 6%; height: 1px; background: var(--line); }
+        .mf2-tl-step { padding: 0 18px; position: relative; text-align: left; }
+        .mf2-tl-dot { width: 24px; height: 24px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--sage-deep); color: var(--sage-deep); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; position: relative; z-index: 1; }
+        .mf2-tl-step h3 { font-size: 17.5px; margin-bottom: 8px; }
+        .mf2-tl-step p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+
+        /* why — flat list with dividers */
+        .mf2-why-grid { display: grid; grid-template-columns: 1fr 1fr; }
+        .mf2-why-item { padding: 32px 36px; border-top: 1px solid var(--line); display: flex; gap: 18px; }
+        .mf2-why-item:nth-child(-n+2) { border-top: none; }
+        .mf2-why-item:nth-child(odd) { border-right: 1px solid var(--line); }
+        .mf2-why-icon { font-size: 20px; flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; background: var(--sage-soft); display: flex; align-items: center; justify-content: center; }
+        .mf2-why-item h3 { font-size: 16.5px; margin-bottom: 6px; }
+        .mf2-why-item p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+
+        /* pricing */
+        .mf2-price-card { background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 48px; display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: center; box-shadow: 0 16px 45px rgba(30,33,28,0.04); }
+        .mf2-price-card h2 { font-size: 28px; margin-bottom: 10px; }
+        .mf2-price-list { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 10px; }
+        .mf2-price-list li { font-size: 14.5px; color: var(--ink-soft); display: flex; align-items: center; gap: 10px; }
+        .mf2-price-list li::before { content: "✓"; color: var(--sage-deep); font-weight: 700; }
+        .mf2-price-tag { text-align: center; }
+        .mf2-price-num { font-family: 'Newsreader', serif; font-size: 48px; font-weight: 500; }
+        .mf2-price-note { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 18px; font-weight: 500; }
+
+        /* faq */
+        .mf2-faq-item { border-bottom: 1px solid var(--line); }
+        .mf2-faq-q { width: 100%; text-align: left; background: none; border: none; display: flex; justify-content: space-between; align-items: center; padding: 22px 2px; font-size: 16.5px; font-weight: 600; color: var(--ink); cursor: pointer; }
+        .mf2-faq-icon { font-size: 20px; font-weight: 400; color: var(--ink-faint); transition: transform 0.3s ease; }
+        .mf2-faq-item.mf2-open .mf2-faq-icon { transform: rotate(45deg); }
+        .mf2-faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); padding: 0 2px; }
+        .mf2-faq-item.mf2-open .mf2-faq-a { max-height: 200px; padding: 0 2px 22px; }
+
+        /* modal overlay */
+        .mf2-modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(30,33,28,0.45); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .mf2-modal-card { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 32px; max-width: 580px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.15); }
+        .mf2-modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 22px; color: var(--ink-faint); cursor: pointer; }
+        .mf2-modal-close:hover { color: var(--ink); }
+
+        /* footer */
+        .mf2-footer { padding: 50px 0; border-top: 1px solid var(--line); }
+        .mf2-footer-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
+        .mf2-footer-links { display: flex; gap: 26px; font-size: 14px; color: var(--ink-soft); }
+        .mf2-footer-links a:hover { color: var(--ink); }
+        .mf2-footer-note { font-size: 12.5px; color: var(--ink-faint); margin-top: 18px; text-align: center; font-weight: 500; }
+
+        @media (max-width: 860px) {
+          .mf2-demo-card { grid-template-columns: 1fr; text-align: center; }
+          .mf2-orb-col { margin: 0 auto; }
+          .mf2-crumbs { justify-content: center; }
+          .mf2-start-over { margin-left: 0; }
+          .mf2-chip-row { justify-content: center; }
+          .mf2-timeline { grid-template-columns: 1fr 1fr; row-gap: 34px; }
+          .mf2-timeline::before { display: none; }
+          .mf2-why-grid { grid-template-columns: 1fr; }
+          .mf2-why-item:nth-child(odd) { border-right: none; }
+          .mf2-why-item:nth-child(n+2) { border-top: 1px solid var(--line); }
+          .mf2-nav-links { display: none; }
+          .mf2-burger { display: block; }
+          .mf2-price-card { grid-template-columns: 1fr; text-align: center; }
+        }
+        @media (max-width: 520px) {
+          .mf2-wrap, .mf2-wrap-narrow { padding: 0 18px; }
+          .mf2-demo-card { padding: 30px 22px; border-radius: 22px; }
+          .mf2-timeline { grid-template-columns: 1fr; }
+          .mf2-footer-row { flex-direction: column; align-items: flex-start; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mf2-orb-ring, .mf2-reveal { animation: none !important; transition: none !important; }
         }
       `}</style>
 
-      {/* ─── HERO SECTION ─── */}
-      <div style={{ maxWidth:'1280px',margin:'0 auto',padding:'0.5rem 0.75rem 0',fontFamily:"'Outfit','Inter',sans-serif" }}>
-        <div style={{ textAlign:'center',marginBottom:'1.65rem',marginTop:'0.35rem' }}>
-          <div style={{ display:'inline-flex',alignItems:'center',gap:'0.48rem',
-            background:'#ede5fa',border:'1px solid #d6c8f5',padding:'0.38rem 1.1rem',
-            borderRadius:'9999px',fontSize:'0.77rem',fontWeight:700,color:'#7c54d1',
-            marginBottom:'0.7rem',boxShadow:'0 4px 14px rgba(124,84,209,0.1)' }}>
-            <span>✨ 100% Free Self-Help Utility</span>
-            <span style={{opacity:0.4}}>•</span><span>Tap-Only</span>
-            <span style={{opacity:0.4}}>•</span><span>No Sign-Up Required</span>
-          </div>
-          <h1 style={{ fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
-            fontSize:'clamp(2rem,5vw,3.5rem)',fontWeight:700,margin:'0 auto 0.5rem',
-            letterSpacing:'-0.02em',lineHeight:1.08,maxWidth:'800px' }}>
-            <span style={{color:'#362854'}}>Shift Your Mindset in </span>
-            <span style={{background:'linear-gradient(135deg,#7c54d1 0%,#ec4899 100%)',
-              WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>60 Seconds</span>
-          </h1>
-          <p style={{ fontSize:'0.97rem',color:'#665c7d',maxWidth:'630px',margin:'0 auto 1rem',lineHeight:1.6,fontWeight:400 }}>
-            Select your current negative mood, discover your positive counterpart, and get 1 practical 60-second action to regain emotional clarity.
-          </p>
-          <div style={{ display:'flex',justifyContent:'center',alignItems:'center',gap:'0.8rem',flexWrap:'wrap',fontSize:'0.8rem',color:'#362854',fontWeight:600 }}>
-            <span style={{ display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'#fff',padding:'0.33rem 0.8rem',borderRadius:'9999px',border:'1px solid #efe6dc',boxShadow:'0 2px 8px rgba(0,0,0,0.02)' }}>🤖 AI-Powered Fresh Actions</span>
-            <span style={{ display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'#fff',padding:'0.33rem 0.8rem',borderRadius:'9999px',border:'1px solid #efe6dc',boxShadow:'0 2px 8px rgba(0,0,0,0.02)' }}>🔒 100% Private (90-Day Auto-Purge)</span>
-            <button onClick={()=>setShow7th(true)} style={{ background:'#ede5fa',border:'1px solid #d6c8f5',color:'#7c54d1',padding:'0.33rem 0.8rem',borderRadius:'9999px',fontWeight:700,fontSize:'0.8rem',cursor:'pointer',display:'inline-flex',alignItems:'center',gap:'0.3rem' }}>
-              📘 Optional $7 Mindset Plan PDF →
+      {/* ---------------- NAV ---------------- */}
+      <header className={`mf2-nav ${scrolled ? 'mf2-scrolled' : ''}`}>
+        <div className="mf2-wrap mf2-nav-row">
+          <a href="#top" className="mf2-brand">
+            <span className="mf2-brand-mark" /> MoodFlip
+          </a>
+          <nav className="mf2-nav-links">
+            <a href="#how-it-works">How it works</a>
+            <a href="#why">Why it works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+          </nav>
+          <div className="mf2-nav-right">
+            <button className="mf2-login" onClick={() => setShowAuth(true)}>
+              Log in
+            </button>
+            <button
+              className="mf2-btn mf2-btn-primary mf2-btn-sm"
+              onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Try it free
+            </button>
+            <button className="mf2-burger" aria-label="Menu" onClick={() => setMenuOpen((v) => !v)}>
+              ☰
             </button>
           </div>
         </div>
-
-        {/* ═══════════════════════════════════════════
-            MAIN CARD — matches mockup exactly
-        ═══════════════════════════════════════════ */}
-        <div style={{
-          background:'#f8f4fe',
-          borderRadius:'28px',
-          border:'1.5px solid #e2d9f3',
-          boxShadow:'0 18px 58px rgba(76,60,110,0.1)',
-          overflow:'visible',
-          position:'relative'
-        }}>
-
-          {/* ── MoodFlip title ── */}
-          <div style={{ textAlign:'center',paddingTop:'1.6rem',paddingBottom:'0.55rem' }}>
-            <h2 style={{ fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
-              fontSize:'clamp(2.5rem,4.5vw,3.5rem)',fontWeight:700,
-              letterSpacing:'-0.02em',margin:0,lineHeight:1 }}>
-              {/* "Mood" = multi-color purple→blue gradient like mockup */}
-              <span style={{ background:'linear-gradient(110deg,#7958d8 0%,#9b70e0 40%,#5b8fd4 80%,#7c54d1 100%)',
-                WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Mood</span>
-              {/* "Flip" = warm coral→peach like mockup */}
-              <span style={{ background:'linear-gradient(135deg,#e8855a 0%,#dba048 100%)',
-                WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Flip</span>
-            </h2>
+        {menuOpen && (
+          <div className="mf2-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 14, paddingTop: 16, background: 'var(--surface)', paddingBottom: 16, borderBottom: '1px solid var(--line)' }}>
+            <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a>
+            <a href="#why" onClick={() => setMenuOpen(false)}>Why it works</a>
+            <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+            <a href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
+            <button className="mf2-login" style={{ textAlign: 'left' }} onClick={() => { setMenuOpen(false); setShowAuth(true); }}>Log in</button>
           </div>
+        )}
+      </header>
 
-          {/* ── Split: left 50% | right 50% ── */}
-          <div className="mt-split" style={{ display:'flex',minHeight:'510px',overflow:'visible' }}>
+      {/* ---------------- HERO ---------------- */}
+      <section className="mf2-hero" id="top">
+        <div className="mf2-wrap-narrow">
+          <div className="mf2-eyebrow-line">A free self-reflection utility</div>
+          <h1>
+            A quiet <em>breath</em> between how you feel and what's next.
+          </h1>
+          <p className="mf2-hero-sub">
+            Tap through three quick choices and get one small, doable action to shift how you feel — in under a minute.
+          </p>
+          <div className="mf2-hero-cta">
+            <button
+              className="mf2-btn mf2-btn-primary"
+              onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Start your flip — free
+            </button>
+          </div>
+          <p className="mf2-trust-line">
+            No sign-up<span>·</span>Nothing to type<span>·</span>Auto-deletes in 90 days
+          </p>
+        </div>
+      </section>
 
-            {/* ━━━━━ LEFT PANEL ━━━━━ */}
-            <div className="mt-left" style={{
-              flex:'0 0 50%', padding:'1.4rem 1.65rem 1.85rem 1.65rem',
-              display:'flex', flexDirection:'column', gap:'1.4rem',
-              borderRight:'1px solid #e2d9f3',
-              background:'linear-gradient(168deg,#fdfaff 0%,#f4effb 100%)',
-              position:'relative', overflow:'visible'
-            }}>
-
-              {/* Row A: choose mood banner + clouds */}
-              <div style={{ display:'flex',alignItems:'center',gap:'0.55rem' }}>
-                <Banner icon="☁️" text="Choose your current mood" />
-                <div className="hide-scrollbar" style={{ display:'flex',gap:'0.2rem',alignItems:'center',flexWrap:'nowrap',overflowX:'auto',flex:1 }}>
-                  {MOOD_DATA.map(fam=>(
-                    <Cloud key={fam.id}
-                      name={fam.name.charAt(0)+fam.name.slice(1).toLowerCase()}
-                      selected={fam.id===familyId}
-                      onClick={()=>pickFamily(fam.id)}/>
-                  ))}
+      {/* ---------------- DEMO ---------------- */}
+      <section className="mf2-demo-section" id="demo">
+        <div className="mf2-wrap">
+          <div className="mf2-demo-card mf2-reveal">
+            <div className="mf2-orb-col">
+              <div className="mf2-orb-wrap">
+                <div className="mf2-orb-ring" />
+                <div className="mf2-orb-core">
+                  <span className="mf2-orb-icon">{family ? FAMILY_META[family].icon : '☁️'}</span>
+                  <span className="mf2-orb-label">{orbLabel}</span>
                 </div>
               </div>
+              <span className="mf2-orb-caption">{revealed ? 'Mood cleared' : 'Breathe, then choose'}</span>
+            </div>
 
-              {/* Row B+C: pick feeling banner + grid */}
-              <div style={{ display:'flex',alignItems:'flex-start',gap:'0.55rem',overflow:'visible' }}>
-                <Banner icon="♡" text="Pick the feeling closest to how you feel" />
-
-                <div style={{ flex:1,display:'flex',flexDirection:'column',gap:'0.65rem',minWidth:0,overflow:'visible' }}>
-
-                  {/* Grid row 1 */}
-                  <div style={{ display:'flex',gap:'0.6rem' }}>
-                    {row1.map(f=><Tile key={f.id} f={f}/>)}
-                  </div>
-
-                  {/* Grid row 2 + Change My Mood button bleeding right */}
-                  <div className="mt-row2" style={{ display:'flex',gap:'0.6rem',alignItems:'stretch',overflow:'visible' }}>
-                    {row2.map(f=><Tile key={f.id} f={f}/>)}
-
-                    {/* ── "Change My Mood →" button — overflows border ── */}
-                    <div className="mt-flipcell" style={{
-                      display:'flex', alignItems:'center',
-                      marginRight:'-2.4rem',   /* bleeds past panel border */
-                      marginLeft:'0.4rem',     /* gap from 'Abandoned' */
-                      flexShrink:0, zIndex:20, overflow:'visible'
-                    }}>
-                      <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
-                        <div style={{
-                          background: 'white',
-                          padding: '3px',
-                          clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)',
-                          display: 'inline-flex'
-                        }}>
-                          <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
-                            className="flip-btn"
-                            style={{
-                              background: loading
-                                ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
-                                : 'linear-gradient(135deg,#7859c2 0%,#5a40a0 100%)',
-                              color:'#fff', border:'none',
-                              clipPath:'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
-                              padding:'1rem 2.2rem 1rem 1.6rem',
-                              fontWeight:700, fontSize:'1.1rem',
-                              cursor: loading ? 'wait' : 'pointer',
-                              display:'flex', alignItems:'center', gap:'0.4rem',
-                              textAlign:'left', lineHeight:1.2,
-                              fontFamily:"'Outfit','Inter',sans-serif",
-                              position:'relative'
-                            }}>
-                            <span style={{ display:'flex',flexDirection:'column' }}>
-                              <span>{loading ? 'Flipping...' : 'Change'}</span>
-                              {!loading && <span>My Mood</span>}
-                            </span>
-                            {!loading && <span style={{ fontSize:'1.4rem',fontWeight:400,lineHeight:1,marginTop:'0.8rem' }}>→</span>}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Grid row 3 (Clear selection) */}
-                  <div style={{ display:'flex',gap:'0.6rem' }}>
-                    <button onClick={clear} style={{
-                      flex:'0 0 calc(25% - 0.45rem)', height:'85px',
-                      background:'#f8f4fe', border:'1px solid #e4dcee',
-                      borderRadius:'12px', padding:'0.8rem 0.4rem',
-                      display:'flex', flexDirection:'column', alignItems:'center',
-                      justifyContent:'center', gap:'0.3rem', cursor:'pointer'
-                    }}>
-                      <TrashIcon size={22} color="#7859c2"/>
-                      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'0' }}>
-                        <span style={{ fontSize:'0.75rem',fontWeight:700,color:'#362854',lineHeight:1.1 }}>Clear selection</span>
-                        <span style={{ fontSize:'0.65rem',color:'#7859c2' }}>Start over</span>
-                      </div>
-                    </button>
-                  </div>
-
-                </div>
-              </div>
-            </div>{/* end left */}
-
-            {/* ━━━━━ RIGHT PANEL ━━━━━ */}
-            <div style={{
-              flex:1,
-              background:'linear-gradient(155deg,#fffcf8 0%,#fff8e6 30%,#faf2f8 100%)',
-              padding:'2.1rem 1.85rem 2.1rem 2.6rem',
-              display:'flex', flexDirection:'column', justifyContent:'center',
-              position:'relative', overflow:'hidden'
-            }}>
-              <Landscape/>
-
-              <div style={{ position:'relative',zIndex:2,textAlign:'center' }}>
-                {/* heart */}
-                <div style={{ fontSize:'1.25rem',color:'#c8828a',marginBottom:'0.28rem' }}>♡</div>
-                <div style={{ fontSize:'0.96rem',color:'#8a7aaa',fontWeight:500 }}>
-                  Your mood has changed to:
-                </div>
-                <h2 className="mood-animate" key={flip.targetMood} style={{
-                  fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
-                  fontSize: flip.targetMood.length>11 ? '2.5rem' : '3.8rem',
-                  fontWeight:700, color:'#5a7a4a',
-                  margin:'0.18rem 0 1.4rem', lineHeight:1.05, whiteSpace:'nowrap'
-                }}>
-                  {flip.targetMood}
-                </h2>
-
-                {/* action card */}
-                <div style={{
-                  background:'rgba(255,255,255,0.92)', border:'1.5px solid #e8dff5',
-                  borderRadius:'22px', padding:'1.3rem 1.45rem',
-                  boxShadow:'0 10px 35px rgba(76,60,110,0.09)',
-                  display:'flex', alignItems:'flex-start', gap:'1rem', textAlign:'left'
-                }}>
-                  <div style={{ width:56,height:56,borderRadius:'50%',background:'#f0e9f8',
-                    display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0 }}>
-                    <MeditateIcon size={32} color="#7c54d1"/>
-                  </div>
-                  <div style={{ flex:1 }}>
-                    <div style={{ display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:'0.4rem' }}>
-                      <h3 style={{ fontSize:'1rem',fontWeight:700,color:'#362854',margin:0,
-                        fontFamily:"'Fraunces',Georgia,serif",lineHeight:1.32 }}>
-                        60-sec action to get to a {flip.targetMood.toLowerCase()} mood
-                      </h3>
-                      {flip.isAi&&(
-                        <span style={{ fontSize:'0.64rem',fontWeight:800,color:'#7c54d1',
-                          background:'linear-gradient(135deg,rgba(124,84,209,0.12),rgba(236,72,153,0.12))',
-                          border:'1px solid rgba(124,84,209,0.28)',padding:'0.12rem 0.46rem',
-                          borderRadius:'9999px',flexShrink:0 }}>✨ AI</span>
-                      )}
-                    </div>
-                    <div style={{ borderTop:'1px solid #e8dff5',margin:'0.52rem 0',position:'relative',textAlign:'center' }}>
-                      <span style={{ position:'absolute',top:'-9px',left:'50%',transform:'translateX(-50%)',
-                        background:'rgba(255,255,255,0.92)',padding:'0 0.32rem',fontSize:'0.66rem',color:'#c8828a' }}>♡</span>
-                    </div>
-                    <p style={{ fontSize:'0.9rem',color:'#665c7d',lineHeight:1.6,margin:0,fontWeight:400 }}>
-                      {flip.actionText}
-                    </p>
-                  </div>
-                  <div style={{ flexShrink:0,opacity:0.8,alignSelf:'center' }}>
-                    <BotanicalSprig size={36} color="#7c8a68"/>
-                  </div>
-                </div>
-
-                {/* save profile */}
-                <div style={{ textAlign:'center',marginTop:'1.1rem' }}>
-                  <button onClick={()=>{ if(profile?.email){window.location.href='/profile';}else{setShowAuth(true);} }}
-                    style={{ padding:'0.7rem 1.5rem',background:'linear-gradient(135deg,#7c54d1,#ec4899)',
-                      color:'white',fontWeight:800,fontSize:'0.82rem',borderRadius:'9999px',
-                      border:'none',cursor:'pointer',boxShadow:'0 6px 18px rgba(124,84,209,0.3)',
-                      letterSpacing:'0.04em',textTransform:'uppercase' }}>
-                    ✨ SAVE MY PROFILE
+            <div>
+              <div className="mf2-crumbs">
+                {crumbs.length === 0 && <span>Nothing chosen yet</span>}
+                {crumbs.map((c, i) => (
+                  <span key={c} style={{ display: 'flex' }}>
+                    {i > 0 && <span className="mf2-crumb-sep">/</span>}
+                    <span className={i === crumbs.length - 1 ? 'mf2-crumb-current' : ''}>{c}</span>
+                  </span>
+                ))}
+                {crumbs.length > 0 && (
+                  <button className="mf2-start-over" onClick={reset}>
+                    start over
                   </button>
+                )}
+              </div>
+
+              {!family && (
+                <>
+                  <span className="mf2-options-label">Choose your current mood</span>
+                  <div className="mf2-chip-row">
+                    {FAMILY_ORDER.map((name) => (
+                      <button key={name} className="mf2-chip" onClick={() => pickFamily(name)}>
+                        <span className="mf2-chip-dot" style={{ background: FAMILY_META[name].dot }} />
+                        {name}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {family && !category && (
+                <>
+                  <span className="mf2-options-label">Choose the closer category</span>
+                  <div className="mf2-chip-row">
+                    {categories.map((name) => (
+                      <button key={name} className="mf2-chip" onClick={() => pickCategory(name)}>
+                        <span className="mf2-chip-dot" style={{ background: FAMILY_META[family].dot }} />
+                        {name}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {family && category && !feeling && (
+                <>
+                  <span className="mf2-options-label">Pick your exact feeling</span>
+                  <div className="mf2-chip-row">
+                    {feelings.map((name) => (
+                      <button key={name} className="mf2-chip" onClick={() => pickFeeling(name)}>
+                        <span className="mf2-chip-dot" style={{ background: FAMILY_META[family].dot }} />
+                        {name}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {result && !revealed && (
+                <button className="mf2-flip-btn" onClick={() => setRevealed(true)}>
+                  Reveal my flip →
+                </button>
+              )}
+
+              {result && revealed && (
+                <div className="mf2-result">
+                  <div className="mf2-result-eyebrow">Your mood is flipping to</div>
+                  <div className="mf2-result-mood">{result.target}</div>
+                  <p className="mf2-result-action">{result.action}</p>
+                  <span className="mf2-timer mf2-mono">
+                    <span className="mf2-timer-dot" /> 00:{String(secondsLeft).padStart(2, '0')} left
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- QUOTE ---------------- */}
+      <section className="mf2-quote-section">
+        <div className="mf2-wrap-narrow mf2-reveal">
+          <p className="mf2-quote">"Feelings move. Give this one somewhere to go."</p>
+          <p className="mf2-quote-attr">— the idea behind MoodFlip</p>
+        </div>
+      </section>
+
+      {/* ---------------- HOW IT WORKS ---------------- */}
+      <section className="mf2-section" id="how-it-works">
+        <div className="mf2-wrap">
+          <div className="mf2-section-head mf2-reveal">
+            <div className="mf2-eyebrow">How it works</div>
+            <h2>Four taps, no typing</h2>
+            <p className="mf2-section-sub">Narrow the feeling, then take one manageable next step.</p>
+          </div>
+          <div className="mf2-timeline mf2-reveal">
+            {[
+              { n: '1', t: 'Name the cloud', d: 'Pick the broad mood family that matches how you feel.' },
+              { n: '2', t: 'Narrow it down', d: 'Choose the closer category from that family.' },
+              { n: '3', t: 'Get specific', d: 'Tap the exact feeling that fits this moment.' },
+              { n: '4', t: 'Take one step', d: 'Get a target mood and a 60-second action to try.' },
+            ].map((s) => (
+              <div className="mf2-tl-step" key={s.n}>
+                <div className="mf2-tl-dot">{s.n}</div>
+                <h3>{s.t}</h3>
+                <p>{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- WHY ---------------- */}
+      <section className="mf2-section" id="why" style={{ paddingTop: 0 }}>
+        <div className="mf2-wrap">
+          <div className="mf2-section-head mf2-reveal">
+            <div className="mf2-eyebrow">Why it feels manageable</div>
+            <h2>Built to reduce friction, not add to it</h2>
+          </div>
+          <div className="mf2-why-grid mf2-reveal" style={{ border: '1px solid var(--line)', borderRadius: 24, overflow: 'hidden' }}>
+            {[
+              { icon: '🧠', t: 'A real pause', d: 'One small action creates space between a difficult feeling and what you do next.' },
+              { icon: '🫧', t: 'Visual, not verbal', d: 'Every choice is a tap. Nothing to write, explain, or overthink.' },
+              { icon: '🌱', t: 'One manageable step', d: 'A 60-second suggestion stays small enough to actually try.' },
+              { icon: '🔒', t: 'Private by default', d: 'No profile needed. Anything you save clears automatically after 90 days.' },
+            ].map((c) => (
+              <div className="mf2-why-item" key={c.t}>
+                <div className="mf2-why-icon">{c.icon}</div>
+                <div>
+                  <h3>{c.t}</h3>
+                  <p>{c.d}</p>
                 </div>
               </div>
-            </div>{/* end right */}
-
-          </div>{/* end split */}
-
-          {/* ── bottom banner ── */}
-          <div style={{
-            background:'rgba(234,226,252,0.42)', borderTop:'1px solid #e0d7f0',
-            padding:'0.9rem 2rem', display:'flex', justifyContent:'space-between',
-            alignItems:'center', flexWrap:'wrap', gap:'0.8rem',
-            fontSize:'0.83rem', color:'#362854', borderRadius:'0 0 28px 28px'
-          }}>
-            <div style={{ display:'flex',alignItems:'center',gap:'0.65rem' }}>
-              <HeartIcon/>
-              <div>
-                <strong>Small shifts can change how you feel.</strong>
-                <div style={{ fontSize:'0.75rem',color:'#665c7d' }}>You&apos;ve got this.</div>
-              </div>
-            </div>
-            <div style={{ display:'flex',alignItems:'center',gap:'0.65rem' }}>
-              <LeafIcon/>
-              <div>
-                <strong>Be kind to yourself.</strong>
-                <div style={{ fontSize:'0.75rem',color:'#665c7d' }}>One choice at a time.</div>
-              </div>
-            </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-        </div>{/* end card */}
-      </div>
-
-      {/* ── modals ── */}
-      {show2nd&&(
-        <div className="modal-overlay">
-          <div className="modal-card" style={{ maxWidth:'480px',background:'#fff',border:'1px solid #e2d9f3' }}>
-            <div style={{ textAlign:'center',marginBottom:'1rem' }}>
-              <span style={{ fontSize:'2.4rem' }}>💫</span>
-              <h3 style={{ fontSize:'1.4rem',fontWeight:800,color:'#362854',marginTop:'0.5rem' }}>Welcome Back to MoodFlip!</h3>
-              <p style={{ fontSize:'0.87rem',color:'#665c7d',marginTop:'0.35rem',lineHeight:1.5 }}>
-                You&apos;ve used MoodFlip multiple times! Create a free profile to save your check-ins and track your progress.
-              </p>
+      {/* ---------------- PRICING ---------------- */}
+      <section className="mf2-section" id="pricing" style={{ paddingTop: 0 }}>
+        <div className="mf2-wrap">
+          <div className="mf2-price-card mf2-reveal">
+            <div>
+              <div className="mf2-eyebrow">Optional upgrade</div>
+              <h2>The Mindset Plan</h2>
+              <p style={{ color: 'var(--ink-soft)', fontSize: 14.5 }}>For when one flip a day isn't enough.</p>
+              <ul className="mf2-price-list">
+                <li>Full set of 60-second actions, ready to keep</li>
+                <li>Deeper prompts for recurring feelings</li>
+                <li>One-time payment, yours forever</li>
+              </ul>
             </div>
-            <div style={{ background:'#ede5fa',border:'1px solid #d6c8f5',padding:'1rem',borderRadius:'16px',marginBottom:'1.25rem' }}>
-              <p style={{ fontSize:'0.77rem',color:'#7c54d1',lineHeight:1.5,margin:0,fontWeight:600 }}>
-                &ldquo;By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history.&rdquo;
-              </p>
-            </div>
-            <p style={{ fontSize:'0.75rem',color:'#665c7d',textAlign:'center',marginBottom:'1.25rem' }}>
-              * The free tool always works with <strong>no profile required</strong>.
-            </p>
-            <div style={{ display:'flex',gap:'0.75rem' }}>
-              <button onClick={()=>{setShow2nd(false);localStorage.setItem('moodflip_2nd_visit_dismissed','true');}}
-                style={{ flex:1,padding:'0.75rem',borderRadius:'12px',border:'none',background:'#f5f0fc',color:'#665c7d',fontWeight:700,fontSize:'0.85rem',cursor:'pointer' }}>
-                Continue Free
-              </button>
-              <button onClick={()=>{setShow2nd(false);setShowAuth(true);}}
-                style={{ flex:1.5,padding:'0.75rem',borderRadius:'12px',border:'none',background:'linear-gradient(135deg,#7c54d1,#ec4899)',color:'white',fontWeight:800,fontSize:'0.85rem',cursor:'pointer',boxShadow:'0 6px 18px rgba(124,84,209,0.3)' }}>
-                Create Profile →
+            <div className="mf2-price-tag">
+              <div className="mf2-price-num">$7</div>
+              <div className="mf2-price-note">one-time · no subscription</div>
+              <button className="mf2-btn mf2-btn-primary" onClick={() => setShowPlanModal(true)}>
+                Get the plan →
               </button>
             </div>
           </div>
         </div>
-      )}
+      </section>
 
-      {show7th&&(
-        <div className="modal-overlay">
-          <div className="modal-card" style={{ maxWidth:'540px',background:'#fff',border:'1px solid #e2d9f3' }}>
-            <div style={{ display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'0.5rem' }}>
-              <span style={{ fontSize:'0.75rem',fontWeight:800,color:'#059669',background:'#ecfdf5',padding:'0.2rem 0.65rem',borderRadius:'9999px' }}>🎉 Milestone Unlocked: 7 Check-Ins!</span>
-              <button onClick={()=>setShow7th(false)} style={{ background:'transparent',border:'none',fontSize:'1.2rem',cursor:'pointer',color:'#665c7d' }}>✕</button>
+      {/* ---------------- FAQ ---------------- */}
+      <section className="mf2-section" id="faq" style={{ paddingTop: 0 }}>
+        <div className="mf2-wrap-narrow">
+          <div className="mf2-section-head mf2-reveal">
+            <div className="mf2-eyebrow">Questions</div>
+            <h2>Frequently asked</h2>
+          </div>
+          <div className="mf2-reveal">
+            {FAQ_ITEMS.map((item, i) => (
+              <div key={item.q} className={`mf2-faq-item ${openFaq === i ? 'mf2-open' : ''}`}>
+                <button
+                  className="mf2-faq-q"
+                  onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
+                  aria-expanded={openFaq === i}
+                >
+                  {item.q} <span className="mf2-faq-icon">+</span>
+                </button>
+                <div className="mf2-faq-a">{item.a}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- FOOTER ---------------- */}
+      <footer className="mf2-footer">
+        <div className="mf2-wrap">
+          <div className="mf2-footer-row">
+            <a href="#top" className="mf2-brand">
+              <span className="mf2-brand-mark" /> MoodFlip
+            </a>
+            <div className="mf2-footer-links">
+              <a href="/contact">Contact</a>
+              <a href="/privacy">Privacy</a>
+              <a href="/disclaimer">Disclaimer</a>
             </div>
-            <h3 style={{ fontSize:'1.5rem',fontWeight:800,color:'#362854',margin:'0.3rem 0' }}>Get Your Personal 7-Day Mindset Plan</h3>
-            <p style={{ fontSize:'0.87rem',color:'#665c7d',lineHeight:1.55 }}>
-              You&apos;ve completed 7 mood check-ins! Get your custom-generated 7-Day Mindset PDF report based on your exact check-in history.
-            </p>
-            <PaidPlansSection/>
+            <span className="mf2-footer-note" style={{ marginTop: 0 }}>© 2026 MoodFlip</span>
+          </div>
+          <p className="mf2-footer-note">Self-reflection utility · Not therapy or medical advice.</p>
+        </div>
+      </footer>
+
+      {/* ---------------- MODALS ---------------- */}
+      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} />
+
+      {showPlanModal && (
+        <div className="mf2-modal-overlay" onClick={() => setShowPlanModal(false)}>
+          <div className="mf2-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button className="mf2-modal-close" onClick={() => setShowPlanModal(false)}>
+              ✕
+            </button>
+            <PaidPlansSection />
           </div>
         </div>
       )}
-
-      <AuthModal isOpen={showAuth} onClose={()=>setShowAuth(false)}/>
-    </>
+    </div>
   );
 }

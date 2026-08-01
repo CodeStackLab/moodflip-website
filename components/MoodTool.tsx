@@ -2,14 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { MOOD_DATA, getActionForFeeling } from '@/lib/moodData';
-import { getAccessToken } from '@/lib/supabaseBrowser';
-import { trackEvent } from '@/lib/analytics';
 import AuthModal from '@/components/AuthModal';
 import PaidPlansSection from '@/components/PaidPlansSection';
 import {
   LonelyIcon, RejectedIcon, HurtIcon, AshamedIcon,
   GuiltyIcon, EmptyIcon, OverwhelmedIcon, AbandonedIcon,
-  MeditateIcon, BotanicalSprig
+  TrashIcon, MeditateIcon, BotanicalSprig
 } from '@/components/FeelingIcons';
 
 /* ── icon map ── */
@@ -30,6 +28,15 @@ const ICON_MAP: Record<string, React.FC<{ size?: number; color?: string }>> = {
   'burned-out': EmptyIcon, burntout: EmptyIcon, frazzled: OverwhelmedIcon,
   swamped: OverwhelmedIcon, pressured: OverwhelmedIcon, rushed: OverwhelmedIcon,
   restless: OverwhelmedIcon, overburdened: OverwhelmedIcon
+};
+
+/* ── fixed 8 feelings per family in exact mockup order ── */
+const FEELINGS: Record<string, { id: string; name: string }[]> = {
+  sad:       [{ id:'lonely',name:'Lonely' },{ id:'rejected',name:'Rejected' },{ id:'hurt',name:'Hurt' },{ id:'ashamed',name:'Ashamed' },{ id:'guilty',name:'Guilty' },{ id:'empty',name:'Empty' },{ id:'overwhelmed',name:'Overwhelmed' },{ id:'abandoned',name:'Abandoned' }],
+  fearful:   [{ id:'anxious',name:'Anxious' },{ id:'terrified',name:'Terrified' },{ id:'scared',name:'Scared' },{ id:'panicked',name:'Panicked' },{ id:'insecure',name:'Insecure' },{ id:'nervous',name:'Nervous' },{ id:'worried',name:'Worried' },{ id:'helpless',name:'Helpless' }],
+  angry:     [{ id:'enraged',name:'Enraged' },{ id:'furious',name:'Furious' },{ id:'frustrated',name:'Frustrated' },{ id:'resentful',name:'Resentful' },{ id:'irritated',name:'Irritated' },{ id:'hostile',name:'Hostile' },{ id:'annoyed',name:'Annoyed' },{ id:'betrayed',name:'Betrayed' }],
+  disgusted: [{ id:'repulsed',name:'Repulsed' },{ id:'revolted',name:'Revolted' },{ id:'repelled',name:'Repelled' },{ id:'detestable',name:'Detestable' },{ id:'awful',name:'Awful' },{ id:'embarrassed',name:'Embarrassed' },{ id:'hesitant',name:'Hesitant' },{ id:'avoidant',name:'Avoidant' }],
+  stressed:  [{ id:'overwhelmed',name:'Overwhelmed' },{ id:'exhausted',name:'Exhausted' },{ id:'frazzled',name:'Frazzled' },{ id:'pressured',name:'Pressured' },{ id:'restless',name:'Restless' },{ id:'rushed',name:'Rushed' },{ id:'overburdened',name:'Overburdened' },{ id:'burntout',name:'Burnt-Out' }],
 };
 
 /* ── arrow tag banner ── */
@@ -167,36 +174,11 @@ function HeartIcon() {
   );
 }
 
-/* ── Custom Toast Component ── */
-function Toast({ msg, onClose }: { msg: string, onClose: () => void }) {
-  if (!msg) return null;
-  return (
-    <div style={{
-      position: 'fixed', bottom: '2rem', left: '50%', transform: 'translateX(-50%)',
-      background: '#fff', border: '1px solid #e0d7f0', borderRadius: '16px',
-      padding: '1.2rem', boxShadow: '0 10px 30px rgba(120,89,194,0.15)', zIndex: 9999,
-      maxWidth: '400px', width: '90%', fontFamily: "'Outfit','Inter',sans-serif",
-      textAlign: 'center', animation: 'moodIn 0.3s ease-out'
-    }}>
-      <p style={{ margin: '0 0 0.8rem', fontSize: '0.9rem', color: '#362854', fontWeight: 600, lineHeight: 1.4 }}>
-        {msg.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}
-      </p>
-      <button onClick={onClose} style={{
-        background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: '#fff', border: 'none',
-        borderRadius: '8px', padding: '0.5rem 1rem', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer'
-      }}>
-        Got it
-      </button>
-    </div>
-  );
-}
-
 /* ══════════════════════════════════════════════
    MAIN COMPONENT
 ══════════════════════════════════════════════ */
 export default function MoodTool() {
   const [familyId, setFamilyId] = useState('sad');
-  const [subCategoryId, setSubCategoryId] = useState('lonely');
   const [feelingId, setFeelingId] = useState('lonely');
   const [flip, setFlip] = useState({ targetMood:'Peaceful', actionText:'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.', isAi:false });
   const [count, setCount] = useState(0);
@@ -205,11 +187,9 @@ export default function MoodTool() {
   const [show2nd, setShow2nd] = useState(false);
   const [show7th, setShow7th] = useState(false);
   const [profile, setProfile] = useState<any>(null);
-  const [toastMsg, setToastMsg] = useState<string>('');
 
   const family = MOOD_DATA.find(f=>f.id===familyId)||MOOD_DATA[0];
-  const subCategory = family.subCategories.find(item => item.id === subCategoryId) || family.subCategories[0];
-  const feelings = subCategory.feelings.slice(0, 8);
+  const feelings = FEELINGS[familyId]||FEELINGS.sad;
   const row1 = feelings.slice(0,4);
   const row2 = feelings.slice(4,8);
 
@@ -224,141 +204,59 @@ export default function MoodTool() {
 
   const pickFamily=(id:string)=>{
     setFamilyId(id);
-    const nextFamily = MOOD_DATA.find((item) => item.id === id) || MOOD_DATA[0];
-    const firstCategory = nextFamily.subCategories[0];
-    setSubCategoryId(firstCategory.id);
-    const firstFeeling = firstCategory?.feelings[0];
-    if(firstFeeling) setFeelingId(firstFeeling.id);
+    const f=FEELINGS[id]||FEELINGS.sad;
+    if(f[0]) setFeelingId(f[0].id);
   };
 
-  const pickSubCategory = (id: string) => {
-    setSubCategoryId(id);
-    const nextCategory = family.subCategories.find(item => item.id === id) || family.subCategories[0];
-    const firstFeeling = nextCategory.feelings[0];
-    if (firstFeeling) setFeelingId(firstFeeling.id);
+  const clear=()=>{
+    setFamilyId('sad'); setFeelingId('lonely');
+    setFlip({targetMood:'Peaceful',actionText:'Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.',isAi:false});
   };
 
-  const doFlip = async () => {
+  const doFlip=async()=>{
     setLoading(true);
-    const n = count + 1; 
-    setCount(n);
-    if(typeof window !== 'undefined') localStorage.setItem('moodflip_checkin_count', String(n));
-    const actionKey = `moodflip_action_index_${feelingId}`;
-    const feelingVisitCount = typeof window === 'undefined'
-      ? n
-      : Number(localStorage.getItem(actionKey) || '0');
-    const nf = getActionForFeeling(feelingId, feelingVisitCount);
-    const isAi = false;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(actionKey, String(feelingVisitCount + 1));
-      trackEvent('mood_tool_use', { mood_family: familyId, feeling: feelingId });
-    }
-    
-    const ff = {...nf, isAi};
-    setTimeout(() => {
-      setFlip({targetMood:ff.targetMood, actionText:ff.actionText, isAi:ff.isAi});
+    const n=count+1; setCount(n);
+    if(typeof window!=='undefined') localStorage.setItem('moodflip_checkin_count',String(n));
+    let nf=getActionForFeeling(feelingId,n); let isAi=false;
+    try {
+      const r=await fetch('/api/ai/flip',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,visitCount:n})});
+      if(r.ok){const d=await r.json(); if(d.targetMood&&d.actionText){nf={targetMood:d.targetMood,actionText:d.actionText}; isAi=!!d.isAiGenerated;}}
+    } catch(_){}
+    const ff={...nf,isAi};
+    setTimeout(()=>{
+      setFlip({targetMood:ff.targetMood,actionText:ff.actionText,isAi:ff.isAi});
       setLoading(false);
-    }, 350);
-
-    if (typeof window !== 'undefined') {
-      const todayDate = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-      const h = JSON.parse(localStorage.getItem('moodflip_checkins') || '[]');
-      
-      const todayCount = h.filter((c:any) => c.date === todayDate).length;
-      
-      if (profile?.email && todayCount >= 3) {
-        setToastMsg("You've saved your 3 MoodFlip check-ins for today.\nYou can still use the free tool, and you can save more check-ins tomorrow.");
-        // We still show them the action, but don't save to DB or history
-        return;
+      if(n>=7&&typeof window!=='undefined'&&!localStorage.getItem('moodflip_7th_offer_shown')){
+        setShow7th(true); localStorage.setItem('moodflip_7th_offer_shown','true');
       }
-
-      const newHistory = [{
-        primaryMood: family.name, subFeeling: subCategory.name, specificFeeling: feelingId,
-        targetMood: nf.targetMood, actionShown: nf.actionText, date: todayDate, isAiGenerated: isAi
-      }, ...h];
-      
-      localStorage.setItem('moodflip_checkins', JSON.stringify(newHistory));
-
-      if (profile?.email) {
-        // The API is the source of truth for calendar-day progress and the daily limit.
-        let savedProgress: { checkinCount: number; todayCount: number; calendarDays: number } | null = null;
-        try {
-          const token = await getAccessToken();
-          if (!token) throw new Error('Please sign in again to save check-ins.');
-          const response = await fetch('/api/checkins', {
-            method:'POST',
-            headers:{
-              'Content-Type':'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body:JSON.stringify({primaryMood:family.name, subFeeling:subCategory.name, specificFeeling:feelingId, targetMood:nf.targetMood, actionShown:nf.actionText})
-          });
-          const saved = await response.json();
-          if (!response.ok) {
-            if (response.status === 409) setToastMsg(saved.error);
-            else setToastMsg('Your action is ready, but the check-in could not be saved. Please sign in again and retry.');
-            return;
-          }
-          savedProgress = saved;
-        } catch(_) {
-          setToastMsg('Your action is ready, but the check-in could not be saved. Please sign in again and retry.');
-          return;
-        }
-
-        const savedCount = savedProgress?.checkinCount || 1;
-        const savedToday = savedProgress?.todayCount || 1;
-        const savedDays = savedProgress?.calendarDays || 1;
-
-        if (savedCount === 1) {
-          setToastMsg("Your first MoodFlip check-in is saved.\nYou can save up to 3 check-ins per day. After 7 days, you'll be able to download your personalised 7-Day MoodFlip Report.");
-        } else if (savedDays >= 7) {
-          setToastMsg("Your 7-Day MoodFlip Report is ready.\nDownload your personalised report with your saved moods, positive moods, 60-second actions, and mood pattern summary.\n\nDownload for US$7");
-          if (!localStorage.getItem('moodflip_7th_offer_shown')) {
-            setShow7th(true);
-            localStorage.setItem('moodflip_7th_offer_shown','true');
-          }
-        } else {
-          // Progress message
-          if (savedDays >= 2 && savedToday === 1) {
-            setToastMsg(`You're building your 7-Day MoodFlip Report.\nSave up to 3 check-ins per day. Your personalised report will be available after 7 days for US$7.`);
-          } else {
-            setToastMsg(`Saved.\nToday's check-ins: [${savedToday}/3]\n7-Day Report progress: Day ${savedDays} of 7`);
-          }
-        }
-      } else {
-         // Anonymous visitors may use the free tool without sales gating.
-      }
+    },350);
+    if(typeof window!=='undefined'){
+      const h=JSON.parse(localStorage.getItem('moodflip_checkins')||'[]');
+      localStorage.setItem('moodflip_checkins',JSON.stringify([{primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,targetMood:nf.targetMood,actionShown:nf.actionText,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),isAiGenerated:isAi},...h]));
     }
+    if(profile?.email){try{await fetch('/api/checkins',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:profile.email,primaryMood:family.name,subFeeling:feelingId,specificFeeling:feelingId,targetMood:nf.targetMood,actionShown:nf.actionText})});}catch(_){}}
   };
 
   const Tile=({f}:{f:{id:string;name:string}})=>{
     const sel=f.id===feelingId;
     const Ic=ICON_MAP[f.id]||LonelyIcon;
-    const fontSize = f.name.length > 10 ? '0.72rem' : '0.8rem';
     return (
-      <button
-        onClick={()=>setFeelingId(f.id)}
-        className="feeling-card-item"
-        aria-pressed={sel}
-        aria-label={`I feel ${f.name}`}
-        style={{
-        background: sel ? 'var(--tile-selected-bg, #f0e9f8)' : 'var(--tile-bg, #ffffff)',
-        border: sel ? '2px solid var(--tile-selected-border, #7859c2)' : '1px solid var(--card-border, #e4dcee)',
-        borderRadius:'12px', padding:'0.75rem 0.3rem',
+      <button onClick={()=>setFeelingId(f.id)} className="feeling-card-item" style={{
+        background: sel ? '#f0e9f8' : '#ffffff',
+        border: sel ? '2px solid #7859c2' : '1px solid #e4dcee',
+        borderRadius:'12px', padding:'1rem 0.5rem',
         display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
-        gap:'0.4rem', cursor:'pointer',
+        gap:'0.5rem', cursor:'pointer',
         boxShadow: sel ? '0 6px 16px rgba(120,89,194,0.15)' : '0 2px 6px rgba(0,0,0,0.02)',
         transform: sel ? 'scale(1.03)' : 'scale(1)',
-        transition:'all 0.18s ease', flex:1, minWidth:0, height:'90px',
-        overflow:'hidden'
+        transition:'all 0.18s ease', flex:1, minWidth:0, height:'90px'
       }}>
-        <Ic size={30} color={sel ? '#a855f7' : '#a093b5'} />
-        <span style={{ fontSize: fontSize, fontWeight: sel ? 700:500, color: 'var(--text-main, #362854)',
-          textTransform:'capitalize', lineHeight:1.1, textAlign:'center',
-          whiteSpace:'nowrap', textOverflow:'ellipsis', maxWidth:'100%', padding:'0 2px' }}>
+        <Ic size={32} color={sel ? '#7859c2' : '#a093b5'} />
+        <span style={{ fontSize:'0.82rem', fontWeight: sel ? 700:500, color: '#362854',
+          textTransform:'capitalize', lineHeight:1.1, textAlign:'center' }}>
           {f.name}
         </span>
-        {sel && <span className="feeling-selected-check" aria-hidden="true">✓</span>}
       </button>
     );
   };
@@ -366,208 +264,94 @@ export default function MoodTool() {
   return (
     <>
       <style>{`
-        /* ── HERO BADGE ── */
-        .mt-hero-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.44rem;
-          background: var(--banner-bg, #ede5fa);
-          border: 1px solid var(--card-border, #d6c8f5);
-          padding: 0.3rem 0.95rem;
-          border-radius: 9999px;
-          font-size: 0.72rem;
-          font-weight: 700;
-          color: var(--text-main, #7c54d1);
-          margin-bottom: 0.55rem;
-          box-shadow: 0 4px 14px rgba(124,84,209,0.08);
-        }
-        /* ── HERO WRAPPER ── */
-        .mt-wrapper { max-width: 1280px; margin: 0 auto; padding: 0.25rem 0.75rem 0; font-family: 'Outfit','Inter',sans-serif; }
-        .mt-hero { text-align: center; margin-bottom: 1.25rem; margin-top: 0.2rem; }
-        .mt-hero h1 {
-          font-family: 'Fraunces','Playfair Display',Georgia,serif;
-          font-size: clamp(1.65rem,4.2vw,2.9rem);
-          font-weight: 700; margin: 0 auto 0.4rem;
-          letter-spacing: -0.02em; line-height: 1.1; max-width: 700px;
-        }
-        .mt-hero p {
-          font-size: clamp(0.78rem, 1.8vw, 0.88rem);
-          color: var(--text-subtle, #665c7d);
-          max-width: 560px; margin: 0 auto 0.75rem;
-          line-height: 1.55; font-weight: 400;
-        }
-        .mt-hero-pills { display: flex; justify-content: center; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-size: 0.74rem; color: var(--text-main, #362854); font-weight: 600; }
-        .mt-hero-pill { display: inline-flex; align-items: center; gap: 0.28rem; background: var(--tile-bg, #fff); padding: 0.28rem 0.7rem; border-radius: 9999px; border: 1px solid var(--card-border, #efe6dc); box-shadow: 0 2px 8px rgba(0,0,0,0.02); white-space: nowrap; }
-        .mt-card { background: var(--card-bg, #f8f4fe); border-radius: 28px; border: 1.5px solid var(--card-border, #e2d9f3); box-shadow: 0 18px 58px rgba(76,60,110,0.1); overflow: visible; position: relative; color: var(--text-main, #362854); }
-        .mt-split { display: flex; gap: 1.5rem; padding: 1.5rem; min-height: 610px; overflow: visible; position: relative; }
-        .mt-left {
-          flex: 0 0 calc(50% - 0.75rem); padding: 1.4rem 1.65rem 1.85rem 1.65rem;
-          display: flex; flex-direction: column; gap: 1.4rem;
-          border: 1.5px solid var(--card-border, #e2d9f3); border-radius: 24px;
-          box-shadow: 0 12px 35px rgba(124,84,209,0.06);
-          background: linear-gradient(168deg, #ffffff 0%, #f5f0fc 100%);
-          color: var(--text-main, #362854); position: relative; overflow: visible;
-        }
-        .mt-right {
-          flex: 0 0 calc(50% - 0.75rem);
-          border: 1.5px solid var(--card-border, #e2d9f3); border-radius: 24px;
-          box-shadow: 0 12px 35px rgba(124,84,209,0.06);
-          background: var(--right-bg, linear-gradient(155deg,#fffcf8 0%,#fff8e6 30%,#faf2f8 100%));
-          color: var(--text-main, #362854); padding: 2.1rem 1.85rem 2.1rem 2.5rem;
-          display: flex; flex-direction: column; justify-content: center;
-          position: relative; overflow: hidden;
-        }
-        .mt-flipcell {
-          display: flex; align-items: center;
-          position: absolute; left: 50%; top: 75%; transform: translate(-50%, -50%);
-          z-index: 40; overflow: visible;
-        }
-        .mt-row-a { display: flex; align-items: center; gap: 0.55rem; }
-        .mt-row-b { display: flex; align-items: flex-start; gap: 0.55rem; overflow: visible; }
-        .mt-subcategory-row { display: flex; align-items: flex-start; gap: .55rem; }
-        .mt-subcategory-list { display: flex; gap: .45rem; flex-wrap: wrap; align-items: center; padding: .1rem .1rem .25rem; flex: 1; }
-        .mt-subcategory-pill { min-height: 38px; padding: .45rem .85rem; border: 1px solid var(--card-border, #e4dcee); border-radius: 12px; color: var(--text-subtle, #6b5a8e); background: var(--tile-bg, #ffffff); font: 600 .8rem inherit; cursor: pointer; white-space: nowrap; transition: .2s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
-        .mt-subcategory-pill:hover { background: #f8f4fc; color: var(--text-main, #362854); transform: translateY(-1px); }
-        .mt-subcategory-pill[aria-pressed="true"] { color: #362854; background: #f0e9f8; border: 2px solid #7859c2; font-weight: 700; box-shadow: 0 6px 16px rgba(120,89,194,0.18); }
-
-
-        .mt-row2  { display: flex; gap: 0.6rem; align-items: stretch; overflow: visible; }
-        .mt-target-title {
-          font-family: 'Fraunces','Playfair Display',Georgia,serif;
-          font-weight: 700; color: var(--text-main, #5a7a4a);
-          margin: 0.18rem 0 1.4rem; line-height: 1.05;
-        }
-        .mt-bottom-banner {
-          background: var(--banner-bg, rgba(234,226,252,0.42));
-          border-top: 1px solid var(--card-border, #e0d7f0);
-          padding: 0.9rem 2rem;
-          display: flex; justify-content: space-between;
-          align-items: center; flex-wrap: wrap; gap: 0.8rem;
-          font-size: 0.83rem; color: var(--text-main, #362854);
-          border-radius: 0 0 28px 28px;
-        }
-
-        /* ── TABLET: 641–850px ── */
-        @media (max-width: 850px) {
-          .mt-split { flex-direction: column !important; gap: 1rem !important; padding: 1rem 1rem 5.5rem 1rem !important; min-height: unset !important; }
-          .mt-left  { flex: none !important; width: 100% !important; padding: 1.2rem 1.2rem 1.4rem !important; }
-          .mt-right { flex: none !important; width: 100% !important; padding: 1.6rem 1.2rem !important; }
-          .mt-flipcell { position: relative !important; left: auto !important; top: auto !important; transform: none !important; justify-content: center !important; margin: 0 0 0.75rem 0 !important; width: 100% !important; }
-          .mt-target-title { font-size: clamp(2rem, 8vw, 3.2rem) !important; white-space: normal !important; word-break: break-word !important; }
-          .mt-row-a { flex-wrap: wrap !important; }
-          .mt-row-b { flex-direction: column !important; align-items: stretch !important; }
-          .mt-subcategory-row { align-items: flex-start; }
-          .mt-bottom-banner { padding: 0.8rem 1.1rem !important; }
-        }
-
-        /* ── MOBILE: up to 640px ── */
-        @media (max-width: 640px) {
-          .mt-wrapper { padding: 0.1rem 0.5rem 0 !important; }
-          .mt-split { padding: 0.65rem 0.65rem 5rem 0.65rem !important; gap: 0.75rem !important; }
-          .mt-left, .mt-right { padding: 1rem 0.85rem !important; border-radius: 18px !important; }
-          .mt-card { border-radius: 22px !important; }
-          .mt-hero h1 { font-size: clamp(1.4rem, 7vw, 1.9rem) !important; }
-          .mt-hero-pills { gap: 0.35rem !important; }
-          .mt-hero-pill { font-size: 0.68rem !important; padding: 0.22rem 0.55rem !important; }
-          .mt-hero-badge { font-size: 0.67rem !important; }
-          .mt-row2 { flex-wrap: wrap !important; }
-          .mt-row2 > button { flex: 0 0 calc(50% - 0.3rem) !important; height: 80px !important; }
-          .mt-row-a > div { overflow-x: auto !important; }
-          .hide-scrollbar::-webkit-scrollbar { display: none !important; }
-          .hide-scrollbar { -ms-overflow-style: none !important; scrollbar-width: none !important; }
-          .mt-bottom-banner { flex-direction: column !important; align-items: flex-start !important; gap: 0.6rem !important; padding: 0.75rem 1rem !important; font-size: 0.78rem !important; }
-        }
-
-        /* ── HERO ANIMATIONS ── */
-        @keyframes heroFadeUp   { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes heroFadeDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes heroScale    { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
-        @keyframes heroPulseGlow { 0%,100%{opacity:0.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.03)} }
-        @keyframes wordSlide {
-          from{opacity:0;transform:translateY(22px) rotateX(-25deg);filter:blur(4px)}
-          to  {opacity:1;transform:translateY(0) rotateX(0deg);filter:blur(0)}
-        }
-        @keyframes shimmerSlide {
-          0%   { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
-        .hero-badge-anim  { animation: heroScale    0.55s cubic-bezier(0.22,1,0.36,1) 0.08s both; }
-        .hero-word1-anim  { display:inline-block; animation: wordSlide 0.6s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
-        .hero-word2-anim  { display:inline-block; animation: wordSlide 0.6s cubic-bezier(0.22,1,0.36,1) 0.38s both; }
-        .hero-sub-anim    { animation: heroFadeUp  0.65s cubic-bezier(0.22,1,0.36,1) 0.52s both; }
-        .hero-pills-anim  { animation: heroFadeUp  0.65s cubic-bezier(0.22,1,0.36,1) 0.68s both; }
-        .hero-card-anim   { animation: heroFadeUp  0.75s cubic-bezier(0.22,1,0.36,1) 0.4s both; }
-        .hero-grad-text {
-          background: linear-gradient(135deg, #7c54d1 0%, #a855f7 40%, #ec4899 70%, #f97316 100%);
-          background-size: 200% auto;
-          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-          animation: shimmerSlide 4s linear 1s infinite;
-        }
-
         @keyframes moodIn { 0%{opacity:0;transform:scale(0.82) translateY(12px)} 65%{opacity:1;transform:scale(1.05) translateY(-2px)} 100%{opacity:1;transform:scale(1) translateY(0)} }
-        @keyframes btnPulse { 0%,100%{filter:drop-shadow(0 7px 16px rgba(80,52,147,.34))} 50%{filter:drop-shadow(0 12px 24px rgba(112,80,188,.48));transform:scale(1.022)} }
+        @keyframes btnPulse { 0%,100%{filter:drop-shadow(0 6px 22px rgba(82,55,147,0.5))} 50%{filter:drop-shadow(0 12px 30px rgba(82,55,147,0.72));transform:scale(1.028)} }
         .mood-animate { animation: moodIn 0.52s cubic-bezier(0.16,1,0.3,1) both; }
         .flip-btn { animation: btnPulse 2.6s ease-in-out infinite; }
-        .flip-btn:hover  { filter:drop-shadow(0 14px 26px rgba(80,52,147,.52)) !important; transform:translateX(4px) scale(1.04) !important; }
+        .flip-btn:hover  { filter:drop-shadow(0 14px 32px rgba(82,55,147,0.75)) !important; transform:scale(1.05) !important; }
         .flip-btn:active { transform:scale(0.97) !important; }
         .feeling-card-item:hover  { transform:scale(1.06) !important; box-shadow:0 8px 24px rgba(124,84,209,0.22) !important; }
         .feeling-card-item:active { transform:scale(0.97) !important; }
-        .feeling-card-item { position: relative; }
-        .feeling-selected-check {
-          position: absolute; top: 0.34rem; right: 0.38rem;
-          display: grid; place-items: center; width: 18px; height: 18px;
-          border-radius: 50%; background: #8b5fd1; color: #fff;
-          font-size: 0.62rem; font-weight: 900;
-          box-shadow: 0 3px 8px rgba(80,52,147,.25);
+        .hide-scrollbar::-webkit-scrollbar{display:none;}
+        .hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
+        @media(max-width:800px){
+          .mt-split{flex-direction:column !important;}
+          .mt-left{border-right:none !important;border-bottom:1px solid #e0d7f0 !important;}
+          .mt-row2{flex-wrap:wrap !important;}
+          .mt-flipcell{margin-right:0 !important;width:100% !important;justify-content:center !important;margin-top:0.6rem !important;}
         }
       `}</style>
 
-      {/* ─── HERO SECTION — compact + animated ─── */}
-      <div className="mt-wrapper">
-        <div className="mt-hero">
-
-          {/* Badge — scales in */}
-          <div className="mt-hero-badge hero-badge-anim">
-            <span>✨ 100% Free</span>
-            <span style={{opacity:0.35}}>•</span><span>Tap-Only</span>
-            <span style={{opacity:0.35}}>•</span><span>No Sign-Up</span>
+      {/* ─── HERO SECTION ─── */}
+      <div style={{ maxWidth:'1280px',margin:'0 auto',padding:'0.5rem 0.75rem 0',fontFamily:"'Outfit','Inter',sans-serif" }}>
+        <div style={{ textAlign:'center',marginBottom:'1.65rem',marginTop:'0.35rem' }}>
+          <div style={{ display:'inline-flex',alignItems:'center',gap:'0.48rem',
+            background:'#ede5fa',border:'1px solid #d6c8f5',padding:'0.38rem 1.1rem',
+            borderRadius:'9999px',fontSize:'0.77rem',fontWeight:700,color:'#7c54d1',
+            marginBottom:'0.7rem',boxShadow:'0 4px 14px rgba(124,84,209,0.1)' }}>
+            <span>✨ 100% Free Self-Help Utility</span>
+            <span style={{opacity:0.4}}>•</span><span>Tap-Only</span>
+            <span style={{opacity:0.4}}>•</span><span>No Sign-Up Required</span>
           </div>
-
-          {/* Headline — word-by-word slide-up */}
-          <h1 style={{ perspective: '600px' }}>
-            <span className="hero-word1-anim" style={{color:'var(--text-main, #362854)'}}>
-              Shift Your Mindset in&nbsp;
-            </span>
-            <span className="hero-word2-anim hero-grad-text">60 Seconds</span>
+          <h1 style={{ fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
+            fontSize:'clamp(2rem,5vw,3.5rem)',fontWeight:700,margin:'0 auto 0.5rem',
+            letterSpacing:'-0.02em',lineHeight:1.08,maxWidth:'800px' }}>
+            <span style={{color:'#362854'}}>Shift Your Mindset in </span>
+            <span style={{background:'linear-gradient(135deg,#7c54d1 0%,#ec4899 100%)',
+              WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>60 Seconds</span>
           </h1>
-
-          {/* Subtitle — fades up after headline */}
-          <p className="hero-sub-anim">
-            Select your current negative mood, discover your positive counterpart, and get
-            a <strong>practical 60-second action</strong> to regain emotional clarity.
+          <p style={{ fontSize:'0.97rem',color:'#665c7d',maxWidth:'630px',margin:'0 auto 1rem',lineHeight:1.6,fontWeight:400 }}>
+            Select your current negative mood, discover your positive counterpart, and get 1 practical 60-second action to regain emotional clarity.
           </p>
-
-          {/* Pills — fade up last */}
-          <div className="mt-hero-pills hero-pills-anim">
-            <span className="mt-hero-pill">🔒 100% Private (90-Day Auto-Purge)</span>
-            <a href="/pricing" className="mt-hero-pill"
-              style={{ background:'var(--banner-bg, #ede5fa)',border:'1px solid var(--card-border, #d6c8f5)',color:'var(--text-main, #7c54d1)',fontWeight:700,textDecoration:'none' }}>
-              📘 $7 Mindset Plan →
-            </a>
+          <div style={{ display:'flex',justifyContent:'center',alignItems:'center',gap:'0.8rem',flexWrap:'wrap',fontSize:'0.8rem',color:'#362854',fontWeight:600 }}>
+            <span style={{ display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'#fff',padding:'0.33rem 0.8rem',borderRadius:'9999px',border:'1px solid #efe6dc',boxShadow:'0 2px 8px rgba(0,0,0,0.02)' }}>🤖 AI-Powered Fresh Actions</span>
+            <span style={{ display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'#fff',padding:'0.33rem 0.8rem',borderRadius:'9999px',border:'1px solid #efe6dc',boxShadow:'0 2px 8px rgba(0,0,0,0.02)' }}>🔒 100% Private (90-Day Auto-Purge)</span>
+            <button onClick={()=>setShow7th(true)} style={{ background:'#ede5fa',border:'1px solid #d6c8f5',color:'#7c54d1',padding:'0.33rem 0.8rem',borderRadius:'9999px',fontWeight:700,fontSize:'0.8rem',cursor:'pointer',display:'inline-flex',alignItems:'center',gap:'0.3rem' }}>
+              📘 Optional $7 Mindset Plan PDF →
+            </button>
           </div>
         </div>
 
-        {/* MAIN CARD — animates in after hero */}
-        <div className="mt-card hero-card-anim">
+        {/* ═══════════════════════════════════════════
+            MAIN CARD — matches mockup exactly
+        ═══════════════════════════════════════════ */}
+        <div style={{
+          background:'#f8f4fe',
+          borderRadius:'28px',
+          border:'1.5px solid #e2d9f3',
+          boxShadow:'0 18px 58px rgba(76,60,110,0.1)',
+          overflow:'visible',
+          position:'relative'
+        }}>
 
-          {/* ── Split: Left | Right ── */}
-          <div className="mt-split">
+          {/* ── MoodFlip title ── */}
+          <div style={{ textAlign:'center',paddingTop:'1.6rem',paddingBottom:'0.55rem' }}>
+            <h2 style={{ fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
+              fontSize:'clamp(2.5rem,4.5vw,3.5rem)',fontWeight:700,
+              letterSpacing:'-0.02em',margin:0,lineHeight:1 }}>
+              {/* "Mood" = multi-color purple→blue gradient like mockup */}
+              <span style={{ background:'linear-gradient(110deg,#7958d8 0%,#9b70e0 40%,#5b8fd4 80%,#7c54d1 100%)',
+                WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Mood</span>
+              {/* "Flip" = warm coral→peach like mockup */}
+              <span style={{ background:'linear-gradient(135deg,#e8855a 0%,#dba048 100%)',
+                WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>Flip</span>
+            </h2>
+          </div>
 
-            {/* ━━━━━ LEFT CARD ━━━━━ */}
-            <div className="mt-left">
+          {/* ── Split: left 50% | right 50% ── */}
+          <div className="mt-split" style={{ display:'flex',minHeight:'510px',overflow:'visible' }}>
+
+            {/* ━━━━━ LEFT PANEL ━━━━━ */}
+            <div className="mt-left" style={{
+              flex:'0 0 50%', padding:'1.4rem 1.65rem 1.85rem 1.65rem',
+              display:'flex', flexDirection:'column', gap:'1.4rem',
+              borderRight:'1px solid #e2d9f3',
+              background:'linear-gradient(168deg,#fdfaff 0%,#f4effb 100%)',
+              position:'relative', overflow:'visible'
+            }}>
 
               {/* Row A: choose mood banner + clouds */}
-              <div className="mt-row-a" style={{ display:'flex',alignItems:'center',gap:'0.55rem' }}>
+              <div style={{ display:'flex',alignItems:'center',gap:'0.55rem' }}>
                 <Banner icon="☁️" text="Choose your current mood" />
                 <div className="hide-scrollbar" style={{ display:'flex',gap:'0.2rem',alignItems:'center',flexWrap:'nowrap',overflowX:'auto',flex:1 }}>
                   {MOOD_DATA.map(fam=>(
@@ -579,21 +363,9 @@ export default function MoodTool() {
                 </div>
               </div>
 
-              {/* Layer 2: choose a Feelings Wheel category */}
-              <div className="mt-subcategory-row">
-                <Banner icon="2" text="Choose the closest category" />
-                <div className="mt-subcategory-list hide-scrollbar" role="group" aria-label="Feeling category">
-                  {family.subCategories.map(category => (
-                    <button key={category.id} className="mt-subcategory-pill" aria-pressed={category.id === subCategoryId} onClick={() => pickSubCategory(category.id)}>
-                      {category.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Layer 3: choose the exact feeling */}
-              <div className="mt-row-b" style={{ display:'flex',alignItems:'flex-start',gap:'0.55rem',overflow:'visible' }}>
-                <Banner icon="3" text="Choose your exact feeling" />
+              {/* Row B+C: pick feeling banner + grid */}
+              <div style={{ display:'flex',alignItems:'flex-start',gap:'0.55rem',overflow:'visible' }}>
+                <Banner icon="♡" text="Pick the feeling closest to how you feel" />
 
                 <div style={{ flex:1,display:'flex',flexDirection:'column',gap:'0.65rem',minWidth:0,overflow:'visible' }}>
 
@@ -602,45 +374,111 @@ export default function MoodTool() {
                     {row1.map(f=><Tile key={f.id} f={f}/>)}
                   </div>
 
-                  {/* Grid row 2 */}
+                  {/* Grid row 2 + Change My Mood button bleeding right */}
                   <div className="mt-row2" style={{ display:'flex',gap:'0.6rem',alignItems:'stretch',overflow:'visible' }}>
                     {row2.map(f=><Tile key={f.id} f={f}/>)}
+
+                    {/* ── "Change My Mood →" button — overflows border ── */}
+                    <div className="mt-flipcell" style={{
+                      display:'flex', alignItems:'center',
+                      marginRight:'-2.4rem',   /* bleeds past panel border */
+                      marginLeft:'0.4rem',     /* gap from 'Abandoned' */
+                      flexShrink:0, zIndex:20, overflow:'visible'
+                    }}>
+                      <div style={{ filter: 'drop-shadow(0 10px 20px rgba(90,60,160,0.35))' }}>
+                        <div style={{
+                          background: 'white',
+                          padding: '3px',
+                          clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)',
+                          display: 'inline-flex'
+                        }}>
+                          <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
+                            className="flip-btn"
+                            style={{
+                              background: loading
+                                ? 'linear-gradient(135deg,#9e82e0,#7059b0)'
+                                : 'linear-gradient(135deg,#7859c2 0%,#5a40a0 100%)',
+                              color:'#fff', border:'none',
+                              clipPath:'polygon(0% 0%, 84% 0%, 100% 50%, 84% 100%, 0% 100%)',
+                              padding:'1rem 2.2rem 1rem 1.6rem',
+                              fontWeight:700, fontSize:'1.1rem',
+                              cursor: loading ? 'wait' : 'pointer',
+                              display:'flex', alignItems:'center', gap:'0.4rem',
+                              textAlign:'left', lineHeight:1.2,
+                              fontFamily:"'Outfit','Inter',sans-serif",
+                              position:'relative'
+                            }}>
+                            <span style={{ display:'flex',flexDirection:'column' }}>
+                              <span>{loading ? 'Flipping...' : 'Change'}</span>
+                              {!loading && <span>My Mood</span>}
+                            </span>
+                            {!loading && <span style={{ fontSize:'1.4rem',fontWeight:400,lineHeight:1,marginTop:'0.8rem' }}>→</span>}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Grid row 3 (Clear selection) */}
+                  <div style={{ display:'flex',gap:'0.6rem' }}>
+                    <button onClick={clear} style={{
+                      flex:'0 0 calc(25% - 0.45rem)', height:'85px',
+                      background:'#f8f4fe', border:'1px solid #e4dcee',
+                      borderRadius:'12px', padding:'0.8rem 0.4rem',
+                      display:'flex', flexDirection:'column', alignItems:'center',
+                      justifyContent:'center', gap:'0.3rem', cursor:'pointer'
+                    }}>
+                      <TrashIcon size={22} color="#7859c2"/>
+                      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'0' }}>
+                        <span style={{ fontSize:'0.75rem',fontWeight:700,color:'#362854',lineHeight:1.1 }}>Clear selection</span>
+                        <span style={{ fontSize:'0.65rem',color:'#7859c2' }}>Start over</span>
+                      </div>
+                    </button>
                   </div>
 
                 </div>
               </div>
-            </div>{/* end left card */}
+            </div>{/* end left */}
 
-            {/* ━━━━━ RIGHT CARD ━━━━━ */}
-            <div className="mt-right">
+            {/* ━━━━━ RIGHT PANEL ━━━━━ */}
+            <div style={{
+              flex:1,
+              background:'linear-gradient(155deg,#fffcf8 0%,#fff8e6 30%,#faf2f8 100%)',
+              padding:'2.1rem 1.85rem 2.1rem 2.6rem',
+              display:'flex', flexDirection:'column', justifyContent:'center',
+              position:'relative', overflow:'hidden'
+            }}>
               <Landscape/>
 
               <div style={{ position:'relative',zIndex:2,textAlign:'center' }}>
                 {/* heart */}
                 <div style={{ fontSize:'1.25rem',color:'#c8828a',marginBottom:'0.28rem' }}>♡</div>
-                <div style={{ fontSize:'0.96rem',color:'var(--text-subtle, #8a7aaa)',fontWeight:500 }}>
+                <div style={{ fontSize:'0.96rem',color:'#8a7aaa',fontWeight:500 }}>
                   Your mood has changed to:
                 </div>
-                <h2 className="mood-animate mt-target-title" key={flip.targetMood} style={{
+                <h2 className="mood-animate" key={flip.targetMood} style={{
+                  fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
                   fontSize: flip.targetMood.length>11 ? '2.5rem' : '3.8rem',
+                  fontWeight:700, color:'#5a7a4a',
+                  margin:'0.18rem 0 1.4rem', lineHeight:1.05, whiteSpace:'nowrap'
                 }}>
                   {flip.targetMood}
                 </h2>
 
                 {/* action card */}
                 <div style={{
-                  background: 'var(--action-card-bg, rgba(255,255,255,0.92))', border:'1.5px solid var(--card-border, #e8dff5)',
+                  background:'rgba(255,255,255,0.92)', border:'1.5px solid #e8dff5',
                   borderRadius:'22px', padding:'1.3rem 1.45rem',
                   boxShadow:'0 10px 35px rgba(76,60,110,0.09)',
                   display:'flex', alignItems:'flex-start', gap:'1rem', textAlign:'left'
                 }}>
-                  <div style={{ width:56,height:56,borderRadius:'50%',background:'var(--banner-bg, #f0e9f8)',
+                  <div style={{ width:56,height:56,borderRadius:'50%',background:'#f0e9f8',
                     display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0 }}>
                     <MeditateIcon size={32} color="#7c54d1"/>
                   </div>
                   <div style={{ flex:1 }}>
                     <div style={{ display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:'0.4rem' }}>
-                      <h3 style={{ fontSize:'1rem',fontWeight:700,color:'var(--text-main, #362854)',margin:0,
+                      <h3 style={{ fontSize:'1rem',fontWeight:700,color:'#362854',margin:0,
                         fontFamily:"'Fraunces',Georgia,serif",lineHeight:1.32 }}>
                         60-sec action to get to a {flip.targetMood.toLowerCase()} mood
                       </h3>
@@ -651,11 +489,11 @@ export default function MoodTool() {
                           borderRadius:'9999px',flexShrink:0 }}>✨ AI</span>
                       )}
                     </div>
-                    <div style={{ borderTop:'1px solid var(--card-border, #e8dff5)',margin:'0.52rem 0',position:'relative',textAlign:'center' }}>
+                    <div style={{ borderTop:'1px solid #e8dff5',margin:'0.52rem 0',position:'relative',textAlign:'center' }}>
                       <span style={{ position:'absolute',top:'-9px',left:'50%',transform:'translateX(-50%)',
-                        background:'var(--action-card-bg, rgba(255,255,255,0.92))',padding:'0 0.32rem',fontSize:'0.66rem',color:'#c8828a' }}>♡</span>
+                        background:'rgba(255,255,255,0.92)',padding:'0 0.32rem',fontSize:'0.66rem',color:'#c8828a' }}>♡</span>
                     </div>
-                    <p style={{ fontSize:'0.9rem',color:'var(--text-subtle, #665c7d)',lineHeight:1.6,margin:0,fontWeight:400 }}>
+                    <p style={{ fontSize:'0.9rem',color:'#665c7d',lineHeight:1.6,margin:0,fontWeight:400 }}>
                       {flip.actionText}
                     </p>
                   </div>
@@ -675,62 +513,29 @@ export default function MoodTool() {
                   </button>
                 </div>
               </div>
-            </div>{/* end right card */}
-
-            {/* ── "Change My Mood" button ── */}
-            <div className="mt-flipcell">
-              <div style={{ filter: 'drop-shadow(0 12px 18px rgba(80, 52, 147, 0.32))' }}>
-                <div style={{
-                  background: '#d5caeb',
-                  padding: '2px',
-                  clipPath: 'polygon(0% 8%, 73% 8%, 78% 1%, 100% 50%, 78% 99%, 73% 92%, 0% 92%)',
-                  display: 'inline-flex'
-                }}>
-                  <button id="flip-mood-btn" onClick={doFlip} disabled={loading}
-                    className="flip-btn"
-                    style={{
-                      background: loading
-                        ? 'linear-gradient(145deg, #8e75c3 0%, #62469e 100%)'
-                        : 'linear-gradient(145deg, #9877dc 0%, #7656bd 52%, #503493 100%)',
-                      color:'#ffffff', border:'none',
-                      clipPath:'polygon(0% 8%, 72% 8%, 77% 1%, 100% 50%, 77% 99%, 72% 92%, 0% 92%)',
-                      width:'178px', minHeight:'92px',
-                      padding:'1rem 2.7rem 1rem 1.35rem',
-                      fontWeight:700, fontSize:'1.22rem',
-                      cursor: loading ? 'wait' : 'pointer',
-                      display:'flex', alignItems:'center', gap:'0.45rem',
-                      textAlign:'left', lineHeight:1.2,
-                      fontFamily:"'Fraunces','Playfair Display',Georgia,serif",
-                      position:'relative',
-                      textShadow:'0 1px 1px rgba(42,25,78,.35)',
-                      boxShadow:'inset 0 1px 0 rgba(255,255,255,.38)'
-                    }}>
-                    <span style={{ display:'flex',flexDirection:'column' }}>
-                      <span>{loading ? 'Flipping...' : 'Flip'}</span>
-                      {!loading && <span>My Mood</span>}
-                    </span>
-                    {!loading && <span style={{ position:'absolute',right:'1.15rem',top:'50%',transform:'translateY(-50%)',fontFamily:'Arial,sans-serif',fontSize:'1.7rem',fontWeight:300,lineHeight:1 }}>→</span>}
-                  </button>
-                </div>
-              </div>
-            </div>
+            </div>{/* end right */}
 
           </div>{/* end split */}
 
           {/* ── bottom banner ── */}
-          <div className="mt-bottom-banner">
+          <div style={{
+            background:'rgba(234,226,252,0.42)', borderTop:'1px solid #e0d7f0',
+            padding:'0.9rem 2rem', display:'flex', justifyContent:'space-between',
+            alignItems:'center', flexWrap:'wrap', gap:'0.8rem',
+            fontSize:'0.83rem', color:'#362854', borderRadius:'0 0 28px 28px'
+          }}>
             <div style={{ display:'flex',alignItems:'center',gap:'0.65rem' }}>
               <HeartIcon/>
               <div>
                 <strong>Small shifts can change how you feel.</strong>
-                <div style={{ fontSize:'0.75rem',color:'var(--text-subtle, #665c7d)' }}>You&apos;ve got this.</div>
+                <div style={{ fontSize:'0.75rem',color:'#665c7d' }}>You&apos;ve got this.</div>
               </div>
             </div>
             <div style={{ display:'flex',alignItems:'center',gap:'0.65rem' }}>
               <LeafIcon/>
               <div>
                 <strong>Be kind to yourself.</strong>
-                <div style={{ fontSize:'0.75rem',color:'var(--text-subtle, #665c7d)' }}>One choice at a time.</div>
+                <div style={{ fontSize:'0.75rem',color:'#665c7d' }}>One choice at a time.</div>
               </div>
             </div>
           </div>
@@ -744,14 +549,14 @@ export default function MoodTool() {
           <div className="modal-card" style={{ maxWidth:'480px',background:'#fff',border:'1px solid #e2d9f3' }}>
             <div style={{ textAlign:'center',marginBottom:'1rem' }}>
               <span style={{ fontSize:'2.4rem' }}>💫</span>
-              <h3 style={{ fontSize:'1.4rem',fontWeight:800,color:'#362854',marginTop:'0.5rem' }}>Save your MoodFlip check-ins?</h3>
+              <h3 style={{ fontSize:'1.4rem',fontWeight:800,color:'#362854',marginTop:'0.5rem' }}>Welcome Back to MoodFlip!</h3>
               <p style={{ fontSize:'0.87rem',color:'#665c7d',marginTop:'0.35rem',lineHeight:1.5 }}>
-                Create a free profile to save your moods, actions, and progress toward your 7-Day MoodFlip Report.
+                You&apos;ve used MoodFlip multiple times! Create a free profile to save your check-ins and track your progress.
               </p>
             </div>
             <div style={{ background:'#ede5fa',border:'1px solid #d6c8f5',padding:'1rem',borderRadius:'16px',marginBottom:'1.25rem' }}>
               <p style={{ fontSize:'0.77rem',color:'#7c54d1',lineHeight:1.5,margin:0,fontWeight:600 }}>
-                &ldquo;By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history so we can create and offer personalised downloads.&rdquo;
+                &ldquo;By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history.&rdquo;
               </p>
             </div>
             <p style={{ fontSize:'0.75rem',color:'#665c7d',textAlign:'center',marginBottom:'1.25rem' }}>
@@ -771,31 +576,23 @@ export default function MoodTool() {
         </div>
       )}
 
-      {show7th && (
+      {show7th&&(
         <div className="modal-overlay">
-          <div className="modal-card" style={{ maxWidth: '820px', width: '92%', background: '#ffffff', border: '1.5px solid #e2d9f3', borderRadius: '28px', padding: '2rem 1.8rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-              <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#059669', background: '#dcfce7', padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.02em' }}>
-                🎉 Milestone Unlocked: 7 Calendar Days Complete!
-              </span>
-              <button onClick={() => setShow7th(false)} style={{ background: '#f1f5f9', border: 'none', width: '32px', height: '32px', borderRadius: '50%', fontSize: '1.1rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                ✕
-              </button>
+          <div className="modal-card" style={{ maxWidth:'540px',background:'#fff',border:'1px solid #e2d9f3' }}>
+            <div style={{ display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'0.5rem' }}>
+              <span style={{ fontSize:'0.75rem',fontWeight:800,color:'#059669',background:'#ecfdf5',padding:'0.2rem 0.65rem',borderRadius:'9999px' }}>🎉 Milestone Unlocked: 7 Check-Ins!</span>
+              <button onClick={()=>setShow7th(false)} style={{ background:'transparent',border:'none',fontSize:'1.2rem',cursor:'pointer',color:'#665c7d' }}>✕</button>
             </div>
-            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: '1.65rem', fontWeight: 800, color: '#1e1b4b', margin: '0.3rem 0 0.4rem 0' }}>
-              Get Your Personalized 7-Day Mindset PDF Plan
-            </h3>
-            <p style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.5, marginBottom: '1rem' }}>
-              You&apos;ve saved check-ins across 7 calendar days. Your personalised report can include up to 21 saved check-ins.
+            <h3 style={{ fontSize:'1.5rem',fontWeight:800,color:'#362854',margin:'0.3rem 0' }}>Get Your Personal 7-Day Mindset Plan</h3>
+            <p style={{ fontSize:'0.87rem',color:'#665c7d',lineHeight:1.55 }}>
+              You&apos;ve completed 7 mood check-ins! Get your custom-generated 7-Day Mindset PDF report based on your exact check-in history.
             </p>
-            <PaidPlansSection hideHeader={true} />
+            <PaidPlansSection/>
           </div>
         </div>
       )}
 
-      {toastMsg && <Toast msg={toastMsg} onClose={() => setToastMsg('')} />}
-
-      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} />
+      <AuthModal isOpen={showAuth} onClose={()=>setShowAuth(false)}/>
     </>
   );
 }

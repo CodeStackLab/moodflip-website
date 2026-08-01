@@ -252,9 +252,19 @@ export default function MoodTool() {
         transform: sel ? 'scale(1.03)' : 'scale(1)',
         transition:'all 0.18s ease', flex:1, minWidth:0, height:'90px'
       }}>
-        <Ic size={32} color={sel ? '#7859c2' : '#a093b5'} />
-        <span style={{ fontSize:'0.82rem', fontWeight: sel ? 700:500, color: '#362854',
-          textTransform:'capitalize', lineHeight:1.1, textAlign:'center' }}>
+        <Ic size={28} color={sel ? '#7859c2' : '#a093b5'} />
+        <span style={{
+          fontSize: f.name.length > 9 ? '0.68rem' : '0.78rem',
+          fontWeight: sel ? 700 : 500,
+          color: '#362854',
+          textTransform: 'capitalize',
+          lineHeight: 1.15,
+          textAlign: 'center',
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
+          width: '100%',
+          padding: '0 2px'
+        }}>
           {f.name}
         </span>
       </button>

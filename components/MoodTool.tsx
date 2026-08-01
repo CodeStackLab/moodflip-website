@@ -403,13 +403,10 @@ export default function MoodTool() {
         .mt-left {
           flex: 0 0 calc(50% - 0.75rem); padding: 1.4rem 1.65rem 1.85rem 1.65rem;
           display: flex; flex-direction: column; gap: 1.4rem;
-          border: 1px solid rgba(255,255,255,.12); border-radius: 24px;
-          box-shadow: 0 18px 42px rgba(38,22,62,.22);
-          background:
-            radial-gradient(circle at 12% 0%, rgba(151,112,225,.28), transparent 34%),
-            radial-gradient(ellipse at 98% 100%, rgba(232,138,84,.13), transparent 38%),
-            linear-gradient(155deg, #2c203c 0%, #20172f 58%, #181222 100%);
-          color: #f9f5fc; position: relative; overflow: visible;
+          border: 1.5px solid var(--card-border, #e2d9f3); border-radius: 24px;
+          box-shadow: 0 12px 35px rgba(124,84,209,0.06);
+          background: linear-gradient(168deg, #ffffff 0%, #f5f0fc 100%);
+          color: var(--text-main, #362854); position: relative; overflow: visible;
         }
         .mt-right {
           flex: 0 0 calc(50% - 0.75rem);
@@ -429,9 +426,10 @@ export default function MoodTool() {
         .mt-row-b { display: flex; align-items: flex-start; gap: 0.55rem; overflow: visible; }
         .mt-subcategory-row { display: flex; align-items: center; gap: .55rem; }
         .mt-subcategory-list { display: flex; gap: .4rem; overflow-x: auto; padding: .1rem .1rem .25rem; }
-        .mt-subcategory-pill { min-height: 38px; padding: .45rem .75rem; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; color: #ded3ea; background: rgba(255,255,255,.07); font: 700 .74rem inherit; cursor: pointer; white-space: nowrap; transition: .2s ease; }
-        .mt-subcategory-pill:hover { background: rgba(255,255,255,.12); }
-        .mt-subcategory-pill[aria-pressed="true"] { color: #2d2140; background: #f5edfb; border-color: #d6c4e8; box-shadow: 0 6px 16px rgba(0,0,0,.16); }
+        .mt-subcategory-pill { min-height: 38px; padding: .45rem .75rem; border: 1px solid var(--card-border, #e4dcee); border-radius: 12px; color: var(--text-subtle, #6b5a8e); background: var(--tile-bg, #ffffff); font: 600 .76rem inherit; cursor: pointer; white-space: nowrap; transition: .2s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .mt-subcategory-pill:hover { background: #f8f4fc; color: var(--text-main, #362854); }
+        .mt-subcategory-pill[aria-pressed="true"] { color: var(--text-main, #362854); background: #f0e9f8; border: 2px solid #7859c2; font-weight: 700; box-shadow: 0 6px 16px rgba(120,89,194,0.15); }
+
         .mt-row2  { display: flex; gap: 0.6rem; align-items: stretch; overflow: visible; }
         .mt-target-title {
           font-family: 'Fraunces','Playfair Display',Georgia,serif;

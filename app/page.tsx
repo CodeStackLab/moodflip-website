@@ -1,3 +1,4 @@
+import Link from "next/link";
 "use client";
 
 import React, { useEffect, useMemo, useState, Fragment } from "react";
@@ -359,7 +360,7 @@ export default function HomePage() {
             <button
               type="button"
               className={styles.welcomeCloseBtn}
-              onClick={() => setShowWelcomeCard(false)}
+              onClick={() => setShowWelcome(false)}
               aria-label="Close message"
             >
               ×
@@ -379,7 +380,7 @@ export default function HomePage() {
             <button
               type="button"
               className={styles.welcomeMaybeBtn}
-              onClick={() => setShowWelcomeCard(false)}
+              onClick={() => setShowWelcome(false)}
             >
               Maybe Later
             </button>

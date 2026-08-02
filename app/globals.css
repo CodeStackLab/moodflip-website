@@ -1,37 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,380;0,9..144,520;0,9..144,640;1,9..144,460&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --cream: #FFF8EF;
-  --cream-2: #FDEEDD;
+  --cream: #FBF7EF;
+  --cream-2: #FAF6EE;
   --paper: #FFFFFF;
-  --ink: #33283F;
-  --ink-soft: #6b6078;
-  --violet: #6C5CE7;
-  --violet-dark: #5546CE;
+  --ink: #2C2735;
+  --ink-soft: #726B7E;
+  --violet: #5B4B9A;
+  --violet-dark: #463A78;
   --coral: #FF6B6B;
   --teal: #12A594;
-  --gold: #FFB648;
-  --sage: #5FA96B;
-  --plum: #4A3966;
-  --line: rgba(51,40,63,0.12);
+  --gold: #D9A54B;
+  --sage: #7C8B5E;
+  --plum: #463A78;
+  --line: #EAE3D6;
   --display: 'Fraunces', serif;
   --mono: 'Space Mono', monospace;
   --body: 'Inter', sans-serif;
 
-  --bg: #FFF8EF;
+  --bg: #FBF7EF;
   --ambient-blob-1: rgba(108, 92, 231, 0.16);
   --ambient-blob-2: rgba(255, 107, 107, 0.16);
   --ambient-blob-3: rgba(18, 165, 148, 0.14);
 
   --card-bg: #FFFFFF;
-  --card-bg-solid: #ffffff;
-  --card-border: rgba(51, 40, 63, 0.12);
+  --card-bg-solid: #FFFFFF;
+  --card-border: #EAE3D6;
   --glass-blur: blur(10px);
   --glass-shadow: 0 20px 50px rgba(74, 57, 102, 0.10);
 
-  --text-main: #33283F;
-  --text-subtle: #6b6078;
-  --text-muted: #8e82a8;
+  --text-main: #2C2735;
+  --text-subtle: #726B7E;
+  --text-muted: #958ea3;
 }
 
 [data-theme="dark"] {

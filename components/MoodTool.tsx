@@ -318,19 +318,35 @@ export default function MoodTool(): React.JSX.Element {
           box-shadow: 0 32px 80px rgba(55,43,120,.12), inset 0 0 0 1px var(--line); backdrop-filter: blur(18px);
         }
         .mf2-orb-col { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-        .mf2-orb-wrap { position: relative; width: 170px; height: 170px; display: flex; align-items: center; justify-content: center; }
-        .mf2-orb-ring { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 30deg, rgba(239,108,168,.22), rgba(109,92,232,.22), rgba(86,200,207,.22), rgba(239,108,168,.22)); animation: mf2Breathe 5.5s ease-in-out infinite; }
-        .mf2-cleared .mf2-orb-ring { background: radial-gradient(circle at 34% 30%, #F1E4C4, rgba(241,228,196,0)); }
-        @keyframes mf2Breathe { 0%, 100% { transform: scale(0.92); opacity: 0.75; } 50% { transform: scale(1.08); opacity: 1; } }
-        .mf2-orb-core {
-          position: relative; width: 128px; height: 128px; border-radius: 50%;
-          background: linear-gradient(145deg, #7463ee, #4c3bc2); display: flex; flex-direction: column; align-items: center; justify-content: center;
-          transition: background 0.8s ease; box-shadow: 0 18px 38px rgba(85,67,216,.32), inset 0 1px 0 rgba(255,255,255,.3);
+        .mf2-orb-wrap { position: relative; width: 190px; height: 190px; display: flex; align-items: center; justify-content: center; }
+        .mf2-orb-ring {
+          position: absolute; inset: 0; border-radius: 50%;
+          background: conic-gradient(from 0deg, rgba(168, 85, 247, 0.35), rgba(236, 72, 153, 0.3), rgba(56, 189, 248, 0.35), rgba(168, 85, 247, 0.35));
+          animation: mf2Breathe 4.5s ease-in-out infinite alternate, mf2Rotate 12s linear infinite;
+          filter: blur(12px);
         }
-        .mf2-cleared .mf2-orb-core { background: linear-gradient(140deg, var(--gold), var(--sage)); }
-        .mf2-orb-icon { font-size: 28px; margin-bottom: 4px; }
-        .mf2-orb-label { color: #fff; font-size: 13px; font-weight: 600; max-width: 95px; text-align: center; line-height: 1.3; }
-        .mf2-orb-caption { font-size: 12.5px; color: var(--ink-faint); text-align: center; font-weight: 500; }
+        .mf2-cleared .mf2-orb-ring { background: radial-gradient(circle at 34% 30%, rgba(241, 228, 196, 0.5), rgba(241,228,196,0)); }
+        @keyframes mf2Breathe { 0%, 100% { transform: scale(0.92); opacity: 0.75; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes mf2Rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .mf2-orb-core {
+          position: relative; width: 140px; height: 140px; border-radius: 50%;
+          background: radial-gradient(circle at 35% 35%, #c084fc 0%, #7c3aed 55%, #4c1d95 100%);
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 20px 48px -10px rgba(124, 58, 237, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -4px 12px rgba(0, 0, 0, 0.3);
+          border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+        .mf2-cleared .mf2-orb-core { background: radial-gradient(circle at 35% 35%, #fde047 0%, #f59e0b 55%, #b45309 100%); }
+        .mf2-orb-icon { font-size: 32px; margin-bottom: 2px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); animation: mf2Float 3s ease-in-out infinite alternate; }
+        @keyframes mf2Float { 0% { transform: translateY(0); } 100% { transform: translateY(-4px); } }
+        .mf2-orb-label { color: #fff; font-size: 13.5px; font-weight: 800; max-width: 100px; text-align: center; line-height: 1.25; text-shadow: 0 2px 4px rgba(0,0,0,0.3); letter-spacing: -0.01em; }
+        .mf2-orb-caption-pill {
+          display: inline-flex; align-items: center; gap: 0.4rem;
+          padding: 0.3rem 0.8rem; border-radius: 999px;
+          background: var(--tile-bg); border: 1px solid var(--card-border);
+          font-size: 0.78rem; font-weight: 700; color: var(--text-main);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
 
         .mf2-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 20px; margin-bottom: 16px; font-size: 13.5px; color: var(--ink-faint); }
         .mf2-crumb-sep { opacity: 0.5; margin: 0 4px; }
@@ -564,13 +580,39 @@ export default function MoodTool(): React.JSX.Element {
           <div className="mf2-demo-card mf2-reveal">
             <div className="mf2-orb-col">
               <div className="mf2-orb-wrap">
-                <div className="mf2-orb-ring" />
-                <div className="mf2-orb-core">
+                <div
+                  className="mf2-orb-ring"
+                  style={{
+                    background: family
+                      ? `conic-gradient(from 0deg, ${FAMILY_META[family].dot}66, rgba(236, 72, 153, 0.4), ${FAMILY_META[family].dot}66)`
+                      : undefined
+                  }}
+                />
+                <div
+                  className="mf2-orb-core"
+                  style={{
+                    background: family
+                      ? `radial-gradient(circle at 35% 35%, #ffffff 0%, ${FAMILY_META[family].dot} 55%, #1e1b4b 100%)`
+                      : undefined,
+                    boxShadow: family
+                      ? `0 20px 48px -10px ${FAMILY_META[family].dot}88, inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -4px 12px rgba(0, 0, 0, 0.3)`
+                      : undefined
+                  }}
+                >
                   <span className="mf2-orb-icon">{family ? FAMILY_META[family].icon : '☁️'}</span>
                   <span className="mf2-orb-label">{orbLabel}</span>
                 </div>
               </div>
-              <span className="mf2-orb-caption">{revealed ? 'Mood cleared' : 'Breathe, then choose'}</span>
+              <div className="mf2-orb-caption-pill">
+                <span style={{
+                  width: '7px',
+                  height: '7px',
+                  borderRadius: '50%',
+                  background: revealed ? '#22c55e' : '#a855f7',
+                  boxShadow: revealed ? '0 0 8px #22c55e' : '0 0 8px #a855f7'
+                }} />
+                {revealed ? '✨ Mood Cleared' : '🫁 Inhale • Exhale'}
+              </div>
             </div>
 
             <div>

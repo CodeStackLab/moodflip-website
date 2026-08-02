@@ -373,9 +373,9 @@ export default function HomePage() {
                 <p>Create a profile to save your mood check-ins and get personalized support.</p>
               </div>
             </div>
-            <Link href="/register" className={styles.welcomeCreateBtn}>
+            <a href="/register" className={styles.welcomeCreateBtn}>
               Create My Profile
-            </Link>
+            </a>
             <button
               type="button"
               className={styles.welcomeMaybeBtn}

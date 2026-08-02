@@ -29,6 +29,10 @@ body {
     sans-serif;
 }
 
+.font-serif {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;

@@ -276,8 +276,8 @@ export default function Home() {
 
         <section className="grid gap-6 xl:grid-cols-[1.1fr_1.3fr_280px]">
           {/* LEFT */}
-          <section className="rounded-[28px] border border-[#f0ebf8] bg-white p-5 shadow-[0_20px_60px_rgba(80,50,150,0.04)] sm:p-7">
-            <div className="mb-6 flex items-center justify-between">
+          <section className="rounded-[28px] border border-[#f0ebf8] bg-white p-4 sm:p-5 shadow-[0_20px_60px_rgba(80,50,150,0.04)]">
+            <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#6842e8] to-[#9b55e8] text-sm font-bold text-white shadow-md shadow-purple-200">
                   1
@@ -298,12 +298,12 @@ export default function Home() {
               </span>
             </div>
 
-            <div className="mb-6 flex flex-wrap gap-2.5">
+            <div className="mb-5 flex flex-wrap gap-2">
               {families.map((item) => (
                 <button
                   key={item}
                   onClick={() => chooseFamily(item)}
-                  className={`flex items-center gap-2 rounded-[14px] border px-4 py-2.5 text-sm font-bold transition-all ${
+                  className={`flex items-center gap-1.5 rounded-[12px] border px-3 py-2 text-[13px] font-bold transition-all ${
                     family === item
                       ? "border-[#7044e8] bg-gradient-to-r from-[#633ce0] to-[#9650e7] text-white shadow-lg shadow-purple-200"
                       : "border-[#e9e5ef] bg-white text-[#453e5e] hover:border-[#cdbdf0] hover:bg-[#faf8ff] hover:shadow-sm"
@@ -324,7 +324,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-5">
               {visibleMoods.map((mood) => {
                 const active = selectedMood?.id === mood.id;
 
@@ -332,16 +332,16 @@ export default function Home() {
                   <button
                     key={mood.id}
                     onClick={() => chooseMood(mood)}
-                    className={`group flex flex-col items-center justify-center rounded-[20px] border p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
+                    className={`group flex flex-col items-center justify-center rounded-[16px] border p-2.5 text-center transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
                       active
                         ? "border-[#7651eb] shadow-md shadow-purple-100 ring-2 ring-purple-100 ring-offset-1"
                         : "border-[#f1ebf8] hover:border-[#e2d5f8]"
                     } ${mood.bg}`}
                   >
-                    <span className="mb-3 text-[42px] leading-none transition-transform duration-300 group-hover:scale-110 drop-shadow-sm">
+                    <span className="mb-2 text-[32px] leading-none transition-transform duration-300 group-hover:scale-110 drop-shadow-sm">
                       {mood.emoji}
                     </span>
-                    <span className={`text-[13px] font-bold ${active ? 'text-[#4828a8]' : 'text-[#453e5e]'}`}>
+                    <span className={`text-[11px] font-bold ${active ? 'text-[#4828a8]' : 'text-[#453e5e]'}`}>
                       {mood.name}
                     </span>
                   </button>
@@ -350,8 +350,8 @@ export default function Home() {
             </div>
 
             {/* STEP 2 */}
-            <div className="my-8 border-t border-[#f0ebf8] pt-8">
-              <div className="mb-6 flex items-center justify-between">
+            <div className="my-5 border-t border-[#f0ebf8] pt-5">
+              <div className="mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#6842e8] to-[#9b55e8] text-sm font-bold text-white shadow-md shadow-purple-200">
                     2
@@ -373,7 +373,7 @@ export default function Home() {
               </div>
 
               {!selectedMood ? (
-                <div className="rounded-2xl border-2 border-dashed border-[#e6dff2] bg-[#fcfbff] px-5 py-8 text-center text-sm font-medium text-[#878099]">
+                <div className="rounded-2xl border-2 border-dashed border-[#e6dff2] bg-[#fcfbff] px-4 py-6 text-center text-[13px] font-medium text-[#878099]">
                   👆 Select a mood above to see specific feelings
                 </div>
               ) : (
@@ -401,9 +401,9 @@ export default function Home() {
             <button
               disabled={!selectedMood || !selectedFeeling}
               onClick={flipMood}
-              className="group relative w-full overflow-hidden rounded-[20px] bg-gradient-to-r from-[#6b3fe4] via-[#8545e8] to-[#b64fd3] px-6 py-4.5 text-base font-bold text-white shadow-xl shadow-purple-200/50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-purple-300/50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              className="group relative w-full overflow-hidden rounded-[16px] bg-gradient-to-r from-[#6b3fe4] via-[#8545e8] to-[#b64fd3] px-6 py-3.5 text-[15px] font-bold text-white shadow-xl shadow-purple-200/50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-purple-300/50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2 text-[17px] tracking-wide">
+              <span className="relative z-10 flex items-center justify-center gap-2 tracking-wide">
                 ✨ FLIP MY MOOD 
               </span>
 
@@ -524,7 +524,7 @@ function PositiveResult({
   const action = mood?.actions[actionIndex];
 
   return (
-    <section className="relative min-h-[650px] overflow-hidden rounded-[28px] border border-[#f0ebf8] bg-white p-6 shadow-[0_20px_70px_rgba(80,50,150,0.06)]">
+    <section className="relative min-h-[550px] overflow-hidden rounded-[28px] border border-[#f0ebf8] bg-white p-5 shadow-[0_20px_70px_rgba(80,50,150,0.06)]">
       {/* SUNSET BACKGROUND SVG/CSS RECREATION */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[28px]">
         {/* Sky gradient */}
@@ -576,12 +576,12 @@ function PositiveResult({
       </div>
 
       {!flipped ? (
-        <div className="relative z-10 flex min-h-[520px] flex-col items-center justify-center text-center">
-          <div className="mb-6 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-white/70 text-5xl shadow-[0_10px_40px_rgba(255,200,100,0.3)] backdrop-blur-md">
+        <div className="relative z-10 flex min-h-[440px] flex-col items-center justify-center text-center">
+          <div className="mb-4 flex h-[80px] w-[80px] items-center justify-center rounded-full bg-white/70 text-4xl shadow-[0_10px_40px_rgba(255,200,100,0.3)] backdrop-blur-md">
             ☀️
           </div>
 
-          <h2 className="max-w-md font-serif text-[40px] leading-tight font-bold text-[#1a142c]">
+          <h2 className="max-w-md font-serif text-[36px] leading-tight font-bold text-[#1a142c]">
             Take a small step towards a better you
           </h2>
 
@@ -592,8 +592,8 @@ function PositiveResult({
           </p>
         </div>
       ) : (
-        <div className="relative z-10 flex flex-col items-center pt-[70px] text-center">
-          <h2 className="font-serif text-[42px] font-bold text-[#141029] drop-shadow-sm">
+        <div className="relative z-10 flex flex-col items-center pt-[40px] text-center">
+          <h2 className="font-serif text-[36px] font-bold text-[#141029] drop-shadow-sm">
             Towards {mood?.positive.split('&')[0]} &<br/>{mood?.positive.split('&')[1]}
           </h2>
 
@@ -601,7 +601,7 @@ function PositiveResult({
             You've got this. Small steps, big shifts.
           </p>
 
-          <div className="mt-8 w-full max-w-[540px] rounded-[24px] bg-white p-6 text-left shadow-[0_20px_60px_rgba(50,30,90,0.08)] ring-1 ring-[#f0ebf8]">
+          <div className="mt-6 w-full max-w-[540px] rounded-[24px] bg-white p-5 text-left shadow-[0_20px_60px_rgba(50,30,90,0.08)] ring-1 ring-[#f0ebf8]">
             <div className="flex items-center justify-between">
               <h3 className="flex items-center gap-2 font-bold text-[#231a38]">
                 <span className="text-[#facc15] text-lg">⭐</span> Your 60-Second Action
@@ -613,13 +613,13 @@ function PositiveResult({
               </span>
             </div>
 
-            <div className="mt-5 flex items-center gap-5">
-              <button className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7245e3] to-[#b34eda] text-white shadow-lg shadow-purple-200 transition hover:scale-105">
-                <svg className="h-7 w-7 ml-1" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+            <div className="mt-4 flex items-center gap-4">
+              <button className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7245e3] to-[#b34eda] text-white shadow-lg shadow-purple-200 transition hover:scale-105">
+                <svg className="h-6 w-6 ml-1" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
               </button>
 
               <div className="flex-1">
-                <p className="text-[17px] font-bold leading-tight text-[#1b152e]">
+                <p className="text-[16px] font-bold leading-tight text-[#1b152e]">
                   {action?.split('.')[0]}.
                 </p>
                 <p className="mt-1 text-[14px] font-medium text-[#6e6782]">
@@ -656,7 +656,7 @@ function PositiveResult({
           <div className="mt-5 flex w-full max-w-[540px] gap-4">
             <button
               onClick={onTryAnother}
-              className="flex flex-1 items-center justify-center gap-2 rounded-2xl border-2 border-[#e6dff2] bg-white/70 px-6 py-4 text-[15px] font-bold text-[#623ce1] backdrop-blur-md transition hover:bg-white"
+              className="flex flex-1 items-center justify-center gap-2 rounded-2xl border-2 border-[#e6dff2] bg-white/70 px-5 py-3.5 text-[14px] font-bold text-[#623ce1] backdrop-blur-md transition hover:bg-white"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
               Try Another
@@ -664,7 +664,7 @@ function PositiveResult({
 
             <button
               onClick={onSave}
-              className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-[#623ce1] px-6 py-4 text-[15px] font-bold text-white shadow-lg shadow-purple-200 transition hover:bg-[#522bbb]"
+              className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-[#623ce1] px-5 py-3.5 text-[14px] font-bold text-white shadow-lg shadow-purple-200 transition hover:bg-[#522bbb]"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
               {saved ? "Saved" : "Save to My Check-ins"}
@@ -678,8 +678,8 @@ function PositiveResult({
 
 function MoreForYou() {
   return (
-    <aside className="space-y-3.5">
-      <h3 className="mb-4 px-1 text-[15px] font-extrabold text-[#1a142c] flex items-center gap-2">
+    <aside className="space-y-2.5">
+      <h3 className="mb-3 px-1 text-[15px] font-extrabold text-[#1a142c] flex items-center gap-2">
         <span className="text-[#facc15] text-lg">⭐</span> More for You
       </h3>
 
@@ -719,15 +719,15 @@ function MoreForYou() {
         iconColor="text-[#db2777]"
       />
 
-      <div className="mt-6 rounded-[20px] border border-[#f0ebf8] bg-white p-5 shadow-sm">
+      <div className="mt-4 rounded-[16px] border border-[#f0ebf8] bg-white p-4 shadow-sm">
         <div className="flex gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#f5f1ff] text-[#7245e3]">
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[#f5f1ff] text-[#7245e3]">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           </span>
 
           <div>
-            <p className="text-[13px] font-bold text-[#1a142c]">Your data is private</p>
-            <p className="mt-1 text-[12px] font-medium leading-relaxed text-[#7a748c]">
+            <p className="text-[12px] font-bold text-[#1a142c]">Your data is private</p>
+            <p className="mt-0.5 text-[11px] font-medium leading-relaxed text-[#7a748c]">
               We use encryption & auto-delete your data after 90 days.
             </p>
           </div>
@@ -753,19 +753,19 @@ function PlanCard({
   iconColor: string;
 }) {
   return (
-    <div className="rounded-[20px] border border-[#f0ebf8] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-      <div className="flex gap-4">
-        <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] ${bg} ${iconColor}`}>
+    <div className="rounded-[16px] border border-[#f0ebf8] bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+      <div className="flex gap-3.5">
+        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] ${bg} ${iconColor}`}>
           {icon}
         </span>
 
         <div>
-          <h4 className="text-[14.px] font-bold text-[#1a142c]">{title}</h4>
-          <p className="mt-1 text-[13px] font-medium leading-relaxed text-[#7a748c]">
+          <h4 className="text-[13px] font-bold text-[#1a142c]">{title}</h4>
+          <p className="mt-0.5 text-[12px] font-medium leading-relaxed text-[#7a748c]">
             {text}
           </p>
 
-          <button className={`mt-2 text-[12px] font-bold ${iconColor.replace('text-', 'text-')}`}>
+          <button className={`mt-1.5 text-[11px] font-bold ${iconColor.replace('text-', 'text-')}`}>
             {button}
           </button>
         </div>

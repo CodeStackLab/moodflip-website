@@ -1,363 +1,62 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function SiteLoader() {
   const [visible, setVisible] = useState(true);
-  const [fading, setFading] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('moodflip_theme');
-    if (savedTheme === 'dark') {
-      setTheme('dark');
-    } else if (savedTheme === 'light') {
-      setTheme('light');
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-    }
-
-    const fadeTimer = setTimeout(() => setFading(true), 1800);
-    const hideTimer = setTimeout(() => setVisible(false), 2300);
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(hideTimer);
-    };
+    const fade = window.setTimeout(() => setLeaving(true), 1050);
+    const hide = window.setTimeout(() => setVisible(false), 1450);
+    return () => { window.clearTimeout(fade); window.clearTimeout(hide); };
   }, []);
 
   if (!visible) return null;
 
-  const isDark = theme === 'dark';
-
   return (
-    <>
+    <div className={`brand-loader ${leaving ? 'brand-loader--leaving' : ''}`} role="status" aria-live="polite" aria-label="MoodFlip is loading">
       <style>{`
-        /* ─── ORBITAL RINGS ─── */
-        @keyframes orbit1 {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-        @keyframes orbit2 {
-          from { transform: rotate(120deg); }
-          to   { transform: rotate(480deg); }
-        }
-        @keyframes orbit3 {
-          from { transform: rotate(240deg); }
-          to   { transform: rotate(600deg); }
-        }
-
-        /* ─── LOGO ICON ─── */
-        @keyframes logoPop {
-          0%   { transform: scale(0.7) rotate(-10deg); opacity: 0; }
-          50%  { transform: scale(1.08) rotate(3deg); opacity: 1; }
-          70%  { transform: scale(0.96) rotate(-1deg); }
-          100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-        @keyframes logoPulseGlow {
-          0%, 100% { box-shadow: 0 0 30px 8px rgba(124,84,209,0.45), 0 0 60px 16px rgba(236,72,153,0.2); }
-          50%       { box-shadow: 0 0 50px 16px rgba(124,84,209,0.65), 0 0 90px 28px rgba(236,72,153,0.35); }
-        }
-        @keyframes logoFloat {
-          0%, 100% { transform: translateY(0px); }
-          50%       { transform: translateY(-6px); }
-        }
-
-        /* ─── BRAND TEXT SHIMMER ─── */
-        @keyframes shimmer {
-          0%   { background-position: -400px 0; }
-          100% { background-position: 400px 0; }
-        }
-        @keyframes brandFadeUp {
-          from { opacity: 0; transform: translateY(16px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ─── TAGLINE TYPING CURSOR ─── */
-        @keyframes blinkCursor {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: 0; }
-        }
-
-        /* ─── PARTICLES ─── */
-        @keyframes particleFloat {
-          0%   { transform: translateY(0) scale(1); opacity: 0.9; }
-          100% { transform: translateY(-60px) scale(0); opacity: 0; }
-        }
-        .mf-particle {
-          position: absolute;
-          border-radius: 50%;
-          animation: particleFloat 2s ease-out infinite;
-          pointer-events: none;
-        }
-
-        /* ─── PROGRESS BAR ─── */
-        @keyframes progressFill {
-          0%   { width: 0%; opacity: 1; }
-          65%  { width: 80%; }
-          90%  { width: 96%; }
-          100% { width: 100%; opacity: 0.6; }
-        }
-        @keyframes progressShimmer {
-          0%   { background-position: -300px 0; }
-          100% { background-position: 300px 0; }
-        }
-
-        /* ─── DOTS ─── */
-        @keyframes dotPing {
-          0%, 80%, 100% { transform: scale(1); opacity: 0.7; }
-          40%            { transform: scale(1.6); opacity: 1; }
-        }
-
-        /* ─── LOADER FADE OUT ─── */
-        .mf-loader-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 9999;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
-        }
+        @keyframes loaderBreathe { 0%,100% { transform: scale(.94); opacity:.72 } 50% { transform: scale(1.08); opacity:1 } }
+        @keyframes loaderTurn { to { transform: rotate(360deg) } }
+        @keyframes loaderSpark { 0%,100% { transform: scale(.8) rotate(0); opacity:.55 } 50% { transform: scale(1.15) rotate(16deg); opacity:1 } }
+        @keyframes loaderRise { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
+        @keyframes loaderProgress { from { transform:scaleX(0) } to { transform:scaleX(1) } }
+        .brand-loader { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; overflow:hidden; background:radial-gradient(circle at 18% 16%,rgba(239,108,168,.17),transparent 31rem),radial-gradient(circle at 82% 20%,rgba(86,200,207,.16),transparent 32rem),linear-gradient(150deg,#fcfaff,#f5f4ff 52%,#f1f8fb); transition:opacity .4s ease,visibility .4s ease; }
+        .brand-loader--leaving { opacity:0; visibility:hidden; pointer-events:none; }
+        .brand-loader__grain { position:absolute; inset:0; opacity:.38; background-image:linear-gradient(rgba(85,67,216,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(85,67,216,.035) 1px,transparent 1px); background-size:42px 42px; mask-image:radial-gradient(circle,#000 20%,transparent 76%); }
+        .brand-loader__content { position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; padding:24px; animation:loaderRise .5s ease both; }
+        .brand-loader__stage { width:144px; height:144px; position:relative; display:grid; place-items:center; margin-bottom:24px; }
+        .brand-loader__halo { position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 20deg,rgba(239,108,168,.34),rgba(102,84,232,.18),rgba(86,200,207,.34),rgba(239,108,168,.34)); filter:blur(1px); animation:loaderBreathe 2.4s ease-in-out infinite; }
+        .brand-loader__orbit { position:absolute; inset:8px; border-radius:50%; border:1px solid rgba(102,84,232,.18); border-top-color:#6654e8; animation:loaderTurn 2.8s linear infinite; }
+        .brand-loader__mark { width:82px; height:82px; border-radius:25px; display:grid; place-items:center; background:linear-gradient(135deg,#ef6ca8,#6654e8 54%,#56c8cf); box-shadow:0 20px 50px rgba(85,67,216,.3),inset 0 1px 0 rgba(255,255,255,.4); transform:rotate(-5deg); }
+        .brand-loader__mark svg { width:52px; height:52px; transform:rotate(5deg); }
+        .brand-loader__spark { position:absolute; right:13px; top:13px; width:19px; height:19px; animation:loaderSpark 1.5s ease-in-out infinite; }
+        .brand-loader__name { margin:0; font:600 38px/1.05 'Newsreader',Georgia,serif; letter-spacing:-.035em; color:#18152b; }
+        .brand-loader__name span { color:#6654e8; font-style:italic; }
+        .brand-loader__copy { margin:9px 0 20px; color:rgba(24,21,43,.58); font:700 11px/1.4 'Manrope',sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+        .brand-loader__track { width:150px; height:4px; overflow:hidden; border-radius:999px; background:rgba(102,84,232,.1); }
+        .brand-loader__bar { width:100%; height:100%; border-radius:inherit; transform-origin:left; background:linear-gradient(90deg,#ef6ca8,#6654e8,#56c8cf); animation:loaderProgress 1.08s cubic-bezier(.22,1,.36,1) both; }
+        @media (max-width:520px) { .brand-loader__stage{width:124px;height:124px}.brand-loader__mark{width:72px;height:72px;border-radius:22px}.brand-loader__name{font-size:33px} }
+        @media (prefers-reduced-motion:reduce) { .brand-loader__halo,.brand-loader__orbit,.brand-loader__spark,.brand-loader__bar{animation:none}.brand-loader__bar{transform:scaleX(1)} }
       `}</style>
-
-      <div
-        className="mf-loader-overlay"
-        style={{
-          background: isDark
-            ? 'radial-gradient(ellipse at 50% 40%, #180c2e 0%, #0c0618 60%, #08040f 100%)'
-            : 'radial-gradient(ellipse at 50% 40%, #fdf4ff 0%, #f8edfb 40%, #f0e8ff 100%)',
-          opacity: fading ? 0 : 1,
-          pointerEvents: fading ? 'none' : 'all',
-        }}
-      >
-
-        {/* ── BACKGROUND GRID / VIGNETTE ── */}
-        <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none',
-          backgroundImage: isDark
-            ? 'linear-gradient(rgba(124,84,209,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(124,84,209,0.04) 1px, transparent 1px)'
-            : 'linear-gradient(rgba(124,84,209,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(124,84,209,0.06) 1px, transparent 1px)',
-          backgroundSize: '44px 44px',
-          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%)',
-        }} />
-
-        {/* ── FLOATING AMBIENT ORBS ── */}
-        <div style={{
-          position: 'absolute', width: '340px', height: '340px', borderRadius: '50%',
-          background: isDark
-            ? 'radial-gradient(circle, rgba(124,84,209,0.18) 0%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(124,84,209,0.12) 0%, transparent 70%)',
-          top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', width: '200px', height: '200px', borderRadius: '50%',
-          background: isDark
-            ? 'radial-gradient(circle, rgba(236,72,153,0.14) 0%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(236,72,153,0.09) 0%, transparent 70%)',
-          top: '42%', left: '52%', transform: 'translate(-50%,-50%)',
-          pointerEvents: 'none',
-        }} />
-
-        {/* ── ORBITAL RINGS SYSTEM ── */}
-        <div style={{ position: 'relative', width: '160px', height: '160px', marginBottom: '2.2rem' }}>
-
-          {/* Ring 1 — slow outer */}
-          <div style={{
-            position: 'absolute', inset: '-16px',
-            border: '1.5px solid transparent',
-            borderTopColor: isDark ? 'rgba(168,85,247,0.7)' : 'rgba(124,84,209,0.5)',
-            borderRightColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(124,84,209,0.15)',
-            borderRadius: '50%',
-            animation: 'orbit1 3.2s linear infinite',
-          }}>
-            {/* Orbit dot 1 */}
-            <div style={{
-              position: 'absolute', top: '-4px', left: '50%', transform: 'translateX(-50%)',
-              width: '8px', height: '8px', borderRadius: '50%',
-              background: isDark ? '#a855f7' : '#7c54d1',
-              boxShadow: '0 0 12px 4px rgba(168,85,247,0.7)',
-            }} />
+      <div className="brand-loader__grain" />
+      <div className="brand-loader__content">
+        <div className="brand-loader__stage">
+          <div className="brand-loader__halo" />
+          <div className="brand-loader__orbit" />
+          <div className="brand-loader__mark">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M32 52C20 45 12 38 12 28c0-7 5-12 12-12 4 0 7 2 9 5 2-3 5-5 9-5 7 0 12 5 12 12 0 10-8 17-22 24Z" fill="white" />
+              <path d="m35 18 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" fill="#6654e8" />
+            </svg>
           </div>
-
-          {/* Ring 2 — medium */}
-          <div style={{
-            position: 'absolute', inset: '0px',
-            border: '1.5px solid transparent',
-            borderTopColor: isDark ? 'rgba(236,72,153,0.6)' : 'rgba(236,72,153,0.45)',
-            borderLeftColor: isDark ? 'rgba(236,72,153,0.2)' : 'rgba(236,72,153,0.12)',
-            borderRadius: '50%',
-            animation: 'orbit2 2.2s linear infinite',
-          }}>
-            {/* Orbit dot 2 */}
-            <div style={{
-              position: 'absolute', top: '-4px', left: '50%', transform: 'translateX(-50%)',
-              width: '7px', height: '7px', borderRadius: '50%',
-              background: isDark ? '#ec4899' : '#db2777',
-              boxShadow: '0 0 10px 3px rgba(236,72,153,0.7)',
-            }} />
-          </div>
-
-          {/* Ring 3 — fast inner */}
-          <div style={{
-            position: 'absolute', inset: '16px',
-            border: '1.5px solid transparent',
-            borderTopColor: isDark ? 'rgba(251,191,36,0.55)' : 'rgba(234,179,8,0.45)',
-            borderBottomColor: isDark ? 'rgba(251,191,36,0.15)' : 'rgba(234,179,8,0.1)',
-            borderRadius: '50%',
-            animation: 'orbit3 1.5s linear infinite',
-          }}>
-            {/* Orbit dot 3 */}
-            <div style={{
-              position: 'absolute', top: '-4px', left: '50%', transform: 'translateX(-50%)',
-              width: '6px', height: '6px', borderRadius: '50%',
-              background: isDark ? '#fbbf24' : '#d97706',
-              boxShadow: '0 0 8px 2px rgba(251,191,36,0.65)',
-            }} />
-          </div>
-
-          {/* ── LOGO ICON CENTER ── */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <div style={{
-              width: '76px', height: '76px', borderRadius: '22px',
-              background: 'linear-gradient(135deg, #7c54d1 0%, #a855f7 50%, #ec4899 100%)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '2.1rem',
-              animation: 'logoPop 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards, logoPulseGlow 2.4s ease-in-out infinite 0.7s, logoFloat 3s ease-in-out infinite 0.7s',
-              boxShadow: '0 8px 32px rgba(124,84,209,0.5)',
-            }}>
-              💫
-            </div>
-          </div>
-
-          {/* ── MINI PARTICLES ── */}
-          {[
-            { left: '20%', bottom: '10%', size: 5, delay: '0s',    color: '#a855f7' },
-            { left: '70%', bottom: '15%', size: 4, delay: '0.4s',  color: '#ec4899' },
-            { left: '45%', bottom: '5%',  size: 6, delay: '0.8s',  color: '#7c54d1' },
-            { left: '80%', bottom: '30%', size: 3, delay: '0.6s',  color: '#fbbf24' },
-            { left: '10%', bottom: '35%', size: 4, delay: '1.1s',  color: '#a855f7' },
-          ].map((p, i) => (
-            <div
-              key={i}
-              className="mf-particle"
-              style={{
-                left: p.left, bottom: p.bottom,
-                width: `${p.size}px`, height: `${p.size}px`,
-                background: p.color,
-                boxShadow: `0 0 6px 2px ${p.color}88`,
-                animationDelay: p.delay,
-                animationDuration: `${1.6 + i * 0.3}s`,
-              }}
-            />
-          ))}
+          <svg className="brand-loader__spark" viewBox="0 0 20 20" aria-hidden="true"><path d="m10 0 2.5 7.5L20 10l-7.5 2.5L10 20l-2.5-7.5L0 10l7.5-2.5L10 0Z" fill="#fff" /></svg>
         </div>
-
-        {/* ── BRAND NAME with SHIMMER ── */}
-        <div style={{
-          fontFamily: "'Fraunces', Georgia, serif",
-          fontSize: '2.5rem',
-          fontWeight: 800,
-          letterSpacing: '-0.02em',
-          backgroundImage: isDark
-            ? 'linear-gradient(90deg, #c084fc 0%, #f9a8d4 30%, #ffffff 50%, #c084fc 70%, #f9a8d4 100%)'
-            : 'linear-gradient(90deg, #7c54d1 0%, #a855f7 30%, #ec4899 50%, #7c54d1 70%, #a855f7 100%)',
-          backgroundSize: '400px 100%',
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          WebkitTextFillColor: 'transparent',
-          animation: 'brandFadeUp 0.5s ease 0.3s both, shimmer 2.2s linear infinite',
-          marginBottom: '0.5rem',
-        }}>
-          MoodFlip
-        </div>
-
-        {/* ── TAGLINE ── */}
-        <div style={{
-          fontSize: '0.82rem',
-          fontWeight: 600,
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          color: isDark ? 'rgba(196,176,230,0.8)' : 'rgba(100,82,140,0.75)',
-          animation: 'brandFadeUp 0.5s ease 0.5s both',
-          marginBottom: '2.4rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-        }}>
-          Flip your mood in 60 seconds
-          <span style={{
-            display: 'inline-block',
-            width: '2px', height: '14px',
-            background: isDark ? '#a855f7' : '#7c54d1',
-            borderRadius: '1px',
-            animation: 'blinkCursor 0.9s ease-in-out infinite',
-          }} />
-        </div>
-
-        {/* ── BOUNCING DOTS ── */}
-        <div style={{ display: 'flex', gap: '0.55rem', animation: 'brandFadeUp 0.5s ease 0.6s both' }}>
-          {[0, 1, 2, 3].map(i => (
-            <div
-              key={i}
-              style={{
-                width: i === 1 || i === 2 ? '10px' : '8px',
-                height: i === 1 || i === 2 ? '10px' : '8px',
-                borderRadius: '50%',
-                background: i === 0 ? '#7c54d1'
-                  : i === 1 ? '#a855f7'
-                  : i === 2 ? '#ec4899'
-                  : '#f43f5e',
-                boxShadow: `0 0 10px 3px ${
-                  i === 0 ? 'rgba(124,84,209,0.5)'
-                  : i === 1 ? 'rgba(168,85,247,0.5)'
-                  : i === 2 ? 'rgba(236,72,153,0.5)'
-                  : 'rgba(244,63,94,0.5)'
-                }`,
-                animation: 'dotPing 1s ease-in-out infinite',
-                animationDelay: `${i * 0.18}s`,
-              }}
-            />
-          ))}
-        </div>
-
-        {/* ── PROGRESS BAR ── */}
-        <div style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0,
-          height: '3px',
-          background: isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,84,209,0.08)',
-        }}>
-          <div style={{
-            height: '100%',
-            backgroundImage: 'linear-gradient(90deg, #7c54d1, #a855f7, #ec4899, #f43f5e, #a855f7)',
-            backgroundSize: '300px 100%',
-            animation: `progressFill ${1.9}s cubic-bezier(0.4,0,0.2,1) forwards, progressShimmer 1.2s linear infinite`,
-          }} />
-        </div>
-
-        {/* ── CORNER ACCENT DOTS ── */}
-        {[
-          { top: '24px', left: '24px' },
-          { top: '24px', right: '24px' },
-          { bottom: '24px', left: '24px' },
-          { bottom: '24px', right: '24px' },
-        ].map((pos, i) => (
-          <div key={i} style={{
-            position: 'absolute', ...pos,
-            width: '6px', height: '6px', borderRadius: '50%',
-            background: isDark ? 'rgba(168,85,247,0.35)' : 'rgba(124,84,209,0.25)',
-            boxShadow: '0 0 8px rgba(168,85,247,0.3)',
-          }} />
-        ))}
-
+        <h1 className="brand-loader__name">Mood<span>Flip</span></h1>
+        <p className="brand-loader__copy">A small shift starts here</p>
+        <div className="brand-loader__track"><div className="brand-loader__bar" /></div>
       </div>
-    </>
+    </div>
   );
 }

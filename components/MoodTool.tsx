@@ -193,19 +193,19 @@ export default function MoodTool(): React.JSX.Element {
         @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
         .mf2-root {
-          --paper: #F6F7F2;
-          --surface: #FFFFFF;
-          --ink: #1E211C;
-          --ink-soft: rgba(30,33,28,0.60);
-          --ink-faint: rgba(30,33,28,0.38);
-          --sage: #56765B;
-          --sage-deep: #3E5942;
-          --sage-soft: #E3EAE0;
-          --gold: #CBA766;
-          --line: rgba(30,33,28,0.10);
+          --paper: #f7f7ff;
+          --surface: rgba(255,255,255,0.84);
+          --ink: #18152b;
+          --ink-soft: rgba(24,21,43,0.68);
+          --ink-faint: rgba(24,21,43,0.46);
+          --sage: #6d5ce8;
+          --sage-deep: #5543d8;
+          --sage-soft: #eeebff;
+          --gold: #f09a70;
+          --line: rgba(73,61,139,0.13);
 
           font-family: 'Manrope', sans-serif;
-          background: var(--paper);
+          background: radial-gradient(circle at 8% 4%, rgba(239,108,168,.13), transparent 30rem), radial-gradient(circle at 92% 10%, rgba(86,200,207,.14), transparent 34rem), linear-gradient(180deg, #fbfaff 0%, var(--paper) 50%, #f3f6ff 100%);
           color: var(--ink);
           -webkit-font-smoothing: antialiased;
           overflow-x: hidden;
@@ -221,15 +221,16 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-mono { font-family: 'Space Mono', monospace; }
         .mf2-root :focus-visible { outline: 2px solid var(--sage-deep); outline-offset: 3px; border-radius: 4px; }
 
-        .mf2-wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+        .mf2-wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
         .mf2-wrap-narrow { max-width: 720px; margin: 0 auto; padding: 0 28px; }
 
         /* ---------------- nav ---------------- */
         .mf2-nav { position: sticky; top: 0; z-index: 50; padding: 22px 0; transition: all 0.35s ease; }
-        .mf2-nav.mf2-scrolled { background: rgba(246,247,242,0.92); backdrop-filter: blur(12px); padding: 14px 0; box-shadow: 0 1px 0 var(--line); }
+        .mf2-nav.mf2-scrolled { background: rgba(250,249,255,0.82); backdrop-filter: blur(20px) saturate(140%); padding: 14px 0; box-shadow: 0 1px 0 var(--line); }
         .mf2-nav-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .mf2-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
-        .mf2-brand-mark { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--sage), var(--sage-deep)); flex-shrink: 0; }
+        .mf2-brand-mark { width: 30px; height: 30px; border-radius: 10px; background: linear-gradient(135deg, #ef6ca8, var(--sage-deep) 55%, #56c8cf); box-shadow: 0 8px 18px rgba(85,67,216,.28); transform: rotate(-8deg); flex-shrink: 0; display:grid; place-items:center; }
+        .mf2-brand-mark::before { content: "♥"; color:#fff; font-size:15px; line-height:1; transform:rotate(8deg); text-shadow:0 1px 2px rgba(49,35,132,.2); }
         .mf2-nav-links { display: flex; align-items: center; gap: 34px; font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
         .mf2-nav-links a:hover { color: var(--ink); }
         .mf2-nav-right { display: flex; align-items: center; gap: 22px; }
@@ -237,16 +238,16 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-login:hover { color: var(--ink); }
         .mf2-burger { display: none; background: none; border: none; font-size: 22px; color: var(--ink); }
 
-        .mf2-btn { border-radius: 10px; padding: 13px 24px; font-weight: 700; font-size: 14.5px; border: none; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease; }
+        .mf2-btn { border-radius: 999px; padding: 13px 24px; font-weight: 700; font-size: 14.5px; border: none; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease; }
         .mf2-btn:hover { transform: translateY(-1px); }
-        .mf2-btn-primary { background: var(--sage-deep); color: #fff; box-shadow: 0 8px 20px rgba(62,89,66,0.22); }
-        .mf2-btn-primary:hover { background: #334a36; }
+        .mf2-btn-primary { background: linear-gradient(135deg, #6654e8, #4b3bc5); color: #fff; box-shadow: 0 12px 28px rgba(85,67,216,.28); }
+        .mf2-btn-primary:hover { background: linear-gradient(135deg, #725ff1, #4434bb); }
         .mf2-btn-sm { padding: 10px 18px; font-size: 13.5px; }
 
         /* ---------------- hero ---------------- */
-        .mf2-hero { padding: 75px 0 40px; text-align: center; position: relative; }
-        .mf2-eyebrow-line { font-size: 13px; font-weight: 700; color: var(--sage-deep); letter-spacing: 0.04em; margin-bottom: 22px; text-transform: uppercase; }
-        .mf2-hero h1 { font-size: clamp(36px, 5.4vw, 56px); line-height: 1.12; max-width: 16ch; margin: 0 auto 22px; }
+        .mf2-hero { padding: 86px 0 46px; text-align: center; position: relative; }
+        .mf2-eyebrow-line { display: inline-flex; font-size: 12px; font-weight: 800; color: var(--sage-deep); letter-spacing: .07em; margin-bottom: 24px; text-transform: uppercase; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.72); border: 1px solid var(--line); }
+        .mf2-hero h1 { font-size: clamp(40px, 6vw, 68px); line-height: 1.04; max-width: 15ch; letter-spacing: -0.035em; margin: 0 auto 22px; }
         .mf2-hero-sub { font-size: 17.5px; line-height: 1.65; color: var(--ink-soft); max-width: 46ch; margin: 0 auto 30px; }
         .mf2-hero-cta { margin-bottom: 26px; }
         .mf2-trust-line { font-size: 13.5px; color: var(--ink-faint); font-weight: 500; }
@@ -255,19 +256,19 @@ export default function MoodTool(): React.JSX.Element {
         /* ---------------- demo section ---------------- */
         .mf2-demo-section { padding: 30px 0 90px; }
         .mf2-demo-card {
-          background: var(--surface); border: 1px solid var(--line); border-radius: 28px;
-          padding: 46px; display: grid; grid-template-columns: 220px 1fr; gap: 44px; align-items: center;
-          box-shadow: 0 24px 60px rgba(30,33,28,0.06);
+          background: var(--surface); border: 1px solid rgba(255,255,255,.82); border-radius: 32px;
+          padding: 50px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; align-items: center;
+          box-shadow: 0 32px 80px rgba(55,43,120,.12), inset 0 0 0 1px var(--line); backdrop-filter: blur(18px);
         }
         .mf2-orb-col { display: flex; flex-direction: column; align-items: center; gap: 18px; }
         .mf2-orb-wrap { position: relative; width: 170px; height: 170px; display: flex; align-items: center; justify-content: center; }
-        .mf2-orb-ring { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 34% 30%, var(--sage-soft), rgba(227,234,224,0)); animation: mf2Breathe 5.5s ease-in-out infinite; }
+        .mf2-orb-ring { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 30deg, rgba(239,108,168,.22), rgba(109,92,232,.22), rgba(86,200,207,.22), rgba(239,108,168,.22)); animation: mf2Breathe 5.5s ease-in-out infinite; }
         .mf2-cleared .mf2-orb-ring { background: radial-gradient(circle at 34% 30%, #F1E4C4, rgba(241,228,196,0)); }
         @keyframes mf2Breathe { 0%, 100% { transform: scale(0.92); opacity: 0.75; } 50% { transform: scale(1.08); opacity: 1; } }
         .mf2-orb-core {
           position: relative; width: 128px; height: 128px; border-radius: 50%;
-          background: var(--sage-deep); display: flex; flex-direction: column; align-items: center; justify-content: center;
-          transition: background 0.8s ease; box-shadow: 0 14px 30px rgba(62,89,66,0.25);
+          background: linear-gradient(145deg, #7463ee, #4c3bc2); display: flex; flex-direction: column; align-items: center; justify-content: center;
+          transition: background 0.8s ease; box-shadow: 0 18px 38px rgba(85,67,216,.32), inset 0 1px 0 rgba(255,255,255,.3);
         }
         .mf2-cleared .mf2-orb-core { background: linear-gradient(140deg, var(--gold), var(--sage)); }
         .mf2-orb-icon { font-size: 28px; margin-bottom: 4px; }
@@ -288,10 +289,10 @@ export default function MoodTool(): React.JSX.Element {
           display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
           transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
         }
-        .mf2-chip:hover { border-color: var(--sage-deep); background: var(--sage-soft); transform: translateY(-1px); }
+        .mf2-chip:hover { border-color: var(--sage); background: var(--sage-soft); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(85,67,216,.11); }
         .mf2-chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-        .mf2-flip-btn { background: var(--sage-deep); color: #fff; border: none; border-radius: 999px; padding: 13px 26px; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: background 0.2s ease, transform 0.15s ease; }
+        .mf2-flip-btn { background: linear-gradient(135deg, #ef6ca8, var(--sage-deep)); color: #fff; border: none; border-radius: 999px; padding: 13px 26px; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: background 0.2s ease, transform 0.15s ease; }
         .mf2-flip-btn:hover { background: #334a36; transform: translateY(-1px); }
 
         .mf2-result { animation: mf2Fade 0.6s ease; }
@@ -345,7 +346,8 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-price-note { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 18px; font-weight: 500; }
 
         /* faq */
-        .mf2-faq-item { border-bottom: 1px solid var(--line); }
+        .mf2-faq-item { border: 1px solid var(--line); background: rgba(255,255,255,.68); border-radius: 16px; margin-bottom: 10px; padding: 0 18px; }
+        .mf2-faq-item.mf2-open { background: rgba(255,255,255,.94); border-color: rgba(109,92,232,.26); }
         .mf2-faq-q { width: 100%; text-align: left; background: none; border: none; display: flex; justify-content: space-between; align-items: center; padding: 22px 2px; font-size: 16.5px; font-weight: 600; color: var(--ink); cursor: pointer; }
         .mf2-faq-icon { font-size: 20px; font-weight: 400; color: var(--ink-faint); transition: transform 0.3s ease; }
         .mf2-faq-item.mf2-open .mf2-faq-icon { transform: rotate(45deg); }
@@ -378,11 +380,19 @@ export default function MoodTool(): React.JSX.Element {
           .mf2-why-item:nth-child(n+2) { border-top: 1px solid var(--line); }
           .mf2-nav-links { display: none; }
           .mf2-burger { display: block; }
+          .mf2-nav-right > .mf2-login, .mf2-nav-right > .mf2-btn { display: none; }
           .mf2-price-card { grid-template-columns: 1fr; text-align: center; }
         }
         @media (max-width: 520px) {
           .mf2-wrap, .mf2-wrap-narrow { padding: 0 18px; }
-          .mf2-demo-card { padding: 30px 22px; border-radius: 22px; }
+          .mf2-hero { padding: 58px 0 28px; }
+          .mf2-hero h1 { font-size: clamp(38px, 12vw, 52px); }
+          .mf2-hero-sub { font-size: 16px; }
+          .mf2-trust-line { display: flex; flex-direction: column; gap: 5px; }
+          .mf2-trust-line span { display: none; }
+          .mf2-demo-card { padding: 30px 20px; border-radius: 24px; gap: 26px; }
+          .mf2-chip-row { display: grid; grid-template-columns: 1fr 1fr; }
+          .mf2-chip { justify-content: center; padding: 11px 12px; }
           .mf2-timeline { grid-template-columns: 1fr; }
           .mf2-footer-row { flex-direction: column; align-items: flex-start; }
         }

@@ -353,6 +353,40 @@ export default function HomePage() {
           <article><span className={styles.trustIcon}>✨</span><div><strong>Made with Care</strong><p>Simple tools for a better<br />you, one step at a time.</p></div></article>
         </section>
 
+        {/* Welcome Back Floating Card Popup */}
+        {showWelcomeCard && (
+          <aside className={styles.welcomeCardPopup} aria-label="Welcome Back Prompt">
+            <button
+              type="button"
+              className={styles.welcomeCloseBtn}
+              onClick={() => setShowWelcomeCard(false)}
+              aria-label="Close message"
+            >
+              ×
+            </button>
+            <div className={styles.welcomeCardHeader}>
+              <div className={styles.welcomeAvatarCircle}>
+                <span>👤</span>
+              </div>
+              <div>
+                <h3>Welcome Back! 👋</h3>
+                <p>Create a profile to save your mood check-ins and get personalized support.</p>
+              </div>
+            </div>
+            <Link href="/register" className={styles.welcomeCreateBtn}>
+              Create My Profile
+            </Link>
+            <button
+              type="button"
+              className={styles.welcomeMaybeBtn}
+              onClick={() => setShowWelcomeCard(false)}
+            >
+              Maybe Later
+            </button>
+            <span className={styles.welcomeSubnote}>It only takes 30 seconds.</span>
+          </aside>
+        )}
+
         {/* Section 1: How MoodFlip Works */}
         <section id="how" className={styles.howSection}>
           <div className={styles.howHeader}>

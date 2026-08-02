@@ -531,22 +531,6 @@ export default function HomePage() {
           </nav>
           <span>© 2026 MoodFlip.coach 💜</span>
         </footer>
-
-        {showWelcome && (
-          <aside className={styles.welcomeCard} role="dialog" aria-label="Create profile prompt">
-            <button className={styles.closeWelcome} type="button" onClick={() => setShowWelcome(false)} aria-label="Close">×</button>
-            <div className={styles.welcomeContent}>
-              <div className={styles.profileBubble}>👤</div>
-              <div>
-                <h3>Welcome Back! 👋</h3>
-                <p>Create a profile to save your mood<br />check-ins and get personalized<br />support.</p>
-              </div>
-            </div>
-            <button className={styles.createProfile} type="button">Create My Profile</button>
-            <button className={styles.maybeLater} type="button" onClick={() => setShowWelcome(false)}>Maybe Later</button>
-            <small>It only takes 30 seconds.</small>
-          </aside>
-        )}
       </div>
     </main>
   );

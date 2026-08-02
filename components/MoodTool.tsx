@@ -1158,13 +1158,7 @@ export default function MoodTool(): React.JSX.Element {
             </div>
             <div className="mf2-price-tag">
               <div className="mf2-price-num">$7 / $19</div>
-              <div className="mf2-price-note">one-time plans, shown without popups</div>
-              <button
-                className="mf2-btn mf2-btn-primary"
-                onClick={() => document.getElementById('paid-pdf-section')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                View plans
-              </button>
+              <div className="mf2-price-note">one-time plans, no subscription</div>
             </div>
           </div>
           <div style={{ marginTop: 18 }}>

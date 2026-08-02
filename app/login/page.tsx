@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import styles from '../page.module.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -21,191 +20,486 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] text-[#2D264B]">
-      <Header />
+    <main className={styles.pageShell}>
+      <div className={styles.appFrame}>
+        {/* Header */}
+        <header className={styles.header}>
+          <a className={styles.logo} href="/" aria-label="MoodFlip home">
+            <span className={styles.logoMark} aria-hidden="true">
+              <span />
+              <span />
+            </span>
+            <span>mood<span>flip</span></span>
+          </a>
 
-      <main className="mx-auto max-w-[1340px] px-6 py-8">
+          <nav className={styles.nav} aria-label="Primary navigation">
+            <Link href="/">Home</Link>
+            <a href="/#about">About</a>
+            <a href="/#how">How It Works</a>
+            <a href="/#library">Mood Library</a>
+            <a href="/#resources">Resources</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+
+          <div className={styles.headerActions}>
+            <button className={styles.loginButton} type="button"><span>👤</span> Login</button>
+            <button className={styles.planButton} type="button">Get 7-Day Plan</button>
+          </div>
+        </header>
+
         {/* Main 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-6 items-stretch min-h-[580px]">
-          {/* Left Column: Artistic Landscape Hero & Feature Strip */}
-          <div className="relative overflow-hidden rounded-3xl border border-[#ede6f5] p-8 md:p-10 flex flex-col justify-between shadow-sm bg-gradient-to-b from-[#fff2f8] via-[#fff9ea] to-[#fff4fa]">
-            <div>
-              <h1 className="font-serif text-3xl md:text-4xl font-extrabold text-[#1a1338] leading-tight mb-3.5">
-                A calmer mind.<br />A better you.
-              </h1>
-              <p className="text-sm md:text-base text-[#554d6e] leading-relaxed m-0">
-                Login to continue your journey<br />towards calm, clarity and growth.
+        <section style={{ padding: '24px 28px' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 480px',
+            gap: '24px',
+            alignItems: 'stretch',
+            minHeight: '600px'
+          }}>
+            {/* Left Column: Artistic Landscape Hero & Feature Strip */}
+            <div style={{
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: '24px',
+              border: '1px solid #ede6f5',
+              padding: '40px 36px 28px',
+              display: 'flex',
+              flexDirection: 'column',
+              justify-content: 'space-between',
+              background: 'radial-gradient(circle at 50% 30%, rgba(255, 248, 220, 0.9), transparent 50%), radial-gradient(circle at 10% 10%, rgba(252, 225, 245, 0.8), transparent 40%), linear-gradient(180deg, #fff2f8 0%, #fff9ea 50%, #fff4fa 100%)',
+              boxShadow: '0 16px 38px rgba(81, 59, 128, 0.035)'
+            }}>
+              <div>
+                <h1 style={{
+                  fontFamily: 'Georgia, "Times New Roman", serif',
+                  fontSize: '36px',
+                  lineHeight: '1.25',
+                  color: '#1a1338',
+                  fontWeight: '800',
+                  margin: '0 0 14px'
+                }}>
+                  A calmer mind.<br />A better you.
+                </h1>
+                <p style={{
+                  fontSize: '15px',
+                  color: '#554d6e',
+                  lineHeight: '1.5',
+                  margin: 0
+                }}>
+                  Login to continue your journey<br />towards calm, clarity and growth.
+                </p>
+              </div>
+
+              {/* Sunrise & Mountain Background */}
+              <div style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: '160px',
+                height: '280px',
+                pointerEvents: 'none',
+                zIndex: 1
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '40px',
+                  transform: 'translateX(-50%)',
+                  width: '72px',
+                  height: '72px',
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, #fff7d6 0%, #ffcf75 60%, #ef9c4e 100%)',
+                  boxShadow: '0 0 40px rgba(255, 207, 117, 0.8)'
+                }} />
+                <div style={{
+                  position: 'absolute',
+                  left: '-10%',
+                  right: '-10%',
+                  bottom: '20px',
+                  height: '140px',
+                  borderRadius: '50% 50% 0 0',
+                  background: 'linear-gradient(180deg, rgba(246, 183, 211, 0.8), rgba(220, 129, 199, 0.7))'
+                }} />
+                <div style={{
+                  position: 'absolute',
+                  left: '-15%',
+                  right: '-15%',
+                  bottom: '-40px',
+                  height: '180px',
+                  borderRadius: '50% 50% 0 0',
+                  background: 'linear-gradient(180deg, #f4b8d7, #cf75bb)'
+                }} />
+              </div>
+
+              {/* Bottom Feature Items Strip */}
+              <div style={{
+                position: 'relative',
+                zIndex: 4,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: '10px',
+                background: 'rgba(255, 255, 255, 0.88)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: '18px',
+                padding: '16px 14px',
+                border: '1px solid rgba(230, 220, 245, 0.85)',
+                boxShadow: '0 8px 24px rgba(60, 40, 110, 0.05)',
+                marginTop: '40px'
+              }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '34px',
+                    height: '34px',
+                    borderRadius: '10px',
+                    background: '#f2ebff',
+                    color: '#7147e8',
+                    display: 'grid',
+                    placeItems: 'center',
+                    margin: '0 auto 6px',
+                    fontSize: '16px'
+                  }}>🛡️</div>
+                  <strong style={{ display: 'block', fontSize: '11px', color: '#231d3e' }}>Private &amp; Secure</strong>
+                  <span style={{ fontSize: '9px', color: '#736b85', lineHeight: '1.2', display: 'block' }}>Your data is encrypted.</span>
+                </div>
+
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '34px',
+                    height: '34px',
+                    borderRadius: '10px',
+                    background: '#edfaef',
+                    color: '#28ad79',
+                    display: 'grid',
+                    placeItems: 'center',
+                    margin: '0 auto 6px',
+                    fontSize: '16px'
+                  }}>🟢</div>
+                  <strong style={{ display: 'block', fontSize: '11px', color: '#231d3e' }}>Encrypted Access</strong>
+                  <span style={{ fontSize: '9px', color: '#736b85', lineHeight: '1.2', display: 'block' }}>Enterprise-grade security</span>
+                </div>
+
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '34px',
+                    height: '34px',
+                    borderRadius: '10px',
+                    background: '#fff0f3',
+                    color: '#e64f8e',
+                    display: 'grid',
+                    placeItems: 'center',
+                    margin: '0 auto 6px',
+                    fontSize: '16px'
+                  }}>❤️</div>
+                  <strong style={{ display: 'block', fontSize: '11px', color: '#231d3e' }}>Built for Wellness</strong>
+                  <span style={{ fontSize: '9px', color: '#736b85', lineHeight: '1.2', display: 'block' }}>Supporting your mind</span>
+                </div>
+
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '34px',
+                    height: '34px',
+                    borderRadius: '10px',
+                    background: '#f4ebff',
+                    color: '#9a4acb',
+                    display: 'grid',
+                    placeItems: 'center',
+                    margin: '0 auto 6px',
+                    fontSize: '16px'
+                  }}>🔒</div>
+                  <strong style={{ display: 'block', fontSize: '11px', color: '#231d3e' }}>You&apos;re in Control</strong>
+                  <span style={{ fontSize: '9px', color: '#736b85', lineHeight: '1.2', display: 'block' }}>Privacy comes first</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Unified Login Form Card */}
+            <div style={{
+              background: '#ffffff',
+              borderRadius: '24px',
+              padding: '36px 32px',
+              border: '1px solid #eee7f5',
+              boxShadow: '0 16px 40px rgba(60, 40, 110, 0.05)',
+              display: 'flex',
+              flexDirection: 'column',
+              justify-content: 'center'
+            }}>
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '50%',
+                background: '#f5eeff',
+                display: 'grid',
+                placeItems: 'center',
+                margin: '0 auto 12px',
+                fontSize: '26px'
+              }}>
+                😊
+              </div>
+
+              <h2 style={{
+                fontFamily: 'Georgia, "Times New Roman", serif',
+                fontSize: '28px',
+                color: '#181236',
+                margin: '0 0 4px',
+                textAlign: 'center',
+                fontWeight: '700'
+              }}>
+                Welcome Back
+              </h2>
+
+              <p style={{
+                fontSize: '14px',
+                color: '#7147e8',
+                fontWeight: '700',
+                margin: '0 0 14px',
+                textAlign: 'center'
+              }}>
+                Sign in to MoodFlip
               </p>
-            </div>
 
-            {/* Sunrise & Mountain Background */}
-            <div className="absolute left-0 right-0 top-36 h-64 pointer-events-none z-0">
-              <div className="absolute left-1/2 top-8 -translate-x-1/2 w-16 h-16 rounded-full bg-gradient-to-tr from-[#ffcf75] to-[#ef9c4e] shadow-[0_0_40px_rgba(255,207,117,0.8)]" />
-              <div className="absolute -left-[10%] -right-[10%] bottom-4 h-32 rounded-[50%_50%_0_0] bg-gradient-to-b from-[rgba(246,183,211,0.8)] to-[rgba(220,129,199,0.7)]" />
-              <div className="absolute -left-[15%] -right-[15%] -bottom-8 h-40 rounded-[50%_50%_0_0] bg-gradient-to-b from-[#f4b8d7] to-[#cf75bb]" />
-            </div>
-
-            {/* Bottom Feature Items Strip */}
-            <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-2.5 bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-[#e6dcf5] shadow-sm mt-12">
-              <div className="text-center">
-                <div className="w-8 h-8 rounded-lg bg-[#f2ebff] text-[#7147e8] grid place-items-center mx-auto mb-1.5 text-base">🛡️</div>
-                <strong className="block text-xs font-bold text-[#231d3e]">Private &amp; Secure</strong>
-                <span className="text-[10px] text-[#736b85] leading-tight block">Your data is encrypted.</span>
+              <div style={{
+                background: '#f9f6fe',
+                border: '1px solid #eee4fa',
+                borderRadius: '12px',
+                padding: '10px 14px',
+                margin: '0 0 20px',
+                textAlign: 'center'
+              }}>
+                <strong style={{ display: 'block', fontSize: '12px', color: '#2b2345' }}>Admin &amp; User Login</strong>
+                <span style={{ fontSize: '11px', color: '#756d8c' }}>One secure portal for both users and admins.</span>
               </div>
 
-              <div className="text-center">
-                <div className="w-8 h-8 rounded-lg bg-[#edfaef] text-[#28ad79] grid place-items-center mx-auto mb-1.5 text-base">🟢</div>
-                <strong className="block text-xs font-bold text-[#231d3e]">Encrypted Access</strong>
-                <span className="text-[10px] text-[#736b85] leading-tight block">Enterprise-grade security</span>
+              {msg && (
+                <div style={{
+                  marginBottom: '16px',
+                  borderRadius: '12px',
+                  background: '#ecfdf5',
+                  border: '1px solid #a7f3d0',
+                  padding: '12px',
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  color: '#047857',
+                  textAlign: 'center'
+                }}>
+                  {msg}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#383050', marginBottom: '6px' }}>
+                    Email Address
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '14px', top: '13px', fontSize: '15px', color: '#968ea8' }}>✉️</span>
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      placeholder="Enter your email address"
+                      style={{
+                        width: '100%',
+                        height: '46px',
+                        paddingLeft: '44px',
+                        paddingRight: '14px',
+                        borderRadius: '12px',
+                        border: '1px solid #e1d8f2',
+                        fontSize: '14px',
+                        outline: 'none',
+                        background: '#faf9fd'
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#383050', marginBottom: '6px' }}>
+                    Password
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '14px', top: '13px', fontSize: '15px', color: '#968ea8' }}>🔒</span>
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      placeholder="Enter your password"
+                      style={{
+                        width: '100%',
+                        height: '46px',
+                        paddingLeft: '44px',
+                        paddingRight: '44px',
+                        borderRadius: '12px',
+                        border: '1px solid #e1d8f2',
+                        fontSize: '14px',
+                        outline: 'none',
+                        background: '#faf9fd'
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        top: '12px',
+                        border: 'none',
+                        background: 'transparent',
+                        fontSize: '16px',
+                        color: '#968ea8',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      {showPassword ? '👁️' : '🙈'}
+                    </button>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '13px' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', color: '#383252', fontWeight: '600' }}>
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={e => setRememberMe(e.target.checked)}
+                      style={{ accentColor: '#7147e8', width: '16px', height: '16px', cursor: 'pointer' }}
+                    />
+                    Remember me
+                  </label>
+                  <a href="/forgot-password" style={{ color: '#7147e8', fontWeight: '700', textDecoration: 'none' }}>
+                    Forgot Password?
+                  </a>
+                </div>
+
+                <button
+                  type="submit"
+                  style={{
+                    width: '100%',
+                    height: '48px',
+                    borderRadius: '12px',
+                    border: 'none',
+                    background: 'linear-gradient(135deg, #a644c9 0%, #683cd7 100%)',
+                    color: 'white',
+                    fontSize: '15px',
+                    fontWeight: '800',
+                    cursor: 'pointer',
+                    marginTop: '8px',
+                    boxShadow: '0 8px 20px rgba(105, 60, 215, 0.24)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justify-content: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  <span>→]</span> Login
+                </button>
+              </form>
+
+              <div style={{ display: 'flex', alignItems: 'center', margin: '20px 0', color: '#aa9fbe', fontSize: '12px' }}>
+                <div style={{ flex: 1, height: '1px', background: '#ece5f5' }} />
+                <span style={{ padding: '0 12px' }}>or</span>
+                <div style={{ flex: 1, height: '1px', background: '#ece5f5' }} />
               </div>
 
-              <div className="text-center">
-                <div className="w-8 h-8 rounded-lg bg-[#fff0f3] text-[#e64f8e] grid place-items-center mx-auto mb-1.5 text-base">❤️</div>
-                <strong className="block text-xs font-bold text-[#231d3e]">Built for Wellness</strong>
-                <span className="text-[10px] text-[#736b85] leading-tight block">Supporting your mind</span>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: '13px', color: '#564d73' }}>Don&apos;t have an account?</span>
+                <Link
+                  href="/register"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    height: '40px',
+                    padding: '0 20px',
+                    borderRadius: '10px',
+                    border: '1px solid #d8cdfa',
+                    background: '#ffffff',
+                    color: '#7147e8',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    textDecoration: 'none'
+                  }}
+                >
+                  <span>👤</span> Register
+                </Link>
               </div>
 
-              <div className="text-center">
-                <div className="w-8 h-8 rounded-lg bg-[#f4ebff] text-[#9a4acb] grid place-items-center mx-auto mb-1.5 text-base">🔒</div>
-                <strong className="block text-xs font-bold text-[#231d3e]">You&apos;re in Control</strong>
-                <span className="text-[10px] text-[#736b85] leading-tight block">Privacy comes first</span>
+              <div style={{
+                marginTop: '22px',
+                paddingTop: '14px',
+                borderTop: '1px solid #f2edf8',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                textAlign: 'left',
+                fontSize: '11px',
+                color: '#78708c'
+              }}>
+                <span style={{ fontSize: '16px' }}>🔒</span>
+                <div>
+                  Role is determined automatically after sign in.<br />
+                  You&apos;ll be redirected to your dashboard securely.
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Right Column: Unified Login Form Card */}
-          <div className="bg-white rounded-3xl p-8 md:p-9 border border-[#eee7f5] shadow-sm flex flex-col justify-center">
-            <div className="w-13 h-13 rounded-full bg-[#f5eeff] grid place-items-center mx-auto mb-3 text-2xl">
-              😊
-            </div>
-
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#181236] text-center mb-1">
-              Welcome Back
-            </h2>
-
-            <p className="text-sm text-[#7147e8] font-bold text-center mb-3.5">
-              Sign in to MoodFlip
-            </p>
-
-            <div className="bg-[#f9f6fe] border border-[#eee4fa] rounded-xl p-2.5 mb-5 text-center">
-              <strong className="block text-xs text-[#2b2345]">Admin &amp; User Login</strong>
-              <span className="text-[11px] text-[#756d8c]">One secure portal for both users and admins.</span>
-            </div>
-
-            {msg && (
-              <div className="mb-4 rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs font-bold text-emerald-700 text-center">
-                {msg}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-[#383050] mb-1.5">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3.5 top-3 text-base text-[#968ea8]">✉️</span>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
-                    className="w-full h-11 pl-11 pr-3.5 rounded-xl border border-[#e1d8f2] text-sm focus:outline-none focus:border-[#7147e8] bg-[#faf9fd]"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-[#383050] mb-1.5">
-                  Password
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3.5 top-3 text-base text-[#968ea8]">🔒</span>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder="Enter your password"
-                    className="w-full h-11 pl-11 pr-11 rounded-xl border border-[#e1d8f2] text-sm focus:outline-none focus:border-[#7147e8] bg-[#faf9fd]"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-base text-[#968ea8] focus:outline-none"
-                  >
-                    {showPassword ? '👁️' : '🙈'}
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between text-xs">
-                <label className="flex items-center gap-2 cursor-pointer text-[#383252] font-semibold">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={e => setRememberMe(e.target.checked)}
-                    className="accent-[#7147e8] w-4 h-4 cursor-pointer"
-                  />
-                  Remember me
-                </label>
-                <a href="/forgot-password" className="text-[#7147e8] font-bold hover:underline">
-                  Forgot Password?
-                </a>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full h-12 rounded-xl border-none bg-gradient-to-r from-[#a644c9] to-[#683cd7] text-white text-sm font-extrabold cursor-pointer mt-2 shadow-md shadow-purple-200 hover:opacity-95 transition flex items-center justify-center gap-2"
-              >
-                <span>→]</span> Login
-              </button>
-            </form>
-
-            <div className="flex items-center my-5 text-xs text-[#aa9fbe]">
-              <div className="flex-1 h-px bg-[#ece5f5]" />
-              <span className="px-3">or</span>
-              <div className="flex-1 h-px bg-[#ece5f5]" />
-            </div>
-
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-[#564d73]">Don&apos;t have an account?</span>
-              <Link
-                href="/register"
-                className="inline-flex items-center gap-1.5 h-10 px-5 rounded-lg border border-[#d8cdfa] bg-white text-[#7147e8] text-xs font-bold hover:bg-purple-50 transition"
-              >
-                <span>👤</span> Register
-              </Link>
-            </div>
-
-            <div className="mt-5 pt-3.5 border-t border-[#f2edf8] flex items-center gap-2.5 text-[11px] text-[#78708c]">
-              <span className="text-base">🔒</span>
-              <div>
-                Role is determined automatically after sign in.<br />
-                You&apos;ll be redirected to your dashboard securely.
-              </div>
-            </div>
-          </div>
-        </div>
+        </section>
 
         {/* Security Bar Below Main Login Grid */}
-        <section className="mt-6 p-4 md:px-7 rounded-2xl border border-[#eee7f5] bg-white flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#443c60] shadow-sm">
-          <div className="flex items-center gap-3.5">
-            <span className="w-9.5 h-9.5 rounded-xl bg-[#e8dcff] grid place-items-center text-lg">🛡️</span>
+        <section style={{
+          margin: '0 28px 24px',
+          padding: '16px 28px',
+          borderRadius: '16px',
+          border: '1px solid #eee7f5',
+          background: '#ffffff',
+          display: 'flex',
+          alignItems: 'center',
+          justify-content: 'space-between',
+          fontSize: '13px',
+          color: '#443c60',
+          boxShadow: '0 4px 16px rgba(60, 40, 110, 0.02)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <span style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '10px',
+              background: '#e8dcff',
+              display: 'grid',
+              placeItems: 'center',
+              fontSize: '20px'
+            }}>🛡️</span>
             <span>We use industry-standard encryption to keep your data safe and your mind at ease.</span>
           </div>
 
-          <div className="flex flex-wrap gap-4 text-xs font-semibold text-[#554a78]">
+          <div style={{ display: 'flex', gap: '20px', fontSize: '12px', fontWeight: '600', color: '#554a78' }}>
             <span>✓ 256-bit SSL encryption</span>
             <span>✓ Secure authentication</span>
             <span>✓ Regular security audits</span>
             <span>✓ Privacy by design</span>
           </div>
         </section>
-      </main>
 
-      <Footer />
-    </div>
+        {/* Footer */}
+        <footer className={styles.footer}>
+          <a className={styles.logo + " " + styles.footerLogo} href="/">
+            <span className={styles.logoMark} aria-hidden="true">
+              <span />
+              <span />
+            </span>
+            <span>mood<span>flip</span></span>
+          </a>
+          <p>A self-reflection utility for real life.</p>
+          <nav>
+            <a href="/#about">About</a>
+            <a href="/#library">Mood Library</a>
+            <a href="/#privacy">Privacy Policy</a>
+            <a href="/#terms">Terms</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+          <span>© 2026 MoodFlip.coach 💜</span>
+        </footer>
+      </div>
+    </main>
   );
 }

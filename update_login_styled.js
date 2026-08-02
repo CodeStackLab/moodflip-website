@@ -484,7 +484,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <footer className={styles.footer}>
-          <a className={`${styles.logo} ${styles.footerLogo}`} href="/">
+          <a className={styles.logo + " " + styles.footerLogo} href="/">
             <span className={styles.logoMark} aria-hidden="true">
               <span />
               <span />
@@ -508,4 +508,4 @@ export default function LoginPage() {
 `;
 
 fs.writeFileSync('app/login/page.tsx', loginCode, 'utf8');
-console.log('LoginPage updated with full inline styling!');
+console.log('LoginPage updated with escaped logo class!');

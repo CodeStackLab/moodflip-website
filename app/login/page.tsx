@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import styles from '../page.module.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -19,63 +18,158 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] text-[#2D264B]">
-      <Header />
-      <main className="mx-auto max-w-md px-6 py-16">
-        <div className="rounded-3xl border border-[#EAE3D6] bg-white p-8 shadow-sm text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F5F3FF] text-2xl mx-auto mb-4">
-            👤
+    <main className={styles.pageShell}>
+      <div className={styles.appFrame}>
+        <header className={styles.header}>
+          <a className={styles.logo} href="/" aria-label="MoodFlip home">
+            <div className="relative flex h-9 w-9 items-center justify-center mr-1">
+              <span className="absolute bottom-0 left-1 h-[22px] w-[22px] rounded-full border-[5px] border-[#713ee2] border-t-transparent" />
+              <span className="absolute left-1 top-0 h-2.5 w-2.5 rounded-full bg-[#f4a746]" />
+              <span className="absolute right-0 top-1 h-2 w-2 rounded-full bg-[#d94fc5]" />
+            </div>
+            <span>mood<span>flip</span></span>
+          </a>
+
+          <nav className={styles.nav} aria-label="Primary navigation">
+            <Link href="/">Home</Link>
+            <a href="/#about">About</a>
+            <a href="/#how">How It Works</a>
+            <a href="/#library">Mood Library</a>
+            <a href="/#resources">Resources</a>
+          </nav>
+
+          <div className={styles.headerActions}>
+            <button className={styles.loginButton} type="button"><span>👤</span> Login</button>
+            <button className={styles.planButton} type="button">Get 7-Day Plan</button>
           </div>
-          <h1 className="font-serif text-2xl font-bold mb-2">Welcome Back</h1>
-          <p className="text-xs text-[#6B638B] mb-6">Enter your email to log into your MoodFlip check-ins</p>
+        </header>
 
-          {msg && (
-            <div className="mb-4 rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs font-semibold text-emerald-700">
-              {msg}
+        <section className={styles.dashboard} style={{ minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '24px',
+            padding: '40px',
+            width: '100%',
+            maxWidth: '400px',
+            boxShadow: '0 20px 60px rgba(80,50,150,0.08)',
+            border: '1px solid #f0ebf8',
+            textAlign: 'center'
+          }}>
+            <div style={{
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #e4d7ff 0%, #f4efff 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '28px',
+              margin: '0 auto 16px'
+            }}>
+              👤
             </div>
-          )}
+            <h1 style={{ fontSize: '24px', fontWeight: '800', color: '#1a142c', marginBottom: '8px' }}>Welcome Back</h1>
+            <p style={{ fontSize: '13px', color: '#7a748c', marginBottom: '24px' }}>Enter your email to log into your MoodFlip check-ins</p>
 
-          <form onSubmit={handleSubmit} className="space-y-4 text-left">
-            <div>
-              <label className="block text-xs font-bold uppercase text-[#6B638B] mb-1">Email Address</label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full rounded-xl border border-[#EAE3D6] p-3 text-sm focus:outline-[#6C5CE7]"
-              />
+            {msg && (
+              <div style={{ marginBottom: '16px', borderRadius: '12px', background: '#ecfdf5', border: '1px solid #a7f3d0', padding: '12px', fontSize: '12px', fontWeight: 'bold', color: '#047857' }}>
+                {msg}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', color: '#a09cb0', marginBottom: '4px' }}>Email Address</label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  style={{
+                    width: '100%',
+                    borderRadius: '12px',
+                    border: '1px solid #e2d5f8',
+                    padding: '12px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    transition: 'border 0.2s',
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = '#6f42c1'}
+                  onBlur={(e) => e.target.style.borderColor = '#e2d5f8'}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', color: '#a09cb0', marginBottom: '4px' }}>Password</label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  style={{
+                    width: '100%',
+                    borderRadius: '12px',
+                    border: '1px solid #e2d5f8',
+                    padding: '12px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    transition: 'border 0.2s',
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = '#6f42c1'}
+                  onBlur={(e) => e.target.style.borderColor = '#e2d5f8'}
+                />
+              </div>
+
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  padding: '14px',
+                  background: 'linear-gradient(to right, #6f42c1, #5a32a3)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '12px',
+                  fontWeight: 'bold',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  marginTop: '8px',
+                  boxShadow: '0 8px 20px rgba(111, 66, 193, 0.25)',
+                }}
+              >
+                Sign In
+              </button>
+            </form>
+
+            <div style={{ marginTop: '24px', fontSize: '12px', color: '#7a748c' }}>
+              Don't have an account?{' '}
+              <Link href="/register" style={{ fontWeight: 'bold', color: '#6f42c1', textDecoration: 'none' }}>
+                Create Free Account
+              </Link>
             </div>
-            <div>
-              <label className="block text-xs font-bold uppercase text-[#6B638B] mb-1">Password</label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full rounded-xl border border-[#EAE3D6] p-3 text-sm focus:outline-[#6C5CE7]"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full rounded-full bg-[#6C5CE7] py-3 text-sm font-bold text-white shadow-md hover:bg-[#5B4B9A] transition"
-            >
-              Sign In
-            </button>
-          </form>
-
-          <div className="mt-6 text-xs text-[#6B638B]">
-            Don&apos;t have an account?{' '}
-            <Link href="/register" className="font-bold text-[#6C5CE7] hover:underline">
-              Create Free Account
-            </Link>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        </section>
+
+        <footer className={styles.footer}>
+          <a className={`${styles.logo} ${styles.footerLogo}`} href="/">
+            <div className="relative flex h-9 w-9 items-center justify-center mr-1">
+              <span className="absolute bottom-0 left-1 h-[22px] w-[22px] rounded-full border-[5px] border-[#713ee2] border-t-transparent" />
+              <span className="absolute left-1 top-0 h-2.5 w-2.5 rounded-full bg-[#f4a746]" />
+              <span className="absolute right-0 top-1 h-2 w-2 rounded-full bg-[#d94fc5]" />
+            </div>
+            <span>mood<span>flip</span></span>
+          </a>
+          <p>A self-reflection utility for real life.</p>
+          <nav>
+            <a href="/#about">About</a>
+            <a href="/#library">Mood Library</a>
+            <a href="/#privacy">Privacy Policy</a>
+            <a href="/#terms">Terms</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+          <span>© 2026 MoodFlip.coach 💜</span>
+        </footer>
+      </div>
+    </main>
   );
 }

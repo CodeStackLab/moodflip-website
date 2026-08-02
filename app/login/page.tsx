@@ -379,10 +379,7 @@ export default function LoginPage() {
                     </div>
                   </div>
 
-                  {/* Hint */}
-                  <div className="lp-hint">
-                    💡 <strong>Admin?</strong> Leave email blank and enter your admin password — you&apos;ll be redirected to the control panel automatically.
-                  </div>
+                  {/* Submit Button */}
 
                   <button
                     id="login-submit-btn"
@@ -395,12 +392,7 @@ export default function LoginPage() {
                   </button>
                 </form>
 
-                {/* Trust badges */}
-                <div className="lp-trust">
-                  {['🔒 Encrypted', '✅ OTP Verified', '🛡️ Secure Session'].map(b => (
-                    <span key={b} className="lp-trust-badge">{b}</span>
-                  ))}
-                </div>
+
               </>
             )}
 

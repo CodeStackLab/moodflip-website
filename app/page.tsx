@@ -194,7 +194,7 @@ export default function HomePage() {
             </button>
           </section>
 
-          <section className={styles.flipCard} id="positive-flip">
+          <section className={styles.flipCard} id="positive-flip" style={{ background: "url('/flipcard-bg.jpg') center center / cover no-repeat" }}>
             <div className={styles.cardToolbar}>
               <span />
               <div>
@@ -427,7 +427,6 @@ export default function HomePage() {
               }}
             />
           </div>
-          </div>
           <div className={styles.planCopy}>
             <h2>Build a Better Mindset in Just 7 Days</h2>
             <p>Simple daily check-ins, practical actions, real change.</p>
@@ -530,6 +529,8 @@ export default function HomePage() {
           </nav>
           <span>© 2026 MoodFlip.coach 💜</span>
         </footer>
+
+
       </div>
     </main>
   );

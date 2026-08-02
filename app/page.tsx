@@ -198,7 +198,7 @@ export default function HomePage() {
             <div className={styles.cardToolbar}>
               <span />
               <div>
-                <button type="button" className={styles.topIconBtn}><span>🔖</span> Save</button>
+                <button type="button" className={styles.topIconBtn}><span style={{color: '#ff4d6d'}}>🔖</span> Save</button>
                 <button type="button" className={styles.topIconBtn}><span>🔗</span> Share</button>
               </div>
             </div>
@@ -227,10 +227,10 @@ export default function HomePage() {
                 <svg width="120" height="320" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="leafGradLeft" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#f77f88" stopOpacity="0.9" />
-                      <stop offset="45%" stopColor="#e0589a" stopOpacity="0.85" />
-                      <stop offset="85%" stopColor="#9b48c4" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#673eb8" stopOpacity="0.75" />
+                      <stop offset="0%" stopColor="#ffb0a0" stopOpacity="0.95" />
+                      <stop offset="40%" stopColor="#f38181" stopOpacity="0.9" />
+                      <stop offset="80%" stopColor="#e25865" stopOpacity="0.85" />
+                      <stop offset="100%" stopColor="#d13f50" stopOpacity="0.8" />
                     </linearGradient>
                   </defs>
                   {/* Main curved stem */}
@@ -254,10 +254,10 @@ export default function HomePage() {
                 <svg width="120" height="320" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="leafGradRight" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#f77f88" stopOpacity="0.9" />
-                      <stop offset="45%" stopColor="#e0589a" stopOpacity="0.85" />
-                      <stop offset="85%" stopColor="#9b48c4" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#673eb8" stopOpacity="0.75" />
+                      <stop offset="0%" stopColor="#ffb0a0" stopOpacity="0.95" />
+                      <stop offset="40%" stopColor="#f38181" stopOpacity="0.9" />
+                      <stop offset="80%" stopColor="#e25865" stopOpacity="0.85" />
+                      <stop offset="100%" stopColor="#d13f50" stopOpacity="0.8" />
                     </linearGradient>
                   </defs>
                   {/* Main curved stem */}

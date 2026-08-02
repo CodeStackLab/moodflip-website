@@ -470,15 +470,15 @@
 .sunBadge {
   position: relative;
   z-index: 4;
-  width: 110px;
-  height: 110px;
-  margin: 22px auto 16px;
+  width: 104px;
+  height: 104px;
+  margin: 20px auto 14px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(255,255,255,.82);
-  border: 1px solid #ffe1c6;
-  box-shadow: 0 10px 28px rgba(218, 129, 117, .13), inset 0 0 30px rgba(255, 245, 222, .7);
+  background: #ffffff;
+  border: 1px solid #ffe6d9;
+  box-shadow: 0 10px 30px rgba(255, 140, 110, 0.22), inset 0 0 25px rgba(255, 235, 210, 0.8);
 }
 .sunCore { font-size: 58px; filter: saturate(.9); }
 
@@ -583,11 +583,12 @@
 .plantRight {
   position: absolute;
   z-index: 2;
-  top: 90px;
-  width: 120px;
-  height: 320px;
+  top: 95px;
+  width: 115px;
+  height: 310px;
   pointer-events: none;
-  opacity: .92;
+  opacity: .95;
+  filter: drop-shadow(0 4px 12px rgba(226, 88, 101, 0.15));
 }
 .plantLeft { left: -14px; }
 .plantRight { right: -14px; }

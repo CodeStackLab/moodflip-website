@@ -432,7 +432,7 @@ section.light.alt { background: var(--cream-2); }
   .mf-navlinks { flex-wrap: wrap; }
   .mf-nav-actions { width: 100%; }
   .mf-nav-cta, .mf-login { flex: 1; text-align: center; }
-
+}
 
 /* ─── HIDE GOOGLE TRANSLATE TOP BANNER & POPUPS ─── */
 .goog-te-banner-frame.skiptranslate,

@@ -101,7 +101,9 @@ export default function Header() {
           {
             pageLanguage: 'en',
             includedLanguages: LANGUAGES.map((language) => language.gtCode).join(','),
+            layout: (TranslateElement as unknown as { InlineLayout: { SIMPLE: number } }).InlineLayout?.SIMPLE || 0,
             autoDisplay: false,
+            multilanguagePage: true,
           },
           'google_translate_element',
         );
@@ -123,11 +125,17 @@ export default function Header() {
       if (document.body.style.top !== '0px') {
         document.body.style.top = '0px';
       }
-      const frames = document.querySelectorAll('.goog-te-banner-frame, iframe.goog-te-banner-frame, iframe[id*="goog"]');
+      if (document.documentElement.style.top !== '0px') {
+        document.documentElement.style.top = '0px';
+      }
+      const frames = document.querySelectorAll('.goog-te-banner-frame, iframe.goog-te-banner-frame, iframe.skiptranslate, iframe[id*="goog"], iframe[src*="translate"]');
       frames.forEach((f) => {
-        (f as HTMLElement).style.display = 'none';
-        (f as HTMLElement).style.visibility = 'hidden';
-        (f as HTMLElement).style.height = '0px';
+        const el = f as HTMLElement;
+        el.style.setProperty('display', 'none', 'important');
+        el.style.setProperty('visibility', 'hidden', 'important');
+        el.style.setProperty('height', '0px', 'important');
+        el.style.setProperty('width', '0px', 'important');
+        el.style.setProperty('opacity', '0', 'important');
       });
     };
 

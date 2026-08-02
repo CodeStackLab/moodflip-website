@@ -432,7 +432,37 @@ section.light.alt { background: var(--cream-2); }
   .mf-navlinks { flex-wrap: wrap; }
   .mf-nav-actions { width: 100%; }
   .mf-nav-cta, .mf-login { flex: 1; text-align: center; }
-  .mf-feel-grid { grid-template-columns: repeat(2, 1fr); }
-  .mf-panel { padding: 22px; }
-  .mf-wrap { padding: 0 18px; }
+
+
+/* ─── HIDE GOOGLE TRANSLATE TOP BANNER & POPUPS ─── */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+iframe.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+.VIpgJd-yDvfBx-MTI1AZ-OWbhnd-ioT256 {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+#google_translate_element {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+

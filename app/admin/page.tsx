@@ -353,6 +353,7 @@ export default function AdminPage() {
                 </div>
                 <SidebarBtn icon="🔍" label="SEO & Google Search" active={activeTab === 'seo'} onClick={() => setActiveTab('seo')} />
                 <SidebarBtn icon="💰" label="AdSense Settings" active={activeTab === 'adsense'} onClick={() => setActiveTab('adsense')} />
+                <a href="/admin/ai" style={{display:'flex',padding:'.72rem 1rem',borderRadius:'12px',background:'linear-gradient(135deg,#18152b,#5543d8)',color:'white',fontWeight:800,textDecoration:'none'}}>✦ AI Control Center</a>
 
                 {/* Divider */}
                 <div style={{ height: '1px', background: 'var(--card-border)', margin: '0.6rem 0.25rem' }} />

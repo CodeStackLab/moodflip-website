@@ -1,47 +1,92 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: linear-gradient(145deg, #fdf6f0 0%, #fcf0f5 40%, #f7effd 100%);
-  --card-bg: #fffbf8;
-  --card-border: #ede1d5;
-  --text-main: #362854;
-  --text-subtle: #665c7d;
-  --left-bg: linear-gradient(168deg, #ffffff 0%, #fdf4f7 50%, #f7effd 100%);
-  --right-bg: linear-gradient(155deg, #fffdfa 0%, #fff5ee 40%, #faf0f7 100%);
-  --tile-bg: #ffffff;
-  --tile-selected-bg: #f5e9f8;
-  --tile-selected-border: #ec4899;
-  --banner-bg: #f8ecf4;
-  --header-bg: rgba(255, 251, 248, 0.92);
+  --bg: linear-gradient(135deg, #f8f6fe 0%, #f3ebfc 35%, #fbf3f8 70%, #f5f0ff 100%);
+  --ambient-blob-1: rgba(168, 85, 247, 0.12);
+  --ambient-blob-2: rgba(236, 72, 153, 0.10);
+  --ambient-blob-3: rgba(56, 189, 248, 0.08);
+
+  --card-bg: rgba(255, 255, 255, 0.78);
+  --card-bg-solid: #ffffff;
+  --card-border: rgba(226, 215, 243, 0.8);
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 12px 36px -6px rgba(103, 80, 164, 0.08), 0 4px 16px -2px rgba(103, 80, 164, 0.04);
+  --glass-shadow-hover: 0 20px 48px -8px rgba(103, 80, 164, 0.16), 0 8px 24px -4px rgba(103, 80, 164, 0.08);
+
+  --text-main: #241438;
+  --text-subtle: #675a80;
+  --text-muted: #8e82a8;
+
+  --left-bg: linear-gradient(168deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 243, 255, 0.85) 100%);
+  --right-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.9) 0%, rgba(254, 245, 252, 0.85) 100%);
+  --tile-bg: rgba(255, 255, 255, 0.85);
+  --tile-hover-bg: #f7effd;
+  --tile-selected-bg: #f3e5fa;
+  --tile-selected-border: #a855f7;
+  --banner-bg: rgba(243, 232, 255, 0.6);
+  --header-bg: rgba(255, 255, 255, 0.82);
   --action-card-bg: #ffffff;
 
-  --m3-purple-primary: #6750a4;
-  --m3-purple-container: #eaddff;
-  --m3-surface-tonal: #f7f2fa;
-  --m3-outline-variant: #cac4d0;
+  --m3-purple-primary: #7c3aed;
+  --m3-purple-container: #ede9fe;
+  --m3-surface-tonal: #faf5ff;
+  --m3-outline-variant: #ddd6fe;
   
-  --purple-header-1: #4c3c6e;
-  --purple-header-2: #6a5a8c;
-  --coral: #dd9a72;
-  --pink-grad: #c8828a;
-  --purple-deep: #241238;
+  --purple-header-1: #5b21b6;
+  --purple-header-2: #7c3aed;
+  --coral: #f43f5e;
+  --pink-grad: #ec4899;
+  --purple-deep: #1e1b4b;
+  --purple-mid: #6d28d9;
+  --purple-btn-1: #7c3aed;
+  --purple-btn-2: #c084fc;
+  --label-bg: rgba(243, 232, 255, 0.5);
+  --label-icon-border: rgba(192, 132, 252, 0.3);
   --white: #ffffff;
 }
 
 [data-theme="dark"] {
-  --bg: linear-gradient(160deg, #0e091b 0%, #170d24 40%, #201127 100%);
-  --card-bg: #150f24;
-  --card-border: #2e2246;
-  --text-main: #f3e8ff;
-  --text-subtle: #c4b0e6;
-  --left-bg: linear-gradient(168deg, #18102a 0%, #211333 100%);
-  --right-bg: linear-gradient(155deg, #1a112c 0%, #251233 50%, #2b1338 100%);
-  --tile-bg: #221838;
-  --tile-selected-bg: #3d1c4e;
-  --tile-selected-border: #f472b6;
-  --banner-bg: #1f1230;
-  --header-bg: rgba(21, 15, 36, 0.92);
-  --action-card-bg: #211736;
+  --bg: linear-gradient(160deg, #090514 0%, #110926 40%, #190a33 100%);
+  --ambient-blob-1: rgba(168, 85, 247, 0.20);
+  --ambient-blob-2: rgba(236, 72, 153, 0.16);
+  --ambient-blob-3: rgba(56, 189, 248, 0.15);
+
+  --card-bg: rgba(23, 14, 43, 0.75);
+  --card-bg-solid: #170e2b;
+  --card-border: rgba(88, 56, 135, 0.5);
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 12px 36px -6px rgba(0, 0, 0, 0.4), 0 4px 16px -2px rgba(0, 0, 0, 0.3);
+  --glass-shadow-hover: 0 20px 48px -8px rgba(168, 85, 247, 0.25), 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+
+  --text-main: #f5f3ff;
+  --text-subtle: #c4b5fd;
+  --text-muted: #8b7bb0;
+
+  --left-bg: linear-gradient(168deg, rgba(28, 17, 51, 0.9) 0%, rgba(20, 12, 38, 0.85) 100%);
+  --right-bg: linear-gradient(155deg, rgba(32, 19, 59, 0.9) 0%, rgba(25, 14, 46, 0.85) 100%);
+  --tile-bg: rgba(33, 20, 61, 0.7);
+  --tile-hover-bg: #321c5b;
+  --tile-selected-bg: #4c1d95;
+  --tile-selected-border: #c084fc;
+  --banner-bg: rgba(38, 20, 71, 0.7);
+  --header-bg: rgba(18, 11, 35, 0.85);
+  --action-card-bg: #1c1135;
+
+  --m3-purple-primary: #a855f7;
+  --m3-purple-container: #3b0764;
+  --m3-surface-tonal: #1e1138;
+  --m3-outline-variant: #582196;
+
+  --purple-header-1: #6d28d9;
+  --purple-header-2: #a855f7;
+  --coral: #fb7185;
+  --pink-grad: #f472b6;
+  --purple-deep: #f5f3ff;
+  --purple-mid: #c084fc;
+  --purple-btn-1: #9333ea;
+  --purple-btn-2: #e879f9;
+  --label-bg: rgba(59, 24, 99, 0.6);
+  --label-icon-border: rgba(168, 85, 247, 0.4);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }

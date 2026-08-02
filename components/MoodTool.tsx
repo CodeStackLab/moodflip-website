@@ -159,23 +159,47 @@ export default function MoodTool(): React.JSX.Element {
   const [feeling, setFeeling] = useState<string | null>(null);
   const [revealed, setRevealed] = useState<boolean>(false);
   const [secondsLeft, setSecondsLeft] = useState<number>(60);
+  const [timerRunning, setTimerRunning] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
+  const [savedShift, setSavedShift] = useState<boolean>(false);
   const [openFaq, setOpenFaq] = useState<number>(0);
 
   useEffect(() => {
-    if (!revealed) return;
-    setSecondsLeft(60);
-    const id = setInterval(() => setSecondsLeft((s) => (s > 0 ? s - 1 : 0)), 1000);
+    if (!revealed || !timerRunning) return;
+    const id = setInterval(() => {
+      setSecondsLeft((s) => {
+        if (s <= 1) {
+          setTimerRunning(false);
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
     return () => clearInterval(id);
-  }, [revealed]);
+  }, [revealed, timerRunning]);
 
   const categories = family ? Object.keys(MOOD_DATA[family]) : [];
   const feelings = family && category ? Object.keys(MOOD_DATA[family][category]) : [];
   const result = family && category && feeling ? MOOD_DATA[family][category][feeling] : null;
 
-  function pickFamily(name: FamilyName): void { setFamily(name); setCategory(null); setFeeling(null); setRevealed(false); }
-  function pickCategory(name: string): void { setCategory(name); setFeeling(null); setRevealed(false); }
-  function pickFeeling(name: string): void { setFeeling(name); setRevealed(false); }
-  function reset() { setFamily(null); setCategory(null); setFeeling(null); setRevealed(false); }
+  function pickFamily(name: FamilyName): void { setFamily(name); setCategory(null); setFeeling(null); setRevealed(false); setTimerRunning(false); }
+  function pickCategory(name: string): void { setCategory(name); setFeeling(null); setRevealed(false); setTimerRunning(false); }
+  function pickFeeling(name: string): void { setFeeling(name); setRevealed(false); setTimerRunning(false); }
+  function revealFlip(): void {
+    setRevealed(true);
+    setSecondsLeft(60);
+    setTimerRunning(true);
+    setSavedShift(false);
+  }
+  function reset() { setFamily(null); setCategory(null); setFeeling(null); setRevealed(false); setTimerRunning(false); setSavedShift(false); }
+
+  const currentStep = useMemo(() => {
+    if (revealed) return 4;
+    if (feeling) return 3;
+    if (category) return 3;
+    if (family) return 2;
+    return 1;
+  }, [family, category, feeling, revealed]);
 
   const orbLabel = useMemo(() => {
     if (revealed && result) return result.target;
@@ -494,13 +518,37 @@ export default function MoodTool(): React.JSX.Element {
                 )}
               </div>
 
+              {/* Step indicator header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.2rem' }}>
+                <span style={{
+                  background: 'linear-gradient(135deg, var(--m3-purple-primary), var(--pink-grad))',
+                  color: '#fff',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: '999px',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase'
+                }}>
+                  Step {currentStep} of 4
+                </span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-subtle)', fontWeight: 600 }}>
+                  {!family && 'Select primary mood'}
+                  {family && !category && 'Narrow category'}
+                  {family && category && !feeling && 'Specific feeling'}
+                  {result && !revealed && 'Ready to flip!'}
+                  {result && revealed && 'Target Mindset Shift'}
+                </span>
+              </div>
+
               {!family && (
                 <>
-                  <span className="mf2-options-label">Choose your current mood</span>
+                  <span className="mf2-options-label">Choose your current mood family</span>
                   <div className="mf2-chip-row">
                     {FAMILY_ORDER.map((name) => (
                       <button key={name} className="mf2-chip" onClick={() => pickFamily(name)}>
                         <span className="mf2-chip-dot" style={{ background: FAMILY_META[name].dot }} />
+                        <span style={{ fontSize: '1.1rem' }}>{FAMILY_META[name].icon}</span>
                         {name}
                       </button>
                     ))}
@@ -510,7 +558,7 @@ export default function MoodTool(): React.JSX.Element {
 
               {family && !category && (
                 <>
-                  <span className="mf2-options-label">Choose the closer category</span>
+                  <span className="mf2-options-label">Select the closer category</span>
                   <div className="mf2-chip-row">
                     {categories.map((name) => (
                       <button key={name} className="mf2-chip" onClick={() => pickCategory(name)}>
@@ -537,19 +585,205 @@ export default function MoodTool(): React.JSX.Element {
               )}
 
               {result && !revealed && (
-                <button className="mf2-flip-btn" onClick={() => setRevealed(true)}>
-                  Reveal my flip →
+                <button className="mf2-flip-btn" onClick={revealFlip} style={{ marginTop: '0.5rem' }}>
+                  ✨ Reveal My Mindset Shift →
                 </button>
               )}
 
               {result && revealed && (
-                <div className="mf2-result">
-                  <div className="mf2-result-eyebrow">Your mood is flipping to</div>
+                <div className="mf2-result" style={{ marginTop: '0.25rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
+                    <span style={{
+                      background: 'rgba(239, 108, 168, 0.15)',
+                      color: '#ec4899',
+                      padding: '0.3rem 0.85rem',
+                      borderRadius: '999px',
+                      fontSize: '0.8rem',
+                      fontWeight: 700
+                    }}>
+                      From: {feeling}
+                    </span>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--text-subtle)' }}>➔</span>
+                    <span style={{
+                      background: 'rgba(124, 58, 237, 0.15)',
+                      color: 'var(--m3-purple-primary)',
+                      padding: '0.3rem 0.85rem',
+                      borderRadius: '999px',
+                      fontSize: '0.8rem',
+                      fontWeight: 700
+                    }}>
+                      To: {result.target}
+                    </span>
+                  </div>
+
                   <div className="mf2-result-mood">{result.target}</div>
-                  <p className="mf2-result-action">{result.action}</p>
-                  <span className="mf2-timer mf2-mono">
-                    <span className="mf2-timer-dot" /> 00:{String(secondsLeft).padStart(2, '0')} left
-                  </span>
+                  
+                  <div className="mf2-result-action" style={{ position: 'relative' }}>
+                    <p style={{ fontSize: '1.05rem', lineHeight: 1.6, fontWeight: 500, color: 'var(--text-main)' }}>
+                      {result.action}
+                    </p>
+                  </div>
+
+                  {/* Interactive 60-Second Countdown Timer Widget */}
+                  <div style={{
+                    marginTop: '1.2rem',
+                    background: 'var(--card-bg)',
+                    border: '1px solid var(--card-border)',
+                    borderRadius: '20px',
+                    padding: '1.25rem',
+                    boxShadow: 'var(--glass-shadow)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.85rem'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span className="mf2-mono" style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        <span style={{
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          background: timerRunning ? '#22c55e' : '#eab308',
+                          boxShadow: timerRunning ? '0 0 10px #22c55e' : 'none'
+                        }} />
+                        60-Second Action Timer
+                      </span>
+                      <span className="mf2-mono" style={{ fontSize: '1.25rem', fontWeight: 800, color: secondsLeft === 0 ? '#22c55e' : 'var(--m3-purple-primary)' }}>
+                        00:{String(secondsLeft).padStart(2, '0')}
+                      </span>
+                    </div>
+
+                    {/* Progress bar */}
+                    <div style={{
+                      width: '100%',
+                      height: '8px',
+                      background: 'var(--line)',
+                      borderRadius: '999px',
+                      overflow: 'hidden'
+                    }}>
+                      <div style={{
+                        width: `${(secondsLeft / 60) * 100}%`,
+                        height: '100%',
+                        background: secondsLeft === 0 ? '#22c55e' : 'linear-gradient(90deg, var(--m3-purple-primary), var(--pink-grad))',
+                        transition: 'width 1s linear'
+                      }} />
+                    </div>
+
+                    {secondsLeft === 0 ? (
+                      <div style={{
+                        padding: '0.65rem 1rem',
+                        background: 'rgba(34, 197, 94, 0.12)',
+                        border: '1px solid rgba(34, 197, 94, 0.3)',
+                        borderRadius: '12px',
+                        color: '#15803d',
+                        fontSize: '0.88rem',
+                        fontWeight: 700,
+                        textAlign: 'center'
+                      }}>
+                        🎉 Outstanding! You gave yourself 60 seconds of space. How do you feel now?
+                      </div>
+                    ) : (
+                      <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem' }}>
+                        <button
+                          onClick={() => setTimerRunning(!timerRunning)}
+                          style={{
+                            flex: 1,
+                            padding: '0.5rem 0.85rem',
+                            borderRadius: '10px',
+                            border: '1px solid var(--card-border)',
+                            background: timerRunning ? 'rgba(234, 179, 8, 0.15)' : 'rgba(124, 58, 237, 0.15)',
+                            color: timerRunning ? '#a16207' : 'var(--m3-purple-primary)',
+                            fontWeight: 700,
+                            fontSize: '0.82rem',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {timerRunning ? '⏸ Pause Timer' : '▶ Resume Timer'}
+                        </button>
+                        <button
+                          onClick={() => { setSecondsLeft(60); setTimerRunning(true); }}
+                          style={{
+                            padding: '0.5rem 0.85rem',
+                            borderRadius: '10px',
+                            border: '1px solid var(--card-border)',
+                            background: 'var(--tile-bg)',
+                            color: 'var(--text-subtle)',
+                            fontWeight: 600,
+                            fontSize: '0.82rem',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          🔄 Restart
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Actions footer bar */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: '1.25rem' }}>
+                    <button
+                      onClick={() => {
+                        if (result?.action) {
+                          navigator.clipboard.writeText(`MoodFlip Shift (${feeling} ➔ ${result.target}): ${result.action}`);
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2000);
+                        }
+                      }}
+                      style={{
+                        padding: '0.55rem 1rem',
+                        borderRadius: '999px',
+                        border: '1px solid var(--card-border)',
+                        background: 'var(--card-bg)',
+                        color: 'var(--text-main)',
+                        fontSize: '0.82rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem'
+                      }}
+                    >
+                      {copied ? '✅ Copied!' : '📋 Copy Action'}
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setSavedShift(true);
+                        setTimeout(() => setSavedShift(false), 2500);
+                      }}
+                      style={{
+                        padding: '0.55rem 1rem',
+                        borderRadius: '999px',
+                        border: '1px solid var(--card-border)',
+                        background: 'var(--card-bg)',
+                        color: 'var(--text-main)',
+                        fontSize: '0.82rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem'
+                      }}
+                    >
+                      {savedShift ? '💖 Saved!' : '💾 Save Shift'}
+                    </button>
+
+                    <button
+                      onClick={reset}
+                      style={{
+                        padding: '0.55rem 1rem',
+                        borderRadius: '999px',
+                        border: '1px solid var(--card-border)',
+                        background: 'linear-gradient(135deg, var(--m3-purple-primary), var(--purple-btn-2))',
+                        color: '#ffffff',
+                        fontSize: '0.82rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        marginLeft: 'auto'
+                      }}
+                    >
+                      🔄 Flip Another Mood
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

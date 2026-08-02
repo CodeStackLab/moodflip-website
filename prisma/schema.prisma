@@ -59,3 +59,17 @@ model Purchase {
 
   @@map("purchases")
 }
+
+model AiSettings {
+  id                String   @id @default("global")
+  enabled           Boolean  @default(true)
+  primaryProvider   String   @default("openrouter")
+  primaryModel      String   @default("openai/gpt-4o-mini")
+  fallbackProvider  String   @default("gemini")
+  fallbackModel     String   @default("gemini-2.0-flash")
+  autoFallback      Boolean  @default(true)
+  openrouterModels  Json?
+  updatedAt         DateTime @updatedAt
+
+  @@map("ai_settings")
+}

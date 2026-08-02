@@ -5,42 +5,58 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { supabaseBrowser } from '@/lib/supabaseBrowser';
 
-type LoginPortalTab = 'user' | 'admin';
-
 export default function LoginPage() {
-  const [activeTab, setActiveTab] = useState<LoginPortalTab>('user');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
-  // User Login State
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [showUserPassword, setShowUserPassword] = useState(false);
-  const [userLoading, setUserLoading] = useState(false);
-  const [userSuccess, setUserSuccess] = useState(false);
-  const [userError, setUserError] = useState('');
-
-  // Admin Login State
-  const [adminPassword, setAdminPassword] = useState('');
-  const [showAdminPassword, setShowAdminPassword] = useState(false);
-  const [adminLoading, setAdminLoading] = useState(false);
-  const [adminSuccess, setAdminSuccess] = useState(false);
-  const [adminError, setAdminError] = useState('');
-
-  // Handle User Login
-  const handleUserSubmit = async (e: React.FormEvent) => {
+  /**
+   * Single unified submit:
+   * 1. Try admin password first (no email needed for admin).
+   * 2. If that matches → /admin
+   * 3. Else try Supabase user login → /profile
+   */
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userEmail || !userPassword) return;
-    setUserLoading(true);
-    setUserError('');
+    if (!password) return;
+    setLoading(true);
+    setError('');
 
     try {
+      // ── STEP 1: Try admin password ──
+      const adminRes = await fetch('/api/admin/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const adminData = await adminRes.json();
+
+      if (adminRes.ok && adminData.authenticated) {
+        setSuccessMsg('Admin authenticated! Opening console...');
+        setSuccess(true);
+        setTimeout(() => { window.location.href = '/admin'; }, 900);
+        return;
+      }
+
+      // ── STEP 2: Try user login via Supabase ──
+      if (!email) {
+        setError('Please enter your email address to sign in.');
+        setLoading(false);
+        return;
+      }
       if (!supabaseBrowser) throw new Error('Secure sign-in is temporarily unavailable.');
-      const { data, error } = await supabaseBrowser.auth.signInWithPassword({
-        email: userEmail.trim().toLowerCase(),
-        password: userPassword,
+
+      const { data, error: authError } = await supabaseBrowser.auth.signInWithPassword({
+        email: email.trim().toLowerCase(),
+        password,
       });
 
-      if (error || !data.session || !data.user.email) {
-        throw new Error(error?.message || 'Invalid email or password. Please try again.');
+      if (authError || !data.session || !data.user.email) {
+        throw new Error(authError?.message || 'Invalid email or password.');
       }
 
       const profile = {
@@ -52,53 +68,18 @@ export default function LoginPage() {
 
       await fetch('/api/profile', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${data.session.access_token}`,
-        },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${data.session.access_token}` },
         body: JSON.stringify({ name: profile.name }),
       }).catch(() => null);
 
-      setUserSuccess(true);
-      setTimeout(() => {
-        window.location.href = '/profile';
-      }, 1000);
+      setSuccessMsg('Signed in! Redirecting to your dashboard...');
+      setSuccess(true);
+      setTimeout(() => { window.location.href = '/profile'; }, 1000);
+
     } catch (err) {
-      console.error(err);
-      setUserError(err instanceof Error ? err.message : 'Authentication failed. Please check your credentials.');
+      setError(err instanceof Error ? err.message : 'Authentication failed. Please check your credentials.');
     } finally {
-      setUserLoading(false);
-    }
-  };
-
-  // Handle Admin Login
-  const handleAdminSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!adminPassword) return;
-    setAdminLoading(true);
-    setAdminError('');
-
-    try {
-      const res = await fetch('/api/admin/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: adminPassword }),
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.authenticated) {
-        throw new Error(data.error || 'Incorrect admin access password.');
-      }
-
-      setAdminSuccess(true);
-      setTimeout(() => {
-        window.location.href = '/admin';
-      }, 800);
-    } catch (err) {
-      console.error(err);
-      setAdminError(err instanceof Error ? err.message : 'Admin authentication failed.');
-    } finally {
-      setAdminLoading(false);
+      setLoading(false);
     }
   };
 
@@ -106,599 +87,329 @@ export default function LoginPage() {
     <div className="site-shell">
       <Header />
 
-      <main style={{ maxWidth: '1180px', margin: '2.5rem auto', padding: '0 1rem' }}>
-        
-        {/* TOP SEGMENTED PORTAL SWITCHER */}
-        <div style={{
-          maxWidth: '460px',
-          margin: '0 auto 2.25rem auto',
-          background: 'var(--card-bg)',
-          border: '1.5px solid var(--card-border)',
-          borderRadius: '999px',
-          padding: '0.35rem',
-          display: 'flex',
-          gap: '0.35rem',
-          boxShadow: 'var(--glass-shadow)'
-        }}>
-          <button
-            onClick={() => setActiveTab('user')}
-            style={{
-              flex: 1,
-              padding: '0.65rem 1.25rem',
-              borderRadius: '999px',
-              border: 'none',
-              background: activeTab === 'user' ? 'linear-gradient(135deg, var(--purple-btn-1), var(--purple-btn-2))' : 'transparent',
-              color: activeTab === 'user' ? '#ffffff' : 'var(--text-subtle)',
-              fontWeight: 800,
-              fontSize: '0.86rem',
-              cursor: 'pointer',
-              transition: 'all 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.45rem',
-              boxShadow: activeTab === 'user' ? '0 4px 16px rgba(124, 58, 237, 0.35)' : 'none'
-            }}
-          >
-            <span>👤</span> User Login
-          </button>
+      <style>{`
+        @keyframes lpBlob {
+          0%,100%{transform:translate(0,0) scale(1);}
+          40%{transform:translate(22px,-28px) scale(1.05);}
+          70%{transform:translate(-14px,16px) scale(0.97);}
+        }
+        @keyframes lpCardIn {
+          from{opacity:0;transform:translateY(24px);}
+          to{opacity:1;transform:translateY(0);}
+        }
+        @keyframes lpSuccessPop {
+          0%{transform:scale(0.5);opacity:0;}
+          65%{transform:scale(1.08);}
+          100%{transform:scale(1);opacity:1;}
+        }
+        @keyframes lpShimmer {
+          0%{background-position:-200% center;}
+          100%{background-position:200% center;}
+        }
+        @keyframes lpPulse {
+          0%,100%{opacity:1;} 50%{opacity:0.6;}
+        }
 
-          <button
-            onClick={() => setActiveTab('admin')}
-            style={{
-              flex: 1,
-              padding: '0.65rem 1.25rem',
-              borderRadius: '999px',
-              border: 'none',
-              background: activeTab === 'admin' ? 'linear-gradient(135deg, #1e1b4b, #4c1d95)' : 'transparent',
-              color: activeTab === 'admin' ? '#ffffff' : 'var(--text-subtle)',
-              fontWeight: 800,
-              fontSize: '0.86rem',
-              cursor: 'pointer',
-              transition: 'all 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.45rem',
-              boxShadow: activeTab === 'admin' ? '0 4px 16px rgba(30, 27, 75, 0.4)' : 'none'
-            }}
-          >
-            <span>🛡️</span> Admin Portal
-          </button>
-        </div>
+        .lp-page {
+          min-height: calc(100vh - 170px);
+          display: flex; align-items: center; justify-content: center;
+          padding: 3rem 1rem; position: relative; overflow: hidden;
+        }
+        .lp-blob {
+          position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+          animation: lpBlob 16s ease-in-out infinite;
+        }
+        .lp-b1 {
+          width: 520px; height: 520px; top: -140px; left: -120px;
+          background: radial-gradient(circle, rgba(108,92,231,0.12) 0%, transparent 70%);
+        }
+        .lp-b2 {
+          width: 440px; height: 440px; bottom: -110px; right: -90px;
+          background: radial-gradient(circle, rgba(236,72,153,0.1) 0%, transparent 70%);
+          animation-delay: 5s;
+        }
+        .lp-b3 {
+          width: 320px; height: 320px; top: 40%; right: 14%;
+          background: radial-gradient(circle, rgba(18,165,148,0.08) 0%, transparent 70%);
+          animation-delay: 10s;
+        }
 
-        {/* MAIN DEDICATED LOGIN CONTAINER CARD */}
-        <div style={{
-          background: 'var(--card-bg)',
-          borderRadius: '32px',
-          border: '1.5px solid var(--card-border)',
-          boxShadow: 'var(--glass-shadow-hover)',
-          overflow: 'hidden',
-          display: 'flex',
-          flexWrap: 'wrap',
-          color: 'var(--text-main)',
-          backdropFilter: 'var(--glass-blur)',
-          WebkitBackdropFilter: 'var(--glass-blur)'
-        }}>
+        /* Card */
+        .lp-card {
+          position: relative; z-index: 1;
+          width: 100%; max-width: 460px;
+          background: var(--card-bg);
+          border: 1.5px solid var(--card-border);
+          border-radius: 28px;
+          box-shadow: 0 32px 80px rgba(74,57,102,0.12);
+          overflow: hidden;
+          animation: lpCardIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+        }
 
-          {/* LEFT COLUMN: HERO CONTEXT & FEATURES */}
-          <div style={{
-            flex: '1 1 440px',
-            padding: '3rem 2.5rem',
-            background: activeTab === 'user' ? 'var(--left-bg)' : 'linear-gradient(168deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 12, 41, 0.9) 100%)',
-            borderRight: '1.5px solid var(--card-border)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            gap: '2rem',
-            transition: 'background 0.35s ease'
-          }}>
-            <div>
-              {/* Badge */}
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                background: activeTab === 'user' ? 'rgba(124, 58, 237, 0.12)' : 'rgba(168, 85, 247, 0.2)',
-                border: '1px solid var(--card-border)',
-                color: activeTab === 'user' ? 'var(--m3-purple-primary)' : '#c084fc',
-                padding: '0.35rem 0.9rem',
-                borderRadius: '999px',
-                fontSize: '0.78rem',
-                fontWeight: 800,
-                letterSpacing: '0.04em',
-                marginBottom: '1.25rem'
-              }}>
-                <span>{activeTab === 'user' ? '✨ USER MINDSET DASHBOARD' : '🛡️ ADMINISTRATION CONSOLE'}</span>
+        /* Top colour strip */
+        .lp-strip {
+          height: 4px;
+          background: linear-gradient(90deg, #6c5ce7 0%, #ec4899 50%, #12a594 100%);
+        }
+
+        /* Inner padding */
+        .lp-body { padding: 2.75rem 2.75rem 2.25rem; }
+
+        /* Brand area */
+        .lp-brand { text-align: center; margin-bottom: 2rem; }
+        .lp-brand-sun {
+          width: 62px; height: 62px; border-radius: 18px;
+          margin: 0 auto 0.9rem;
+          background: linear-gradient(135deg, #fff5d4 0%, #ffe8a3 100%);
+          border: 2px solid rgba(255,182,72,0.35);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 1.8rem;
+          box-shadow: 0 0 0 6px rgba(255,182,72,0.1), 0 8px 24px rgba(255,182,72,0.2);
+          animation: lpPulse 3s ease-in-out infinite;
+        }
+        .lp-brand-title {
+          font-family: 'Fraunces', Georgia, serif;
+          font-size: 1.65rem; font-weight: 640;
+          color: var(--text-main); margin: 0 0 0.3rem;
+        }
+        .lp-brand-subtitle {
+          font-size: 0.84rem; color: var(--text-subtle); margin: 0;
+        }
+
+        /* Form */
+        .lp-form { display: flex; flex-direction: column; gap: 1.1rem; }
+        .lp-field { display: flex; flex-direction: column; gap: 0.42rem; }
+        .lp-label {
+          font-size: 0.7rem; font-weight: 800;
+          color: var(--text-main); text-transform: uppercase; letter-spacing: 0.07em;
+        }
+        .lp-input-wrap { position: relative; }
+        .lp-icon {
+          position: absolute; left: 13px; top: 50%;
+          transform: translateY(-50%); font-size: 0.92rem;
+          pointer-events: none; z-index: 1;
+        }
+        .lp-input {
+          width: 100%; padding: 0.82rem 1rem 0.82rem 2.5rem;
+          background: var(--cream);
+          border: 1.5px solid var(--card-border);
+          border-radius: 12px; color: var(--text-main);
+          font-size: 0.9rem; outline: none; font-family: inherit;
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .lp-input:focus {
+          border-color: #6c5ce7;
+          box-shadow: 0 0 0 3px rgba(108,92,231,0.13);
+        }
+        .lp-eye {
+          position: absolute; right: 11px; top: 50%;
+          transform: translateY(-50%);
+          background: none; border: none; cursor: pointer;
+          font-size: 0.95rem; color: var(--text-subtle); padding: 3px;
+          transition: color 0.2s;
+        }
+        .lp-eye:hover { color: var(--text-main); }
+
+        /* Hint below email */
+        .lp-hint {
+          font-size: 0.72rem; color: var(--text-subtle);
+          padding: 0.5rem 0.75rem; border-radius: 8px;
+          background: rgba(108,92,231,0.06);
+          border: 1px solid rgba(108,92,231,0.12);
+          line-height: 1.5;
+        }
+
+        /* Error */
+        .lp-error {
+          background: rgba(239,68,68,0.09);
+          border: 1px solid rgba(239,68,68,0.25);
+          color: #dc2626; border-radius: 12px;
+          padding: 0.68rem 1rem; font-size: 0.82rem; font-weight: 600;
+          display: flex; align-items: center; gap: 0.4rem;
+        }
+
+        /* Submit button */
+        .lp-btn {
+          width: 100%; padding: 0.9rem 1.5rem;
+          border: none; border-radius: 14px;
+          background: linear-gradient(135deg, #6c5ce7 0%, #ec4899 60%, #8a7cf0 100%);
+          background-size: 200% auto;
+          color: white; font-weight: 800; font-size: 0.94rem;
+          cursor: pointer; font-family: inherit;
+          display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+          margin-top: 0.5rem;
+          transition: all 0.22s ease;
+          box-shadow: 0 8px 24px rgba(108,92,231,0.38);
+          position: relative; overflow: hidden;
+          animation: lpShimmer 3s linear infinite;
+        }
+        .lp-btn:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 30px rgba(108,92,231,0.46);
+        }
+        .lp-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+        /* Success state */
+        .lp-success {
+          text-align: center; padding: 2rem 1rem;
+          animation: lpSuccessPop 0.45s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        .lp-success-icon { font-size: 2.8rem; display: block; margin-bottom: 0.6rem; }
+        .lp-success-title {
+          font-family: 'Fraunces', Georgia, serif;
+          font-size: 1.2rem; font-weight: 640;
+          color: var(--text-main); margin: 0 0 0.3rem;
+        }
+        .lp-success-sub { font-size: 0.83rem; color: var(--text-subtle); margin: 0; }
+
+        /* Divider */
+        .lp-divider {
+          display: flex; align-items: center; gap: 0.7rem;
+          margin: 0.25rem 0;
+        }
+        .lp-divider hr { flex: 1; border: none; border-top: 1px solid var(--card-border); }
+        .lp-divider span { font-size: 0.7rem; color: var(--text-subtle); font-weight: 700; white-space: nowrap; }
+
+        /* Footer links */
+        .lp-footer {
+          text-align: center; margin-top: 1.5rem;
+          font-size: 0.83rem; color: var(--text-subtle);
+          padding-top: 1.5rem;
+          border-top: 1px solid var(--card-border);
+        }
+        .lp-footer a {
+          color: #6c5ce7; font-weight: 800; text-decoration: none;
+          transition: color 0.2s;
+        }
+        .lp-footer a:hover { color: #5546ce; text-decoration: underline; }
+
+        /* Trust badges */
+        .lp-trust {
+          display: flex; flex-wrap: wrap;
+          justify-content: center; gap: 0.5rem;
+          margin-top: 1.25rem;
+        }
+        .lp-trust-badge {
+          display: flex; align-items: center; gap: 4px;
+          font-size: 0.72rem; font-weight: 700;
+          color: var(--text-subtle);
+          padding: 0.3rem 0.7rem; border-radius: 999px;
+          background: var(--cream-2);
+          border: 1px solid var(--card-border);
+        }
+
+        @media (max-width: 500px) {
+          .lp-body { padding: 2rem 1.5rem 1.75rem; }
+          .lp-card { max-width: 100%; }
+        }
+      `}</style>
+
+      <main className="lp-page">
+        <div className="lp-blob lp-b1" />
+        <div className="lp-blob lp-b2" />
+        <div className="lp-blob lp-b3" />
+
+        <div className="lp-card">
+          <div className="lp-strip" />
+
+          <div className="lp-body">
+            {/* Brand */}
+            <div className="lp-brand">
+              <div className="lp-brand-sun">🌤️</div>
+              <h1 className="lp-brand-title">Welcome Back</h1>
+              <p className="lp-brand-subtitle">Sign in to your MoodFlip account</p>
+            </div>
+
+            {success ? (
+              <div className="lp-success">
+                <span className="lp-success-icon">✨</span>
+                <h2 className="lp-success-title">You&apos;re in!</h2>
+                <p className="lp-success-sub">{successMsg}</p>
               </div>
+            ) : (
+              <>
+                {error && (
+                  <div className="lp-error" style={{ marginBottom: '1rem' }}>
+                    <span>⚠️</span> {error}
+                  </div>
+                )}
 
-              {/* Title & Subtitle */}
-              {activeTab === 'user' ? (
-                <>
-                  <h1 style={{
-                    fontFamily: "'Newsreader', serif",
-                    fontSize: 'clamp(2rem, 3.8vw, 2.6rem)',
-                    fontWeight: 600,
-                    color: 'var(--text-main)',
-                    lineHeight: 1.15,
-                    marginBottom: '0.85rem'
-                  }}>
-                    Welcome back to your <em style={{ fontStyle: 'italic', color: 'var(--m3-purple-primary)' }}>Mindset Hub</em>.
-                  </h1>
-                  <p style={{ fontSize: '0.95rem', color: 'var(--text-subtle)', lineHeight: 1.6, marginBottom: '2rem' }}>
-                    Log in to view your saved mood check-ins, custom 60-second action history, and personal progress dashboard.
-                  </p>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                    <div style={{
-                      background: 'var(--tile-bg)',
-                      border: '1px solid var(--card-border)',
-                      borderRadius: '16px',
-                      padding: '0.85rem 1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.85rem'
-                    }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(124, 58, 237, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
-                        📊
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)' }}>Saved Mood Check-ins</div>
-                        <div style={{ fontSize: '0.76rem', color: 'var(--text-subtle)' }}>Track your daily emotional shifts and 60s actions</div>
-                      </div>
-                    </div>
-
-                    <div style={{
-                      background: 'var(--tile-bg)',
-                      border: '1px solid var(--card-border)',
-                      borderRadius: '16px',
-                      padding: '0.85rem 1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.85rem'
-                    }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(236, 72, 153, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
-                        📘
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)' }}>Personal PDF Shift Reports</div>
-                        <div style={{ fontSize: '0.76rem', color: 'var(--text-subtle)' }}>Access your downloaded Mindset Plan guides</div>
-                      </div>
-                    </div>
-
-                    <div style={{
-                      background: 'var(--tile-bg)',
-                      border: '1px solid var(--card-border)',
-                      borderRadius: '16px',
-                      padding: '0.85rem 1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.85rem'
-                    }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(34, 197, 94, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
-                        🔒
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)' }}>Privacy Guaranteed</div>
-                        <div style={{ fontSize: '0.76rem', color: 'var(--text-subtle)' }}>Automatic 90-day inactivity data purge policy</div>
-                      </div>
+                <form id="login-form" onSubmit={handleSubmit} className="lp-form">
+                  {/* Email */}
+                  <div className="lp-field">
+                    <label className="lp-label" htmlFor="login-email">Email Address</label>
+                    <div className="lp-input-wrap">
+                      <span className="lp-icon">✉️</span>
+                      <input
+                        id="login-email"
+                        type="email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className="lp-input"
+                        autoComplete="email"
+                      />
                     </div>
                   </div>
-                </>
-              ) : (
-                <>
-                  <h1 style={{
-                    fontFamily: "'Newsreader', serif",
-                    fontSize: 'clamp(2rem, 3.8vw, 2.6rem)',
-                    fontWeight: 600,
-                    color: '#ffffff',
-                    lineHeight: 1.15,
-                    marginBottom: '0.85rem'
-                  }}>
-                    System <em style={{ fontStyle: 'italic', color: '#c084fc' }}>Administration</em> Portal.
-                  </h1>
-                  <p style={{ fontSize: '0.95rem', color: '#c4b5fd', lineHeight: 1.6, marginBottom: '2rem' }}>
-                    Secure access console for managing platform users, check-ins, sales reports, SEO meta tags, and AdSense settings.
-                  </p>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.15)',
-                      borderRadius: '16px',
-                      padding: '0.85rem 1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.85rem',
-                      color: '#ffffff'
-                    }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(168, 85, 247, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
-                        🛡️
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '0.88rem', fontWeight: 700 }}>System Controls & AI Settings</div>
-                        <div style={{ fontSize: '0.76rem', color: '#c4b5fd' }}>Manage AI provider fallback and prompt configurations</div>
-                      </div>
-                    </div>
-
-                    <div style={{
-                      background: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.15)',
-                      borderRadius: '16px',
-                      padding: '0.85rem 1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.85rem',
-                      color: '#ffffff'
-                    }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(56, 189, 248, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
-                        🔍
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '0.88rem', fontWeight: 700 }}>SEO & AdSense Integration</div>
-                        <div style={{ fontSize: '0.76rem', color: '#c4b5fd' }}>Google Search Console verification & ad slots</div>
-                      </div>
-                    </div>
-
-                    <div style={{
-                      background: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.15)',
-                      borderRadius: '16px',
-                      padding: '0.85rem 1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.85rem',
-                      color: '#ffffff'
-                    }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(34, 197, 94, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
-                        📈
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '0.88rem', fontWeight: 700 }}>User Analytics & CSV Exports</div>
-                        <div style={{ fontSize: '0.76rem', color: '#c4b5fd' }}>Export complete check-ins and sales data</div>
-                      </div>
+                  {/* Password */}
+                  <div className="lp-field">
+                    <label className="lp-label" htmlFor="login-password">Password</label>
+                    <div className="lp-input-wrap">
+                      <span className="lp-icon">🔒</span>
+                      <input
+                        id="login-password"
+                        type={showPassword ? 'text' : 'password'}
+                        required
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        placeholder="••••••••"
+                        className="lp-input"
+                        style={{ paddingRight: '2.5rem' }}
+                        autoComplete="current-password"
+                      />
+                      <button
+                        type="button"
+                        className="lp-eye"
+                        onClick={() => setShowPassword(v => !v)}
+                        aria-label="Toggle password visibility"
+                      >
+                        {showPassword ? '🙈' : '👁️'}
+                      </button>
                     </div>
                   </div>
-                </>
-              )}
-            </div>
 
-            {/* Bottom Quote */}
-            <div style={{
-              background: activeTab === 'user' ? 'var(--tile-bg)' : 'rgba(255,255,255,0.06)',
-              borderLeft: '3.5px solid var(--m3-purple-primary)',
-              padding: '0.85rem 1.1rem',
-              borderRadius: '0 12px 12px 0',
-              marginTop: '1.5rem',
-              border: '1px solid var(--card-border)',
-              borderLeftWidth: '3.5px'
-            }}>
-              <p style={{ fontSize: '0.8rem', color: activeTab === 'user' ? 'var(--text-subtle)' : '#c4b5fd', fontStyle: 'italic', margin: 0, lineHeight: 1.5 }}>
-                &ldquo;Feelings move. Give this one somewhere to go.&rdquo;
-              </p>
+                  {/* Hint */}
+                  <div className="lp-hint">
+                    💡 <strong>Admin?</strong> Leave email blank and enter your admin password — you&apos;ll be redirected to the control panel automatically.
+                  </div>
+
+                  <button
+                    id="login-submit-btn"
+                    type="submit"
+                    disabled={loading}
+                    className="lp-btn"
+                  >
+                    <span>{loading ? 'Signing In...' : 'Sign In'}</span>
+                    {!loading && <span>→</span>}
+                  </button>
+                </form>
+
+                {/* Trust badges */}
+                <div className="lp-trust">
+                  {['🔒 Encrypted', '✅ OTP Verified', '🛡️ Secure Session'].map(b => (
+                    <span key={b} className="lp-trust-badge">{b}</span>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Footer */}
+            <div className="lp-footer">
+              Don&apos;t have an account?{' '}
+              <a href="/register">Create Free Profile</a>
             </div>
           </div>
-
-          {/* RIGHT COLUMN: LOGIN FORMS */}
-          <div style={{
-            flex: '1 1 440px',
-            padding: '3rem 2.5rem',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            background: 'var(--card-bg-solid)'
-          }}>
-            <div style={{ maxWidth: '400px', margin: '0 auto', width: '100%' }}>
-
-              {/* USER LOGIN FORM */}
-              {activeTab === 'user' && (
-                <>
-                  <div style={{ marginBottom: '1.75rem' }}>
-                    <h2 style={{
-                      fontSize: '1.5rem',
-                      fontWeight: 800,
-                      color: 'var(--text-main)',
-                      marginBottom: '0.35rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      fontFamily: "'Outfit', sans-serif"
-                    }}>
-                      <span>🔑</span> User Sign In
-                    </h2>
-                    <p style={{ fontSize: '0.88rem', color: 'var(--text-subtle)', margin: 0 }}>
-                      Enter your email and password to access your profile.
-                    </p>
-                  </div>
-
-                  {userError && (
-                    <div style={{
-                      background: 'rgba(239, 68, 68, 0.12)',
-                      border: '1px solid rgba(239, 68, 68, 0.3)',
-                      color: '#dc2626',
-                      padding: '0.75rem 1rem',
-                      borderRadius: '12px',
-                      fontSize: '0.85rem',
-                      marginBottom: '1.25rem',
-                      fontWeight: 600
-                    }}>
-                      ⚠️ {userError}
-                    </div>
-                  )}
-
-                  {userSuccess ? (
-                    <div style={{
-                      background: 'rgba(34, 197, 94, 0.12)',
-                      border: '1px solid rgba(34, 197, 94, 0.3)',
-                      color: '#15803d',
-                      borderRadius: '16px',
-                      padding: '1.5rem',
-                      textAlign: 'center'
-                    }}>
-                      <span style={{ fontSize: '2.2rem', display: 'block', marginBottom: '0.5rem' }}>✨</span>
-                      <h3 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0 }}>Signed In Successfully!</h3>
-                      <p style={{ fontSize: '0.85rem', marginTop: '0.35rem', margin: 0 }}>
-                        Redirecting to your dashboard...
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleUserSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                      {/* Email Input */}
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-main)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
-                          EMAIL ADDRESS
-                        </label>
-                        <div style={{ position: 'relative' }}>
-                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: 'var(--m3-purple-primary)' }}>
-                            ✉️
-                          </span>
-                          <input
-                            type="email"
-                            required
-                            value={userEmail}
-                            onChange={(e) => setUserEmail(e.target.value)}
-                            placeholder="you@example.com"
-                            style={{
-                              width: '100%',
-                              padding: '0.8rem 1rem 0.8rem 2.6rem',
-                              background: 'var(--tile-bg)',
-                              border: '1.5px solid var(--card-border)',
-                              borderRadius: '12px',
-                              color: 'var(--text-main)',
-                              fontSize: '0.92rem',
-                              outline: 'none'
-                            }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Password Input */}
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.45rem' }}>
-                          <label style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-main)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                            PASSWORD
-                          </label>
-                        </div>
-                        <div style={{ position: 'relative' }}>
-                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: 'var(--m3-purple-primary)' }}>
-                            🔒
-                          </span>
-                          <input
-                            type={showUserPassword ? 'text' : 'password'}
-                            required
-                            value={userPassword}
-                            onChange={(e) => setUserPassword(e.target.value)}
-                            placeholder="••••••••"
-                            style={{
-                              width: '100%',
-                              padding: '0.8rem 2.6rem 0.8rem 2.6rem',
-                              background: 'var(--tile-bg)',
-                              border: '1.5px solid var(--card-border)',
-                              borderRadius: '12px',
-                              color: 'var(--text-main)',
-                              fontSize: '0.92rem',
-                              outline: 'none'
-                            }}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setShowUserPassword(!showUserPassword)}
-                            style={{
-                              position: 'absolute',
-                              right: '12px',
-                              top: '50%',
-                              transform: 'translateY(-50%)',
-                              background: 'transparent',
-                              border: 'none',
-                              cursor: 'pointer',
-                              fontSize: '1rem'
-                            }}
-                          >
-                            {showUserPassword ? '🙈' : '👁️'}
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Submit Button */}
-                      <button
-                        type="submit"
-                        disabled={userLoading}
-                        style={{
-                          width: '100%',
-                          padding: '0.9rem',
-                          background: 'linear-gradient(135deg, var(--purple-btn-1) 0%, var(--purple-btn-2) 100%)',
-                          border: 'none',
-                          borderRadius: '14px',
-                          color: 'white',
-                          fontWeight: 800,
-                          fontSize: '0.95rem',
-                          cursor: 'pointer',
-                          boxShadow: '0 8px 24px rgba(124, 58, 237, 0.35)',
-                          marginTop: '0.5rem',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '0.5rem'
-                        }}
-                      >
-                        <span>{userLoading ? 'Authenticating...' : 'Sign In to User Dashboard'}</span>
-                        <span>→</span>
-                      </button>
-                    </form>
-                  )}
-
-                  <div style={{ textAlign: 'center', marginTop: '1.75rem', fontSize: '0.85rem', color: 'var(--text-subtle)' }}>
-                    Don&apos;t have a profile yet?{' '}
-                    <a href="/register" style={{ color: 'var(--m3-purple-primary)', fontWeight: 800, textDecoration: 'none' }}>
-                      Register Free
-                    </a>
-                  </div>
-                </>
-              )}
-
-              {/* ADMIN LOGIN FORM */}
-              {activeTab === 'admin' && (
-                <>
-                  <div style={{ marginBottom: '1.75rem' }}>
-                    <h2 style={{
-                      fontSize: '1.5rem',
-                      fontWeight: 800,
-                      color: 'var(--text-main)',
-                      marginBottom: '0.35rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      fontFamily: "'Outfit', sans-serif"
-                    }}>
-                      <span>🛡️</span> Admin Console Login
-                    </h2>
-                    <p style={{ fontSize: '0.88rem', color: 'var(--text-subtle)', margin: 0 }}>
-                      Enter the master admin password to access system controls.
-                    </p>
-                  </div>
-
-                  {adminError && (
-                    <div style={{
-                      background: 'rgba(239, 68, 68, 0.12)',
-                      border: '1px solid rgba(239, 68, 68, 0.3)',
-                      color: '#dc2626',
-                      padding: '0.75rem 1rem',
-                      borderRadius: '12px',
-                      fontSize: '0.85rem',
-                      marginBottom: '1.25rem',
-                      fontWeight: 600
-                    }}>
-                      ⚠️ {adminError}
-                    </div>
-                  )}
-
-                  {adminSuccess ? (
-                    <div style={{
-                      background: 'rgba(34, 197, 94, 0.12)',
-                      border: '1px solid rgba(34, 197, 94, 0.3)',
-                      color: '#15803d',
-                      borderRadius: '16px',
-                      padding: '1.5rem',
-                      textAlign: 'center'
-                    }}>
-                      <span style={{ fontSize: '2.2rem', display: 'block', marginBottom: '0.5rem' }}>🔓</span>
-                      <h3 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0 }}>Admin Authenticated!</h3>
-                      <p style={{ fontSize: '0.85rem', marginTop: '0.35rem', margin: 0 }}>
-                        Opening administration console...
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleAdminSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-main)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
-                          ADMIN SECRET PASSWORD
-                        </label>
-                        <div style={{ position: 'relative' }}>
-                          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', color: '#a855f7' }}>
-                            🔑
-                          </span>
-                          <input
-                            type={showAdminPassword ? 'text' : 'password'}
-                            required
-                            value={adminPassword}
-                            onChange={(e) => setAdminPassword(e.target.value)}
-                            placeholder="Enter master admin key..."
-                            style={{
-                              width: '100%',
-                              padding: '0.8rem 2.6rem 0.8rem 2.6rem',
-                              background: 'var(--tile-bg)',
-                              border: '1.5px solid var(--card-border)',
-                              borderRadius: '12px',
-                              color: 'var(--text-main)',
-                              fontSize: '0.92rem',
-                              outline: 'none'
-                            }}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setShowAdminPassword(!showAdminPassword)}
-                            style={{
-                              position: 'absolute',
-                              right: '12px',
-                              top: '50%',
-                              transform: 'translateY(-50%)',
-                              background: 'transparent',
-                              border: 'none',
-                              cursor: 'pointer',
-                              fontSize: '1rem'
-                            }}
-                          >
-                            {showAdminPassword ? '🙈' : '👁️'}
-                          </button>
-                        </div>
-                      </div>
-
-                      <button
-                        type="submit"
-                        disabled={adminLoading}
-                        style={{
-                          width: '100%',
-                          padding: '0.9rem',
-                          background: 'linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%)',
-                          border: 'none',
-                          borderRadius: '14px',
-                          color: 'white',
-                          fontWeight: 800,
-                          fontSize: '0.95rem',
-                          cursor: 'pointer',
-                          boxShadow: '0 8px 24px rgba(30, 27, 75, 0.4)',
-                          marginTop: '0.5rem',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '0.5rem'
-                        }}
-                      >
-                        <span>{adminLoading ? 'Authenticating Admin...' : 'Open Admin Console'}</span>
-                        <span>→</span>
-                      </button>
-                    </form>
-                  )}
-
-                  <div style={{
-                    marginTop: '1.75rem',
-                    padding: '0.85rem 1rem',
-                    background: 'var(--banner-bg)',
-                    border: '1px solid var(--card-border)',
-                    borderRadius: '12px',
-                    fontSize: '0.78rem',
-                    color: 'var(--text-subtle)',
-                    textAlign: 'center',
-                    lineHeight: 1.5
-                  }}>
-                    🛡️ <strong>Authorized Access Only.</strong> Sessions are protected by SHA-256 HMAC cookie encryption.
-                  </div>
-                </>
-              )}
-
-            </div>
-          </div>
-
         </div>
       </main>
 

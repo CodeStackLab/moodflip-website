@@ -1,4 +1,6 @@
-'use client';
+const fs = require('fs');
+
+const loginTsx = `'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -156,3 +158,7 @@ export default function LoginPage() {
     </div>
   );
 }
+`;
+
+fs.writeFileSync('app/login/page.tsx', loginTsx, 'utf8');
+console.log('LoginPage updated cleanly matching register page syntax!');

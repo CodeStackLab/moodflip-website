@@ -805,3 +805,499 @@
   .trustStrip { margin-inline: 12px; grid-template-columns: 1fr; padding-inline: 16px; }
   .welcomeCard { left: 12px; right: 12px; width: auto; }
 }
+
+/* =============================================
+   NEW SECTIONS: How It Works, Plan, Library,
+   About, FAQ
+   ============================================= */
+
+.howSection,
+.librarySection,
+.faqSection {
+  margin: 16px 20px;
+  padding: 30px 25px;
+  border: 1px solid #eeeaf5;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 9px 23px rgba(42, 31, 87, 0.035);
+}
+
+/* Section heading used in How It Works, Library, FAQ */
+.howHeader {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.howHeader h2 {
+  margin: 0;
+  color: #17133c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  line-height: 1.2;
+  letter-spacing: -0.45px;
+}
+
+.howHeader p {
+  margin: 5px 0 0;
+  color: #6d657c;
+  font-size: 10px;
+}
+
+/* How It Works steps */
+.stepsFlow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.howStep {
+  text-align: center;
+}
+
+.howIcon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.how_blue { color: #268ac2; background: linear-gradient(135deg, #e7f8ff, #dff0ff); }
+.how_purple { color: #7151df; background: linear-gradient(135deg, #f2eaff, #e8ddff); }
+.how_green { color: #28ad79; background: linear-gradient(135deg, #e9fbf2, #dff6ec); }
+.how_pink { color: #e64f8e; background: linear-gradient(135deg, #fff0f6, #ffe3ef); }
+.how_orange { color: #e59736; background: linear-gradient(135deg, #fff5e7, #ffead1); }
+
+.howStep > b {
+  color: #2d1f8a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+}
+
+.howStep h3 {
+  margin: 5px 0 3px;
+  color: #211d43;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.howStep p {
+  width: 112px;
+  max-width: 100%;
+  margin: 0 auto;
+  color: #736b80;
+  font-size: 8px;
+  line-height: 1.35;
+}
+
+/* 7-Day Plan Section */
+.planSection {
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  margin: 16px 20px;
+  padding: 20px 52px;
+  border: 1px solid #ede6f7;
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: 240px 1fr 220px;
+  gap: 36px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 12% 78%, rgba(196, 160, 237, 0.25), transparent 15rem),
+    linear-gradient(135deg, #fbf8ff, #fff8fc);
+  box-shadow: 0 9px 23px rgba(42, 31, 87, 0.035);
+}
+
+.bookCompact {
+  transform: scale(0.72);
+  transform-origin: center;
+  margin: -35px auto -22px;
+}
+
+.bookCover {
+  position: relative;
+  width: 140px;
+  height: 191px;
+  overflow: hidden;
+  border-radius: 5px 10px 10px 5px;
+  background: linear-gradient(180deg, #e9b4f7 0%, #ffe6ce 48%, #8b56d9 100%);
+  box-shadow: 0 18px 28px rgba(75, 43, 128, 0.24);
+  transform: rotate(-3deg);
+}
+
+.bookCover::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 11px;
+  background: linear-gradient(90deg, #6335b8, #8c5bd9);
+  opacity: 0.9;
+}
+
+.bookCover::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.bookLogo {
+  position: absolute;
+  z-index: 4;
+  left: 24px;
+  top: 19px;
+  color: #3e2977;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+}
+
+.bookLogo span { color: #6f4fd6; }
+
+.bookCover > strong {
+  position: absolute;
+  z-index: 4;
+  left: 27px;
+  top: 58px;
+  color: #4a2f80;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+}
+
+.bookSun {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 94px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8d9 0%, #ffd784 64%, #efad62 100%);
+  transform: translateX(-50%);
+  box-shadow: 0 0 25px rgba(255, 215, 132, 0.9);
+}
+
+.bookHillOne,
+.bookHillTwo {
+  position: absolute;
+  left: 50%;
+  bottom: -17px;
+  width: 180px;
+  height: 83px;
+  border-radius: 50% 50% 0 0;
+  transform: translateX(-50%);
+}
+
+.bookHillOne {
+  z-index: 2;
+  background: rgba(162, 102, 205, 0.55);
+  transform: translateX(-64%) rotate(3deg);
+}
+
+.bookHillTwo {
+  z-index: 3;
+  background: rgba(105, 66, 177, 0.7);
+  transform: translateX(-34%) rotate(-5deg);
+}
+
+.bookBadge {
+  position: absolute;
+  z-index: 5;
+  right: -2px;
+  bottom: 12px;
+  width: 76px;
+  height: 76px;
+  border: 4px solid #a57ae6;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, #5f34c2, #885bdc);
+  font-size: 7px;
+  line-height: 1.25;
+  box-shadow: 0 9px 20px rgba(94, 50, 180, 0.23);
+}
+
+.bookBadge b { font-size: 9px; }
+
+.bookLeaf {
+  position: absolute;
+  z-index: 1;
+  bottom: 4px;
+  color: #caa9ee;
+  font-size: 78px;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.bookLeafLeft { left: -16px; transform: rotate(-23deg); }
+.bookLeafRight { right: -4px; transform: rotate(25deg) scaleX(-1); }
+
+.planCopy h2 {
+  margin: 0;
+  color: #39206f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  line-height: 1.25;
+}
+
+.planCopy > p {
+  margin: 8px 0 18px;
+  color: #6f677e;
+  font-size: 10px;
+}
+
+.planCopy ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 11px;
+}
+
+.planCopy li {
+  position: relative;
+  padding-left: 24px;
+  color: #433b5e;
+  font-size: 10px;
+}
+
+.planCopy li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #6d4be2;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.priceCard {
+  padding: 22px 18px 17px;
+  border: 1px solid #eee9f5;
+  border-radius: 13px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 28px rgba(50, 33, 104, 0.08);
+}
+
+.priceCard h3 {
+  margin: 0 0 4px;
+  color: #292044;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+}
+
+.priceCard p { margin: 0; color: #726a80; font-size: 9px; }
+
+.priceCard > strong {
+  display: block;
+  margin: 16px 0 4px;
+  color: #17133c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 38px;
+  line-height: 1;
+}
+
+.priceCard > strong span { font-size: 18px; vertical-align: top; }
+
+.priceCard button {
+  width: 100%;
+  height: 42px;
+  margin: 18px 0 10px;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  background: linear-gradient(135deg, #7d56e2, #6234cd);
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 9px 18px rgba(93, 52, 197, 0.22);
+}
+
+.priceCard small { color: #8b8397; font-size: 7px; }
+
+/* Explore / Library Section */
+.librarySection { padding-bottom: 20px; }
+
+.libraryGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 21px;
+}
+
+.libraryCard {
+  min-height: 92px;
+  padding: 12px 11px;
+  border: 1px solid #ece8f5;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 9px;
+  align-items: start;
+}
+
+.library_cyan { background: linear-gradient(135deg, #f0fbff, #f8fdff); }
+.library_orange { background: linear-gradient(135deg, #fff6ef, #fffbf8); }
+.library_blue { background: linear-gradient(135deg, #f3f6ff, #fbfcff); }
+.library_rose { background: linear-gradient(135deg, #fff3f5, #fffafb); }
+.library_sky { background: linear-gradient(135deg, #eff9ff, #f9fdff); }
+.library_violet { background: linear-gradient(135deg, #f6f1ff, #fcfaff); }
+
+.libraryCard > span {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.75);
+  font-size: 18px;
+  box-shadow: 0 5px 11px rgba(48, 34, 90, 0.06);
+}
+
+.libraryCard strong { display: block; margin-top: 1px; color: #2c2748; font-size: 9.5px; }
+.libraryCard p { margin: 4px 0 7px; color: #746d82; font-size: 7.4px; }
+.libraryCard a { color: #6c46dd; text-decoration: none; font-size: 8px; font-weight: 900; }
+
+.allMoodsButton {
+  width: max-content;
+  min-width: 160px;
+  height: 38px;
+  margin: 17px auto 0;
+  padding: 0 24px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(135deg, #7650e0, #6034cb);
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 900;
+  box-shadow: 0 8px 17px rgba(91, 50, 192, 0.2);
+}
+
+/* About Section */
+.aboutSection {
+  min-height: 228px;
+  margin: 16px 20px;
+  padding: 13px 24px 12px;
+  border: 1px solid #eeeaf5;
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: 200px 1fr 280px;
+  gap: 28px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 14% 77%, rgba(220, 192, 245, 0.26), transparent 12rem),
+    linear-gradient(135deg, #fff9fd, #fff);
+  box-shadow: 0 9px 23px rgba(42, 31, 87, 0.035);
+}
+
+.aboutIllustration {
+  align-self: end;
+  min-height: 180px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.aboutCopy h2 {
+  margin: 0 0 12px;
+  color: #28204b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+}
+
+.aboutCopy p { margin: 0 0 8px; color: #5f5870; font-size: 9.2px; line-height: 1.5; }
+
+.aboutPoints {
+  padding: 18px 20px;
+  border: 1px solid #eee8f5;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.aboutPoints p {
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #4f4860;
+  font-size: 9.2px;
+}
+
+.aboutPoints p:last-child { margin-bottom: 0; }
+
+.aboutPoints span {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #9a4acb;
+  background: #f4ebff;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* FAQ Section */
+.faqSection { padding-top: 17px; padding-bottom: 18px; }
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 28px;
+  margin-top: 15px;
+}
+
+.faqGrid details {
+  overflow: hidden;
+  border: 1px solid #ece8f3;
+  border-radius: 7px;
+  background: #fff;
+}
+
+.faqGrid summary {
+  min-height: 34px;
+  padding: 0 13px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #383251;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.faqGrid summary::-webkit-details-marker { display: none; }
+.faqGrid summary span { color: #5e4e95; transition: transform 180ms ease; }
+.faqGrid details[open] summary span { transform: rotate(180deg); }
+
+.faqGrid details p {
+  margin: 0;
+  padding: 10px 13px 12px;
+  border-top: 1px solid #f0edf5;
+  color: #6c6577;
+  font-size: 8.5px;
+  line-height: 1.5;
+}

@@ -180,15 +180,17 @@
 .moodPanel,
 .flipCard,
 .morePanel {
-  border: 1px solid rgba(42, 38, 78, .11);
-  border-radius: 22px;
-  background: rgba(255,255,255,.93);
-  box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
-  height: 100%;
-  min-height: 686px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: auto;
+  align-self: flex-start;
+  min-height: 431px;
+  padding: 16px 12px;
+  margin-top: 0px;
+  border-radius: 21px;
+  border: 1px solid rgba(42, 38, 78, .11);
+  background: rgba(255,255,255,.93);
+  box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
 }
 
 .moodPanel {
@@ -697,11 +699,17 @@
 }
 
 .morePanel {
-  height: 100%;
-  min-height: 686px;
-  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  align-self: flex-start;
+  min-height: 431px;
+  padding: 16px 12px;
   margin-top: 0px;
   border-radius: 21px;
+  border: 1px solid rgba(42, 38, 78, .11);
+  background: rgba(255,255,255,.93);
+  box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
 }
 
 .morePanel h3 {
@@ -712,9 +720,7 @@
 .planList {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-  gap: 12px;
+  gap: 11px;
   margin-top: 10px;
 }
 .planCard {
@@ -830,8 +836,25 @@
   .header { grid-template-columns: 220px 1fr 240px; padding-inline: 24px; }
   .nav { gap: 22px; }
   .dashboard { grid-template-columns: 1fr 1fr; }
-  .morePanel { grid-column: 1 / -1; display: grid; grid-template-columns: 140px 1fr; min-height: 0; margin-top: 0; }
-  .planList { grid-template-columns: repeat(4, 1fr); }
+  .morePanel {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  align-self: flex-start;
+  min-height: 431px;
+  padding: 16px 12px;
+  margin-top: 0px;
+  border-radius: 21px;
+  border: 1px solid rgba(42, 38, 78, .11);
+  background: rgba(255,255,255,.93);
+  box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
+}
+  .planList {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 10px;
+}
   .welcomeCard { right: 18px; bottom: 185px; }
   .trustStrip { grid-template-columns: repeat(3, 1fr); }
 }
@@ -841,8 +864,25 @@
   .nav { grid-column: 1 / -1; grid-row: 2; order: 3; overflow-x: auto; justify-content: flex-start; padding-top: 5px; }
   .dashboard { grid-template-columns: 1fr; }
   .moodPanel, .flipCard { min-height: auto; }
-  .morePanel { grid-template-columns: 1fr; }
-  .planList { grid-template-columns: repeat(2, 1fr); }
+  .morePanel {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  align-self: flex-start;
+  min-height: 431px;
+  padding: 16px 12px;
+  margin-top: 0px;
+  border-radius: 21px;
+  border: 1px solid rgba(42, 38, 78, .11);
+  background: rgba(255,255,255,.93);
+  box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
+}
+  .planList {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 10px;
+}
   .moodGrid { grid-template-columns: repeat(3, 1fr); }
   .trustStrip { grid-template-columns: repeat(2, 1fr); }
   .footer { grid-template-columns: 1fr; padding-block: 18px; text-align: center; }
@@ -866,7 +906,12 @@
   .tipBar { width: 100%; padding-inline: 8px; text-align: center; }
   .actionCard, .flipActions { width: 100%; }
   .flipActions { grid-template-columns: 1fr; gap: 10px; }
-  .planList { grid-template-columns: 1fr; }
+  .planList {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 10px;
+}
   .trustStrip { margin-inline: 12px; grid-template-columns: 1fr; padding-inline: 16px; }
   .welcomeCard { left: 12px; right: 12px; width: auto; }
 }

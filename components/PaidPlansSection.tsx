@@ -8,6 +8,18 @@ interface PaidPlansSectionProps {
   hideHeader?: boolean;
 }
 
+const featureIconStyle = {
+  fontWeight: 900,
+  fontSize: '0.72rem',
+  width: '1.45rem',
+  height: '1.45rem',
+  borderRadius: '999px',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+} as const;
+
 export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectionProps) {
   const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState('');
@@ -22,13 +34,14 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
         setNotice('Plans are visible with no popup. Checkout needs an optional profile so the PDF can be generated and delivered.');
         return;
       }
+
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ planType })
+        body: JSON.stringify({ planType }),
       });
 
       const data = await res.json();
@@ -46,6 +59,21 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
     }
   };
 
+  const sevenDayFeatures = [
+    'Custom 7-day emotional shift roadmap',
+    'Zero repeated actions within your plan',
+    'Instant high-resolution PDF download',
+    'Automatic email backup copy sent',
+    'Self-reflection and mood pattern summary',
+  ];
+
+  const thirtyDayFeatures = [
+    'Full 30-day structured habit tracker',
+    '30+ custom actions per mood support',
+    'Advanced emotional progress analytics',
+    'Instant PDF email delivery',
+  ];
+
   return (
     <section id="paid-pdf-section" className="paid-pdf-section" style={{ marginTop: hideHeader ? '0.5rem' : '1.5rem' }}>
       {!hideHeader && (
@@ -60,16 +88,16 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
             borderRadius: '9999px',
             fontSize: '0.78rem',
             fontWeight: 800,
-            marginBottom: '0.6rem'
+            marginBottom: '0.6rem',
           }}>
-            <span>💎 PERSONALIZED MINDSET DOWNLOADS</span>
+            <span>PERSONALIZED MINDSET DOWNLOADS</span>
           </div>
           <h2 className="paid-section-title" style={{
             fontFamily: "'Fraunces', Georgia, serif",
             fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)',
             fontWeight: 800,
             color: '#1e1b4b',
-            margin: '0.2rem 0 0.5rem 0'
+            margin: '0.2rem 0 0.5rem 0',
           }}>
             Transform Your Mindset with a Custom PDF Report
           </h2>
@@ -88,7 +116,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
           marginBottom: '1.5rem',
           color: '#334155',
           fontSize: '0.88rem',
-          fontWeight: 700
+          fontWeight: 700,
         }}>
           {notice}
         </div>
@@ -98,9 +126,8 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
         gap: '1.25rem',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
       }}>
-        {/* 7-Day Featured Plan */}
         <div className="paid-plan-card day-7-card" style={{
           background: 'linear-gradient(155deg, #ffffff 0%, #f7f3ff 100%)',
           border: '2.5px solid #8b5cf6',
@@ -110,7 +137,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
         }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
@@ -122,7 +149,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
                 padding: '0.25rem 0.75rem',
                 borderRadius: '9999px',
                 letterSpacing: '0.03em',
-                boxShadow: '0 2px 8px rgba(124, 84, 209, 0.25)'
+                boxShadow: '0 2px 8px rgba(124, 84, 209, 0.25)',
               }}>
                 POPULAR
               </span>
@@ -133,11 +160,11 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
               fontWeight: 800,
               color: '#1e1b4b',
               margin: '0.4rem 0 0.3rem 0',
-              fontFamily: "'Fraunces', Georgia, serif"
+              fontFamily: "'Fraunces', Georgia, serif",
             }}>
               7-Day Personalized Mood Plan
             </h3>
-            
+
             <p style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.9rem', lineHeight: 1.4 }}>
               Custom 7-day emotional shift roadmap based on your saved check-ins.
             </p>
@@ -164,28 +191,14 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
               color: '#334155',
               display: 'flex',
               flexDirection: 'column',
-              gap: '0.65rem'
+              gap: '0.65rem',
             }}>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#8b5cf6', fontWeight: 800, fontSize: '0.95rem' }}>✨</span>
-                <span>Custom 7-day emotional shift roadmap</span>
-              </li>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#8b5cf6', fontWeight: 800, fontSize: '0.95rem' }}>🔄</span>
-                <span>Zero repeated actions within your plan</span>
-              </li>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#8b5cf6', fontWeight: 800, fontSize: '0.95rem' }}>⚡</span>
-                <span>Instant high-resolution PDF download</span>
-              </li>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#8b5cf6', fontWeight: 800, fontSize: '0.95rem' }}>📩</span>
-                <span>Automatic email backup copy sent</span>
-              </li>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#8b5cf6', fontWeight: 800, fontSize: '0.95rem' }}>📊</span>
-                <span>Self-reflection & mood pattern summary</span>
-              </li>
+              {sevenDayFeatures.map((feature) => (
+                <li key={feature} style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
+                  <span style={{ ...featureIconStyle, color: '#7c3aed', background: '#ede9fe' }}>OK</span>
+                  <span>{feature}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -209,15 +222,14 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.4rem'
+              gap: '0.4rem',
             }}
           >
             <span>{loading ? 'Processing...' : 'Get My 7-Day Plan ($7)'}</span>
-            <span>→</span>
+            <span>-&gt;</span>
           </button>
         </div>
 
-        {/* 30-Day Plan */}
         <div className="paid-plan-card day-30-card" style={{
           background: 'linear-gradient(155deg, #ffffff 0%, #f0fdf4 100%)',
           border: '1.5px solid #a7f3d0',
@@ -228,7 +240,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          opacity: 0.95
+          opacity: 0.95,
         }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
@@ -239,7 +251,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
                 background: '#dcfce7',
                 padding: '0.25rem 0.75rem',
                 borderRadius: '9999px',
-                letterSpacing: '0.03em'
+                letterSpacing: '0.03em',
               }}>
                 30-DAY PLAN
               </span>
@@ -250,13 +262,13 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
               fontWeight: 800,
               color: '#1e293b',
               margin: '0.4rem 0 0.3rem 0',
-              fontFamily: "'Fraunces', Georgia, serif"
+              fontFamily: "'Fraunces', Georgia, serif",
             }}>
               30-Day Mood Master Plan
             </h3>
 
             <p style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.9rem', lineHeight: 1.4 }}>
-              Comprehensive 30-day habit tracker & deep emotional growth insights.
+              Comprehensive 30-day habit tracker and emotional growth insights.
             </p>
 
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '1.1rem' }}>
@@ -278,24 +290,14 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
               color: '#475569',
               display: 'flex',
               flexDirection: 'column',
-              gap: '0.65rem'
+              gap: '0.65rem',
             }}>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#059669', fontWeight: 800, fontSize: '0.95rem' }}>🗓️</span>
-                <span>Full 30-day structured habit tracker</span>
-              </li>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#059669', fontWeight: 800, fontSize: '0.95rem' }}>🚀</span>
-                <span>30+ custom actions per mood support</span>
-              </li>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#059669', fontWeight: 800, fontSize: '0.95rem' }}>📈</span>
-                <span>Advanced emotional progress analytics</span>
-              </li>
-              <li style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
-                <span style={{ color: '#059669', fontWeight: 800, fontSize: '0.95rem' }}>⚡</span>
-                <span>Instant PDF email delivery</span>
-              </li>
+              {thirtyDayFeatures.map((feature) => (
+                <li key={feature} style={{ display: 'flex', gap: '0.55rem', alignItems: 'center' }}>
+                  <span style={{ ...featureIconStyle, color: '#047857', background: '#dcfce7' }}>OK</span>
+                  <span>{feature}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -314,7 +316,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
               fontWeight: 800,
               fontSize: '0.9rem',
               cursor: 'pointer',
-              boxShadow: '0 6px 18px rgba(5, 150, 105, 0.28)'
+              boxShadow: '0 6px 18px rgba(5, 150, 105, 0.28)',
             }}
           >
             {loading ? 'Processing...' : 'Get My 30-Day Plan ($19)'}

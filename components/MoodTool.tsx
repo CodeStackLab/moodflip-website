@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PaidPlansSection from '@/components/PaidPlansSection';
 
 /* ----------------------------------------------------------------
-   MoodFlip v2 â€” "A quiet breath between how you feel and what's next"
+   MoodFlip v2 - "A quiet breath between how you feel and what's next"
    Calm, premium, minimal wellness-utility aesthetic.
 ------------------------------------------------------------------- */
 
@@ -30,35 +30,35 @@ const FAMILY_ORDER: FamilyName[] = ['Sad', 'Fearful', 'Angry', 'Disgusted', 'Str
 
 const FAMILY_META: Record<FamilyName, FamilyMetaEntry> = {
   Sad: {
-    icon: 'ðŸŒ§ï¸',
+    icon: 'S',
     dot: '#6366f1',
     bgGradient: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%)',
     border: 'rgba(99, 102, 241, 0.3)',
     desc: 'Loneliness, grief, or feeling empty'
   },
   Fearful: {
-    icon: 'ðŸŒ«ï¸',
+    icon: 'F',
     dot: '#a855f7',
     bgGradient: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(236, 72, 153, 0.08) 100%)',
     border: 'rgba(168, 85, 247, 0.3)',
     desc: 'Anxiety, worry, or feeling exposed'
   },
   Angry: {
-    icon: 'â›ˆï¸',
+    icon: 'A',
     dot: '#f43f5e',
     bgGradient: 'linear-gradient(135deg, rgba(244, 63, 94, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%)',
     border: 'rgba(244, 63, 94, 0.3)',
     desc: 'Frustration, annoyance, or impatience'
   },
   Disgusted: {
-    icon: 'ðŸŒªï¸',
+    icon: 'D',
     dot: '#10b981',
     bgGradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(14, 165, 233, 0.08) 100%)',
     border: 'rgba(16, 185, 129, 0.3)',
     desc: 'Judgmental, uncomfortable, or avoidant'
   },
   Stressed: {
-    icon: 'ðŸ’¨',
+    icon: 'T',
     dot: '#f59e0b',
     bgGradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(234, 179, 8, 0.08) 100%)',
     border: 'rgba(245, 158, 11, 0.3)',
@@ -69,7 +69,7 @@ const FAMILY_META: Record<FamilyName, FamilyMetaEntry> = {
 const MOOD_DATA: MoodDataShape = {
   Sad: {
     Lonely: {
-      Isolated: { target: 'Connected', action: 'Send one voice note to someone you trust. Just say hi â€” no big update needed.' },
+      Isolated: { target: 'Connected', action: 'Send one voice note to someone you trust. Just say hi - no big update needed.' },
       'Left out': { target: 'Included', action: "List three people who'd want to hear from you right now. Text the first one." },
       Abandoned: { target: 'Secure', action: 'Wrap a soft blanket around yourself and ground your feet into the floor for 60 seconds.' },
       Hurt: { target: 'Healed', action: "Place a hand over your heart, take 3 slow breaths, and say out loud: 'I acknowledge this pain.'" },
@@ -284,7 +284,7 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-nav-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .mf2-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
         .mf2-brand-mark { width: 30px; height: 30px; border-radius: 10px; background: linear-gradient(135deg, #ef6ca8, var(--sage-deep) 55%, #56c8cf); box-shadow: 0 8px 18px rgba(85,67,216,.28); transform: rotate(-8deg); flex-shrink: 0; display:grid; place-items:center; }
-        .mf2-brand-mark::before { content: "â™¥"; color:#fff; font-size:15px; line-height:1; transform:rotate(8deg); text-shadow:0 1px 2px rgba(49,35,132,.2); }
+        .mf2-brand-mark::before { content: "M"; color:#fff; font-size:13px; font-weight:900; line-height:1; transform:rotate(8deg); text-shadow:0 1px 2px rgba(49,35,132,.2); }
         .mf2-nav-links { display: flex; align-items: center; gap: 34px; font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
         .mf2-nav-links a:hover { color: var(--ink); }
         .mf2-nav-right { display: flex; align-items: center; gap: 22px; }
@@ -533,7 +533,7 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .mf2-reveal.mf2-in-view { opacity: 1; transform: translateY(0); }
 
-        /* how it works â€” timeline */
+        /* how it works - timeline */
         .mf2-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
         .mf2-timeline::before { content: ""; position: absolute; top: 11px; left: 6%; right: 6%; height: 1px; background: var(--line); }
         .mf2-tl-step { padding: 0 18px; position: relative; text-align: left; }
@@ -541,7 +541,7 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-tl-step h3 { font-size: 17.5px; margin-bottom: 8px; }
         .mf2-tl-step p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
 
-        /* why â€” flat list with dividers */
+        /* why - flat list with dividers */
         .mf2-why-grid { display: grid; grid-template-columns: 1fr 1fr; }
         .mf2-why-item { padding: 32px 36px; border-top: 1px solid var(--line); display: flex; gap: 18px; }
         .mf2-why-item:nth-child(-n+2) { border-top: none; }
@@ -555,7 +555,7 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-price-card h2 { font-size: 28px; margin-bottom: 10px; }
         .mf2-price-list { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 10px; }
         .mf2-price-list li { font-size: 14.5px; color: var(--ink-soft); display: flex; align-items: center; gap: 10px; }
-        .mf2-price-list li::before { content: "âœ“"; color: var(--sage-deep); font-weight: 700; }
+        .mf2-price-list li::before { content: "OK"; color: var(--sage-deep); font-weight: 700; font-size: 0.72rem; }
         .mf2-price-tag { text-align: center; }
         .mf2-price-num { font-family: 'Newsreader', serif; font-size: 48px; font-weight: 500; }
         .mf2-price-note { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 18px; font-weight: 500; }
@@ -636,7 +636,7 @@ export default function MoodTool(): React.JSX.Element {
               Try it free
             </button>
             <button className="mf2-burger" aria-label="Menu" onClick={() => setMenuOpen((v) => !v)}>
-              â˜°
+              Menu
             </button>
           </div>
         </div>
@@ -658,18 +658,18 @@ export default function MoodTool(): React.JSX.Element {
             A quiet <em>breath</em> between how you feel and what's next.
           </h1>
           <p className="mf2-hero-sub">
-            Tap through three quick choices and get one small, doable action to shift how you feel â€” in under a minute.
+            Tap through three quick choices and get one small, doable action to shift how you feel - in under a minute.
           </p>
           <div className="mf2-hero-cta">
             <button
               className="mf2-btn mf2-btn-primary"
               onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Start your flip â€” free
+              Start your flip - free
             </button>
           </div>
           <p className="mf2-trust-line">
-            No sign-up<span>Â·</span>Nothing to type<span>Â·</span>Auto-deletes in 90 days
+            No sign-up<span> | </span>Nothing to type<span> | </span>Auto-deletes in 90 days
           </p>
         </div>
       </section>
@@ -699,7 +699,7 @@ export default function MoodTool(): React.JSX.Element {
                       : undefined
                   }}
                 >
-                  <span className="mf2-orb-icon">{family ? FAMILY_META[family].icon : 'â˜ï¸'}</span>
+                  <span className="mf2-orb-icon">{family ? FAMILY_META[family].icon : 'M'}</span>
                   <span className="mf2-orb-label">{orbLabel}</span>
                 </div>
               </div>
@@ -711,7 +711,7 @@ export default function MoodTool(): React.JSX.Element {
                   background: revealed ? '#22c55e' : '#a855f7',
                   boxShadow: revealed ? '0 0 8px #22c55e' : '0 0 8px #a855f7'
                 }} />
-                {revealed ? 'âœ¨ Mood Cleared' : 'ðŸ« Inhale â€¢ Exhale'}
+                {revealed ? 'Mood cleared' : 'Inhale / Exhale'}
               </div>
             </div>
 
@@ -751,7 +751,7 @@ export default function MoodTool(): React.JSX.Element {
                     ) : (
                       crumbs.map((c, i) => (
                         <React.Fragment key={c}>
-                          {i > 0 && <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>âž”</span>}
+                          {i > 0 && <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>-&gt;</span>}
                           <span style={{
                             background: i === crumbs.length - 1 ? 'rgba(124, 58, 237, 0.12)' : 'var(--tile-bg)',
                             color: i === crumbs.length - 1 ? 'var(--m3-purple-primary)' : 'var(--text-subtle)',
@@ -789,7 +789,7 @@ export default function MoodTool(): React.JSX.Element {
                       boxShadow: '0 2px 8px rgba(124, 58, 237, 0.08)'
                     }}
                   >
-                    <span>ðŸ”„</span> Start Over
+                    Start Over
                   </button>
                 )}
               </div>
@@ -878,7 +878,7 @@ export default function MoodTool(): React.JSX.Element {
 
               {result && !revealed && (
                 <button className="mf2-flip-btn" onClick={revealFlip} style={{ marginTop: '0.5rem' }}>
-                  âœ¨ Reveal My Mindset Shift â†’
+                  Reveal My Mindset Shift -&gt;
                 </button>
               )}
 
@@ -895,7 +895,7 @@ export default function MoodTool(): React.JSX.Element {
                     }}>
                       From: {feeling}
                     </span>
-                    <span style={{ fontSize: '0.9rem', color: 'var(--text-subtle)' }}>âž”</span>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--text-subtle)' }}>-&gt;</span>
                     <span style={{
                       background: 'rgba(124, 58, 237, 0.15)',
                       color: 'var(--m3-purple-primary)',
@@ -971,7 +971,7 @@ export default function MoodTool(): React.JSX.Element {
                         fontWeight: 700,
                         textAlign: 'center'
                       }}>
-                        ðŸŽ‰ Outstanding! You gave yourself 60 seconds of space. How do you feel now?
+                        Outstanding! You gave yourself 60 seconds of space. How do you feel now?
                       </div>
                     ) : (
                       <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem' }}>
@@ -989,7 +989,7 @@ export default function MoodTool(): React.JSX.Element {
                             cursor: 'pointer'
                           }}
                         >
-                          {timerRunning ? 'â¸ Pause Timer' : 'â–¶ Resume Timer'}
+                          {timerRunning ? 'Pause Timer' : 'Resume Timer'}
                         </button>
                         <button
                           onClick={() => { setSecondsLeft(60); setTimerRunning(true); }}
@@ -1004,7 +1004,7 @@ export default function MoodTool(): React.JSX.Element {
                             cursor: 'pointer'
                           }}
                         >
-                          ðŸ”„ Restart
+                          Restart
                         </button>
                       </div>
                     )}
@@ -1015,7 +1015,7 @@ export default function MoodTool(): React.JSX.Element {
                     <button
                       onClick={() => {
                         if (result?.action) {
-                          navigator.clipboard.writeText(`MoodFlip Shift (${feeling} âž” ${result.target}): ${result.action}`);
+                          navigator.clipboard.writeText(`MoodFlip Shift (${feeling} -> ${result.target}): ${result.action}`);
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
                         }
@@ -1034,7 +1034,7 @@ export default function MoodTool(): React.JSX.Element {
                         gap: '0.35rem'
                       }}
                     >
-                      {copied ? 'âœ… Copied!' : 'ðŸ“‹ Copy Action'}
+                      {copied ? 'Copied!' : 'Copy Action'}
                     </button>
 
                     <button
@@ -1056,7 +1056,7 @@ export default function MoodTool(): React.JSX.Element {
                         gap: '0.35rem'
                       }}
                     >
-                      {savedShift ? 'ðŸ’– Saved!' : 'ðŸ’¾ Save Shift'}
+                      {savedShift ? 'Saved!' : 'Save Shift'}
                     </button>
 
                     <button
@@ -1073,7 +1073,7 @@ export default function MoodTool(): React.JSX.Element {
                         marginLeft: 'auto'
                       }}
                     >
-                      ðŸ”„ Flip Another Mood
+                      Flip Another Mood
                     </button>
                   </div>
                 </div>
@@ -1087,7 +1087,7 @@ export default function MoodTool(): React.JSX.Element {
       <section className="mf2-quote-section">
         <div className="mf2-wrap-narrow mf2-reveal">
           <p className="mf2-quote">"Feelings move. Give this one somewhere to go."</p>
-          <p className="mf2-quote-attr">â€” the idea behind MoodFlip</p>
+          <p className="mf2-quote-attr">- the idea behind MoodFlip</p>
         </div>
       </section>
 
@@ -1125,10 +1125,10 @@ export default function MoodTool(): React.JSX.Element {
           </div>
           <div className="mf2-why-grid mf2-reveal" style={{ border: '1px solid var(--line)', borderRadius: 24, overflow: 'hidden' }}>
             {[
-              { icon: 'ðŸ§ ', t: 'A real pause', d: 'One small action creates space between a difficult feeling and what you do next.' },
-              { icon: 'ðŸ«§', t: 'Visual, not verbal', d: 'Every choice is a tap. Nothing to write, explain, or overthink.' },
-              { icon: 'ðŸŒ±', t: 'One manageable step', d: 'A 60-second suggestion stays small enough to actually try.' },
-              { icon: 'ðŸ”’', t: 'Private by default', d: 'No profile needed. Anything you save clears automatically after 90 days.' },
+              { icon: '1', t: 'A real pause', d: 'One small action creates space between a difficult feeling and what you do next.' },
+              { icon: '2', t: 'Visual, not verbal', d: 'Every choice is a tap. Nothing to write, explain, or overthink.' },
+              { icon: '3', t: 'One manageable step', d: 'A 60-second suggestion stays small enough to actually try.' },
+              { icon: '4', t: 'Private by default', d: 'No profile needed. Anything you save clears automatically after 90 days.' },
             ].map((c) => (
               <div className="mf2-why-item" key={c.t}>
                 <div className="mf2-why-icon">{c.icon}</div>
@@ -1209,9 +1209,9 @@ export default function MoodTool(): React.JSX.Element {
               <a href="/privacy">Privacy</a>
               <a href="/disclaimer">Disclaimer</a>
             </div>
-            <span className="mf2-footer-note" style={{ marginTop: 0 }}>Â© 2026 MoodFlip</span>
+            <span className="mf2-footer-note" style={{ marginTop: 0 }}>&copy; 2026 MoodFlip</span>
           </div>
-          <p className="mf2-footer-note">Self-reflection utility Â· Not therapy or medical advice.</p>
+          <p className="mf2-footer-note">Self-reflection utility | Not therapy or medical advice.</p>
         </div>
       </footer>
       {/* Login and plan offers are kept out of popups on the public homepage. */}

@@ -1560,10 +1560,10 @@
 /* Welcome Back Floating Popup */
 .welcomeCardPopup {
   position: absolute;
-  right: 14px;
-  bottom: -30px;
-  z-index: 30;
-  width: 340px;
+  right: -15px;
+  bottom: -45px;
+  z-index: 50;
+  width: 345px;
   background: #ffffff;
   border-radius: 20px;
   border: 1px solid #dcd2f5;

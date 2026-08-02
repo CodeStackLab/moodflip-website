@@ -220,8 +220,8 @@ export default function HomePage() {
           }
           .wellness-grid {
             display: grid;
-            grid-template-columns: 1.15fr 80px 1fr;
-            align-items: stretch; gap: 0;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch; gap: 2rem;
             position: relative;
           }
           @media (max-width: 980px) {
@@ -306,32 +306,33 @@ export default function HomePage() {
             border-radius: 20px; background: rgba(250,246,238,0.5);
           }
 
-          /* CENTER FLIP BUTTON */
-          .wellness-flip-col {
-            display: flex; align-items: center; justify-content: center;
-            position: relative; z-index: 10;
+          /* FLIP BUTTON (PREMIUM HORIZONTAL ACTION BAR) */
+          .wellness-flip-wrap {
+            margin-top: 1.75rem; padding-top: 1.25rem;
+            border-top: 1px solid #eae3d6;
           }
           .wellness-flip-btn {
-            font-family: inherit; font-weight: 800; font-size: 0.88rem;
-            letter-spacing: 0.05em; text-transform: uppercase;
-            background: linear-gradient(135deg, #5b4b9a 0%, #463a78 100%);
-            color: #ffffff; border: none; border-radius: 999px;
-            padding: 1.25rem 0.85rem; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            text-align: center; width: 96px; height: 120px; justify-content: center;
-            box-shadow: 0 12px 32px rgba(91,75,154,0.4);
-            animation: softPulseGlow 3s ease-in-out infinite;
+            width: 100%; padding: 1rem 1.75rem;
+            font-family: inherit; font-weight: 800; font-size: 1rem;
+            letter-spacing: 0.04em; text-transform: uppercase;
+            background: linear-gradient(135deg, #6c5ce7 0%, #8a7cf0 45%, #ec4899 100%);
+            background-size: 200% auto;
+            color: #ffffff; border: none; border-radius: 16px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            text-align: center;
+            box-shadow: 0 10px 28px rgba(108,92,231,0.38);
             transition: all 0.25s ease;
+            position: relative; overflow: hidden;
           }
           .wellness-flip-btn:disabled {
             opacity: 0.45; cursor: not-allowed; animation: none; box-shadow: none;
+            background: #d9d0f0; color: #7f73a3;
           }
           .wellness-flip-btn:hover:not(:disabled) {
-            transform: scale(1.08); box-shadow: 0 16px 42px rgba(91,75,154,0.55);
-          }
-          @media (max-width: 980px) {
-            .wellness-flip-col { margin: 0.5rem 0; }
-            .wellness-flip-btn { width: 100%; height: auto; border-radius: 999px; padding: 1.1rem; flex-direction: row; justify-content: center; }
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(108,92,231,0.48);
+            background-position: right center;
           }
 
           /* RIGHT PANEL */
@@ -580,22 +581,21 @@ export default function HomePage() {
                     )}
                   </div>
                 </div>
-              </div>
 
-              {/* CENTER FLIP BUTTON */}
-              <div className="wellness-flip-col">
-                <button
-                  id="flip-mood-btn"
-                  className="wellness-flip-btn"
-                  disabled={!family || !feeling || isFlipping}
-                  onClick={flipMood}
-                  title={!family || !feeling ? 'Select a mood & feeling first' : 'Click to flip your mood'}
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                  <span>{isFlipping ? 'Flipping...' : 'Flip My Mood'}</span>
-                </button>
+                {/* STEP 3 - BUTTON */}
+                <div className="wellness-flip-wrap">
+                  <button
+                    id="flip-mood-btn"
+                    className="wellness-flip-btn"
+                    disabled={!family || !feeling || isFlipping}
+                    onClick={flipMood}
+                    title={!family || !feeling ? 'Select a mood & feeling first' : 'Click to flip your mood'}
+                  >
+                    <span style={{ fontSize: '1.1rem' }}>✨</span>
+                    <span>{isFlipping ? 'Flipping Mood...' : 'Flip My Mood'}</span>
+                    <span style={{ fontSize: '1.1rem' }}>→</span>
+                  </button>
+                </div>
               </div>
 
               {/* RIGHT PANEL */}

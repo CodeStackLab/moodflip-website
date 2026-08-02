@@ -13,9 +13,7 @@ export default function Footer() {
             <h2 className="footer-col-title">Explore</h2>
             <ul className="footer-link-list">
               <li><a href="/" className="footer-link">Flip my mood</a></li>
-              <li><a href="/pricing" className="footer-link">Plans &amp; pricing</a></li>
               <li><a href="/about" className="footer-link">How it works</a></li>
-              <li><a href="/profile" className="footer-link">My check-ins</a></li>
             </ul>
           </div>
           <div>

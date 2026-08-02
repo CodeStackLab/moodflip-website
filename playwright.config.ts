@@ -7,9 +7,8 @@ export default defineConfig({
   retries: 0,
   workers: 1,
   use: {
-    // Permanently configure visible browser window on screen (headless: false)
-    headless: false,
-    baseURL: 'https://moodflip-website.vercel.app',
+    headless: true,
+    baseURL: 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
     viewport: { width: 1280, height: 800 },
   },

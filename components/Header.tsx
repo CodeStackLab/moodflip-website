@@ -177,7 +177,6 @@ export default function Header() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/pricing', label: 'Pricing' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
     { href: '/privacy', label: 'Privacy' },
@@ -625,16 +624,7 @@ export default function Header() {
                 </div>
               )}
             </div>
-          ) : (
-            <a href="/login" className="header-login-btn" id="header-login-link" style={{ order: 1 }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                <polyline points="10 17 15 12 10 7" />
-                <line x1="15" y1="12" x2="3" y2="12" />
-              </svg>
-              <span>Login</span>
-            </a>
-          )}
+          ) : null}
         </nav>
 
         {/* ── MOBILE RIGHT CONTROLS ── */}
@@ -703,11 +693,7 @@ export default function Header() {
               <a href="/profile" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.45rem', padding: '0.65rem', background: 'linear-gradient(135deg, #7c54d1, #ec4899)', color: '#fff', borderRadius: '12px', fontWeight: 700, fontSize: '0.86rem', textDecoration: 'none' }}>
                 👤 My Profile
               </a>
-            ) : (
-              <a href="/login" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.45rem', padding: '0.65rem', background: 'linear-gradient(135deg, #0ea5e9, #10b981)', color: '#fff', borderRadius: '12px', fontWeight: 700, fontSize: '0.86rem', textDecoration: 'none' }}>
-                Login
-              </a>
-            )}
+            ) : null}
           </div>
         </div>
 

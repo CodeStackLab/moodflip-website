@@ -1,11 +1,10 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import AuthModal from '@/components/AuthModal';
 import PaidPlansSection from '@/components/PaidPlansSection';
 
 /* ----------------------------------------------------------------
-   MoodFlip v2 — "A quiet breath between how you feel and what's next"
+   MoodFlip v2 â€” "A quiet breath between how you feel and what's next"
    Calm, premium, minimal wellness-utility aesthetic.
 ------------------------------------------------------------------- */
 
@@ -31,35 +30,35 @@ const FAMILY_ORDER: FamilyName[] = ['Sad', 'Fearful', 'Angry', 'Disgusted', 'Str
 
 const FAMILY_META: Record<FamilyName, FamilyMetaEntry> = {
   Sad: {
-    icon: '🌧️',
+    icon: 'ðŸŒ§ï¸',
     dot: '#6366f1',
     bgGradient: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%)',
     border: 'rgba(99, 102, 241, 0.3)',
     desc: 'Loneliness, grief, or feeling empty'
   },
   Fearful: {
-    icon: '🌫️',
+    icon: 'ðŸŒ«ï¸',
     dot: '#a855f7',
     bgGradient: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(236, 72, 153, 0.08) 100%)',
     border: 'rgba(168, 85, 247, 0.3)',
     desc: 'Anxiety, worry, or feeling exposed'
   },
   Angry: {
-    icon: '⛈️',
+    icon: 'â›ˆï¸',
     dot: '#f43f5e',
     bgGradient: 'linear-gradient(135deg, rgba(244, 63, 94, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%)',
     border: 'rgba(244, 63, 94, 0.3)',
     desc: 'Frustration, annoyance, or impatience'
   },
   Disgusted: {
-    icon: '🌪️',
+    icon: 'ðŸŒªï¸',
     dot: '#10b981',
     bgGradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(14, 165, 233, 0.08) 100%)',
     border: 'rgba(16, 185, 129, 0.3)',
     desc: 'Judgmental, uncomfortable, or avoidant'
   },
   Stressed: {
-    icon: '💨',
+    icon: 'ðŸ’¨',
     dot: '#f59e0b',
     bgGradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(234, 179, 8, 0.08) 100%)',
     border: 'rgba(245, 158, 11, 0.3)',
@@ -70,7 +69,7 @@ const FAMILY_META: Record<FamilyName, FamilyMetaEntry> = {
 const MOOD_DATA: MoodDataShape = {
   Sad: {
     Lonely: {
-      Isolated: { target: 'Connected', action: 'Send one voice note to someone you trust. Just say hi — no big update needed.' },
+      Isolated: { target: 'Connected', action: 'Send one voice note to someone you trust. Just say hi â€” no big update needed.' },
       'Left out': { target: 'Included', action: "List three people who'd want to hear from you right now. Text the first one." },
       Abandoned: { target: 'Secure', action: 'Wrap a soft blanket around yourself and ground your feet into the floor for 60 seconds.' },
       Hurt: { target: 'Healed', action: "Place a hand over your heart, take 3 slow breaths, and say out loud: 'I acknowledge this pain.'" },
@@ -178,8 +177,6 @@ export default function MoodTool(): React.JSX.Element {
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showAuth, setShowAuth] = useState(false);
-  const [showPlanModal, setShowPlanModal] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -287,12 +284,10 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-nav-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .mf2-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
         .mf2-brand-mark { width: 30px; height: 30px; border-radius: 10px; background: linear-gradient(135deg, #ef6ca8, var(--sage-deep) 55%, #56c8cf); box-shadow: 0 8px 18px rgba(85,67,216,.28); transform: rotate(-8deg); flex-shrink: 0; display:grid; place-items:center; }
-        .mf2-brand-mark::before { content: "♥"; color:#fff; font-size:15px; line-height:1; transform:rotate(8deg); text-shadow:0 1px 2px rgba(49,35,132,.2); }
+        .mf2-brand-mark::before { content: "â™¥"; color:#fff; font-size:15px; line-height:1; transform:rotate(8deg); text-shadow:0 1px 2px rgba(49,35,132,.2); }
         .mf2-nav-links { display: flex; align-items: center; gap: 34px; font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
         .mf2-nav-links a:hover { color: var(--ink); }
         .mf2-nav-right { display: flex; align-items: center; gap: 22px; }
-        .mf2-login { font-size: 14px; font-weight: 600; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; background: none; border: none; padding: 0; }
-        .mf2-login:hover { color: var(--ink); }
         .mf2-burger { display: none; background: none; border: none; font-size: 22px; color: var(--ink); }
 
         .mf2-btn { border-radius: 999px; padding: 13px 24px; font-weight: 700; font-size: 14.5px; border: none; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease; }
@@ -313,39 +308,76 @@ export default function MoodTool(): React.JSX.Element {
         /* ---------------- demo section ---------------- */
         .mf2-demo-section { padding: 30px 0 90px; }
         .mf2-demo-card {
-          background: var(--surface); border: 1px solid rgba(255,255,255,.82); border-radius: 32px;
-          padding: 50px; display: grid; grid-template-columns: 240px 1fr; gap: 52px; align-items: center;
-          box-shadow: 0 32px 80px rgba(55,43,120,.12), inset 0 0 0 1px var(--line); backdrop-filter: blur(18px);
+          background: linear-gradient(145deg, rgba(255,255,255,0.92) 0%, rgba(248,246,255,0.88) 100%);
+          border: 1px solid rgba(255,255,255,0.9);
+          border-radius: 36px;
+          padding: 48px 52px;
+          display: grid;
+          grid-template-columns: 220px 1fr;
+          gap: 56px;
+          align-items: start;
+          box-shadow: 0 40px 100px rgba(55,43,120,.14), 0 8px 24px rgba(55,43,120,.06), inset 0 1px 0 rgba(255,255,255,1);
+          backdrop-filter: blur(24px) saturate(160%);
+          position: relative;
+          overflow: hidden;
         }
-        .mf2-orb-col { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-        .mf2-orb-wrap { position: relative; width: 190px; height: 190px; display: flex; align-items: center; justify-content: center; }
+        .mf2-demo-card::before {
+          content: '';
+          position: absolute;
+          top: -80px; right: -80px;
+          width: 320px; height: 320px;
+          background: radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%);
+          border-radius: 50%;
+          pointer-events: none;
+        }
+        .mf2-demo-card::after {
+          content: '';
+          position: absolute;
+          bottom: -60px; left: 30px;
+          width: 260px; height: 260px;
+          background: radial-gradient(circle, rgba(236,72,153,0.07) 0%, transparent 70%);
+          border-radius: 50%;
+          pointer-events: none;
+        }
+        .mf2-orb-col { display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; z-index: 1; }
+        .mf2-orb-wrap { position: relative; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
         .mf2-orb-ring {
-          position: absolute; inset: 0; border-radius: 50%;
-          background: conic-gradient(from 0deg, rgba(168, 85, 247, 0.35), rgba(236, 72, 153, 0.3), rgba(56, 189, 248, 0.35), rgba(168, 85, 247, 0.35));
-          animation: mf2Breathe 4.5s ease-in-out infinite alternate, mf2Rotate 12s linear infinite;
-          filter: blur(12px);
+          position: absolute; inset: -8px; border-radius: 50%;
+          background: conic-gradient(from 0deg, rgba(168,85,247,0.4), rgba(236,72,153,0.35), rgba(56,189,248,0.4), rgba(99,102,241,0.4), rgba(168,85,247,0.4));
+          animation: mf2Breathe 5s ease-in-out infinite alternate, mf2Rotate 14s linear infinite;
+          filter: blur(16px);
         }
-        .mf2-cleared .mf2-orb-ring { background: radial-gradient(circle at 34% 30%, rgba(241, 228, 196, 0.5), rgba(241,228,196,0)); }
-        @keyframes mf2Breathe { 0%, 100% { transform: scale(0.92); opacity: 0.75; } 50% { transform: scale(1.08); opacity: 1; } }
+        .mf2-orb-ring-inner {
+          position: absolute; inset: 4px; border-radius: 50%;
+          border: 1.5px dashed rgba(168,85,247,0.25);
+          animation: mf2Rotate 20s linear infinite reverse;
+        }
+        .mf2-cleared .mf2-orb-ring { background: conic-gradient(from 0deg, rgba(250,204,21,0.45), rgba(34,197,94,0.35), rgba(250,204,21,0.45)); }
+        @keyframes mf2Breathe { 0% { transform: scale(0.88); opacity: 0.65; } 100% { transform: scale(1.12); opacity: 1; } }
         @keyframes mf2Rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .mf2-orb-core {
-          position: relative; width: 140px; height: 140px; border-radius: 50%;
-          background: radial-gradient(circle at 35% 35%, #c084fc 0%, #7c3aed 55%, #4c1d95 100%);
+          position: relative; width: 148px; height: 148px; border-radius: 50%;
+          background: radial-gradient(circle at 32% 28%, #d8b4fe 0%, #9333ea 38%, #5b21b6 70%, #3b0764 100%);
           display: flex; flex-direction: column; align-items: center; justify-content: center;
-          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: 0 20px 48px -10px rgba(124, 58, 237, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -4px 12px rgba(0, 0, 0, 0.3);
-          border: 2px solid rgba(255, 255, 255, 0.4);
+          transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow: 0 24px 56px -8px rgba(124,58,237,0.55), 0 0 0 6px rgba(168,85,247,0.12), inset 0 3px 6px rgba(255,255,255,0.65), inset 0 -6px 16px rgba(0,0,0,0.25);
+          border: 2px solid rgba(255,255,255,0.5);
         }
-        .mf2-cleared .mf2-orb-core { background: radial-gradient(circle at 35% 35%, #fde047 0%, #f59e0b 55%, #b45309 100%); }
-        .mf2-orb-icon { font-size: 32px; margin-bottom: 2px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); animation: mf2Float 3s ease-in-out infinite alternate; }
-        @keyframes mf2Float { 0% { transform: translateY(0); } 100% { transform: translateY(-4px); } }
-        .mf2-orb-label { color: #fff; font-size: 13.5px; font-weight: 800; max-width: 100px; text-align: center; line-height: 1.25; text-shadow: 0 2px 4px rgba(0,0,0,0.3); letter-spacing: -0.01em; }
+        .mf2-cleared .mf2-orb-core {
+          background: radial-gradient(circle at 32% 28%, #fef08a 0%, #facc15 38%, #d97706 70%, #78350f 100%);
+          box-shadow: 0 24px 56px -8px rgba(217,119,6,0.55), 0 0 0 6px rgba(250,204,21,0.15), inset 0 3px 6px rgba(255,255,255,0.65), inset 0 -6px 16px rgba(0,0,0,0.2);
+        }
+        .mf2-orb-icon { font-size: 34px; margin-bottom: 3px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)); animation: mf2Float 3.5s ease-in-out infinite alternate; }
+        @keyframes mf2Float { 0% { transform: translateY(0px) scale(1); } 100% { transform: translateY(-5px) scale(1.04); } }
+        .mf2-orb-label { color: rgba(255,255,255,0.95); font-size: 12.5px; font-weight: 800; max-width: 90px; text-align: center; line-height: 1.2; text-shadow: 0 2px 6px rgba(0,0,0,0.35); letter-spacing: 0.02em; text-transform: uppercase; }
         .mf2-orb-caption-pill {
-          display: inline-flex; align-items: center; gap: 0.4rem;
-          padding: 0.3rem 0.8rem; border-radius: 999px;
-          background: var(--tile-bg); border: 1px solid var(--card-border);
-          font-size: 0.78rem; font-weight: 700; color: var(--text-main);
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+          display: inline-flex; align-items: center; gap: 0.45rem;
+          padding: 0.35rem 1rem; border-radius: 999px;
+          background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(248,246,255,0.8));
+          border: 1px solid rgba(168,85,247,0.2);
+          font-size: 0.78rem; font-weight: 700; color: var(--ink-soft);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9);
+          backdrop-filter: blur(8px);
         }
 
         .mf2-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 20px; margin-bottom: 16px; font-size: 13.5px; color: var(--ink-faint); }
@@ -361,56 +393,128 @@ export default function MoodTool(): React.JSX.Element {
           box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3) !important;
         }
 
-        .mf2-options-label { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; display: block; font-weight: 600; }
+        .mf2-options-label {
+          font-size: 13px; color: var(--ink-soft); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+          font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .mf2-options-label::before { content: ''; display: inline-block; width: 18px; height: 2px; background: linear-gradient(90deg, var(--sage), transparent); border-radius: 2px; }
+
         .mf2-chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
         .mf2-chip {
-          border: 1.5px solid var(--line); background: var(--paper); border-radius: 999px;
-          padding: 10px 18px 10px 14px; font-size: 14px; font-weight: 600; color: var(--ink);
+          border: 1.5px solid rgba(109,92,232,0.18);
+          background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(248,246,255,0.7));
+          border-radius: 999px;
+          padding: 10px 20px 10px 14px; font-size: 14px; font-weight: 600; color: var(--ink);
           display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
-          transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+          transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+          backdrop-filter: blur(4px);
         }
-        .mf2-chip:hover { border-color: var(--sage); background: var(--sage-soft); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(85,67,216,.11); }
-        .mf2-chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .mf2-chip:hover {
+          border-color: var(--sage);
+          background: linear-gradient(135deg, rgba(238,235,255,0.95), rgba(224,219,255,0.8));
+          transform: translateY(-3px) scale(1.03);
+          box-shadow: 0 10px 24px rgba(85,67,216,0.16), inset 0 1px 0 rgba(255,255,255,0.9);
+          color: var(--sage-deep);
+        }
+        .mf2-chip-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 6px currentColor; }
 
+        /* ---- Mood Family Cards ---- */
         .mf2-mood-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-          gap: 14px;
-          margin-top: 14px;
+          grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+          gap: 12px;
+          margin-top: 6px;
         }
         .mf2-family-card {
-          border-radius: 20px;
-          padding: 18px 16px;
+          border-radius: 22px;
+          padding: 20px 18px;
           text-align: left;
           cursor: pointer;
-          transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+          transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.2s ease;
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 12px;
           position: relative;
           overflow: hidden;
-          background: var(--tile-bg);
-          border: 1.5px solid var(--card-border);
+          border: 1.5px solid transparent;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        .mf2-family-card::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 22px;
+          background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 60%);
+          pointer-events: none;
         }
         .mf2-family-card:hover {
-          transform: translateY(-4px) scale(1.02);
-          box-shadow: 0 16px 36px -8px rgba(109, 92, 232, 0.25) !important;
-          border-color: var(--sage) !important;
+          transform: translateY(-6px) scale(1.03);
+          box-shadow: 0 20px 48px -8px var(--card-glow, rgba(109,92,232,0.3)) !important;
+          border-color: var(--card-accent, rgba(109,92,232,0.4)) !important;
         }
-        .mf2-family-card-Sad { background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%); border-color: rgba(99, 102, 241, 0.3); }
-        .mf2-family-card-Fearful { background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(236, 72, 153, 0.08) 100%); border-color: rgba(168, 85, 247, 0.3); }
-        .mf2-family-card-Angry { background: linear-gradient(135deg, rgba(244, 63, 94, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%); border-color: rgba(244, 63, 94, 0.3); }
-        .mf2-family-card-Disgusted { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(14, 165, 233, 0.08) 100%); border-color: rgba(16, 185, 129, 0.3); }
-        .mf2-family-card-Stressed { background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(234, 179, 8, 0.08) 100%); border-color: rgba(245, 158, 11, 0.3); }
 
-        .mf2-flip-btn { background: linear-gradient(135deg, #ef6ca8, var(--sage-deep)); color: #fff; border: none; border-radius: 999px; padding: 13px 26px; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: background 0.2s ease, transform 0.15s ease; }
-        .mf2-flip-btn:hover { background: #334a36; transform: translateY(-1px); }
+        .mf2-family-card-Sad {
+          background: linear-gradient(145deg, rgba(99,102,241,0.14) 0%, rgba(139,92,246,0.10) 60%, rgba(168,85,247,0.06) 100%);
+          border-color: rgba(99,102,241,0.25);
+          --card-glow: rgba(99,102,241,0.35);
+          --card-accent: rgba(99,102,241,0.5);
+        }
+        .mf2-family-card-Fearful {
+          background: linear-gradient(145deg, rgba(139,92,246,0.14) 0%, rgba(168,85,247,0.10) 60%, rgba(236,72,153,0.06) 100%);
+          border-color: rgba(139,92,246,0.25);
+          --card-glow: rgba(139,92,246,0.35);
+          --card-accent: rgba(139,92,246,0.5);
+        }
+        .mf2-family-card-Angry {
+          background: linear-gradient(145deg, rgba(239,68,68,0.13) 0%, rgba(244,63,94,0.09) 60%, rgba(249,115,22,0.06) 100%);
+          border-color: rgba(239,68,68,0.25);
+          --card-glow: rgba(239,68,68,0.32);
+          --card-accent: rgba(239,68,68,0.5);
+        }
+        .mf2-family-card-Disgusted {
+          background: linear-gradient(145deg, rgba(16,185,129,0.13) 0%, rgba(20,184,166,0.09) 60%, rgba(14,165,233,0.06) 100%);
+          border-color: rgba(16,185,129,0.25);
+          --card-glow: rgba(16,185,129,0.32);
+          --card-accent: rgba(16,185,129,0.5);
+        }
+        .mf2-family-card-Stressed {
+          background: linear-gradient(145deg, rgba(245,158,11,0.14) 0%, rgba(234,179,8,0.10) 60%, rgba(251,191,36,0.06) 100%);
+          border-color: rgba(245,158,11,0.25);
+          --card-glow: rgba(245,158,11,0.32);
+          --card-accent: rgba(245,158,11,0.5);
+        }
 
-        .mf2-result { animation: mf2Fade 0.6s ease; }
-        @keyframes mf2Fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .mf2-flip-btn {
+          background: linear-gradient(135deg, #ec4899, #8b5cf6 50%, #6654e8);
+          color: #fff; border: none; border-radius: 999px;
+          padding: 14px 30px; font-size: 15px; font-weight: 700; cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 12px 28px rgba(124,58,237,0.3), inset 0 1px 0 rgba(255,255,255,0.25);
+          letter-spacing: 0.01em;
+        }
+        .mf2-flip-btn:hover {
+          background: linear-gradient(135deg, #db2777, #7c3aed 50%, #4f46e5);
+          transform: translateY(-2px);
+          box-shadow: 0 18px 36px rgba(124,58,237,0.4);
+        }
+
+        .mf2-result { animation: mf2Fade 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes mf2Fade { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
         .mf2-result-eyebrow { font-size: 13px; color: var(--ink-soft); margin-bottom: 6px; font-weight: 600; }
-        .mf2-result-mood { font-family: 'Newsreader', serif; font-size: 32px; color: var(--sage-deep); margin-bottom: 10px; font-weight: 600; }
-        .mf2-result-action { font-size: 15.5px; line-height: 1.6; color: var(--ink-soft); max-width: 48ch; margin-bottom: 16px; background: #FAF9F6; border: 1px solid var(--line); padding: 16px 20px; border-radius: 16px; }
+        .mf2-result-mood {
+          font-family: 'Newsreader', serif; font-size: 34px; margin-bottom: 12px; font-weight: 600;
+          background: linear-gradient(135deg, #5543d8, #ec4899);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .mf2-result-action {
+          font-size: 15px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 18px;
+          background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(248,246,255,0.7));
+          border: 1px solid rgba(109,92,232,0.15);
+          padding: 18px 22px; border-radius: 18px;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9);
+          backdrop-filter: blur(8px);
+        }
         .mf2-timer { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-faint); font-weight: 600; }
         .mf2-timer-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
 
@@ -429,7 +533,7 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .mf2-reveal.mf2-in-view { opacity: 1; transform: translateY(0); }
 
-        /* how it works — timeline */
+        /* how it works â€” timeline */
         .mf2-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
         .mf2-timeline::before { content: ""; position: absolute; top: 11px; left: 6%; right: 6%; height: 1px; background: var(--line); }
         .mf2-tl-step { padding: 0 18px; position: relative; text-align: left; }
@@ -437,7 +541,7 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-tl-step h3 { font-size: 17.5px; margin-bottom: 8px; }
         .mf2-tl-step p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
 
-        /* why — flat list with dividers */
+        /* why â€” flat list with dividers */
         .mf2-why-grid { display: grid; grid-template-columns: 1fr 1fr; }
         .mf2-why-item { padding: 32px 36px; border-top: 1px solid var(--line); display: flex; gap: 18px; }
         .mf2-why-item:nth-child(-n+2) { border-top: none; }
@@ -451,7 +555,7 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-price-card h2 { font-size: 28px; margin-bottom: 10px; }
         .mf2-price-list { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 10px; }
         .mf2-price-list li { font-size: 14.5px; color: var(--ink-soft); display: flex; align-items: center; gap: 10px; }
-        .mf2-price-list li::before { content: "✓"; color: var(--sage-deep); font-weight: 700; }
+        .mf2-price-list li::before { content: "âœ“"; color: var(--sage-deep); font-weight: 700; }
         .mf2-price-tag { text-align: center; }
         .mf2-price-num { font-family: 'Newsreader', serif; font-size: 48px; font-weight: 500; }
         .mf2-price-note { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 18px; font-weight: 500; }
@@ -491,7 +595,7 @@ export default function MoodTool(): React.JSX.Element {
           .mf2-why-item:nth-child(n+2) { border-top: 1px solid var(--line); }
           .mf2-nav-links { display: none; }
           .mf2-burger { display: block; }
-          .mf2-nav-right > .mf2-login, .mf2-nav-right > .mf2-btn { display: none; }
+          .mf2-nav-right > .mf2-btn { display: none; }
           .mf2-price-card { grid-template-columns: 1fr; text-align: center; }
         }
         @media (max-width: 520px) {
@@ -521,13 +625,10 @@ export default function MoodTool(): React.JSX.Element {
           <nav className="mf2-nav-links">
             <a href="#how-it-works">How it works</a>
             <a href="#why">Why it works</a>
-            <a href="#pricing">Pricing</a>
+            <a href="#plans">Plans</a>
             <a href="#faq">FAQ</a>
           </nav>
           <div className="mf2-nav-right">
-            <button className="mf2-login" onClick={() => setShowAuth(true)}>
-              Log in
-            </button>
             <button
               className="mf2-btn mf2-btn-primary mf2-btn-sm"
               onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
@@ -535,7 +636,7 @@ export default function MoodTool(): React.JSX.Element {
               Try it free
             </button>
             <button className="mf2-burger" aria-label="Menu" onClick={() => setMenuOpen((v) => !v)}>
-              ☰
+              â˜°
             </button>
           </div>
         </div>
@@ -543,9 +644,8 @@ export default function MoodTool(): React.JSX.Element {
           <div className="mf2-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 14, paddingTop: 16, background: 'var(--surface)', paddingBottom: 16, borderBottom: '1px solid var(--line)' }}>
             <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a>
             <a href="#why" onClick={() => setMenuOpen(false)}>Why it works</a>
-            <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+            <a href="#plans" onClick={() => setMenuOpen(false)}>Plans</a>
             <a href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
-            <button className="mf2-login" style={{ textAlign: 'left' }} onClick={() => { setMenuOpen(false); setShowAuth(true); }}>Log in</button>
           </div>
         )}
       </header>
@@ -558,18 +658,18 @@ export default function MoodTool(): React.JSX.Element {
             A quiet <em>breath</em> between how you feel and what's next.
           </h1>
           <p className="mf2-hero-sub">
-            Tap through three quick choices and get one small, doable action to shift how you feel — in under a minute.
+            Tap through three quick choices and get one small, doable action to shift how you feel â€” in under a minute.
           </p>
           <div className="mf2-hero-cta">
             <button
               className="mf2-btn mf2-btn-primary"
               onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Start your flip — free
+              Start your flip â€” free
             </button>
           </div>
           <p className="mf2-trust-line">
-            No sign-up<span>·</span>Nothing to type<span>·</span>Auto-deletes in 90 days
+            No sign-up<span>Â·</span>Nothing to type<span>Â·</span>Auto-deletes in 90 days
           </p>
         </div>
       </section>
@@ -599,7 +699,7 @@ export default function MoodTool(): React.JSX.Element {
                       : undefined
                   }}
                 >
-                  <span className="mf2-orb-icon">{family ? FAMILY_META[family].icon : '☁️'}</span>
+                  <span className="mf2-orb-icon">{family ? FAMILY_META[family].icon : 'â˜ï¸'}</span>
                   <span className="mf2-orb-label">{orbLabel}</span>
                 </div>
               </div>
@@ -611,7 +711,7 @@ export default function MoodTool(): React.JSX.Element {
                   background: revealed ? '#22c55e' : '#a855f7',
                   boxShadow: revealed ? '0 0 8px #22c55e' : '0 0 8px #a855f7'
                 }} />
-                {revealed ? '✨ Mood Cleared' : '🫁 Inhale • Exhale'}
+                {revealed ? 'âœ¨ Mood Cleared' : 'ðŸ« Inhale â€¢ Exhale'}
               </div>
             </div>
 
@@ -651,7 +751,7 @@ export default function MoodTool(): React.JSX.Element {
                     ) : (
                       crumbs.map((c, i) => (
                         <React.Fragment key={c}>
-                          {i > 0 && <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>➔</span>}
+                          {i > 0 && <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>âž”</span>}
                           <span style={{
                             background: i === crumbs.length - 1 ? 'rgba(124, 58, 237, 0.12)' : 'var(--tile-bg)',
                             color: i === crumbs.length - 1 ? 'var(--m3-purple-primary)' : 'var(--text-subtle)',
@@ -689,7 +789,7 @@ export default function MoodTool(): React.JSX.Element {
                       boxShadow: '0 2px 8px rgba(124, 58, 237, 0.08)'
                     }}
                   >
-                    <span>🔄</span> Start Over
+                    <span>ðŸ”„</span> Start Over
                   </button>
                 )}
               </div>
@@ -778,7 +878,7 @@ export default function MoodTool(): React.JSX.Element {
 
               {result && !revealed && (
                 <button className="mf2-flip-btn" onClick={revealFlip} style={{ marginTop: '0.5rem' }}>
-                  ✨ Reveal My Mindset Shift →
+                  âœ¨ Reveal My Mindset Shift â†’
                 </button>
               )}
 
@@ -795,7 +895,7 @@ export default function MoodTool(): React.JSX.Element {
                     }}>
                       From: {feeling}
                     </span>
-                    <span style={{ fontSize: '0.9rem', color: 'var(--text-subtle)' }}>➔</span>
+                    <span style={{ fontSize: '0.9rem', color: 'var(--text-subtle)' }}>âž”</span>
                     <span style={{
                       background: 'rgba(124, 58, 237, 0.15)',
                       color: 'var(--m3-purple-primary)',
@@ -871,7 +971,7 @@ export default function MoodTool(): React.JSX.Element {
                         fontWeight: 700,
                         textAlign: 'center'
                       }}>
-                        🎉 Outstanding! You gave yourself 60 seconds of space. How do you feel now?
+                        ðŸŽ‰ Outstanding! You gave yourself 60 seconds of space. How do you feel now?
                       </div>
                     ) : (
                       <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem' }}>
@@ -889,7 +989,7 @@ export default function MoodTool(): React.JSX.Element {
                             cursor: 'pointer'
                           }}
                         >
-                          {timerRunning ? '⏸ Pause Timer' : '▶ Resume Timer'}
+                          {timerRunning ? 'â¸ Pause Timer' : 'â–¶ Resume Timer'}
                         </button>
                         <button
                           onClick={() => { setSecondsLeft(60); setTimerRunning(true); }}
@@ -904,7 +1004,7 @@ export default function MoodTool(): React.JSX.Element {
                             cursor: 'pointer'
                           }}
                         >
-                          🔄 Restart
+                          ðŸ”„ Restart
                         </button>
                       </div>
                     )}
@@ -915,7 +1015,7 @@ export default function MoodTool(): React.JSX.Element {
                     <button
                       onClick={() => {
                         if (result?.action) {
-                          navigator.clipboard.writeText(`MoodFlip Shift (${feeling} ➔ ${result.target}): ${result.action}`);
+                          navigator.clipboard.writeText(`MoodFlip Shift (${feeling} âž” ${result.target}): ${result.action}`);
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
                         }
@@ -934,7 +1034,7 @@ export default function MoodTool(): React.JSX.Element {
                         gap: '0.35rem'
                       }}
                     >
-                      {copied ? '✅ Copied!' : '📋 Copy Action'}
+                      {copied ? 'âœ… Copied!' : 'ðŸ“‹ Copy Action'}
                     </button>
 
                     <button
@@ -956,7 +1056,7 @@ export default function MoodTool(): React.JSX.Element {
                         gap: '0.35rem'
                       }}
                     >
-                      {savedShift ? '💖 Saved!' : '💾 Save Shift'}
+                      {savedShift ? 'ðŸ’– Saved!' : 'ðŸ’¾ Save Shift'}
                     </button>
 
                     <button
@@ -973,7 +1073,7 @@ export default function MoodTool(): React.JSX.Element {
                         marginLeft: 'auto'
                       }}
                     >
-                      🔄 Flip Another Mood
+                      ðŸ”„ Flip Another Mood
                     </button>
                   </div>
                 </div>
@@ -987,7 +1087,7 @@ export default function MoodTool(): React.JSX.Element {
       <section className="mf2-quote-section">
         <div className="mf2-wrap-narrow mf2-reveal">
           <p className="mf2-quote">"Feelings move. Give this one somewhere to go."</p>
-          <p className="mf2-quote-attr">— the idea behind MoodFlip</p>
+          <p className="mf2-quote-attr">â€” the idea behind MoodFlip</p>
         </div>
       </section>
 
@@ -1025,10 +1125,10 @@ export default function MoodTool(): React.JSX.Element {
           </div>
           <div className="mf2-why-grid mf2-reveal" style={{ border: '1px solid var(--line)', borderRadius: 24, overflow: 'hidden' }}>
             {[
-              { icon: '🧠', t: 'A real pause', d: 'One small action creates space between a difficult feeling and what you do next.' },
-              { icon: '🫧', t: 'Visual, not verbal', d: 'Every choice is a tap. Nothing to write, explain, or overthink.' },
-              { icon: '🌱', t: 'One manageable step', d: 'A 60-second suggestion stays small enough to actually try.' },
-              { icon: '🔒', t: 'Private by default', d: 'No profile needed. Anything you save clears automatically after 90 days.' },
+              { icon: 'ðŸ§ ', t: 'A real pause', d: 'One small action creates space between a difficult feeling and what you do next.' },
+              { icon: 'ðŸ«§', t: 'Visual, not verbal', d: 'Every choice is a tap. Nothing to write, explain, or overthink.' },
+              { icon: 'ðŸŒ±', t: 'One manageable step', d: 'A 60-second suggestion stays small enough to actually try.' },
+              { icon: 'ðŸ”’', t: 'Private by default', d: 'No profile needed. Anything you save clears automatically after 90 days.' },
             ].map((c) => (
               <div className="mf2-why-item" key={c.t}>
                 <div className="mf2-why-icon">{c.icon}</div>
@@ -1042,27 +1142,33 @@ export default function MoodTool(): React.JSX.Element {
         </div>
       </section>
 
-      {/* ---------------- PRICING ---------------- */}
-      <section className="mf2-section" id="pricing" style={{ paddingTop: 0 }}>
+      {/* ---------------- PLANS ---------------- */}
+      <section className="mf2-section" id="plans" style={{ paddingTop: 0 }}>
         <div className="mf2-wrap">
           <div className="mf2-price-card mf2-reveal">
             <div>
-              <div className="mf2-eyebrow">Optional upgrade</div>
-              <h2>The Mindset Plan</h2>
-              <p style={{ color: 'var(--ink-soft)', fontSize: 14.5 }}>For when one flip a day isn't enough.</p>
+              <div className="mf2-eyebrow">All launch phases are open</div>
+              <h2>7-day and 30-day plans are live inline</h2>
+              <p style={{ color: 'var(--ink-soft)', fontSize: 14.5 }}>No login popup, no pricing popup, and no subscription pressure.</p>
               <ul className="mf2-price-list">
-                <li>Full set of 60-second actions, ready to keep</li>
-                <li>Deeper prompts for recurring feelings</li>
-                <li>One-time payment, yours forever</li>
+                <li>Free MoodFlip tool remains available immediately</li>
+                <li>7-day PDF plan for a short guided reset</li>
+                <li>30-day plan option is visible as a launched product path</li>
               </ul>
             </div>
             <div className="mf2-price-tag">
-              <div className="mf2-price-num">$7</div>
-              <div className="mf2-price-note">one-time · no subscription</div>
-              <button className="mf2-btn mf2-btn-primary" onClick={() => setShowPlanModal(true)}>
-                Get the plan →
+              <div className="mf2-price-num">$7 / $19</div>
+              <div className="mf2-price-note">one-time plans, shown without popups</div>
+              <button
+                className="mf2-btn mf2-btn-primary"
+                onClick={() => document.getElementById('paid-pdf-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                View plans
               </button>
             </div>
+          </div>
+          <div style={{ marginTop: 18 }}>
+            <PaidPlansSection hideHeader />
           </div>
         </div>
       </section>
@@ -1103,25 +1209,14 @@ export default function MoodTool(): React.JSX.Element {
               <a href="/privacy">Privacy</a>
               <a href="/disclaimer">Disclaimer</a>
             </div>
-            <span className="mf2-footer-note" style={{ marginTop: 0 }}>© 2026 MoodFlip</span>
+            <span className="mf2-footer-note" style={{ marginTop: 0 }}>Â© 2026 MoodFlip</span>
           </div>
-          <p className="mf2-footer-note">Self-reflection utility · Not therapy or medical advice.</p>
+          <p className="mf2-footer-note">Self-reflection utility Â· Not therapy or medical advice.</p>
         </div>
       </footer>
-
-      {/* ---------------- MODALS ---------------- */}
-      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} />
-
-      {showPlanModal && (
-        <div className="mf2-modal-overlay" onClick={() => setShowPlanModal(false)}>
-          <div className="mf2-modal-card" onClick={(e) => e.stopPropagation()}>
-            <button className="mf2-modal-close" onClick={() => setShowPlanModal(false)}>
-              ✕
-            </button>
-            <PaidPlansSection />
-          </div>
-        </div>
-      )}
+      {/* Login and plan offers are kept out of popups on the public homepage. */}
     </div>
   );
 }
+
+

@@ -10,34 +10,16 @@ interface PaidPlansSectionProps {
 
 export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectionProps) {
   const [loading, setLoading] = useState(false);
-  const [emailInput, setEmailInput] = useState('');
-  const [showEmailPrompt, setShowEmailPrompt] = useState(false);
+  const [notice, setNotice] = useState('');
 
   const handleBuyPlan = async (planType: '7_DAY_PDF' | '30_DAY_PDF') => {
-    let email = emailInput;
-
-    if (!email && typeof window !== 'undefined') {
-      const saved = localStorage.getItem('moodflip_profile');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (parsed.email) email = parsed.email;
-        } catch (e) {}
-      }
-    }
-
-    if (!email) {
-      setShowEmailPrompt(true);
-      return;
-    }
-
     setLoading(true);
+    setNotice('');
 
     try {
       const token = await getAccessToken();
       if (!token) {
-        alert('Please sign in to purchase a report based on your saved check-ins.');
-        window.location.href = '/login';
+        setNotice('Plans are visible with no popup. Checkout needs an optional profile so the PDF can be generated and delivered.');
         return;
       }
       const res = await fetch('/api/stripe/checkout', {
@@ -54,11 +36,11 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
         trackEvent('paid_pdf_checkout_started', { product: planType });
         window.location.href = data.url;
       } else {
-        alert(data.error || 'Unable to initiate checkout');
+        setNotice(data.error || 'Unable to initiate checkout right now. Please try again shortly.');
       }
     } catch (err) {
       console.error(err);
-      alert('Checkout error. Please try again.');
+      setNotice('Checkout could not start right now. Please try again shortly.');
     } finally {
       setLoading(false);
     }
@@ -97,54 +79,18 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
         </div>
       )}
 
-      {showEmailPrompt && (
+      {notice && (
         <div style={{
-          background: 'linear-gradient(135deg, #f5f3ff 0%, #fdf4ff 100%)',
-          border: '2px solid #c084fc',
-          padding: '1.1rem 1.25rem',
-          borderRadius: '20px',
+          background: '#f8fafc',
+          border: '1px solid #cbd5e1',
+          padding: '0.9rem 1rem',
+          borderRadius: '14px',
           marginBottom: '1.5rem',
-          boxShadow: '0 10px 25px rgba(192, 132, 252, 0.15)'
+          color: '#334155',
+          fontSize: '0.88rem',
+          fontWeight: 700
         }}>
-          <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, color: '#5b21b6', marginBottom: '0.45rem' }}>
-            ✉️ Enter your email address to receive your PDF download:
-          </label>
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <input
-              type="email"
-              required
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
-              placeholder="you@example.com"
-              style={{
-                flex: 1,
-                minWidth: '220px',
-                padding: '0.7rem 0.95rem',
-                borderRadius: '12px',
-                border: '1.5px solid #cbd5e1',
-                fontSize: '0.9rem',
-                outline: 'none',
-                background: '#ffffff'
-              }}
-            />
-            <button
-              onClick={() => handleBuyPlan('7_DAY_PDF')}
-              disabled={loading || !emailInput}
-              style={{
-                padding: '0.7rem 1.4rem',
-                background: 'linear-gradient(135deg, #7c54d1 0%, #ec4899 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '12px',
-                fontWeight: 800,
-                fontSize: '0.88rem',
-                cursor: 'pointer',
-                boxShadow: '0 4px 14px rgba(124, 84, 209, 0.35)'
-              }}
-            >
-              Continue to Payment →
-            </button>
-          </div>
+          {notice}
         </div>
       )}
 
@@ -295,7 +241,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
                 borderRadius: '9999px',
                 letterSpacing: '0.03em'
               }}>
-                🌱 PHASE 2 • COMING SOON
+                PHASE 2 LAUNCHED
               </span>
             </div>
 
@@ -355,21 +301,23 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
 
           <button
             type="button"
-            disabled
+            onClick={() => handleBuyPlan('30_DAY_PDF')}
+            disabled={loading}
             className="plan-card-btn green-btn"
             style={{
               width: '100%',
               padding: '0.88rem',
               borderRadius: '14px',
-              border: '1.5px solid #a7f3d0',
-              background: '#ecfdf5',
-              color: '#047857',
+              border: 'none',
+              background: 'linear-gradient(135deg, #059669 0%, #0d9488 100%)',
+              color: '#ffffff',
               fontWeight: 800,
               fontSize: '0.9rem',
-              cursor: 'not-allowed', opacity: 0.72
+              cursor: 'pointer',
+              boxShadow: '0 6px 18px rgba(5, 150, 105, 0.28)'
             }}
           >
-            Phase 2 · Coming Soon
+            {loading ? 'Processing...' : 'Get My 30-Day Plan ($19)'}
           </button>
         </div>
       </div>

@@ -55,6 +55,14 @@ const MOOD_DATA: Record<MoodFamily, Record<string, MoodEntry>> = {
 
 const FAMILY_ORDER = Object.keys(MOOD_DATA) as MoodFamily[];
 
+const FAMILY_META: Record<MoodFamily, { emoji: string; desc: string }> = {
+  Sad:      { emoji: '🌧️', desc: 'Feeling low, empty, or isolated' },
+  Fearful:  { emoji: '🌀', desc: 'Unsteady, worried, or anxious' },
+  Angry:    { emoji: '⚡', desc: 'Frustrated, tense, or provoked' },
+  Disgusted:{ emoji: '🍃', desc: 'Critical, resistant, or repulsed' },
+  Stressed: { emoji: '🌊', desc: 'Overwhelmed, rushed, or pressured' },
+};
+
 const FAQS = [
   ['Is MoodFlip completely free to use?', 'Yes! The interactive mood tool is 100% free with no account or credit card required. Tap and flip as often as you like.'],
   ['Do I need to sign up or create a profile?', 'No. You can use the full tool without signing up. An optional free account lets you save your check-ins and track 7-day emotional growth.'],
@@ -86,6 +94,7 @@ export default function HomePage() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
 
   const feelings = useMemo(() => (family ? Object.keys(MOOD_DATA[family]) : []), [family]);
 
@@ -114,15 +123,18 @@ export default function HomePage() {
     setTimeLeft(60);
   };
 
-  const flipMood = () => {
+  const flipMood = async () => {
     if (!family || !feeling) return;
+    setIsFlipping(true);
+    await new Promise(r => setTimeout(r, 350));
     setResult(MOOD_DATA[family][feeling]);
+    setIsFlipping(false);
     setTimerRunning(false);
     setTimeLeft(60);
     setSavedSuccess(false);
 
     setTimeout(() => {
-      document.getElementById('rightPanel')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('rightPanel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
   };
 
@@ -156,318 +168,345 @@ export default function HomePage() {
         <Header />
 
         <style>{`
-          @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 12px 30px rgba(91,75,154,0.38); }
-            50% { box-shadow: 0 12px 42px rgba(91,75,154,0.65); transform: scale(1.04); }
+          @keyframes softPulseGlow {
+            0%, 100% { box-shadow: 0 10px 28px rgba(108,92,231,0.32), 0 0 0 0 rgba(108,92,231,0.2); }
+            50% { box-shadow: 0 14px 38px rgba(108,92,231,0.52), 0 0 0 8px rgba(108,92,231,0); transform: translateY(-2px); }
           }
-          @keyframes floatSunRays {
-            0%, 100% { transform: translateX(-50%) rotate(0deg) scale(1); opacity: 0.65; }
-            50% { transform: translateX(-50%) rotate(4deg) scale(1.05); opacity: 0.85; }
+          @keyframes sunGlowRotate {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg) scale(1); opacity: 0.7; }
+            50% { transform: translate(-50%, -50%) rotate(6deg) scale(1.06); opacity: 0.9; }
           }
-          @keyframes slideUpResult {
-            from { opacity: 0; transform: translateY(18px); }
-            to { opacity: 1; transform: translateY(0); }
+          @keyframes revealCard {
+            from { opacity: 0; transform: translateY(16px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
           }
 
-          /* HERO LEAD */
-          .mf-hero-lead {
-            padding: 3rem 1rem 1.5rem;
+          /* HERO */
+          .wellness-hero {
+            padding: 3.5rem 1.25rem 2rem;
             text-align: center;
-            max-width: 800px; margin: 0 auto;
+            max-width: 820px; margin: 0 auto;
           }
-          .mf-hero-tag {
+          .wellness-pill-tag {
             display: inline-flex; align-items: center; gap: 8px;
-            font-size: 0.8rem; font-weight: 700;
-            color: #5b4b9a; background: #efeafa;
+            font-size: 0.81rem; font-weight: 700;
+            color: #5b4b9a; background: linear-gradient(135deg, #efeafa 0%, #e6dff7 100%);
             border: 1px solid #d9d0f0;
-            border-radius: 999px; padding: 0.45rem 1.25rem;
-            margin-bottom: 1.25rem;
+            border-radius: 999px; padding: 0.5rem 1.35rem;
+            margin-bottom: 1.35rem;
+            box-shadow: 0 4px 14px rgba(91,75,154,0.08);
           }
-          .mf-hero-h1 {
-            font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
-            font-size: clamp(2.4rem, 4.8vw, 3.6rem);
-            font-weight: 640; line-height: 1.15;
-            color: var(--text-main); margin-bottom: 1rem;
+          .wellness-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 640; line-height: 1.12;
+            color: var(--text-main); margin-bottom: 1.1rem;
             letter-spacing: -0.02em;
           }
-          .mf-hero-h1 span {
-            color: #5b4b9a;
+          .wellness-title span {
+            background: linear-gradient(135deg, #5b4b9a 0%, #7c8b5e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
           }
-          .mf-hero-p {
-            font-size: 1.08rem; color: var(--text-subtle);
-            line-height: 1.65; max-width: 620px; margin: 0 auto;
+          .wellness-subtitle {
+            font-size: 1.1rem; color: var(--text-subtle);
+            line-height: 1.7; max-width: 640px; margin: 0 auto;
           }
 
-          /* MAIN TOOL SECTION */
-          .mf-tool-container {
-            max-width: 1240px; margin: 1.5rem auto 4.5rem;
+          /* TOOL CONTAINER */
+          .wellness-tool-container {
+            max-width: 1240px; margin: 2rem auto 5rem;
             padding: 0 1.25rem;
           }
-          .mf-tool-grid {
+          .wellness-grid {
             display: grid;
-            grid-template-columns: 1.15fr 70px 1fr;
+            grid-template-columns: 1.15fr 80px 1fr;
             align-items: stretch; gap: 0;
             position: relative;
           }
           @media (max-width: 980px) {
-            .mf-tool-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-          }
-
-          /* PANELS */
-          .mf-panel {
-            border-radius: 28px;
-            box-shadow: 0 20px 60px rgba(44,39,53,0.08);
-            padding: 2.25rem 2.25rem;
-            position: relative;
+            .wellness-grid { grid-template-columns: 1fr; gap: 1.5rem; }
           }
 
           /* LEFT PANEL */
-          .mf-panel-left {
+          .wellness-panel-left {
             background: #ffffff;
             border: 1.5px solid #eae3d6;
+            border-radius: 32px;
+            padding: 2.5rem 2.25rem;
+            box-shadow: 0 24px 70px rgba(74,57,102,0.07);
+            display: flex; flex-direction: column; justify-content: space-between;
           }
-          .mf-step-tag {
+          .wellness-step-label {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1rem;
+          }
+          .wellness-step-tag {
             display: inline-flex; align-items: center; gap: 8px;
             background: #efeafa; color: #5b4b9a;
-            font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.05em; padding: 0.45rem 1rem 0.45rem 0.6rem;
-            border-radius: 14px; margin-bottom: 1rem;
+            font-size: 0.78rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.06em; padding: 0.45rem 1rem;
+            border-radius: 999px;
           }
-          .mf-step-ic {
-            width: 22px; height: 22px; border-radius: 50%;
-            background: #ffffff; color: #5b4b9a;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.75rem; font-weight: 900;
+          .wellness-step-num {
+            font-size: 0.78rem; font-weight: 700; color: #9a8ebf;
           }
 
-          /* MOOD FAMILY CHIPS */
-          .mf-chip-row { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2rem; }
-          .mf-fam-chip {
+          /* MOOD CHIPS */
+          .wellness-chip-group {
+            display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2.25rem;
+          }
+          .wellness-fam-btn {
             font-family: inherit; font-size: 0.92rem; font-weight: 700;
-            padding: 0.7rem 1.35rem; border-radius: 18px;
+            padding: 0.75rem 1.35rem; border-radius: 999px;
             border: 1.5px solid #eae3d6; background: #faf6ee;
             color: var(--text-main); cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
+            display: flex; align-items: center; gap: 8px;
           }
-          .mf-fam-chip:hover { border-color: #d9d0f0; transform: translateY(-1px); }
-          .mf-fam-chip.selected {
-            background: #efeafa; border-color: #5b4b9a; color: #463a78;
-            box-shadow: 0 6px 18px rgba(91,75,154,0.18); transform: translateY(-1px);
+          .wellness-fam-btn:hover {
+            border-color: #c9bfeb;
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(91,75,154,0.1);
+          }
+          .wellness-fam-btn.selected {
+            background: linear-gradient(135deg, #5b4b9a 0%, #463a78 100%);
+            border-color: #5b4b9a; color: #ffffff;
+            box-shadow: 0 8px 22px rgba(91,75,154,0.3);
+            transform: translateY(-2px);
           }
 
           /* FEELINGS GRID */
-          .mf-feel-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
-            gap: 0.65rem; margin-top: 0.5rem;
+          .wellness-feelings-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.7rem; margin-top: 0.5rem;
           }
-          .mf-feel-tile {
+          .wellness-feel-btn {
             border: 1.5px solid #eae3d6; background: #faf6ee;
-            border-radius: 16px; padding: 0.85rem 0.75rem;
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            border-radius: 18px; padding: 0.85rem 0.75rem;
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: all 0.2s ease; text-align: center;
             font-family: inherit; font-weight: 700; font-size: 0.86rem;
             color: var(--text-main);
           }
-          .mf-feel-tile:hover { border-color: #d9d0f0; transform: translateY(-2px); }
-          .mf-feel-tile.selected {
-            background: #efeafa; border-color: #5b4b9a;
-            box-shadow: 0 8px 20px rgba(91,75,154,0.2); transform: translateY(-2px);
+          .wellness-feel-btn:hover {
+            border-color: #5b4b9a; background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(91,75,154,0.1);
           }
-          .mf-feel-empty {
+          .wellness-feel-btn.selected {
+            background: #efeafa; border-color: #5b4b9a; color: #463a78;
+            box-shadow: 0 8px 20px rgba(91,75,154,0.2);
+            transform: translateY(-2px); font-weight: 800;
+          }
+          .wellness-empty-feelings {
             grid-column: 1 / -1; font-size: 0.86rem; color: var(--text-subtle);
-            padding: 2rem 1rem; text-align: center; border: 2px dashed #eae3d6;
-            border-radius: 18px;
+            padding: 2.25rem 1rem; text-align: center; border: 2px dashed #eae3d6;
+            border-radius: 20px; background: rgba(250,246,238,0.5);
           }
 
-          /* FLIP COLUMN */
-          .mf-flip-col {
+          /* CENTER FLIP BUTTON */
+          .wellness-flip-col {
             display: flex; align-items: center; justify-content: center;
             position: relative; z-index: 10;
           }
-          .mf-flip-btn {
-            font-family: inherit; font-weight: 800; font-size: 0.86rem;
-            letter-spacing: 0.04em; text-transform: uppercase;
+          .wellness-flip-btn {
+            font-family: inherit; font-weight: 800; font-size: 0.88rem;
+            letter-spacing: 0.05em; text-transform: uppercase;
             background: linear-gradient(135deg, #5b4b9a 0%, #463a78 100%);
             color: #ffffff; border: none; border-radius: 999px;
             padding: 1.25rem 0.85rem; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            text-align: center; width: 90px; height: 115px; justify-content: center;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            text-align: center; width: 96px; height: 120px; justify-content: center;
             box-shadow: 0 12px 32px rgba(91,75,154,0.4);
-            animation: pulseGlow 2.8s ease-in-out infinite;
+            animation: softPulseGlow 3s ease-in-out infinite;
             transition: all 0.25s ease;
           }
-          .mf-flip-btn:disabled {
-            opacity: 0.4; cursor: not-allowed; animation: none; box-shadow: none;
+          .wellness-flip-btn:disabled {
+            opacity: 0.45; cursor: not-allowed; animation: none; box-shadow: none;
           }
-          .mf-flip-btn:hover:not(:disabled) {
-            transform: scale(1.08); box-shadow: 0 16px 40px rgba(91,75,154,0.55);
+          .wellness-flip-btn:hover:not(:disabled) {
+            transform: scale(1.08); box-shadow: 0 16px 42px rgba(91,75,154,0.55);
           }
           @media (max-width: 980px) {
-            .mf-flip-btn { width: 100%; height: auto; border-radius: 20px; padding: 1.1rem; flex-direction: row; justify-content: center; }
+            .wellness-flip-col { margin: 0.5rem 0; }
+            .wellness-flip-btn { width: 100%; height: auto; border-radius: 999px; padding: 1.1rem; flex-direction: row; justify-content: center; }
           }
 
           /* RIGHT PANEL */
-          .mf-panel-right {
-            border: 1.5px solid #eae3d6;
-            position: relative; overflow: hidden; text-align: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+          .wellness-panel-right {
             background:
-              radial-gradient(circle at 50% 12%, #fcefd6 0%, #f8dfaf 35%, #f4cfa0 55%, transparent 75%),
-              linear-gradient(180deg, #fefbf4 0%, #fbf3e2 100%);
+              radial-gradient(circle at 50% 20%, #fef3df 0%, #f9e2b8 40%, #f4d39f 65%, transparent 80%),
+              linear-gradient(180deg, #fdfbf7 0%, #f7efe0 100%);
+            border: 1.5px solid #eae3d6;
+            border-radius: 32px;
+            padding: 2.5rem 2.25rem;
+            box-shadow: 0 24px 70px rgba(74,57,102,0.07);
+            position: relative; overflow: hidden; text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 420px;
           }
-          .mf-sun-bg {
-            position: absolute; top: -20px; left: 50%;
-            transform: translateX(-50%); width: 480px; height: 280px;
-            pointer-events: none; animation: floatSunRays 8s ease-in-out infinite;
+          .wellness-sun-halo {
+            position: absolute; top: 35%; left: 50%;
+            transform: translate(-50%, -50%); width: 440px; height: 320px;
+            background: radial-gradient(circle, rgba(255,200,90,0.35) 0%, rgba(255,182,72,0.12) 50%, transparent 70%);
+            pointer-events: none; animation: sunGlowRotate 10s ease-in-out infinite;
           }
-          .mf-empty-right {
-            color: var(--text-subtle); font-size: 0.92rem;
-            padding: 4rem 1.5rem; line-height: 1.75; max-width: 320px;
+          .wellness-empty-right {
+            color: var(--text-subtle); font-size: 0.95rem;
+            padding: 3rem 1.5rem; line-height: 1.75; max-width: 340px;
             position: relative; z-index: 1;
           }
-          .mf-sun-icon-placeholder {
-            width: 72px; height: 72px; border-radius: 50%;
-            background: linear-gradient(135deg, #fff5d4, #ffe8a3);
-            border: 2px solid #ffd675;
+          .wellness-sun-icon-box {
+            width: 80px; height: 80px; border-radius: 24px;
+            background: linear-gradient(135deg, #fff5d4 0%, #ffe399 100%);
+            border: 2px solid #ffd166;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.2rem; margin: 0 auto 1.25rem;
-            box-shadow: 0 8px 24px rgba(255,182,72,0.3);
+            font-size: 2.5rem; margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 28px rgba(255,182,72,0.35);
           }
 
-          .mf-result-content {
+          /* RESULT PANEL */
+          .wellness-result-box {
             position: relative; z-index: 1; width: 100%;
-            animation: slideUpResult 0.45s cubic-bezier(0.22,1,0.36,1) both;
+            animation: revealCard 0.45s cubic-bezier(0.22,1,0.36,1) both;
           }
-          .mf-result-label {
-            font-size: 0.84rem; font-weight: 700; color: var(--text-subtle);
-            margin-bottom: 0.4rem; margin-top: 1rem;
+          .wellness-result-eyebrow {
+            font-size: 0.85rem; font-weight: 700; color: #7c8b5e;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: 0.35rem;
           }
-          .mf-result-mood {
-            font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
-            font-weight: 700; font-size: clamp(2.4rem, 4vw, 3.4rem);
-            color: #7c8b5e; margin-bottom: 1.75rem; line-height: 1.1;
+          .wellness-target-heading {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 700; font-size: clamp(2.4rem, 4vw, 3.6rem);
+            color: #5b4b9a; margin-bottom: 1.75rem; line-height: 1.1;
           }
-          .mf-action-card {
-            background: #ffffff; border-radius: 20px; padding: 1.5rem 1.75rem;
+          .wellness-action-card {
+            background: #ffffff; border-radius: 24px; padding: 1.75rem 2rem;
             text-align: left; width: 100%;
-            box-shadow: 0 16px 36px rgba(217,165,75,0.16);
-            border: 1px solid rgba(217,165,75,0.25);
+            box-shadow: 0 18px 45px rgba(217,165,75,0.18);
+            border: 1.5px solid rgba(217,165,75,0.3);
           }
-          .mf-action-head {
-            display: flex; align-items: center; gap: 12px; margin-bottom: 0.85rem;
+          .wellness-action-header {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 1rem;
           }
-          .mf-timer-btn {
-            width: 44px; height: 44px; border-radius: 50%;
+          .wellness-timer-button {
+            width: 48px; height: 48px; border-radius: 50%;
             background: #efeafa; color: #5b4b9a; border: 1.5px solid #d9d0f0;
             display: flex; align-items: center; justify-content: center;
             font-size: 0.85rem; font-weight: 900; cursor: pointer;
             flex-shrink: 0; font-family: 'Space Mono', monospace;
-            transition: all 0.2s ease;
+            transition: all 0.22s ease;
+            box-shadow: 0 4px 12px rgba(91,75,154,0.15);
           }
-          .mf-timer-btn:hover { background: #5b4b9a; color: #ffffff; }
-          .mf-action-title {
+          .wellness-timer-button:hover {
+            background: #5b4b9a; color: #ffffff; transform: scale(1.05);
+          }
+          .wellness-action-title {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 0;
+            font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin: 0;
           }
-          .mf-action-desc {
-            font-size: 0.92rem; color: var(--text-subtle); line-height: 1.65; margin-bottom: 1rem;
+          .wellness-action-desc {
+            font-size: 0.94rem; color: var(--text-subtle); line-height: 1.7; margin-bottom: 1.1rem;
           }
-          .mf-action-tip {
-            font-size: 0.78rem; color: var(--text-subtle);
-            padding: 0.6rem 0.85rem; border-radius: 12px;
-            background: #faf6ee; border-left: 3.5px solid #7c8b5e;
-            line-height: 1.5;
+          .wellness-insight-box {
+            font-size: 0.82rem; color: var(--text-main);
+            padding: 0.75rem 1rem; border-radius: 14px;
+            background: #faf6ee; border-left: 4px solid #7c8b5e;
+            line-height: 1.6;
           }
-          .mf-save-btn {
-            margin-top: 1.25rem; width: 100%;
+          .wellness-save-button {
+            margin-top: 1.35rem; width: 100%;
             background: transparent; border: 1.5px solid #5b4b9a;
-            color: #463a78; font-weight: 800; font-size: 0.85rem;
-            padding: 0.8rem; border-radius: 999px; cursor: pointer;
-            transition: all 0.2s ease; font-family: inherit;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
+            color: #463a78; font-weight: 800; font-size: 0.88rem;
+            padding: 0.85rem; border-radius: 999px; cursor: pointer;
+            transition: all 0.22s ease; font-family: inherit;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
           }
-          .mf-save-btn:hover { background: #efeafa; }
-          .mf-save-btn.saved { background: #dcfce7; border-color: #86efac; color: #166534; }
+          .wellness-save-button:hover {
+            background: #efeafa; transform: translateY(-1px);
+          }
+          .wellness-save-button.saved {
+            background: #dcfce7; border-color: #86efac; color: #166534;
+          }
 
           /* REASSURANCE BANNER */
-          .mf-reassure {
-            margin-top: 2rem; background: #efeafa; border-radius: 20px;
-            padding: 1.25rem 1.75rem; border: 1.5px solid #d9d0f0;
-            display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+          .wellness-reassure-strip {
+            margin-top: 2.25rem; background: linear-gradient(135deg, #efeafa 0%, #e6dff7 100%);
+            border-radius: 24px; padding: 1.35rem 2rem; border: 1.5px solid #d9d0f0;
+            display: flex; justify-content: space-around; gap: 1.5rem; flex-wrap: wrap;
+            box-shadow: 0 10px 30px rgba(91,75,154,0.06);
           }
-          .mf-reassure-item {
-            display: flex; align-items: flex-start; gap: 10px;
-            font-size: 0.84rem; color: var(--text-main); max-width: 320px;
+          .wellness-reassure-item {
+            display: flex; align-items: flex-start; gap: 12px;
+            font-size: 0.86rem; color: var(--text-main); max-width: 340px;
           }
-          .mf-reassure-item strong { display: block; font-size: 0.88rem; margin-bottom: 2px; color: #463a78; }
+          .wellness-reassure-item strong { display: block; font-size: 0.9rem; margin-bottom: 2px; color: #463a78; }
 
-          /* SECTIONS */
-          .mf-section-light { padding: 4.5rem 1rem; position: relative; z-index: 1; }
-          .mf-section-light.alt { background: #faf6ee; }
-          .mf-sec-head { max-width: 620px; margin: 0 auto 3rem; text-align: center; }
-          .mf-sec-tag {
-            display: inline-flex; font-size: 0.76rem; font-weight: 800;
+          /* HOW IT WORKS SECTION */
+          .wellness-section { padding: 5rem 1.25rem; position: relative; z-index: 1; }
+          .wellness-section.alt { background: #faf6ee; border-top: 1px solid #eae3d6; border-bottom: 1px solid #eae3d6; }
+          .wellness-sec-head { max-width: 640px; margin: 0 auto 3.5rem; text-align: center; }
+          .wellness-sec-tag {
+            display: inline-flex; font-size: 0.78rem; font-weight: 800;
             color: #5b4b9a; background: #efeafa; border-radius: 999px;
-            padding: 0.4rem 1.1rem; margin-bottom: 0.85rem;
-            text-transform: uppercase; letter-spacing: 0.06em;
+            padding: 0.45rem 1.25rem; margin-bottom: 1rem;
+            text-transform: uppercase; letter-spacing: 0.07em;
+            border: 1px solid #d9d0f0;
           }
-          .mf-sec-title {
+          .wellness-sec-title {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-size: clamp(2rem, 3.8vw, 2.7rem);
             font-weight: 640; line-height: 1.2; color: var(--text-main);
           }
-          .mf-sec-desc { font-size: 0.95rem; color: var(--text-subtle); margin-top: 0.75rem; line-height: 1.65; }
+          .wellness-sec-desc { font-size: 1rem; color: var(--text-subtle); margin-top: 0.85rem; line-height: 1.7; }
 
-          .mf-steps-grid {
-            max-width: 1120px; margin: 0 auto;
+          .wellness-steps-grid {
+            max-width: 1140px; margin: 0 auto;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 1.75rem;
           }
-          .mf-step-card {
+          .wellness-step-card {
             background: #ffffff; border: 1.5px solid #eae3d6;
-            border-radius: 22px; padding: 2rem 1.75rem;
-            box-shadow: 0 16px 40px rgba(44,39,53,0.06);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            border-radius: 24px; padding: 2.25rem 2rem;
+            box-shadow: 0 16px 45px rgba(44,39,53,0.05);
+            transition: all 0.25s ease;
           }
-          .mf-step-card:hover { transform: translateY(-3px); border-color: #d9d0f0; }
-          .mf-step-card-num {
+          .wellness-step-card:hover { transform: translateY(-4px); border-color: #c9bfeb; box-shadow: 0 20px 50px rgba(91,75,154,0.1); }
+          .wellness-step-num {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: 2rem; color: #5b4b9a; font-weight: 800;
-            display: block; margin-bottom: 0.6rem;
+            font-size: 2.2rem; color: #5b4b9a; font-weight: 800;
+            display: block; margin-bottom: 0.75rem;
           }
-          .mf-step-card-h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem; font-family: 'Fraunces', Georgia, serif; color: var(--text-main); }
-          .mf-step-card-p { font-size: 0.88rem; color: var(--text-subtle); line-height: 1.6; margin: 0; }
+          .wellness-step-h3 { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.6rem; font-family: 'Fraunces', Georgia, serif; color: var(--text-main); }
+          .wellness-step-p { font-size: 0.9rem; color: var(--text-subtle); line-height: 1.65; margin: 0; }
 
-          /* FAQ */
-          .mf-faq-wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.85rem; }
-          @keyframes mfFaqIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to   { opacity: 1; transform: translateY(0); }
-          }
-          .mf-faq-card {
+          /* FAQ ACCORDION */
+          .wellness-faq-wrap { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.9rem; }
+          .wellness-faq-card {
             background: #ffffff; border: 1.5px solid #eae3d6;
-            border-radius: 18px; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 20px; transition: all 0.22s ease;
           }
-          .mf-faq-card.open { border-color: #5b4b9a; box-shadow: 0 10px 28px rgba(91,75,154,0.08); }
-          .mf-faq-q {
-            width: 100%; padding: 1.2rem 1.5rem; border: none; background: transparent;
-            text-align: left; font-family: inherit; font-size: 0.95rem; font-weight: 700;
+          .wellness-faq-card.open { border-color: #5b4b9a; box-shadow: 0 12px 32px rgba(91,75,154,0.08); }
+          .wellness-faq-q {
+            width: 100%; padding: 1.35rem 1.65rem; border: none; background: transparent;
+            text-align: left; font-family: inherit; font-size: 0.98rem; font-weight: 700;
             color: var(--text-main); cursor: pointer;
             display: flex; justify-content: space-between; align-items: center; gap: 1rem;
           }
-          .mf-faq-plus {
-            width: 26px; height: 26px; border-radius: 50%;
+          .wellness-faq-plus {
+            width: 28px; height: 28px; border-radius: 50%;
             background: #efeafa; color: #5b4b9a;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; font-weight: 900; flex-shrink: 0;
+            font-size: 1.15rem; font-weight: 900; flex-shrink: 0;
             transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.2s;
           }
-          .mf-faq-card.open .mf-faq-plus { transform: rotate(45deg); background: #5b4b9a; color: #ffffff; }
-          .mf-faq-a {
-            padding: 1rem 1.5rem 1.5rem; font-size: 0.9rem; color: var(--text-subtle);
+          .wellness-faq-card.open .wellness-faq-plus { transform: rotate(45deg); background: #5b4b9a; color: #ffffff; }
+          .wellness-faq-a {
+            padding: 1rem 1.65rem 1.5rem; font-size: 0.9rem; color: var(--text-subtle);
             line-height: 1.7; border-top: 1px solid #eae3d6;
             max-height: none !important; overflow: visible !important; opacity: 1 !important;
-            animation: mfFaqIn 0.28s ease both;
           }
         `}</style>
 
@@ -475,53 +514,64 @@ export default function HomePage() {
           <AdBanner slot="top-banner" />
 
           {/* HERO */}
-          <section className="mf-hero-lead">
-            <span className="mf-hero-tag">✨ 100% Free • Tap-Only • No Sign-Up</span>
-            <h1 className="mf-hero-h1">
+          <section className="wellness-hero">
+            <span className="wellness-pill-tag">
+              ✨ 100% Free • Tap-Only • No Account Required
+            </span>
+            <h1 className="wellness-title">
               Shift your mindset in <span>60 seconds</span>
             </h1>
-            <p className="mf-hero-p">
+            <p className="wellness-subtitle">
               Select your current mood, discover your positive counterpart, and get a practical 60-second action to regain emotional clarity.
             </p>
           </section>
 
-          {/* TOOL CONTAINER */}
-          <section className="mf-tool-container" id="demo">
-            <div className="mf-tool-grid">
+          {/* INTERACTIVE TOOL */}
+          <section className="wellness-tool-container" id="demo">
+            <div className="wellness-grid">
 
               {/* LEFT PANEL */}
-              <div className="mf-panel mf-panel-left">
-                <span className="mf-step-tag">
-                  <span className="mf-step-ic">☁️</span>
-                  <span>Choose your current mood</span>
-                </span>
-                <div className="mf-chip-row">
-                  {FAMILY_ORDER.map((name) => (
-                    <button
-                      key={name}
-                      className={`mf-fam-chip ${family === name ? 'selected' : ''}`}
-                      onClick={() => chooseFamily(name)}
-                    >
-                      {name}
-                    </button>
-                  ))}
+              <div className="wellness-panel-left">
+                {/* STEP 1 */}
+                <div>
+                  <div className="wellness-step-label">
+                    <span className="wellness-step-tag">☁️ Step 1 · Choose Your Mood</span>
+                    <span className="wellness-step-num">1 of 2</span>
+                  </div>
+                  <div className="wellness-chip-group">
+                    {FAMILY_ORDER.map((name) => {
+                      const meta = FAMILY_META[name];
+                      const isSelected = family === name;
+                      return (
+                        <button
+                          key={name}
+                          className={`wellness-fam-btn ${isSelected ? 'selected' : ''}`}
+                          onClick={() => chooseFamily(name)}
+                        >
+                          <span>{meta.emoji}</span>
+                          <span>{name}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
-                <div style={{ marginTop: '1.75rem' }}>
-                  <span className="mf-step-tag">
-                    <span className="mf-step-ic">🤍</span>
-                    <span>Pick the feeling closest to how you feel</span>
-                  </span>
-                  <div className="mf-feel-grid">
+                {/* STEP 2 */}
+                <div style={{ marginTop: '1rem' }}>
+                  <div className="wellness-step-label">
+                    <span className="wellness-step-tag">🤍 Step 2 · Pick Exact Feeling</span>
+                    <span className="wellness-step-num">2 of 2</span>
+                  </div>
+                  <div className="wellness-feelings-grid">
                     {!family ? (
-                      <div className="mf-feel-empty">
-                        Choose a mood family above to see feelings.
+                      <div className="wellness-empty-feelings">
+                        👈 Select a mood family above to see specific feelings
                       </div>
                     ) : (
                       feelings.map((name) => (
                         <button
                           key={name}
-                          className={`mf-feel-tile ${feeling === name ? 'selected' : ''}`}
+                          className={`wellness-feel-btn ${feeling === name ? 'selected' : ''}`}
                           onClick={() => chooseFeeling(name)}
                         >
                           <span>{name}</span>
@@ -533,55 +583,55 @@ export default function HomePage() {
               </div>
 
               {/* CENTER FLIP BUTTON */}
-              <div className="mf-flip-col">
+              <div className="wellness-flip-col">
                 <button
                   id="flip-mood-btn"
-                  className="mf-flip-btn"
-                  disabled={!family || !feeling}
+                  className="wellness-flip-btn"
+                  disabled={!family || !feeling || isFlipping}
                   onClick={flipMood}
                   title={!family || !feeling ? 'Select a mood & feeling first' : 'Click to flip your mood'}
                 >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
-                  <span>Flip My Mood</span>
+                  <span>{isFlipping ? 'Flipping...' : 'Flip My Mood'}</span>
                 </button>
               </div>
 
               {/* RIGHT PANEL */}
-              <div className="mf-panel mf-panel-right" id="rightPanel">
-                <div className="mf-sun-bg" />
+              <div className="wellness-panel-right" id="rightPanel">
+                <div className="wellness-sun-halo" />
 
                 {!result ? (
-                  <div className="mf-empty-right">
-                    <div className="mf-sun-icon-placeholder">🌤️</div>
+                  <div className="wellness-empty-right">
+                    <div className="wellness-sun-icon-box">🌤️</div>
                     Select your current feeling on the left and tap <strong>FLIP MY MOOD</strong> to reveal your positive shift &amp; 60-second action.
                   </div>
                 ) : (
-                  <div className="mf-result-content">
-                    <div className="mf-result-label">Your mood has changed to:</div>
-                    <div className="mf-result-mood">{result.target}</div>
+                  <div className="wellness-result-box">
+                    <div className="wellness-result-eyebrow">Your Target Mood Shift:</div>
+                    <div className="wellness-target-heading">{result.target}</div>
 
-                    <div className="mf-action-card">
-                      <div className="mf-action-head">
+                    <div className="wellness-action-card">
+                      <div className="wellness-action-header">
                         <button
-                          className="mf-timer-btn"
+                          className="wellness-timer-button"
                           onClick={startTimer}
                           title="Start/pause 60s timer"
                         >
                           {timerRunning ? `${timeLeft}s` : '▶ 60s'}
                         </button>
-                        <h3 className="mf-action-title">{result.title}</h3>
+                        <h3 className="wellness-action-title">{result.title}</h3>
                       </div>
 
-                      <p className="mf-action-desc">{result.action}</p>
+                      <p className="wellness-action-desc">{result.action}</p>
 
-                      <div className="mf-action-tip">
+                      <div className="wellness-insight-box">
                         💡 <strong>Mindset Insight:</strong> {result.tip}
                       </div>
 
                       <button
-                        className={`mf-save-btn ${savedSuccess ? 'saved' : ''}`}
+                        className={`wellness-save-button ${savedSuccess ? 'saved' : ''}`}
                         onClick={handleSaveCheckin}
                       >
                         <span>{savedSuccess ? '✅ Check-in Saved!' : '📌 Save Check-in'}</span>
@@ -593,64 +643,64 @@ export default function HomePage() {
 
             </div>
 
-            {/* REASSURANCE BANNER */}
-            <div className="mf-reassure">
-              <div className="mf-reassure-item">
-                <span style={{ fontSize: '1.2rem' }}>🌿</span>
+            {/* REASSURANCE STRIP */}
+            <div className="wellness-reassure-strip">
+              <div className="wellness-reassure-item">
+                <span style={{ fontSize: '1.3rem' }}>🌿</span>
                 <div>
                   <strong>Small shifts change how you feel.</strong>
-                  <span>You have got this, one moment at a time.</span>
+                  <span style={{ color: 'var(--text-subtle)' }}>You have got this, one moment at a time.</span>
                 </div>
               </div>
-              <div className="mf-reassure-item">
-                <span style={{ fontSize: '1.2rem' }}>💛</span>
+              <div className="wellness-reassure-item">
+                <span style={{ fontSize: '1.3rem' }}>💛</span>
                 <div>
                   <strong>Be kind to yourself.</strong>
-                  <span>One choice at a time.</span>
+                  <span style={{ color: 'var(--text-subtle)' }}>One choice at a time.</span>
                 </div>
               </div>
             </div>
           </section>
 
           {/* HOW IT WORKS */}
-          <section className="mf-section-light mf-alt">
-            <div className="mf-sec-head">
-              <span className="mf-sec-tag">How MoodFlip works</span>
-              <h2 className="mf-sec-title">From stuck to moving in three gentle taps.</h2>
-              <p className="mf-sec-desc">No typing and no long questionnaire. Narrow the feeling, then take one manageable next step.</p>
+          <section className="wellness-section alt">
+            <div className="wellness-sec-head">
+              <span className="wellness-sec-tag">How MoodFlip Works</span>
+              <h2 className="wellness-sec-title">From stuck to moving in three gentle taps.</h2>
+              <p className="wellness-sec-desc">No typing and no long questionnaires. Narrow the feeling, then take one manageable next step.</p>
             </div>
 
-            <div className="mf-steps-grid">
+            <div className="wellness-steps-grid">
               {[
                 { num: '01', title: 'Choose what feels closest', text: 'Start with a broad mood family, then tap the feeling that best matches this moment.' },
                 { num: '02', title: 'Flip the emotional direction', text: 'MoodFlip pairs that feeling with a more supportive target state without asking you to type anything.' },
                 { num: '03', title: 'Take one tiny action', text: 'Try a practical 60-second reset designed to feel manageable, even on a difficult day.' },
               ].map(s => (
-                <div key={s.num} className="mf-step-card">
-                  <span className="mf-step-card-num">{s.num}</span>
-                  <h3 className="mf-step-card-h3">{s.title}</h3>
-                  <p className="mf-step-card-p">{s.text}</p>
+                <div key={s.num} className="wellness-step-card">
+                  <span className="wellness-step-num">{s.num}</span>
+                  <h3 className="wellness-step-h3">{s.title}</h3>
+                  <p className="wellness-step-p">{s.text}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* FAQS */}
-          <section className="mf-section-light">
-            <div className="mf-sec-head">
-              <span className="mf-sec-tag">Got questions?</span>
-              <h2 className="mf-sec-title">Frequently asked questions</h2>
+          {/* FAQ SECTION */}
+          <section className="wellness-section">
+            <div className="wellness-sec-head">
+              <span className="wellness-sec-tag">Got Questions?</span>
+              <h2 className="wellness-sec-title">Frequently asked questions</h2>
             </div>
 
-            <div className="mf-faq-wrap">
+            <div className="wellness-faq-wrap">
               {FAQS.map(([q, a], idx) => (
-                <div key={idx} className={`mf-faq-card ${openFaq === idx ? 'open' : ''}`}>
-                  <button className="mf-faq-q" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
+                <div key={idx} className={`wellness-faq-card ${openFaq === idx ? 'open' : ''}`}>
+                  <button className="wellness-faq-q" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
                     <span>{q}</span>
-                    <span className="mf-faq-plus">+</span>
+                    <span className="wellness-faq-plus">+</span>
                   </button>
                   {openFaq === idx && (
-                    <div className="mf-faq-a">{a}</div>
+                    <div className="wellness-faq-a">{a}</div>
                   )}
                 </div>
               ))}

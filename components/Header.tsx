@@ -5,40 +5,92 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[#EAE3D6] bg-[#FDFBF7]/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1340px] items-center justify-between px-5 py-4">
+    <header style={{
+      position: 'sticky',
+      top: 0,
+      zIndex: 50,
+      borderBottom: '1px solid #eae3d6',
+      backgroundColor: 'rgba(253, 251, 247, 0.92)',
+      backdropFilter: 'blur(10px)',
+      boxShadow: '0 2px 10px rgba(60, 40, 100, 0.03)'
+    }}>
+      <div style={{
+        maxWidth: '1280px',
+        margin: '0 auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '14px 24px'
+      }}>
         {/* LOGO */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#6C5CE7] to-[#8A7CF0] text-white font-black text-xl shadow-md group-hover:scale-105 transition-transform">
-            <span>😊</span>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <div style={{
+            position: 'relative',
+            width: '38px',
+            height: '38px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #7147e8 0%, #a644c9 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 4px 12px rgba(113, 71, 232, 0.25)',
+            fontSize: '18px'
+          }}>
+            😊
           </div>
-          <span className="font-serif text-2xl font-bold tracking-tight text-[#2D264B]">
-            mood<span className="text-[#6C5CE7]">flip</span>
+          <span style={{ fontFamily: 'Georgia, serif', fontSize: '24px', fontWeight: '800', color: '#2d264b', letterSpacing: '-0.5px' }}>
+            mood<span style={{ color: '#7147e8' }}>flip</span>
           </span>
         </Link>
 
         {/* NAVIGATION LINKS */}
-        <nav className="hidden items-center gap-7 text-sm font-semibold text-[#6B638B] md:flex">
-          <Link href="/" className="transition hover:text-[#6C5CE7]">Home</Link>
-          <Link href="/about" className="transition hover:text-[#6C5CE7]">About</Link>
-          <Link href="/#how-it-works" className="transition hover:text-[#6C5CE7]">How It Works</Link>
-          <Link href="/mood/sad" className="transition hover:text-[#6C5CE7]">Mood Library</Link>
-          <Link href="/pricing" className="transition hover:text-[#6C5CE7]">Resources</Link>
-          <Link href="/contact" className="transition hover:text-[#6C5CE7]">Contact</Link>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '26px', fontSize: '14px', fontWeight: '600', color: '#6b638b' }}>
+          <Link href="/" style={{ color: '#2d264b', textDecoration: 'none' }}>Home</Link>
+          <a href="/#about" style={{ color: '#6b638b', textDecoration: 'none' }}>About</a>
+          <a href="/#how" style={{ color: '#6b638b', textDecoration: 'none' }}>How It Works</a>
+          <a href="/#library" style={{ color: '#6b638b', textDecoration: 'none' }}>Mood Library</a>
+          <a href="/#resources" style={{ color: '#6b638b', textDecoration: 'none' }}>Resources</a>
+          <a href="/#contact" style={{ color: '#6b638b', textDecoration: 'none' }}>Contact</a>
         </nav>
 
         {/* ACTION BUTTONS */}
-        <div className="flex items-center gap-3">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Link
             href="/login"
-            className="rounded-full border border-[#DDD6FE] bg-white px-5 py-2.5 text-sm font-bold text-[#6C5CE7] transition hover:bg-[#F5F3FF] shadow-sm"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              height: '38px',
+              padding: '0 18px',
+              borderRadius: '19px',
+              border: '1px solid #dcd4ee',
+              background: '#ffffff',
+              color: '#683cd7',
+              fontSize: '13px',
+              fontWeight: '700',
+              textDecoration: 'none',
+              boxShadow: '0 2px 8px rgba(104, 60, 215, 0.08)'
+            }}
           >
-            👤 Login
+            <span>👤</span> Login
           </Link>
 
           <Link
             href="/register"
-            className="rounded-full bg-gradient-to-r from-[#6C5CE7] to-[#8A7CF0] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-purple-200 transition hover:opacity-95 hover:translate-y-[-1px]"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              height: '38px',
+              padding: '0 20px',
+              borderRadius: '19px',
+              background: 'linear-gradient(135deg, #7147e8 0%, #a644c9 100%)',
+              color: '#ffffff',
+              fontSize: '13px',
+              fontWeight: '700',
+              textDecoration: 'none',
+              boxShadow: '0 4px 14px rgba(113, 71, 232, 0.28)'
+            }}
           >
             ✨ Get 7-Day Plan
           </Link>

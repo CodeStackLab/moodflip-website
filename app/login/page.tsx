@@ -21,7 +21,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#FDFBF7', color: '#2D264B', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#FDFBF7', color: '#2D264B' }}>
       <Header />
 
       <main style={{ maxWidth: '1240px', margin: '0 auto', padding: '32px 24px' }}>

@@ -109,7 +109,7 @@ export default function HomePage() {
           </nav>
 
           <div className={styles.headerActions}>
-            <button className={styles.loginButton} type="button"><span>♙</span> Login</button>
+            <a href="/login" className={styles.loginButton}><span>👤</span> Login</a>
             <button className={styles.planButton} type="button">Get 7-Day Plan</button>
           </div>
         </header>

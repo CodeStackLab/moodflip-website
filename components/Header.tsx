@@ -117,6 +117,28 @@ export default function Header() {
     } else if (windowWithGoogle.google?.translate?.TranslateElement) {
       (windowWithGoogle[callbackName] as () => void)();
     }
+
+    // Clean up top banner if inserted by Google Translate
+    const killGoogleBanner = () => {
+      if (document.body.style.top !== '0px') {
+        document.body.style.top = '0px';
+      }
+      const frames = document.querySelectorAll('.goog-te-banner-frame, iframe.goog-te-banner-frame, iframe[id*="goog"]');
+      frames.forEach((f) => {
+        (f as HTMLElement).style.display = 'none';
+        (f as HTMLElement).style.visibility = 'hidden';
+        (f as HTMLElement).style.height = '0px';
+      });
+    };
+
+    const interval = setInterval(killGoogleBanner, 300);
+    const observer = new MutationObserver(killGoogleBanner);
+    observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+
+    return () => {
+      clearInterval(interval);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {

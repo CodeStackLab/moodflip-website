@@ -39,6 +39,42 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              html, body {
+                top: 0px !important;
+                position: static !important;
+                margin-top: 0px !important;
+              }
+              .goog-te-banner-frame,
+              .goog-te-banner-frame.skiptranslate,
+              iframe.goog-te-banner-frame,
+              iframe[id*="goog"],
+              iframe[src*="translate"],
+              #goog-gt-tt,
+              .goog-te-balloon-frame,
+              .goog-tooltip,
+              .goog-tooltip:hover,
+              .VIpgJd-yDvfBx-MTI1AZ-OWbhnd-ioT256,
+              div[id*="goog-gt"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+                height: 0px !important;
+                width: 0px !important;
+                max-height: 0px !important;
+              }
+              .goog-text-highlight {
+                background-color: transparent !important;
+                box-shadow: none !important;
+              }
+            `,
+          }}
+        />
+      </head>
       <body>
         <GoogleAnalytics />
         <script

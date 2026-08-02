@@ -464,8 +464,9 @@ export default function HomePage() {
           }
           .mf-faq-card.open .mf-faq-plus { transform: rotate(45deg); background: #5b4b9a; color: #ffffff; }
           .mf-faq-a {
-            padding: 0 1.5rem 1.4rem; font-size: 0.88rem; color: var(--text-subtle);
-            line-height: 1.7; border-top: 1px solid #eae3d6; padding-top: 1rem;
+            padding: 1rem 1.5rem 1.5rem; font-size: 0.9rem; color: var(--text-subtle);
+            line-height: 1.7; border-top: 1px solid #eae3d6;
+            max-height: none !important; overflow: visible !important; opacity: 1 !important;
             animation: mfFaqIn 0.28s ease both;
           }
         `}</style>

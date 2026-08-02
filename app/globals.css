@@ -409,9 +409,9 @@ section.light.alt { background: var(--cream-2); }
 .mf-faq-q { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; font-size: 15px; width: 100%; background: transparent; border: 0; text-align: left; color: var(--ink); padding: 0; }
 .mf-faq-q span:last-child { color: var(--purple); font-size: 18px; transition: .2s; }
 .mf-faq-item.open .mf-faq-q span:last-child { transform: rotate(45deg); }
-.mf-faq-a { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
+.mf-faq-item .mf-faq-a { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
 .mf-faq-item.open .mf-faq-a { max-height: 200px; }
-.mf-faq-a p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; margin: 10px 0 0; }
+.mf-faq-item .mf-faq-a p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; margin: 10px 0 0; }
 .mf-footer { background: #211d2b; color: rgba(255, 255, 255, 0.75); padding: 50px 0 24px; }
 .mf-footer-top { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,.1); }
 .mf-footer-logo { color: #fff; margin-bottom: 10px; }

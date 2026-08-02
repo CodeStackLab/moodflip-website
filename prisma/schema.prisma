@@ -1,0 +1,75 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model UserProfile {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String?
+  visitCount   Int           @default(1)
+  isPaid       Boolean       @default(false)
+  lastActiveAt DateTime      @default(now())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  checkins     UserCheckin[]
+  purchases    Purchase[]
+
+  @@map("user_profiles")
+}
+
+model UserCheckin {
+  id              String       @id @default(uuid())
+  profileId       String?
+  profile         UserProfile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  primaryMood     String       // Sad, Disgusted, Angry, Fearful, Bad
+  subFeeling      String       // Layer 2
+  specificFeeling String       // Layer 3
+  targetMood      String       // Positive target state
+  actionShown     String       // 60-second action prompt
+  createdAt       DateTime     @default(now())
+
+  @@map("user_checkins")
+}
+
+model ActionPrompt {
+  id              String   @id @default(uuid())
+  primaryMood     String
+  specificFeeling String
+  targetMood      String
+  actionText      String
+  createdAt       DateTime @default(now())
+
+  @@map("action_prompts")
+}
+
+model Purchase {
+  id          String      @id @default(uuid())
+  profileId   String
+  profile     UserProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  amount      Float       @default(7.00)
+  status      String      @default("COMPLETED") // COMPLETED, PENDING
+  productType String      @default("7_DAY_PDF") // 7_DAY_PDF, 30_DAY_PDF
+  pdfUrl      String?
+  createdAt   DateTime    @default(now())
+
+  @@map("purchases")
+}
+
+model AiSettings {
+  id                String   @id @default("global")
+  enabled           Boolean  @default(true)
+  primaryProvider   String   @default("openrouter")
+  primaryModel      String   @default("openai/gpt-4o-mini")
+  fallbackProvider  String   @default("gemini")
+  fallbackModel     String   @default("gemini-2.0-flash")
+  autoFallback      Boolean  @default(true)
+  openrouterModels  Json?
+  updatedAt         DateTime @updatedAt
+
+  @@map("ai_settings")
+}

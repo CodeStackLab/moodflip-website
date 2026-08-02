@@ -12,30 +12,30 @@ type Mood = {
 };
 
 const moods: Mood[] = [
-  { name: "Sad", emoji: "😞", category: "Low", tone: "lavender", feelings: ["Down", "Heavy", "Blue"] },
+  { name: "Sad", emoji: "😢", category: "Low", tone: "lavender", feelings: ["Down", "Heavy", "Blue"] },
   { name: "Hopeless", emoji: "☁️", category: "Low", tone: "gray", feelings: ["Stuck", "Defeated", "Empty"] },
   { name: "Disappointed", emoji: "💔", category: "Low", tone: "rose", feelings: ["Let down", "Discouraged", "Unseen"] },
-  { name: "Lonely", emoji: "👤", category: "Lonely", tone: "blue", feelings: ["Disconnected", "Left out", "Missing someone"] },
-  { name: "Tired", emoji: "🔋", category: "Low", tone: "green", feelings: ["Drained", "Sleepy", "Burnt out"] },
-  { name: "Anxious", emoji: "🧿", category: "Anxious", tone: "cyan", feelings: ["Nervous", "Uneasy", "On edge"] },
+  { name: "Lonely", emoji: "🧍", category: "Lonely", tone: "blue", feelings: ["Disconnected", "Left out", "Missing someone"] },
+  { name: "Tired", emoji: "🪫", category: "Low", tone: "green", feelings: ["Drained", "Sleepy", "Burnt out"] },
+  { name: "Anxious", emoji: "🫀", category: "Anxious", tone: "cyan", feelings: ["Nervous", "Uneasy", "On edge"] },
   { name: "Worried", emoji: "🌧️", category: "Anxious", tone: "aqua", feelings: ["Concerned", "Restless", "Uncertain"] },
-  { name: "Overwhelmed", emoji: "🌀", category: "Overwhelmed", tone: "purple", feelings: ["Flooded", "Scattered", "Too much"] },
-  { name: "Stressed", emoji: "🌩️", category: "Overwhelmed", tone: "violet", feelings: ["Pressured", "Tense", "Rushed"] },
+  { name: "Overwhelmed", emoji: "🌸", category: "Overwhelmed", tone: "purple", feelings: ["Flooded", "Scattered", "Too much"] },
+  { name: "Stressed", emoji: "⚡", category: "Overwhelmed", tone: "violet", feelings: ["Pressured", "Tense", "Rushed"] },
   { name: "Insecure", emoji: "🛡️", category: "Anxious", tone: "peach", feelings: ["Doubtful", "Exposed", "Not enough"] },
   { name: "Angry", emoji: "😡", category: "Angry", tone: "red", feelings: ["Mad", "Furious", "Resentful"] },
-  { name: "Frustrated", emoji: "💥", category: "Angry", tone: "orange", feelings: ["Blocked", "Annoyed", "Impatient"] },
-  { name: "Irritable", emoji: "😣", category: "Angry", tone: "yellow", feelings: ["Snappy", "Agitated", "Bothered"] },
-  { name: "Guilty", emoji: "😔", category: "Low", tone: "mauve", feelings: ["Regretful", "Ashamed", "Responsible"] },
-  { name: "Stuck", emoji: "🔒", category: "Overwhelmed", tone: "slate", feelings: ["Frozen", "Confused", "Unable to move"] },
+  { name: "Frustrated", emoji: "💢", category: "Angry", tone: "orange", feelings: ["Blocked", "Annoyed", "Impatient"] },
+  { name: "Irritable", emoji: "😤", category: "Angry", tone: "yellow", feelings: ["Snappy", "Agitated", "Bothered"] },
+  { name: "Guilty", emoji: "😞", category: "Low", tone: "mauve", feelings: ["Regretful", "Ashamed", "Responsible"] },
+  { name: "Stuck", emoji: "🔐", category: "Overwhelmed", tone: "slate", feelings: ["Frozen", "Confused", "Unable to move"] },
 ];
 
 const categories = [
-  { name: "All", icon: "▦" },
-  { name: "Low", icon: "😢" },
-  { name: "Anxious", icon: "🌧️" },
-  { name: "Angry", icon: "🔥" },
-  { name: "Overwhelmed", icon: "≋" },
-  { name: "Lonely", icon: "👤" },
+  { name: "All", icon: "⊞", iconBg: "#7147e8", iconColor: "#fff" },
+  { name: "Low", icon: "😢", iconBg: "", iconColor: "" },
+  { name: "Anxious", icon: "🌧️", iconBg: "", iconColor: "" },
+  { name: "Angry", icon: "🔥", iconBg: "", iconColor: "" },
+  { name: "Overwhelmed", icon: "〰️", iconBg: "", iconColor: "" },
+  { name: "Lonely", icon: "🧍", iconBg: "", iconColor: "" },
 ] as const;
 
 const plans = [
@@ -93,11 +93,10 @@ export default function HomePage() {
       <div className={styles.appFrame}>
         <header className={styles.header}>
           <a className={styles.logo} href="#" aria-label="MoodFlip home">
-          <div className="relative flex h-9 w-9 items-center justify-center mr-1">
-            <span className="absolute bottom-0 left-1 h-[22px] w-[22px] rounded-full border-[5px] border-[#713ee2] border-t-transparent" />
-            <span className="absolute left-1 top-0 h-2.5 w-2.5 rounded-full bg-[#f4a746]" />
-            <span className="absolute right-0 top-1 h-2 w-2 rounded-full bg-[#d94fc5]" />
-          </div>
+            <span className={styles.logoMark} aria-hidden="true">
+              <span />
+              <span />
+            </span>
             <span>mood<span>flip</span></span>
           </a>
 
@@ -110,11 +109,15 @@ export default function HomePage() {
           </nav>
 
           <div className={styles.headerActions}>
-            <button className={styles.loginButton} type="button"><span>👤</span> Login</button>
+            <button className={styles.loginButton} type="button"><span>♙</span> Login</button>
             <button className={styles.planButton} type="button">Get 7-Day Plan</button>
           </div>
         </header>
 
+        <section className={styles.topAd} aria-label="Advertisement placeholder">
+          <span className={styles.adBadge}>Ad</span>
+          <span>Google AdSense Banner (728x90)</span>
+        </section>
 
         <section className={styles.dashboard} id="home">
           <section className={styles.moodPanel}>
@@ -147,7 +150,9 @@ export default function HomePage() {
                   className={`${styles.moodCard} ${styles[mood.tone]} ${selectedMood?.name === mood.name ? styles.moodSelected : ""}`}
                   onClick={() => selectMood(mood)}
                 >
-                  <span className={styles.moodEmoji}>{mood.emoji}</span>
+                  <div className={styles.moodEmojiWrap}>
+                    <span className={styles.moodEmoji}>{mood.emoji}</span>
+                  </div>
                   <span>{mood.name}</span>
                 </button>
               ))}
@@ -281,6 +286,10 @@ export default function HomePage() {
           </aside>
         </section>
 
+        <section className={styles.bottomAd} aria-label="Advertisement placeholder">
+          <span className={styles.adBadge}>Ad</span>
+          <span>Google AdSense Banner (728x90)</span>
+        </section>
 
         <section className={styles.trustStrip}>
           <article><span className={styles.trustIcon}>🔒</span><div><strong>Private &amp; Secure</strong><p>Your data is encrypted<br />and protected.</p></div></article>
@@ -291,110 +300,113 @@ export default function HomePage() {
         </section>
 
         {/* Section 1: How MoodFlip Works */}
-        <section id="how" className={styles.howItWorks}>
-          <h2>How MoodFlip Works</h2>
-          <p className={styles.sectionSub}>A simple 5-step journey to a better you.</p>
-          <div className={styles.stepsContainer}>
+        <section id="how" className={styles.howSection}>
+          <div className={styles.howHeader}>
+            <h2>How MoodFlip Works</h2>
+            <p>A simple 5-step journey to a better you.</p>
+          </div>
+          <div className={styles.stepsFlow}>
             {[
-              { icon: '🎛️', title: 'Choose Your Mood', desc: 'Pick the mood that\\nfeels closest to you.' },
-              { icon: '☁️', title: 'Pick Exact Feeling', desc: 'Select the feeling that\\nmatches you best.' },
-              { icon: '🔄', title: 'Flip Your Mood', desc: 'We find your positive\\ncounterpart.' },
-              { icon: '▶️', title: 'Get 60-Second Action', desc: 'A short action to shift\\nyour energy.' },
-              { icon: '📈', title: 'Save & Track Progress', desc: 'Save your check-in\\nand see growth.' }
-            ].map((step, i) => (
-              <React.Fragment key={step.title}>
-                <div className={styles.stepItem}>
-                  <div className={styles.stepIconBubble}>{step.icon}</div>
-                  <div className={styles.stepNumber}>{i + 1}</div>
-                  <h4>{step.title}</h4>
-                  <p>{step.desc.split('\\n').map((line, idx) => <React.Fragment key={idx}>{line}<br/></React.Fragment>)}</p>
-                </div>
-                {i < 4 && <div className={styles.stepArrow}>--&gt;</div>}
-              </React.Fragment>
+              { icon: '🎛️', color: 'how_blue', step: '01', title: 'Choose Your Mood', desc: 'Pick the mood that feels closest to you.' },
+              { icon: '☁️', color: 'how_purple', step: '02', title: 'Pick Exact Feeling', desc: 'Select the feeling that matches you best.' },
+              { icon: '🔄', color: 'how_green', step: '03', title: 'Flip Your Mood', desc: 'We find your positive counterpart.' },
+              { icon: '▶️', color: 'how_pink', step: '04', title: '60-Second Action', desc: 'A short action to shift your energy.' },
+              { icon: '📈', color: 'how_orange', step: '05', title: 'Save & Track', desc: 'Save your check-in and see growth.' }
+            ].map((step) => (
+              <div key={step.title} className={styles.howStep}>
+                <div className={`${styles.howIcon} ${styles[step.color]}`}>{step.icon}</div>
+                <b>{step.step}</b>
+                <h3>{step.title}</h3>
+                <p>{step.desc}</p>
+              </div>
             ))}
           </div>
         </section>
 
         {/* Section 2: 7-Day Plan Promo */}
-        <section className={styles.promoSection}>
-          <div className={styles.promoImagePlaceholder}>
-            <div className={styles.promoBook}>
-              <h3>mood<span>flip</span></h3>
-              <h2>7-DAY PLAN</h2>
-              <div className={styles.promoBadge}>BEST FOR<br />BEGINNERS</div>
+        <section className={styles.planSection}>
+          <div className={styles.bookCompact}>
+            <div className={styles.bookCover}>
+              <div className={styles.bookLogo}>mood<span>flip</span></div>
+              <strong>7-DAY PLAN</strong>
+              <div className={styles.bookSun}></div>
+              <div className={styles.bookHillOne}></div>
+              <div className={styles.bookHillTwo}></div>
+              <div className={styles.bookBadge}>BEST FOR<br/><b>BEGINNERS</b></div>
+              <div className={`${styles.bookLeaf} ${styles.bookLeafLeft}`}>❧</div>
+              <div className={`${styles.bookLeaf} ${styles.bookLeafRight}`}>❧</div>
             </div>
           </div>
-          <div className={styles.promoContent}>
+          <div className={styles.planCopy}>
             <h2>Build a Better Mindset in Just 7 Days</h2>
             <p>Simple daily check-ins, practical actions, real change.</p>
-            <ul className={styles.promoList}>
-              <li><span>✓</span> Daily mood check-ins</li>
-              <li><span>✓</span> Personalized 60-second actions</li>
-              <li><span>✓</span> 7-day PDF report</li>
-              <li><span>✓</span> Gentle guidance for you</li>
+            <ul>
+              <li>Daily mood check-ins</li>
+              <li>Personalized 60-second actions</li>
+              <li>7-day PDF report</li>
+              <li>Gentle guidance for you</li>
             </ul>
           </div>
-          <div className={styles.promoPricing}>
-            <h4>7-Day Plan</h4>
+          <div className={styles.priceCard}>
+            <h3>7-Day Plan</h3>
             <p>Perfect for getting started</p>
-            <h2>$7</h2>
-            <p className={styles.promoOneTime}>One-time payment</p>
-            <button className={styles.promoButton} type="button">Get 7-Day Plan Now</button>
+            <strong><span>$</span>7</strong>
+            <button type="button">Get 7-Day Plan Now</button>
             <small>Secure payment • Instant PDF</small>
           </div>
         </section>
 
         {/* Section 3: Explore Your Feelings */}
-        <section id="library" className={styles.exploreSection}>
-          <h2>Explore Your Feelings</h2>
-          <p className={styles.sectionSub}>Browse common moods and learn how to shift them.</p>
-          <div className={styles.exploreGrid}>
+        <section id="library" className={styles.librarySection}>
+          <div className={styles.howHeader}>
+            <h2>Explore Your Feelings</h2>
+            <p>Browse common moods and learn how to shift them.</p>
+          </div>
+          <div className={styles.libraryGrid}>
             {[
-              { icon: '🌀', title: 'Anxiety', sub: 'Find calm & clarity' },
-              { icon: '💥', title: 'Stress', sub: 'Find balance' },
-              { icon: '😢', title: 'Sadness', sub: 'Find light again' },
-              { icon: '😡', title: 'Anger', sub: 'Find peace' },
-              { icon: '👤', title: 'Loneliness', sub: 'Find connection' },
-              { icon: '🌪️', title: 'Overwhelmed', sub: 'Find control' }
+              { icon: '🌀', title: 'Anxiety', sub: 'Find calm & clarity', color: 'library_cyan' },
+              { icon: '💥', title: 'Stress', sub: 'Find balance', color: 'library_orange' },
+              { icon: '😢', title: 'Sadness', sub: 'Find light again', color: 'library_blue' },
+              { icon: '😡', title: 'Anger', sub: 'Find peace', color: 'library_rose' },
+              { icon: '👤', title: 'Loneliness', sub: 'Find connection', color: 'library_sky' },
+              { icon: '🌪️', title: 'Overwhelmed', sub: 'Find control', color: 'library_violet' }
             ].map(mood => (
-              <a href="#" key={mood.title} className={styles.exploreCard}>
-                <div className={styles.exploreIcon}>{mood.icon}</div>
+              <div key={mood.title} className={`${styles.libraryCard} ${styles[mood.color]}`}>
+                <span>{mood.icon}</span>
                 <div>
-                  <h4>{mood.title}</h4>
+                  <strong>{mood.title}</strong>
                   <p>{mood.sub}</p>
-                  <span className={styles.viewLink}>View &rarr;</span>
+                  <a href="#">View &rarr;</a>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
-          <button className={styles.viewAllButton} type="button">View All Moods &rarr;</button>
+          <a href="#library" className={styles.allMoodsButton}>View All Moods &rarr;</a>
         </section>
 
         {/* Section 4: About MoodFlip */}
         <section id="about" className={styles.aboutSection}>
           <div className={styles.aboutIllustration}>
-            {/* CSS placeholder for the woman illustration */}
-            <div className={styles.illustrationPlaceholder}>👩🏻‍🦰</div>
+             <div style={{ fontSize: '120px' }}>👩🏻‍🦰</div>
           </div>
-          <div className={styles.aboutContent}>
+          <div className={styles.aboutCopy}>
             <h2>About MoodFlip</h2>
             <p>MoodFlip is a self-reflection utility designed to help you find your mood match, meaningfully.</p>
             <p>We are not a therapy or medical service. We provide simple tools, not medical advice.</p>
-            <p>For emergencies, please contact local emergency services.</p>
           </div>
-          <div className={styles.aboutFeatures}>
-            <ul>
-              <li><span>💗</span> Self-reflection, not diagnosis</li>
-              <li><span>🛠️</span> Practical tools for daily life</li>
-              <li><span>✨</span> Designed with care &amp; empathy</li>
-              <li><span>🔒</span> Your privacy comes first</li>
-            </ul>
+          <div className={styles.aboutPoints}>
+            <p><span>💗</span> Self-reflection, not diagnosis</p>
+            <p><span>🛠️</span> Practical tools for daily life</p>
+            <p><span>✨</span> Designed with care &amp; empathy</p>
+            <p><span>🔒</span> Your privacy comes first</p>
           </div>
         </section>
 
         {/* Section 5: Frequently Asked Questions */}
         <section className={styles.faqSection}>
-          <h2>Frequently Asked Questions</h2>
+          <div className={styles.howHeader}>
+            <h2>Frequently Asked Questions</h2>
+          </div>
           <div className={styles.faqGrid}>
             {[
               "Is MoodFlip a therapy or medical service?",
@@ -404,11 +416,9 @@ export default function HomePage() {
               "How is my data stored and protected?",
               "Can I get a refund on my plan?"
             ].map((q, i) => (
-              <details key={i} className={styles.faqItem}>
-                <summary>{q}</summary>
-                <div className={styles.faqAnswer}>
-                  <p>This is a placeholder answer. MoodFlip provides simple self-reflection tools to help you shift your mindset.</p>
-                </div>
+              <details key={i}>
+                <summary>{q} <span style={{marginLeft: 'auto'}}>▼</span></summary>
+                <p>This is a placeholder answer. MoodFlip provides simple self-reflection tools to help you shift your mindset.</p>
               </details>
             ))}
           </div>
@@ -416,11 +426,7 @@ export default function HomePage() {
 
         <footer className={styles.footer}>
           <a className={`${styles.logo} ${styles.footerLogo}`} href="#">
-            <div className="relative flex h-9 w-9 items-center justify-center mr-1">
-              <span className="absolute bottom-0 left-1 h-[22px] w-[22px] rounded-full border-[5px] border-[#713ee2] border-t-transparent" />
-              <span className="absolute left-1 top-0 h-2.5 w-2.5 rounded-full bg-[#f4a746]" />
-              <span className="absolute right-0 top-1 h-2 w-2 rounded-full bg-[#d94fc5]" />
-            </div>
+            <span className={styles.logoMark} aria-hidden="true"><span /><span /></span>
             <span>mood<span>flip</span></span>
           </a>
           <p>A self-reflection utility for real life.</p>

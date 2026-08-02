@@ -96,9 +96,12 @@
 }
 
 .loginButton {
-  color: #5c32d9;
-  border: 1px solid #9c7bf4;
+  color: #6f42c1;
+  border: 1px solid #e2d5f8;
   background: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .planButton {
@@ -404,14 +407,15 @@
 .iconButton {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   border: 0;
   background: transparent;
   color: #11132b;
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
 }
-.iconButton > span:first-child { width: 25px; height: 25px; display: grid; place-items: center; border: 1px solid #e3dce8; border-radius: 50%; background: rgba(255,255,255,.74); font-size: 17px; }
+.iconButton > span:first-child { font-size: 16px; }
 
 .flipIntro {
   position: relative;
@@ -867,10 +871,10 @@
 .createProfile {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(to right, #6f42c1, #5a32a3);
+  background: #6f42c1;
   color: white;
   border: none;
-  border-radius: 999px;
+  border-radius: 12px;
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
@@ -880,6 +884,7 @@
 }
 
 .createProfile:hover {
+  background: #5a32a3;
   transform: translateY(-1px);
   box-shadow: 0 10px 25px rgba(111, 66, 193, 0.35);
 }
@@ -890,7 +895,7 @@
   background: white;
   color: #6f42c1;
   border: 1px solid #e2d5f8;
-  border-radius: 999px;
+  border-radius: 12px;
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;

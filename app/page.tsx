@@ -368,7 +368,11 @@ export default function Home() {
                 <button
                   key={item}
                   onClick={() => chooseFamily(item)}
-                  className={ounded-xl border px-4 py-2.5 text-sm font-semibold transition }
+                  className={`rounded-xl border px-4 py-2.5 text-sm font-semibold transition ${
+                    family === item
+                      ? "border-[#7044e8] bg-gradient-to-r from-[#633ce0] to-[#9650e7] text-white shadow-lg shadow-purple-200"
+                      : "border-[#e9e5ef] bg-white text-[#25213b] hover:border-[#ad93ee] hover:bg-[#f8f5ff]"
+                  }`}
                 >
                   {item === "All" && "▦ "}
                   {item === "Low" && "😔 "}
@@ -389,7 +393,11 @@ export default function Home() {
                   <button
                     key={mood.id}
                     onClick={() => chooseMood(mood)}
-                    className={group rounded-2xl border p-4 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg }
+                    className={`group rounded-2xl border p-4 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+                      active
+                        ? "border-[#7651eb] bg-[#f4efff] shadow-md shadow-purple-100"
+                        : "border-[#ece7f0] bg-gradient-to-b from-white to-[#fbfaff]"
+                    }`}
                   >
                     <span className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#f5f1ff] text-2xl transition group-hover:scale-110">
                       {mood.emoji}
@@ -440,7 +448,11 @@ export default function Home() {
                         setSelectedFeeling(feeling);
                         setFlipped(false);
                       }}
-                      className={ounded-xl border px-3 py-3 text-sm font-medium transition }
+                      className={`rounded-xl border px-3 py-3 text-sm font-medium transition ${
+                        selectedFeeling === feeling
+                          ? "border-[#7145e5] bg-[#eee7ff] text-[#5b35c9]"
+                          : "border-[#e9e5ef] bg-white hover:border-[#bca7f1]"
+                      }`}
                     >
                       {feeling}
                     </button>

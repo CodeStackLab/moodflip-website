@@ -55,12 +55,12 @@ const MOOD_DATA: Record<MoodFamily, Record<string, MoodEntry>> = {
 
 const FAMILY_ORDER = Object.keys(MOOD_DATA) as MoodFamily[];
 
-const FAMILY_META: Record<MoodFamily, { emoji: string; color: string; bg: string; border: string }> = {
-  Sad:      { emoji: '🌧️', color: '#4F46E5', bg: 'linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)', border: '#C7D2FE' },
-  Fearful:  { emoji: '🌀', color: '#7C3AED', bg: 'linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%)', border: '#DDD6FE' },
-  Angry:    { emoji: '🔥', color: '#E11D48', bg: 'linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%)', border: '#FECDD3' },
-  Disgusted:{ emoji: '🍃', color: '#059669', bg: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)', border: '#A7F3D0' },
-  Stressed: { emoji: '⚡', color: '#DB2777', bg: 'linear-gradient(135deg, #FDF2F8 0%, #FCE7F3 100%)', border: '#FBCFE8' },
+const FAMILY_META: Record<MoodFamily, { emoji: string; bg: string; border: string }> = {
+  Sad:      { emoji: '🌧️', bg: '#f0f4ff', border: '#c7d2fe' },
+  Fearful:  { emoji: '🌀', bg: '#f5f3ff', border: '#ddd6fe' },
+  Angry:    { emoji: '⚡', bg: '#fff1f2', border: '#fecdd3' },
+  Disgusted:{ emoji: '🍃', bg: '#ecfdf5', border: '#a7f3d0' },
+  Stressed: { emoji: '🌊', bg: '#f0fdf4', border: '#bbf7d0' },
 };
 
 const FAQS = [
@@ -97,7 +97,6 @@ export default function HomePage() {
   const [isFlipping, setIsFlipping] = useState(false);
 
   const feelings = useMemo(() => (family ? Object.keys(MOOD_DATA[family]) : []), [family]);
-  const activeMeta = family ? FAMILY_META[family] : null;
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -127,7 +126,7 @@ export default function HomePage() {
   const flipMood = async () => {
     if (!family || !feeling) return;
     setIsFlipping(true);
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 350));
     setResult(MOOD_DATA[family][feeling]);
     setIsFlipping(false);
     setTimerRunning(false);
@@ -169,414 +168,357 @@ export default function HomePage() {
         <Header />
 
         <style>{`
-          @keyframes meshAura {
-            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.6; }
-            50% { transform: translate(30px, -40px) rotate(8deg) scale(1.1); opacity: 0.85; }
+          @keyframes revealResult {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
           }
-          @keyframes shimmerGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-          @keyframes pulseBtnGlow {
-            0%, 100% { box-shadow: 0 10px 28px rgba(108,92,231,0.38), 0 0 0 0 rgba(108,92,231,0.2); }
-            50% { box-shadow: 0 14px 38px rgba(108,92,231,0.55), 0 0 0 10px rgba(108,92,231,0); transform: translateY(-2px); }
-          }
-          @keyframes floatCardIn {
-            from { opacity: 0; transform: translateY(20px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-          }
-
-          /* PAGE ROOT WITH MESH GRADIENT */
-          .aura-page-root {
-            background: linear-gradient(135deg, #fbf8f3 0%, #f4edfc 40%, #e9f2ff 75%, #fbf8f3 100%);
-            min-height: 100vh; position: relative; overflow: hidden;
-          }
-          .aura-bg-orb1 {
-            position: absolute; top: -120px; left: -100px;
-            width: 550px; height: 550px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(168,148,245,0.22) 0%, rgba(224,204,250,0.05) 65%, transparent 80%);
-            animation: meshAura 16s ease-in-out infinite; pointer-events: none;
-          }
-          .aura-bg-orb2 {
-            position: absolute; top: 40%; right: -120px;
-            width: 500px; height: 500px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,182,193,0.22) 0%, rgba(255,228,230,0.05) 65%, transparent 80%);
-            animation: meshAura 18s ease-in-out infinite 4s; pointer-events: none;
+          @keyframes floatSunHalo {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.75; }
+            50% { transform: translate(-50%, -50%) scale(1.06) rotate(4deg); opacity: 0.95; }
           }
 
           /* HERO */
-          .aura-hero {
-            padding: 4rem 1.25rem 2.5rem;
-            text-align: center; max-width: 860px; margin: 0 auto; position: relative; z-index: 2;
+          .mf-hero-section {
+            padding: 3.5rem 1.25rem 2rem;
+            text-align: center;
+            max-width: 820px; margin: 0 auto;
           }
-          .aura-pill-badge {
+          .mf-pill-tag {
             display: inline-flex; align-items: center; gap: 8px;
-            font-size: 0.81rem; font-weight: 700; color: #5b4b9a;
-            background: rgba(255,255,255,0.85);
-            border: 1px solid rgba(108,92,231,0.2);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-radius: 999px; padding: 0.55rem 1.4rem; margin-bottom: 1.5rem;
-            box-shadow: 0 8px 20px rgba(108,92,231,0.08);
+            font-size: 0.8rem; font-weight: 700;
+            color: #5b4b9a; background: #efeafa;
+            border: 1px solid #d9d0f0;
+            border-radius: 999px; padding: 0.45rem 1.25rem;
+            margin-bottom: 1.25rem;
           }
-          .aura-title {
+          .mf-hero-title {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(2.5rem, 5.2vw, 4rem);
-            font-weight: 650; line-height: 1.12; color: #2d264b;
-            margin-bottom: 1.25rem; letter-spacing: -0.025em;
+            font-size: clamp(2.4rem, 4.8vw, 3.6rem);
+            font-weight: 640; line-height: 1.15;
+            color: var(--text-main); margin-bottom: 1rem;
+            letter-spacing: -0.02em;
           }
-          .aura-title span {
-            background: linear-gradient(135deg, #6c5ce7 0%, #ec4899 50%, #f59e0b 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-          }
-          .aura-subtitle {
-            font-size: 1.1rem; color: #6b638b; line-height: 1.7;
-            max-width: 640px; margin: 0 auto;
+          .mf-hero-title span { color: #5b4b9a; }
+          .mf-hero-desc {
+            font-size: 1.08rem; color: var(--text-subtle);
+            line-height: 1.65; max-width: 620px; margin: 0 auto;
           }
 
-          /* BENTO GRID CONTAINER */
-          .aura-tool-container {
-            max-width: 1220px; margin: 2rem auto 5rem;
-            padding: 0 1.25rem; position: relative; z-index: 2;
+          /* TOOL CONTAINER */
+          .mf-tool-wrap {
+            max-width: 1220px; margin: 1.5rem auto 4.5rem;
+            padding: 0 1.25rem;
           }
-          .aura-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 2rem; align-items: stretch;
+          .mf-tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch; gap: 1.75rem;
           }
           @media (max-width: 960px) {
-            .aura-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+            .mf-tool-grid { grid-template-columns: 1fr; gap: 1.5rem; }
           }
 
-          /* GLASS BENTO CARD (LEFT) */
-          .aura-card-left {
-            background: rgba(255,255,255,0.78);
-            border: 1.5px solid rgba(255,255,255,0.9);
-            border-radius: 36px; padding: 2.5rem 2.25rem;
-            box-shadow: 0 24px 65px rgba(74,57,102,0.07);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+          /* LEFT PANEL */
+          .mf-card-left {
+            background: #ffffff;
+            border: 1.5px solid #eae3d6;
+            border-radius: 28px;
+            padding: 2.25rem 2rem;
+            box-shadow: 0 20px 60px rgba(44,39,53,0.06);
             display: flex; flex-direction: column; justify-content: space-between;
           }
-          .aura-section-header {
+          .mf-step-header {
             display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 1.1rem;
+            margin-bottom: 1rem;
           }
-          .aura-step-pill {
+          .mf-step-badge {
             display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(108,92,231,0.09); color: #5b4b9a;
-            font-size: 0.78rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.07em; padding: 0.45rem 1.1rem; border-radius: 999px;
-            border: 1px solid rgba(108,92,231,0.15);
+            background: #efeafa; color: #5b4b9a;
+            font-size: 0.76rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.06em; padding: 0.45rem 1rem;
+            border-radius: 999px;
+          }
+          .mf-step-number {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.45rem; font-weight: 800; color: #5b4b9a;
           }
 
           /* MOOD FAMILY CHIPS */
-          .aura-fam-grid {
-            display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 2rem;
+          .mf-chip-row {
+            display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2rem;
           }
-          .aura-fam-chip {
+          .mf-fam-btn {
             font-family: inherit; font-size: 0.92rem; font-weight: 700;
-            padding: 0.8rem 1.4rem; border-radius: 20px;
-            border: 1.5px solid rgba(234,227,214,0.8);
-            background: rgba(255,255,255,0.9);
-            color: #373153; cursor: pointer;
-            transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
-            display: flex; align-items: center; gap: 9px;
+            padding: 0.75rem 1.35rem; border-radius: 999px;
+            border: 1.5px solid #eae3d6; background: #faf6ee;
+            color: var(--text-main); cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            display: flex; align-items: center; gap: 8px;
           }
-          .aura-fam-chip:hover {
-            border-color: #c9bfeb; background: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(108,92,231,0.12);
+          .mf-fam-btn:hover {
+            border-color: #d9d0f0; background: #ffffff;
+            transform: translateY(-1px);
           }
-          .aura-fam-chip.selected {
-            color: #ffffff !important; border-color: transparent !important;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(108,92,231,0.32);
+          .mf-fam-btn.selected {
+            background: #efeafa; border-color: #5b4b9a; color: #463a78;
+            box-shadow: 0 6px 18px rgba(91,75,154,0.18); transform: translateY(-1px);
           }
 
-          /* FEELINGS TILES */
-          .aura-feelings-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
-            gap: 0.7rem; margin-top: 0.5rem;
+          /* FEELINGS GRID */
+          .mf-feel-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+            gap: 0.65rem; margin-top: 0.5rem;
           }
-          .aura-feel-tile {
-            border: 1.5px solid rgba(234,227,214,0.8);
-            background: rgba(255,255,255,0.9);
-            border-radius: 18px; padding: 0.85rem 0.75rem;
+          .mf-feel-btn {
+            border: 1.5px solid #eae3d6; background: #faf6ee;
+            border-radius: 16px; padding: 0.85rem 0.75rem;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: all 0.2s ease; text-align: center;
             font-family: inherit; font-weight: 700; font-size: 0.86rem;
-            color: #373153;
+            color: var(--text-main);
           }
-          .aura-feel-tile:hover {
-            border-color: #6c5ce7; background: #ffffff;
+          .mf-feel-btn:hover {
+            border-color: #5b4b9a; background: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(108,92,231,0.12);
           }
-          .aura-feel-tile.selected {
-            background: #efeafa; border-color: #6c5ce7; color: #463a78;
-            box-shadow: 0 8px 22px rgba(108,92,231,0.25);
-            transform: translateY(-2px); font-weight: 800;
+          .mf-feel-btn.selected {
+            background: #efeafa; border-color: #5b4b9a; color: #463a78;
+            box-shadow: 0 8px 20px rgba(91,75,154,0.2); transform: translateY(-2px);
           }
-          .aura-empty-feelings {
-            grid-column: 1 / -1; font-size: 0.86rem; color: #7f789e;
-            padding: 2.25rem 1rem; text-align: center; border: 2px dashed rgba(217,208,240,0.8);
-            border-radius: 22px; background: rgba(255,255,255,0.5);
+          .mf-empty-feelings {
+            grid-column: 1 / -1; font-size: 0.86rem; color: var(--text-subtle);
+            padding: 2rem 1rem; text-align: center; border: 2px dashed #eae3d6;
+            border-radius: 18px; background: rgba(250,246,238,0.5);
           }
 
-          /* FLIP MY MOOD BUTTON (VIBRANT GLOW ACTION BAR) */
-          .aura-flip-wrap {
-            margin-top: 2rem; padding-top: 1.5rem;
-            border-top: 1.5px solid rgba(234,227,214,0.7);
+          /* FLIP MY MOOD BUTTON */
+          .mf-flip-bar {
+            margin-top: 1.75rem; padding-top: 1.25rem;
+            border-top: 1.5px solid #eae3d6;
           }
-          .aura-flip-btn {
-            width: 100%; padding: 1.1rem 2rem;
-            font-family: inherit; font-weight: 800; font-size: 1.02rem;
-            letter-spacing: 0.04em; text-transform: uppercase;
-            background: linear-gradient(135deg, #6c5ce7 0%, #8a7cf0 45%, #ec4899 85%, #f59e0b 100%);
-            background-size: 200% 200%;
-            color: #ffffff; border: none; border-radius: 20px;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            text-align: center;
-            box-shadow: 0 12px 32px rgba(108,92,231,0.38);
-            transition: all 0.25s ease;
-            position: relative; overflow: hidden;
-            animation: shimmerGlow 6s ease infinite, pulseBtnGlow 3.5s ease-in-out infinite;
+          .mf-flip-btn {
+            width: 100%; padding: 1.05rem 1.75rem;
+            font-family: inherit; font-weight: 800; font-size: 0.95rem;
+            letter-spacing: 0.05em; text-transform: uppercase;
+            background: #efeafa; color: #a89bc9;
+            border: none; border-radius: 16px; cursor: not-allowed;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: all 0.22s ease;
           }
-          .aura-flip-btn:disabled {
-            opacity: 0.45; cursor: not-allowed; animation: none; box-shadow: none;
-            background: #d9d0f0; color: #7f73a3;
+          .mf-flip-btn.active {
+            background: linear-gradient(135deg, #5b4b9a 0%, #463a78 100%);
+            color: #ffffff; cursor: pointer;
+            box-shadow: 0 10px 28px rgba(91,75,154,0.35);
           }
-          .aura-flip-btn:hover:not(:disabled) {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 16px 40px rgba(108,92,231,0.52);
+          .mf-flip-btn.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(91,75,154,0.48);
           }
 
-          /* GLASS BENTO CARD (RIGHT PANEL) */
-          .aura-card-right {
-            background: rgba(255,255,255,0.85);
-            border: 1.5px solid rgba(255,255,255,0.95);
-            border-radius: 36px; padding: 2.5rem 2.25rem;
-            box-shadow: 0 24px 65px rgba(74,57,102,0.07);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+          /* RIGHT PANEL */
+          .mf-card-right {
+            background:
+              radial-gradient(circle at 50% 50%, #fef0d5 0%, #f9deae 50%, #f4d098 75%, transparent 100%),
+              linear-gradient(180deg, #fdfaf3 0%, #f7ebd7 100%);
+            border: 1.5px solid #eae3d6;
+            border-radius: 28px;
+            padding: 2.5rem 2.25rem;
+            box-shadow: 0 20px 60px rgba(44,39,53,0.06);
             position: relative; overflow: hidden; text-align: center;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            min-height: 440px; transition: all 0.4s ease;
+            min-height: 420px;
           }
-          .aura-dynamic-glow {
+          .mf-sun-halo {
             position: absolute; top: 40%; left: 50%;
-            transform: translate(-50%, -50%); width: 420px; height: 420px;
-            border-radius: 50%; pointer-events: none; opacity: 0.45;
-            transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+            transform: translate(-50%, -50%); width: 440px; height: 320px;
+            background: radial-gradient(circle, rgba(255,200,90,0.4) 0%, rgba(255,182,72,0.15) 50%, transparent 70%);
+            pointer-events: none; animation: floatSunHalo 10s ease-in-out infinite;
           }
 
-          .aura-empty-right {
-            color: #6b638b; font-size: 0.95rem;
-            padding: 3rem 1.5rem; line-height: 1.75; max-width: 340px;
+          .mf-empty-right {
+            color: var(--text-subtle); font-size: 0.92rem;
+            padding: 3rem 1.5rem; line-height: 1.75; max-width: 320px;
             position: relative; z-index: 1;
           }
-          .aura-sun-box {
-            width: 84px; height: 84px; border-radius: 28px;
-            background: linear-gradient(135deg, #fff6db 0%, #ffe5a3 100%);
-            border: 2px solid #ffd366;
+          .mf-sun-squircle {
+            width: 76px; height: 76px; border-radius: 22px;
+            background: linear-gradient(135deg, #fff5d4 0%, #ffe399 100%);
+            border: 2px solid #ffd166;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.6rem; margin: 0 auto 1.5rem;
-            box-shadow: 0 12px 30px rgba(255,182,72,0.35);
+            font-size: 2.4rem; margin: 0 auto 1.35rem;
+            box-shadow: 0 10px 28px rgba(255,182,72,0.3);
           }
 
-          /* RESULT DISPLAY */
-          .aura-result-content {
+          /* RESULT PANEL */
+          .mf-result-box {
             position: relative; z-index: 1; width: 100%;
-            animation: floatCardIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+            animation: revealResult 0.45s cubic-bezier(0.22,1,0.36,1) both;
           }
-          .aura-target-tag {
-            font-size: 0.82rem; font-weight: 800; color: #7c8b5e;
-            text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 0.4rem;
+          .mf-result-tag {
+            font-size: 0.84rem; font-weight: 700; color: #7c8b5e;
+            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem;
           }
-          .aura-target-mood {
+          .mf-target-title {
             font-family: 'Fraunces', Georgia, serif;
-            font-weight: 700; font-size: clamp(2.5rem, 4.2vw, 3.8rem);
+            font-weight: 700; font-size: clamp(2.4rem, 4vw, 3.5rem);
             color: #5b4b9a; margin-bottom: 1.75rem; line-height: 1.1;
           }
 
-          .aura-action-card {
-            background: #ffffff; border-radius: 26px; padding: 1.85rem 2rem;
+          .mf-action-card {
+            background: #ffffff; border-radius: 20px; padding: 1.5rem 1.75rem;
             text-align: left; width: 100%;
-            box-shadow: 0 18px 45px rgba(108,92,231,0.08);
-            border: 1.5px solid rgba(217,165,75,0.3);
+            box-shadow: 0 16px 36px rgba(217,165,75,0.16);
+            border: 1.5px solid rgba(217,165,75,0.25);
           }
-          .aura-action-head {
-            display: flex; align-items: center; gap: 14px; margin-bottom: 1rem;
+          .mf-action-head {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 0.85rem;
           }
-          .aura-timer-btn {
-            width: 50px; height: 50px; border-radius: 50%;
+          .mf-timer-btn {
+            width: 44px; height: 44px; border-radius: 50%;
             background: #efeafa; color: #5b4b9a; border: 1.5px solid #d9d0f0;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.86rem; font-weight: 900; cursor: pointer;
+            font-size: 0.85rem; font-weight: 900; cursor: pointer;
             flex-shrink: 0; font-family: 'Space Mono', monospace;
-            transition: all 0.22s ease;
-            box-shadow: 0 4px 14px rgba(91,75,154,0.15);
+            transition: all 0.2s ease;
           }
-          .aura-timer-btn:hover { background: #5b4b9a; color: #ffffff; transform: scale(1.06); }
-          .aura-action-title {
+          .mf-timer-btn:hover { background: #5b4b9a; color: #ffffff; }
+          .mf-action-title {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.2rem; font-weight: 700; color: #2d264b; margin: 0;
+            font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 0;
           }
-          .aura-action-desc {
-            font-size: 0.95rem; color: #6b638b; line-height: 1.7; margin-bottom: 1.15rem;
+          .mf-action-desc {
+            font-size: 0.92rem; color: var(--text-subtle); line-height: 1.65; margin-bottom: 1rem;
           }
-          .aura-insight-callout {
-            font-size: 0.83rem; color: #373153;
-            padding: 0.8rem 1.1rem; border-radius: 16px;
-            background: #faf6ee; border-left: 4px solid #7c8b5e;
-            line-height: 1.6;
+          .mf-insight-box {
+            font-size: 0.78rem; color: var(--text-subtle);
+            padding: 0.6rem 0.85rem; border-radius: 12px;
+            background: #faf6ee; border-left: 3.5px solid #7c8b5e;
+            line-height: 1.5;
           }
 
-          .aura-save-btn {
-            margin-top: 1.35rem; width: 100%;
+          .mf-save-btn {
+            margin-top: 1.25rem; width: 100%;
             background: transparent; border: 1.5px solid #5b4b9a;
-            color: #463a78; font-weight: 800; font-size: 0.88rem;
-            padding: 0.9rem; border-radius: 999px; cursor: pointer;
-            transition: all 0.22s ease; font-family: inherit;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+            color: #463a78; font-weight: 800; font-size: 0.85rem;
+            padding: 0.8rem; border-radius: 999px; cursor: pointer;
+            transition: all 0.2s ease; font-family: inherit;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
           }
-          .aura-save-btn:hover { background: #efeafa; transform: translateY(-1px); }
-          .aura-save-btn.saved { background: #dcfce7; border-color: #86efac; color: #166534; }
+          .mf-save-btn:hover { background: #efeafa; }
+          .mf-save-btn.saved { background: #dcfce7; border-color: #86efac; color: #166534; }
 
-          /* REASSURANCE STRIP */
-          .aura-reassure-strip {
-            margin-top: 2.25rem;
-            background: rgba(255,255,255,0.75);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-radius: 28px; padding: 1.5rem 2.25rem;
-            border: 1.5px solid rgba(255,255,255,0.9);
-            display: flex; justify-content: space-around; gap: 1.5rem; flex-wrap: wrap;
-            box-shadow: 0 12px 35px rgba(74,57,102,0.05);
+          /* REASSURANCE BANNER */
+          .mf-reassure-strip {
+            margin-top: 2rem; background: #efeafa; border-radius: 20px;
+            padding: 1.25rem 1.75rem; border: 1.5px solid #d9d0f0;
+            display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
           }
-          .aura-reassure-item {
-            display: flex; align-items: flex-start; gap: 12px;
-            font-size: 0.88rem; color: #373153; max-width: 350px;
+          .mf-reassure-item {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.84rem; color: var(--text-main); max-width: 320px;
           }
-          .aura-reassure-item strong { display: block; font-size: 0.92rem; margin-bottom: 2px; color: #463a78; }
+          .mf-reassure-item strong { display: block; font-size: 0.88rem; margin-bottom: 2px; color: #463a78; }
 
-          /* HOW IT WORKS SECTION */
-          .aura-section { padding: 5rem 1.25rem; position: relative; z-index: 2; }
-          .aura-sec-head { max-width: 660px; margin: 0 auto 3.5rem; text-align: center; }
-          .aura-sec-tag {
-            display: inline-flex; font-size: 0.78rem; font-weight: 800;
-            color: #5b4b9a; background: rgba(255,255,255,0.85); border-radius: 999px;
-            padding: 0.45rem 1.3rem; margin-bottom: 1rem;
-            text-transform: uppercase; letter-spacing: 0.08em;
-            border: 1px solid rgba(108,92,231,0.2);
-            box-shadow: 0 4px 14px rgba(108,92,231,0.06);
+          /* SECTIONS */
+          .mf-section-light { padding: 4.5rem 1rem; position: relative; z-index: 1; }
+          .mf-section-light.alt { background: #faf6ee; }
+          .mf-sec-head { max-width: 620px; margin: 0 auto 3rem; text-align: center; }
+          .mf-sec-tag {
+            display: inline-flex; font-size: 0.76rem; font-weight: 800;
+            color: #5b4b9a; background: #efeafa; border-radius: 999px;
+            padding: 0.4rem 1.1rem; margin-bottom: 0.85rem;
+            text-transform: uppercase; letter-spacing: 0.06em;
           }
-          .aura-sec-title {
+          .mf-sec-title {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(2.1rem, 4vw, 2.8rem);
-            font-weight: 650; line-height: 1.2; color: #2d264b;
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 640; line-height: 1.2; color: var(--text-main);
           }
-          .aura-sec-desc { font-size: 1.02rem; color: #6b638b; margin-top: 0.85rem; line-height: 1.7; }
+          .mf-sec-desc { font-size: 0.95rem; color: var(--text-subtle); margin-top: 0.75rem; line-height: 1.65; }
 
-          .aura-steps-grid {
-            max-width: 1160px; margin: 0 auto;
+          .mf-steps-grid {
+            max-width: 1120px; margin: 0 auto;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.85rem;
+            gap: 1.5rem;
           }
-          .aura-step-card {
-            background: rgba(255,255,255,0.82);
-            border: 1.5px solid rgba(255,255,255,0.95);
-            border-radius: 28px; padding: 2.35rem 2rem;
-            box-shadow: 0 18px 45px rgba(74,57,102,0.05);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            transition: all 0.25s ease;
+          .mf-step-card {
+            background: #ffffff; border: 1.5px solid #eae3d6;
+            border-radius: 22px; padding: 2rem 1.75rem;
+            box-shadow: 0 16px 40px rgba(44,39,53,0.06);
+            transition: transform 0.2s ease, border-color 0.2s ease;
           }
-          .aura-step-card:hover {
-            transform: translateY(-4px); border-color: #c9bfeb;
-            box-shadow: 0 24px 55px rgba(91,75,154,0.12);
-          }
-          .aura-step-num {
+          .mf-step-card:hover { transform: translateY(-3px); border-color: #d9d0f0; }
+          .mf-step-card-num {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: 2.4rem; color: #5b4b9a; font-weight: 800;
-            display: block; margin-bottom: 0.75rem;
+            font-size: 2rem; color: #5b4b9a; font-weight: 800;
+            display: block; margin-bottom: 0.6rem;
           }
-          .aura-step-h3 { font-size: 1.18rem; font-weight: 700; margin: 0 0 0.6rem; font-family: 'Fraunces', Georgia, serif; color: #2d264b; }
-          .aura-step-p { font-size: 0.92rem; color: #6b638b; line-height: 1.65; margin: 0; }
+          .mf-step-card-h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem; font-family: 'Fraunces', Georgia, serif; color: var(--text-main); }
+          .mf-step-card-p { font-size: 0.88rem; color: var(--text-subtle); line-height: 1.6; margin: 0; }
 
-          /* FAQ ACCORDION */
-          .aura-faq-wrap { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
-          .aura-faq-card {
-            background: rgba(255,255,255,0.85);
-            border: 1.5px solid rgba(255,255,255,0.95);
-            border-radius: 24px; transition: all 0.22s ease;
-            box-shadow: 0 10px 30px rgba(74,57,102,0.04);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+          /* FAQ */
+          .mf-faq-wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.85rem; }
+          .mf-faq-card {
+            background: #ffffff; border: 1.5px solid #eae3d6;
+            border-radius: 18px; transition: border-color 0.2s ease, box-shadow 0.2s ease;
           }
-          .aura-faq-card.open { border-color: #6c5ce7; box-shadow: 0 14px 36px rgba(108,92,231,0.1); }
-          .aura-faq-q {
-            width: 100%; padding: 1.4rem 1.75rem; border: none; background: transparent;
-            text-align: left; font-family: inherit; font-size: 1rem; font-weight: 700;
-            color: #2d264b; cursor: pointer;
+          .mf-faq-card.open { border-color: #5b4b9a; box-shadow: 0 10px 28px rgba(91,75,154,0.08); }
+          .mf-faq-q {
+            width: 100%; padding: 1.2rem 1.5rem; border: none; background: transparent;
+            text-align: left; font-family: inherit; font-size: 0.95rem; font-weight: 700;
+            color: var(--text-main); cursor: pointer;
             display: flex; justify-content: space-between; align-items: center; gap: 1rem;
           }
-          .aura-faq-plus {
-            width: 30px; height: 30px; border-radius: 50%;
+          .mf-faq-plus {
+            width: 26px; height: 26px; border-radius: 50%;
             background: #efeafa; color: #5b4b9a;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; font-weight: 900; flex-shrink: 0;
+            font-size: 1.1rem; font-weight: 900; flex-shrink: 0;
             transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.2s;
           }
-          .aura-faq-card.open .aura-faq-plus { transform: rotate(45deg); background: #6c5ce7; color: #ffffff; }
-          .aura-faq-a {
-            padding: 1rem 1.75rem 1.6rem; font-size: 0.92rem; color: #6b638b;
-            line-height: 1.75; border-top: 1px solid rgba(234,227,214,0.7);
+          .mf-faq-card.open .mf-faq-plus { transform: rotate(45deg); background: #5b4b9a; color: #ffffff; }
+          .mf-faq-a {
+            padding: 1rem 1.5rem 1.5rem; font-size: 0.9rem; color: var(--text-subtle);
+            line-height: 1.7; border-top: 1px solid #eae3d6;
             max-height: none !important; overflow: visible !important; opacity: 1 !important;
           }
         `}</style>
 
-        <main className="aura-page-root">
-          <div className="aura-bg-orb1" />
-          <div className="aura-bg-orb2" />
-
+        <main>
           <AdBanner slot="top-banner" />
 
           {/* HERO */}
-          <section className="aura-hero">
-            <span className="aura-pill-badge">
-              ✨ 100% Free • Tap-Only • No Account Required
-            </span>
-            <h1 className="aura-title">
+          <section className="mf-hero-section">
+            <span className="mf-pill-tag">✨ 100% Free • Tap-Only • No Sign-Up</span>
+            <h1 className="mf-hero-title">
               Shift your mindset in <span>60 seconds</span>
             </h1>
-            <p className="aura-subtitle">
+            <p className="mf-hero-desc">
               Select your current mood, discover your positive counterpart, and get a practical 60-second action to regain emotional clarity.
             </p>
           </section>
 
-          {/* INTERACTIVE BENTO TOOL */}
-          <section className="aura-tool-container" id="demo">
-            <div className="aura-grid">
+          {/* INTERACTIVE TOOL */}
+          <section className="mf-tool-wrap" id="demo">
+            <div className="mf-tool-grid">
 
-              {/* LEFT BENTO CARD */}
-              <div className="aura-card-left">
+              {/* LEFT CARD */}
+              <div className="mf-card-left">
                 <div>
                   {/* STEP 1 */}
-                  <div className="aura-section-header">
-                    <span className="aura-step-pill">☁️ Step 1 · Choose Your Mood</span>
+                  <div className="mf-step-header">
+                    <span className="mf-step-badge">☁️ STEP 1 · CHOOSE YOUR MOOD</span>
+                    <span className="mf-step-number">1 of 2</span>
                   </div>
-                  <div className="aura-fam-grid">
+                  <div className="mf-chip-row">
                     {FAMILY_ORDER.map((name) => {
                       const meta = FAMILY_META[name];
                       const isSelected = family === name;
                       return (
                         <button
                           key={name}
-                          className={`aura-fam-chip ${isSelected ? 'selected' : ''}`}
+                          className={`mf-fam-btn ${isSelected ? 'selected' : ''}`}
                           onClick={() => chooseFamily(name)}
-                          style={isSelected ? {
-                            background: meta.bg,
-                            borderColor: meta.border,
-                            color: meta.color,
-                          } : {}}
                         >
                           <span>{meta.emoji}</span>
                           <span>{name}</span>
@@ -586,19 +528,20 @@ export default function HomePage() {
                   </div>
 
                   {/* STEP 2 */}
-                  <div className="aura-section-header" style={{ marginTop: '1.25rem' }}>
-                    <span className="aura-step-pill">🤍 Step 2 · Pick Exact Feeling</span>
+                  <div className="mf-step-header" style={{ marginTop: '1.25rem' }}>
+                    <span className="mf-step-badge">🤍 STEP 2 · PICK EXACT FEELING</span>
+                    <span className="mf-step-number">2 of 2</span>
                   </div>
-                  <div className="aura-feelings-grid">
+                  <div className="mf-feel-grid">
                     {!family ? (
-                      <div className="aura-empty-feelings">
+                      <div className="mf-empty-feelings">
                         👈 Select a mood family above to see specific feelings
                       </div>
                     ) : (
                       feelings.map((name) => (
                         <button
                           key={name}
-                          className={`aura-feel-tile ${feeling === name ? 'selected' : ''}`}
+                          className={`mf-feel-btn ${feeling === name ? 'selected' : ''}`}
                           onClick={() => chooseFeeling(name)}
                         >
                           <span>{name}</span>
@@ -608,63 +551,56 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* ACTION BUTTON */}
-                <div className="aura-flip-wrap">
+                {/* FLIP BUTTON */}
+                <div className="mf-flip-bar">
                   <button
                     id="flip-mood-btn"
-                    className="aura-flip-btn"
+                    className={`mf-flip-btn ${family && feeling && !isFlipping ? 'active' : ''}`}
                     disabled={!family || !feeling || isFlipping}
                     onClick={flipMood}
                     title={!family || !feeling ? 'Select a mood & feeling first' : 'Click to flip your mood'}
                   >
-                    <span style={{ fontSize: '1.2rem' }}>✨</span>
-                    <span>{isFlipping ? 'Flipping Mood...' : 'Flip My Mood'}</span>
-                    <span style={{ fontSize: '1.2rem' }}>→</span>
+                    <span>✨</span>
+                    <span>{isFlipping ? 'Flipping Mood...' : 'FLIP MY MOOD'}</span>
+                    <span>→</span>
                   </button>
                 </div>
               </div>
 
-              {/* RIGHT BENTO CARD */}
-              <div className="aura-card-right" id="rightPanel">
-                <div
-                  className="aura-dynamic-glow"
-                  style={activeMeta ? {
-                    background: `radial-gradient(circle, ${activeMeta.border} 0%, rgba(255,255,255,0) 70%)`,
-                  } : {
-                    background: 'radial-gradient(circle, rgba(255,214,153,0.5) 0%, rgba(255,255,255,0) 70%)',
-                  }}
-                />
+              {/* RIGHT CARD */}
+              <div className="mf-card-right" id="rightPanel">
+                <div className="mf-sun-halo" />
 
                 {!result ? (
-                  <div className="aura-empty-right">
-                    <div className="aura-sun-box">🌤️</div>
+                  <div className="mf-empty-right">
+                    <div className="mf-sun-squircle">🌤️</div>
                     Select your current feeling on the left and tap <strong>FLIP MY MOOD</strong> to reveal your positive shift &amp; 60-second action.
                   </div>
                 ) : (
-                  <div className="aura-result-content">
-                    <div className="aura-target-tag">Your Mindset Shift:</div>
-                    <div className="aura-target-mood">{result.target}</div>
+                  <div className="mf-result-box">
+                    <div className="mf-result-tag">Your mood has changed to:</div>
+                    <div className="mf-target-title">{result.target}</div>
 
-                    <div className="aura-action-card">
-                      <div className="aura-action-head">
+                    <div className="mf-action-card">
+                      <div className="mf-action-head">
                         <button
-                          className="aura-timer-btn"
+                          className="mf-timer-btn"
                           onClick={startTimer}
                           title="Start/pause 60s timer"
                         >
                           {timerRunning ? `${timeLeft}s` : '▶ 60s'}
                         </button>
-                        <h3 className="aura-action-title">{result.title}</h3>
+                        <h3 className="mf-action-title">{result.title}</h3>
                       </div>
 
-                      <p className="aura-action-desc">{result.action}</p>
+                      <p className="mf-action-desc">{result.action}</p>
 
-                      <div className="aura-insight-callout">
+                      <div className="mf-insight-box">
                         💡 <strong>Mindset Insight:</strong> {result.tip}
                       </div>
 
                       <button
-                        className={`aura-save-btn ${savedSuccess ? 'saved' : ''}`}
+                        className={`mf-save-btn ${savedSuccess ? 'saved' : ''}`}
                         onClick={handleSaveCheckin}
                       >
                         <span>{savedSuccess ? '✅ Check-in Saved!' : '📌 Save Check-in'}</span>
@@ -676,64 +612,64 @@ export default function HomePage() {
 
             </div>
 
-            {/* REASSURANCE STRIP */}
-            <div className="aura-reassure-strip">
-              <div className="aura-reassure-item">
-                <span style={{ fontSize: '1.35rem' }}>🌿</span>
+            {/* REASSURANCE BANNER */}
+            <div className="mf-reassure-strip">
+              <div className="mf-reassure-item">
+                <span style={{ fontSize: '1.2rem' }}>🌿</span>
                 <div>
                   <strong>Small shifts change how you feel.</strong>
-                  <span style={{ color: '#6b638b' }}>You have got this, one moment at a time.</span>
+                  <span>You have got this, one moment at a time.</span>
                 </div>
               </div>
-              <div className="aura-reassure-item">
-                <span style={{ fontSize: '1.35rem' }}>💛</span>
+              <div className="mf-reassure-item">
+                <span style={{ fontSize: '1.2rem' }}>💛</span>
                 <div>
                   <strong>Be kind to yourself.</strong>
-                  <span style={{ color: '#6b638b' }}>One choice at a time.</span>
+                  <span>One choice at a time.</span>
                 </div>
               </div>
             </div>
           </section>
 
           {/* HOW IT WORKS */}
-          <section className="aura-section">
-            <div className="aura-sec-head">
-              <span className="aura-sec-tag">How MoodFlip Works</span>
-              <h2 className="aura-sec-title">From stuck to moving in three gentle taps.</h2>
-              <p className="aura-sec-desc">No typing and no long questionnaires. Narrow the feeling, then take one manageable next step.</p>
+          <section className="mf-section-light mf-alt">
+            <div className="mf-sec-head">
+              <span className="mf-sec-tag">How MoodFlip works</span>
+              <h2 className="mf-sec-title">From stuck to moving in three gentle taps.</h2>
+              <p className="mf-sec-desc">No typing and no long questionnaire. Narrow the feeling, then take one manageable next step.</p>
             </div>
 
-            <div className="aura-steps-grid">
+            <div className="mf-steps-grid">
               {[
                 { num: '01', title: 'Choose what feels closest', text: 'Start with a broad mood family, then tap the feeling that best matches this moment.' },
                 { num: '02', title: 'Flip the emotional direction', text: 'MoodFlip pairs that feeling with a more supportive target state without asking you to type anything.' },
                 { num: '03', title: 'Take one tiny action', text: 'Try a practical 60-second reset designed to feel manageable, even on a difficult day.' },
               ].map(s => (
-                <div key={s.num} className="aura-step-card">
-                  <span className="aura-step-num">{s.num}</span>
-                  <h3 className="aura-step-h3">{s.title}</h3>
-                  <p className="aura-step-p">{s.text}</p>
+                <div key={s.num} className="mf-step-card">
+                  <span className="mf-step-card-num">{s.num}</span>
+                  <h3 className="mf-step-card-h3">{s.title}</h3>
+                  <p className="mf-step-card-p">{s.text}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* FAQ SECTION */}
-          <section className="aura-section">
-            <div className="aura-sec-head">
-              <span className="aura-sec-tag">Got Questions?</span>
-              <h2 className="aura-sec-title">Frequently asked questions</h2>
+          {/* FAQS */}
+          <section className="mf-section-light">
+            <div className="mf-sec-head">
+              <span className="mf-sec-tag">Got questions?</span>
+              <h2 className="mf-sec-title">Frequently asked questions</h2>
             </div>
 
-            <div className="aura-faq-wrap">
+            <div className="mf-faq-wrap">
               {FAQS.map(([q, a], idx) => (
-                <div key={idx} className={`aura-faq-card ${openFaq === idx ? 'open' : ''}`}>
-                  <button className="aura-faq-q" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
+                <div key={idx} className={`mf-faq-card ${openFaq === idx ? 'open' : ''}`}>
+                  <button className="mf-faq-q" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
                     <span>{q}</span>
-                    <span className="aura-faq-plus">+</span>
+                    <span className="mf-faq-plus">+</span>
                   </button>
                   {openFaq === idx && (
-                    <div className="aura-faq-a">{a}</div>
+                    <div className="mf-faq-a">{a}</div>
                   )}
                 </div>
               ))}

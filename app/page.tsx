@@ -354,7 +354,7 @@ export default function HomePage() {
         </section>
 
         {/* Welcome Back Floating Card Popup */}
-        {showWelcomeCard && (
+        {showWelcome && (
           <aside className={styles.welcomeCardPopup} aria-label="Welcome Back Prompt">
             <button
               type="button"

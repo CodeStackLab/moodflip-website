@@ -170,27 +170,28 @@
 }
 
 .dashboard {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.02fr) 230px;
   gap: 18px;
   padding: 0 28px;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .moodPanel,
-.flipCard,
-.morePanel {
+.flipCard {
+  position: relative;
+  min-height: 660px;
+  overflow: hidden;
+  padding: 22px 28px 24px;
+  background:
+    radial-gradient(circle at 52% 34%, rgba(255, 251, 215, .96), transparent 24%),
+    radial-gradient(circle at 9% 5%, rgba(251, 216, 244, .78), transparent 30%),
+    radial-gradient(circle at 95% 12%, rgba(255, 221, 231, .78), transparent 28%),
+    linear-gradient(180deg, #fff1f7 0%, #fff9ea 57%, #fff5ec 100%);
   display: flex;
   flex-direction: column;
-  height: auto;
-  align-self: flex-start;
-  min-height: 431px;
-  padding: 16px 12px;
-  margin-top: 0px;
-  border-radius: 21px;
-  border: 1px solid rgba(42, 38, 78, .11);
-  background: rgba(255,255,255,.93);
-  box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
+  justify-content: space-between;
 }
 
 .moodPanel {
@@ -1558,16 +1559,16 @@
 
 /* Welcome Back Floating Popup */
 .welcomeCardPopup {
-  position: fixed;
-  right: 28px;
-  bottom: 28px;
+  position: absolute;
+  right: 10px;
+  bottom: -35px;
   z-index: 100;
-  width: 350px;
+  width: 340px;
   background: #ffffff;
   border-radius: 20px;
   border: 1px solid #dcd2f5;
   box-shadow: 0 20px 48px rgba(70, 40, 120, 0.16);
-  padding: 22px 24px 18px;
+  padding: 22px 22px 18px;
   animation: popupSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

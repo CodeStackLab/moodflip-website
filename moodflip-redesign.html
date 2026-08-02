@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>MoodFlip — Flip your mood in 60 seconds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,380;0,9..144,520;0,9..144,640;1,9..144,460&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF8EF;
+    --cream-2:#FDEEDD;
+    --paper:#FFFFFF;
+    --ink:#33283F;
+    --ink-soft:#6b6078;
+    --violet:#6C5CE7;
+    --violet-dark:#5546CE;
+    --coral:#FF6B6B;
+    --teal:#12A594;
+    --gold:#FFB648;
+    --sage:#5FA96B;
+    --plum:#4A3966;
+    --line: rgba(51,40,63,0.12);
+    --display: 'Fraunces', serif;
+    --mono: 'Space Mono', monospace;
+    --body: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  h1,h2,h3{font-family:var(--display); margin:0; font-weight:640;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,248,239,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:1120px; margin:0 auto;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:700; font-size:18px;
+    color:var(--ink); letter-spacing:0.02em;
+    display:flex; align-items:center; gap:2px; cursor:pointer;
+    background:none; border:none;
+  }
+  .logo .flipchar{
+    display:inline-block; background:linear-gradient(135deg,var(--violet),var(--coral)); color:#fff;
+    padding:2px 6px; border-radius:5px; margin-right:1px;
+  }
+  .navlinks{display:flex; gap:6px; align-items:center;}
+  .navlinks button{
+    background:none; border:none; cursor:pointer;
+    font-family:var(--mono); font-size:13px; letter-spacing:0.04em;
+    color:var(--ink-soft); padding:9px 14px; border-radius:20px;
+    text-transform:uppercase; transition:.2s;
+  }
+  .navlinks button:hover{color:var(--ink); background:var(--cream-2);}
+  .navlinks button.active{color:#fff; background:var(--violet);}
+  .nav-cta{
+    font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.06em;
+    background:linear-gradient(135deg,var(--coral),var(--gold)); color:#fff; border:none; padding:10px 18px;
+    border-radius:20px; cursor:pointer; font-weight:700; box-shadow:0 6px 16px rgba(255,107,107,0.35);
+  }
+  .burger{display:none; background:none;border:none;color:var(--ink);cursor:pointer;padding:6px;}
+
+  /* ===== PAGES ===== */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* ===== HERO ===== */
+  .hero{
+    background:
+      radial-gradient(circle at 12% 15%, rgba(108,92,231,0.16), transparent 42%),
+      radial-gradient(circle at 88% 10%, rgba(255,107,107,0.16), transparent 40%),
+      radial-gradient(circle at 75% 85%, rgba(18,165,148,0.14), transparent 38%),
+      radial-gradient(circle at 10% 85%, rgba(255,182,72,0.18), transparent 40%),
+      var(--cream);
+    padding:60px 0 88px;
+    position:relative; overflow:hidden;
+  }
+  .hero-inner{position:relative; z-index:1;}
+  .hero-top{max-width:640px; margin-bottom:44px;}
+  .hero .eyebrow{color:var(--violet-dark); margin-bottom:18px; background:#fff; padding:8px 14px; border-radius:20px; box-shadow:0 4px 14px rgba(108,92,231,0.14);}
+  .hero h1{
+    font-size:clamp(34px, 5.4vw, 58px); line-height:1.04; letter-spacing:-0.01em;
+    margin-bottom:20px; color:var(--ink);
+  }
+  .hero h1 em{font-style:italic; background:linear-gradient(135deg,var(--coral),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.lede{
+    font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:520px;
+  }
+  .hero-actions{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:13px; text-transform:uppercase; letter-spacing:0.05em;
+    padding:14px 24px; border-radius:30px; border:none; cursor:pointer; font-weight:700;
+    display:inline-flex; align-items:center; gap:8px; transition:.2s;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--violet),#8A7CF0); color:#fff; box-shadow:0 8px 20px rgba(108,92,231,0.32);}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 10px 24px rgba(108,92,231,0.4);}
+  .btn-ghost{background:#fff; color:var(--ink); border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--violet); color:var(--violet-dark);}
+
+  /* ===== FLIP DEMO ===== */
+  .demo{
+    background:var(--paper); border:1px solid var(--line); border-radius:20px;
+    padding:32px; position:relative; z-index:1; box-shadow:0 20px 50px rgba(74,57,102,0.10);
+  }
+  .demo-step{margin-bottom:26px;}
+  .demo-step:last-child{margin-bottom:0;}
+  .step-label{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.12em;
+    color:var(--ink-soft); margin-bottom:12px; display:block;
+  }
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--body); font-size:14px; font-weight:500;
+    padding:10px 16px; border-radius:22px; border:1px solid var(--line);
+    background:var(--cream); color:var(--ink); cursor:pointer; transition:.15s;
+  }
+  .chip:hover{border-color:var(--violet);}
+  .chip.selected{color:#fff; font-weight:700; border-color:transparent;}
+  .chip[disabled]{opacity:0.3; cursor:not-allowed;}
+
+  .flip-target{
+    margin-top:8px; display:flex; flex-direction:column; gap:18px;
+  }
+  .flip-board{
+    display:flex; flex-wrap:wrap; gap:6px; min-height:64px; align-items:center;
+  }
+  .flip-tile{
+    color:#fff; font-family:var(--mono); font-weight:700;
+    font-size:clamp(22px,4.2vw,34px); width:clamp(30px,5.6vw,46px); height:clamp(40px,7vw,58px);
+    display:flex; align-items:center; justify-content:center; border-radius:7px;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15), 0 6px 14px rgba(74,57,102,0.18);
+    transform-origin:center 50%;
+    animation: flipIn .5s cubic-bezier(.2,.9,.3,1) both;
+  }
+  .flip-tile.space{background:transparent; box-shadow:none;}
+  @keyframes flipIn{
+    0%{transform:rotateX(-100deg); opacity:0;}
+    60%{transform:rotateX(12deg); opacity:1;}
+    100%{transform:rotateX(0deg); opacity:1;}
+  }
+  .action-card{
+    background:var(--cream-2); color:var(--ink); border-radius:14px; padding:22px 24px;
+    display:none; opacity:0; transform:translateY(8px); border:1px solid var(--line);
+    animation: cardIn .5s ease both; animation-delay:.35s;
+  }
+  .action-card.show{display:block;}
+  @keyframes cardIn{ to{opacity:1; transform:translateY(0);} }
+  .action-card .eyebrow{color:var(--teal); margin-bottom:8px;}
+  .action-card p{font-family:var(--display); font-size:19px; line-height:1.45; margin:0; font-weight:500;}
+  .demo-foot{
+    display:flex; justify-content:space-between; align-items:center; margin-top:22px;
+    flex-wrap:wrap; gap:12px;
+  }
+  .reset-link{
+    font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--ink-soft); background:none; border:none; cursor:pointer; text-decoration:underline;
+  }
+
+  /* ===== SECTIONS (light) ===== */
+  section.light{padding:80px 0;}
+  section.light.alt{background:var(--cream-2);}
+  .section-head{max-width:600px; margin-bottom:48px;}
+  .section-head .eyebrow{color:var(--violet-dark); margin-bottom:14px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px); line-height:1.12; letter-spacing:-0.01em;}
+  .section-head p{font-size:16px; color:var(--ink-soft); margin-top:14px; line-height:1.6;}
+
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .step-card{border-top:3px solid var(--violet); padding-top:18px;}
+  .step-card:nth-child(2){border-top-color:var(--coral);}
+  .step-card:nth-child(3){border-top-color:var(--teal);}
+  .step-num{font-family:var(--mono); font-size:13px; color:var(--violet-dark); font-weight:700; display:block; margin-bottom:10px;}
+  .step-card h3{font-size:19px; margin-bottom:8px;}
+  .step-card p{font-size:14.5px; color:var(--ink-soft); line-height:1.55; margin:0;}
+
+  .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  .why-card{background:var(--paper); padding:26px 22px; border-radius:16px; border:1px solid var(--line); box-shadow:0 10px 26px rgba(74,57,102,0.06);}
+  .why-card .mark{font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; display:block; margin-bottom:10px;}
+  .why-card:nth-child(1) .mark{color:var(--violet-dark);}
+  .why-card:nth-child(2) .mark{color:var(--coral);}
+  .why-card:nth-child(3) .mark{color:var(--gold);}
+  .why-card:nth-child(4) .mark{color:var(--sage);}
+  .why-card h3{font-size:16.5px; margin-bottom:8px; font-weight:600; font-family:var(--body);}
+  .why-card p{font-size:13.5px; color:var(--ink-soft); line-height:1.55; margin:0;}
+
+  .faq{max-width:720px;}
+  .faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
+  .faq-q{
+    display:flex; justify-content:space-between; align-items:center; cursor:pointer;
+    font-family:var(--body); font-weight:600; font-size:15.5px;
+  }
+  .faq-q .plus{font-family:var(--mono); font-size:18px; color:var(--violet); transition:.2s;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:200px;}
+  .faq-a p{font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:12px 0 0;}
+
+  /* ===== PRICING ===== */
+  .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .plan{
+    border:1px solid var(--line); border-radius:18px; padding:28px 24px;
+    background:var(--paper); display:flex; flex-direction:column; box-shadow:0 10px 30px rgba(74,57,102,0.06);
+  }
+  .plan.popular{border:2px solid var(--violet); box-shadow:0 16px 40px rgba(108,92,231,0.18); position:relative;}
+  .plan-tag{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--violet-dark); font-weight:700; margin-bottom:14px;}
+  .plan h3{font-size:20px; margin-bottom:6px;}
+  .plan .price{font-family:var(--display); font-size:36px; margin:10px 0 18px;}
+  .plan .price span{font-size:15px; font-family:var(--body); color:var(--ink-soft); font-weight:400;}
+  .plan ul{list-style:none; margin:0 0 24px; padding:0; flex:1;}
+  .plan li{
+    font-size:14px; padding:8px 0 8px 22px; position:relative; color:var(--ink); border-top:1px solid var(--line);
+  }
+  .plan li:first-child{border-top:none;}
+  .plan li::before{content:'✓'; position:absolute; left:0; color:var(--sage); font-weight:700;}
+  .plan .btn{width:100%; justify-content:center;}
+  .plan-glow{background:linear-gradient(160deg,#fff, #F4F0FF);}
+  .plan-glow .plan-tag{color:var(--coral);}
+
+  /* ===== ABOUT ===== */
+  .about-hero{
+    background:
+      radial-gradient(circle at 15% 20%, rgba(108,92,231,0.14), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(255,182,72,0.18), transparent 42%),
+      var(--cream-2);
+    padding:70px 0 60px;
+  }
+  .about-hero h1{font-size:clamp(30px,4.6vw,48px); line-height:1.08; max-width:640px; color:var(--ink);}
+  .about-hero p{font-size:16.5px; color:var(--ink-soft); max-width:520px; margin-top:16px; line-height:1.6;}
+  .safety-box{
+    background:linear-gradient(135deg,var(--plum),#634F8C); color:#fff; border-radius:18px; padding:32px;
+    display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between;
+  }
+  .safety-box h3{font-size:20px; margin-bottom:8px;}
+  .safety-box p{font-size:14.5px; color:rgba(255,255,255,0.85); max-width:520px; line-height:1.6; margin:0;}
+  .safety-box .btn-primary{background:var(--gold); color:var(--ink); box-shadow:none;}
+  .list-check{list-style:none; padding:0; margin:20px 0 0; display:grid; grid-template-columns:1fr 1fr; gap:12px 24px;}
+  .list-check li{font-size:14.5px; padding-left:22px; position:relative; color:var(--ink);}
+  .list-check li::before{content:'—'; position:absolute; left:0; color:var(--coral); font-weight:700;}
+
+  /* ===== FOOTER ===== */
+  footer{background:linear-gradient(160deg,var(--plum),#3A2D57); color:rgba(255,255,255,0.78); padding:56px 0 28px;}
+  .footer-top{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,0.14);}
+  .footer-brand .logo{margin-bottom:12px; color:#fff;}
+  .footer-brand p{font-size:14px; max-width:280px; line-height:1.6;}
+  .footer-cols{display:flex; gap:56px; flex-wrap:wrap;}
+  .footer-col h4{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--gold); margin-bottom:14px; font-weight:700;}
+  .footer-col a{display:block; font-size:14px; margin-bottom:10px; color:rgba(255,255,255,0.8); text-decoration:none; background:none; border:none; cursor:pointer; padding:0; font-family:var(--body); text-align:left;}
+  .footer-col a:hover{color:#fff;}
+  .footer-bottom{display:flex; justify-content:space-between; padding-top:22px; font-size:12.5px; color:rgba(255,255,255,0.5); flex-wrap:wrap; gap:10px;}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:860px){
+    .grid-4{grid-template-columns:repeat(2,1fr);}
+    .plans{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr; gap:22px;}
+  }
+  @media (max-width:720px){
+    .navlinks{
+      position:fixed; top:64px; left:0; right:0; background:var(--paper);
+      flex-direction:column; align-items:stretch; padding:12px 20px 20px;
+      border-bottom:1px solid var(--line); display:none; gap:2px;
+    }
+    .navlinks.open{display:flex;}
+    .navlinks button{text-align:left; border-radius:8px;}
+    .nav-cta{display:none;}
+    .burger{display:block;}
+    .demo{padding:22px;}
+    .wrap{padding:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <button class="logo" onclick="goPage('home')" aria-label="MoodFlip home"><span class="flipchar">M</span>oodFlip</button>
+    <nav class="navlinks" id="navlinks">
+      <button data-page="home" class="active" onclick="goPage('home')">Home</button>
+      <button data-page="pricing" onclick="goPage('pricing')">Pricing</button>
+      <button data-page="about" onclick="goPage('about')">About</button>
+    </nav>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="nav-cta" onclick="goPage('home', true)">Flip my mood</button>
+      <button class="burger" onclick="toggleMenu()" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HOME ================= -->
+<main class="page active" id="page-home">
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-top">
+        <span class="eyebrow">✦ 100% Free · Tap-Only · No Sign-Up</span>
+        <h1>Don't fix the mood.<br><em>Flip</em> it.</h1>
+        <p class="lede">Tap what you're feeling right now. MoodFlip flips it to a steadier state and hands you one 60-second action — no typing, no account, no long questionnaire.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Start the flip ↓</button>
+          <button class="btn btn-ghost" onclick="goPage('pricing')">See the $7 plan</button>
+        </div>
+      </div>
+
+      <div class="demo" id="demo">
+        <div class="demo-step">
+          <span class="step-label">01 — Pick a mood family</span>
+          <div class="chip-row" id="familyRow"></div>
+        </div>
+        <div class="demo-step">
+          <span class="step-label">02 — Narrow it down</span>
+          <div class="chip-row" id="feelingRow"><span style="font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);">Choose a mood family first</span></div>
+        </div>
+        <div class="demo-step">
+          <span class="step-label">03 — Your flip</span>
+          <div class="flip-target">
+            <div class="flip-board" id="flipBoard"></div>
+            <div class="action-card" id="actionCard">
+              <span class="eyebrow">60-sec action</span>
+              <p id="actionText"></p>
+            </div>
+          </div>
+        </div>
+        <div class="demo-foot">
+          <button class="reset-link" onclick="resetDemo()">Clear selection — start over</button>
+          <span style="font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);">🔒 Nothing you tap here is saved</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">⚡ How it works</span>
+        <h2>From stuck to moving — in three gentle taps.</h2>
+        <p>No typing and no long questionnaire. Narrow the feeling, then take one manageable next step.</p>
+      </div>
+      <div class="steps">
+        <div class="step-card"><span class="step-num">01</span><h3>Choose what feels closest</h3><p>Start with a broad mood family, then tap the feeling that best matches this moment.</p></div>
+        <div class="step-card"><span class="step-num">02</span><h3>Flip the emotional direction</h3><p>MoodFlip pairs that feeling with a more supportive target state — without asking you to type anything.</p></div>
+        <div class="step-card"><span class="step-num">03</span><h3>Take one tiny action</h3><p>Try a practical 60-second reset designed to feel manageable, even on a difficult day.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">🌿 Thoughtful by design</span>
+        <h2>Why the format feels manageable.</h2>
+        <p>Visual choices, plain language, and one small action instead of an overwhelming programme.</p>
+      </div>
+      <div class="grid-4">
+        <div class="why-card"><span class="mark">Pause</span><h3>A clear pause</h3><p>A tiny action creates a brief gap between a difficult feeling and what you do next.</p></div>
+        <div class="why-card"><span class="mark">Visual</span><h3>Visual emotion labels</h3><p>Feelings-Wheel categories make it easier to name a feeling without writing an explanation.</p></div>
+        <div class="why-card"><span class="mark">Small</span><h3>One manageable step</h3><p>A 60-second suggestion keeps the next move small, practical, and easy to try or skip.</p></div>
+        <div class="why-card"><span class="mark">Private</span><h3>Private by design</h3><p>The free tool needs no profile. Any saved check-in is scheduled for deletion after 90 days.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">💬 Got questions?</span>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq" id="faqHome"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= PRICING ================= -->
+<main class="page" id="page-pricing">
+  <section class="about-hero">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--violet-dark); margin-bottom:16px; display:inline-flex; background:#fff; padding:8px 14px; border-radius:20px;">Simple, transparent pricing</span>
+      <h1>Start free. Go deeper when it's useful.</h1>
+      <p>The everyday MoodFlip experience stays free forever. A personalized plan is an optional one-time purchase — never a subscription.</p>
+    </div>
+  </section>
+
+  <section class="light">
+    <div class="wrap">
+      <div class="plans">
+        <div class="plan">
+          <span class="plan-tag">Everyday tool</span>
+          <h3>Free</h3>
+          <div class="price">$0<span>&nbsp;forever</span></div>
+          <ul>
+            <li>Tap-only mood selection</li>
+            <li>Rotating 60-second actions</li>
+            <li>No profile required</li>
+            <li>Use whenever you need it</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="goPage('home', true)">Use MoodFlip free →</button>
+        </div>
+        <div class="plan popular plan-glow">
+          <span class="plan-tag">Most popular</span>
+          <h3>7-Day Mindset Plan</h3>
+          <div class="price">$7<span>&nbsp;one time</span></div>
+          <ul>
+            <li>Custom 7-day roadmap from your check-ins</li>
+            <li>Zero repeated actions across the plan</li>
+            <li>Instant high-res PDF download</li>
+            <li>Automatic email backup copy</li>
+          </ul>
+          <button class="btn btn-primary" onclick="goPage('home', true)">Get my 7-day plan →</button>
+        </div>
+        <div class="plan">
+          <span class="plan-tag">Full support</span>
+          <h3>30-Day Mood Master</h3>
+          <div class="price">$19<span>&nbsp;one time</span></div>
+          <ul>
+            <li>Full 30-day structured habit tracker</li>
+            <li>30+ custom actions per mood</li>
+            <li>Advanced emotional-progress summary</li>
+            <li>Instant PDF email delivery</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="goPage('home', true)">Get my 30-day plan →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Good to know</span>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq" id="faqPricing"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= ABOUT ================= -->
+<main class="page" id="page-about">
+  <section class="about-hero">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--violet-dark); margin-bottom:16px; display:inline-flex; background:#fff; padding:8px 14px; border-radius:20px;">Why MoodFlip</span>
+      <h1>A small reset can change the next moment.</h1>
+      <p>MoodFlip is a calm, tap-only self-reflection tool for moving through everyday emotional friction with one clear next step.</p>
+    </div>
+  </section>
+
+  <section class="light">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Built for real life</span>
+        <h2>Less analysis. More momentum.</h2>
+        <p>MoodFlip uses visual choices inspired by the Feelings Wheel, then gives you a positive target state and a rotating micro-action — quick enough for a break between meetings, a stressful commute, or a restless night.</p>
+      </div>
+      <ul class="list-check">
+        <li>No typing or journaling required</li>
+        <li>Use the core tool without an account</li>
+        <li>Optional private check-in history</li>
+        <li>Designed for phone, tablet, and desktop</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="light alt">
+    <div class="wrap">
+      <div class="safety-box">
+        <div>
+          <span class="eyebrow" style="color:var(--gold); margin-bottom:10px; display:inline-flex;">Safety first</span>
+          <h3>A self-help tool, not clinical care</h3>
+          <p>MoodFlip is not therapy, medical advice, diagnosis, treatment, or crisis support. If you may be in danger or need urgent help, contact local emergency services or a qualified professional.</p>
+        </div>
+        <a class="btn btn-primary" href="https://www.moodflip.coach/disclaimer" target="_blank" rel="noopener">Read the safety notice →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo"><span class="flipchar">M</span>oodFlip</div>
+        <p>A gentle, tap-only reset for difficult everyday emotions — one practical 60-second action at a time.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a onclick="goPage('home', true)">Flip my mood</a>
+          <a onclick="goPage('pricing')">Plans &amp; pricing</a>
+          <a onclick="goPage('about')">How it works</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="https://www.moodflip.coach/contact" target="_blank" rel="noopener">Contact us</a>
+          <a href="https://www.moodflip.coach/privacy" target="_blank" rel="noopener">Privacy policy</a>
+          <a href="https://www.moodflip.coach/disclaimer" target="_blank" rel="noopener">Safety disclaimer</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MoodFlip. All rights reserved.</span>
+      <span>Self-reflection utility · Not therapy or medical advice</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ---------- NAV ---------- */
+  function goPage(name, scrollDemo){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+name).classList.add('active');
+    document.querySelectorAll('.navlinks button').forEach(b=>b.classList.toggle('active', b.dataset.page===name));
+    document.getElementById('navlinks').classList.remove('open');
+    window.scrollTo({top:0, behavior:'instant' in window ? 'instant':'auto'});
+    if(scrollDemo){ setTimeout(()=>document.getElementById('demo').scrollIntoView({behavior:'smooth'}), 50); }
+  }
+  function toggleMenu(){ document.getElementById('navlinks').classList.toggle('open'); }
+
+  /* ---------- FAQ ---------- */
+  function buildFaq(containerId, items){
+    const c = document.getElementById(containerId);
+    c.innerHTML = items.map((it,i)=>`
+      <div class="faq-item" data-i="${i}">
+        <div class="faq-q" onclick="toggleFaq('${containerId}',${i})"><span>${it.q}</span><span class="plus">+</span></div>
+        <div class="faq-a"><p>${it.a}</p></div>
+      </div>`).join('');
+  }
+  function toggleFaq(containerId,i){
+    const el = document.querySelector(`#${containerId} .faq-item[data-i="${i}"]`);
+    el.classList.toggle('open');
+  }
+  buildFaq('faqHome', [
+    {q:'Is MoodFlip completely free to use?', a:'Yes. The interactive mood tool is 100% free with no account or credit card required.'},
+    {q:'Do I need to sign up or create a profile?', a:'No. You can flip your mood without any sign-up. A profile is only needed if you want to save check-ins toward a personalized PDF plan.'},
+    {q:'Is MoodFlip therapy or medical advice?', a:'No. MoodFlip is a self-reflection utility, not therapy, diagnosis, or crisis support. See the safety disclaimer for details.'},
+    {q:'How does the 90-day automatic data cleanup work?', a:'Any optional saved profile or check-in is automatically deleted after 90 days of inactivity.'},
+    {q:"What's in the optional $7 PDF Mindset Plan?", a:'A personalized 7-day roadmap generated from your eligible saved check-ins, delivered as an instant PDF download and email backup.'}
+  ]);
+  buildFaq('faqPricing', [
+    {q:'Can I use MoodFlip without paying?', a:'Yes. The mood tool is free and does not require an account.'},
+    {q:'What is included in the $7 plan?', a:'A printable 7-day roadmap based on your eligible saved check-ins, with varied daily micro-actions.'},
+    {q:'Is this a subscription?', a:'No. The $7 and $19 plans are one-time purchases, not recurring subscriptions.'},
+    {q:'How is my information handled?', a:'Only the information needed for your account, check-ins, payment status, and delivery is used. See the privacy policy for details.'}
+  ]);
+
+  /* ---------- FLIP DEMO ---------- */
+  const FAMILY_COLOR = {
+    Sad:'#5B7FDE', Fearful:'#9B6BDE', Angry:'#FF6B6B', Disgusted:'#5FA96B', Stressed:'#FFA94D'
+  };
+  const DATA = {
+    Sad: {
+      Lonely:{target:'Connected', action:'Send one short message to someone you trust. Just say hi.'},
+      Rejected:{target:'Grounded', action:'Name three things around you that are solid and real.'},
+      Hurt:{target:'Comforted', action:'Place a hand on your chest and take five slow breaths.'},
+      Ashamed:{target:'Accepted', action:'Say to yourself: I am doing my best with what I know right now.'},
+      Guilty:{target:'Forgiving', action:'Write the one thing you would say to a friend in your position.'},
+      Empty:{target:'Nourished', action:'Drink a full glass of water, slowly, without doing anything else.'},
+      Overwhelmed:{target:'Peaceful', action:'Breathe in for 4, out for 6. Repeat six times.'},
+      Abandoned:{target:'Held', action:'Wrap your arms around yourself and press gently for 10 seconds.'}
+    },
+    Fearful: {
+      Anxious:{target:'Steady', action:'Plant both feet flat on the floor and press down for 10 seconds.'},
+      Worried:{target:'Reassured', action:'Write down the worry, then write one thing within your control.'},
+      Insecure:{target:'Confident', action:'Stand tall, shoulders back, for 20 seconds before your next task.'},
+      Nervous:{target:'Calm', action:'Shake out your hands for 10 seconds, then let them go loose.'}
+    },
+    Angry: {
+      Frustrated:{target:'Clear-headed', action:'Unclench your jaw and drop your shoulders. Exhale hard once.'},
+      Irritated:{target:'Patient', action:'Step away for 60 seconds before you respond to anything.'},
+      Resentful:{target:'Released', action:'Name what you needed and did not get, out loud, once.'},
+      Provoked:{target:'Composed', action:'Press your tongue to the roof of your mouth and count to 20.'}
+    },
+    Disgusted: {
+      Disapproving:{target:'Open', action:'Ask yourself one honest question: what am I not seeing?'},
+      Judgmental:{target:'Understanding', action:'Picture one reason someone might act this way.'},
+      Repulsed:{target:'Neutral', action:'Look away for 30 seconds and focus on something plain.'}
+    },
+    Stressed: {
+      Overworked:{target:'Rested', action:'Close your eyes and roll your shoulders back five times.'},
+      Pressured:{target:'In control', action:'List the next single step. Only the next one.'},
+      Rushed:{target:'Unhurried', action:'Take one breath before you open the next tab or message.'},
+      Tense:{target:'Loose', action:'Shrug your shoulders to your ears, hold, then drop them fully.'}
+    }
+  };
+
+  let selectedFamily = null, selectedFeeling = null;
+
+  function renderFamilies(){
+    const row = document.getElementById('familyRow');
+    row.innerHTML = Object.keys(DATA).map(f =>
+      `<button class="chip ${selectedFamily===f?'selected':''}" style="${selectedFamily===f?`background:${FAMILY_COLOR[f]};`:''}" onclick="pickFamily('${f}')">${f}</button>`
+    ).join('');
+  }
+  function pickFamily(f){
+    selectedFamily = f; selectedFeeling = null;
+    renderFamilies(); renderFeelings();
+    clearFlip();
+  }
+  function renderFeelings(){
+    const row = document.getElementById('feelingRow');
+    if(!selectedFamily){
+      row.innerHTML = '<span style="font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);">Choose a mood family first</span>';
+      return;
+    }
+    const color = FAMILY_COLOR[selectedFamily];
+    row.innerHTML = Object.keys(DATA[selectedFamily]).map(feel =>
+      `<button class="chip ${selectedFeeling===feel?'selected':''}" style="${selectedFeeling===feel?`background:${color};`:''}" onclick="pickFeeling('${feel}')">${feel}</button>`
+    ).join('');
+  }
+  function pickFeeling(feel){
+    selectedFeeling = feel;
+    renderFeelings();
+    doFlip(DATA[selectedFamily][feel], FAMILY_COLOR[selectedFamily]);
+  }
+  function doFlip(entry, color){
+    const board = document.getElementById('flipBoard');
+    const word = entry.target.toUpperCase();
+    board.innerHTML = '';
+    [...word].forEach((ch,i)=>{
+      const tile = document.createElement('div');
+      tile.className = 'flip-tile' + (ch===' '?' space':'');
+      if(ch!==' ') tile.style.background = color;
+      tile.textContent = ch===' ' ? '' : ch;
+      tile.style.animationDelay = (i*0.045)+'s';
+      board.appendChild(tile);
+    });
+    const card = document.getElementById('actionCard');
+    const text = document.getElementById('actionText');
+    text.textContent = entry.action;
+    card.classList.remove('show'); void card.offsetWidth; card.classList.add('show');
+  }
+  function clearFlip(){
+    document.getElementById('flipBoard').innerHTML = '';
+    document.getElementById('actionCard').classList.remove('show');
+  }
+  function resetDemo(){
+    selectedFamily = null; selectedFeeling = null;
+    renderFamilies(); renderFeelings(); clearFlip();
+  }
+  renderFamilies(); renderFeelings();
+</script>
+</body>
+</html>

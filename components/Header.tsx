@@ -624,7 +624,46 @@ export default function Header() {
                 </div>
               )}
             </div>
-          ) : null}
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', order: 1 }}>
+              <a
+                href="/login"
+                id="header-login-btn"
+                style={{
+                  padding: '0.42rem 0.95rem',
+                  borderRadius: '9999px',
+                  border: '1.5px solid var(--card-border)',
+                  background: 'var(--tile-bg)',
+                  color: 'var(--text-main)',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  transition: 'all 0.18s ease',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                Login
+              </a>
+              <a
+                href="/register"
+                id="header-signup-btn"
+                style={{
+                  padding: '0.44rem 1.15rem',
+                  borderRadius: '9999px',
+                  background: 'linear-gradient(135deg, #7c54d1 0%, #ec4899 100%)',
+                  color: '#ffffff',
+                  fontSize: '0.82rem',
+                  fontWeight: 800,
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(124,84,209,0.35)',
+                  transition: 'all 0.18s ease',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                Sign Up
+              </a>
+            </div>
+          )}
         </nav>
 
         {/* ── MOBILE RIGHT CONTROLS ── */}

@@ -14,6 +14,9 @@ type FamilyName = 'Sad' | 'Fearful' | 'Angry' | 'Disgusted' | 'Stressed';
 interface FamilyMetaEntry {
   icon: string;
   dot: string;
+  bgGradient: string;
+  border: string;
+  desc: string;
 }
 
 interface FeelingLeaf {
@@ -27,11 +30,41 @@ type MoodDataShape = Record<FamilyName, CategoryMap>;
 const FAMILY_ORDER: FamilyName[] = ['Sad', 'Fearful', 'Angry', 'Disgusted', 'Stressed'];
 
 const FAMILY_META: Record<FamilyName, FamilyMetaEntry> = {
-  Sad: { icon: '🌧️', dot: '#7E8FBE' },
-  Fearful: { icon: '🌫️', dot: '#9583B8' },
-  Angry: { icon: '⛈️', dot: '#C97B72' },
-  Disgusted: { icon: '🌪️', dot: '#5C9490' },
-  Stressed: { icon: '💨', dot: '#C79A5D' },
+  Sad: {
+    icon: '🌧️',
+    dot: '#6366f1',
+    bgGradient: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%)',
+    border: 'rgba(99, 102, 241, 0.3)',
+    desc: 'Loneliness, grief, or feeling empty'
+  },
+  Fearful: {
+    icon: '🌫️',
+    dot: '#a855f7',
+    bgGradient: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(236, 72, 153, 0.08) 100%)',
+    border: 'rgba(168, 85, 247, 0.3)',
+    desc: 'Anxiety, worry, or feeling exposed'
+  },
+  Angry: {
+    icon: '⛈️',
+    dot: '#f43f5e',
+    bgGradient: 'linear-gradient(135deg, rgba(244, 63, 94, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%)',
+    border: 'rgba(244, 63, 94, 0.3)',
+    desc: 'Frustration, annoyance, or impatience'
+  },
+  Disgusted: {
+    icon: '🌪️',
+    dot: '#10b981',
+    bgGradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(14, 165, 233, 0.08) 100%)',
+    border: 'rgba(16, 185, 129, 0.3)',
+    desc: 'Judgmental, uncomfortable, or avoidant'
+  },
+  Stressed: {
+    icon: '💨',
+    dot: '#f59e0b',
+    bgGradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(234, 179, 8, 0.08) 100%)',
+    border: 'rgba(245, 158, 11, 0.3)',
+    desc: 'Pressured, wound up, or overburdened'
+  },
 };
 
 const MOOD_DATA: MoodDataShape = {
@@ -316,6 +349,37 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-chip:hover { border-color: var(--sage); background: var(--sage-soft); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(85,67,216,.11); }
         .mf2-chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
+        .mf2-mood-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+          gap: 14px;
+          margin-top: 14px;
+        }
+        .mf2-family-card {
+          border-radius: 20px;
+          padding: 18px 16px;
+          text-align: left;
+          cursor: pointer;
+          transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          position: relative;
+          overflow: hidden;
+          background: var(--tile-bg);
+          border: 1.5px solid var(--card-border);
+        }
+        .mf2-family-card:hover {
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 16px 36px -8px rgba(109, 92, 232, 0.25) !important;
+          border-color: var(--sage) !important;
+        }
+        .mf2-family-card-Sad { background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.08) 100%); border-color: rgba(99, 102, 241, 0.3); }
+        .mf2-family-card-Fearful { background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(236, 72, 153, 0.08) 100%); border-color: rgba(168, 85, 247, 0.3); }
+        .mf2-family-card-Angry { background: linear-gradient(135deg, rgba(244, 63, 94, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%); border-color: rgba(244, 63, 94, 0.3); }
+        .mf2-family-card-Disgusted { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(14, 165, 233, 0.08) 100%); border-color: rgba(16, 185, 129, 0.3); }
+        .mf2-family-card-Stressed { background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(234, 179, 8, 0.08) 100%); border-color: rgba(245, 158, 11, 0.3); }
+
         .mf2-flip-btn { background: linear-gradient(135deg, #ef6ca8, var(--sage-deep)); color: #fff; border: none; border-radius: 999px; padding: 13px 26px; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: background 0.2s ease, transform 0.15s ease; }
         .mf2-flip-btn:hover { background: #334a36; transform: translateY(-1px); }
 
@@ -543,15 +607,54 @@ export default function MoodTool(): React.JSX.Element {
 
               {!family && (
                 <>
-                  <span className="mf2-options-label">Choose your current mood family</span>
-                  <div className="mf2-chip-row">
-                    {FAMILY_ORDER.map((name) => (
-                      <button key={name} className="mf2-chip" onClick={() => pickFamily(name)}>
-                        <span className="mf2-chip-dot" style={{ background: FAMILY_META[name].dot }} />
-                        <span style={{ fontSize: '1.1rem' }}>{FAMILY_META[name].icon}</span>
-                        {name}
-                      </button>
-                    ))}
+                  <div style={{ marginBottom: '1.1rem' }}>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.2rem', fontFamily: "'Outfit', sans-serif" }}>
+                      Choose your current mood cloud
+                    </h3>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-subtle)' }}>
+                      Tap one of the five core feeling families to begin your 60-second shift.
+                    </p>
+                  </div>
+                  <div className="mf2-mood-grid">
+                    {FAMILY_ORDER.map((name) => {
+                      const meta = FAMILY_META[name];
+                      return (
+                        <button
+                          key={name}
+                          onClick={() => pickFamily(name)}
+                          className={'mf2-family-card mf2-family-card-' + name}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <span style={{
+                              fontSize: '1.7rem',
+                              width: '42px',
+                              height: '42px',
+                              borderRadius: '12px',
+                              background: 'var(--card-bg-solid)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}>
+                              {meta.icon}
+                            </span>
+                            <span style={{
+                              width: '9px',
+                              height: '9px',
+                              borderRadius: '50%',
+                              background: meta.dot,
+                            }} />
+                          </div>
+                          <div>
+                            <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-main)' }}>
+                              {name}
+                            </div>
+                            <div style={{ fontSize: '0.78rem', color: 'var(--text-subtle)', lineHeight: 1.35, marginTop: '2px' }}>
+                              {meta.desc}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </>
               )}
@@ -562,7 +665,7 @@ export default function MoodTool(): React.JSX.Element {
                   <div className="mf2-chip-row">
                     {categories.map((name) => (
                       <button key={name} className="mf2-chip" onClick={() => pickCategory(name)}>
-                        <span className="mf2-chip-dot" style={{ background: FAMILY_META[family].dot }} />
+                        <span className="mf2-chip-dot" style={{ background: family ? FAMILY_META[family].dot : '#6366f1' }} />
                         {name}
                       </button>
                     ))}
@@ -576,7 +679,7 @@ export default function MoodTool(): React.JSX.Element {
                   <div className="mf2-chip-row">
                     {feelings.map((name) => (
                       <button key={name} className="mf2-chip" onClick={() => pickFeeling(name)}>
-                        <span className="mf2-chip-dot" style={{ background: FAMILY_META[family].dot }} />
+                        <span className="mf2-chip-dot" style={{ background: family ? FAMILY_META[family].dot : '#6366f1' }} />
                         {name}
                       </button>
                     ))}

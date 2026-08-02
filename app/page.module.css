@@ -544,15 +544,13 @@
 .plantLeft,
 .plantRight {
   position: absolute;
-  bottom: 20px;
-  color: #e66f82;
-  font-size: 128px;
-  line-height: .7;
-  font-family: serif;
-  opacity: .8;
+  z-index: 2;
+  bottom: 0px;
+  pointer-events: none;
+  opacity: .88;
 }
-.plantLeft { left: -6px; transform: rotate(18deg); }
-.plantRight { right: -11px; transform: scaleX(-1) rotate(18deg); }
+.plantLeft { left: -10px; }
+.plantRight { right: -10px; }
 
 .actionCard {
   position: relative;
@@ -1342,4 +1340,124 @@
   font-size: 13px;
   line-height: 1.6;
 }
+
+/* =============================================
+   WELCOME BACK POPUP CARD STYLING
+   ============================================= */
+
+.welcomeCard {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 100;
+  width: 320px;
+  border-radius: 18px;
+  border: 1px solid #d8ccf7;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(78, 52, 140, 0.16);
+  padding: 22px 20px 16px;
+  animation: slideUpIn 0.3s ease-out;
+}
+
+@keyframes slideUpIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.closeWelcome {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  border: none;
+  background: transparent;
+  color: #a29bb3;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.closeWelcome:hover {
+  color: #534578;
+}
+
+.welcomeContent {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.profileBubble {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e4d8ff, #cdc0ff);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  color: #6a43df;
+  flex-shrink: 0;
+}
+
+.welcomeContent h3 {
+  margin: 0 0 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  color: #1e1938;
+  font-weight: 700;
+}
+
+.welcomeContent p {
+  margin: 0;
+  color: #5a5472;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.createProfile {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #784ee8, #6037d4);
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(100, 58, 215, 0.25);
+  margin-bottom: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.createProfile:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(100, 58, 215, 0.32);
+}
+
+.maybeLater {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #dcd3f5;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #6a40df;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.maybeLater:hover {
+  background: #f7f3ff;
+  border-color: #c4b3f2;
+}
+
+.welcomeCard small {
+  display: block;
+  text-align: center;
+  color: #847d96;
+  font-size: 11px;
+}
+
 

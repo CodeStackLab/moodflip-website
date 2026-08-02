@@ -219,8 +219,44 @@ export default function HomePage() {
               <span className={styles.birdTwo}>⌁</span>
               <div className={styles.hillBack} />
               <div className={styles.hillFront} />
-              <div className={styles.plantLeft}>❧</div>
-              <div className={styles.plantRight}>❧</div>
+              
+              {/* Left Plant Branch SVG */}
+              <div className={styles.plantLeft}>
+                <svg width="100" height="240" viewBox="0 0 100 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="leafGradLeft" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#f38ba0" stopOpacity="0.85" />
+                      <stop offset="55%" stopColor="#d962a7" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#8d49c7" stopOpacity="0.75" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M 25 240 Q 35 150 70 25" stroke="url(#leafGradLeft)" strokeWidth="4" strokeLinecap="round" />
+                  <path d="M 70 25 C 55 10, 30 15, 38 42 C 46 69, 64 42, 70 25 Z" fill="url(#leafGradLeft)" />
+                  <path d="M 52 75 C 24 65, 8 88, 24 108 C 40 128, 56 95, 52 75 Z" fill="url(#leafGradLeft)" />
+                  <path d="M 60 98 C 86 82, 100 105, 84 125 C 68 145, 52 115, 60 98 Z" fill="url(#leafGradLeft)" />
+                  <path d="M 38 140 C 12 130, -4 152, 12 172 C 28 192, 44 160, 38 140 Z" fill="url(#leafGradLeft)" />
+                  <path d="M 44 162 C 68 146, 84 168, 68 188 C 52 208, 36 178, 44 162 Z" fill="url(#leafGradLeft)" />
+                </svg>
+              </div>
+
+              {/* Right Plant Branch SVG */}
+              <div className={styles.plantRight}>
+                <svg width="100" height="240" viewBox="0 0 100 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="leafGradRight" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#f38ba0" stopOpacity="0.85" />
+                      <stop offset="55%" stopColor="#d962a7" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#8d49c7" stopOpacity="0.75" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M 75 240 Q 65 150 30 25" stroke="url(#leafGradRight)" strokeWidth="4" strokeLinecap="round" />
+                  <path d="M 30 25 C 45 10, 70 15, 62 42 C 54 69, 36 42, 30 25 Z" fill="url(#leafGradRight)" />
+                  <path d="M 48 75 C 76 65, 92 88, 76 108 C 60 128, 44 95, 48 75 Z" fill="url(#leafGradRight)" />
+                  <path d="M 40 98 C 14 82, 0 105, 16 125 C 32 145, 48 115, 40 98 Z" fill="url(#leafGradRight)" />
+                  <path d="M 62 140 C 88 130, 104 152, 88 172 C 72 192, 56 160, 62 140 Z" fill="url(#leafGradRight)" />
+                  <path d="M 56 162 C 32 146, 16 168, 32 188 C 48 208, 64 178, 56 162 Z" fill="url(#leafGradRight)" />
+                </svg>
+              </div>
             </div>
 
             <div className={styles.actionCard}>
@@ -264,7 +300,7 @@ export default function HomePage() {
                 className={styles.saveButton}
                 onClick={() => setSaved((value) => !value)}
               >
-                <span>{saved ? "✓" : "♡"}</span> {saved ? "Saved to My Check-ins" : "Save to My Check-ins"}
+                <span>{saved ? "✓" : "🔖"}</span> {saved ? "Saved to My Check-ins" : "Save to My Check-ins"}
               </button>
             </div>
           </section>

@@ -1147,13 +1147,13 @@ export default function MoodTool(): React.JSX.Element {
         <div className="mf2-wrap">
           <div className="mf2-price-card mf2-reveal">
             <div>
-              <div className="mf2-eyebrow">All launch phases are open</div>
-              <h2>7-day and 30-day plans are live inline</h2>
+              <div className="mf2-eyebrow">Personalized mindset plans</div>
+              <h2>Choose a 7-day or 30-day plan</h2>
               <p style={{ color: 'var(--ink-soft)', fontSize: 14.5 }}>No login popup, no pricing popup, and no subscription pressure.</p>
               <ul className="mf2-price-list">
                 <li>Free MoodFlip tool remains available immediately</li>
                 <li>7-day PDF plan for a short guided reset</li>
-                <li>30-day plan option is visible as a launched product path</li>
+                <li>30-day plan for deeper tracking and support</li>
               </ul>
             </div>
             <div className="mf2-price-tag">

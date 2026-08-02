@@ -8,7 +8,7 @@ export default defineConfig({
   workers: 1,
   use: {
     headless: true,
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: 'http://127.0.0.1:3001',
     trace: 'on-first-retry',
     viewport: { width: 1280, height: 800 },
   },

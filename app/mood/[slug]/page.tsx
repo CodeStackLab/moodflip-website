@@ -121,7 +121,7 @@ export default function SEOMoodPage({ params }: Props) {
                 boxShadow: '0 6px 20px rgba(124, 84, 209, 0.3)'
               }}
             >
-              ✨ Launch Interactive MoodFlip Tool
+              Open Interactive MoodFlip Tool
             </a>
           </div>
 

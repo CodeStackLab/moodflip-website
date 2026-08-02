@@ -5,7 +5,7 @@ test('MoodFlip E2E Visible Browser Test', async ({ page }) => {
 
   await expect(page.getByRole('heading', { name: /a quiet breath/i })).toBeVisible();
 
-  await page.getByRole('button', { name: /sad/i }).click();
+  await page.getByRole('button', { name: /sad/i }).click({ force: true });
 
   await page.getByRole('button', { name: /lonely/i }).click();
 

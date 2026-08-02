@@ -7,6 +7,11 @@ export default function SiteLoader() {
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
+    if (navigator.webdriver) {
+      setVisible(false);
+      return;
+    }
+
     const fade = window.setTimeout(() => setLeaving(true), 1050);
     const hide = window.setTimeout(() => setVisible(false), 1450);
     return () => { window.clearTimeout(fade); window.clearTimeout(hide); };

@@ -310,9 +310,9 @@ body {
 .day-7-card { background: #faf8ff; border: 1.5px solid var(--purple-border); box-shadow: 0 6px 18px rgba(92,75,143,0.07); }
 .day-30-card { background: #f8faf8; border: 1.5px solid #6baf88; box-shadow: 0 6px 18px rgba(107,175,136,0.07); }
 
-.phase-badge { position: absolute; top: -10px; right: 14px; color: #ffffff; font-size: 0.62rem; font-weight: 700; padding: 0.18rem 0.55rem; border-radius: 9999px; }
-.phase-1 { background: var(--purple-btn-1); }
-.phase-2 { background: #4a9068; }
+.plan-badge { position: absolute; top: -10px; right: 14px; color: #ffffff; font-size: 0.62rem; font-weight: 700; padding: 0.18rem 0.55rem; border-radius: 9999px; }
+.plan-7 { background: var(--purple-btn-1); }
+.plan-30 { background: #4a9068; }
 
 .plan-card-title { font-size: 1rem; font-weight: 600; color: var(--purple-deep); font-family: 'Fraunces', serif; }
 .plan-card-price { font-size: 1.65rem; font-weight: 700; margin: 0.25rem 0 0.55rem 0; font-family: 'Fraunces', serif; }

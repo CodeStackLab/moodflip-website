@@ -114,7 +114,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
         }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
-              <span className="phase-badge phase-1" style={{
+              <span className="plan-badge plan-7" style={{
                 fontSize: '0.7rem',
                 fontWeight: 800,
                 color: '#ffffff',
@@ -124,7 +124,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
                 letterSpacing: '0.03em',
                 boxShadow: '0 2px 8px rgba(124, 84, 209, 0.25)'
               }}>
-                🔥 POPULAR • PHASE 1 LAUNCH
+                POPULAR
               </span>
             </div>
 
@@ -217,7 +217,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
           </button>
         </div>
 
-        {/* 30-Day Plan (Phase 2) */}
+        {/* 30-Day Plan */}
         <div className="paid-plan-card day-30-card" style={{
           background: 'linear-gradient(155deg, #ffffff 0%, #f0fdf4 100%)',
           border: '1.5px solid #a7f3d0',
@@ -232,7 +232,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
         }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
-              <span className="phase-badge phase-2" style={{
+              <span className="plan-badge plan-30" style={{
                 fontSize: '0.7rem',
                 fontWeight: 800,
                 color: '#047857',
@@ -241,7 +241,7 @@ export default function PaidPlansSection({ hideHeader = false }: PaidPlansSectio
                 borderRadius: '9999px',
                 letterSpacing: '0.03em'
               }}>
-                PHASE 2 LAUNCHED
+                30-DAY PLAN
               </span>
             </div>
 

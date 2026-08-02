@@ -55,14 +55,6 @@ const MOOD_DATA: Record<MoodFamily, Record<string, MoodEntry>> = {
 
 const FAMILY_ORDER = Object.keys(MOOD_DATA) as MoodFamily[];
 
-const FAMILY_META: Record<MoodFamily, { emoji: string; color: string; glow: string; bg: string }> = {
-  Sad:      { emoji: '🌧️', color: '#6366f1', glow: 'rgba(99,102,241,0.35)', bg: 'rgba(99,102,241,0.08)' },
-  Fearful:  { emoji: '🌀', color: '#8b5cf6', glow: 'rgba(139,92,246,0.35)', bg: 'rgba(139,92,246,0.08)' },
-  Angry:    { emoji: '🔥', color: '#ef4444', glow: 'rgba(239,68,68,0.3)',   bg: 'rgba(239,68,68,0.07)'  },
-  Disgusted:{ emoji: '😶', color: '#f97316', glow: 'rgba(249,115,22,0.3)',  bg: 'rgba(249,115,22,0.07)' },
-  Stressed: { emoji: '⚡', color: '#ec4899', glow: 'rgba(236,72,153,0.3)',  bg: 'rgba(236,72,153,0.07)' },
-};
-
 const FAQS = [
   ['Is MoodFlip completely free to use?', 'Yes! The interactive mood tool is 100% free with no account or credit card required. Tap and flip as often as you like.'],
   ['Do I need to sign up or create a profile?', 'No. You can use the full tool without signing up. An optional free account lets you save your check-ins and track 7-day emotional growth.'],
@@ -94,10 +86,8 @@ export default function HomePage() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
   const [savedSuccess, setSavedSuccess] = useState(false);
-  const [flipping, setFlipping] = useState(false);
 
   const feelings = useMemo(() => (family ? Object.keys(MOOD_DATA[family]) : []), [family]);
-  const activeMeta = family ? FAMILY_META[family] : null;
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -124,17 +114,15 @@ export default function HomePage() {
     setTimeLeft(60);
   };
 
-  const flipMood = async () => {
+  const flipMood = () => {
     if (!family || !feeling) return;
-    setFlipping(true);
-    await new Promise(r => setTimeout(r, 420));
     setResult(MOOD_DATA[family][feeling]);
-    setFlipping(false);
     setTimerRunning(false);
     setTimeLeft(60);
     setSavedSuccess(false);
+
     setTimeout(() => {
-      document.getElementById('resultPanel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      document.getElementById('rightPanel')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
   };
 
@@ -161,9 +149,6 @@ export default function HomePage() {
     } catch (_) {}
   };
 
-  const timerPct = ((60 - timeLeft) / 60) * 100;
-  const circumference = 2 * Math.PI * 20;
-
   return (
     <>
       <SiteLoader />
@@ -171,716 +156,503 @@ export default function HomePage() {
         <Header />
 
         <style>{`
-          /* ── KEYFRAMES ── */
-          @keyframes heroFloat {
-            0%,100% { transform: translateY(0px) rotate(0deg); }
-            33%      { transform: translateY(-10px) rotate(1deg); }
-            66%      { transform: translateY(-5px) rotate(-1deg); }
+          @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 12px 30px rgba(91,75,154,0.38); }
+            50% { box-shadow: 0 12px 42px rgba(91,75,154,0.65); transform: scale(1.04); }
           }
-          @keyframes orb1 {
-            0%,100% { transform: translate(0,0) scale(1); opacity: 0.6; }
-            50%      { transform: translate(40px,-50px) scale(1.15); opacity: 0.9; }
+          @keyframes floatSunRays {
+            0%, 100% { transform: translateX(-50%) rotate(0deg) scale(1); opacity: 0.65; }
+            50% { transform: translateX(-50%) rotate(4deg) scale(1.05); opacity: 0.85; }
           }
-          @keyframes orb2 {
-            0%,100% { transform: translate(0,0) scale(1); opacity: 0.5; }
-            50%      { transform: translate(-30px,40px) scale(1.2); opacity: 0.75; }
-          }
-          @keyframes flipReveal {
-            0%   { opacity:0; transform: translateY(24px) scale(0.97); }
-            100% { opacity:1; transform: translateY(0) scale(1); }
-          }
-          @keyframes spinTimer {
-            from { stroke-dashoffset: ${circumference}; }
-            to   { stroke-dashoffset: 0; }
-          }
-          @keyframes pulseRing {
-            0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.4), 0 8px 28px rgba(99,102,241,0.35); }
-            50%      { box-shadow: 0 0 0 12px rgba(99,102,241,0), 0 12px 36px rgba(99,102,241,0.5); }
-          }
-          @keyframes shimmerBtn {
-            0%   { background-position: 200% center; }
-            100% { background-position: -200% center; }
-          }
-          @keyframes fadeUp {
-            from { opacity:0; transform:translateY(16px); }
-            to   { opacity:1; transform:translateY(0); }
-          }
-          @keyframes starPop {
-            0%   { transform: scale(0) rotate(-15deg); opacity:0; }
-            60%  { transform: scale(1.15) rotate(5deg); opacity:1; }
-            100% { transform: scale(1) rotate(0); opacity:1; }
-          }
-          @keyframes timerPulse {
-            0%,100% { opacity:1; }
-            50%      { opacity:0.6; }
+          @keyframes slideUpResult {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
           }
 
-          /* ── PAGE SHELL ── */
-          .hp-root {
-            background: #0d0d14;
-            color: #f1f1f5;
-            min-height: 100vh;
-            font-family: 'Outfit', 'Inter', sans-serif;
-          }
-
-          /* ── HERO ── */
-          .hp-hero {
-            position: relative; overflow: hidden;
-            padding: 5rem 1.25rem 4rem;
+          /* HERO LEAD */
+          .mf-hero-lead {
+            padding: 3rem 1rem 1.5rem;
             text-align: center;
+            max-width: 800px; margin: 0 auto;
           }
-          .hp-hero-orb1 {
-            position: absolute; top: -140px; left: -100px;
-            width: 520px; height: 520px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(99,102,241,0.28) 0%, transparent 65%);
-            animation: orb1 12s ease-in-out infinite;
-            pointer-events: none;
-          }
-          .hp-hero-orb2 {
-            position: absolute; bottom: -120px; right: -80px;
-            width: 460px; height: 460px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(236,72,153,0.22) 0%, transparent 65%);
-            animation: orb2 16s ease-in-out infinite;
-            pointer-events: none;
-          }
-          .hp-hero-inner {
-            position: relative; z-index: 2;
-            max-width: 820px; margin: 0 auto;
-          }
-          .hp-badge {
+          .mf-hero-tag {
             display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(99,102,241,0.15);
-            border: 1px solid rgba(99,102,241,0.35);
-            color: #a5b4fc;
-            padding: 0.45rem 1.25rem; border-radius: 999px;
-            font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em;
-            margin-bottom: 1.5rem;
-            animation: fadeUp 0.5s 0.1s both;
+            font-size: 0.8rem; font-weight: 700;
+            color: #5b4b9a; background: #efeafa;
+            border: 1px solid #d9d0f0;
+            border-radius: 999px; padding: 0.45rem 1.25rem;
+            margin-bottom: 1.25rem;
           }
-          .hp-h1 {
+          .mf-hero-h1 {
             font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
-            font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-            font-weight: 700; line-height: 1.1;
-            color: #ffffff; margin-bottom: 1.25rem;
-            letter-spacing: -0.025em;
-            animation: fadeUp 0.5s 0.2s both;
+            font-size: clamp(2.4rem, 4.8vw, 3.6rem);
+            font-weight: 640; line-height: 1.15;
+            color: var(--text-main); margin-bottom: 1rem;
+            letter-spacing: -0.02em;
           }
-          .hp-h1 .hp-gradient-text {
-            background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
+          .mf-hero-h1 span {
+            color: #5b4b9a;
           }
-          .hp-sub {
-            font-size: 1.1rem; color: #9ca3af; line-height: 1.7;
-            max-width: 580px; margin: 0 auto 2.5rem;
-            animation: fadeUp 0.5s 0.3s both;
-          }
-          .hp-trust-row {
-            display: flex; align-items: center; justify-content: center; gap: 1.25rem; flex-wrap: wrap;
-            animation: fadeUp 0.5s 0.4s both;
-          }
-          .hp-trust-item {
-            display: flex; align-items: center; gap: 6px;
-            font-size: 0.78rem; color: #6b7280; font-weight: 600;
-          }
-          .hp-trust-dot {
-            width: 6px; height: 6px; border-radius: 50%; background: #374151;
+          .mf-hero-p {
+            font-size: 1.08rem; color: var(--text-subtle);
+            line-height: 1.65; max-width: 620px; margin: 0 auto;
           }
 
-          /* ── TOOL WRAPPER ── */
-          .hp-tool-wrap {
-            max-width: 1200px; margin: 0 auto 5rem;
+          /* MAIN TOOL SECTION */
+          .mf-tool-container {
+            max-width: 1240px; margin: 1.5rem auto 4.5rem;
             padding: 0 1.25rem;
           }
-
-          /* ── TWO COLUMN GRID ── */
-          .hp-grid {
+          .mf-tool-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            align-items: stretch;
+            grid-template-columns: 1.15fr 70px 1fr;
+            align-items: stretch; gap: 0;
+            position: relative;
           }
-          @media (max-width: 860px) {
-            .hp-grid { grid-template-columns: 1fr; }
+          @media (max-width: 980px) {
+            .mf-tool-grid { grid-template-columns: 1fr; gap: 1.25rem; }
           }
 
-          /* ── GLASS CARD BASE ── */
-          .hp-glass {
-            background: rgba(255,255,255,0.045);
-            border: 1px solid rgba(255,255,255,0.1);
+          /* PANELS */
+          .mf-panel {
             border-radius: 28px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 24px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+            box-shadow: 0 20px 60px rgba(44,39,53,0.08);
+            padding: 2.25rem 2.25rem;
+            position: relative;
           }
 
-          /* ── LEFT CARD ── */
-          .hp-left { padding: 2.25rem 2rem; display: flex; flex-direction: column; gap: 2rem; }
-          .hp-section-label {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
-            text-transform: uppercase; color: #6b7280; margin-bottom: 1rem;
+          /* LEFT PANEL */
+          .mf-panel-left {
+            background: #ffffff;
+            border: 1.5px solid #eae3d6;
           }
-          .hp-label-line {
-            flex: 1; height: 1px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.12), transparent);
+          .mf-step-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #efeafa; color: #5b4b9a;
+            font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.05em; padding: 0.45rem 1rem 0.45rem 0.6rem;
+            border-radius: 14px; margin-bottom: 1rem;
+          }
+          .mf-step-ic {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #ffffff; color: #5b4b9a;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; font-weight: 900;
           }
 
           /* MOOD FAMILY CHIPS */
-          .hp-fam-row {
-            display: flex; flex-wrap: wrap; gap: 0.6rem;
+          .mf-chip-row { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2rem; }
+          .mf-fam-chip {
+            font-family: inherit; font-size: 0.92rem; font-weight: 700;
+            padding: 0.7rem 1.35rem; border-radius: 18px;
+            border: 1.5px solid #eae3d6; background: #faf6ee;
+            color: var(--text-main); cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
           }
-          .hp-fam-chip {
-            font-family: inherit; font-size: 0.9rem; font-weight: 700;
-            padding: 0.65rem 1.2rem; border-radius: 14px;
-            border: 1.5px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
-            color: #d1d5db; cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex; align-items: center; gap: 7px;
-          }
-          .hp-fam-chip:hover {
-            border-color: rgba(255,255,255,0.25);
-            background: rgba(255,255,255,0.1);
-            color: #ffffff;
-            transform: translateY(-1px);
-          }
-          .hp-fam-chip.sel {
-            color: #ffffff;
-            border-color: transparent;
-            transform: translateY(-2px);
+          .mf-fam-chip:hover { border-color: #d9d0f0; transform: translateY(-1px); }
+          .mf-fam-chip.selected {
+            background: #efeafa; border-color: #5b4b9a; color: #463a78;
+            box-shadow: 0 6px 18px rgba(91,75,154,0.18); transform: translateY(-1px);
           }
 
-          /* FEELING TILES */
-          .hp-feel-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 0.6rem;
+          /* FEELINGS GRID */
+          .mf-feel-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+            gap: 0.65rem; margin-top: 0.5rem;
           }
-          .hp-feel-tile {
-            font-family: inherit; font-size: 0.84rem; font-weight: 700;
-            padding: 0.75rem 0.65rem; border-radius: 14px;
-            border: 1.5px solid rgba(255,255,255,0.08);
-            background: rgba(255,255,255,0.04);
-            color: #9ca3af; cursor: pointer; text-align: center;
-            transition: all 0.2s ease;
+          .mf-feel-tile {
+            border: 1.5px solid #eae3d6; background: #faf6ee;
+            border-radius: 16px; padding: 0.85rem 0.75rem;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            cursor: pointer; transition: all 0.2s ease; text-align: center;
+            font-family: inherit; font-weight: 700; font-size: 0.86rem;
+            color: var(--text-main);
           }
-          .hp-feel-tile:hover {
-            border-color: rgba(255,255,255,0.2);
-            color: #e5e7eb;
-            background: rgba(255,255,255,0.08);
-            transform: translateY(-2px);
+          .mf-feel-tile:hover { border-color: #d9d0f0; transform: translateY(-2px); }
+          .mf-feel-tile.selected {
+            background: #efeafa; border-color: #5b4b9a;
+            box-shadow: 0 8px 20px rgba(91,75,154,0.2); transform: translateY(-2px);
           }
-          .hp-feel-tile.sel {
-            color: #ffffff;
-            border-color: transparent;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99,102,241,0.3);
-          }
-          .hp-feel-empty {
-            grid-column: 1 / -1;
-            padding: 2rem 1rem; text-align: center;
-            color: #4b5563; font-size: 0.85rem;
-            border: 1.5px dashed rgba(255,255,255,0.08);
-            border-radius: 16px;
+          .mf-feel-empty {
+            grid-column: 1 / -1; font-size: 0.86rem; color: var(--text-subtle);
+            padding: 2rem 1rem; text-align: center; border: 2px dashed #eae3d6;
+            border-radius: 18px;
           }
 
-          /* ── FLIP BUTTON ── */
-          .hp-flip-wrap {
-            padding: 1.25rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.07);
+          /* FLIP COLUMN */
+          .mf-flip-col {
+            display: flex; align-items: center; justify-content: center;
+            position: relative; z-index: 10;
           }
-          .hp-flip-btn {
-            width: 100%; padding: 1rem 1.5rem;
-            border: none; border-radius: 18px; cursor: pointer;
-            font-family: inherit; font-weight: 800; font-size: 1rem;
+          .mf-flip-btn {
+            font-family: inherit; font-weight: 800; font-size: 0.86rem;
             letter-spacing: 0.04em; text-transform: uppercase;
-            color: #ffffff;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899, #6366f1);
-            background-size: 300% auto;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: linear-gradient(135deg, #5b4b9a 0%, #463a78 100%);
+            color: #ffffff; border: none; border-radius: 999px;
+            padding: 1.25rem 0.85rem; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            text-align: center; width: 90px; height: 115px; justify-content: center;
+            box-shadow: 0 12px 32px rgba(91,75,154,0.4);
+            animation: pulseGlow 2.8s ease-in-out infinite;
             transition: all 0.25s ease;
-            animation: shimmerBtn 4s linear infinite;
-            box-shadow: 0 8px 28px rgba(99,102,241,0.4);
           }
-          .hp-flip-btn:hover:not(:disabled) {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 14px 36px rgba(99,102,241,0.55);
+          .mf-flip-btn:disabled {
+            opacity: 0.4; cursor: not-allowed; animation: none; box-shadow: none;
           }
-          .hp-flip-btn:disabled {
-            opacity: 0.3; cursor: not-allowed; animation: none;
-            background: rgba(255,255,255,0.08);
-            box-shadow: none; transform: none;
+          .mf-flip-btn:hover:not(:disabled) {
+            transform: scale(1.08); box-shadow: 0 16px 40px rgba(91,75,154,0.55);
           }
-          .hp-flip-arrow {
-            width: 26px; height: 26px; border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.95rem; transition: transform 0.2s;
-          }
-          .hp-flip-btn:hover:not(:disabled) .hp-flip-arrow {
-            transform: translateX(4px);
+          @media (max-width: 980px) {
+            .mf-flip-btn { width: 100%; height: auto; border-radius: 20px; padding: 1.1rem; flex-direction: row; justify-content: center; }
           }
 
-          /* ── RIGHT CARD ── */
-          .hp-right {
-            padding: 2.25rem 2rem;
-            display: flex; flex-direction: column;
-            position: relative; overflow: hidden;
+          /* RIGHT PANEL */
+          .mf-panel-right {
+            border: 1.5px solid #eae3d6;
+            position: relative; overflow: hidden; text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            background:
+              radial-gradient(circle at 50% 12%, #fcefd6 0%, #f8dfaf 35%, #f4cfa0 55%, transparent 75%),
+              linear-gradient(180deg, #fefbf4 0%, #fbf3e2 100%);
           }
-          .hp-right-orb {
-            position: absolute; top: -60px; right: -60px;
-            width: 280px; height: 280px; border-radius: 50%;
-            pointer-events: none; opacity: 0.5;
-            transition: background 0.5s ease;
+          .mf-sun-bg {
+            position: absolute; top: -20px; left: 50%;
+            transform: translateX(-50%); width: 480px; height: 280px;
+            pointer-events: none; animation: floatSunRays 8s ease-in-out infinite;
           }
-          .hp-empty-state {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            flex: 1; text-align: center; padding: 2rem 1rem;
+          .mf-empty-right {
+            color: var(--text-subtle); font-size: 0.92rem;
+            padding: 4rem 1.5rem; line-height: 1.75; max-width: 320px;
             position: relative; z-index: 1;
           }
-          .hp-empty-icon {
-            width: 80px; height: 80px; border-radius: 24px;
-            background: rgba(255,255,255,0.06);
-            border: 1.5px solid rgba(255,255,255,0.1);
+          .mf-sun-icon-placeholder {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: linear-gradient(135deg, #fff5d4, #ffe8a3);
+            border: 2px solid #ffd675;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.4rem; margin-bottom: 1.5rem;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            font-size: 2.2rem; margin: 0 auto 1.25rem;
+            box-shadow: 0 8px 24px rgba(255,182,72,0.3);
           }
-          .hp-empty-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.35rem; font-weight: 700; color: #e5e7eb; margin-bottom: 0.6rem;
-          }
-          .hp-empty-desc { font-size: 0.85rem; color: #6b7280; line-height: 1.65; max-width: 280px; }
 
-          /* ── RESULT PANEL ── */
-          .hp-result {
-            position: relative; z-index: 1;
-            animation: flipReveal 0.45s cubic-bezier(0.22,1,0.36,1) both;
+          .mf-result-content {
+            position: relative; z-index: 1; width: 100%;
+            animation: slideUpResult 0.45s cubic-bezier(0.22,1,0.36,1) both;
           }
-          .hp-result-eyebrow {
-            font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
-            text-transform: uppercase; color: #6b7280; margin-bottom: 0.5rem;
+          .mf-result-label {
+            font-size: 0.84rem; font-weight: 700; color: var(--text-subtle);
+            margin-bottom: 0.4rem; margin-top: 1rem;
           }
-          .hp-result-mood {
+          .mf-result-mood {
             font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
-            font-size: clamp(2.2rem, 4vw, 3rem);
-            font-weight: 700; line-height: 1.1;
-            background: linear-gradient(135deg, #818cf8, #c084fc, #f472b6);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.75rem;
+            font-weight: 700; font-size: clamp(2.4rem, 4vw, 3.4rem);
+            color: #7c8b5e; margin-bottom: 1.75rem; line-height: 1.1;
           }
-
-          /* ACTION CARD */
-          .hp-action-card {
-            background: rgba(255,255,255,0.055);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 20px; padding: 1.5rem 1.75rem;
-            margin-bottom: 1.25rem;
+          .mf-action-card {
+            background: #ffffff; border-radius: 20px; padding: 1.5rem 1.75rem;
+            text-align: left; width: 100%;
+            box-shadow: 0 16px 36px rgba(217,165,75,0.16);
+            border: 1px solid rgba(217,165,75,0.25);
           }
-          .hp-action-head {
-            display: flex; align-items: center; gap: 14px; margin-bottom: 0.9rem;
+          .mf-action-head {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 0.85rem;
           }
-          .hp-timer-wrap {
-            position: relative; width: 52px; height: 52px; flex-shrink: 0;
-          }
-          .hp-timer-svg { width: 52px; height: 52px; transform: rotate(-90deg); }
-          .hp-timer-track { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 3.5; }
-          .hp-timer-prog {
-            fill: none; stroke: #818cf8; stroke-width: 3.5;
-            stroke-linecap: round;
-            stroke-dasharray: ${circumference};
-            transition: stroke-dashoffset 1s linear;
-          }
-          .hp-timer-label {
-            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-            font-size: 0.75rem; font-weight: 900; color: #a5b4fc;
-            font-family: 'Space Mono', monospace;
-          }
-          .hp-timer-btn-overlay {
-            position: absolute; inset: 0; border-radius: 50%;
-            background: transparent; border: none; cursor: pointer;
-          }
-          .hp-action-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.1rem; font-weight: 700; color: #f3f4f6; margin: 0;
-          }
-          .hp-action-desc {
-            font-size: 0.88rem; color: #9ca3af; line-height: 1.7; margin-bottom: 1rem;
-          }
-          .hp-insight {
-            display: flex; gap: 10px; align-items: flex-start;
-            padding: 0.75rem 1rem; border-radius: 12px;
-            background: rgba(99,102,241,0.12);
-            border: 1px solid rgba(99,102,241,0.25);
-            font-size: 0.8rem; color: #a5b4fc; line-height: 1.55;
-          }
-
-          /* SAVE BTN */
-          .hp-save-btn {
-            width: 100%; padding: 0.85rem;
-            background: transparent;
-            border: 1.5px solid rgba(255,255,255,0.15);
-            border-radius: 14px; color: #9ca3af;
-            font-weight: 700; font-size: 0.86rem;
-            cursor: pointer; font-family: inherit;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+          .mf-timer-btn {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: #efeafa; color: #5b4b9a; border: 1.5px solid #d9d0f0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 900; cursor: pointer;
+            flex-shrink: 0; font-family: 'Space Mono', monospace;
             transition: all 0.2s ease;
           }
-          .hp-save-btn:hover { border-color: rgba(255,255,255,0.3); color: #e5e7eb; background: rgba(255,255,255,0.06); }
-          .hp-save-btn.saved { border-color: rgba(34,197,94,0.4); color: #4ade80; background: rgba(34,197,94,0.08); }
-
-          /* ── REASSURANCE STRIP ── */
-          .hp-strip {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 1rem; margin-top: 1.5rem;
-          }
-          @media (max-width: 540px) { .hp-strip { grid-template-columns: 1fr; } }
-          .hp-strip-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 18px; padding: 1.1rem 1.25rem;
-            display: flex; align-items: center; gap: 12px;
-          }
-          .hp-strip-icon { font-size: 1.5rem; flex-shrink: 0; }
-          .hp-strip-strong { font-size: 0.88rem; font-weight: 800; color: #e5e7eb; display: block; margin-bottom: 2px; }
-          .hp-strip-desc { font-size: 0.78rem; color: #6b7280; }
-
-          /* ── HOW IT WORKS ── */
-          .hp-section {
-            padding: 5rem 1.25rem; position: relative;
-          }
-          .hp-section.alt {
-            background: rgba(255,255,255,0.02);
-            border-top: 1px solid rgba(255,255,255,0.06);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-          }
-          .hp-sec-wrap { max-width: 1100px; margin: 0 auto; }
-          .hp-sec-head { text-align: center; margin-bottom: 3.5rem; }
-          .hp-sec-eyebrow {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3);
-            color: #818cf8; font-size: 0.76rem; font-weight: 800;
-            padding: 0.4rem 1rem; border-radius: 999px; letter-spacing: 0.06em;
-            text-transform: uppercase; margin-bottom: 1rem;
-          }
-          .hp-sec-title {
+          .mf-timer-btn:hover { background: #5b4b9a; color: #ffffff; }
+          .mf-action-title {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(1.9rem, 3.8vw, 2.8rem);
-            font-weight: 700; color: #f9fafb; line-height: 1.15;
+            font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 0;
           }
-          .hp-sec-desc { font-size: 0.95rem; color: #6b7280; margin-top: 0.75rem; line-height: 1.7; max-width: 560px; margin-left: auto; margin-right: auto; }
+          .mf-action-desc {
+            font-size: 0.92rem; color: var(--text-subtle); line-height: 1.65; margin-bottom: 1rem;
+          }
+          .mf-action-tip {
+            font-size: 0.78rem; color: var(--text-subtle);
+            padding: 0.6rem 0.85rem; border-radius: 12px;
+            background: #faf6ee; border-left: 3.5px solid #7c8b5e;
+            line-height: 1.5;
+          }
+          .mf-save-btn {
+            margin-top: 1.25rem; width: 100%;
+            background: transparent; border: 1.5px solid #5b4b9a;
+            color: #463a78; font-weight: 800; font-size: 0.85rem;
+            padding: 0.8rem; border-radius: 999px; cursor: pointer;
+            transition: all 0.2s ease; font-family: inherit;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+          }
+          .mf-save-btn:hover { background: #efeafa; }
+          .mf-save-btn.saved { background: #dcfce7; border-color: #86efac; color: #166534; }
 
-          /* STEPS */
-          .hp-steps {
+          /* REASSURANCE BANNER */
+          .mf-reassure {
+            margin-top: 2rem; background: #efeafa; border-radius: 20px;
+            padding: 1.25rem 1.75rem; border: 1.5px solid #d9d0f0;
+            display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+          }
+          .mf-reassure-item {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.84rem; color: var(--text-main); max-width: 320px;
+          }
+          .mf-reassure-item strong { display: block; font-size: 0.88rem; margin-bottom: 2px; color: #463a78; }
+
+          /* SECTIONS */
+          .mf-section-light { padding: 4.5rem 1rem; position: relative; z-index: 1; }
+          .mf-section-light.alt { background: #faf6ee; }
+          .mf-sec-head { max-width: 620px; margin: 0 auto 3rem; text-align: center; }
+          .mf-sec-tag {
+            display: inline-flex; font-size: 0.76rem; font-weight: 800;
+            color: #5b4b9a; background: #efeafa; border-radius: 999px;
+            padding: 0.4rem 1.1rem; margin-bottom: 0.85rem;
+            text-transform: uppercase; letter-spacing: 0.06em;
+          }
+          .mf-sec-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 640; line-height: 1.2; color: var(--text-main);
+          }
+          .mf-sec-desc { font-size: 0.95rem; color: var(--text-subtle); margin-top: 0.75rem; line-height: 1.65; }
+
+          .mf-steps-grid {
+            max-width: 1120px; margin: 0 auto;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
           }
-          .hp-step-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
+          .mf-step-card {
+            background: #ffffff; border: 1.5px solid #eae3d6;
             border-radius: 22px; padding: 2rem 1.75rem;
-            transition: all 0.25s ease;
-            position: relative; overflow: hidden;
+            box-shadow: 0 16px 40px rgba(44,39,53,0.06);
+            transition: transform 0.2s ease, border-color 0.2s ease;
           }
-          .hp-step-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, #6366f1, #ec4899);
-            opacity: 0; transition: opacity 0.25s;
-          }
-          .hp-step-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.18); }
-          .hp-step-card:hover::before { opacity: 1; }
-          .hp-step-num {
+          .mf-step-card:hover { transform: translateY(-3px); border-color: #d9d0f0; }
+          .mf-step-card-num {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: 2.5rem; font-weight: 800; line-height: 1;
-            background: linear-gradient(135deg, #818cf8, #f472b6);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; margin-bottom: 0.75rem; display: block;
+            font-size: 2rem; color: #5b4b9a; font-weight: 800;
+            display: block; margin-bottom: 0.6rem;
           }
-          .hp-step-h3 { font-size: 1.05rem; font-weight: 700; color: #f3f4f6; margin-bottom: 0.5rem; }
-          .hp-step-p { font-size: 0.85rem; color: #6b7280; line-height: 1.65; margin: 0; }
+          .mf-step-card-h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem; font-family: 'Fraunces', Georgia, serif; color: var(--text-main); }
+          .mf-step-card-p { font-size: 0.88rem; color: var(--text-subtle); line-height: 1.6; margin: 0; }
 
-          /* ── FAQ ── */
-          .hp-faq-list { max-width: 740px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.85rem; }
-          .hp-faq-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 18px; overflow: hidden; transition: border-color 0.2s;
+          /* FAQ */
+          .mf-faq-wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.85rem; }
+          @keyframes mfFaqIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to   { opacity: 1; transform: translateY(0); }
           }
-          .hp-faq-card.open { border-color: rgba(99,102,241,0.4); }
-          .hp-faq-q {
+          .mf-faq-card {
+            background: #ffffff; border: 1.5px solid #eae3d6;
+            border-radius: 18px; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+          }
+          .mf-faq-card.open { border-color: #5b4b9a; box-shadow: 0 10px 28px rgba(91,75,154,0.08); }
+          .mf-faq-q {
             width: 100%; padding: 1.2rem 1.5rem; border: none; background: transparent;
-            text-align: left; font-family: inherit; font-size: 0.93rem; font-weight: 700;
-            color: #e5e7eb; cursor: pointer;
+            text-align: left; font-family: inherit; font-size: 0.95rem; font-weight: 700;
+            color: var(--text-main); cursor: pointer;
             display: flex; justify-content: space-between; align-items: center; gap: 1rem;
           }
-          .hp-faq-ic {
-            width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-            background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+          .mf-faq-plus {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: #efeafa; color: #5b4b9a;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; font-weight: 900; color: #818cf8;
-            transition: transform 0.25s ease, background 0.2s;
+            font-size: 1.1rem; font-weight: 900; flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.2s;
           }
-          .hp-faq-card.open .hp-faq-ic { transform: rotate(45deg); background: rgba(99,102,241,0.25); }
-          .hp-faq-a {
-            padding: 0 1.5rem 1.25rem; font-size: 0.86rem; color: #6b7280;
-            line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.06);
-            padding-top: 1rem;
+          .mf-faq-card.open .mf-faq-plus { transform: rotate(45deg); background: #5b4b9a; color: #ffffff; }
+          .mf-faq-a {
+            padding: 0 1.5rem 1.4rem; font-size: 0.88rem; color: var(--text-subtle);
+            line-height: 1.7; border-top: 1px solid #eae3d6; padding-top: 1rem;
+            animation: mfFaqIn 0.28s ease both;
           }
         `}</style>
 
-        <main className="hp-root">
+        <main>
           <AdBanner slot="top-banner" />
 
-          {/* ── HERO ── */}
-          <section className="hp-hero">
-            <div className="hp-hero-orb1" />
-            <div className="hp-hero-orb2" />
-            <div className="hp-hero-inner">
-              <div className="hp-badge">✨ 100% Free &nbsp;·&nbsp; Tap-Only &nbsp;·&nbsp; No Sign-Up Required</div>
-              <h1 className="hp-h1">
-                Shift your mindset<br />
-                in <span className="hp-gradient-text">60 seconds</span>
-              </h1>
-              <p className="hp-sub">
-                Select your current mood, discover your positive counterpart, and unlock a practical 60-second action to regain emotional clarity — instantly.
-              </p>
-              <div className="hp-trust-row">
-                <div className="hp-trust-item">🧠 Science-backed techniques</div>
-                <div className="hp-trust-dot" />
-                <div className="hp-trust-item">🔒 Privacy-first</div>
-                <div className="hp-trust-dot" />
-                <div className="hp-trust-item">⚡ Works in 3 taps</div>
-                <div className="hp-trust-dot" />
-                <div className="hp-trust-item">🌍 Helping people globally</div>
-              </div>
-            </div>
+          {/* HERO */}
+          <section className="mf-hero-lead">
+            <span className="mf-hero-tag">✨ 100% Free • Tap-Only • No Sign-Up</span>
+            <h1 className="mf-hero-h1">
+              Shift your mindset in <span>60 seconds</span>
+            </h1>
+            <p className="mf-hero-p">
+              Select your current mood, discover your positive counterpart, and get a practical 60-second action to regain emotional clarity.
+            </p>
           </section>
 
-          {/* ── MOOD TOOL ── */}
-          <section className="hp-tool-wrap" id="demo">
-            <div className="hp-grid">
+          {/* TOOL CONTAINER */}
+          <section className="mf-tool-container" id="demo">
+            <div className="mf-tool-grid">
 
-              {/* LEFT: SELECTION */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-                <div className="hp-glass hp-left" style={{ flex: 1 }}>
-                  {/* Step 1 */}
-                  <div>
-                    <div className="hp-section-label">
-                      <span>Step 1</span>
-                      <div className="hp-label-line" />
-                      <span>Choose your mood</span>
-                    </div>
-                    <div className="hp-fam-row">
-                      {FAMILY_ORDER.map((name) => {
-                        const m = FAMILY_META[name];
-                        const isSel = family === name;
-                        return (
-                          <button
-                            key={name}
-                            className={`hp-fam-chip ${isSel ? 'sel' : ''}`}
-                            onClick={() => chooseFamily(name)}
-                            style={isSel ? {
-                              background: m.bg,
-                              borderColor: m.color,
-                              color: '#fff',
-                              boxShadow: `0 6px 20px ${m.glow}`,
-                            } : {}}
-                          >
-                            <span>{m.emoji}</span>
-                            <span>{name}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div>
-                    <div className="hp-section-label">
-                      <span>Step 2</span>
-                      <div className="hp-label-line" />
-                      <span>Pick the exact feeling</span>
-                    </div>
-                    <div className="hp-feel-grid">
-                      {!family ? (
-                        <div className="hp-feel-empty">← Choose a mood family to see specific feelings</div>
-                      ) : feelings.map((name) => {
-                        const isSel = feeling === name;
-                        return (
-                          <button
-                            key={name}
-                            className={`hp-feel-tile ${isSel ? 'sel' : ''}`}
-                            onClick={() => chooseFeeling(name)}
-                            style={isSel && activeMeta ? {
-                              background: activeMeta.bg,
-                              borderColor: activeMeta.color,
-                              boxShadow: `0 6px 20px ${activeMeta.glow}`,
-                            } : {}}
-                          >
-                            {name}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+              {/* LEFT PANEL */}
+              <div className="mf-panel mf-panel-left">
+                <span className="mf-step-tag">
+                  <span className="mf-step-ic">☁️</span>
+                  <span>Choose your current mood</span>
+                </span>
+                <div className="mf-chip-row">
+                  {FAMILY_ORDER.map((name) => (
+                    <button
+                      key={name}
+                      className={`mf-fam-chip ${family === name ? 'selected' : ''}`}
+                      onClick={() => chooseFamily(name)}
+                    >
+                      {name}
+                    </button>
+                  ))}
                 </div>
 
-                {/* FLIP BUTTON */}
-                <div style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderTop: 'none',
-                  borderRadius: '0 0 28px 28px',
-                  padding: '1.25rem 2rem',
-                }}>
-                  <button
-                    id="flip-mood-btn"
-                    className="hp-flip-btn"
-                    disabled={!family || !feeling || flipping}
-                    onClick={flipMood}
-                  >
-                    <span className="hp-flip-arrow">
-                      {flipping ? '⟳' : '✦'}
-                    </span>
-                    <span>{flipping ? 'Flipping…' : 'Flip My Mood'}</span>
-                  </button>
+                <div style={{ marginTop: '1.75rem' }}>
+                  <span className="mf-step-tag">
+                    <span className="mf-step-ic">🤍</span>
+                    <span>Pick the feeling closest to how you feel</span>
+                  </span>
+                  <div className="mf-feel-grid">
+                    {!family ? (
+                      <div className="mf-feel-empty">
+                        Choose a mood family above to see feelings.
+                      </div>
+                    ) : (
+                      feelings.map((name) => (
+                        <button
+                          key={name}
+                          className={`mf-feel-tile ${feeling === name ? 'selected' : ''}`}
+                          onClick={() => chooseFeeling(name)}
+                        >
+                          <span>{name}</span>
+                        </button>
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* RIGHT: RESULT */}
-              <div
-                className="hp-glass hp-right"
-                id="resultPanel"
-                style={{ minHeight: 420 }}
-              >
-                <div
-                  className="hp-right-orb"
-                  style={result && activeMeta ? {
-                    background: `radial-gradient(circle, ${activeMeta.glow.replace('0.35','0.25').replace('0.3','0.2')} 0%, transparent 70%)`,
-                  } : {
-                    background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)',
-                  }}
-                />
+              {/* CENTER FLIP BUTTON */}
+              <div className="mf-flip-col">
+                <button
+                  id="flip-mood-btn"
+                  className="mf-flip-btn"
+                  disabled={!family || !feeling}
+                  onClick={flipMood}
+                  title={!family || !feeling ? 'Select a mood & feeling first' : 'Click to flip your mood'}
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                  <span>Flip My Mood</span>
+                </button>
+              </div>
+
+              {/* RIGHT PANEL */}
+              <div className="mf-panel mf-panel-right" id="rightPanel">
+                <div className="mf-sun-bg" />
 
                 {!result ? (
-                  <div className="hp-empty-state">
-                    <div className="hp-empty-icon">🌤️</div>
-                    <div className="hp-empty-title">Your flip awaits</div>
-                    <p className="hp-empty-desc">
-                      Select a mood on the left and tap <strong style={{ color: '#a5b4fc' }}>Flip My Mood</strong> to discover your positive shift and 60-second action.
-                    </p>
+                  <div className="mf-empty-right">
+                    <div className="mf-sun-icon-placeholder">🌤️</div>
+                    Select your current feeling on the left and tap <strong>FLIP MY MOOD</strong> to reveal your positive shift &amp; 60-second action.
                   </div>
                 ) : (
-                  <div className="hp-result">
-                    <div className="hp-result-eyebrow">Your mood flips to →</div>
-                    <div className="hp-result-mood">{result.target}</div>
+                  <div className="mf-result-content">
+                    <div className="mf-result-label">Your mood has changed to:</div>
+                    <div className="mf-result-mood">{result.target}</div>
 
-                    <div className="hp-action-card">
-                      <div className="hp-action-head">
-                        <div className="hp-timer-wrap">
-                          <svg className="hp-timer-svg" viewBox="0 0 46 46">
-                            <circle className="hp-timer-track" cx="23" cy="23" r="20" />
-                            <circle
-                              className="hp-timer-prog"
-                              cx="23" cy="23" r="20"
-                              style={{
-                                strokeDashoffset: circumference - (circumference * timerPct / 100),
-                                animation: timerRunning ? 'timerPulse 1.2s ease-in-out infinite' : 'none',
-                              }}
-                            />
-                          </svg>
-                          <div className="hp-timer-label">
-                            {timerRunning ? `${timeLeft}s` : '60s'}
-                          </div>
-                          <button
-                            className="hp-timer-btn-overlay"
-                            onClick={startTimer}
-                            title="Start/pause timer"
-                          />
-                        </div>
-                        <h3 className="hp-action-title">{result.title}</h3>
+                    <div className="mf-action-card">
+                      <div className="mf-action-head">
+                        <button
+                          className="mf-timer-btn"
+                          onClick={startTimer}
+                          title="Start/pause 60s timer"
+                        >
+                          {timerRunning ? `${timeLeft}s` : '▶ 60s'}
+                        </button>
+                        <h3 className="mf-action-title">{result.title}</h3>
                       </div>
-                      <p className="hp-action-desc">{result.action}</p>
-                      <div className="hp-insight">
-                        <span>💡</span>
-                        <div><strong style={{ color: '#c4b5fd' }}>Mindset Insight:</strong> {result.tip}</div>
+
+                      <p className="mf-action-desc">{result.action}</p>
+
+                      <div className="mf-action-tip">
+                        💡 <strong>Mindset Insight:</strong> {result.tip}
                       </div>
+
+                      <button
+                        className={`mf-save-btn ${savedSuccess ? 'saved' : ''}`}
+                        onClick={handleSaveCheckin}
+                      >
+                        <span>{savedSuccess ? '✅ Check-in Saved!' : '📌 Save Check-in'}</span>
+                      </button>
                     </div>
-
-                    <button
-                      className={`hp-save-btn ${savedSuccess ? 'saved' : ''}`}
-                      onClick={handleSaveCheckin}
-                    >
-                      {savedSuccess ? '✅ Saved to your profile!' : '📌 Save this check-in'}
-                    </button>
                   </div>
                 )}
               </div>
+
             </div>
 
-            {/* STRIP */}
-            <div className="hp-strip">
-              <div className="hp-strip-card">
-                <span className="hp-strip-icon">🌿</span>
+            {/* REASSURANCE BANNER */}
+            <div className="mf-reassure">
+              <div className="mf-reassure-item">
+                <span style={{ fontSize: '1.2rem' }}>🌿</span>
                 <div>
-                  <strong className="hp-strip-strong">Small shifts change everything.</strong>
-                  <span className="hp-strip-desc">You have got this, one moment at a time.</span>
+                  <strong>Small shifts change how you feel.</strong>
+                  <span>You have got this, one moment at a time.</span>
                 </div>
               </div>
-              <div className="hp-strip-card">
-                <span className="hp-strip-icon">💛</span>
+              <div className="mf-reassure-item">
+                <span style={{ fontSize: '1.2rem' }}>💛</span>
                 <div>
-                  <strong className="hp-strip-strong">Be kind to yourself.</strong>
-                  <span className="hp-strip-desc">Progress is built one choice at a time.</span>
+                  <strong>Be kind to yourself.</strong>
+                  <span>One choice at a time.</span>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* ── HOW IT WORKS ── */}
-          <section className="hp-section alt">
-            <div className="hp-sec-wrap">
-              <div className="hp-sec-head">
-                <div className="hp-sec-eyebrow">How MoodFlip works</div>
-                <h2 className="hp-sec-title">From stuck to moving in three gentle taps.</h2>
-                <p className="hp-sec-desc">No typing, no long questionnaires. Choose a feeling, then take one manageable next step.</p>
-              </div>
-              <div className="hp-steps">
-                {[
-                  { num: '01', title: 'Choose what feels closest', text: 'Start with a broad mood family, then tap the specific feeling that best matches this moment.' },
-                  { num: '02', title: 'Flip the emotional direction', text: 'MoodFlip pairs that feeling with a more supportive target state — no typing required.' },
-                  { num: '03', title: 'Take one tiny action', text: 'Try a practical 60-second reset designed to feel genuinely manageable, even on a difficult day.' },
-                ].map(s => (
-                  <div key={s.num} className="hp-step-card">
-                    <span className="hp-step-num">{s.num}</span>
-                    <h3 className="hp-step-h3">{s.title}</h3>
-                    <p className="hp-step-p">{s.text}</p>
-                  </div>
-                ))}
-              </div>
+          {/* HOW IT WORKS */}
+          <section className="mf-section-light mf-alt">
+            <div className="mf-sec-head">
+              <span className="mf-sec-tag">How MoodFlip works</span>
+              <h2 className="mf-sec-title">From stuck to moving in three gentle taps.</h2>
+              <p className="mf-sec-desc">No typing and no long questionnaire. Narrow the feeling, then take one manageable next step.</p>
+            </div>
+
+            <div className="mf-steps-grid">
+              {[
+                { num: '01', title: 'Choose what feels closest', text: 'Start with a broad mood family, then tap the feeling that best matches this moment.' },
+                { num: '02', title: 'Flip the emotional direction', text: 'MoodFlip pairs that feeling with a more supportive target state without asking you to type anything.' },
+                { num: '03', title: 'Take one tiny action', text: 'Try a practical 60-second reset designed to feel manageable, even on a difficult day.' },
+              ].map(s => (
+                <div key={s.num} className="mf-step-card">
+                  <span className="mf-step-card-num">{s.num}</span>
+                  <h3 className="mf-step-card-h3">{s.title}</h3>
+                  <p className="mf-step-card-p">{s.text}</p>
+                </div>
+              ))}
             </div>
           </section>
 
-          {/* ── FAQ ── */}
-          <section className="hp-section">
-            <div className="hp-sec-wrap">
-              <div className="hp-sec-head">
-                <div className="hp-sec-eyebrow">Got questions?</div>
-                <h2 className="hp-sec-title">Frequently asked questions</h2>
-              </div>
-              <div className="hp-faq-list">
-                {FAQS.map(([q, a], idx) => (
-                  <div key={idx} className={`hp-faq-card ${openFaq === idx ? 'open' : ''}`}>
-                    <button className="hp-faq-q" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
-                      <span>{q}</span>
-                      <span className="hp-faq-ic">+</span>
-                    </button>
-                    {openFaq === idx && <div className="hp-faq-a">{a}</div>}
-                  </div>
-                ))}
-              </div>
+          {/* FAQS */}
+          <section className="mf-section-light">
+            <div className="mf-sec-head">
+              <span className="mf-sec-tag">Got questions?</span>
+              <h2 className="mf-sec-title">Frequently asked questions</h2>
+            </div>
+
+            <div className="mf-faq-wrap">
+              {FAQS.map(([q, a], idx) => (
+                <div key={idx} className={`mf-faq-card ${openFaq === idx ? 'open' : ''}`}>
+                  <button className="mf-faq-q" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
+                    <span>{q}</span>
+                    <span className="mf-faq-plus">+</span>
+                  </button>
+                  {openFaq === idx && (
+                    <div className="mf-faq-a">{a}</div>
+                  )}
+                </div>
+              ))}
             </div>
           </section>
 

@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import Link from "next/link";
-import SiteLoader from "@/components/SiteLoader";
+import { useMemo, useState } from "react";
 
 type MoodFamily =
   | "All"
@@ -327,231 +325,222 @@ export default function Home() {
       date: new Date().toISOString(),
     };
 
-    try {
-      localStorage.setItem(
-        "moodflip-last-checkin",
-        JSON.stringify(checkin)
-      );
-    } catch (_) {}
+    localStorage.setItem(
+      "moodflip-last-checkin",
+      JSON.stringify(checkin)
+    );
   };
 
   return (
-    <>
-      <SiteLoader />
-      <main className="min-h-screen bg-[#faf9ff] text-[#17152d] pb-12">
-        <Header />
+    <main className="min-h-screen bg-[#faf9ff] text-[#17152d]">
+      <Header />
 
-        <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8">
-          <AdBanner />
+      <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8">
+        <AdBanner />
 
-          <section className="grid gap-5 xl:grid-cols-[1.25fr_1fr_240px]">
-            {/* LEFT */}
-            <section className="rounded-[28px] border border-[#ebe7f5] bg-white p-5 shadow-[0_20px_60px_rgba(55,35,100,0.08)] sm:p-7">
-              <div className="mb-6 flex items-center justify-between">
+        <section className="grid gap-5 xl:grid-cols-[1.25fr_1fr_240px]">
+          {/* LEFT */}
+          <section className="rounded-[28px] border border-[#ebe7f5] bg-white p-5 shadow-[0_20px_60px_rgba(55,35,100,0.08)] sm:p-7">
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#6842e8] to-[#9b55e8] font-bold text-white">
+                  1
+                </span>
+
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wide text-[#6c4de6]">
+                    Step 1
+                  </p>
+
+                  <h2 className="font-semibold">
+                    Choose your mood
+                  </h2>
+                </div>
+              </div>
+
+              <span className="rounded-full bg-[#f3efff] px-4 py-2 text-sm font-semibold text-[#6944dc]">
+                1 of 2
+              </span>
+            </div>
+
+            <div className="mb-5 flex flex-wrap gap-2">
+              {families.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => chooseFamily(item)}
+                  className={`rounded-xl border px-4 py-2.5 text-sm font-semibold transition ${
+                    family === item
+                      ? "border-[#7044e8] bg-gradient-to-r from-[#633ce0] to-[#9650e7] text-white shadow-lg shadow-purple-200"
+                      : "border-[#e9e5ef] bg-white text-[#25213b] hover:border-[#ad93ee] hover:bg-[#f8f5ff]"
+                  }`}
+                >
+                  {item === "All" && "▦ "}
+                  {item === "Low" && "😔 "}
+                  {item === "Anxious" && "🌧️ "}
+                  {item === "Angry" && "🔥 "}
+                  {item === "Overwhelmed" && "〰️ "}
+                  {item === "Lonely" && "👤 "}
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {visibleMoods.map((mood) => {
+                const active = selectedMood?.id === mood.id;
+
+                return (
+                  <button
+                    key={mood.id}
+                    onClick={() => chooseMood(mood)}
+                    className={`group rounded-2xl border p-4 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+                      active
+                        ? "border-[#7651eb] bg-[#f4efff] shadow-md shadow-purple-100"
+                        : "border-[#ece7f0] bg-gradient-to-b from-white to-[#fbfaff]"
+                    }`}
+                  >
+                    <span className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#f5f1ff] text-2xl transition group-hover:scale-110">
+                      {mood.emoji}
+                    </span>
+
+                    <span className="block text-sm font-semibold">
+                      {mood.name}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* STEP 2 */}
+            <div className="my-7 border-t border-[#eeeaf3] pt-7">
+              <div className="mb-5 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#6842e8] to-[#9b55e8] font-bold text-white">
-                    1
+                    2
                   </span>
 
                   <div>
                     <p className="text-xs font-bold uppercase tracking-wide text-[#6c4de6]">
-                      Step 1
+                      Step 2
                     </p>
 
-                    <h2 className="font-semibold text-lg text-[#282044]">
-                      Choose your mood
+                    <h2 className="font-semibold">
+                      Pick exact feeling
                     </h2>
                   </div>
                 </div>
 
                 <span className="rounded-full bg-[#f3efff] px-4 py-2 text-sm font-semibold text-[#6944dc]">
-                  1 of 2
+                  2 of 2
                 </span>
               </div>
 
-              <div className="mb-5 flex flex-wrap gap-2">
-                {families.map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => chooseFamily(item)}
-                    className={`rounded-xl border px-4 py-2.5 text-sm font-semibold transition ${
-                      family === item
-                        ? "border-[#7044e8] bg-gradient-to-r from-[#633ce0] to-[#9650e7] text-white shadow-lg shadow-purple-200"
-                        : "border-[#e9e5ef] bg-white text-[#25213b] hover:border-[#ad93ee] hover:bg-[#f8f5ff]"
-                    }`}
-                  >
-                    {item === "All" && "▦ "}
-                    {item === "Low" && "😔 "}
-                    {item === "Anxious" && "🌧️ "}
-                    {item === "Angry" && "🔥 "}
-                    {item === "Overwhelmed" && "〰️ "}
-                    {item === "Lonely" && "👤 "}
-                    {item}
-                  </button>
-                ))}
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-                {visibleMoods.map((mood) => {
-                  const active = selectedMood?.id === mood.id;
-
-                  return (
+              {!selectedMood ? (
+                <div className="rounded-2xl border border-dashed border-[#cfc3ee] bg-[#fcfbff] px-5 py-8 text-center text-sm text-[#77718b]">
+                  👆 Select a mood above to see specific feelings
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {selectedMood.feelings.map((feeling) => (
                     <button
-                      key={mood.id}
-                      onClick={() => chooseMood(mood)}
-                      className={`group rounded-2xl border p-4 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
-                        active
-                          ? "border-[#7651eb] bg-[#f4efff] shadow-md shadow-purple-100"
-                          : "border-[#ece7f0] bg-gradient-to-b from-white to-[#fbfaff]"
+                      key={feeling}
+                      onClick={() => {
+                        setSelectedFeeling(feeling);
+                        setFlipped(false);
+                      }}
+                      className={`rounded-xl border px-3 py-3 text-sm font-medium transition ${
+                        selectedFeeling === feeling
+                          ? "border-[#7145e5] bg-[#eee7ff] text-[#5b35c9]"
+                          : "border-[#e9e5ef] bg-white hover:border-[#bca7f1]"
                       }`}
                     >
-                      <span className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#f5f1ff] text-2xl transition group-hover:scale-110">
-                        {mood.emoji}
-                      </span>
-
-                      <span className="block text-sm font-semibold text-[#282044]">
-                        {mood.name}
-                      </span>
+                      {feeling}
                     </button>
-                  );
-                })}
-              </div>
-
-              {/* STEP 2 */}
-              <div className="my-7 border-t border-[#eeeaf3] pt-7">
-                <div className="mb-5 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#6842e8] to-[#9b55e8] font-bold text-white">
-                      2
-                    </span>
-
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wide text-[#6c4de6]">
-                        Step 2
-                      </p>
-
-                      <h2 className="font-semibold text-lg text-[#282044]">
-                        Pick exact feeling
-                      </h2>
-                    </div>
-                  </div>
-
-                  <span className="rounded-full bg-[#f3efff] px-4 py-2 text-sm font-semibold text-[#6944dc]">
-                    2 of 2
-                  </span>
+                  ))}
                 </div>
+              )}
+            </div>
 
-                {!selectedMood ? (
-                  <div className="rounded-2xl border border-dashed border-[#cfc3ee] bg-[#fcfbff] px-5 py-8 text-center text-sm text-[#77718b]">
-                    👆 Select a mood above to see specific feelings
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {selectedMood.feelings.map((feeling) => (
-                      <button
-                        key={feeling}
-                        onClick={() => {
-                          setSelectedFeeling(feeling);
-                          setFlipped(false);
-                        }}
-                        className={`rounded-xl border px-3 py-3 text-sm font-medium transition ${
-                          selectedFeeling === feeling
-                            ? "border-[#7145e5] bg-[#eee7ff] text-[#5b35c9] font-bold"
-                            : "border-[#e9e5ef] bg-white text-[#282044] hover:border-[#bca7f1]"
-                        }`}
-                      >
-                        {feeling}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+            <button
+              disabled={!selectedMood || !selectedFeeling}
+              onClick={flipMood}
+              className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#6237dc] via-[#8146e4] to-[#b64fd3] px-6 py-4 text-base font-bold text-white shadow-lg shadow-purple-200 transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <span className="relative z-10">
+                ✨ FLIP MY MOOD →
+              </span>
 
-              <button
-                disabled={!selectedMood || !selectedFeeling}
-                onClick={flipMood}
-                className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#6237dc] via-[#8146e4] to-[#b64fd3] px-6 py-4 text-base font-bold text-white shadow-lg shadow-purple-200 transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                <span className="relative z-10">
-                  ✨ FLIP MY MOOD →
-                </span>
+              <span className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-700 group-hover:translate-x-full" />
+            </button>
 
-                <span className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-700 group-hover:translate-x-full" />
-              </button>
-
-              <p className="mt-3 text-center text-xs text-[#817b91]">
-                Get your positive flip &amp; 60-second action
-              </p>
-            </section>
-
-            {/* RESULT */}
-            <PositiveResult
-              mood={selectedMood}
-              feeling={selectedFeeling}
-              flipped={flipped}
-              saved={saved}
-              actionIndex={actionIndex}
-              onTryAnother={tryAnother}
-              onSave={saveCheckin}
-            />
-
-            {/* SIDEBAR */}
-            <MoreForYou />
+            <p className="mt-3 text-center text-xs text-[#817b91]">
+              Get your positive flip & 60-second action
+            </p>
           </section>
 
-          <TrustSection />
+          {/* RESULT */}
+          <PositiveResult
+            mood={selectedMood}
+            feeling={selectedFeeling}
+            flipped={flipped}
+            saved={saved}
+            actionIndex={actionIndex}
+            onTryAnother={tryAnother}
+            onSave={saveCheckin}
+          />
 
-          <AdBanner />
+          {/* SIDEBAR */}
+          <MoreForYou />
+        </section>
 
-          <Footer />
-        </div>
-      </main>
-    </>
+        <TrustSection />
+
+        <AdBanner />
+
+        <Footer />
+      </div>
+    </main>
   );
 }
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[#eeeaf4] bg-white/90 backdrop-blur-xl mb-6">
+    <header className="sticky top-0 z-50 border-b border-[#eeeaf4] bg-white/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <div className="relative flex h-10 w-10 items-center justify-center">
             <span className="absolute bottom-0 left-1 h-7 w-7 rounded-full border-[6px] border-[#713ee2] border-t-transparent" />
             <span className="absolute left-1 top-0 h-3 w-3 rounded-full bg-[#f4a746]" />
             <span className="absolute right-0 top-1 h-2.5 w-2.5 rounded-full bg-[#d94fc5]" />
           </div>
 
-          <span className="text-2xl font-black tracking-tight text-[#282044]">
+          <span className="text-2xl font-black tracking-tight">
             mood<span className="text-[#7b45e7]">flip</span>
           </span>
-        </Link>
+        </div>
 
         <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
-          {[
-            { name: "Home", href: "/" },
-            { name: "About", href: "/about" },
-            { name: "Contact", href: "/contact" },
-            { name: "Privacy", href: "/privacy" },
-            { name: "Disclaimer", href: "/disclaimer" },
-          ].map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-[#6B638B] transition hover:text-[#7043df] font-semibold"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {["Home", "About", "How It Works", "Mood Library", "Resources", "Contact"].map(
+            (item) => (
+              <a
+                key={item}
+                href="#"
+                className="transition hover:text-[#7043df]"
+              >
+                {item}
+              </a>
+            )
+          )}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Link href="/login" className="hidden rounded-xl border border-[#a78bea] px-5 py-2.5 text-sm font-semibold text-[#673cdb] transition hover:bg-[#f7f3ff] sm:block">
-            Login
-          </Link>
+        <div className="flex items-center gap-2">
+          <button className="hidden rounded-xl border border-[#a78bea] px-5 py-2.5 text-sm font-semibold text-[#673cdb] transition hover:bg-[#f7f3ff] sm:block">
+            ♙ Login
+          </button>
 
-          <Link href="/register" className="rounded-xl bg-gradient-to-r from-[#a23fcf] to-[#6541df] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-purple-200 sm:px-5">
+          <button className="rounded-xl bg-gradient-to-r from-[#a23fcf] to-[#6541df] px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-purple-200 sm:px-5">
             ✨ Get 7-Day Plan
-          </Link>
+          </button>
         </div>
       </div>
     </header>
@@ -601,20 +590,20 @@ function PositiveResult({
         </span>
 
         <div className="flex gap-2">
-          <button className="rounded-lg bg-white/80 px-3 py-2 text-xs font-semibold shadow-sm hover:bg-white text-[#282044]">
+          <button className="rounded-lg bg-white/80 px-3 py-2 text-xs font-semibold shadow-sm hover:bg-white">
             ♡ Save
           </button>
 
           <button
             onClick={() => {
-              if (typeof window !== "undefined" && navigator.share) {
+              if (navigator.share) {
                 navigator.share({
                   title: "MoodFlip",
                   text: "I just flipped my mood on MoodFlip.",
                 });
               }
             }}
-            className="rounded-lg bg-white/80 px-3 py-2 text-xs font-semibold shadow-sm hover:bg-white text-[#282044]"
+            className="rounded-lg bg-white/80 px-3 py-2 text-xs font-semibold shadow-sm hover:bg-white"
           >
             ↗ Share
           </button>
@@ -733,7 +722,6 @@ function MoreForYou() {
         title="7-Day Plan"
         text="Build a better mindset starting today."
         button="View Plan →"
-        href="/register"
       />
 
       <PlanCard
@@ -741,7 +729,6 @@ function MoreForYou() {
         title="30-Day Plan"
         text="Go deeper. Lasting change in 30 days."
         button="Coming Soon"
-        href="/pricing"
       />
 
       <PlanCard
@@ -749,7 +736,6 @@ function MoreForYou() {
         title="Daily Reminders"
         text="Gentle nudges for your better days."
         button="Enable →"
-        href="/register"
       />
 
       <PlanCard
@@ -757,17 +743,16 @@ function MoreForYou() {
         title="Track Progress"
         text="See how far you've come."
         button="View Profile →"
-        href="/profile"
       />
 
       <div className="rounded-2xl border border-[#eee8f5] bg-white p-4 shadow-sm">
         <div className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f0eaff] text-lg">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f0eaff]">
             🔐
           </span>
 
           <div>
-            <p className="text-xs font-bold text-[#282044]">Your data is private</p>
+            <p className="text-xs font-bold">Your data is private</p>
             <p className="mt-1 text-[11px] text-[#777180]">
               Protected and automatically deleted after 90 days.
             </p>
@@ -783,13 +768,11 @@ function PlanCard({
   title,
   text,
   button,
-  href,
 }: {
   icon: string;
   title: string;
   text: string;
   button: string;
-  href?: string;
 }) {
   return (
     <div className="rounded-2xl border border-[#eee8f5] bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
@@ -799,20 +782,14 @@ function PlanCard({
         </span>
 
         <div>
-          <h4 className="text-sm font-bold text-[#282044]">{title}</h4>
+          <h4 className="text-sm font-bold">{title}</h4>
           <p className="mt-1 text-xs leading-relaxed text-[#777180]">
             {text}
           </p>
 
-          {href ? (
-            <Link href={href} className="mt-2 inline-block text-xs font-bold text-[#6841d9]">
-              {button}
-            </Link>
-          ) : (
-            <button className="mt-2 text-xs font-bold text-[#6841d9]">
-              {button}
-            </button>
-          )}
+          <button className="mt-2 text-xs font-bold text-[#6841d9]">
+            {button}
+          </button>
         </div>
       </div>
     </div>
@@ -860,7 +837,7 @@ function TrustSection() {
           </span>
 
           <div>
-            <p className="text-xs font-bold text-[#282044]">{item.title}</p>
+            <p className="text-xs font-bold">{item.title}</p>
             <p className="mt-1 text-[11px] leading-relaxed text-[#777180]">
               {item.text}
             </p>
@@ -886,11 +863,12 @@ function Footer() {
         </div>
 
         <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-[#d0cce0]">
-          <Link href="/about" className="hover:text-white transition">About</Link>
-          <Link href="/contact" className="hover:text-white transition">Contact</Link>
-          <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
-          <Link href="/terms" className="hover:text-white transition">Terms</Link>
-          <Link href="/disclaimer" className="hover:text-white transition">Disclaimer</Link>
+          <a href="#">About</a>
+          <a href="#">How It Works</a>
+          <a href="#">Mood Library</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+          <a href="#">Contact</a>
         </div>
 
         <p className="text-xs text-[#aaa5c0]">

@@ -174,7 +174,7 @@
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.02fr) 230px;
   gap: 18px;
   padding: 0 28px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .moodPanel,
@@ -184,13 +184,11 @@
   border-radius: 22px;
   background: rgba(255,255,255,.93);
   box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
-  height: 100%;
 }
 
 .moodPanel {
   padding: 22px 20px;
-  display: flex;
-  flex-direction: column;
+  min-height: 686px;
 }
 
 .stepHeader {
@@ -689,27 +687,18 @@
 }
 
 .morePanel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px 16px;
+  min-height: 431px;
+  padding: 16px 12px;
   margin-top: 0px;
   border-radius: 21px;
 }
 
 .morePanel h3 {
-  margin: 2px 4px 16px;
-  font-size: 14px;
-  font-weight: 800;
+  margin: 1px 3px 13px;
+  font-size: 11px;
 }
 
-.planList {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-  gap: 12px;
-}
+.planList { display: grid; gap: 11px; }
 .planCard {
   min-height: 90px;
   display: grid;

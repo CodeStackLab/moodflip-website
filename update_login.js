@@ -1,4 +1,6 @@
-'use client';
+const fs = require('fs');
+
+const loginCode = `'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -209,3 +211,7 @@ export default function LoginPage() {
     </div>
   );
 }
+`;
+
+fs.writeFileSync('app/login/page.tsx', loginCode, 'utf8');
+console.log('LoginPage updated cleanly!');

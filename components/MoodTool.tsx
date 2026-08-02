@@ -337,6 +337,13 @@ export default function MoodTool(): React.JSX.Element {
         .mf2-crumb-current { color: var(--ink); font-weight: 600; }
         .mf2-start-over { margin-left: auto; font-size: 12.5px; text-decoration: underline; color: var(--ink-faint); background: none; border: none; font-weight: 600; }
         .mf2-start-over:hover { color: var(--ink); }
+        .mf2-start-over-btn:hover {
+          background: linear-gradient(135deg, var(--m3-purple-primary), var(--pink-grad)) !important;
+          color: #ffffff !important;
+          border-color: transparent !important;
+          transform: translateY(-1px);
+          box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3) !important;
+        }
 
         .mf2-options-label { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; display: block; font-weight: 600; }
         .mf2-chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -567,42 +574,82 @@ export default function MoodTool(): React.JSX.Element {
             </div>
 
             <div>
-              <div className="mf2-crumbs">
-                {crumbs.length === 0 && <span>Nothing chosen yet</span>}
-                {crumbs.map((c, i) => (
-                  <span key={c} style={{ display: 'flex' }}>
-                    {i > 0 && <span className="mf2-crumb-sep">/</span>}
-                    <span className={i === crumbs.length - 1 ? 'mf2-crumb-current' : ''}>{c}</span>
+              {/* Sleek Top Header Bar & Breadcrumb Navigation */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '0.75rem',
+                marginBottom: '1.25rem',
+                paddingBottom: '0.85rem',
+                borderBottom: '1px solid var(--card-border)',
+                flexWrap: 'wrap'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+                  <span style={{
+                    background: 'linear-gradient(135deg, var(--m3-purple-primary), var(--pink-grad))',
+                    color: '#fff',
+                    fontSize: '0.72rem',
+                    fontWeight: 800,
+                    padding: '0.25rem 0.65rem',
+                    borderRadius: '999px',
+                    letterSpacing: '0.05em',
+                    textTransform: 'uppercase',
+                    boxShadow: '0 4px 12px rgba(124, 58, 237, 0.25)'
+                  }}>
+                    STEP {currentStep} OF 4
                   </span>
-                ))}
+
+                  {/* Breadcrumb Pills */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
+                    {crumbs.length === 0 ? (
+                      <span style={{ fontSize: '0.84rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+                        Select primary mood cloud
+                      </span>
+                    ) : (
+                      crumbs.map((c, i) => (
+                        <React.Fragment key={c}>
+                          {i > 0 && <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>➔</span>}
+                          <span style={{
+                            background: i === crumbs.length - 1 ? 'rgba(124, 58, 237, 0.12)' : 'var(--tile-bg)',
+                            color: i === crumbs.length - 1 ? 'var(--m3-purple-primary)' : 'var(--text-subtle)',
+                            border: '1px solid var(--card-border)',
+                            padding: '0.2rem 0.65rem',
+                            borderRadius: '999px',
+                            fontSize: '0.78rem',
+                            fontWeight: i === crumbs.length - 1 ? 800 : 600
+                          }}>
+                            {i === 0 && family ? `${FAMILY_META[family].icon} ` : ''}{c}
+                          </span>
+                        </React.Fragment>
+                      ))
+                    )}
+                  </div>
+                </div>
+
                 {crumbs.length > 0 && (
-                  <button className="mf2-start-over" onClick={reset}>
-                    start over
+                  <button
+                    onClick={reset}
+                    className="mf2-start-over-btn"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.35rem',
+                      padding: '0.38rem 0.9rem',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(124, 58, 237, 0.3)',
+                      background: 'rgba(124, 58, 237, 0.08)',
+                      color: 'var(--m3-purple-primary)',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      boxShadow: '0 2px 8px rgba(124, 58, 237, 0.08)'
+                    }}
+                  >
+                    <span>🔄</span> Start Over
                   </button>
                 )}
-              </div>
-
-              {/* Step indicator header */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.2rem' }}>
-                <span style={{
-                  background: 'linear-gradient(135deg, var(--m3-purple-primary), var(--pink-grad))',
-                  color: '#fff',
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  padding: '0.25rem 0.65rem',
-                  borderRadius: '999px',
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase'
-                }}>
-                  Step {currentStep} of 4
-                </span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-subtle)', fontWeight: 600 }}>
-                  {!family && 'Select primary mood'}
-                  {family && !category && 'Narrow category'}
-                  {family && category && !feeling && 'Specific feeling'}
-                  {result && !revealed && 'Ready to flip!'}
-                  {result && revealed && 'Target Mindset Shift'}
-                </span>
               </div>
 
               {!family && (

@@ -915,3 +915,375 @@
   font-size: 11px;
   color: #a09cb0;
 }
+
+/* --- New Sections (How It Works, Promo, Explore, About, FAQ) --- */
+
+/* Generic Section Styles */
+.howItWorks, .promoSection, .exploreSection, .aboutSection, .faqSection {
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.howItWorks h2, .exploreSection h2, .faqSection h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1b3a;
+  margin-bottom: 12px;
+}
+.sectionSub {
+  font-size: 16px;
+  color: #6c6a7e;
+  margin-bottom: 40px;
+}
+
+/* 1. How MoodFlip Works */
+.stepsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 40px;
+}
+.stepItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.stepIconBubble {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e4efff 0%, #d4fffa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.stepItem:nth-child(2) .stepIconBubble { background: linear-gradient(135deg, #f3edff 0%, #e1d4ff 100%); }
+.stepItem:nth-child(4) .stepIconBubble { background: linear-gradient(135deg, #e8fff4 0%, #c1ffdf 100%); }
+.stepItem:nth-child(6) .stepIconBubble { background: linear-gradient(135deg, #ffeef6 0%, #ffd4e5 100%); }
+.stepItem:nth-child(8) .stepIconBubble { background: linear-gradient(135deg, #fff3e6 0%, #ffe3c1 100%); }
+
+.stepNumber {
+  font-size: 18px;
+  font-weight: 800;
+  color: #6f42c1;
+  margin-bottom: 10px;
+}
+.stepItem h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1b3a;
+  margin-bottom: 8px;
+}
+.stepItem p {
+  font-size: 13px;
+  color: #6c6a7e;
+  line-height: 1.4;
+}
+.stepArrow {
+  color: #d1cbdc;
+  font-size: 24px;
+  font-weight: 300;
+  margin-top: 30px;
+  letter-spacing: -2px;
+}
+
+/* 2. 7-Day Plan Promo */
+.promoSection {
+  background: linear-gradient(135deg, #fdfbfe 0%, #f6f0ff 100%);
+  border-radius: 24px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 50px;
+  text-align: left;
+  border: 1px solid #efe8fb;
+}
+.promoImagePlaceholder {
+  display: flex;
+  justify-content: center;
+}
+.promoBook {
+  width: 200px;
+  height: 260px;
+  background: linear-gradient(180deg, #6a4de2 0%, #ab61df 100%);
+  border-radius: 12px 16px 16px 12px;
+  box-shadow: -10px 15px 30px rgba(70, 30, 140, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+  border-left: 8px solid #5a3bc2;
+}
+.promoBook h3 { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+.promoBook h3 span { color: #f4a746; }
+.promoBook h2 { font-size: 20px; font-weight: 800; letter-spacing: 1px; margin-bottom: 20px; text-align: center; }
+.promoBadge {
+  background: #f4a746;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+}
+.promoContent h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #43229b;
+  margin-bottom: 12px;
+}
+.promoContent p {
+  font-size: 15px;
+  color: #685b82;
+  margin-bottom: 24px;
+}
+.promoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.promoList li {
+  font-size: 14px;
+  color: #4b4168;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.promoList li span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #6f42c1;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+}
+.promoPricing {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+  text-align: center;
+}
+.promoPricing h4 { font-size: 18px; color: #1a1b3a; margin-bottom: 6px; }
+.promoPricing > p { font-size: 13px; color: #6c6a7e; margin-bottom: 20px; }
+.promoPricing h2 { font-size: 42px; font-weight: 800; color: #1a1b3a; margin-bottom: 6px; }
+.promoOneTime { font-size: 12px; color: #6c6a7e; margin-bottom: 24px; }
+.promoButton {
+  width: 100%;
+  padding: 14px;
+  background: #6f42c1;
+  color: white;
+  border: none;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(111, 66, 193, 0.25);
+  margin-bottom: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.promoButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(111, 66, 193, 0.35);
+}
+.promoPricing small { font-size: 11px; color: #a09cb0; }
+
+/* 3. Explore Your Feelings */
+.exploreGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.exploreCard {
+  background: #fbfbfe;
+  border: 1px solid #eef0f7;
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: left;
+}
+.exploreCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+.exploreIcon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #e4efff 0%, #d4fffa 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.exploreCard:nth-child(2) .exploreIcon { background: linear-gradient(135deg, #fff3e6 0%, #ffe3c1 100%); }
+.exploreCard:nth-child(3) .exploreIcon { background: linear-gradient(135deg, #f3edff 0%, #e1d4ff 100%); }
+.exploreCard:nth-child(4) .exploreIcon { background: linear-gradient(135deg, #ffeef6 0%, #ffd4e5 100%); }
+.exploreCard:nth-child(5) .exploreIcon { background: linear-gradient(135deg, #e4efff 0%, #d4e5ff 100%); }
+.exploreCard:nth-child(6) .exploreIcon { background: linear-gradient(135deg, #f3e5ff 0%, #e1d4ff 100%); }
+
+.exploreCard h4 { font-size: 16px; font-weight: 700; color: #1a1b3a; margin-bottom: 4px; }
+.exploreCard p { font-size: 12px; color: #6c6a7e; margin-bottom: 6px; }
+.viewLink { font-size: 12px; font-weight: 700; color: #6f42c1; }
+
+.viewAllButton {
+  padding: 12px 30px;
+  background: #6f42c1;
+  color: white;
+  border: none;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.viewAllButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(111, 66, 193, 0.25);
+}
+
+/* 4. About MoodFlip */
+.aboutSection {
+  background: #fbfbfe;
+  border-radius: 24px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.2fr;
+  gap: 40px;
+  align-items: center;
+  padding: 50px;
+  text-align: left;
+}
+.illustrationPlaceholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #f3edff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+}
+.aboutContent h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1b3a;
+  margin-bottom: 16px;
+}
+.aboutContent p {
+  font-size: 14px;
+  color: #50526e;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.aboutFeatures ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.aboutFeatures li {
+  background: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #1a1b3a;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+.aboutFeatures li span {
+  background: #fbfbfe;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+/* 5. Frequently Asked Questions */
+.faqSection {
+  margin-bottom: 60px;
+}
+.faqGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  text-align: left;
+}
+.faqItem {
+  background: white;
+  border: 1px solid #eef0f7;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.faqItem summary {
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1b3a;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+.faqItem summary::after {
+  content: '▼';
+  font-size: 10px;
+  color: #a09cb0;
+  transition: transform 0.2s;
+}
+.faqItem[open] summary::after {
+  transform: rotate(180deg);
+}
+.faqAnswer {
+  padding: 0 20px 20px;
+  font-size: 14px;
+  color: #6c6a7e;
+  line-height: 1.6;
+}
+
+/* Media Queries for new sections */
+@media (max-width: 900px) {
+  .stepsContainer { flex-direction: column; align-items: center; gap: 30px; }
+  .stepArrow { transform: rotate(90deg); margin: 0; }
+  .promoSection { grid-template-columns: 1fr; text-align: center; }
+  .promoImagePlaceholder { justify-content: center; }
+  .promoList li { justify-content: center; }
+  .aboutSection { grid-template-columns: 1fr; text-align: center; }
+  .aboutFeatures li { justify-content: center; }
+  .exploreGrid { grid-template-columns: 1fr; }
+  .faqGrid { grid-template-columns: 1fr; }
+}

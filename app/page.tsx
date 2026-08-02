@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, Fragment } from "react";
 import styles from "./page.module.css";
 
 type Mood = {
@@ -288,6 +288,130 @@ export default function HomePage() {
           <article><span className={styles.trustIcon}>💗</span><div><strong>Not Therapy</strong><p>MoodFlip is a self-reflection<br />utility, not a medical service.</p></div></article>
           <article><span className={styles.trustIcon}>👥</span><div><strong>You&apos;re Not Alone</strong><p>Millions use MoodFlip for small<br />shifts, every day.</p></div></article>
           <article><span className={styles.trustIcon}>✨</span><div><strong>Made with Care</strong><p>Simple tools for a better<br />you, one step at a time.</p></div></article>
+        </section>
+
+        {/* Section 1: How MoodFlip Works */}
+        <section id="how" className={styles.howItWorks}>
+          <h2>How MoodFlip Works</h2>
+          <p className={styles.sectionSub}>A simple 5-step journey to a better you.</p>
+          <div className={styles.stepsContainer}>
+            {[
+              { icon: '🎛️', title: 'Choose Your Mood', desc: 'Pick the mood that\\nfeels closest to you.' },
+              { icon: '☁️', title: 'Pick Exact Feeling', desc: 'Select the feeling that\\nmatches you best.' },
+              { icon: '🔄', title: 'Flip Your Mood', desc: 'We find your positive\\ncounterpart.' },
+              { icon: '▶️', title: 'Get 60-Second Action', desc: 'A short action to shift\\nyour energy.' },
+              { icon: '📈', title: 'Save & Track Progress', desc: 'Save your check-in\\nand see growth.' }
+            ].map((step, i) => (
+              <React.Fragment key={step.title}>
+                <div className={styles.stepItem}>
+                  <div className={styles.stepIconBubble}>{step.icon}</div>
+                  <div className={styles.stepNumber}>{i + 1}</div>
+                  <h4>{step.title}</h4>
+                  <p>{step.desc.split('\\n').map((line, idx) => <React.Fragment key={idx}>{line}<br/></React.Fragment>)}</p>
+                </div>
+                {i < 4 && <div className={styles.stepArrow}>--&gt;</div>}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* Section 2: 7-Day Plan Promo */}
+        <section className={styles.promoSection}>
+          <div className={styles.promoImagePlaceholder}>
+            <div className={styles.promoBook}>
+              <h3>mood<span>flip</span></h3>
+              <h2>7-DAY PLAN</h2>
+              <div className={styles.promoBadge}>BEST FOR<br />BEGINNERS</div>
+            </div>
+          </div>
+          <div className={styles.promoContent}>
+            <h2>Build a Better Mindset in Just 7 Days</h2>
+            <p>Simple daily check-ins, practical actions, real change.</p>
+            <ul className={styles.promoList}>
+              <li><span>✓</span> Daily mood check-ins</li>
+              <li><span>✓</span> Personalized 60-second actions</li>
+              <li><span>✓</span> 7-day PDF report</li>
+              <li><span>✓</span> Gentle guidance for you</li>
+            </ul>
+          </div>
+          <div className={styles.promoPricing}>
+            <h4>7-Day Plan</h4>
+            <p>Perfect for getting started</p>
+            <h2>$7</h2>
+            <p className={styles.promoOneTime}>One-time payment</p>
+            <button className={styles.promoButton} type="button">Get 7-Day Plan Now</button>
+            <small>Secure payment • Instant PDF</small>
+          </div>
+        </section>
+
+        {/* Section 3: Explore Your Feelings */}
+        <section id="library" className={styles.exploreSection}>
+          <h2>Explore Your Feelings</h2>
+          <p className={styles.sectionSub}>Browse common moods and learn how to shift them.</p>
+          <div className={styles.exploreGrid}>
+            {[
+              { icon: '🌀', title: 'Anxiety', sub: 'Find calm & clarity' },
+              { icon: '💥', title: 'Stress', sub: 'Find balance' },
+              { icon: '😢', title: 'Sadness', sub: 'Find light again' },
+              { icon: '😡', title: 'Anger', sub: 'Find peace' },
+              { icon: '👤', title: 'Loneliness', sub: 'Find connection' },
+              { icon: '🌪️', title: 'Overwhelmed', sub: 'Find control' }
+            ].map(mood => (
+              <a href="#" key={mood.title} className={styles.exploreCard}>
+                <div className={styles.exploreIcon}>{mood.icon}</div>
+                <div>
+                  <h4>{mood.title}</h4>
+                  <p>{mood.sub}</p>
+                  <span className={styles.viewLink}>View &rarr;</span>
+                </div>
+              </a>
+            ))}
+          </div>
+          <button className={styles.viewAllButton} type="button">View All Moods &rarr;</button>
+        </section>
+
+        {/* Section 4: About MoodFlip */}
+        <section id="about" className={styles.aboutSection}>
+          <div className={styles.aboutIllustration}>
+            {/* CSS placeholder for the woman illustration */}
+            <div className={styles.illustrationPlaceholder}>👩🏻‍🦰</div>
+          </div>
+          <div className={styles.aboutContent}>
+            <h2>About MoodFlip</h2>
+            <p>MoodFlip is a self-reflection utility designed to help you find your mood match, meaningfully.</p>
+            <p>We are not a therapy or medical service. We provide simple tools, not medical advice.</p>
+            <p>For emergencies, please contact local emergency services.</p>
+          </div>
+          <div className={styles.aboutFeatures}>
+            <ul>
+              <li><span>💗</span> Self-reflection, not diagnosis</li>
+              <li><span>🛠️</span> Practical tools for daily life</li>
+              <li><span>✨</span> Designed with care &amp; empathy</li>
+              <li><span>🔒</span> Your privacy comes first</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Section 5: Frequently Asked Questions */}
+        <section className={styles.faqSection}>
+          <h2>Frequently Asked Questions</h2>
+          <div className={styles.faqGrid}>
+            {[
+              "Is MoodFlip a therapy or medical service?",
+              "Do I need an account to use MoodFlip?",
+              "How does the 60-second action work?",
+              "How long is my data kept?",
+              "How is my data stored and protected?",
+              "Can I get a refund on my plan?"
+            ].map((q, i) => (
+              <details key={i} className={styles.faqItem}>
+                <summary>{q}</summary>
+                <div className={styles.faqAnswer}>
+                  <p>This is a placeholder answer. MoodFlip provides simple self-reflection tools to help you shift your mindset.</p>
+                </div>
+              </details>
+            ))}
+          </div>
         </section>
 
         <footer className={styles.footer}>

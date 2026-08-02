@@ -1,10 +1,12 @@
 'use client';
 
 import React from 'react';
+import Header from '@/components/Header';
 import MoodTool from '@/components/MoodTool';
+import HomepageSections from '@/components/HomepageSections';
+import Footer from '@/components/Footer';
 import SiteLoader from '@/components/SiteLoader';
 
-// AdSense only shown when real publisher ID is configured
 const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true';
 const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || '';
 
@@ -28,9 +30,43 @@ export default function HomePage() {
   return (
     <>
       <SiteLoader />
+      <Header />
       <AdBanner slot="top-banner" />
-      <MoodTool />
+
+      {/* HERO SECTION matching moodflip-redesign.html */}
+      <section className="hero">
+        <div className="wrap hero-inner">
+          <div className="hero-top">
+            <span className="eyebrow">✦ 100% Free · Tap-Only · No Sign-Up</span>
+            <h1>
+              Don't fix the mood.<br />
+              <em>Flip</em> it.
+            </h1>
+            <p className="lede">
+              Tap what you're feeling right now. MoodFlip flips it to a steadier state and hands you one 60-second action — no typing, no account, no long questionnaire.
+            </p>
+            <div className="hero-actions">
+              <button
+                className="btn btn-primary"
+                onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Start the flip ↓
+              </button>
+              <a href="/pricing" className="btn btn-ghost">
+                See the $7 plan
+              </a>
+            </div>
+          </div>
+
+          {/* Interactive MoodTool Demo */}
+          <MoodTool />
+        </div>
+      </section>
+
+      {/* HOMEPAGE SECTIONS: How it works, Why cards, FAQ, Pricing, About */}
+      <HomepageSections />
       <AdBanner slot="bottom-banner" />
+      <Footer />
     </>
   );
 }

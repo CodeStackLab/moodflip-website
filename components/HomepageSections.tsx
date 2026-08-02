@@ -422,3 +422,14 @@ export function FAQSection() {
     </section>
   );
 }
+
+export default function HomepageSections() {
+  return (
+    <>
+      <HowItWorksSection />
+      <ScienceSection />
+      <TestimonialsSection />
+      <FAQSection />
+    </>
+  );
+}

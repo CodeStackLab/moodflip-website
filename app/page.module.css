@@ -242,6 +242,36 @@
   box-shadow: 0 7px 16px rgba(100, 49, 216, .17);
 }
 
+.flipButton {
+  width: 100%;
+  padding: 16px;
+  margin-top: 24px;
+  background: linear-gradient(135deg, #dfc6ff 0%, #e2d2fb 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.flipButton:not(:disabled) {
+  background: linear-gradient(135deg, #c48bf5 0%, #8557e8 100%);
+  box-shadow: 0 10px 30px rgba(144, 100, 240, 0.25);
+}
+
+.flipButton:disabled {
+  background: #f0eafb;
+  color: #c7bede;
+  cursor: not-allowed;
+}
+
 .moodGrid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -840,7 +870,7 @@
   background: linear-gradient(to right, #6f42c1, #5a32a3);
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 999px;
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
@@ -860,7 +890,7 @@
   background: white;
   color: #6f42c1;
   border: 1px solid #e2d5f8;
-  border-radius: 12px;
+  border-radius: 999px;
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;

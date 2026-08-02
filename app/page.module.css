@@ -10,7 +10,7 @@
 
 .appFrame {
   position: relative;
-  max-width: 1450px;
+  max-width: 1560px;
   margin: 0 auto;
   overflow: hidden;
   border: 1px solid rgba(24, 25, 64, .14);
@@ -45,38 +45,7 @@
 
 .logo > span:last-child > span { color: #7147e8; }
 
-.logoMark {
-  position: relative;
-  width: 29px;
-  height: 22px;
-  display: inline-block;
-  border-radius: 0 0 19px 19px;
-  background: linear-gradient(135deg, #ff9f8d 0%, #d950c0 55%, #7148e9 100%);
-  transform: translateY(1px);
-}
 
-.logoMark::after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  top: 4px;
-  width: 17px;
-  height: 9px;
-  border-radius: 0 0 12px 12px;
-  background: white;
-}
-
-.logoMark span {
-  position: absolute;
-  z-index: 2;
-  top: -6px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ffad64;
-}
-.logoMark span:first-child { left: 2px; }
-.logoMark span:last-child { right: 2px; }
 
 .nav {
   display: flex;
@@ -682,6 +651,10 @@
 .trustStrip strong { font-size: 10px; }
 .trustStrip p { margin: 3px 0 0; font-size: 9px; line-height: 1.35; }
 
+.footerLogo {
+  margin-bottom: 8px;
+}
+
 .footer {
   min-height: 58px;
   display: grid;
@@ -779,4 +752,127 @@
   .planList { grid-template-columns: 1fr; }
   .trustStrip { margin-inline: 12px; grid-template-columns: 1fr; padding-inline: 16px; }
   .welcomeCard { left: 12px; right: 12px; width: auto; }
+}
+/* --- Welcome Card --- */
+.welcomeCard {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 320px;
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(50, 30, 90, 0.15);
+  border: 1px solid rgba(113, 71, 232, 0.15);
+  z-index: 1000;
+  text-align: center;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(40px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.closeWelcome {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  color: #a09cb0;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.closeWelcome:hover {
+  background: #f4efff;
+  color: #7147e8;
+}
+
+.welcomeContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  text-align: left;
+  margin-bottom: 24px;
+  margin-top: 4px;
+}
+
+.profileBubble {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e4d7ff 0%, #f4efff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: inset 0 2px 5px rgba(255,255,255,0.8);
+}
+
+.welcomeContent h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1a142c;
+  margin: 0 0 4px 0;
+}
+
+.welcomeContent p {
+  font-size: 12.5px;
+  color: #7a748c;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.createProfile {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(to right, #6f42c1, #5a32a3);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 20px rgba(111, 66, 193, 0.25);
+}
+
+.createProfile:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(111, 66, 193, 0.35);
+}
+
+.maybeLater {
+  width: 100%;
+  padding: 12px;
+  background: white;
+  color: #6f42c1;
+  border: 1px solid #e2d5f8;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: background 0.2s;
+}
+
+.maybeLater:hover {
+  background: #f8f5ff;
+}
+
+.welcomeCard small {
+  font-size: 11px;
+  color: #a09cb0;
 }

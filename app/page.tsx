@@ -93,10 +93,11 @@ export default function HomePage() {
       <div className={styles.appFrame}>
         <header className={styles.header}>
           <a className={styles.logo} href="#" aria-label="MoodFlip home">
-            <span className={styles.logoMark} aria-hidden="true">
-              <span />
-              <span />
-            </span>
+          <div className="relative flex h-9 w-9 items-center justify-center mr-1">
+            <span className="absolute bottom-0 left-1 h-[22px] w-[22px] rounded-full border-[5px] border-[#713ee2] border-t-transparent" />
+            <span className="absolute left-1 top-0 h-2.5 w-2.5 rounded-full bg-[#f4a746]" />
+            <span className="absolute right-0 top-1 h-2 w-2 rounded-full bg-[#d94fc5]" />
+          </div>
             <span>mood<span>flip</span></span>
           </a>
 
@@ -291,7 +292,11 @@ export default function HomePage() {
 
         <footer className={styles.footer}>
           <a className={`${styles.logo} ${styles.footerLogo}`} href="#">
-            <span className={styles.logoMark} aria-hidden="true"><span /><span /></span>
+            <div className="relative flex h-9 w-9 items-center justify-center mr-1">
+              <span className="absolute bottom-0 left-1 h-[22px] w-[22px] rounded-full border-[5px] border-[#713ee2] border-t-transparent" />
+              <span className="absolute left-1 top-0 h-2.5 w-2.5 rounded-full bg-[#f4a746]" />
+              <span className="absolute right-0 top-1 h-2 w-2 rounded-full bg-[#d94fc5]" />
+            </div>
             <span>mood<span>flip</span></span>
           </a>
           <p>A self-reflection utility for real life.</p>

@@ -114,10 +114,6 @@ export default function HomePage() {
           </div>
         </header>
 
-        <section className={styles.topAd} aria-label="Advertisement placeholder">
-          <span className={styles.adBadge}>Ad</span>
-          <span>Google AdSense Banner (728x90)</span>
-        </section>
 
         <section className={styles.dashboard} id="home">
           <section className={styles.moodPanel}>
@@ -284,10 +280,6 @@ export default function HomePage() {
           </aside>
         </section>
 
-        <section className={styles.bottomAd} aria-label="Advertisement placeholder">
-          <span className={styles.adBadge}>Ad</span>
-          <span>Google AdSense Banner (728x90)</span>
-        </section>
 
         <section className={styles.trustStrip}>
           <article><span className={styles.trustIcon}>🔒</span><div><strong>Private &amp; Secure</strong><p>Your data is encrypted<br />and protected.</p></div></article>

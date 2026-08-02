@@ -705,7 +705,7 @@ export default function RegisterPage() {
                         <button type="button" className="reg-text-btn back" onClick={() => setStep(1)}>
                           ← Change Email
                         </button>
-                        <button type="button" className="reg-text-btn resend" onClick={handleSendOtp as () => void}>
+                        <button type="button" className="reg-text-btn resend" onClick={(e) => handleSendOtp(e)}>
                           Resend Code 🔄
                         </button>
                       </div>

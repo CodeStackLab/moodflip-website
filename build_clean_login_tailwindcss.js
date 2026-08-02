@@ -1,4 +1,6 @@
-'use client';
+const fs = require('fs');
+
+const loginCode = `'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -176,3 +178,9 @@ export default function LoginPage() {
     </div>
   );
 }
+`;
+
+const loginCodeCRLF = loginCode.replace(/\r?\n/g, '\r\n');
+fs.writeFileSync('app/login/page.tsx', loginCodeCRLF, 'utf8');
+
+console.log('Successfully written clean 2-column LoginPage without inline style conflicts!');

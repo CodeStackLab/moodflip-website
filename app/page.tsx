@@ -413,17 +413,21 @@ export default function HomePage() {
 
         {/* Section 2: 7-Day Plan Promo */}
         <section className={styles.planSection}>
-          <div className={styles.bookCompact}>
-            <div className={styles.bookCover}>
-              <div className={styles.bookLogo}>mood<span>flip</span></div>
-              <strong>7-DAY PLAN</strong>
-              <div className={styles.bookSun}></div>
-              <div className={styles.bookHillOne}></div>
-              <div className={styles.bookHillTwo}></div>
-              <div className={styles.bookBadge}>BEST FOR<br/><b>BEGINNERS</b></div>
-              <div className={`${styles.bookLeaf} ${styles.bookLeafLeft}`}>❧</div>
-              <div className={`${styles.bookLeaf} ${styles.bookLeafRight}`}>❧</div>
-            </div>
+          <div className={styles.bookCompact} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img
+              src="/7-day-plan-book.jpg"
+              alt="MoodFlip 7-Day Plan Book Cover"
+              style={{
+                width: '100%',
+                maxWidth: '250px',
+                height: 'auto',
+                borderRadius: '18px',
+                boxShadow: '0 20px 44px rgba(100, 50, 200, 0.3)',
+                filter: 'drop-shadow(0 12px 28px rgba(113, 71, 232, 0.25))',
+                transition: 'transform 0.3s ease'
+              }}
+            />
+          </div>
           </div>
           <div className={styles.planCopy}>
             <h2>Build a Better Mindset in Just 7 Days</h2>

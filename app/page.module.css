@@ -174,7 +174,7 @@
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.02fr) 230px;
   gap: 18px;
   padding: 0 28px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .moodPanel,
@@ -184,11 +184,13 @@
   border-radius: 22px;
   background: rgba(255,255,255,.93);
   box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
+  height: 100%;
 }
 
 .moodPanel {
   padding: 22px 20px;
-  min-height: 686px;
+  display: flex;
+  flex-direction: column;
 }
 
 .stepHeader {
@@ -541,16 +543,47 @@
   opacity: .7;
 }
 
+.topIconBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid #e2dbed;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #231f3b;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.checkCircle {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #7d4fe7;
+  color: #7d4fe7;
+  font-size: 12px;
+  font-weight: 800;
+  margin-right: 6px;
+}
+
 .plantLeft,
 .plantRight {
   position: absolute;
   z-index: 2;
-  bottom: 0px;
+  top: 90px;
+  width: 120px;
+  height: 320px;
   pointer-events: none;
-  opacity: .88;
+  opacity: .92;
 }
-.plantLeft { left: -10px; }
-.plantRight { right: -10px; }
+.plantLeft { left: -14px; }
+.plantRight { right: -14px; }
 
 .actionCard {
   position: relative;
@@ -656,7 +689,9 @@
 }
 
 .morePanel {
-  min-height: 431px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 20px 16px;
   margin-top: 0px;
   border-radius: 21px;
@@ -668,7 +703,13 @@
   font-weight: 800;
 }
 
-.planList { display: grid; gap: 14px; }
+.planList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 12px;
+}
 .planCard {
   min-height: 90px;
   display: grid;

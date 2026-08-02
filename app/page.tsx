@@ -419,12 +419,11 @@ export default function HomePage() {
               alt="MoodFlip 7-Day Plan Book Cover"
               style={{
                 width: '100%',
-                maxWidth: '250px',
+                maxWidth: '240px',
                 height: 'auto',
-                borderRadius: '18px',
-                boxShadow: '0 20px 44px rgba(100, 50, 200, 0.3)',
-                filter: 'drop-shadow(0 12px 28px rgba(113, 71, 232, 0.25))',
-                transition: 'transform 0.3s ease'
+                borderRadius: '16px',
+                boxShadow: '0 20px 44px rgba(100, 50, 200, 0.28)',
+                filter: 'drop-shadow(0 10px 24px rgba(113, 71, 232, 0.22))'
               }}
             />
           </div>

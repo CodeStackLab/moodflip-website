@@ -1,163 +1,324 @@
-'use client';
+"use client";
 
-import React, { useMemo, useState, useEffect } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import SiteLoader from '@/components/SiteLoader';
+import React, { useMemo, useState } from "react";
+import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import SiteLoader from "@/components/SiteLoader";
 
-const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true';
-const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || '';
+type MoodFamily =
+  | "All"
+  | "Low"
+  | "Anxious"
+  | "Angry"
+  | "Overwhelmed"
+  | "Lonely";
 
-type MoodFamily = 'Sad' | 'Fearful' | 'Angry' | 'Disgusted' | 'Stressed';
-
-type MoodEntry = {
-  target: string;
-  title: string;
-  action: string;
-  tip: string;
+type Mood = {
+  id: string;
+  name: string;
+  emoji: string;
+  family: Exclude<MoodFamily, "All">;
+  feelings: string[];
+  positive: string;
+  description: string;
+  actions: string[];
 };
 
-const MOOD_DATA: Record<MoodFamily, Record<string, MoodEntry>> = {
-  Sad: {
-    Lonely: { target: 'Connected', title: 'Reach out for a moment', action: 'Send one short message to someone you trust. Just say hi or send a warm emoji.', tip: 'Connection doesn\'t require long conversations. A 5-second hello bridges isolation.' },
-    Rejected: { target: 'Grounded', title: 'Come back to solid ground', action: 'Name three things around you right now that are solid, real, and unchanging.', tip: 'Rejection is a moment in time, not a reflection of your worth.' },
-    Hurt: { target: 'Comforted', title: 'A slow, comforting breath', action: 'Place a hand on your heart and take five slow, deep breaths in through your nose.', tip: 'Physical touch from yourself lowers cortisol and signals safety to your nervous system.' },
-    Ashamed: { target: 'Accepted', title: 'Speak kindly to yourself', action: 'Say out loud or write: "I am doing my best with what I know right now."', tip: 'Self-compassion builds resilience far faster than self-criticism ever can.' },
-    Guilty: { target: 'Forgiving', title: 'Write it out once', action: 'Write down what you would say to a dear friend who made the exact same mistake.', tip: 'We are almost always far harsher on ourselves than we would ever be to others.' },
-    Empty: { target: 'Nourished', title: 'A small act of care', action: 'Drink a full glass of fresh water slowly, noticing how it feels, with zero distractions.', tip: 'Physical hydration provides an instant physiological reset to your brain.' },
-    Overwhelmed: { target: 'Peaceful', title: 'A steady 4-6 breath', action: 'Inhale deeply for 4 seconds, then exhale slowly for 6 seconds. Repeat 5 times.', tip: 'Extended exhales stimulate the vagus nerve and slow down your heart rate.' },
-    Abandoned: { target: 'Held', title: 'Give yourself a hold', action: 'Wrap your arms around yourself and press gently with steady pressure for 15 seconds.', tip: 'Proprioceptive pressure releases oxytocin, making you feel secure and grounded.' },
+const moods: Mood[] = [
+  {
+    id: "sad",
+    name: "Sad",
+    emoji: "😢",
+    family: "Low",
+    feelings: ["Down", "Empty", "Heartbroken", "Lonely", "Hopeless"],
+    positive: "Peaceful & Supported",
+    description: "Give yourself a small moment of kindness and space.",
+    actions: [
+      "Take 3 slow breaths. Inhale for 4 seconds, hold for 4, exhale for 6.",
+      "Put one hand on your chest and take three gentle breaths.",
+      "Drink a glass of water slowly and notice how it feels.",
+      "Look outside for 60 seconds and notice three things you can see.",
+      "Write down one thing you need right now.",
+    ],
   },
-  Fearful: {
-    Anxious: { target: 'Steady', title: 'Feel your feet flat', action: 'Plant both feet flat on the floor, push down gently, and notice the earth beneath you.', tip: 'Anxiety pulls you into an imaginary future. Feet on the ground pull you into now.' },
-    Worried: { target: 'Reassured', title: 'Separate the worry', action: 'Write down the worry in 5 words, then list 1 single action within your immediate control.', tip: 'Differentiating between what you can and cannot control resolves mental loops.' },
-    Insecure: { target: 'Confident', title: 'Take up your space', action: 'Stand tall with your shoulders back and chest open for 30 full seconds.', tip: 'Power posing shifts your hormonal state, lowering stress and boosting assurance.' },
-    Nervous: { target: 'Calm', title: 'Shake it loose', action: 'Shake out your hands and arms vigorously for 15 seconds, then let them go completely limp.', tip: 'Animals shake off physical tension after danger; your body responds the exact same way.' },
+  {
+    id: "hopeless",
+    name: "Hopeless",
+    emoji: "☁️",
+    family: "Low",
+    feelings: ["Helpless", "Discouraged", "Powerless", "Stuck"],
+    positive: "Hopeful & Grounded",
+    description: "Focus on one tiny thing that is still within your control.",
+    actions: [
+      "Name one thing you can influence today and take one tiny step.",
+      "Stand up, stretch your shoulders, and take five slow breaths.",
+      "Write one small task you could finish in the next 10 minutes.",
+      "Think of one person, place, or activity that usually gives you comfort.",
+      "Put your phone down and take one quiet minute for yourself.",
+    ],
   },
-  Angry: {
-    Frustrated: { target: 'Clear-headed', title: 'Release physical tension', action: 'Unclench your jaw, drop your shoulders down away from your ears, and exhale hard once.', tip: 'We subconsciously hold anger in our jaw and shoulders. Releasing them clears the mind.' },
-    Irritated: { target: 'Patient', title: 'Take one step back', action: 'Step away from your screen or situation for 60 seconds before responding.', tip: 'A 60-second pause prevents reactive words you might regret later.' },
-    Resentful: { target: 'Released', title: 'Say it once, out loud', action: 'Name what you needed and didn\'t get, out loud to yourself once, then let out a deep sigh.', tip: 'Acknowledging unmet needs validates your emotion without letting it fester.' },
-    Provoked: { target: 'Composed', title: 'Count it down', action: 'Press your tongue to the roof of your mouth and slowly count down from 20 to 1.', tip: 'Engaging your prefrontal cortex via counting bypasses amygdala anger hijacking.' },
+  {
+    id: "disappointed",
+    name: "Disappointed",
+    emoji: "💔",
+    family: "Low",
+    feelings: ["Let Down", "Frustrated", "Hurt", "Discouraged"],
+    positive: "Accepted & Renewed",
+    description: "Allow the moment to be real without letting it define your next step.",
+    actions: [
+      "Take one breath and name what happened without judging yourself.",
+      "Write one sentence about what you hoped would happen.",
+      "Relax your jaw and shoulders for 60 seconds.",
+      "Ask yourself what the smallest useful next step could be.",
+      "Step away from the situation for one minute and reset.",
+    ],
   },
-  Disgusted: {
-    Disapproving: { target: 'Open', title: 'Ask one honest question', action: 'Ask yourself: "What perspective or context might I be missing here?"', tip: 'Curiosity is the direct antidote to rigid judgment.' },
-    Judgmental: { target: 'Understanding', title: 'Picture their side', action: 'Think of 1 underlying fear or hardship that might explain someone\'s behavior.', tip: 'Empathy doesn\'t mean agreeing; it simply frees you from toxic irritation.' },
-    Repulsed: { target: 'Neutral', title: 'Look away and reset', action: 'Look out a window or at a plain wall for 30 seconds to refresh your visual focus.', tip: 'Visual resets disrupt emotional hyper-fixation.' },
+  {
+    id: "lonely",
+    name: "Lonely",
+    emoji: "👤",
+    family: "Lonely",
+    feelings: ["Alone", "Isolated", "Unseen", "Left Out"],
+    positive: "Connected & Cared For",
+    description: "Create one small moment of connection.",
+    actions: [
+      "Send a simple 'thinking of you' message to someone you trust.",
+      "Think of one person who makes you feel understood.",
+      "Step outside and notice the people and world around you.",
+      "Write down one memory that makes you feel connected.",
+      "Take three breaths and remind yourself that this feeling can change.",
+    ],
   },
-  Stressed: {
-    Overworked: { target: 'Rested', title: 'A short shoulder reset', action: 'Close your eyes, roll your shoulders backward 5 times, and relax your eyes.', tip: 'Resting for just 60 seconds improves cognitive clarity for your next task.' },
-    Pressured: { target: 'In Control', title: 'Just the next step', action: 'Write down only the single next physical step you need to take. Ignore everything else.', tip: 'Overwhelm disappears when you shrink your focus to the immediate micro-step.' },
-    Rushed: { target: 'Unhurried', title: 'One deliberate breath', action: 'Pause completely and take one slow, deliberate breath before clicking or typing.', tip: 'Slowness is a choice. You can move with intention even in a busy environment.' },
-    Tense: { target: 'Loose', title: 'Shrug and drop', action: 'Squeeze your shoulders up to your ears, hold for 5 seconds, then drop them heavily.', tip: 'Exaggerating tension before releasing it allows deeper muscle relaxation.' },
+  {
+    id: "tired",
+    name: "Tired",
+    emoji: "🔋",
+    family: "Low",
+    feelings: ["Drained", "Exhausted", "Sleepy", "Burnt Out"],
+    positive: "Rested & Restored",
+    description: "Your next step can be gentle. You don't have to do everything.",
+    actions: [
+      "Close your eyes for 60 seconds and relax your shoulders.",
+      "Take three slow breaths and unclench your jaw.",
+      "Drink some water and take a short screen break.",
+      "Stretch your neck and shoulders gently for one minute.",
+      "Choose one task to postpone so you can protect your energy.",
+    ],
   },
-};
-
-const FAMILY_ORDER = Object.keys(MOOD_DATA) as MoodFamily[];
-
-const FAMILY_META: Record<MoodFamily, { emoji: string; bg: string; border: string }> = {
-  Sad:      { emoji: '🌧️', bg: '#f0f4ff', border: '#c7d2fe' },
-  Fearful:  { emoji: '🌀', bg: '#f5f3ff', border: '#ddd6fe' },
-  Angry:    { emoji: '⚡', bg: '#fff1f2', border: '#fecdd3' },
-  Disgusted:{ emoji: '🍃', bg: '#ecfdf5', border: '#a7f3d0' },
-  Stressed: { emoji: '🌊', bg: '#f0fdf4', border: '#bbf7d0' },
-};
-
-const FAQS = [
-  ['Is MoodFlip completely free to use?', 'Yes! The interactive mood tool is 100% free with no account or credit card required. Tap and flip as often as you like.'],
-  ['Do I need to sign up or create a profile?', 'No. You can use the full tool without signing up. An optional free account lets you save your check-ins and track 7-day emotional growth.'],
-  ['Is MoodFlip therapy or medical advice?', 'No. MoodFlip is an interactive self-reflection and mindset reset tool, not therapy, clinical treatment, or crisis intervention.'],
-  ['How does the 90-day automatic data cleanup work?', 'To protect your privacy, any optional saved check-ins are automatically deleted after 90 days of profile inactivity.'],
+  {
+    id: "anxious",
+    name: "Anxious",
+    emoji: "🎯",
+    family: "Anxious",
+    feelings: ["Nervous", "Uneasy", "Worried", "Panicked", "Restless"],
+    positive: "Calm & Clear",
+    description: "Bring your attention back to what is happening right now.",
+    actions: [
+      "Take 3 deep breaths: inhale 4, hold 4, exhale 6.",
+      "Name five things you can see around you.",
+      "Place both feet on the floor and take five slow breaths.",
+      "Relax your shoulders and slowly unclench your hands.",
+      "Pick one thing you can control in this moment.",
+    ],
+  },
+  {
+    id: "worried",
+    name: "Worried",
+    emoji: "🌧️",
+    family: "Anxious",
+    feelings: ["Concerned", "Uncertain", "Fearful", "Restless"],
+    positive: "Steady & Reassured",
+    description: "Separate what you can control from what you cannot.",
+    actions: [
+      "Write down one worry and one thing you can actually control.",
+      "Take five slow breaths while keeping both feet grounded.",
+      "Look around and identify three things that are safe right now.",
+      "Give yourself one minute without trying to solve anything.",
+      "Choose one small action that would make today easier.",
+    ],
+  },
+  {
+    id: "overwhelmed",
+    name: "Overwhelmed",
+    emoji: "🌀",
+    family: "Overwhelmed",
+    feelings: ["Swamped", "Overloaded", "Stressed", "Pressured", "Stuck"],
+    positive: "Organized & Clear",
+    description: "You only need to handle the next small step.",
+    actions: [
+      "Write down everything on your mind, then circle just one item.",
+      "Take three slow breaths before deciding what comes next.",
+      "Clear one tiny area around you for 60 seconds.",
+      "Choose the easiest unfinished task and start for one minute.",
+      "Put your phone away and focus on one thing at a time.",
+    ],
+  },
+  {
+    id: "stressed",
+    name: "Stressed",
+    emoji: "⚡",
+    family: "Overwhelmed",
+    feelings: ["Tense", "Pressured", "Frustrated", "Overworked"],
+    positive: "Relaxed & Balanced",
+    description: "Slow your body down before asking your mind to solve things.",
+    actions: [
+      "Drop your shoulders and take five slow breaths.",
+      "Stretch your hands, neck, and shoulders for one minute.",
+      "Step away from your screen and look into the distance.",
+      "Take one slow breath before opening your next task.",
+      "Write down the one thing that matters most right now.",
+    ],
+  },
+  {
+    id: "angry",
+    name: "Angry",
+    emoji: "😡",
+    family: "Angry",
+    feelings: ["Furious", "Irritated", "Resentful", "Frustrated", "Mad"],
+    positive: "Calm & In Control",
+    description: "Create a little space between the feeling and your next action.",
+    actions: [
+      "Take five slow breaths before responding to anyone.",
+      "Relax your hands and jaw for 60 seconds.",
+      "Step away from the situation and walk slowly for one minute.",
+      "Name what triggered the feeling without blaming yourself.",
+      "Give yourself permission to pause before making a decision.",
+    ],
+  },
+  {
+    id: "frustrated",
+    name: "Frustrated",
+    emoji: "✨",
+    family: "Angry",
+    feelings: ["Annoyed", "Blocked", "Impatient", "Irritated"],
+    positive: "Patient & Focused",
+    description: "Pause, reset, and choose what is actually within your control.",
+    actions: [
+      "Take three breaths before trying again.",
+      "Identify the smallest part of the problem you can solve.",
+      "Stand up and shake out tension from your hands.",
+      "Give yourself 60 seconds away from the problem.",
+      "Replace 'I can't' with 'What's one thing I can try?'",
+    ],
+  },
+  {
+    id: "insecure",
+    name: "Insecure",
+    emoji: "🛡️",
+    family: "Low",
+    feelings: ["Uncertain", "Self-Doubting", "Unworthy", "Inadequate"],
+    positive: "Confident & Grounded",
+    description: "Your current feeling does not define your worth.",
+    actions: [
+      "Write down one thing you handled well recently.",
+      "Take three breaths and relax your shoulders.",
+      "Replace one harsh thought with a kinder statement.",
+      "Think of one person who appreciates you as you are.",
+      "Focus on one small thing you can do well today.",
+    ],
+  },
+  {
+    id: "guilty",
+    name: "Guilty",
+    emoji: "😔",
+    family: "Low",
+    feelings: ["Regretful", "Ashamed", "Responsible", "Remorseful"],
+    positive: "Forgiving & Responsible",
+    description: "Learn from what happened without carrying unnecessary shame.",
+    actions: [
+      "Name one lesson you can take from the situation.",
+      "Take a breath and separate the action from your identity.",
+      "If appropriate, write one sentence of apology you could share.",
+      "Ask yourself what repair might look like.",
+      "Give yourself one minute of compassionate self-talk.",
+    ],
+  },
+  {
+    id: "stuck",
+    name: "Stuck",
+    emoji: "🔒",
+    family: "Overwhelmed",
+    feelings: ["Blocked", "Lost", "Uncertain", "Directionless"],
+    positive: "Moving & Focused",
+    description: "You don't need the entire path. Find the next step.",
+    actions: [
+      "Choose one action that takes less than two minutes.",
+      "Write down two possible next steps.",
+      "Stand up and change your physical environment.",
+      "Ask yourself: 'What would make this 1% easier?'",
+      "Set a one-minute timer and simply begin.",
+    ],
+  },
 ];
 
-function AdBanner({ slot }: { slot: string }) {
-  if (!ADSENSE_ENABLED || !ADSENSE_PUB_ID) return null;
-  return (
-    <div style={{ maxWidth: '1240px', margin: '1rem auto', padding: '0 1.5rem', textAlign: 'center' }}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block', width: '100%', height: '90px', borderRadius: '12px', overflow: 'hidden' }}
-        data-ad-client={ADSENSE_PUB_ID}
-        data-ad-slot={slot}
-        data-ad-format="horizontal"
-        data-full-width-responsive="true"
-      />
-    </div>
-  );
-}
+const families: MoodFamily[] = [
+  "All",
+  "Low",
+  "Anxious",
+  "Angry",
+  "Overwhelmed",
+  "Lonely",
+];
 
-export default function HomePage() {
-  const [family, setFamily] = useState<MoodFamily | null>(null);
-  const [feeling, setFeeling] = useState<string | null>(null);
-  const [result, setResult] = useState<MoodEntry | null>(null);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [timerRunning, setTimerRunning] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(60);
-  const [savedSuccess, setSavedSuccess] = useState(false);
-  const [isFlipping, setIsFlipping] = useState(false);
+export default function Home() {
+  const [family, setFamily] = useState<MoodFamily>("All");
+  const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
+  const [selectedFeeling, setSelectedFeeling] = useState("");
+  const [actionIndex, setActionIndex] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [saved, setSaved] = useState(false);
 
-  const feelings = useMemo(() => (family ? Object.keys(MOOD_DATA[family]) : []), [family]);
+  const visibleMoods = useMemo(() => {
+    if (family === "All") return moods;
+    return moods.filter((mood) => mood.family === family);
+  }, [family]);
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (timerRunning && timeLeft > 0) {
-      interval = setInterval(() => setTimeLeft(t => t - 1), 1000);
-    } else if (timeLeft === 0) {
-      setTimerRunning(false);
+  const chooseFamily = (newFamily: MoodFamily) => {
+    setFamily(newFamily);
+    setSelectedMood(null);
+    setSelectedFeeling("");
+    setFlipped(false);
+    setSaved(false);
+  };
+
+  const chooseMood = (mood: Mood) => {
+    setSelectedMood(mood);
+    setSelectedFeeling("");
+    setFlipped(false);
+    setSaved(false);
+    setActionIndex(0);
+  };
+
+  const flipMood = () => {
+    if (!selectedMood || !selectedFeeling) return;
+    setFlipped(true);
+    const nextIndex =
+      selectedMood.actions.length > 1
+        ? Math.floor(Math.random() * selectedMood.actions.length)
+        : 0;
+    setActionIndex(nextIndex);
+  };
+
+  const tryAnother = () => {
+    if (!selectedMood) return;
+    let next = Math.floor(Math.random() * selectedMood.actions.length);
+    if (selectedMood.actions.length > 1 && next === actionIndex) {
+      next = (next + 1) % selectedMood.actions.length;
     }
-    return () => clearInterval(interval);
-  }, [timerRunning, timeLeft]);
-
-  const chooseFamily = (nextFamily: MoodFamily) => {
-    setFamily(nextFamily);
-    setFeeling(null);
-    setResult(null);
-    setTimerRunning(false);
-    setTimeLeft(60);
+    setActionIndex(next);
   };
 
-  const chooseFeeling = (nextFeeling: string) => {
-    setFeeling(nextFeeling);
-    setResult(null);
-    setTimerRunning(false);
-    setTimeLeft(60);
-  };
-
-  const flipMood = async () => {
-    if (!family || !feeling) return;
-    setIsFlipping(true);
-    await new Promise(r => setTimeout(r, 350));
-    setResult(MOOD_DATA[family][feeling]);
-    setIsFlipping(false);
-    setTimerRunning(false);
-    setTimeLeft(60);
-    setSavedSuccess(false);
-
-    setTimeout(() => {
-      document.getElementById('rightPanel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-  };
-
-  const startTimer = () => {
-    if (timeLeft === 0) setTimeLeft(60);
-    setTimerRunning(!timerRunning);
-  };
-
-  const handleSaveCheckin = () => {
-    if (!family || !feeling || !result) return;
+  const saveCheckin = () => {
+    setSaved(true);
+    const checkin = {
+      mood: selectedMood?.name,
+      feeling: selectedFeeling,
+      action: selectedMood?.actions[actionIndex],
+      date: new Date().toISOString(),
+    };
     try {
-      const existing = JSON.parse(localStorage.getItem('moodflip_history') || '[]');
-      const newEntry = {
-        id: Date.now().toString(),
-        primaryMood: family,
-        subFeeling: feeling,
-        targetMood: result.target,
-        actionShown: result.action,
-        createdAt: new Date().toISOString(),
-      };
-      localStorage.setItem('moodflip_history', JSON.stringify([newEntry, ...existing]));
-      setSavedSuccess(true);
-      setTimeout(() => setSavedSuccess(false), 3000);
+      localStorage.setItem("moodflip-last-checkin", JSON.stringify(checkin));
     } catch (_) {}
   };
 
@@ -167,520 +328,470 @@ export default function HomePage() {
       <div className="site-shell">
         <Header />
 
-        <style>{`
-          @keyframes revealResult {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes floatSunHalo {
-            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.75; }
-            50% { transform: translate(-50%, -50%) scale(1.06) rotate(4deg); opacity: 0.95; }
-          }
+        <main className="min-h-screen bg-[#faf9ff] text-[#17152d] pb-12">
+          <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8">
+            <AdBanner />
 
-          /* HERO */
-          .mf-hero-section {
-            padding: 3.5rem 1.25rem 2rem;
-            text-align: center;
-            max-width: 820px; margin: 0 auto;
-          }
-          .mf-pill-tag {
-            display: inline-flex; align-items: center; gap: 8px;
-            font-size: 0.8rem; font-weight: 700;
-            color: #5b4b9a; background: #efeafa;
-            border: 1px solid #d9d0f0;
-            border-radius: 999px; padding: 0.45rem 1.25rem;
-            margin-bottom: 1.25rem;
-          }
-          .mf-hero-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(2.4rem, 4.8vw, 3.6rem);
-            font-weight: 640; line-height: 1.15;
-            color: var(--text-main); margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-          }
-          .mf-hero-title span { color: #5b4b9a; }
-          .mf-hero-desc {
-            font-size: 1.08rem; color: var(--text-subtle);
-            line-height: 1.65; max-width: 620px; margin: 0 auto;
-          }
-
-          /* TOOL CONTAINER */
-          .mf-tool-wrap {
-            max-width: 1220px; margin: 1.5rem auto 4.5rem;
-            padding: 0 1.25rem;
-          }
-          .mf-tool-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: stretch; gap: 1.75rem;
-          }
-          @media (max-width: 960px) {
-            .mf-tool-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-          }
-
-          /* LEFT PANEL */
-          .mf-card-left {
-            background: #ffffff;
-            border: 1.5px solid #eae3d6;
-            border-radius: 28px;
-            padding: 2.25rem 2rem;
-            box-shadow: 0 20px 60px rgba(44,39,53,0.06);
-            display: flex; flex-direction: column; justify-content: space-between;
-          }
-          .mf-step-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 1rem;
-          }
-          .mf-step-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: #efeafa; color: #5b4b9a;
-            font-size: 0.76rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.06em; padding: 0.45rem 1rem;
-            border-radius: 999px;
-          }
-          .mf-step-number {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.45rem; font-weight: 800; color: #5b4b9a;
-          }
-
-          /* MOOD FAMILY CHIPS */
-          .mf-chip-row {
-            display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2rem;
-          }
-          .mf-fam-btn {
-            font-family: inherit; font-size: 0.92rem; font-weight: 700;
-            padding: 0.75rem 1.35rem; border-radius: 999px;
-            border: 1.5px solid #eae3d6; background: #faf6ee;
-            color: var(--text-main); cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
-            display: flex; align-items: center; gap: 8px;
-          }
-          .mf-fam-btn:hover {
-            border-color: #d9d0f0; background: #ffffff;
-            transform: translateY(-1px);
-          }
-          .mf-fam-btn.selected {
-            background: #efeafa; border-color: #5b4b9a; color: #463a78;
-            box-shadow: 0 6px 18px rgba(91,75,154,0.18); transform: translateY(-1px);
-          }
-
-          /* FEELINGS GRID */
-          .mf-feel-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
-            gap: 0.65rem; margin-top: 0.5rem;
-          }
-          .mf-feel-btn {
-            border: 1.5px solid #eae3d6; background: #faf6ee;
-            border-radius: 16px; padding: 0.85rem 0.75rem;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s ease; text-align: center;
-            font-family: inherit; font-weight: 700; font-size: 0.86rem;
-            color: var(--text-main);
-          }
-          .mf-feel-btn:hover {
-            border-color: #5b4b9a; background: #ffffff;
-            transform: translateY(-2px);
-          }
-          .mf-feel-btn.selected {
-            background: #efeafa; border-color: #5b4b9a; color: #463a78;
-            box-shadow: 0 8px 20px rgba(91,75,154,0.2); transform: translateY(-2px);
-          }
-          .mf-empty-feelings {
-            grid-column: 1 / -1; font-size: 0.86rem; color: var(--text-subtle);
-            padding: 2rem 1rem; text-align: center; border: 2px dashed #eae3d6;
-            border-radius: 18px; background: rgba(250,246,238,0.5);
-          }
-
-          /* FLIP MY MOOD BUTTON */
-          .mf-flip-bar {
-            margin-top: 1.75rem; padding-top: 1.25rem;
-            border-top: 1.5px solid #eae3d6;
-          }
-          .mf-flip-btn {
-            width: 100%; padding: 1.05rem 1.75rem;
-            font-family: inherit; font-weight: 800; font-size: 0.95rem;
-            letter-spacing: 0.05em; text-transform: uppercase;
-            background: #efeafa; color: #a89bc9;
-            border: none; border-radius: 16px; cursor: not-allowed;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: all 0.22s ease;
-          }
-          .mf-flip-btn.active {
-            background: linear-gradient(135deg, #5b4b9a 0%, #463a78 100%);
-            color: #ffffff; cursor: pointer;
-            box-shadow: 0 10px 28px rgba(91,75,154,0.35);
-          }
-          .mf-flip-btn.active:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 34px rgba(91,75,154,0.48);
-          }
-
-          /* RIGHT PANEL */
-          .mf-card-right {
-            background:
-              radial-gradient(circle at 50% 50%, #fef0d5 0%, #f9deae 50%, #f4d098 75%, transparent 100%),
-              linear-gradient(180deg, #fdfaf3 0%, #f7ebd7 100%);
-            border: 1.5px solid #eae3d6;
-            border-radius: 28px;
-            padding: 2.5rem 2.25rem;
-            box-shadow: 0 20px 60px rgba(44,39,53,0.06);
-            position: relative; overflow: hidden; text-align: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            min-height: 420px;
-          }
-          .mf-sun-halo {
-            position: absolute; top: 40%; left: 50%;
-            transform: translate(-50%, -50%); width: 440px; height: 320px;
-            background: radial-gradient(circle, rgba(255,200,90,0.4) 0%, rgba(255,182,72,0.15) 50%, transparent 70%);
-            pointer-events: none; animation: floatSunHalo 10s ease-in-out infinite;
-          }
-
-          .mf-empty-right {
-            color: var(--text-subtle); font-size: 0.92rem;
-            padding: 3rem 1.5rem; line-height: 1.75; max-width: 320px;
-            position: relative; z-index: 1;
-          }
-          .mf-sun-squircle {
-            width: 76px; height: 76px; border-radius: 22px;
-            background: linear-gradient(135deg, #fff5d4 0%, #ffe399 100%);
-            border: 2px solid #ffd166;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.4rem; margin: 0 auto 1.35rem;
-            box-shadow: 0 10px 28px rgba(255,182,72,0.3);
-          }
-
-          /* RESULT PANEL */
-          .mf-result-box {
-            position: relative; z-index: 1; width: 100%;
-            animation: revealResult 0.45s cubic-bezier(0.22,1,0.36,1) both;
-          }
-          .mf-result-tag {
-            font-size: 0.84rem; font-weight: 700; color: #7c8b5e;
-            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem;
-          }
-          .mf-target-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-weight: 700; font-size: clamp(2.4rem, 4vw, 3.5rem);
-            color: #5b4b9a; margin-bottom: 1.75rem; line-height: 1.1;
-          }
-
-          .mf-action-card {
-            background: #ffffff; border-radius: 20px; padding: 1.5rem 1.75rem;
-            text-align: left; width: 100%;
-            box-shadow: 0 16px 36px rgba(217,165,75,0.16);
-            border: 1.5px solid rgba(217,165,75,0.25);
-          }
-          .mf-action-head {
-            display: flex; align-items: center; gap: 12px; margin-bottom: 0.85rem;
-          }
-          .mf-timer-btn {
-            width: 44px; height: 44px; border-radius: 50%;
-            background: #efeafa; color: #5b4b9a; border: 1.5px solid #d9d0f0;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem; font-weight: 900; cursor: pointer;
-            flex-shrink: 0; font-family: 'Space Mono', monospace;
-            transition: all 0.2s ease;
-          }
-          .mf-timer-btn:hover { background: #5b4b9a; color: #ffffff; }
-          .mf-action-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 0;
-          }
-          .mf-action-desc {
-            font-size: 0.92rem; color: var(--text-subtle); line-height: 1.65; margin-bottom: 1rem;
-          }
-          .mf-insight-box {
-            font-size: 0.78rem; color: var(--text-subtle);
-            padding: 0.6rem 0.85rem; border-radius: 12px;
-            background: #faf6ee; border-left: 3.5px solid #7c8b5e;
-            line-height: 1.5;
-          }
-
-          .mf-save-btn {
-            margin-top: 1.25rem; width: 100%;
-            background: transparent; border: 1.5px solid #5b4b9a;
-            color: #463a78; font-weight: 800; font-size: 0.85rem;
-            padding: 0.8rem; border-radius: 999px; cursor: pointer;
-            transition: all 0.2s ease; font-family: inherit;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-          }
-          .mf-save-btn:hover { background: #efeafa; }
-          .mf-save-btn.saved { background: #dcfce7; border-color: #86efac; color: #166534; }
-
-          /* REASSURANCE BANNER */
-          .mf-reassure-strip {
-            margin-top: 2rem; background: #efeafa; border-radius: 20px;
-            padding: 1.25rem 1.75rem; border: 1.5px solid #d9d0f0;
-            display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
-          }
-          .mf-reassure-item {
-            display: flex; align-items: flex-start; gap: 10px;
-            font-size: 0.84rem; color: var(--text-main); max-width: 320px;
-          }
-          .mf-reassure-item strong { display: block; font-size: 0.88rem; margin-bottom: 2px; color: #463a78; }
-
-          /* SECTIONS */
-          .mf-section-light { padding: 4.5rem 1rem; position: relative; z-index: 1; }
-          .mf-section-light.alt { background: #faf6ee; }
-          .mf-sec-head { max-width: 620px; margin: 0 auto 3rem; text-align: center; }
-          .mf-sec-tag {
-            display: inline-flex; font-size: 0.76rem; font-weight: 800;
-            color: #5b4b9a; background: #efeafa; border-radius: 999px;
-            padding: 0.4rem 1.1rem; margin-bottom: 0.85rem;
-            text-transform: uppercase; letter-spacing: 0.06em;
-          }
-          .mf-sec-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-            font-weight: 640; line-height: 1.2; color: var(--text-main);
-          }
-          .mf-sec-desc { font-size: 0.95rem; color: var(--text-subtle); margin-top: 0.75rem; line-height: 1.65; }
-
-          .mf-steps-grid {
-            max-width: 1120px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-          }
-          .mf-step-card {
-            background: #ffffff; border: 1.5px solid #eae3d6;
-            border-radius: 22px; padding: 2rem 1.75rem;
-            box-shadow: 0 16px 40px rgba(44,39,53,0.06);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-          }
-          .mf-step-card:hover { transform: translateY(-3px); border-color: #d9d0f0; }
-          .mf-step-card-num {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 2rem; color: #5b4b9a; font-weight: 800;
-            display: block; margin-bottom: 0.6rem;
-          }
-          .mf-step-card-h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem; font-family: 'Fraunces', Georgia, serif; color: var(--text-main); }
-          .mf-step-card-p { font-size: 0.88rem; color: var(--text-subtle); line-height: 1.6; margin: 0; }
-
-          /* FAQ */
-          .mf-faq-wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.85rem; }
-          .mf-faq-card {
-            background: #ffffff; border: 1.5px solid #eae3d6;
-            border-radius: 18px; transition: border-color 0.2s ease, box-shadow 0.2s ease;
-          }
-          .mf-faq-card.open { border-color: #5b4b9a; box-shadow: 0 10px 28px rgba(91,75,154,0.08); }
-          .mf-faq-q {
-            width: 100%; padding: 1.2rem 1.5rem; border: none; background: transparent;
-            text-align: left; font-family: inherit; font-size: 0.95rem; font-weight: 700;
-            color: var(--text-main); cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-          }
-          .mf-faq-plus {
-            width: 26px; height: 26px; border-radius: 50%;
-            background: #efeafa; color: #5b4b9a;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; font-weight: 900; flex-shrink: 0;
-            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.2s;
-          }
-          .mf-faq-card.open .mf-faq-plus { transform: rotate(45deg); background: #5b4b9a; color: #ffffff; }
-          .mf-faq-a {
-            padding: 1rem 1.5rem 1.5rem; font-size: 0.9rem; color: var(--text-subtle);
-            line-height: 1.7; border-top: 1px solid #eae3d6;
-            max-height: none !important; overflow: visible !important; opacity: 1 !important;
-          }
-        `}</style>
-
-        <main>
-          <AdBanner slot="top-banner" />
-
-          {/* HERO */}
-          <section className="mf-hero-section">
-            <span className="mf-pill-tag">✨ 100% Free • Tap-Only • No Sign-Up</span>
-            <h1 className="mf-hero-title">
-              Shift your mindset in <span>60 seconds</span>
-            </h1>
-            <p className="mf-hero-desc">
-              Select your current mood, discover your positive counterpart, and get a practical 60-second action to regain emotional clarity.
-            </p>
-          </section>
-
-          {/* INTERACTIVE TOOL */}
-          <section className="mf-tool-wrap" id="demo">
-            <div className="mf-tool-grid">
-
-              {/* LEFT CARD */}
-              <div className="mf-card-left">
-                <div>
-                  {/* STEP 1 */}
-                  <div className="mf-step-header">
-                    <span className="mf-step-badge">☁️ STEP 1 · CHOOSE YOUR MOOD</span>
-                    <span className="mf-step-number">1 of 2</span>
-                  </div>
-                  <div className="mf-chip-row">
-                    {FAMILY_ORDER.map((name) => {
-                      const meta = FAMILY_META[name];
-                      const isSelected = family === name;
-                      return (
-                        <button
-                          key={name}
-                          className={`mf-fam-btn ${isSelected ? 'selected' : ''}`}
-                          onClick={() => chooseFamily(name)}
-                        >
-                          <span>{meta.emoji}</span>
-                          <span>{name}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* STEP 2 */}
-                  <div className="mf-step-header" style={{ marginTop: '1.25rem' }}>
-                    <span className="mf-step-badge">🤍 STEP 2 · PICK EXACT FEELING</span>
-                    <span className="mf-step-number">2 of 2</span>
-                  </div>
-                  <div className="mf-feel-grid">
-                    {!family ? (
-                      <div className="mf-empty-feelings">
-                        👈 Select a mood family above to see specific feelings
-                      </div>
-                    ) : (
-                      feelings.map((name) => (
-                        <button
-                          key={name}
-                          className={`mf-feel-btn ${feeling === name ? 'selected' : ''}`}
-                          onClick={() => chooseFeeling(name)}
-                        >
-                          <span>{name}</span>
-                        </button>
-                      ))
-                    )}
-                  </div>
-                </div>
-
-                {/* FLIP BUTTON */}
-                <div className="mf-flip-bar">
-                  <button
-                    id="flip-mood-btn"
-                    className={`mf-flip-btn ${family && feeling && !isFlipping ? 'active' : ''}`}
-                    disabled={!family || !feeling || isFlipping}
-                    onClick={flipMood}
-                    title={!family || !feeling ? 'Select a mood & feeling first' : 'Click to flip your mood'}
-                  >
-                    <span>✨</span>
-                    <span>{isFlipping ? 'Flipping Mood...' : 'FLIP MY MOOD'}</span>
-                    <span>→</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* RIGHT CARD */}
-              <div className="mf-card-right" id="rightPanel">
-                <div className="mf-sun-halo" />
-
-                {!result ? (
-                  <div className="mf-empty-right">
-                    <div className="mf-sun-squircle">🌤️</div>
-                    Select your current feeling on the left and tap <strong>FLIP MY MOOD</strong> to reveal your positive shift &amp; 60-second action.
-                  </div>
-                ) : (
-                  <div className="mf-result-box">
-                    <div className="mf-result-tag">Your mood has changed to:</div>
-                    <div className="mf-target-title">{result.target}</div>
-
-                    <div className="mf-action-card">
-                      <div className="mf-action-head">
-                        <button
-                          className="mf-timer-btn"
-                          onClick={startTimer}
-                          title="Start/pause 60s timer"
-                        >
-                          {timerRunning ? `${timeLeft}s` : '▶ 60s'}
-                        </button>
-                        <h3 className="mf-action-title">{result.title}</h3>
-                      </div>
-
-                      <p className="mf-action-desc">{result.action}</p>
-
-                      <div className="mf-insight-box">
-                        💡 <strong>Mindset Insight:</strong> {result.tip}
-                      </div>
-
-                      <button
-                        className={`mf-save-btn ${savedSuccess ? 'saved' : ''}`}
-                        onClick={handleSaveCheckin}
-                      >
-                        <span>{savedSuccess ? '✅ Check-in Saved!' : '📌 Save Check-in'}</span>
-                      </button>
+            <section className="grid gap-5 xl:grid-cols-[1.25fr_1fr_240px]">
+              {/* LEFT */}
+              <section className="rounded-[28px] border border-[#ebe7f5] bg-white p-5 shadow-[0_20px_60px_rgba(55,35,100,0.08)] sm:p-7">
+                <div className="mb-6 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#6842e8] to-[#9b55e8] font-bold text-white">
+                      1
+                    </span>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wide text-[#6c4de6]">
+                        Step 1
+                      </p>
+                      <h2 className="font-semibold text-lg text-[#282044]">
+                        Choose your mood
+                      </h2>
                     </div>
                   </div>
-                )}
-              </div>
 
-            </div>
-
-            {/* REASSURANCE BANNER */}
-            <div className="mf-reassure-strip">
-              <div className="mf-reassure-item">
-                <span style={{ fontSize: '1.2rem' }}>🌿</span>
-                <div>
-                  <strong>Small shifts change how you feel.</strong>
-                  <span>You have got this, one moment at a time.</span>
+                  <span className="rounded-full bg-[#f3efff] px-4 py-2 text-sm font-semibold text-[#6944dc]">
+                    1 of 2
+                  </span>
                 </div>
-              </div>
-              <div className="mf-reassure-item">
-                <span style={{ fontSize: '1.2rem' }}>💛</span>
-                <div>
-                  <strong>Be kind to yourself.</strong>
-                  <span>One choice at a time.</span>
+
+                <div className="mb-5 flex flex-wrap gap-2">
+                  {families.map((item) => (
+                    <button
+                      key={item}
+                      onClick={() => chooseFamily(item)}
+                      className={`rounded-xl border px-4 py-2.5 text-sm font-semibold transition ${
+                        family === item
+                          ? "border-[#7044e8] bg-gradient-to-r from-[#633ce0] to-[#9650e7] text-white shadow-lg shadow-purple-200"
+                          : "border-[#e9e5ef] bg-white text-[#25213b] hover:border-[#ad93ee] hover:bg-[#f8f5ff]"
+                      }`}
+                    >
+                      {item === "All" && "▦ "}
+                      {item === "Low" && "😔 "}
+                      {item === "Anxious" && "🌧️ "}
+                      {item === "Angry" && "🔥 "}
+                      {item === "Overwhelmed" && "〰️ "}
+                      {item === "Lonely" && "👤 "}
+                      {item}
+                    </button>
+                  ))}
                 </div>
-              </div>
-            </div>
-          </section>
 
-          {/* HOW IT WORKS */}
-          <section className="mf-section-light mf-alt">
-            <div className="mf-sec-head">
-              <span className="mf-sec-tag">How MoodFlip works</span>
-              <h2 className="mf-sec-title">From stuck to moving in three gentle taps.</h2>
-              <p className="mf-sec-desc">No typing and no long questionnaire. Narrow the feeling, then take one manageable next step.</p>
-            </div>
-
-            <div className="mf-steps-grid">
-              {[
-                { num: '01', title: 'Choose what feels closest', text: 'Start with a broad mood family, then tap the feeling that best matches this moment.' },
-                { num: '02', title: 'Flip the emotional direction', text: 'MoodFlip pairs that feeling with a more supportive target state without asking you to type anything.' },
-                { num: '03', title: 'Take one tiny action', text: 'Try a practical 60-second reset designed to feel manageable, even on a difficult day.' },
-              ].map(s => (
-                <div key={s.num} className="mf-step-card">
-                  <span className="mf-step-card-num">{s.num}</span>
-                  <h3 className="mf-step-card-h3">{s.title}</h3>
-                  <p className="mf-step-card-p">{s.text}</p>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                  {visibleMoods.map((mood) => {
+                    const active = selectedMood?.id === mood.id;
+                    return (
+                      <button
+                        key={mood.id}
+                        onClick={() => chooseMood(mood)}
+                        className={`group rounded-2xl border p-4 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+                          active
+                            ? "border-[#7651eb] bg-[#f4efff] shadow-md shadow-purple-100"
+                            : "border-[#ece7f0] bg-gradient-to-b from-white to-[#fbfaff]"
+                        }`}
+                      >
+                        <span className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#f5f1ff] text-2xl transition group-hover:scale-110">
+                          {mood.emoji}
+                        </span>
+                        <span className="block text-sm font-semibold text-[#282044]">
+                          {mood.name}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
-          </section>
 
-          {/* FAQS */}
-          <section className="mf-section-light">
-            <div className="mf-sec-head">
-              <span className="mf-sec-tag">Got questions?</span>
-              <h2 className="mf-sec-title">Frequently asked questions</h2>
-            </div>
+                {/* STEP 2 */}
+                <div className="my-7 border-t border-[#eeeaf3] pt-7">
+                  <div className="mb-5 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#6842e8] to-[#9b55e8] font-bold text-white">
+                        2
+                      </span>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wide text-[#6c4de6]">
+                          Step 2
+                        </p>
+                        <h2 className="font-semibold text-lg text-[#282044]">
+                          Pick exact feeling
+                        </h2>
+                      </div>
+                    </div>
 
-            <div className="mf-faq-wrap">
-              {FAQS.map(([q, a], idx) => (
-                <div key={idx} className={`mf-faq-card ${openFaq === idx ? 'open' : ''}`}>
-                  <button className="mf-faq-q" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
-                    <span>{q}</span>
-                    <span className="mf-faq-plus">+</span>
-                  </button>
-                  {openFaq === idx && (
-                    <div className="mf-faq-a">{a}</div>
+                    <span className="rounded-full bg-[#f3efff] px-4 py-2 text-sm font-semibold text-[#6944dc]">
+                      2 of 2
+                    </span>
+                  </div>
+
+                  {!selectedMood ? (
+                    <div className="rounded-2xl border border-dashed border-[#cfc3ee] bg-[#fcfbff] px-5 py-8 text-center text-sm text-[#77718b]">
+                      👆 Select a mood above to see specific feelings
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                      {selectedMood.feelings.map((feeling) => (
+                        <button
+                          key={feeling}
+                          onClick={() => {
+                            setSelectedFeeling(feeling);
+                            setFlipped(false);
+                          }}
+                          className={`rounded-xl border px-3 py-3 text-sm font-medium transition ${
+                            selectedFeeling === feeling
+                              ? "border-[#7145e5] bg-[#eee7ff] text-[#5b35c9] font-bold"
+                              : "border-[#e9e5ef] bg-white text-[#282044] hover:border-[#bca7f1]"
+                          }`}
+                        >
+                          {feeling}
+                        </button>
+                      ))}
+                    </div>
                   )}
                 </div>
-              ))}
-            </div>
-          </section>
 
-          <AdBanner slot="bottom-banner" />
+                <button
+                  disabled={!selectedMood || !selectedFeeling}
+                  onClick={flipMood}
+                  className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#6237dc] via-[#8146e4] to-[#b64fd3] px-6 py-4 text-base font-bold text-white shadow-lg shadow-purple-200 transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <span className="relative z-10">
+                    ✨ FLIP MY MOOD →
+                  </span>
+                  <span className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-700 group-hover:translate-x-full" />
+                </button>
+
+                <p className="mt-3 text-center text-xs text-[#817b91]">
+                  Get your positive flip &amp; 60-second action
+                </p>
+              </section>
+
+              {/* RESULT */}
+              <PositiveResult
+                mood={selectedMood}
+                feeling={selectedFeeling}
+                flipped={flipped}
+                saved={saved}
+                actionIndex={actionIndex}
+                onTryAnother={tryAnother}
+                onSave={saveCheckin}
+              />
+
+              {/* SIDEBAR */}
+              <MoreForYou />
+            </section>
+
+            <TrustSection />
+
+            <AdBanner />
+          </div>
         </main>
 
         <Footer />
       </div>
     </>
+  );
+}
+
+function AdBanner() {
+  return (
+    <div className="my-5 flex h-14 items-center justify-center rounded-xl border border-dashed border-[#d7c8f7] bg-[#faf8ff] text-sm text-[#706986]">
+      <span className="mr-2 rounded border border-[#e2d9f5] px-2 py-0.5 text-[10px]">
+        Ad
+      </span>
+      Google AdSense Banner (728x90)
+    </div>
+  );
+}
+
+type ResultProps = {
+  mood: Mood | null;
+  feeling: string;
+  flipped: boolean;
+  saved: boolean;
+  actionIndex: number;
+  onTryAnother: () => void;
+  onSave: () => void;
+};
+
+function PositiveResult({
+  mood,
+  feeling,
+  flipped,
+  saved,
+  actionIndex,
+  onTryAnother,
+  onSave,
+}: ResultProps) {
+  const action = mood?.actions[actionIndex];
+
+  return (
+    <section className="relative min-h-[650px] overflow-hidden rounded-[28px] border border-[#eadff2] bg-gradient-to-br from-[#fff7fb] via-[#fff4e9] to-[#eee9ff] p-6 shadow-[0_20px_70px_rgba(130,80,150,0.12)]">
+      <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#f9c7de]/30 blur-3xl" />
+      <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[#bca9ff]/30 blur-3xl" />
+
+      <div className="relative z-10 flex items-center justify-between">
+        <span className="rounded-full border border-white/80 bg-white/75 px-4 py-2 text-xs font-semibold text-[#6944dc] shadow-sm">
+          {flipped ? "✓ Here's your positive flip" : "Your MoodFlip"}
+        </span>
+
+        <div className="flex gap-2">
+          <button className="rounded-lg bg-white/80 px-3 py-2 text-xs font-semibold shadow-sm hover:bg-white text-[#282044]">
+            ♡ Save
+          </button>
+          <button
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: "MoodFlip",
+                  text: "I just flipped my mood on MoodFlip.",
+                });
+              }
+            }}
+            className="rounded-lg bg-white/80 px-3 py-2 text-xs font-semibold shadow-sm hover:bg-white text-[#282044]"
+          >
+            ↗ Share
+          </button>
+        </div>
+      </div>
+
+      {!flipped ? (
+        <div className="relative z-10 flex min-h-[520px] flex-col items-center justify-center text-center">
+          <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-white/75 text-5xl shadow-xl">
+            ☀️
+          </div>
+
+          <h2 className="max-w-md font-serif text-4xl font-bold text-[#282044]">
+            Take a small step towards a better you
+          </h2>
+
+          <p className="mt-4 max-w-md text-[#716a7f]">
+            Select your feeling on the left and tap{" "}
+            <b>FLIP MY MOOD</b> to reveal a positive direction and a
+            practical 60-second action.
+          </p>
+
+          <div className="mt-8 rounded-2xl bg-white/70 px-6 py-4 text-left shadow-sm">
+            <p className="text-sm font-bold text-[#4f3a8f]">
+              How it works
+            </p>
+            <p className="mt-2 text-sm text-[#716a7f]">
+              Choose your mood → Pick your feeling → Flip your mood
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="relative z-10 flex flex-col items-center pt-10 text-center">
+          <div className="mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-white/80 text-5xl shadow-xl">
+            🌅
+          </div>
+
+          <p className="text-sm font-medium text-[#7b6b83]">
+            You selected:{" "}
+            <span className="font-bold text-[#5b40b7]">
+              {feeling}
+            </span>
+          </p>
+
+          <h2 className="mt-3 font-serif text-4xl font-bold text-[#282044]">
+            Towards {mood?.positive}
+          </h2>
+
+          <p className="mt-3 max-w-md text-[#716a7f]">
+            {mood?.description}
+          </p>
+
+          <div className="mt-8 w-full max-w-xl rounded-[22px] border border-white/80 bg-white/85 p-5 text-left shadow-xl backdrop-blur">
+            <div className="flex items-center justify-between">
+              <h3 className="font-bold text-[#302749]">
+                ✨ Your 60-Second Action
+              </h3>
+              <span className="rounded-full bg-[#f2edff] px-3 py-1 text-xs font-bold text-[#6841dc]">
+                ◷ 60s
+              </span>
+            </div>
+
+            <div className="mt-4 flex items-center gap-4 rounded-2xl bg-[#faf8ff] p-5">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#663de1] to-[#a349df] text-xl text-white shadow-lg">
+                ▶
+              </div>
+              <p className="text-base font-semibold leading-relaxed text-[#302749]">
+                {action}
+              </p>
+            </div>
+
+            <div className="mt-5">
+              <p className="text-sm font-bold text-[#4b3b6e]">
+                ♡ Why this helps
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-[#777084]">
+                A short intentional pause can help you reconnect with the
+                present moment and choose your next small step.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 flex w-full max-w-xl gap-3">
+            <button
+              onClick={onTryAnother}
+              className="flex-1 rounded-xl border border-[#dcd2ed] bg-white px-5 py-3.5 text-sm font-bold text-[#6841d9] transition hover:bg-[#faf7ff]"
+            >
+              ↻ Try Another
+            </button>
+            <button
+              onClick={onSave}
+              className="flex-1 rounded-xl bg-gradient-to-r from-[#683be0] to-[#9648dd] px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-purple-200"
+            >
+              {saved ? "✓ Saved" : "♡ Save to My Check-ins"}
+            </button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function MoreForYou() {
+  return (
+    <aside className="space-y-3">
+      <h3 className="mb-3 px-1 text-sm font-bold text-[#28223d]">
+        ⭐ More for You
+      </h3>
+
+      <PlanCard
+        icon="📅"
+        title="7-Day Plan"
+        text="Build a better mindset starting today."
+        button="View Plan →"
+        href="/register"
+      />
+
+      <PlanCard
+        icon="🗓️"
+        title="30-Day Plan"
+        text="Go deeper. Lasting change in 30 days."
+        button="Coming Soon"
+        href="/pricing"
+      />
+
+      <PlanCard
+        icon="🎁"
+        title="Daily Reminders"
+        text="Gentle nudges for your better days."
+        button="Enable →"
+        href="/register"
+      />
+
+      <PlanCard
+        icon="📈"
+        title="Track Progress"
+        text="See how far you've come."
+        button="View Profile →"
+        href="/profile"
+      />
+
+      <div className="rounded-2xl border border-[#eee8f5] bg-white p-4 shadow-sm">
+        <div className="flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f0eaff] text-lg">
+            🔐
+          </span>
+          <div>
+            <p className="text-xs font-bold text-[#282044]">Your data is private</p>
+            <p className="mt-1 text-[11px] text-[#777180]">
+              Protected and automatically deleted after 90 days.
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function PlanCard({
+  icon,
+  title,
+  text,
+  button,
+  href,
+}: {
+  icon: string;
+  title: string;
+  text: string;
+  button: string;
+  href?: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-[#eee8f5] bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+      <div className="flex gap-3">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#f2edff] text-xl">
+          {icon}
+        </span>
+        <div>
+          <h4 className="text-sm font-bold text-[#282044]">{title}</h4>
+          <p className="mt-1 text-xs leading-relaxed text-[#777180]">
+            {text}
+          </p>
+          {href ? (
+            <Link href={href} className="mt-2 inline-block text-xs font-bold text-[#6841d9]">
+              {button}
+            </Link>
+          ) : (
+            <button className="mt-2 text-xs font-bold text-[#6841d9]">
+              {button}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TrustSection() {
+  const items = [
+    {
+      icon: "🛡️",
+      title: "Private & Secure",
+      text: "Your data is protected.",
+    },
+    {
+      icon: "✓",
+      title: "90-Day Auto Delete",
+      text: "Inactive data is automatically deleted.",
+    },
+    {
+      icon: "❤️",
+      title: "Not Therapy",
+      text: "A self-reflection utility, not a medical service.",
+    },
+    {
+      icon: "👥",
+      title: "You're Not Alone",
+      text: "Small shifts, every day.",
+    },
+    {
+      icon: "✨",
+      title: "Made with Care",
+      text: "Simple tools for a better you.",
+    },
+  ];
+
+  return (
+    <section className="my-6 grid gap-3 rounded-3xl border border-[#eee8f5] bg-white p-5 shadow-sm sm:grid-cols-2 lg:grid-cols-5">
+      {items.map((item) => (
+        <div
+          key={item.title}
+          className="flex items-center gap-3 rounded-2xl p-2"
+        >
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#f4efff] text-xl">
+            {item.icon}
+          </span>
+          <div>
+            <p className="text-xs font-bold text-[#282044]">{item.title}</p>
+            <p className="mt-1 text-[11px] leading-relaxed text-[#777180]">
+              {item.text}
+            </p>
+          </div>
+        </div>
+      ))}
+    </section>
   );
 }

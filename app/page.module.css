@@ -726,6 +726,201 @@
   display: grid;
   grid-template-columns: 42px 1fr;
   gap: 12px;
+text-align: center;
+  color: #47445a;
+  font-size: 14px;
+}
+
+.landscape {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 105px;
+  height: 385px;
+  pointer-events: none;
+}
+
+.sparkOne,
+.sparkTwo,
+.birdOne,
+.birdTwo { position: absolute; color: rgba(255,255,255,.96); text-shadow: 0 0 12px rgba(255,255,255,.8); }
+.sparkOne { left: 18%; top: 25px; font-size: 28px; }
+.sparkTwo { right: 16%; top: 139px; font-size: 21px; }
+.birdOne { right: 9%; top: 101px; color: #efbadc; font-size: 30px; transform: rotate(-5deg); }
+.birdTwo { left: 68%; top: 147px; color: #efcad8; font-size: 23px; }
+
+.hillBack,
+.hillFront {
+  position: absolute;
+  left: -9%;
+  right: -11%;
+  border-radius: 50% 50% 0 0;
+}
+
+.hillBack {
+  bottom: 13px;
+  height: 164px;
+  background:
+    radial-gradient(ellipse at 68% 100%, #f6a5bb 0 18%, transparent 19%),
+    radial-gradient(ellipse at 22% 100%, #f9bfc8 0 30%, transparent 31%),
+    radial-gradient(ellipse at 76% 100%, #f9d5b1 0 38%, transparent 39%),
+    linear-gradient(180deg, rgba(255,217,181,.9), rgba(245,173,188,.82));
+  opacity: .78;
+}
+
+.hillFront {
+  bottom: -80px;
+  height: 210px;
+  background:
+    radial-gradient(ellipse at 82% 20%, #ef93c5 0 17%, transparent 18%),
+    radial-gradient(ellipse at 10% 19%, #ef91bf 0 19%, transparent 20%),
+    radial-gradient(ellipse at 50% 10%, #f4bee3 0 44%, transparent 45%),
+    linear-gradient(180deg, #f6b7d3, #dc81c7);
+  opacity: .7;
+}
+
+.topIconBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid #e2dbed;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #231f3b;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.checkCircle {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #7d4fe7;
+  color: #7d4fe7;
+  height: 50px;
+  padding: 0 22px;
+  border-bottom: 1px solid #eee9f0;
+  font-size: 14px;
+  font-weight: 700;
+}
+.actionTitleRow span { padding: 4px 10px; border-radius: 12px; background: #f5f2f7; font-size: 12px; }
+
+.breathAction {
+  min-height: 96px;
+  display: grid;
+  grid-template-columns: 52px 1fr 64px;
+  align-items: center;
+  gap: 14px;
+  margin: 0 16px;
+  padding: 0 12px;
+  border: 1px solid #ded2ff;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(255,255,255,.7), rgba(249,246,255,.9));
+}
+
+.playButton {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  background: linear-gradient(145deg, #8d63ee, #5e32d4);
+  box-shadow: 0 8px 20px rgba(97, 52, 211, .25);
+  cursor: pointer;
+}
+
+.actionCopy { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.actionCopy span { line-height: 1.4; color: #24223b; }
+
+.timerCircle {
+  width: 62px;
+  height: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #cdbbf5;
+  border-radius: 50%;
+  background: white;
+  color: #15152e;
+  cursor: pointer;
+}
+.timerCircle strong { font-size: 17px; line-height: 1; }
+.timerCircle small { margin-top: 3px; font-size: 9px; font-weight: 700; }
+
+.whyBlock {
+  padding: 20px 22px 18px;
+  color: #57516e;
+  font-size: 13px;
+}
+.whyBlock > div { color: #524f6d; font-weight: 700; }
+.whyBlock p { margin: 12px 0 0; line-height: 1.5; }
+
+.flipActions {
+  position: relative;
+  z-index: 5;
+  width: 86%;
+  margin: 18px auto 0;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
+}
+
+.flipActions button {
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid #e0d8f2;
+  background: white;
+  color: #6a43df;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.flipActions .saveButton {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(135deg, #c14fba, #6c40e6);
+  box-shadow: 0 9px 20px rgba(109, 64, 230, .16);
+}
+
+.morePanel {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  align-self: flex-start;
+  min-height: 431px;
+  padding: 16px 12px;
+  margin-top: 0px;
+  border-radius: 21px;
+  border: 1px solid rgba(42, 38, 78, .11);
+  background: rgba(255,255,255,.93);
+  box-shadow: 0 16px 38px rgba(81, 59, 128, .035);
+}
+
+.morePanel h3 {
+  margin: 1px 3px 13px;
+  font-size: 11px;
+}
+
+.planList {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 10px;
+}
+.planCard {
+  min-height: 90px;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
   padding: 14px 12px;
   border: 1px solid;
   border-radius: 13px;
@@ -744,14 +939,7 @@
 .planCard strong { font-size: 14px; }
 .planCard p { margin: 5px 0 6px; color: #4f4d67; font-size: 12px; line-height: 1.45; }
 .planCard button { padding: 0; border: 0; color: #6a3ddd; background: transparent; font-size: 12px; font-weight: 800; cursor: pointer; }
-.planPurple { background: #f4f4ff; border-color: #d6d4ff; }
-.planPurple .planIcon { background: linear-gradient(145deg, #8d74ff, #6d54e8); }
-.planBlue { background: #f0fbff; border-color: #cdeaf3; }
-.planBlue .planIcon { background: linear-gradient(145deg, #75cbd8, #3ca4c2); }
-.planGreen { background: #f3fbf3; border-color: #d9ecd7; }
-.planGreen .planIcon { background: linear-gradient(145deg, #8bd37f, #54aa50); }
-.planPink { background: #fff3fb; border-color: #f0d4e8; }
-.planPink .planIcon { background: linear-gradient(145deg, #d67ac8, #b450b1); }
+
 .planPurple { background: #f4f4ff; border-color: #d6d4ff; }
 .planPurple .planIcon { background: linear-gradient(145deg, #8d74ff, #6d54e8); }
 .planBlue { background: #f0fbff; border-color: #cdeaf3; }
@@ -1712,4 +1900,97 @@
   font-size: 11px;
   color: #8e85a3;
   margin-top: 12px;
+}
+
+/* Reference-matched How MoodFlip Works section */
+.howSection {
+  margin: 20px;
+  padding: 20px 28px 22px;
+  border-color: #f0edf6;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(37, 27, 82, .025);
+}
+.howHeader { margin-bottom: 14px; }
+.howHeader h2 {
+  font-size: 20px;
+  letter-spacing: -.25px;
+  color: #171543;
+}
+.howHeader p {
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #595271;
+}
+.stepsFlow {
+  position: relative;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 10px;
+}
+.howStep {
+  position: relative;
+  min-width: 0;
+  text-align: center;
+}
+.howIcon {
+  position: relative;
+  z-index: 1;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 10px;
+  font-size: 29px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.85), 0 5px 14px rgba(40, 29, 80, .025);
+}
+.how_blue { background: radial-gradient(circle at 35% 28%, #fbffff 0 6%, transparent 7%), linear-gradient(135deg,#edfaff,#e1f3ff); }
+.how_purple { background: radial-gradient(circle at 65% 32%, #fff 0 5%, transparent 6%), linear-gradient(135deg,#f7efff,#eee5ff); }
+.how_green { background: linear-gradient(135deg,#eafbf5,#dff5ec); }
+.how_pink { background: linear-gradient(135deg,#fff2f7,#ffe9f1); }
+.how_orange { background: linear-gradient(135deg,#fff8ef,#ffedda); }
+.howStep > b {
+  margin-bottom: 3px;
+  color: #24188d;
+  font-size: 18px;
+  line-height: 1;
+}
+.howStep h3 {
+  margin: 6px 0 2px;
+  color: #171543;
+  font-size: 10px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+.howStep p {
+  width: 128px;
+  color: #332c58;
+  font-size: 8px;
+  line-height: 1.4;
+}
+.dashedArrow {
+  top: 34px;
+  right: -13px;
+  width: 25px;
+  height: 1px;
+  background-image: repeating-linear-gradient(90deg, #a9a7ba 0 3px, transparent 3px 6px);
+  background-size: auto;
+}
+.dashedArrow::after {
+  top: -3px;
+  right: -1px;
+  border-color: #a9a7ba;
+  border-width: 0 1px 1px 0;
+  padding: 3px;
+}
+@media (max-width: 720px) {
+  .howSection { margin: 16px 12px; padding: 24px 16px 22px; }
+  .howHeader h2 { font-size: 22px; }
+  .howHeader p { font-size: 12px; }
+  .stepsFlow { grid-template-columns: 1fr; gap: 18px; margin-top: 20px; }
+  .howStep { display: grid; grid-template-columns: 72px 30px minmax(0,1fr); column-gap: 12px; align-items: center; text-align: left; }
+  .howIcon { grid-row: span 2; width: 62px; height: 62px; margin: 0; }
+  .howStep > b { align-self: end; font-size: 18px; }
+  .howStep h3 { margin: 0; align-self: end; font-size: 13px; }
+  .howStep p { grid-column: 2 / 4; width: auto; margin: 3px 0 0; font-size: 11px; }
+  .dashedArrow { top: auto; right: auto; left: 30px; bottom: -16px; width: 1px; height: 15px; background-image: repeating-linear-gradient(180deg, #a9a7ba 0 3px, transparent 3px 6px); }
+  .dashedArrow::after { top: auto; right: -3px; bottom: -1px; transform: rotate(45deg); }
 }

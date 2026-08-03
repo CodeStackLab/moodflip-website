@@ -41,10 +41,10 @@ const categories = [
 ] as const;
 
 const plans = [
-  { icon: "▣", title: "7-Day Plan", text: "Build a better mindset starting today.", action: "View Plan →", kind: "planPurple" },
-  { icon: "▦", title: "30-Day Plan", text: "Go deeper. Lasting change in 30 days.", action: "Coming Soon", kind: "planBlue" },
+  { icon: "📅", title: "7-Day Plan", text: "Build a better mindset starting today.", action: "View Plan →", kind: "planPurple" },
+  { icon: "🗓️", title: "30-Day Plan", text: "Go deeper. Lasting change in 30 days.", action: "Coming Soon", kind: "planBlue" },
   { icon: "🎁", title: "Daily Reminders", text: "Gentle nudges for your better days.", action: "Enable →", kind: "planGreen" },
-  { icon: "▥", title: "Track Progress", text: "See how far you’ve come.", action: "View Profile →", kind: "planPink" },
+  { icon: "📊", title: "Track Progress", text: "See how far you’ve come.", action: "View Profile →", kind: "planPink" },
 ];
 
 function IconButton({ label, children }: { label: string; children: React.ReactNode }) {

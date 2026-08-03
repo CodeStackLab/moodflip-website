@@ -92,7 +92,28 @@ export default function HomePage() {
   return (
     <main className={styles.pageShell}>
       <div className={styles.appFrame}>
-        <Header />
+        <header className={styles.header}>
+          <a className={styles.logo} href="#" aria-label="MoodFlip home">
+            <span className={styles.logoMark} aria-hidden="true">
+              <span />
+              <span />
+            </span>
+            <span>mood<span>flip</span></span>
+          </a>
+
+          <nav className={styles.nav} aria-label="Primary navigation">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#how">How It Works</a>
+            <a href="#library">Mood Library</a>
+            <a href="#resources">Resources</a>
+          </nav>
+
+          <div className={styles.headerActions}>
+            <a href="/login" className={styles.loginButton}><span>👤</span> Login</a>
+            <button className={styles.planButton} type="button">Get 7-Day Plan</button>
+          </div>
+        </header>
 
         <section className={styles.topAd} aria-label="Advertisement placeholder">
           <span className={styles.adBadge}>Ad</span>

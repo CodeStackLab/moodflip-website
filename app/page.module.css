@@ -20,15 +20,24 @@
 }
 
 .header {
-  height: 68px;
-  display: grid;
-  grid-template-columns: 280px 1fr 280px;
+  min-height: 68px;
+  display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 0 46px;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 32px;
   border-bottom: 1px solid rgba(33, 31, 75, .08);
-  background: rgba(255,255,255,.82);
+  background: rgba(255,255,255,.92);
   backdrop-filter: blur(20px);
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding: 12px 16px;
+  }
+  .nav {
+    display: none !important;
+  }
 }
 
 .logo {

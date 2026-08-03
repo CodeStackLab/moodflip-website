@@ -336,14 +336,16 @@ export default function HomePage() {
           </div>
           <div className={styles.stepsFlow}>
             {[
-              { icon: '🎛️', color: 'how_blue', step: '1', title: 'Choose Your Mood', desc: 'Pick the mood that feels closest to you.' },
-              { icon: '☁️', color: 'how_purple', step: '2', title: 'Pick Exact Feeling', desc: 'Select the feeling that matches you best.' },
-              { icon: '🔄', color: 'how_green', step: '3', title: 'Flip Your Mood', desc: 'We find your positive counterpart.' },
-              { icon: '▶️', color: 'how_pink', step: '4', title: 'Get 60-Second Action', desc: 'A short action to shift your energy.' },
-              { icon: '📈', color: 'how_orange', step: '5', title: 'Save & Track Progress', desc: 'Save your check-in and see growth.' }
+              { img: '/step1.png', color: 'how_blue', step: '1', title: 'Choose Your Mood', desc: 'Pick the mood that feels closest to you.' },
+              { img: '/step2.png', color: 'how_purple', step: '2', title: 'Pick Exact Feeling', desc: 'Select the feeling that matches you best.' },
+              { img: '/step3.png', color: 'how_green', step: '3', title: 'Flip Your Mood', desc: 'We find your positive counterpart.' },
+              { img: '/step4.png', color: 'how_pink', step: '4', title: 'Get 60-Second Action', desc: 'A short action to shift your energy.' },
+              { img: '/step5.png', color: 'how_orange', step: '5', title: 'Save & Track Progress', desc: 'Save your check-in and see growth.' }
             ].map((step) => (
               <div key={step.title} className={styles.howStep}>
-                <div className={`${styles.howIcon} ${styles[step.color]}`}>{step.icon}</div>
+                <div className={`${styles.howIcon} ${styles[step.color]}`}>
+                  <img src={step.img} alt={step.title} style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
+                </div>
                 <b>{step.step}</b>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>

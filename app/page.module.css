@@ -655,14 +655,19 @@
 .flipIntro {
   position: relative;
   z-index: 4;
-  margin: 8px auto 4px;
-  display: flex;
+  margin: 10px auto 4px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 14px rgba(100, 50, 180, 0.08);
   color: #2d264b;
   font-size: 13.5px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .flipIntro strong { color: #7c3aed; font-weight: 800; }
@@ -769,14 +774,14 @@
 .checkCircle {
   display: inline-grid;
   place-items: center;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  border: 1.5px solid #7d4fe7;
-  color: #7d4fe7;
-  font-size: 12px;
-  font-weight: 800;
-  margin-right: 6px;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 900;
+  box-shadow: 0 2px 6px rgba(109, 40, 217, 0.3);
 }
 
 .actionCard {

@@ -219,7 +219,32 @@ export default function HomePage() {
             </div>
 
             <div className={styles.sunBadge}>
-              <span className={styles.sunCore}>🌅</span>
+              <span className={styles.sunCore}>
+                <svg width="48" height="40" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="sunGradient" x1="24" y1="14" x2="24" y2="27" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#FFC107" />
+                      <stop offset="100%" stopColor="#FF9800" />
+                    </linearGradient>
+                    <linearGradient id="oceanGradient1" x1="10" y1="28" x2="38" y2="32" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#FF7675" />
+                      <stop offset="100%" stopColor="#E84393" />
+                    </linearGradient>
+                    <linearGradient id="oceanGradient2" x1="14" y1="34" x2="34" y2="37.5" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#FD79A8" />
+                      <stop offset="100%" stopColor="#E84393" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="#FFC107" />
+                  <rect x="11.5" y="6" width="3" height="6.5" rx="1.5" transform="rotate(-45 11.5 6)" fill="#FFC107" />
+                  <rect x="33.5" y="8" width="3" height="6.5" rx="1.5" transform="rotate(45 33.5 8)" fill="#FFC107" />
+                  <rect x="4" y="19" width="6.5" height="3" rx="1.5" fill="#FFB300" />
+                  <rect x="37.5" y="19" width="6.5" height="3" rx="1.5" fill="#FFB300" />
+                  <path d="M12 27A12 12 0 0 1 36 27H12Z" fill="url(#sunGradient)" />
+                  <rect x="10" y="28" width="28" height="4" rx="2" fill="url(#oceanGradient1)" />
+                  <rect x="14" y="34" width="20" height="3.5" rx="1.75" fill="url(#oceanGradient2)" />
+                </svg>
+              </span>
             </div>
 
             <h2>Towards Calm &amp; Clarity</h2>

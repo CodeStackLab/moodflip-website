@@ -207,75 +207,8 @@ export default function HomePage() {
               <span className={styles.checkCircle}>✓</span> Here&apos;s your <strong>positive flip</strong>
             </div>
 
-            <div className={styles.sunBadge} aria-hidden="true">
-              <span className={styles.sunCore}>🌅</span>
-            </div>
-
             <h2>Towards Calm &amp; Clarity</h2>
             <p className={styles.flipSubtitle}>You&apos;ve got this. Small steps, big shifts.</p>
-
-            <div className={styles.landscape} aria-hidden="true">
-              <span className={styles.sparkOne}>✦</span>
-              <span className={styles.sparkTwo}>✦</span>
-              <span className={styles.birdOne}>⌁</span>
-              <span className={styles.birdTwo}>⌁</span>
-              <div className={styles.hillBack} />
-              <div className={styles.hillFront} />
-              
-              {/* Left Plant Branch SVG - Taller & Fuller */}
-              <div className={styles.plantLeft}>
-                <svg width="120" height="320" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="leafGradLeft" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#ffb0a0" stopOpacity="0.95" />
-                      <stop offset="40%" stopColor="#f38181" stopOpacity="0.9" />
-                      <stop offset="80%" stopColor="#e25865" stopOpacity="0.85" />
-                      <stop offset="100%" stopColor="#d13f50" stopOpacity="0.8" />
-                    </linearGradient>
-                  </defs>
-                  {/* Main curved stem */}
-                  <path d="M 30 320 Q 45 180 85 30" stroke="url(#leafGradLeft)" strokeWidth="4.5" strokeLinecap="round" />
-                  {/* Top terminal leaf */}
-                  <path d="M 85 30 C 65 10, 35 18, 48 50 C 61 82, 80 50, 85 30 Z" fill="url(#leafGradLeft)" />
-                  {/* Pair 1 */}
-                  <path d="M 68 85 C 32 72, 12 98, 32 122 C 52 146, 72 108, 68 85 Z" fill="url(#leafGradLeft)" />
-                  <path d="M 76 112 C 106 95, 122 122, 102 144 C 82 166, 64 132, 76 112 Z" fill="url(#leafGradLeft)" />
-                  {/* Pair 2 */}
-                  <path d="M 52 160 C 18 148, -2 175, 18 198 C 38 221, 58 185, 52 160 Z" fill="url(#leafGradLeft)" />
-                  <path d="M 58 185 C 90 168, 108 195, 88 218 C 68 241, 48 206, 58 185 Z" fill="url(#leafGradLeft)" />
-                  {/* Pair 3 */}
-                  <path d="M 40 235 C 8 222, -10 250, 10 272 C 30 294, 50 258, 40 235 Z" fill="url(#leafGradLeft)" />
-                  <path d="M 45 258 C 76 242, 94 268, 74 290 C 54 312, 34 278, 45 258 Z" fill="url(#leafGradLeft)" />
-                </svg>
-              </div>
-
-              {/* Right Plant Branch SVG - Taller & Fuller */}
-              <div className={styles.plantRight}>
-                <svg width="120" height="320" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="leafGradRight" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#ffb0a0" stopOpacity="0.95" />
-                      <stop offset="40%" stopColor="#f38181" stopOpacity="0.9" />
-                      <stop offset="80%" stopColor="#e25865" stopOpacity="0.85" />
-                      <stop offset="100%" stopColor="#d13f50" stopOpacity="0.8" />
-                    </linearGradient>
-                  </defs>
-                  {/* Main curved stem */}
-                  <path d="M 90 320 Q 75 180 35 30" stroke="url(#leafGradRight)" strokeWidth="4.5" strokeLinecap="round" />
-                  {/* Top terminal leaf */}
-                  <path d="M 35 30 C 55 10, 85 18, 72 50 C 59 82, 40 50, 35 30 Z" fill="url(#leafGradRight)" />
-                  {/* Pair 1 */}
-                  <path d="M 52 85 C 88 72, 108 98, 88 122 C 68 146, 48 108, 52 85 Z" fill="url(#leafGradRight)" />
-                  <path d="M 44 112 C 14 95, -2 122, 18 144 C 38 166, 56 132, 44 112 Z" fill="url(#leafGradRight)" />
-                  {/* Pair 2 */}
-                  <path d="M 68 160 C 102 148, 122 175, 102 198 C 82 221, 62 185, 68 160 Z" fill="url(#leafGradRight)" />
-                  <path d="M 62 185 C 30 168, 12 195, 32 218 C 52 241, 72 206, 62 185 Z" fill="url(#leafGradRight)" />
-                  {/* Pair 3 */}
-                  <path d="M 80 235 C 112 222, 130 250, 110 272 C 90 294, 70 258, 80 235 Z" fill="url(#leafGradRight)" />
-                  <path d="M 75 258 C 44 242, 26 268, 46 290 C 66 312, 86 278, 75 258 Z" fill="url(#leafGradRight)" />
-                </svg>
-              </div>
-            </div>
 
             <div className={styles.actionCard}>
               <div className={styles.actionTitleRow}>

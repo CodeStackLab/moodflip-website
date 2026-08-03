@@ -15,7 +15,7 @@ export default function MoreForYou() {
       <div className="rounded-2xl border border-[#BFDBFE] bg-[#EFF6FF] p-4 transition hover:-translate-y-0.5 shadow-sm text-center">
         <div className="w-24 h-32 mx-auto mb-2 flex items-center justify-center">
           <img 
-            src="/7day-book-cover-3d.png?v=6" 
+            src="/7day-book-cover-3d-v6.png" 
             alt="MoodFlip 7-Day Plan Book" 
             className="w-full h-full object-contain drop-shadow-md hover:scale-105 transition-transform"
           />

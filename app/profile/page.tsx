@@ -35,14 +35,17 @@ export default function UserDashboardPage() {
           >
             {sidebarOpen ? '✕' : '☰'}
           </button>
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#7147E8] to-[#EC4899] flex items-center justify-center text-white text-xs">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#7147E8] via-[#A855F7] to-[#EC4899] flex items-center justify-center text-white text-xs shadow-xs">
               😊
             </div>
-            <span className="font-serif font-extrabold text-xl text-[#1A1338]">moodflip</span>
-          </div>
+            <span className="font-serif font-extrabold text-xl text-[#1A1338]">mood<span className="text-[#7147E8]">flip</span></span>
+          </Link>
         </div>
         <div className="flex items-center gap-2">
+          <Link href="/" className="px-3 py-1 rounded-xl bg-[#F0EBFA] border border-[#E0D4F7] text-[#7147E8] font-bold text-xs">
+            🏠 Home
+          </Link>
           <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" alt="Emma" className="w-8 h-8 rounded-full object-cover border border-purple-200" />
         </div>
       </div>
@@ -55,16 +58,29 @@ export default function UserDashboardPage() {
           fixed lg:static inset-y-0 left-0 z-50 w-[270px] bg-[#FAF8FD] border-r border-[#EAE3F2] p-5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
         `}>
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* DESKTOP BRAND LOGO */}
-            <div className="hidden lg:flex items-center gap-2.5 px-2 pt-1">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#7147E8] via-[#A855F7] to-[#EC4899] flex items-center justify-center text-white font-bold text-lg shadow-sm">
-                😊
-              </div>
-              <span className="font-serif text-2xl font-extrabold text-[#1A1338] tracking-tight">
-                moodflip
-              </span>
+            <div className="hidden lg:flex items-center gap-2.5 px-2 pt-1 mb-2">
+              <Link href="/" className="flex items-center gap-2.5 group">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#7147E8] via-[#A855F7] to-[#EC4899] flex items-center justify-center text-white font-bold text-base shadow-xs group-hover:scale-105 transition-transform">
+                  😊
+                </div>
+                <span className="font-serif text-2xl font-extrabold text-[#1A1338] tracking-tight">
+                  mood<span className="text-[#7147e8]">flip</span>
+                </span>
+              </Link>
             </div>
+
+            {/* BACK TO HOMEPAGE BUTTON */}
+            <Link
+              href="/"
+              className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-extrabold text-[#7147E8] bg-[#F0EBFA] hover:bg-[#E4DAF9] transition-all border border-[#E0D4F7] shadow-xs"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 001 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span>🏠 Back to Homepage</span>
+            </Link>
 
             {/* NAVIGATION MENU */}
             <nav className="space-y-4">

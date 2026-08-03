@@ -473,10 +473,10 @@ export default function HomePage() {
             <h2>Build a Better Mindset in Just 7 Days</h2>
             <p>Simple daily check-ins, practical actions, real change.</p>
             <ul>
-              <li>Daily mood check-ins</li>
-              <li>Personalized 60-second actions</li>
-              <li>7-day PDF report</li>
-              <li>Gentle guidance for you</li>
+              <li><span className={styles.planCheckIcon}>✓</span> Daily mood check-ins</li>
+              <li><span className={styles.planCheckIcon}>✓</span> Personalized 60-second actions</li>
+              <li><span className={styles.planCheckIcon}>✓</span> 7-day PDF report</li>
+              <li><span className={styles.planCheckIcon}>✓</span> Gentle guidance for you</li>
             </ul>
           </div>
           <div className={styles.priceCard}>

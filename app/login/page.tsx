@@ -19,9 +19,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] p-3 md:p-6 font-sans text-[#2D264B]">
-      {/* OUTER APP FRAME (Matching Image 1 Outer Card Frame) */}
-      <div className="mx-auto max-w-[1360px] bg-[#FFFFFF] border border-[#181940]/15 rounded-[32px] shadow-2xl overflow-hidden flex flex-col min-h-[920px]">
+    <div className="min-h-screen bg-[#FFFDFC] px-3 md:px-[5%] py-3 md:py-6 font-sans text-[#2D264B]">
+      {/* OUTER APP FRAME (Matching Homepage Width max-w-[1560px]) */}
+      <div className="mx-auto max-w-[1560px] w-full bg-[#FFFFFF] border border-[#181940]/14 rounded-[29px] shadow-2xl overflow-hidden flex flex-col min-h-[920px]">
 
         {/* TOP HEADER INSIDE APP FRAME */}
         <header className="h-18 px-6 md:px-10 border-b border-[#211F4B]/10 bg-white/90 backdrop-blur-md flex items-center justify-between gap-4">

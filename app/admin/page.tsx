@@ -7,20 +7,16 @@ export default function AdminDashboardPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [dateRange, setDateRange] = useState('May 9 - May 15, 2026');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userPage, setUserPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState('All');
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   // Full Interactive Dummy Users Data
-  const [users, setUsers] = useState([
+  const [users] = useState([
     { id: 1, name: 'Sarah Johnson', email: 'sarah.johnson@example.com', joinDate: 'May 15, 2026', visitCount: 24, status: 'Active', avatarBg: 'bg-purple-100 text-purple-700' },
     { id: 2, name: 'Michael Chen', email: 'michael.chen@example.com', joinDate: 'May 15, 2026', visitCount: 18, status: 'Active', avatarBg: 'bg-blue-100 text-blue-700' },
     { id: 3, name: 'Aisha Patel', email: 'aisha.patel@example.com', joinDate: 'May 14, 2026', visitCount: 31, status: 'Active', avatarBg: 'bg-pink-100 text-pink-700' },
     { id: 4, name: 'Daniel Kim', email: 'daniel.kim@example.com', joinDate: 'May 14, 2026', visitCount: 12, status: 'Inactive', avatarBg: 'bg-indigo-100 text-indigo-700' },
     { id: 5, name: 'Emily Davis', email: 'emily.davis@example.com', joinDate: 'May 13, 2026', visitCount: 27, status: 'Active', avatarBg: 'bg-emerald-100 text-emerald-700' },
-    { id: 6, name: 'Robert Wilson', email: 'robert.w@example.com', joinDate: 'May 12, 2026', visitCount: 9, status: 'Inactive', avatarBg: 'bg-amber-100 text-amber-700' },
-    { id: 7, name: 'Jessica Taylor', email: 'jessica.t@example.com', joinDate: 'May 11, 2026', visitCount: 42, status: 'Active', avatarBg: 'bg-teal-100 text-teal-700' },
-    { id: 8, name: 'David Miller', email: 'david.m@example.com', joinDate: 'May 10, 2026', visitCount: 15, status: 'Active', avatarBg: 'bg-rose-100 text-rose-700' },
   ]);
 
   // Full Interactive Dummy Check-ins Data
@@ -30,8 +26,6 @@ export default function AdminDashboardPage() {
     { id: 3, user: 'Aisha P.', mood: '😔 Sad', positiveMood: '😄 Happy', action: 'Gratitude Journal', time: 'May 15, 2026 7:58 AM' },
     { id: 4, user: 'Daniel K.', mood: '😡 Angry', positiveMood: '😌 Calm', action: 'Take a Break', time: 'May 15, 2026 7:44 AM' },
     { id: 5, user: 'Emily D.', mood: '😄 Happy', positiveMood: '😌 Calm', action: 'Affirmation', time: 'May 15, 2026 7:20 AM' },
-    { id: 6, user: 'Robert W.', mood: '🌿 Peaceful', positiveMood: '😄 Content', action: 'Mindful Walk', time: 'May 14, 2026 9:15 PM' },
-    { id: 7, user: 'Jessica T.', mood: '😰 Overwhelmed', positiveMood: '😌 Relief', action: 'Deep Breathing', time: 'May 14, 2026 6:30 PM' },
   ]);
 
   // Email Leads Data
@@ -81,24 +75,10 @@ export default function AdminDashboardPage() {
     c.action.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const navItems = [
-    { name: 'Dashboard', icon: '📊' },
-    { name: 'Users', icon: '👤' },
-    { name: 'Check-ins', icon: '📋' },
-    { name: 'Mood Library', icon: '😊' },
-    { name: 'Plans & Payments', icon: '💳' },
-    { name: 'Reports', icon: '📈' },
-    { name: 'Email Leads', icon: '✉️' },
-    { name: 'Analytics', icon: '📊' },
-    { name: 'Ad Spaces', icon: '📢' },
-    { name: 'Settings', icon: '⚙️' },
-    { name: 'Logout', icon: '🚪' },
-  ];
-
   return (
-    <div className="min-h-screen bg-[#F7F5FC] text-[#1A1338] font-sans antialiased flex flex-col">
+    <div className="min-h-screen bg-[#FAF9FE] text-[#1A1338] font-sans antialiased flex flex-col">
 
-      {/* MOBILE TOP NAVBAR WITH HAMBURGER BUTTON */}
+      {/* MOBILE TOP NAVBAR */}
       <div className="lg:hidden bg-white border-b border-[#EAE3F2] px-4 py-3 flex items-center justify-between shadow-xs sticky top-0 z-40">
         <div className="flex items-center gap-2.5">
           <button 
@@ -115,24 +95,22 @@ export default function AdminDashboardPage() {
             <span className="font-serif font-extrabold text-xl text-[#1A1338]">moodflip</span>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-[#7147E8] text-white font-extrabold flex items-center justify-center text-xs">
-            A
-          </div>
+        <div className="w-8 h-8 rounded-full bg-[#7147E8] text-white font-extrabold flex items-center justify-center text-xs">
+          A
         </div>
       </div>
 
-      {/* MAIN CONTAINER FRAME */}
+      {/* MAIN LAYOUT */}
       <div className="flex-1 flex overflow-hidden relative">
 
-        {/* 1. LEFT SIDEBAR (Desktop Fixed & Mobile Drawer) */}
+        {/* 1. LEFT SIDEBAR */}
         <aside className={`
           fixed lg:static inset-y-0 left-0 z-50 w-[270px] bg-[#FAF8FD] border-r border-[#EAE3F2] p-5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div>
             {/* DESKTOP BRAND LOGO */}
-            <div className="hidden lg:flex items-center gap-2.5 mb-8 px-2 pt-1">
+            <div className="hidden lg:flex items-center gap-2.5 mb-7 px-2 pt-1">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#7147E8] via-[#A855F7] to-[#EC4899] flex items-center justify-center text-white font-bold text-lg shadow-sm">
                 😊
               </div>
@@ -141,54 +119,199 @@ export default function AdminDashboardPage() {
               </span>
             </div>
 
-            {/* NAVIGATION MENU */}
+            {/* NAVIGATION MENU WITH PROFESSIONAL VECTOR SVG ICONS */}
             <nav className="space-y-1">
-              {navItems.map((item) => {
-                const isActive = activeTab === item.name;
-                return (
-                  <button
-                    key={item.name}
-                    onClick={() => {
-                      if (item.name === 'Logout') {
-                        if (confirm('Are you sure you want to log out of Admin Dashboard?')) {
-                          window.location.href = '/login';
-                        }
-                      } else {
-                        setActiveTab(item.name);
-                        setSidebarOpen(false);
-                      }
-                    }}
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 ${
-                      isActive
-                        ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
-                        : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
-                    }`}
-                  >
-                    <span className="text-base">{item.icon}</span>
-                    <span>{item.name}</span>
-                  </button>
-                );
-              })}
+              {/* 1. Dashboard */}
+              <button
+                onClick={() => { setActiveTab('Dashboard'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Dashboard'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                <span>Dashboard</span>
+              </button>
+
+              {/* 2. Users */}
+              <button
+                onClick={() => { setActiveTab('Users'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Users'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <span>Users</span>
+              </button>
+
+              {/* 3. Check-ins */}
+              <button
+                onClick={() => { setActiveTab('Check-ins'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Check-ins'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+                <span>Check-ins</span>
+              </button>
+
+              {/* 4. Mood Library */}
+              <button
+                onClick={() => { setActiveTab('Mood Library'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Mood Library'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Mood Library</span>
+              </button>
+
+              {/* 5. Plans & Payments */}
+              <button
+                onClick={() => { setActiveTab('Plans & Payments'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Plans & Payments'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>Plans &amp; Payments</span>
+              </button>
+
+              {/* 6. Reports */}
+              <button
+                onClick={() => { setActiveTab('Reports'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Reports'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                <span>Reports</span>
+              </button>
+
+              {/* 7. Email Leads */}
+              <button
+                onClick={() => { setActiveTab('Email Leads'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Email Leads'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>Email Leads</span>
+              </button>
+
+              {/* 8. Analytics */}
+              <button
+                onClick={() => { setActiveTab('Analytics'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Analytics'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                </svg>
+                <span>Analytics</span>
+              </button>
+
+              {/* 9. Ad Spaces */}
+              <button
+                onClick={() => { setActiveTab('Ad Spaces'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Ad Spaces'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                </svg>
+                <span>Ad Spaces</span>
+              </button>
+
+              {/* 10. Settings */}
+              <button
+                onClick={() => { setActiveTab('Settings'); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                  activeTab === 'Settings'
+                    ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/20'
+                    : 'text-[#5B5278] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                }`}
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Settings</span>
+              </button>
+
+              {/* 11. Logout */}
+              <button
+                onClick={() => {
+                  if (confirm('Are you sure you want to log out of Admin Dashboard?')) {
+                    window.location.href = '/login';
+                  }
+                }}
+                className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold text-gray-500 hover:bg-rose-50 hover:text-rose-600 transition-all cursor-pointer"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                <span>Logout</span>
+              </button>
             </nav>
           </div>
 
-          {/* BOTTOM SIDEBAR MOTIVATIONAL CARD WITH EMBEDDED FLORAL CORNER IMAGE (corner-left.png) */}
-          <div className="mt-6 relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#7147E8] to-[#9333EA] p-5 text-white shadow-lg">
-            {/* FLORAL CORNER OVERLAY IMAGE (corner-left.png) IN BOTTOM LEFT MATCHING MOCKUP */}
-            <img 
-              src="/corner-left.png" 
-              alt="Floral decoration" 
-              className="absolute bottom-0 left-0 w-36 h-auto opacity-35 pointer-events-none mix-blend-screen"
-            />
-            <div className="relative z-10">
-              <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center mb-3">
-                ❤️
-              </div>
-              <h4 className="font-serif font-bold text-sm leading-tight mb-1">Spread positivity.</h4>
-              <h4 className="font-serif font-bold text-sm leading-tight mb-2">Inspire change.</h4>
-              <p className="text-[11px] text-white/80 leading-relaxed font-medium">
+          {/* SIDEBAR MOTIVATIONAL CARD WITH FULL SUNSET BACKGROUND MATCHING SCREENSHOT 2 */}
+          <div 
+            className="mt-6 relative overflow-hidden rounded-2xl border border-[#EAE3D6] p-6 shadow-md flex flex-col justify-between text-center min-h-[220px] bg-cover bg-center"
+            style={{ backgroundImage: "url('/login-bg.jpg')" }}
+          >
+            {/* Soft Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/40 to-transparent pointer-events-none" />
+
+            <div className="relative z-10 text-center pt-1">
+              <h4 className="font-serif font-extrabold text-base text-[#1A1338] leading-tight mb-1">
+                Spread positivity.<br />Inspire change.
+              </h4>
+              <p className="text-xs text-[#5B5278] font-medium leading-relaxed mt-2 max-w-[200px] mx-auto">
                 Thank you for helping millions live better.
               </p>
+            </div>
+
+            {/* Glowing Heart Pill Circle Icon at Bottom Center */}
+            <div className="relative z-10 w-11 h-11 rounded-full bg-[#7147E8] text-white flex items-center justify-center shadow-lg shadow-[#7147E8]/40 mx-auto mt-4">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
             </div>
           </div>
         </aside>
@@ -208,7 +331,11 @@ export default function AdminDashboardPage() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-3 md:p-4 rounded-2xl border border-[#EAE3F2] shadow-xs">
             {/* Search Input */}
             <div className="relative w-full sm:w-[420px]">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </span>
               <input
                 type="text"
                 placeholder="Search users, emails, check-ins, plans..."
@@ -225,16 +352,20 @@ export default function AdminDashboardPage() {
             <div className="flex items-center gap-3 self-end sm:self-auto">
               <button 
                 onClick={() => alert('Notifications (8): New user registration, 7-Day plan sale, eQTL export completed.')}
-                className="relative w-9 h-9 rounded-xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-sm text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer"
+                className="relative w-9 h-9 rounded-xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer"
               >
-                🔔
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#EC4899] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center">8</span>
               </button>
               <button 
                 onClick={() => alert('Messages (3): User inquiry about 7-Day Plan, Feedback submission.')}
-                className="relative w-9 h-9 rounded-xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-sm text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer"
+                className="relative w-9 h-9 rounded-xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer"
               >
-                ✉️
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#7147E8] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center">3</span>
               </button>
               <div className="h-6 w-px bg-gray-200 mx-1" />
@@ -259,7 +390,9 @@ export default function AdminDashboardPage() {
               </p>
             </div>
             <div className="flex items-center gap-2 bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2 shadow-xs cursor-pointer self-start sm:self-auto">
-              <span className="text-xs">📅</span>
+              <svg className="w-4 h-4 text-[#7147E8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
               <select 
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
@@ -281,7 +414,11 @@ export default function AdminDashboardPage() {
                 <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:shadow-md transition-all">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px] font-bold text-[#68607F]">Total Users</span>
-                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center text-xs">👤</div>
+                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
                   </div>
                   <div className="font-serif text-xl font-extrabold text-[#1A1338]">12,458</div>
                   <div className="text-[10px] font-bold text-emerald-600 mt-1 flex items-center gap-0.5">
@@ -292,7 +429,11 @@ export default function AdminDashboardPage() {
                 <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:shadow-md transition-all">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px] font-bold text-[#68607F]">Total Check-ins</span>
-                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center text-xs">📋</div>
+                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
                   </div>
                   <div className="font-serif text-xl font-extrabold text-[#1A1338]">89,142</div>
                   <div className="text-[10px] font-bold text-emerald-600 mt-1 flex items-center gap-0.5">
@@ -303,7 +444,11 @@ export default function AdminDashboardPage() {
                 <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:shadow-md transition-all">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px] font-bold text-[#68607F]">Active Paid Users</span>
-                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center text-xs">👑</div>
+                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                    </div>
                   </div>
                   <div className="font-serif text-xl font-extrabold text-[#1A1338]">3,276</div>
                   <div className="text-[10px] font-bold text-emerald-600 mt-1 flex items-center gap-0.5">
@@ -314,7 +459,11 @@ export default function AdminDashboardPage() {
                 <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:shadow-md transition-all">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px] font-bold text-[#68607F]">7-Day Plan Sales</span>
-                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center text-xs">🛍️</div>
+                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                    </div>
                   </div>
                   <div className="font-serif text-xl font-extrabold text-[#1A1338]">1,842</div>
                   <div className="text-[10px] font-bold text-emerald-600 mt-1 flex items-center gap-0.5">
@@ -325,7 +474,11 @@ export default function AdminDashboardPage() {
                 <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:shadow-md transition-all">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px] font-bold text-[#68607F]">Revenue</span>
-                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center text-xs">👛</div>
+                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
                   </div>
                   <div className="font-serif text-xl font-extrabold text-[#1A1338]">$18,942</div>
                   <div className="text-[10px] font-bold text-emerald-600 mt-1 flex items-center gap-0.5">
@@ -336,7 +489,12 @@ export default function AdminDashboardPage() {
                 <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:shadow-md transition-all">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px] font-bold text-[#68607F]">Avg. Daily Visits</span>
-                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center text-xs">👁️</div>
+                    <div className="w-7 h-7 rounded-lg bg-[#7147E8]/10 text-[#7147E8] flex items-center justify-center">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    </div>
                   </div>
                   <div className="font-serif text-xl font-extrabold text-[#1A1338]">5,819</div>
                   <div className="text-[10px] font-bold text-emerald-600 mt-1 flex items-center gap-0.5">
@@ -448,30 +606,45 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* QUICK ACTIONS BUTTONS */}
+                {/* QUICK ACTIONS BUTTONS WITH VECTOR SVG ICONS MATCHING SCREENSHOT 3 */}
                 <div className="lg:col-span-3 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <h3 className="font-serif font-bold text-base text-[#1A1338] mb-3">Quick Actions</h3>
                   <div className="space-y-2">
-                    <button onClick={exportUsersCSV} className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
-                      <span>📥</span> Export Users CSV
+                    <button onClick={exportUsersCSV} className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
+                      <svg className="w-4 h-4 text-[#7147E8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                      <span>Export Users CSV</span>
                     </button>
-                    <button onClick={exportLeadsCSV} className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
-                      <span>✉️</span> Export Leads CSV
+                    <button onClick={exportLeadsCSV} className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
+                      <svg className="w-4 h-4 text-[#7147E8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                      <span>Export Leads CSV</span>
                     </button>
-                    <button onClick={() => setActiveModal('addMood')} className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
-                      <span>➕</span> Add Mood Page
+                    <button onClick={() => setActiveModal('addMood')} className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
+                      <svg className="w-4 h-4 text-[#7147E8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>Add Mood Page</span>
                     </button>
-                    <button onClick={() => setActiveModal('createPlan')} className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
-                      <span>🎁</span> Create Plan
+                    <button onClick={() => setActiveModal('createPlan')} className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
+                      <svg className="w-4 h-4 text-[#7147E8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 00-2 2v6a2 2 0 002 2h14a2 2 0 002-2v-6a2 2 0 00-2-2H5z" />
+                      </svg>
+                      <span>Create Plan</span>
                     </button>
-                    <button onClick={() => setActiveTab('Reports')} className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
-                      <span>📊</span> View Reports
+                    <button onClick={() => setActiveTab('Reports')} className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl border border-[#EBE5F5] bg-[#FAF8FD] hover:bg-[#F0EBFA] text-xs font-bold text-[#7147E8] transition-all cursor-pointer">
+                      <svg className="w-4 h-4 text-[#7147E8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                      <span>View Reports</span>
                     </button>
                   </div>
                 </div>
               </div>
 
-              {/* LOWER SECTION ROW 1 (TABLES & PRIVACY CARDS) */}
+              {/* LOWER SECTION ROW 1 (TABLES & PRIVACY CARDS MATCHING SCREENSHOT 3) */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                 {/* RECENT USERS TABLE */}
                 <div className="lg:col-span-5 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
@@ -557,35 +730,53 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* CONSENT & PRIVACY CARDS */}
+                {/* CONSENT & PRIVACY CARDS WITH PROFESSIONAL ROUNDED VECTOR SVG BADGES MATCHING SCREENSHOT 3 */}
                 <div className="lg:col-span-3 space-y-4">
                   <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs">
-                    <div className="flex items-center gap-2 text-sm font-serif font-bold text-[#1A1338] mb-1.5">
-                      <span>🛡️</span> Consent &amp; Privacy
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#F0EBFA] text-[#7147E8] flex items-center justify-center shrink-0">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-serif font-bold text-sm text-[#1A1338] mb-1">
+                          Consent &amp; Privacy
+                        </h4>
+                        <p className="text-xs text-[#5B5278] leading-relaxed mb-2.5">
+                          Users must consent to store their mood, moods, dates, actions and purchase history.
+                        </p>
+                        <button onClick={() => alert('Consent Logs: 12,458 users have granted active data consent.')} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
+                          View Consent Logs →
+                        </button>
+                      </div>
                     </div>
-                    <p className="text-xs text-[#5B5278] leading-relaxed mb-3">
-                      Users must consent to store their mood, moods, dates, actions and purchase history.
-                    </p>
-                    <button onClick={() => alert('Consent Logs: 12,458 users have granted active data consent.')} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
-                      View Consent Logs →
-                    </button>
                   </div>
 
                   <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs">
-                    <div className="flex items-center gap-2 text-sm font-serif font-bold text-[#1A1338] mb-1.5">
-                      <span>⏱️</span> 90-Day Auto Deletion
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#F0EBFA] text-[#7147E8] flex items-center justify-center shrink-0">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-serif font-bold text-sm text-[#1A1338] mb-1">
+                          90-Day Auto Deletion
+                        </h4>
+                        <p className="text-xs text-[#5B5278] leading-relaxed mb-2.5">
+                          User data is automatically deleted 90 days after account deletion.
+                        </p>
+                        <button onClick={() => alert('Deletion Logs: 0 pending deletions in queue.')} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
+                          View Deletion Logs →
+                        </button>
+                      </div>
                     </div>
-                    <p className="text-xs text-[#5B5278] leading-relaxed mb-3">
-                      User data is automatically deleted 90 days after account deletion.
-                    </p>
-                    <button onClick={() => alert('Deletion Logs: 0 pending deletions in queue.')} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
-                      View Deletion Logs →
-                    </button>
                   </div>
                 </div>
               </div>
 
-              {/* LOWER SECTION ROW 2 (PURCHASE STATUS & ENCOURAGEMENT BANNER) */}
+              {/* LOWER SECTION ROW 2 (PURCHASE STATUS & ENCOURAGEMENT BANNER MATCHING SCREENSHOT 1) */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                 {/* PURCHASE STATUS TABLE */}
                 <div className="lg:col-span-8 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs">
@@ -630,25 +821,25 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* BOTTOM ENCOURAGEMENT BANNER CARD WITH EMBEDDED FLORAL CORNER IMAGE (corner-right.png) */}
-                <div className="lg:col-span-4 relative overflow-hidden rounded-2xl border border-[#EAE3F2] p-6 shadow-xs flex flex-col items-center justify-center text-center min-h-[160px] bg-cover bg-center" style={{ backgroundImage: "url('/login-bg.jpg')" }}>
+                {/* BOTTOM ENCOURAGEMENT BANNER CARD WITH OFFICIAL WHITE SMILE CIRCLE BADGE MATCHING SCREENSHOT 1 */}
+                <div 
+                  className="lg:col-span-4 relative overflow-hidden rounded-2xl border border-[#EAE3F2] p-6 shadow-sm flex flex-col items-center justify-center text-center min-h-[170px] bg-cover bg-center" 
+                  style={{ backgroundImage: "url('/login-bg.jpg')" }}
+                >
                   <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/80 to-white/40 pointer-events-none" />
-                  
-                  {/* FLORAL CORNER OVERLAY IMAGE (corner-right.png) IN BOTTOM RIGHT MATCHING MOCKUP */}
-                  <img 
-                    src="/corner-right.png" 
-                    alt="Floral decoration" 
-                    className="absolute bottom-0 right-0 w-44 h-auto opacity-40 pointer-events-none mix-blend-multiply"
-                  />
 
                   <div className="relative z-10">
-                    <div className="w-10 h-10 rounded-full bg-[#7147E8]/12 text-[#7147E8] text-xl font-bold flex items-center justify-center mx-auto mb-2 shadow-xs">
-                      😊
+                    {/* OFFICIAL WHITE CIRCLE SMILE BADGE MATCHING SCREENSHOT 1 */}
+                    <div className="w-14 h-14 rounded-full bg-white text-[#7147E8] flex items-center justify-center mx-auto mb-3 shadow-md border border-purple-50">
+                      <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#7147E8] via-[#A855F7] to-[#EC4899] flex items-center justify-center text-white text-base shadow-xs font-bold">
+                        😊
+                      </div>
                     </div>
-                    <h4 className="font-serif font-extrabold text-base text-[#1A1338] mb-1">
+
+                    <h4 className="font-serif font-extrabold text-base md:text-lg text-[#1A1338] mb-1 tracking-tight">
                       You&apos;re making a difference
                     </h4>
-                    <p className="text-xs text-[#5B5278] font-semibold max-w-xs mx-auto">
+                    <p className="text-xs text-[#5B5278] font-semibold max-w-xs mx-auto leading-relaxed">
                       Empowering minds. Building a kinder world.
                     </p>
                   </div>

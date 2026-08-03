@@ -442,6 +442,7 @@ export default function HomePage() {
             <h3>7-Day Plan</h3>
             <p>Perfect for getting started</p>
             <strong><span>$</span>7</strong>
+            <span className={styles.oneTimePay}>One-time payment</span>
             <button type="button">Get 7-Day Plan Now</button>
             <small>Secure payment • Instant PDF</small>
           </div>

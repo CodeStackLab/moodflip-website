@@ -87,6 +87,143 @@
 .logoMark span:first-child { left: 2px; }
 .logoMark span:last-child { right: 2px; }
 
+/* 7-Day Plan Section */
+.planSection {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  margin: 28px 20px;
+  padding: 40px 48px;
+  border: 1px solid #eae2f5;
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: 260px 1fr 280px;
+  gap: 40px;
+  align-items: center;
+  background: linear-gradient(135deg, #fbf8ff 0%, #f4effc 100%);
+  box-shadow: 0 12px 36px rgba(42, 31, 87, 0.035);
+}
+
+.bookCompact {
+  transform: scale(1);
+  transform-origin: center;
+  margin: 0 auto;
+}
+
+.planCopy h2 {
+  margin: 0;
+  color: #2a1866;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.planCopy > p {
+  margin: 10px 0 22px;
+  color: #61567a;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.planCopy ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 16px;
+}
+
+.planCopy li {
+  position: relative;
+  padding-left: 32px;
+  color: #241d3d;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.planCopy li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #6c40e6;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.priceCard {
+  padding: 32px 28px;
+  border: 1px solid #eee8f7;
+  border-radius: 24px;
+  text-align: center;
+  background: #ffffff;
+  box-shadow: 0 16px 36px rgba(50, 33, 104, 0.06);
+}
+
+.priceCard h3 {
+  margin: 0 0 6px;
+  color: #1f1545;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.priceCard p {
+  margin: 0;
+  color: #6e678a;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.priceCard > strong {
+  display: block;
+  margin: 16px 0 4px;
+  color: #1a1040;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.priceCard > strong span { font-size: 24px; vertical-align: top; margin-right: 2px; }
+
+.oneTimePay {
+  display: block;
+  margin-bottom: 18px;
+  color: #6e678a;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.priceCard button {
+  width: 100%;
+  height: 50px;
+  margin: 0 0 14px;
+  border: 0;
+  border-radius: 14px;
+  color: white;
+  background: linear-gradient(135deg, #7c4fe8, #6032cb);
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(93, 52, 197, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.priceCard button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(93, 52, 197, 0.32);
+}
+
+.priceCard small { color: #8c84a6; font-size: 12px; }
+
 .nav {
   display: flex;
   justify-content: center;

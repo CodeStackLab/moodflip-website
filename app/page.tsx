@@ -202,13 +202,20 @@ export default function HomePage() {
             <div className={styles.cardToolbar}>
               <span />
               <div>
-                <button type="button" className={styles.topIconBtn}><span style={{color: '#ff4d6d'}}>🔖</span> Save</button>
-                <button type="button" className={styles.topIconBtn}><span>🔗</span> Share</button>
+                <button type="button" className={styles.topIconBtn}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save
+                </button>
+                <button type="button" className={styles.topIconBtn}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share
+                </button>
               </div>
             </div>
 
             <div className={styles.flipIntro}>
-              <span className={styles.checkCircle}>✓</span> Here&apos;s your <strong>positive flip</strong>
+              <span className={styles.checkCircle}>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+              Here&apos;s your <strong>positive flip</strong>
             </div>
 
             <div className={styles.sunBadge}>

@@ -422,10 +422,9 @@ export default function HomePage() {
               alt="MoodFlip 7-Day Plan Book Cover"
               style={{
                 width: '100%',
-                maxWidth: '250px',
+                maxWidth: '280px',
                 height: 'auto',
-                objectFit: 'contain',
-                mixBlendMode: 'multiply'
+                objectFit: 'contain'
               }}
             />
           </div>

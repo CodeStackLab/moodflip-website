@@ -93,14 +93,14 @@
   overflow: hidden;
   min-height: 320px;
   margin: 28px 20px;
-  padding: 36px 40px;
+  padding: 32px 40px;
   border: 1px solid #e7dcf5;
   border-radius: 24px;
   display: grid;
-  grid-template-columns: 240px 1fr 270px;
-  gap: 36px;
+  grid-template-columns: 280px 1fr 270px;
+  gap: 32px;
   align-items: center;
-  background: linear-gradient(135deg, #f7f2fc 0%, #eee6f8 100%);
+  background: linear-gradient(135deg, #f5eefa 0%, #ebe3f7 100%);
   box-shadow: 0 12px 32px rgba(42, 31, 87, 0.03);
 }
 

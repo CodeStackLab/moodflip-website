@@ -197,7 +197,7 @@ export default function HomePage() {
             </button>
           </section>
 
-          <section className={styles.flipCard} id="positive-flip" style={{ background: "url('/user-bg-sunset.jpg') center center / cover no-repeat" }}>
+          <section className={styles.flipCard} id="positive-flip" style={{ background: "url('/user-bg-sunset-v2.jpg') center center / cover no-repeat" }}>
 
             <div className={styles.cardToolbar}>
               <span />

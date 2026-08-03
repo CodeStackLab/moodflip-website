@@ -1662,17 +1662,20 @@ text-align: center;
   min-width: 180px;
   height: 46px;
   margin: 24px auto 0;
-  padding: 0 28px;
-  border-radius: 10px;
+  min-width: 200px;
+  height: 50px;
+  margin: 32px auto 0;
+  padding: 0 32px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: linear-gradient(135deg, #7650e0, #6034cb);
+  background: linear-gradient(135deg, #7c4fe8, #6032cb);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
-  box-shadow: 0 10px 22px rgba(91, 50, 192, 0.25);
+  box-shadow: 0 10px 24px rgba(96, 50, 204, 0.25);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 

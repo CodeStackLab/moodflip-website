@@ -462,7 +462,7 @@ export default function HomePage() {
                 colorClass: styles.library_cyan,
                 iconBg: '#E0F2FE',
                 icon: (
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2L14.5 8.5L21.5 9L16 13.5L18 20.5L12 16.5L6 20.5L8 13.5L2.5 9L9.5 8.5L12 2Z" fill="#0EA5E9" fillOpacity="0.85" stroke="#0284C7" strokeWidth="1.5" strokeLinejoin="round"/>
                     <circle cx="12" cy="12" r="3" fill="#38BDF8"/>
                     <circle cx="12" cy="12" r="1.2" fill="white"/>
@@ -475,7 +475,7 @@ export default function HomePage() {
                 colorClass: styles.library_orange,
                 iconBg: '#FFEBE0',
                 icon: (
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="3" fill="#EA580C"/>
                     <path d="M12 3C12.8 3 13.5 4.5 13.5 6C13.5 7.5 12.8 9 12 9C11.2 9 10.5 7.5 10.5 6C10.5 4.5 11.2 3 12 3Z" fill="#F97316"/>
                     <path d="M12 15C12.8 15 13.5 16.5 13.5 18C13.5 19.5 12.8 21 12 21C11.2 21 10.5 19.5 10.5 18C10.5 16.5 11.2 15 12 15Z" fill="#F97316"/>
@@ -492,7 +492,7 @@ export default function HomePage() {
                 colorClass: styles.library_blue,
                 iconBg: '#EEF2FF',
                 icon: (
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="9.5" fill="#818CF8" fillOpacity="0.3" stroke="#4F46E5" strokeWidth="1.8"/>
                     <ellipse cx="8.5" cy="9.5" rx="1.2" ry="1.8" fill="#312E81"/>
                     <ellipse cx="15.5" cy="9.5" rx="1.2" ry="1.8" fill="#312E81"/>
@@ -508,7 +508,7 @@ export default function HomePage() {
                 colorClass: styles.library_rose,
                 iconBg: '#FFE4E6',
                 icon: (
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#EF4444"/>
                     <rect x="11.2" y="7.5" width="1.6" height="5" rx="0.8" fill="white"/>
                     <circle cx="12" cy="14.5" r="1" fill="white"/>
@@ -521,7 +521,7 @@ export default function HomePage() {
                 colorClass: styles.library_sky,
                 iconBg: '#E0F2FE',
                 icon: (
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="7.5" r="4.5" fill="#2563EB"/>
                     <path d="M4 19.5C4 16 7.5 13.5 12 13.5C16.5 13.5 20 16 20 19.5" fill="#3B82F6"/>
                   </svg>
@@ -533,7 +533,7 @@ export default function HomePage() {
                 colorClass: styles.library_violet,
                 iconBg: '#F3E8FF',
                 icon: (
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 4a6 6 0 1 1-6 6 6 6 0 0 1 6-6zm0 3a3 3 0 1 0 3 3 3 3 0 0 0-3-3z"/>
                   </svg>
                 )

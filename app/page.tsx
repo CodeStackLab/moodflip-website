@@ -196,7 +196,10 @@ export default function HomePage() {
             </button>
           </section>
 
-          <section className={styles.flipCard} id="positive-flip" style={{ background: "url('/flipcard-bg.jpg') center center / cover no-repeat" }}>
+          <section className={styles.flipCard} id="positive-flip">
+            <img src="/corner-left.png" alt="" className={styles.plantLeft} />
+            <img src="/corner-right.png" alt="" className={styles.plantRight} />
+
             <div className={styles.cardToolbar}>
               <span />
               <div>
@@ -207,6 +210,10 @@ export default function HomePage() {
 
             <div className={styles.flipIntro}>
               <span className={styles.checkCircle}>✓</span> Here&apos;s your <strong>positive flip</strong>
+            </div>
+
+            <div className={styles.sunBadge}>
+              <span className={styles.sunCore}>🌅</span>
             </div>
 
             <h2>Towards Calm &amp; Clarity</h2>
@@ -411,52 +418,7 @@ export default function HomePage() {
           <a href="#library" className={styles.allMoodsButton}>View All Moods &rarr;</a>
         </section>
 
-        {/* Section 3: 7-Day Plan Hero Promo Section */}
-        <section id="plan" className="my-16 mx-auto max-w-5xl rounded-3xl bg-gradient-to-r from-[#FAF8FD] via-[#F4EFFC] to-[#EFE8FC] p-8 md:p-12 border border-[#E7DDFA] shadow-lg flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex-1 space-y-4 text-left">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-[#7147E8]/10 text-[#7147E8] text-xs font-extrabold tracking-wide uppercase">
-              ✨ 7-Day Mindset Transformation
-            </span>
-            <h2 className="font-serif text-2xl md:text-4xl font-extrabold text-[#1A1338] leading-tight">
-              Build a Better Mindset in Just 7 Days
-            </h2>
-            <p className="text-sm md:text-base text-[#5B5278] font-medium leading-relaxed">
-              Simple daily check-ins, practical actions, real change.
-            </p>
-            <ul className="space-y-2 text-xs md:text-sm text-[#1A1338] font-bold pt-2">
-              <li className="flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">✓</span>
-                <span>Daily mood check-ins</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-purple-100 text-[#7147E8] flex items-center justify-center text-xs">✓</span>
-                <span>Personalized 60-second actions</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs">✓</span>
-                <span>7-day PDF report</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-pink-100 text-pink-700 flex items-center justify-center text-xs">✓</span>
-                <span>Gentle guidance for you</span>
-              </li>
-            </ul>
-            <div className="pt-3">
-              <Link href="/register" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#7147E8] to-[#A855F7] text-white text-sm font-extrabold shadow-md hover:scale-105 transition-transform">
-                <span>✨ Get Your 7-Day Plan</span>
-              </Link>
-            </div>
-          </div>
 
-          {/* 3D 7-DAY PLAN BOOK IMAGE */}
-          <div className="w-56 md:w-64 shrink-0 flex items-center justify-center">
-            <img 
-              src="/7day-plan-book.png" 
-              alt="MoodFlip 7-Day Plan Book Cover" 
-              className="w-full h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-        </section>
 
         {/* Section 4: About MoodFlip */}
         <section id="about" className={styles.aboutSection}>

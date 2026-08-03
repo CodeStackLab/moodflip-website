@@ -77,12 +77,12 @@ export default function LoginPage() {
               {/* Soft top gradient */}
               <div className="absolute inset-x-0 top-0 h-60 bg-gradient-to-b from-white/90 via-white/50 to-transparent pointer-events-none" />
 
-              {/* Headline & Paragraph */}
-              <div className="relative z-10">
-                <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1A1338] leading-tight mb-3">
+              {/* Headline & Paragraph (Center Aligned Matching Image 2) */}
+              <div className="relative z-10 text-center flex flex-col items-center justify-center pt-2 md:pt-4">
+                <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1A1338] leading-[1.25] mb-3 tracking-tight">
                   A calmer mind.<br />A better you.
                 </h1>
-                <p className="text-sm md:text-base text-[#554D6E] leading-relaxed font-medium">
+                <p className="text-sm md:text-base text-[#554D6E] leading-relaxed font-medium max-w-md mx-auto">
                   Login to continue your journey<br />towards calm, clarity and growth.
                 </p>
               </div>

@@ -197,7 +197,7 @@ export default function HomePage() {
             </button>
           </section>
 
-          <section className={styles.flipCard} id="positive-flip" style={{ background: "url('/ChatGPT%20Image%20Aug%204,%202026,%2002_11_56%20AM.png') center center / cover no-repeat" }}>
+          <section className={styles.flipCard} id="positive-flip" style={{ background: "url('/sunset-hero-bg.png') center center / cover no-repeat" }}>
 
             <div className={styles.cardToolbar}>
               <span />

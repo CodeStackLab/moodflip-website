@@ -352,7 +352,7 @@
 
 .moodPanel {
   position: relative;
-  min-height: 460px;
+  min-height: 440px;
   padding: 14px 18px;
   background: #ffffff !important;
   border: 1px solid #eae5f2;
@@ -365,11 +365,12 @@
 
 .flipCard {
   position: relative;
-  min-height: 460px;
+  min-height: 440px;
   padding: 14px 20px;
   border: 1px solid #eae5f2;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  background: url('/sunset-hero-bg.png') center center / cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

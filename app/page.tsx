@@ -469,11 +469,12 @@ export default function HomePage() {
             <h2>About MoodFlip</h2>
             <p>MoodFlip is a self-reflection utility designed to help you find your mood match, meaningfully.</p>
             <p>We are not a therapy or medical service. We provide simple tools, not medical advice.</p>
+            <p style={{ marginTop: '16px', fontSize: '13px', color: '#6c40e6', fontWeight: 500 }}>For emergencies, please contact local emergency services.</p>
           </div>
           <div className={styles.aboutPoints}>
             <p><span>💗</span> Self-reflection, not diagnosis</p>
             <p><span>🛠️</span> Practical tools for daily life</p>
-            <p><span>✨</span> Designed with care &amp; empathy</p>
+            <p><span>🌱</span> Designed with care &amp; empathy</p>
             <p><span>🔒</span> Your privacy comes first</p>
           </div>
         </section>

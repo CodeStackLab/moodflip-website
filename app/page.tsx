@@ -197,8 +197,6 @@ export default function HomePage() {
           </section>
 
           <section className={styles.flipCard} id="positive-flip" style={{ background: "url('/user-bg-sunset.jpg') center center / cover no-repeat" }}>
-            <img src="/corner-left.png" alt="" className={styles.plantLeft} />
-            <img src="/corner-right.png" alt="" className={styles.plantRight} />
 
             <div className={styles.cardToolbar}>
               <span />

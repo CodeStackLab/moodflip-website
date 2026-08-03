@@ -418,7 +418,7 @@ export default function HomePage() {
         <section className={styles.planSection}>
           <div className={styles.bookCompact}>
             <img
-              src="/7day-book-cover-3d.png?v=3"
+              src="/7day-book-cover-3d.png?v=4"
               alt="MoodFlip 7-Day Plan Book Cover"
               style={{
                 width: '100%',

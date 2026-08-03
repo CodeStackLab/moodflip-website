@@ -169,7 +169,7 @@ export default function UserDashboardPage() {
             {/* 3D BOOK COVER IMAGE (7day-plan-book.png) */}
             <div className="w-28 h-36 mx-auto mb-2 flex items-center justify-center">
               <img 
-                src="/7day-plan-book.png" 
+                src="/7day-book-cover-3d.png?v=4" 
                 alt="MoodFlip 7-Day Plan Book" 
                 className="w-full h-full object-contain drop-shadow-md hover:scale-105 transition-transform"
               />

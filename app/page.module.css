@@ -181,10 +181,8 @@
 .moodPanel,
 .flipCard {
   position: relative;
-  min-height: 510px;
-  max-height: 525px;
-  overflow: hidden;
-  padding: 14px 20px 14px;
+  min-height: 590px;
+  padding: 16px 22px 18px;
   background:
     radial-gradient(circle at 52% 34%, rgba(255, 251, 215, .96), transparent 24%),
     radial-gradient(circle at 9% 5%, rgba(251, 216, 244, .78), transparent 30%),
@@ -196,9 +194,8 @@
 }
 
 .moodPanel {
-  padding: 14px 16px;
-  min-height: 510px;
-  max-height: 525px;
+  padding: 16px 18px;
+  min-height: 590px;
 }
 
 .stepHeader {
@@ -426,10 +423,8 @@
 .flipCard {
   position: relative;
   height: 100%;
-  min-height: 510px;
-  max-height: 525px;
-  overflow: hidden;
-  padding: 14px 22px 14px;
+  min-height: 590px;
+  padding: 16px 24px 18px;
   background:
     radial-gradient(circle at 52% 34%, rgba(255, 251, 215, .96), transparent 24%),
     radial-gradient(circle at 9% 5%, rgba(251, 216, 244, .78), transparent 30%),
@@ -1564,7 +1559,7 @@
 .welcomeCardPopup {
   position: absolute;
   right: -10px;
-  bottom: -35px;
+  bottom: 0px;
   z-index: 99;
   width: 330px;
   background: #ffffff;

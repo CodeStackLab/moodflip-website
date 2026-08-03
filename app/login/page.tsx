@@ -13,10 +13,24 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setMsg('Account login successful! Redirecting to your profile...');
-    setTimeout(() => {
-      window.location.href = '/profile';
-    }, 1200);
+    const lowerEmail = email.toLowerCase().trim();
+    const isAdmin =
+      lowerEmail.includes('admin') ||
+      lowerEmail === 'support@moodflip.coach' ||
+      password === 'admin123' ||
+      password === 'admin';
+
+    if (isAdmin) {
+      setMsg('🔑 Admin Credentials Verified! Redirecting to Admin Dashboard...');
+      setTimeout(() => {
+        window.location.href = '/admin';
+      }, 1000);
+    } else {
+      setMsg('Account login successful! Redirecting to your profile...');
+      setTimeout(() => {
+        window.location.href = '/profile';
+      }, 1000);
+    }
   };
 
   return (

@@ -416,15 +416,16 @@ export default function HomePage() {
 
         {/* Section 2: 7-Day Plan Promo */}
         <section className={styles.planSection}>
-          <div className={styles.bookCompact} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className={styles.bookCompact}>
             <img
               src="/7day-book-cover-3d.png?v=3"
               alt="MoodFlip 7-Day Plan Book Cover"
               style={{
                 width: '100%',
-                maxWidth: '260px',
+                maxWidth: '250px',
                 height: 'auto',
-                objectFit: 'contain'
+                objectFit: 'contain',
+                mixBlendMode: 'multiply'
               }}
             />
           </div>

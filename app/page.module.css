@@ -93,20 +93,22 @@
   overflow: hidden;
   min-height: 320px;
   margin: 28px 20px;
-  padding: 40px 48px;
-  border: 1px solid #eae2f5;
+  padding: 36px 40px;
+  border: 1px solid #e7dcf5;
   border-radius: 24px;
   display: grid;
-  grid-template-columns: 260px 1fr 280px;
-  gap: 40px;
+  grid-template-columns: 240px 1fr 270px;
+  gap: 36px;
   align-items: center;
-  background: linear-gradient(135deg, #fbf8ff 0%, #f4effc 100%);
-  box-shadow: 0 12px 36px rgba(42, 31, 87, 0.035);
+  background: linear-gradient(135deg, #f7f2fc 0%, #eee6f8 100%);
+  box-shadow: 0 12px 32px rgba(42, 31, 87, 0.03);
 }
 
 .bookCompact {
-  transform: scale(1);
-  transform-origin: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   margin: 0 auto;
 }
 

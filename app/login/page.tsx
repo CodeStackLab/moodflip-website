@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Header from '@/components/Header';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -23,45 +24,8 @@ export default function LoginPage() {
       {/* OUTER APP FRAME (Matching Homepage Width max-w-[1560px]) */}
       <div className="mx-auto max-w-[1560px] w-full bg-[#FFFFFF] border border-[#181940]/14 rounded-[29px] shadow-2xl overflow-hidden flex flex-col min-h-[920px]">
 
-        {/* TOP HEADER INSIDE APP FRAME */}
-        <header className="h-18 px-6 md:px-10 border-b border-[#211F4B]/10 bg-white/90 backdrop-blur-md flex items-center justify-between gap-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 text-decoration-none group">
-            <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-[#7147e8] to-[#a644c9] flex items-center justify-center text-white shadow-xs">
-              <span className="text-base">😊</span>
-            </div>
-            <span className="font-serif text-2xl font-extrabold text-[#15183b] tracking-tight">
-              mood<span className="text-[#7147e8]">flip</span>
-            </span>
-          </Link>
-
-          {/* Navigation Links (Desktop) */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-[#6b638b]">
-            <Link href="/" className="text-[#6b638b] hover:text-[#7147e8] transition">Home</Link>
-            <a href="/#about" className="text-[#6b638b] hover:text-[#7147e8] transition">About</a>
-            <a href="/#how" className="text-[#6b638b] hover:text-[#7147e8] transition">How It Works</a>
-            <a href="/#library" className="text-[#6b638b] hover:text-[#7147e8] transition">Mood Library</a>
-            <a href="/#resources" className="text-[#6b638b] hover:text-[#7147e8] transition">Resources</a>
-            <a href="/#contact" className="text-[#6b638b] hover:text-[#7147e8] transition">Contact</a>
-          </nav>
-
-          {/* Action Buttons */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-2 px-5 h-10 rounded-full border border-[#7147e8] bg-white text-[#7147e8] text-sm font-bold shadow-xs hover:bg-[#F5F3FF] transition"
-            >
-              <span>👤</span> Login
-            </Link>
-
-            <Link
-              href="/register"
-              className="inline-flex items-center px-5 h-10 rounded-full bg-gradient-to-r from-[#7147e8] to-[#a644c9] text-white text-sm font-bold shadow-md shadow-purple-200 hover:opacity-95 transition"
-            >
-              Get 7-Day Plan
-            </Link>
-          </div>
-        </header>
+        {/* REUSABLE GLOBAL HEADER */}
+        <Header />
 
         {/* MAIN BODY AREA INSIDE APP FRAME */}
         <main className="flex-1 p-6 md:p-10 bg-gradient-to-b from-[#FAF8FD] via-[#FAF9FE] to-[#F7F5FC] flex flex-col justify-between gap-8">

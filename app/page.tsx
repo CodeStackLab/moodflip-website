@@ -336,15 +336,74 @@ export default function HomePage() {
           </div>
           <div className={styles.stepsFlow}>
             {[
-              { img: '/step1.png', color: 'how_blue', step: '1', title: 'Choose Your Mood', desc: 'Pick the mood that feels closest to you.' },
-              { img: '/step2.png', color: 'how_purple', step: '2', title: 'Pick Exact Feeling', desc: 'Select the feeling that matches you best.' },
-              { img: '/step3.png', color: 'how_green', step: '3', title: 'Flip Your Mood', desc: 'We find your positive counterpart.' },
-              { img: '/step4.png', color: 'how_pink', step: '4', title: 'Get 60-Second Action', desc: 'A short action to shift your energy.' },
-              { img: '/step5.png', color: 'how_orange', step: '5', title: 'Save & Track Progress', desc: 'Save your check-in and see growth.' }
+              {
+                icon: (
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="8" height="8" rx="2.5" fill="#0284C7" fillOpacity="0.85" />
+                    <rect x="13" y="3" width="8" height="8" rx="2.5" fill="#38BDF8" fillOpacity="0.85" />
+                    <rect x="3" y="13" width="8" height="8" rx="2.5" fill="#0EA5E9" fillOpacity="0.85" />
+                    <rect x="13" y="13" width="8" height="8" rx="2.5" fill="#7DD3FC" fillOpacity="0.85" />
+                  </svg>
+                ),
+                color: 'how_blue',
+                step: '1',
+                title: 'Choose Your Mood',
+                desc: 'Pick the mood that feels closest to you.'
+              },
+              {
+                icon: (
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="9" width="14" height="11" rx="3" fill="#DDD6FE" />
+                    <path d="M17.5 13C19.433 13 21 11.433 21 9.5C21 7.76 19.73 6.32 18.06 6.05C17.62 3.73 15.57 2 13 2C10.74 2 8.84 3.32 8.19 5.25C7.5 5.16 4 6.73 4 8.66C4 9.84 4.21 10.37 4.21 10.84C2.91 11.37 2 12.64 2 14.12C2 16.1 3.61 17.71 5.59 17.71H17.5" fill="#8B5CF6" />
+                  </svg>
+                ),
+                color: 'how_purple',
+                step: '2',
+                title: 'Pick Exact Feeling',
+                desc: 'Select the feeling that matches you best.'
+              },
+              {
+                icon: (
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6"/>
+                    <path d="M2.5 11.5a10 10 0 0 1 15.9-4.8L21.5 8M2.5 16l3.1 1.3a10 10 0 0 0 15.9-4.8"/>
+                  </svg>
+                ),
+                color: 'how_green',
+                step: '3',
+                title: 'Flip Your Mood',
+                desc: 'We find your positive counterpart.'
+              },
+              {
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="12" fill="#F43F5E" />
+                    <path d="M9.5 8.5L16.5 12L9.5 15.5V8.5Z" fill="white" />
+                  </svg>
+                ),
+                color: 'how_pink',
+                step: '4',
+                title: 'Get 60-Second Action',
+                desc: 'A short action to shift your energy.'
+              },
+              {
+                icon: (
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7C3 5.89543 3.89543 5 5 5H9.58579C10.1162 5 10.6249 5.21071 11 5.58579L12.4142 7H19C20.1046 7 21 7.89543 21 9V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17V7Z" fill="#F59E0B" />
+                    <rect x="7" y="13" width="2" height="3" rx="0.5" fill="white" />
+                    <rect x="11" y="11" width="2" height="5" rx="0.5" fill="white" />
+                    <rect x="15" y="9" width="2" height="7" rx="0.5" fill="white" />
+                  </svg>
+                ),
+                color: 'how_orange',
+                step: '5',
+                title: 'Save & Track Progress',
+                desc: 'Save your check-in and see growth.'
+              }
             ].map((step) => (
               <div key={step.title} className={styles.howStep}>
                 <div className={`${styles.howIcon} ${styles[step.color]}`}>
-                  <img src={step.img} alt={step.title} style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
+                  {step.icon}
                 </div>
                 <b>{step.step}</b>
                 <h3>{step.title}</h3>

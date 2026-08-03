@@ -310,6 +310,19 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
+
+            <div className={styles.privacyBox}>
+              <div className={styles.privacyLockIcon}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div>
+                <strong>Your data is private</strong>
+                <p>We use encryption &amp; auto-delete your data after 90 days.</p>
+              </div>
+            </div>
           </aside>
 
           {/* Welcome Back Floating Card Popup (Anchored at Bottom-Right of Dashboard) */}
@@ -449,16 +462,11 @@ export default function HomePage() {
 
         {/* Section 2: 7-Day Plan Promo */}
         <section className={styles.planSection}>
-          <div className={styles.bookCompact}>
+          <div className={styles.bookWrap}>
             <img
               src="/7day-book-cover-3d-v6.png"
               alt="MoodFlip 7-Day Plan Book Cover"
-              style={{
-                width: '100%',
-                maxWidth: '280px',
-                height: 'auto',
-                objectFit: 'contain'
-              }}
+              className={styles.bookImg}
             />
           </div>
           <div className={styles.planCopy}>

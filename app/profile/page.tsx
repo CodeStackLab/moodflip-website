@@ -291,13 +291,13 @@ export default function UserDashboardPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
             {/* COLUMN 1: RECENT CHECK-INS CARD (5 Columns) */}
-            <div className="lg:col-span-5 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
-              <div className="flex items-center justify-between mb-4">
+            <div className="lg:col-span-5 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col space-y-3 self-start">
+              <div className="flex items-center justify-between mb-1">
                 <h3 className="font-serif font-bold text-base text-[#1A1338]">Recent Check-ins</h3>
                 <button onClick={() => setActiveTab('My Check-ins')} className="text-xs font-bold text-[#7147E8] hover:underline cursor-pointer">View all</button>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {filteredCheckins.map((item) => (
                   <div key={item.id} className="flex items-center justify-between p-3 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA] hover:bg-[#F3EEFC] transition-all">
                     <div className="flex items-center gap-3">
@@ -323,7 +323,7 @@ export default function UserDashboardPage() {
             </div>
 
             {/* COLUMN 2: MOOD INSIGHTS DONUT CARD (4 Columns) */}
-            <div className="lg:col-span-4 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-4">
+            <div className="lg:col-span-4 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col space-y-4 self-start">
               <div className="flex items-center justify-between">
                 <h3 className="font-serif font-bold text-base text-[#1A1338]">Mood Insights</h3>
                 <div className="border border-gray-200 rounded-lg px-2 py-1 text-xs font-semibold text-gray-600 flex items-center gap-1 cursor-pointer">
@@ -332,7 +332,7 @@ export default function UserDashboardPage() {
               </div>
 
               {/* Donut Chart */}
-              <div className="flex items-center justify-center gap-6 my-auto">
+              <div className="flex items-center justify-center gap-6 py-2">
                 <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="38" fill="none" stroke="#10B981" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="0" />

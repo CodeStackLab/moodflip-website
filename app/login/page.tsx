@@ -30,8 +30,8 @@ export default function LoginPage() {
         {/* MAIN BODY AREA INSIDE APP FRAME */}
         <main className="flex-1 p-6 md:p-10 bg-gradient-to-b from-[#FAF8FD] via-[#FAF9FE] to-[#F7F5FC] flex flex-col justify-between gap-8">
 
-          {/* 2-COLUMN CARDS CONTAINER (Spacious 600px right column width) */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_600px] gap-8 items-stretch min-h-[600px]">
+          {/* 2-COLUMN CARDS CONTAINER (Extra spacious 620px right column width) */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_620px] gap-8 items-stretch min-h-[600px]">
 
             {/* LEFT HERO CARD (SUNSET ILLUSTRATION & OVERLAY) */}
             <div

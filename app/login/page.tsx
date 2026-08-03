@@ -51,27 +51,43 @@ export default function LoginPage() {
                 </p>
               </div>
 
-              {/* Bottom 4 Feature Pills Bar */}
-              <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-[#E6DCF5] shadow-xs">
+              {/* Bottom 4 Feature Pills Bar (Exact 1:1 Match of Image 2) */}
+              <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/95 backdrop-blur-md rounded-[24px] p-5 md:p-6 border border-white/80 shadow-md">
                 <div className="text-center">
-                  <div className="w-9 h-9 rounded-xl bg-[#F2EBFF] text-[#7147E8] grid place-items-center mx-auto mb-1.5 text-base">🛡️</div>
-                  <strong className="block text-xs font-bold text-[#231D3E] leading-tight">Private &amp; Secure</strong>
-                  <span className="text-[10px] text-[#736B85] leading-tight block mt-0.5">Your data is encrypted and protected</span>
+                  <div className="w-12 h-12 rounded-full bg-[#7147E8]/12 flex items-center justify-center mx-auto mb-2">
+                    <svg className="w-6 h-6 text-[#7147E8]" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-1 14.5l-3.5-3.5 1.41-1.41L11 12.67l5.09-5.09 1.41 1.41L11 15.5z"/>
+                    </svg>
+                  </div>
+                  <strong className="block text-[13px] font-extrabold text-[#1D1737] leading-tight">Private &amp; Secure</strong>
+                  <span className="text-[11px] text-[#68607F] font-medium leading-tight block mt-1">Your data is encrypted and protected</span>
                 </div>
                 <div className="text-center">
-                  <div className="w-9 h-9 rounded-xl bg-[#EDFAEF] text-[#28AD79] grid place-items-center mx-auto mb-1.5 text-base">🟢</div>
-                  <strong className="block text-xs font-bold text-[#231D3E] leading-tight">Encrypted Access</strong>
-                  <span className="text-[10px] text-[#736B85] leading-tight block mt-0.5">Enterprise-grade security</span>
+                  <div className="w-12 h-12 rounded-full bg-[#16A34A]/12 flex items-center justify-center mx-auto mb-2">
+                    <svg className="w-6 h-6 text-[#16A34A]" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                    </svg>
+                  </div>
+                  <strong className="block text-[13px] font-extrabold text-[#1D1737] leading-tight">Encrypted Access</strong>
+                  <span className="text-[11px] text-[#68607F] font-medium leading-tight block mt-1">Enterprise-grade security</span>
                 </div>
                 <div className="text-center">
-                  <div className="w-9 h-9 rounded-xl bg-[#FFF0F3] text-[#E64F8E] grid place-items-center mx-auto mb-1.5 text-base">❤️</div>
-                  <strong className="block text-xs font-bold text-[#231D3E] leading-tight">Built for Wellness</strong>
-                  <span className="text-[10px] text-[#736B85] leading-tight block mt-0.5">Supporting your mental well-being</span>
+                  <div className="w-12 h-12 rounded-full bg-[#F43F5E]/12 flex items-center justify-center mx-auto mb-2">
+                    <svg className="w-6 h-6 text-[#F43F5E]" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                  </div>
+                  <strong className="block text-[13px] font-extrabold text-[#1D1737] leading-tight">Built for Wellness</strong>
+                  <span className="text-[11px] text-[#68607F] font-medium leading-tight block mt-1">Supporting your mental well-being</span>
                 </div>
                 <div className="text-center">
-                  <div className="w-9 h-9 rounded-xl bg-[#F4EBFF] text-[#9A4ACB] grid place-items-center mx-auto mb-1.5 text-base">🔒</div>
-                  <strong className="block text-xs font-bold text-[#231D3E] leading-tight">You&apos;re in Control</strong>
-                  <span className="text-[10px] text-[#736B85] leading-tight block mt-0.5">Your privacy comes first</span>
+                  <div className="w-12 h-12 rounded-full bg-[#9333EA]/12 flex items-center justify-center mx-auto mb-2">
+                    <svg className="w-6 h-6 text-[#9333EA]" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                    </svg>
+                  </div>
+                  <strong className="block text-[13px] font-extrabold text-[#1D1737] leading-tight">You&apos;re in Control</strong>
+                  <span className="text-[11px] text-[#68607F] font-medium leading-tight block mt-1">Your privacy comes first</span>
                 </div>
               </div>
             </div>

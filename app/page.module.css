@@ -754,64 +754,96 @@
   border-radius: 50%;
   border: 1.5px solid #7d4fe7;
   color: #7d4fe7;
-  height: 50px;
-  padding: 0 22px;
-  border-bottom: 1px solid #eee9f0;
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+.actionCard {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  max-width: 440px;
+  margin: 10px auto;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(235, 230, 245, 0.9);
+}
+
+.actionTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #17182e;
+}
+
+.actionTitleRow span {
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: #f5f2f7;
+  font-size: 11px;
+  color: #6841db;
   font-weight: 700;
 }
-.actionTitleRow span { padding: 4px 10px; border-radius: 12px; background: #f5f2f7; font-size: 12px; }
 
 .breathAction {
-  min-height: 96px;
+  min-height: 68px;
   display: grid;
-  grid-template-columns: 52px 1fr 64px;
+  grid-template-columns: 42px 1fr 52px;
   align-items: center;
-  gap: 14px;
-  margin: 0 16px;
-  padding: 0 12px;
-  border: 1px solid #ded2ff;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid #e9e2ff;
   border-radius: 12px;
-  background: linear-gradient(90deg, rgba(255,255,255,.7), rgba(249,246,255,.9));
+  background: #fcfaff;
 }
 
 .playButton {
-  width: 46px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: 50%;
   color: white;
-  background: linear-gradient(145deg, #8d63ee, #5e32d4);
-  box-shadow: 0 8px 20px rgba(97, 52, 211, .25);
+  background: linear-gradient(135deg, #8d63ee, #5e32d4);
+  box-shadow: 0 6px 16px rgba(97, 52, 211, 0.25);
   cursor: pointer;
+  font-size: 15px;
 }
 
-.actionCopy { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
-.actionCopy span { line-height: 1.4; color: #24223b; }
+.actionCopy { display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; text-align: left; }
+.actionCopy strong { color: #17182e; font-size: 13px; }
+.actionCopy span { line-height: 1.35; color: #50526e; font-size: 11.5px; }
 
 .timerCircle {
-  width: 62px;
-  height: 62px;
+  width: 50px;
+  height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 4px solid #cdbbf5;
+  border: 3.5px solid #c4b5f4;
   border-radius: 50%;
   background: white;
   color: #15152e;
   cursor: pointer;
 }
-.timerCircle strong { font-size: 17px; line-height: 1; }
-.timerCircle small { margin-top: 3px; font-size: 9px; font-weight: 700; }
+.timerCircle strong { font-size: 14px; line-height: 1; }
+.timerCircle small { margin-top: 2px; font-size: 8px; font-weight: 800; letter-spacing: 0.5px; }
 
 .whyBlock {
-  padding: 20px 22px 18px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f3effa;
   color: #57516e;
-  font-size: 13px;
+  font-size: 12px;
+  text-align: left;
 }
-.whyBlock > div { color: #524f6d; font-weight: 700; }
-.whyBlock p { margin: 12px 0 0; line-height: 1.5; }
+.whyBlock > div { color: #443c68; font-weight: 700; font-size: 12px; }
+.whyBlock p { margin: 4px 0 0; line-height: 1.4; color: #5a5475; font-size: 11.5px; }
 
 .flipActions {
   position: relative;

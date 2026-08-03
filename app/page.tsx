@@ -456,15 +456,93 @@ export default function HomePage() {
           </div>
           <div className={styles.libraryGrid}>
             {[
-              { icon: '🦠', title: 'Anxiety', sub: 'Find calm & clarity', color: 'library_cyan' },
-              { icon: '💥', title: 'Stress', sub: 'Find balance', color: 'library_orange' },
-              { icon: '😢', title: 'Sadness', sub: 'Find light again', color: 'library_blue' },
-              { icon: '❤️‍🩹', title: 'Anger', sub: 'Find peace', color: 'library_rose' },
-              { icon: '👤', title: 'Loneliness', sub: 'Find connection', color: 'library_sky' },
-              { icon: '😵‍💫', title: 'Overwhelmed', sub: 'Find control', color: 'library_violet' }
+              {
+                title: 'Anxiety',
+                sub: 'Find calm & clarity',
+                colorClass: styles.library_cyan,
+                iconBg: '#E0F2FE',
+                icon: (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L14.5 8.5L21.5 9L16 13.5L18 20.5L12 16.5L6 20.5L8 13.5L2.5 9L9.5 8.5L12 2Z" fill="#0EA5E9" fillOpacity="0.85" stroke="#0284C7" strokeWidth="1.5" strokeLinejoin="round"/>
+                    <circle cx="12" cy="12" r="3" fill="#38BDF8"/>
+                    <circle cx="12" cy="12" r="1.2" fill="white"/>
+                  </svg>
+                )
+              },
+              {
+                title: 'Stress',
+                sub: 'Find balance',
+                colorClass: styles.library_orange,
+                iconBg: '#FFEBE0',
+                icon: (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="3" fill="#EA580C"/>
+                    <path d="M12 3C12.8 3 13.5 4.5 13.5 6C13.5 7.5 12.8 9 12 9C11.2 9 10.5 7.5 10.5 6C10.5 4.5 11.2 3 12 3Z" fill="#F97316"/>
+                    <path d="M12 15C12.8 15 13.5 16.5 13.5 18C13.5 19.5 12.8 21 12 21C11.2 21 10.5 19.5 10.5 18C10.5 16.5 11.2 15 12 15Z" fill="#F97316"/>
+                    <path d="M3 12C3 11.2 4.5 10.5 6 10.5C7.5 10.5 9 11.2 9 12C9 12.8 7.5 13.5 6 13.5C4.5 13.5 3 12.8 3 12Z" fill="#F97316"/>
+                    <path d="M15 12C15 11.2 16.5 10.5 18 10.5C19.5 10.5 21 11.2 21 12C21 12.8 19.5 13.5 18 13.5C16.5 13.5 15 12.8 15 12Z" fill="#F97316"/>
+                    <path d="M5.636 5.636C6.2 5.07 7.76 5.77 8.82 6.83C9.88 7.89 10.58 9.45 10.02 10.02C9.45 10.58 7.89 9.88 6.83 8.82C5.77 7.76 5.07 6.2 5.636 5.636Z" fill="#FB923C"/>
+                    <path d="M13.98 13.98C14.55 13.41 16.11 14.12 17.17 15.18C18.23 16.24 18.93 17.8 18.36 18.36C17.8 18.93 16.24 18.23 15.18 17.17C14.12 16.11 13.41 14.55 13.98 13.98Z" fill="#FB923C"/>
+                  </svg>
+                )
+              },
+              {
+                title: 'Sadness',
+                sub: 'Find light again',
+                colorClass: styles.library_blue,
+                iconBg: '#EEF2FF',
+                icon: (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="9.5" fill="#818CF8" fillOpacity="0.3" stroke="#4F46E5" strokeWidth="1.8"/>
+                    <ellipse cx="8.5" cy="9.5" rx="1.2" ry="1.8" fill="#312E81"/>
+                    <ellipse cx="15.5" cy="9.5" rx="1.2" ry="1.8" fill="#312E81"/>
+                    <path d="M7 7.5C8 6.8 9.5 6.8 10 7.2" stroke="#312E81" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M17 7.5C16 6.8 14.5 6.8 14 7.2" stroke="#312E81" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M15.5 16.2C14.5 14.8 13.2 14.2 12 14.2C10.8 14.2 9.5 14.8 8.5 16.2" stroke="#312E81" strokeWidth="1.8" strokeLinecap="round"/>
+                  </svg>
+                )
+              },
+              {
+                title: 'Anger',
+                sub: 'Find peace',
+                colorClass: styles.library_rose,
+                iconBg: '#FFE4E6',
+                icon: (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#EF4444"/>
+                    <rect x="11.2" y="7.5" width="1.6" height="5" rx="0.8" fill="white"/>
+                    <circle cx="12" cy="14.5" r="1" fill="white"/>
+                  </svg>
+                )
+              },
+              {
+                title: 'Loneliness',
+                sub: 'Find connection',
+                colorClass: styles.library_sky,
+                iconBg: '#E0F2FE',
+                icon: (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="7.5" r="4.5" fill="#2563EB"/>
+                    <path d="M4 19.5C4 16 7.5 13.5 12 13.5C16.5 13.5 20 16 20 19.5" fill="#3B82F6"/>
+                  </svg>
+                )
+              },
+              {
+                title: 'Overwhelmed',
+                sub: 'Find control',
+                colorClass: styles.library_violet,
+                iconBg: '#F3E8FF',
+                icon: (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 4a6 6 0 1 1-6 6 6 6 0 0 1 6-6zm0 3a3 3 0 1 0 3 3 3 3 0 0 0-3-3z"/>
+                  </svg>
+                )
+              }
             ].map(mood => (
-              <div key={mood.title} className={`${styles.libraryCard} ${styles[mood.color]}`}>
-                <span>{mood.icon}</span>
+              <div key={mood.title} className={`${styles.libraryCard} ${mood.colorClass}`}>
+                <span className={styles.libraryIconWrap} style={{ background: mood.iconBg }}>
+                  {mood.icon}
+                </span>
                 <div>
                   <strong>{mood.title}</strong>
                   <p>{mood.sub}</p>

@@ -309,18 +309,19 @@ export default function HomePage() {
           )}
         </section>
 
+        <section className={styles.trustStrip}>
+          <article><span className={`${styles.trustIcon} ${styles.trustPurple}`}>🔒</span><div><strong>Private &amp; Secure</strong><p>Your data is encrypted<br />and protected.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustGreen}`}>🛡️</span><div><strong>90-Day Auto Delete</strong><p>We automatically delete your<br />data after 90 days.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustRed}`}>💗</span><div><strong>Not Therapy</strong><p>MoodFlip is a self-reflection<br />utility, not a medical service.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustBlue}`}>👥</span><div><strong>You&apos;re Not Alone</strong><p>Millions use MoodFlip for small<br />shifts, every day.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustOrange}`}>✨</span><div><strong>Made with Care</strong><p>Simple tools for a better<br />you, one step at a time.</p></div></article>
+        </section>
+
         <section className={styles.bottomAd} aria-label="Advertisement placeholder">
           <span className={styles.adBadge}>Ad</span>
           <span>Google AdSense Banner (728x90)</span>
         </section>
 
-        <section className={styles.trustStrip}>
-          <article><span className={styles.trustIcon}>🔒</span><div><strong>Private &amp; Secure</strong><p>Your data is encrypted<br />and protected.</p></div></article>
-          <article><span className={styles.trustIcon}>🛡️</span><div><strong>90-Day Auto Delete</strong><p>We automatically delete your<br />data after 90 days.</p></div></article>
-          <article><span className={styles.trustIcon}>💗</span><div><strong>Not Therapy</strong><p>MoodFlip is a self-reflection<br />utility, not a medical service.</p></div></article>
-          <article><span className={styles.trustIcon}>👥</span><div><strong>You&apos;re Not Alone</strong><p>Millions use MoodFlip for small<br />shifts, every day.</p></div></article>
-          <article><span className={styles.trustIcon}>✨</span><div><strong>Made with Care</strong><p>Simple tools for a better<br />you, one step at a time.</p></div></article>
-        </section>
 
         {/* Section 1: How MoodFlip Works */}
         <section id="how" className={styles.howSection}>
@@ -330,17 +331,18 @@ export default function HomePage() {
           </div>
           <div className={styles.stepsFlow}>
             {[
-              { icon: '🎛️', color: 'how_blue', step: '01', title: 'Choose Your Mood', desc: 'Pick the mood that feels closest to you.' },
-              { icon: '☁️', color: 'how_purple', step: '02', title: 'Pick Exact Feeling', desc: 'Select the feeling that matches you best.' },
-              { icon: '🔄', color: 'how_green', step: '03', title: 'Flip Your Mood', desc: 'We find your positive counterpart.' },
-              { icon: '▶️', color: 'how_pink', step: '04', title: '60-Second Action', desc: 'A short action to shift your energy.' },
-              { icon: '📈', color: 'how_orange', step: '05', title: 'Save & Track', desc: 'Save your check-in and see growth.' }
+              { icon: '🎛️', color: 'how_blue', step: '1', title: 'Choose Your Mood', desc: 'Pick the mood that feels closest to you.' },
+              { icon: '☁️', color: 'how_purple', step: '2', title: 'Pick Exact Feeling', desc: 'Select the feeling that matches you best.' },
+              { icon: '🔄', color: 'how_green', step: '3', title: 'Flip Your Mood', desc: 'We find your positive counterpart.' },
+              { icon: '▶️', color: 'how_pink', step: '4', title: 'Get 60-Second Action', desc: 'A short action to shift your energy.' },
+              { icon: '📈', color: 'how_orange', step: '5', title: 'Save & Track Progress', desc: 'Save your check-in and see growth.' }
             ].map((step) => (
               <div key={step.title} className={styles.howStep}>
                 <div className={`${styles.howIcon} ${styles[step.color]}`}>{step.icon}</div>
                 <b>{step.step}</b>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
+                {step.step !== '5' && <div className={styles.dashedArrow}></div>}
               </div>
             ))}
           </div>
@@ -389,12 +391,12 @@ export default function HomePage() {
           </div>
           <div className={styles.libraryGrid}>
             {[
-              { icon: '🌀', title: 'Anxiety', sub: 'Find calm & clarity', color: 'library_cyan' },
+              { icon: '🦠', title: 'Anxiety', sub: 'Find calm & clarity', color: 'library_cyan' },
               { icon: '💥', title: 'Stress', sub: 'Find balance', color: 'library_orange' },
               { icon: '😢', title: 'Sadness', sub: 'Find light again', color: 'library_blue' },
-              { icon: '😡', title: 'Anger', sub: 'Find peace', color: 'library_rose' },
+              { icon: '❤️‍🩹', title: 'Anger', sub: 'Find peace', color: 'library_rose' },
               { icon: '👤', title: 'Loneliness', sub: 'Find connection', color: 'library_sky' },
-              { icon: '🌪️', title: 'Overwhelmed', sub: 'Find control', color: 'library_violet' }
+              { icon: '😵‍💫', title: 'Overwhelmed', sub: 'Find control', color: 'library_violet' }
             ].map(mood => (
               <div key={mood.title} className={`${styles.libraryCard} ${styles[mood.color]}`}>
                 <span>{mood.icon}</span>

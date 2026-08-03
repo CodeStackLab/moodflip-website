@@ -802,11 +802,19 @@
   margin: 4px 28px 7px;
   padding: 12px 28px;
   border-radius: 14px;
-  background: linear-gradient(90deg, #fff8ef, #fffaf4, #fff8ef);
+  background: #ffffff;
+  border: 1px solid #f0edf5;
 }
 
 .trustStrip article { display: grid; grid-template-columns: 42px 1fr; gap: 8px; align-items: center; }
-.trustIcon { width: 37px; height: 37px; display: grid; place-items: center; border-radius: 9px; background: rgba(255,255,255,.74); font-size: 22px; box-shadow: 0 5px 12px rgba(74, 48, 98, .06); }
+.trustIcon { width: 37px; height: 37px; display: grid; place-items: center; border-radius: 9px; font-size: 22px; }
+
+.trustPurple { background: #f2ebfc; }
+.trustGreen { background: #eef9f2; }
+.trustRed { background: #ffeff1; }
+.trustBlue { background: #edf4fc; }
+.trustOrange { background: #fff4ec; }
+
 .trustStrip strong { font-size: 10px; }
 .trustStrip p { margin: 3px 0 0; font-size: 9px; line-height: 1.35; }
 
@@ -1014,6 +1022,29 @@
 .how_green { color: #28ad79; background: linear-gradient(135deg, #e9fbf2, #dff6ec); }
 .how_pink { color: #e64f8e; background: linear-gradient(135deg, #fff0f6, #ffe3ef); }
 .how_orange { color: #e59736; background: linear-gradient(135deg, #fff5e7, #ffead1); }
+
+.dashedArrow {
+  position: absolute;
+  top: 40px;
+  right: -24px;
+  width: 24px;
+  height: 2px;
+  background-image: linear-gradient(to right, #d3cce3 50%, transparent 50%);
+  background-size: 6px 100%;
+  z-index: 0;
+}
+.dashedArrow::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: -4px;
+  border: solid #d3cce3;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
 
 .howStep > b {
   color: #2d1f8a;
@@ -1289,7 +1320,7 @@
 
 .libraryGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 18px;
   margin-top: 28px;
 }

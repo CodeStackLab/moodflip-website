@@ -11,17 +11,21 @@ export default function MoreForYou() {
         <span>More for You</span>
       </div>
 
-      {/* 7-DAY PLAN */}
-      <div className="rounded-2xl border border-[#BFDBFE] bg-[#EFF6FF] p-4 transition hover:-translate-y-0.5 shadow-sm">
-        <div className="flex items-center gap-3 mb-1.5">
-          <span className="text-xl">📅</span>
-          <h4 className="font-serif font-bold text-base text-[#2D264B]">7-Day Plan</h4>
+      {/* 7-DAY PLAN WITH 3D BOOK COVER IMAGE */}
+      <div className="rounded-2xl border border-[#BFDBFE] bg-[#EFF6FF] p-4 transition hover:-translate-y-0.5 shadow-sm text-center">
+        <div className="w-24 h-32 mx-auto mb-2 flex items-center justify-center">
+          <img 
+            src="/7day-plan-book.png" 
+            alt="MoodFlip 7-Day Plan Book" 
+            className="w-full h-full object-contain drop-shadow-md hover:scale-105 transition-transform"
+          />
         </div>
+        <h4 className="font-serif font-bold text-base text-[#2D264B] mb-1">7-Day Plan</h4>
         <p className="text-xs text-[#6B638B] leading-relaxed mb-3">
           Build a better mindset starting today.
         </p>
-        <Link href="/register" className="text-xs font-bold text-[#2563EB] hover:underline">
-          View Plan →
+        <Link href="/register" className="inline-block px-4 py-1.5 rounded-xl bg-[#2563EB] text-white text-xs font-bold shadow-xs hover:bg-[#1D4ED8] transition">
+          View 7-Day Plan →
         </Link>
       </div>
 

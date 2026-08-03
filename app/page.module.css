@@ -2328,19 +2328,6 @@ text-align: center;
   .howStep > b {
     font-size: 22px;
     margin-bottom: 2px;
-  }
-  .howStep h3 {
-    font-size: 15px;
-    margin: 4px 0;
-  }
-  .howStep p {
-    width: 100%;
-    max-width: 280px;
-.welcomeMaybeBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
   height: 42px;
   margin-top: 10px;
   border-radius: 12px;

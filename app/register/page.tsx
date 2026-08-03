@@ -49,8 +49,8 @@ export default function RegisterPage() {
         {/* MAIN BODY AREA INSIDE APP FRAME */}
         <main className="flex-1 p-6 md:p-10 bg-gradient-to-b from-[#FAF8FD] via-[#FAF9FE] to-[#F7F5FC] flex flex-col justify-between gap-8">
 
-          {/* 2-COLUMN CARDS CONTAINER */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] gap-8 items-stretch min-h-[620px]">
+          {/* 2-COLUMN CARDS CONTAINER (Create Account section wider 600px) */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_600px] gap-8 items-stretch min-h-[620px]">
 
             {/* LEFT HERO CARD (SUNSET LANDSCAPE BACKGROUND) */}
             <div

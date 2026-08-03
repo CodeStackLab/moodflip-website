@@ -120,24 +120,48 @@
 .loginButton,
 .planButton {
   height: 40px;
-  border-radius: 11px;
-  padding: 0 22px;
+  border-radius: 20px;
+  padding: 0 20px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .loginButton {
-  color: #5c32d9;
-  border: 1px solid #9c7bf4;
-  background: white;
+  color: #683cd7;
+  border: 1.5px solid #dcd4ee;
+  background: linear-gradient(145deg, #ffffff 0%, #f9f6fe 100%);
+  box-shadow: 0 3px 10px rgba(104, 60, 215, 0.08);
+}
+
+.loginButton:hover {
+  color: #5527ca;
+  border-color: #683cd7;
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(104, 60, 215, 0.18);
+}
+
+.loginButton:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .planButton {
   color: white;
   border: none;
-  background: linear-gradient(135deg, #cc50ba, #6f41e8);
-  box-shadow: 0 9px 18px rgba(114, 67, 233, .18);
+  background: linear-gradient(135deg, #7147e8 0%, #a644c9 100%);
+  box-shadow: 0 6px 18px rgba(113, 71, 232, 0.28);
+}
+
+.planButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 24px rgba(113, 71, 232, 0.36);
+  opacity: 0.96;
 }
 
 .topAd,

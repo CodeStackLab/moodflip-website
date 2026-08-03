@@ -105,7 +105,7 @@ export default function AdminDashboardPage() {
 
         {/* 1. LEFT SIDEBAR */}
         <aside className={`
-          fixed lg:static inset-y-0 left-0 z-50 w-[270px] bg-[#FAF8FD] border-r border-[#EAE3F2] p-5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out
+          fixed lg:static inset-y-0 left-0 z-50 w-[280px] bg-[#FAF8FD] border-r border-[#EAE3F2] p-5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div>
@@ -290,26 +290,26 @@ export default function AdminDashboardPage() {
             </nav>
           </div>
 
-          {/* SIDEBAR MOTIVATIONAL CARD WITH FULL SUNSET BACKGROUND MATCHING SCREENSHOT 2 */}
+          {/* SIDEBAR MOTIVATIONAL CARD WITH FULL SUNSET BACKGROUND MATCHING SCREENSHOT 1 & 2 */}
           <div 
-            className="mt-6 relative overflow-hidden rounded-2xl border border-[#EAE3D6] p-6 shadow-md flex flex-col justify-between text-center min-h-[220px] bg-cover bg-center"
+            className="mt-6 relative overflow-hidden rounded-[26px] border border-[#EAE3D6] p-6 shadow-md flex flex-col justify-between text-center min-h-[340px] bg-cover bg-center"
             style={{ backgroundImage: "url('/login-bg.jpg')" }}
           >
             {/* Soft Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/40 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/40 to-transparent pointer-events-none" />
 
-            <div className="relative z-10 text-center pt-1">
-              <h4 className="font-serif font-extrabold text-base text-[#1A1338] leading-tight mb-1">
+            <div className="relative z-10 text-center pt-2">
+              <h4 className="font-serif font-extrabold text-base md:text-lg text-[#1A1338] leading-snug mb-2 tracking-tight">
                 Spread positivity.<br />Inspire change.
               </h4>
-              <p className="text-xs text-[#5B5278] font-medium leading-relaxed mt-2 max-w-[200px] mx-auto">
+              <p className="text-xs text-[#5B5278] font-medium leading-relaxed max-w-[210px] mx-auto">
                 Thank you for helping millions live better.
               </p>
             </div>
 
             {/* Glowing Heart Pill Circle Icon at Bottom Center */}
-            <div className="relative z-10 w-11 h-11 rounded-full bg-[#7147E8] text-white flex items-center justify-center shadow-lg shadow-[#7147E8]/40 mx-auto mt-4">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <div className="relative z-10 w-12 h-12 rounded-full bg-[#7147E8] text-white flex items-center justify-center shadow-lg shadow-[#7147E8]/40 mx-auto mt-6 mb-2">
+              <svg className="w-5.5 h-5.5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
               </svg>
             </div>

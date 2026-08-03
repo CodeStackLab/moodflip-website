@@ -30,29 +30,29 @@ export default function LoginPage() {
         {/* MAIN BODY AREA INSIDE APP FRAME */}
         <main className="flex-1 p-6 md:p-10 bg-gradient-to-b from-[#FAF8FD] via-[#FAF9FE] to-[#F7F5FC] flex flex-col justify-between gap-8">
 
-          {/* 2-COLUMN CARDS CONTAINER (Left Hero: 500px, Right Login Form: 1fr Wide) */}
-          <div className="grid grid-cols-1 lg:grid-cols-[500px_1fr] gap-8 items-stretch min-h-[600px]">
+          {/* 2-COLUMN CARDS CONTAINER (Spacious 680px Left Hero, 1fr Right Login Form) */}
+          <div className="grid grid-cols-1 lg:grid-cols-[680px_1fr] gap-8 items-stretch min-h-[600px]">
 
-            {/* LEFT HERO CARD (COMPACT 500px WIDTH WITH SUNSET BACKGROUND) */}
+            {/* LEFT HERO CARD (SPACIOUS 680px WIDTH WITH SUNSET BACKGROUND) */}
             <div
-              className="relative overflow-hidden rounded-[28px] border border-[#EAE3D6] p-6 md:p-8 flex flex-col justify-between shadow-xs bg-cover bg-center min-h-[520px] lg:min-h-full"
+              className="relative overflow-hidden rounded-[28px] border border-[#EAE3D6] p-8 md:p-12 flex flex-col justify-between shadow-xs bg-cover bg-center min-h-[520px] lg:min-h-full"
               style={{ backgroundImage: "url('/login-bg.jpg')" }}
             >
               {/* Soft top gradient */}
               <div className="absolute inset-x-0 top-0 h-60 bg-gradient-to-b from-white/90 via-white/50 to-transparent pointer-events-none" />
 
-              {/* Headline & Paragraph (Center Aligned) */}
-              <div className="relative z-10 text-center flex flex-col items-center justify-center pt-2">
-                <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl font-extrabold text-[#1A1338] leading-[1.25] mb-2.5 tracking-tight">
+              {/* Headline & Paragraph (Spacious & Center Aligned) */}
+              <div className="relative z-10 text-center flex flex-col items-center justify-center pt-2 md:pt-4">
+                <h1 className="font-serif text-3xl md:text-4xl lg:text-[42px] font-extrabold text-[#1A1338] leading-[1.25] mb-3 tracking-tight">
                   A calmer mind.<br />A better you.
                 </h1>
-                <p className="text-xs md:text-sm text-[#554D6E] leading-relaxed font-medium max-w-xs mx-auto">
+                <p className="text-sm md:text-base text-[#554D6E] leading-relaxed font-medium max-w-md mx-auto">
                   Login to continue your journey towards calm, clarity and growth.
                 </p>
               </div>
 
-              {/* Bottom 4 Feature Pills Bar (2x2 Grid for Perfect Space) */}
-              <div className="relative z-10 grid grid-cols-2 gap-3 md:gap-4 bg-white/95 backdrop-blur-md rounded-[24px] p-4 md:p-5 border border-white/80 shadow-md">
+              {/* Bottom 4 Feature Pills Bar (Spacious 4-Column Layout) */}
+              <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 bg-white/95 backdrop-blur-md rounded-[24px] p-5 md:p-6 border border-white/80 shadow-md">
                 <div className="text-center">
                   <div className="w-12 h-12 rounded-full bg-[#7147E8]/12 flex items-center justify-center mx-auto mb-2">
                     <svg className="w-6 h-6 text-[#7147E8]" viewBox="0 0 24 24" fill="currentColor">

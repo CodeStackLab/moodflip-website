@@ -1332,7 +1332,7 @@
   border: 1px solid #eeeaf5;
   border-radius: 20px;
   display: grid;
-  grid-template-columns: 180px 1fr 340px;
+  grid-template-columns: 220px 1fr 340px;
   gap: 32px;
   align-items: center;
   background:
@@ -1345,6 +1345,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.aboutImg {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 12px 28px rgba(108, 64, 230, 0.14);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.aboutImg:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 36px rgba(108, 64, 230, 0.22);
 }
 
 .aboutCopy h2 {

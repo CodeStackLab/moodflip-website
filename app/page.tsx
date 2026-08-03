@@ -410,7 +410,11 @@ export default function HomePage() {
         {/* Section 4: About MoodFlip */}
         <section id="about" className={styles.aboutSection}>
           <div className={styles.aboutIllustration}>
-             <div style={{ fontSize: '120px' }}>👩🏻‍🦰</div>
+            <img
+              src="/about-moodflip.png"
+              alt="MoodFlip self-reflection illustration"
+              className={styles.aboutImg}
+            />
           </div>
           <div className={styles.aboutCopy}>
             <h2>About MoodFlip</h2>

@@ -515,9 +515,9 @@ export default function AdminDashboardPage() {
         <main className="flex-1 p-4 md:p-8 bg-[#FAF9FE] flex flex-col gap-6 overflow-y-auto w-full">
 
           {/* TOP SEARCH & PROFILE HEADER BAR */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-3 md:p-4 rounded-2xl border border-[#EAE3F2] shadow-xs">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 md:p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs">
             {/* Search Input */}
-            <div className="relative w-full sm:w-[420px]">
+            <div className="relative w-full sm:w-[380px] lg:w-[440px]">
               <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
               <input
                 type="text"
@@ -526,45 +526,43 @@ export default function AdminDashboardPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-[#F5F2FA] border border-[#EBE5F5] rounded-xl pl-10 pr-12 py-2 text-xs text-[#1A1338] placeholder-gray-400 focus:outline-none focus:border-[#7147E8] focus:bg-white transition-all"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-400 bg-white border border-gray-200 px-1.5 py-0.5 rounded-md">
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-400 bg-white border border-gray-200 px-1.5 py-0.5 rounded-md hidden sm:inline-block">
                 ⌘K
               </span>
             </div>
 
             {/* Top Right Controls & Profile */}
-            <div className="flex items-center gap-3 self-end sm:self-auto">
-              <button 
-                onClick={() => alert('Notifications (8): New user registration, 7-Day plan sale, export completed.')}
-                className="relative w-9 h-9 rounded-xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer"
-                title="Notifications"
-              >
-                🔔
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#EC4899] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center">8</span>
-              </button>
-              <div className="h-6 w-px bg-gray-200 mx-1" />
-              {/* Admin Profile & Direct Logout Button */}
-              <div className="flex items-center gap-3 pl-1">
-                <div className="flex items-center gap-2.5">
+            <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto border-t sm:border-t-0 border-gray-100 pt-2.5 sm:pt-0">
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => alert('Notifications (8): New user registration, 7-Day plan sale, export completed.')}
+                  className="relative w-9 h-9 rounded-xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer shrink-0"
+                  title="Notifications"
+                >
+                  🔔
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#EC4899] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center">8</span>
+                </button>
+                <div className="flex items-center gap-2">
                   <div className="w-9 h-9 rounded-full bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold flex items-center justify-center text-sm shadow-xs shrink-0">
                     A
                   </div>
-                  <div className="text-left hidden sm:block">
+                  <div className="text-left hidden md:block">
                     <span className="block text-xs font-bold text-[#1A1338]">Admin Panel</span>
                     <span className="block text-[10px] text-gray-500 font-medium">{adminCreds.email}</span>
                   </div>
                 </div>
-
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 font-extrabold text-xs hover:bg-rose-600 hover:text-white transition-all cursor-pointer shadow-2xs shrink-0"
-                  title="Logout Admin Session"
-                >
-                  <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                  </svg>
-                  <span>Logout</span>
-                </button>
               </div>
+
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 font-extrabold text-xs hover:bg-rose-600 hover:text-white transition-all cursor-pointer shadow-2xs shrink-0"
+                title="Logout Admin Session"
+              >
+                <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                <span>Logout</span>
+              </button>
             </div>
           </div>
 
@@ -1616,7 +1614,7 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 10: SEO & SEARCH CONSOLE */}
           {activeTab === 'SEO & Search Console' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6">
+            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">SEO &amp; Webmaster Control Center 🔍</h2>
@@ -1624,7 +1622,7 @@ export default function AdminDashboardPage() {
                 </div>
                 <button
                   onClick={() => saveSeoSettings(seoSettings)}
-                  className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer shrink-0"
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center shrink-0"
                 >
                   💾 Save SEO Settings
                 </button>
@@ -2333,30 +2331,30 @@ export default function AdminDashboardPage() {
                AI-POWERED MOODFLIP — Multi-Provider AI Settings
           ══════════════════════════════════════════════════════════════ */}
           {activeTab === 'AI-Powered MoodFlip' && (
-            <div className="space-y-6">
+            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
               {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span className="text-2xl">🤖</span>
-                    <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">AI-Powered MoodFlip</h2>
-                    <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full ml-1 ${aiSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'}`}>
+                    <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">AI-Powered MoodFlip</h2>
+                    <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full ${aiSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'}`}>
                       {aiSettings.enabled ? '● ACTIVE' : '○ INACTIVE'}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500">Configure AI providers (Gemini, OpenAI, Mistral, Claude) to power mood analysis, action suggestions, and personalised insights.</p>
+                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure AI providers (Gemini, OpenAI, Mistral, Claude) to power mood analysis, action suggestions, and personalised insights.</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-extrabold text-gray-600">Master AI Switch</span>
+                <div className="flex items-center justify-between w-full sm:w-auto bg-[#FAF8FD] border border-[#EAE3F2] px-4 py-2.5 rounded-2xl shrink-0 gap-3">
+                  <span className="text-xs font-extrabold text-gray-700">Master AI Switch</span>
                   <button
                     onClick={() => {
                       const updated = { ...aiSettings, enabled: !aiSettings.enabled };
                       setAiSettings(updated);
                       localStorage.setItem('moodflip_ai_settings', JSON.stringify(updated));
                     }}
-                    className={`relative w-14 h-7 rounded-full transition-colors cursor-pointer ${aiSettings.enabled ? 'bg-[#7147E8]' : 'bg-gray-200'}`}
+                    className={`relative w-12 h-6.5 rounded-full transition-colors cursor-pointer shrink-0 ${aiSettings.enabled ? 'bg-[#7147E8]' : 'bg-gray-300'}`}
                   >
-                    <span className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow transition-transform ${aiSettings.enabled ? 'translate-x-8' : 'translate-x-1'}`} />
+                    <span className={`absolute top-0.5 w-5.5 h-5.5 bg-white rounded-full shadow transition-transform ${aiSettings.enabled ? 'translate-x-6' : 'translate-x-0.5'}`} />
                   </button>
                 </div>
               </div>
@@ -2634,23 +2632,23 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 10: SETTINGS & DEVELOPER OPTIONS */}
           {activeTab === 'Settings' && (
-            <div className="space-y-6">
-              <div>
-                <h2 className="font-serif font-bold text-2xl text-[#1A1338]">Platform System &amp; Developer Settings ⚙️</h2>
-                <p className="text-xs text-gray-500 mt-1">Configure Admin Login Credentials, Email SMTP &amp; Gmail Gateway, Payment APIs, and Developer Options.</p>
+            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+              <div className="border-b border-gray-100 pb-5">
+                <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Platform System &amp; Developer Settings ⚙️</h2>
+                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure Admin Login Credentials, Email SMTP &amp; Gmail Gateway, Payment APIs, and Developer Options.</p>
               </div>
 
               {/* 1. ADMIN LOGIN CREDENTIALS CARD */}
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl p-6 shadow-xs space-y-4">
-                <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+              <div className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-4 sm:p-6 shadow-2xs space-y-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-200/60 pb-3">
                   <div className="flex items-center gap-2.5">
-                    <span className="text-2xl">🔑</span>
+                    <span className="text-2xl shrink-0">🔑</span>
                     <div>
-                      <h3 className="font-serif font-bold text-base text-[#1A1338]">Admin Login Credentials Settings</h3>
-                      <p className="text-xs text-gray-500">Change the Admin Email and Admin Password required to log in at /login.</p>
+                      <h3 className="font-serif font-extrabold text-base text-[#1A1338]">Admin Login Credentials Settings</h3>
+                      <p className="text-xs text-gray-500 font-medium">Change the Admin Email and Admin Password required to log in at /login.</p>
                     </div>
                   </div>
-                  <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-purple-100 text-[#7147E8]">
+                  <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-purple-100 text-[#7147E8] shrink-0 self-start sm:self-auto">
                     Active: {adminCreds.email}
                   </span>
                 </div>
@@ -2687,7 +2685,7 @@ export default function AdminDashboardPage() {
                   <div className="md:col-span-2 flex justify-end pt-1">
                     <button
                       type="submit"
-                      className="bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer"
+                      className="w-full sm:w-auto bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
                     >
                       💾 Update Admin Login Credentials
                     </button>

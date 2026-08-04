@@ -10,139 +10,197 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [msg, setMsg] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const lowerEmail = email.toLowerCase().trim();
-    const isAdmin =
-      lowerEmail.includes('admin') ||
-      lowerEmail === 'support@moodflip.coach' ||
-      password === 'admin123' ||
-      password === 'admin';
+    setIsLoading(true);
+    setLoadingStep(1);
 
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('userLoggedIn', 'true');
-      localStorage.setItem('isLoggedIn', 'true');
-    }
+    // Simulate backend verification steps
+    setTimeout(() => setLoadingStep(2), 600);
+    setTimeout(() => setLoadingStep(3), 1200);
 
-    if (isAdmin) {
-      setMsg('🔑 Admin Credentials Verified! Redirecting to Admin Dashboard...');
-      setTimeout(() => {
-        window.location.href = '/admin';
-      }, 1000);
-    } else {
-      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
-      const redirectUrl = params?.get('redirect') || '/profile';
-      setMsg('Account login successful! Redirecting...');
-      setTimeout(() => {
-        window.location.href = redirectUrl;
-      }, 1000);
-    }
+    setTimeout(() => {
+      const lowerEmail = email.toLowerCase().trim();
+      const savedAdminEmail = (typeof window !== 'undefined' ? localStorage.getItem('admin_login_email') : null) || 'admin@moodflip.coach';
+      const savedAdminPassword = (typeof window !== 'undefined' ? localStorage.getItem('admin_login_password') : null) || 'admin123';
+      const isAdmin = lowerEmail === savedAdminEmail.toLowerCase().trim() && password === savedAdminPassword;
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('userLoggedIn', 'true');
+        localStorage.setItem('isLoggedIn', 'true');
+      }
+
+      if (isAdmin) {
+        setMsg('🔑 Admin verified! Redirecting to Admin Dashboard...');
+        setTimeout(() => { window.location.href = '/admin'; }, 800);
+      } else {
+        const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+        const redirectUrl = params?.get('redirect') || '/profile';
+        setMsg('✅ Login successful! Redirecting...');
+        setTimeout(() => { window.location.href = redirectUrl; }, 800);
+      }
+      setIsLoading(false);
+    }, 1800);
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFDFC] px-3 md:px-[5%] py-3 md:py-6 font-sans text-[#2D264B]">
-      {/* OUTER APP FRAME (Matching Homepage Width max-w-[1560px]) */}
-      <div className="mx-auto max-w-[1560px] w-full bg-[#FFFFFF] border border-[#181940]/14 rounded-[29px] shadow-2xl overflow-hidden flex flex-col min-h-[920px]">
+    <div className="min-h-screen bg-[#F7F5FC] px-3 md:px-[3%] py-3 md:py-5 font-sans text-[#2D264B]">
+      {/* OUTER CONTAINER — narrower max-w-[1160px] */}
+      <div className="mx-auto max-w-[1160px] w-full bg-white border border-[#E8E0F4] rounded-[26px] shadow-xl overflow-hidden flex flex-col">
 
-        {/* REUSABLE GLOBAL HEADER */}
+        {/* GLOBAL HEADER */}
         <Header />
 
-        {/* MAIN BODY AREA INSIDE APP FRAME */}
-        <main className="flex-1 p-6 md:p-10 bg-gradient-to-b from-[#FAF8FD] via-[#FAF9FE] to-[#F7F5FC] flex flex-col justify-between gap-8">
+        {/* MAIN BODY */}
+        <main className="flex-1 p-4 md:p-7 bg-gradient-to-br from-[#FAF8FD] to-[#F3EFFE] flex flex-col gap-5">
 
-          {/* 2-COLUMN CARDS CONTAINER (Spacious 680px Left Hero, 1fr Right Login Form) */}
-          <div className="grid grid-cols-1 lg:grid-cols-[680px_1fr] gap-8 items-stretch min-h-[600px]">
+          {/* 2-COLUMN GRID */}
+          <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-stretch flex flex-col lg:flex-none">
 
-            {/* LEFT HERO CARD (SPACIOUS 680px WIDTH WITH SUNSET BACKGROUND) */}
+            {/* ── LEFT HERO CARD ── */}
             <div
-              className="relative overflow-hidden rounded-[28px] border border-[#EAE3D6] p-8 md:p-12 flex flex-col justify-between shadow-xs bg-cover bg-center min-h-[520px] lg:min-h-full"
+              className="relative overflow-hidden rounded-[24px] border border-[#EAE3D6] flex flex-col justify-between shadow-sm bg-cover bg-center min-h-[480px] lg:min-h-full p-6 md:p-8 order-2 lg:order-1"
               style={{ backgroundImage: "url('/login-bg.jpg')" }}
             >
-              {/* Soft top gradient */}
-              <div className="absolute inset-x-0 top-0 h-60 bg-gradient-to-b from-white/90 via-white/50 to-transparent pointer-events-none" />
+              {/* Gradient overlays */}
+              <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-white/93 via-white/65 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#2a1466]/30 to-transparent pointer-events-none" />
 
-              {/* Headline & Paragraph (Spacious & Center Aligned) */}
-              <div className="relative z-10 text-center flex flex-col items-center justify-center pt-2 md:pt-4">
-                <h1 className="font-serif text-3xl md:text-4xl lg:text-[42px] font-extrabold text-[#1A1338] leading-[1.25] mb-3 tracking-tight">
-                  A calmer mind.<br />A better you.
+              {/* Headline */}
+              <div className="relative z-10 text-center flex flex-col items-center pt-2">
+                {/* Colorful pill badge */}
+                <span
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider mb-3 border border-[#e0d4f8]"
+                  style={{
+                    background: 'linear-gradient(90deg, #7147e8, #e044b8, #f97316)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  ✦ Your Safe Space
+                </span>
+                <h1
+                  className="font-serif leading-[1.2] mb-2 tracking-tight text-[#1A1338]"
+                  style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800 }}
+                >
+                  A calmer mind.<br />
+                  <span
+                    style={{
+                      background: 'linear-gradient(100deg, #7147e8 0%, #c840cc 50%, #f97316 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    A better you.
+                  </span>
                 </h1>
-                <p className="text-sm md:text-base text-[#554D6E] leading-relaxed font-medium max-w-md mx-auto">
-                  Login to continue your journey towards calm, clarity and growth.
+                <p className="text-xs md:text-sm text-[#554D6E] leading-relaxed font-medium max-w-xs mx-auto">
+                  Continue your journey towards calm, clarity and growth.
                 </p>
               </div>
 
-              {/* Bottom 4 Feature Pills Bar (Spacious 4-Column Layout) */}
-              <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 bg-white/95 backdrop-blur-md rounded-[24px] p-5 md:p-6 border border-white/80 shadow-md">
-                <div className="text-center">
-                  <div className="w-12 h-12 rounded-full bg-[#7147E8]/12 flex items-center justify-center mx-auto mb-2">
-                    <svg className="w-6 h-6 text-[#7147E8]" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-1 14.5l-3.5-3.5 1.41-1.41L11 12.67l5.09-5.09 1.41 1.41L11 15.5z"/>
-                    </svg>
+              {/* Bottom feature pills */}
+              <div className="relative z-10 grid grid-cols-2 gap-3 bg-white/95 backdrop-blur-md rounded-[20px] p-4 border border-white/70 shadow-sm mt-6">
+                {[
+                  { icon: '🛡️', color: '#7147E8', bg: '#F0EAFF', title: 'Private & Secure', sub: 'Your data is encrypted' },
+                  { icon: '🔐', color: '#16A34A', bg: '#EDFBF1', title: 'Encrypted Access', sub: 'Enterprise-grade security' },
+                  { icon: '💜', color: '#F43F5E', bg: '#FFF0F3', title: 'Built for Wellness', sub: 'Mental well-being first' },
+                  { icon: '🔑', color: '#9333EA', bg: '#F8F0FF', title: "You're in Control", sub: 'Privacy comes first' },
+                ].map((f) => (
+                  <div key={f.title} className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-base" style={{ background: f.bg }}>
+                      {f.icon}
+                    </div>
+                    <div>
+                      <strong className="block text-[12px] font-extrabold text-[#1D1737] leading-tight">{f.title}</strong>
+                      <span className="text-[10.5px] text-[#68607F] font-medium leading-tight block">{f.sub}</span>
+                    </div>
                   </div>
-                  <strong className="block text-[13px] font-extrabold text-[#1D1737] leading-tight">Private &amp; Secure</strong>
-                  <span className="text-[11px] text-[#68607F] font-medium leading-tight block mt-1">Your data is encrypted and protected</span>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 rounded-full bg-[#16A34A]/12 flex items-center justify-center mx-auto mb-2">
-                    <svg className="w-6 h-6 text-[#16A34A]" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-                    </svg>
-                  </div>
-                  <strong className="block text-[13px] font-extrabold text-[#1D1737] leading-tight">Encrypted Access</strong>
-                  <span className="text-[11px] text-[#68607F] font-medium leading-tight block mt-1">Enterprise-grade security</span>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 rounded-full bg-[#F43F5E]/12 flex items-center justify-center mx-auto mb-2">
-                    <svg className="w-6 h-6 text-[#F43F5E]" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
-                  </div>
-                  <strong className="block text-[13px] font-extrabold text-[#1D1737] leading-tight">Built for Wellness</strong>
-                  <span className="text-[11px] text-[#68607F] font-medium leading-tight block mt-1">Supporting your mental well-being</span>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 rounded-full bg-[#9333EA]/12 flex items-center justify-center mx-auto mb-2">
-                    <svg className="w-6 h-6 text-[#9333EA]" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-                    </svg>
-                  </div>
-                  <strong className="block text-[13px] font-extrabold text-[#1D1737] leading-tight">You&apos;re in Control</strong>
-                  <span className="text-[11px] text-[#68607F] font-medium leading-tight block mt-1">Your privacy comes first</span>
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* RIGHT SIGN-IN CARD */}
-            <div className="rounded-[28px] border border-[#EFE8F8] bg-white p-8 md:p-11 shadow-sm flex flex-col justify-center text-center">
-              {/* Top Smiley Icon Circle */}
-              <div className="w-14 h-14 rounded-full bg-[#F5EEFF] text-[#7147E8] grid place-items-center mx-auto mb-4 text-2xl shadow-xs">
-                😊
+            {/* ── RIGHT LOGIN FORM ── */}
+            <div className="rounded-[22px] border border-[#EFE8F8] bg-white p-6 md:p-9 shadow-sm flex flex-col justify-center order-1 lg:order-2">
+
+              {/* Avatar + Titles */}
+              <div className="text-center mb-5">
+                <div className="w-13 h-13 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-sm"
+                  style={{ background: 'linear-gradient(135deg, #f0eaff, #fce7f3)', width: 52, height: 52 }}>
+                  😊
+                </div>
+                <h2 className="font-serif font-extrabold text-[#181236] mb-0.5"
+                  style={{ fontSize: 'clamp(22px, 3vw, 30px)' }}>
+                  Welcome Back
+                </h2>
+                <p className="text-sm font-bold mb-0.5"
+                  style={{
+                    background: 'linear-gradient(90deg, #7147e8, #c840cc)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}>
+                  Sign in to MoodFlip
+                </p>
+                <p className="text-[11px] text-[#8A829E] font-medium">
+                  <strong className="text-[#383054]">Admin & User Login</strong> — One secure portal for both.
+                </p>
               </div>
 
-              {/* Titles */}
-              <h2 className="font-serif text-3xl font-extrabold text-[#181236] mb-1">
-                Welcome Back
-              </h2>
-              <p className="text-sm font-bold text-[#7147E8] mb-1">
-                Sign in to MoodFlip
-              </p>
-              <p className="text-xs text-[#8A829E] mb-6 font-medium leading-relaxed">
-                <strong className="text-[#383054]">Admin &amp; User Login</strong><br />
-                One secure portal for both users and admins.
-              </p>
+              {/* Backend loading steps */}
+              {isLoading && (
+                <div className="mb-4 rounded-2xl p-3.5 border border-[#E3D9F8] bg-gradient-to-br from-[#FAF8FD] to-[#F3ECFE] text-xs space-y-2 shadow-2xs animate-in fade-in duration-200">
+                  {[
+                    { step: 1, text: 'Verifying user credentials', icon: '🔍' },
+                    { step: 2, text: 'Authenticating secure session', icon: '🔐' },
+                    { step: 3, text: 'Access granted! Redirecting...', icon: '🚀' },
+                  ].map(({ step, text, icon }) => {
+                    const isDone = loadingStep > step;
+                    const isCurrent = loadingStep === step;
+                    return (
+                      <div
+                        key={step}
+                        className={`flex items-center justify-between p-2 rounded-xl transition-all duration-300 ${
+                          isCurrent ? 'bg-white shadow-2xs border border-purple-200 font-bold text-[#7147E8]' :
+                          isDone ? 'font-bold text-emerald-700' : 'text-gray-400 font-medium opacity-50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span className="text-sm shrink-0">{icon}</span>
+                          <span className="truncate">{text}</span>
+                        </div>
+                        <div className="shrink-0 pl-2">
+                          {isDone ? (
+                            <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-extrabold">✓</span>
+                          ) : isCurrent ? (
+                            <span className="w-4 h-4 border-2 border-[#7147E8] border-t-transparent rounded-full animate-spin block" />
+                          ) : (
+                            <span className="w-2 h-2 rounded-full bg-gray-300 block" />
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
 
-              {/* Feedback Message Banner */}
-              {msg && (
-                <div className="mb-4 rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs font-semibold text-emerald-700 text-center">
+              {/* Success/Error message */}
+              {msg && !isLoading && (
+                <div className="mb-4 rounded-xl p-3.5 text-xs font-bold text-center border bg-emerald-50 border-emerald-200 text-emerald-800 shadow-2xs animate-in fade-in duration-200">
                   {msg}
                 </div>
               )}
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-4 text-left">
+              <form onSubmit={handleSubmit} className="space-y-3.5 text-left">
+                {/* Email */}
                 <div>
-                  <label className="block text-[11px] font-extrabold uppercase tracking-wider text-[#6B638B] mb-1.5">
+                  <label className="block text-[10.5px] font-extrabold uppercase tracking-wider text-[#6B638B] mb-1">
                     Email Address
                   </label>
                   <div className="relative">
@@ -152,14 +210,19 @@ export default function LoginPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email address"
-                      className="w-full h-11 pl-10 pr-4 rounded-xl border border-[#E2D5F8] bg-[#FAF9FD] text-sm text-[#1E1938] focus:outline-none focus:border-[#7147E8]"
+                      placeholder="admin@example.com"
+                      disabled={isLoading}
+                      className="w-full h-11 pl-10 pr-4 rounded-xl border bg-[#FAF9FD] text-sm text-[#1E1938] focus:outline-none transition"
+                      style={{ borderColor: '#E2D5F8' }}
+                      onFocus={(e) => e.target.style.borderColor = '#7147E8'}
+                      onBlur={(e) => e.target.style.borderColor = '#E2D5F8'}
                     />
                   </div>
                 </div>
 
+                {/* Password */}
                 <div>
-                  <label className="block text-[11px] font-extrabold uppercase tracking-wider text-[#6B638B] mb-1.5">
+                  <label className="block text-[10.5px] font-extrabold uppercase tracking-wider text-[#6B638B] mb-1">
                     Password
                   </label>
                   <div className="relative">
@@ -170,12 +233,16 @@ export default function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      className="w-full h-11 pl-10 pr-11 rounded-xl border border-[#E2D5F8] bg-[#FAF9FD] text-sm text-[#1E1938] focus:outline-none focus:border-[#7147E8]"
+                      disabled={isLoading}
+                      className="w-full h-11 pl-10 pr-11 rounded-xl border bg-[#FAF9FD] text-sm text-[#1E1938] focus:outline-none transition"
+                      style={{ borderColor: '#E2D5F8' }}
+                      onFocus={(e) => e.target.style.borderColor = '#7147E8'}
+                      onBlur={(e) => e.target.style.borderColor = '#E2D5F8'}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3.5 top-2.5 text-base text-[#9B93B0]"
+                      className="absolute right-3.5 top-2.5 text-base text-[#9B93B0] hover:text-[#7147E8] transition"
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                       {showPassword ? '👁️' : '🙈'}
@@ -183,7 +250,8 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs pt-1">
+                {/* Remember + Forgot */}
+                <div className="flex items-center justify-between text-xs pt-0.5">
                   <label className="flex items-center gap-2 cursor-pointer text-[#383252] font-semibold">
                     <input
                       type="checkbox"
@@ -193,42 +261,57 @@ export default function LoginPage() {
                     />
                     Remember me
                   </label>
-                  <a href="/forgot-password" className="text-[#7147E8] font-bold hover:underline">
+                  <a href="/forgot-password" className="font-bold hover:underline" style={{ color: '#7147E8' }}>
                     Forgot Password?
                   </a>
                 </div>
 
+                {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full h-12 rounded-xl bg-gradient-to-r from-[#7147E8] to-[#9A4ACB] text-white text-sm font-extrabold shadow-md shadow-purple-200 hover:opacity-95 transition cursor-pointer flex items-center justify-center gap-2 mt-2"
+                  disabled={isLoading}
+                  className="w-full h-12 rounded-xl text-white text-sm font-extrabold shadow-md hover:opacity-95 transition cursor-pointer flex items-center justify-center gap-2 mt-1"
+                  style={{
+                    background: isLoading
+                      ? 'linear-gradient(90deg, #a78bfa, #c084fc)'
+                      : 'linear-gradient(90deg, #7147E8, #9A4ACB)',
+                    boxShadow: '0 4px 16px rgba(113, 71, 232, 0.3)',
+                  }}
                 >
-                  <span>➔</span> Login
+                  {isLoading ? (
+                    <>
+                      <span style={{ display: 'inline-block', animation: 'spin 1s linear infinite' }}>⟳</span>
+                      Signing in...
+                    </>
+                  ) : (
+                    <><span>➔</span> Login</>
+                  )}
                 </button>
               </form>
 
               {/* Divider */}
-              <div className="flex items-center gap-3 my-5">
+              <div className="flex items-center gap-3 my-4">
                 <div className="flex-1 h-px bg-[#EFE8F8]" />
                 <span className="text-xs text-[#A097B5] font-medium">or</span>
                 <div className="flex-1 h-px bg-[#EFE8F8]" />
               </div>
 
-              {/* Register button row */}
+              {/* Register row */}
               <div className="flex items-center justify-between gap-3">
-                <span className="text-xs text-[#6B638B] font-medium">
-                  Don&apos;t have an account?
-                </span>
+                <span className="text-xs text-[#6B638B] font-medium">Don&apos;t have an account?</span>
                 <Link
                   href="/register"
-                  className="inline-flex items-center gap-1.5 px-4 h-9 rounded-xl border border-[#DCD2F7] bg-white text-[#683CD7] text-xs font-bold hover:bg-[#F9F6FE] transition"
+                  className="inline-flex items-center gap-1.5 px-4 h-9 rounded-xl border text-xs font-bold transition"
+                  style={{ borderColor: '#DCD2F7', color: '#683CD7', background: 'white' }}
                 >
                   <span>👤</span> Register
                 </Link>
               </div>
 
-              {/* Role Subnote Card */}
-              <div className="mt-5 p-3 rounded-xl bg-[#FAF9FD] border border-[#F0E8F8] flex items-start gap-2.5 text-[11px] text-[#6E6785] text-left">
-                <span className="text-sm mt-0.5">🔒</span>
+              {/* Role auto-detect note */}
+              <div className="mt-4 p-3 rounded-xl flex items-start gap-2.5 text-[11px] text-[#6E6785] text-left"
+                style={{ background: 'linear-gradient(135deg, #faf8ff, #fef0ff)', border: '1px solid #ede4f8' }}>
+                <span className="text-sm mt-0.5 flex-shrink-0">🔒</span>
                 <div className="leading-snug">
                   <strong className="text-[#2C2548]">Role is determined automatically after sign in.</strong><br />
                   You&apos;ll be redirected to your dashboard securely.
@@ -238,52 +321,53 @@ export default function LoginPage() {
 
           </div>
 
-          {/* BOTTOM SECURITY STRIP BAR */}
-          <section className="p-4 md:px-6 rounded-2xl border border-[#EAE3D6] bg-white flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#443C60] shadow-xs">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#F2EBFF] text-[#7147E8] grid place-items-center text-lg flex-shrink-0">
+          {/* SECURITY STRIP */}
+          <section className="p-3.5 md:px-5 rounded-2xl border border-[#EAE3D6] bg-white flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#443C60] shadow-xs">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0"
+                style={{ background: '#F2EBFF' }}>
                 🛡️
               </div>
-              <span className="font-medium text-[#383054]">
+              <span className="font-medium text-[#383054] text-[12px]">
                 We use industry-standard encryption to keep your data safe and your mind at ease.
               </span>
             </div>
-
-            <div className="flex flex-wrap gap-4 text-[11px] font-bold text-[#5E547A]">
-              <span className="flex items-center gap-1"><span className="text-[#7147E8]">✓</span> 256-bit SSL encryption</span>
-              <span className="flex items-center gap-1"><span className="text-[#7147E8]">✓</span> Secure authentication</span>
-              <span className="flex items-center gap-1"><span className="text-[#7147E8]">✓</span> Regular security audits</span>
-              <span className="flex items-center gap-1"><span className="text-[#7147E8]">✓</span> Privacy by design</span>
+            <div className="flex flex-wrap gap-3 text-[11px] font-bold text-[#5E547A]">
+              {['256-bit SSL encryption', 'Secure authentication', 'Regular security audits', 'Privacy by design'].map(t => (
+                <span key={t} className="flex items-center gap-1">
+                  <span style={{ color: '#7147E8' }}>✓</span> {t}
+                </span>
+              ))}
             </div>
           </section>
 
         </main>
 
-        {/* FOOTER INSIDE APP FRAME */}
-        <footer className="h-16 px-6 md:px-10 bg-[#171542] text-white flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+        {/* FOOTER INSIDE FRAME */}
+        <footer className="px-5 py-3.5 bg-[#171542] text-white flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
             <span className="text-base">😊</span>
-            <span className="font-serif text-lg font-bold tracking-tight">
+            <span className="font-serif text-base font-bold tracking-tight">
               mood<span className="text-[#A78BFA]">flip</span>
             </span>
             <span className="text-purple-200/60 ml-2 hidden sm:inline">A self-reflection utility for real life.</span>
           </div>
-
-          <div className="flex items-center gap-6 text-purple-200/80 font-medium">
-            <a href="/#about" className="hover:text-white transition">About</a>
-            <a href="/#how" className="hover:text-white transition">How It Works</a>
-            <a href="/#library" className="hover:text-white transition">Mood Library</a>
-            <a href="/privacy" className="hover:text-white transition">Privacy Policy</a>
-            <a href="/terms" className="hover:text-white transition">Terms</a>
-            <a href="/contact" className="hover:text-white transition">Contact</a>
+          <div className="flex items-center gap-5 text-purple-200/80 font-medium">
+            {[['/#about','About'],['/#how','How It Works'],['/#library','Mood Library'],['/privacy','Privacy'],['/terms','Terms'],['/contact','Contact']].map(([href, label]) => (
+              <a key={label} href={href} className="hover:text-white transition">{label}</a>
+            ))}
           </div>
-
-          <div className="text-purple-200/60">
-            © 2026 MoodFlip.coach 💜
-          </div>
+          <div className="text-purple-200/60">© 2026 MoodFlip.coach 💜</div>
         </footer>
 
       </div>
+
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }

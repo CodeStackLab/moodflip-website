@@ -237,7 +237,7 @@ export default function HomePage() {
         </section>
 
         <section className={styles.dashboard} id="home">
-          <section className={styles.moodPanel}>
+          <section className={styles.moodPanel} id="check-in">
             <div className={styles.stepHeader}>
               <div className={styles.stepTitle}><span>1</span><strong>STEP 1 · CHOOSE YOUR MOOD</strong></div>
               <div className={styles.stepCount}>1 of 2</div>
@@ -756,6 +756,59 @@ export default function HomePage() {
           </div>
         </section>
 
+
+        {/* Section: Resources Hub — anchored at #resources */}
+        <section id="resources" style={{ background: 'linear-gradient(135deg, #1A0A3B 0%, #2D1065 50%, #7147E8 100%)', padding: '72px 16px', position: 'relative', overflow: 'hidden' }}>
+          {/* Background glow */}
+          <div style={{ position: 'absolute', top: '10%', left: '5%', width: '300px', height: '300px', borderRadius: '50%', background: 'rgba(160,90,255,0.15)', filter: 'blur(80px)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: '10%', right: '5%', width: '250px', height: '250px', borderRadius: '50%', background: 'rgba(255,100,150,0.12)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+
+          <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            {/* Badge + heading */}
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', color: '#fff', fontSize: '11px', fontWeight: '900', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '6px 16px', borderRadius: '999px', marginBottom: '16px' }}>
+                📚 Free Resources
+              </span>
+              <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 4vw, 3rem)', fontWeight: '900', color: '#fff', margin: '0 0 12px', lineHeight: 1.2 }}>
+                Your Wellness<br />Resource Hub
+              </h2>
+              <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1rem', fontWeight: '600', maxWidth: '560px', margin: '0 auto 32px' }}>
+                Curated guides, science-backed articles, exercises, and tools — all free.
+              </p>
+            </div>
+
+            {/* Resource cards grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '40px' }}>
+              {[
+                { emoji: '⚡', title: 'Instant Mood Flip', desc: '60-second micro-actions to shift your emotional state right now.', link: '/#check-in', color: 'rgba(113,71,232,0.6)' },
+                { emoji: '🧠', title: 'Mindset Science', desc: 'Evidence-based articles on neuroplasticity and cognitive reframing.', link: '/blog', color: 'rgba(59,130,246,0.5)' },
+                { emoji: '📅', title: '7-Day Reset Plan', desc: 'Structured daily plan to rewire negative thought patterns.', link: '/profile?tab=My%207-Day%20Plan', color: 'rgba(16,185,129,0.5)' },
+                { emoji: '🆘', title: 'Crisis Support', desc: 'Immediate help resources. Call 988 (US) or text HOME to 741741.', link: '/resources#crisis', color: 'rgba(239,68,68,0.45)' },
+              ].map((card, i) => (
+                <a key={i} href={card.link} style={{ display: 'block', background: card.color, backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '20px', padding: '24px 20px', color: '#fff', textDecoration: 'none', transition: 'transform 0.2s, box-shadow 0.2s' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 30px rgba(0,0,0,0.25)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'none'; (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
+                >
+                  <div style={{ fontSize: '2rem', marginBottom: '12px' }}>{card.emoji}</div>
+                  <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', fontWeight: '800', color: '#fff', margin: '0 0 8px' }}>{card.title}</h3>
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.75)', fontWeight: '500', lineHeight: 1.6, margin: 0 }}>{card.desc}</p>
+                  <span style={{ display: 'block', marginTop: '14px', fontSize: '12px', fontWeight: '800', color: 'rgba(255,255,255,0.9)' }}>Explore →</span>
+                </a>
+              ))}
+            </div>
+
+            {/* CTA buttons */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <a href="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#7147E8', padding: '12px 24px', borderRadius: '14px', fontWeight: '800', fontSize: '14px', textDecoration: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
+                🎁 Browse All Resources
+              </a>
+              <a href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '12px 24px', borderRadius: '14px', fontWeight: '800', fontSize: '14px', textDecoration: 'none' }}>
+                📝 Read the Blog
+              </a>
+            </div>
+          </div>
+        </section>
+
         <footer className={styles.footer}>
           <a className={`${styles.logo} ${styles.footerLogo}`} href="#">
             <span className={styles.logoMark} aria-hidden="true"><span /><span /></span>
@@ -763,11 +816,14 @@ export default function HomePage() {
           </a>
           <p>A self-reflection utility for real life.</p>
           <nav>
-            <a href="#about">About</a>
-            <a href="#library">Mood Library</a>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms</a>
-            <a href="#contact">Contact</a>
+            <a href="/#about">About</a>
+            <a href="/#library">Mood Library</a>
+            <a href="/resources">Resources</a>
+            <a href="/blog">Blog</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms</a>
+            <a href="/refund">Refund Policy</a>
+            <a href="/contact">Contact</a>
           </nav>
           <span>© 2026 MoodFlip.coach 💜</span>
         </footer>

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
+import SiteLoader from '@/components/SiteLoader';
 
 export const metadata: Metadata = {
   title: 'MoodFlip | Self-Reflection Utility',
@@ -21,7 +22,12 @@ export default function RootLayout({
           #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
         `}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        <Suspense fallback={null}>
+          <SiteLoader />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

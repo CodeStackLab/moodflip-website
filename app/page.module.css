@@ -1033,16 +1033,22 @@
 .slate .moodEmojiWrap { background: linear-gradient(135deg, #e2e4ec, #cccfd9); }
 
 .tipBar {
-  width: 78%;
-  min-height: 32px;
+  width: 94%;
+  max-width: 560px;
+  min-height: 36px;
   margin: 16px auto;
+  padding: 8px 16px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  text-align: center;
+  border-radius: 12px;
   background: linear-gradient(90deg, #f2edff, #f7f3ff);
+  border: 1px solid #e5dbfc;
   color: #514a79;
-  font-size: 12px;
+  font-size: 12.5px;
+  line-height: 1.45;
   font-weight: 500;
 }
 
@@ -1967,7 +1973,7 @@ text-align: center;
   .moodGrid { grid-template-columns: repeat(2, 1fr); }
   .categoryRow { gap: 7px; }
   .categoryButton { padding-inline: 10px; }
-  .tipBar { width: 100%; padding-inline: 8px; text-align: center; }
+  .tipBar { width: 100%; max-width: 100%; padding: 10px 14px; text-align: center; font-size: 12px; line-height: 1.45; justify-content: center; }
   .actionCard, .flipActions { width: 100%; }
   .flipActions { grid-template-columns: 1fr; gap: 10px; }
   .planList {

@@ -387,25 +387,24 @@ export default function AdminDashboardPage() {
 
       {/* MOBILE TOP NAVBAR */}
       <div className="lg:hidden bg-white border-b border-[#EAE3F2] px-4 py-2.5 flex items-center justify-between shadow-xs sticky top-0 z-40">
-        <div className="flex items-center gap-3">
-          <button 
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-9 h-9 rounded-xl bg-[#FAF8FD] text-[#1A1338] border border-[#EAE3F2] text-base font-bold flex items-center justify-center hover:bg-[#F0EBFA] transition-colors shrink-0"
-            aria-label="Toggle menu"
-          >
-            {sidebarOpen ? '✕' : '☰'}
-          </button>
-          <Link href="/" className="flex items-center gap-2 text-decoration-none group">
-            <span className="relative inline-block w-[28px] h-[21px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0">
-              <span className="absolute left-[6px] top-[3px] w-[16px] h-[9px] rounded-b-[12px] bg-white" />
-              <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-              <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-            </span>
-            <span className="font-serif text-xl font-extrabold text-[#15183b] tracking-tight whitespace-nowrap">
-              mood<span className="text-[#7148e9]">flip</span>
-            </span>
-          </Link>
-        </div>
+        <Link href="/" className="flex items-center gap-2.5 text-decoration-none group">
+          <span className="relative inline-block w-[28px] h-[21px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0">
+            <span className="absolute left-[6px] top-[3px] w-[16px] h-[9px] rounded-b-[12px] bg-white" />
+            <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
+            <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
+          </span>
+          <span className="font-serif text-xl font-extrabold text-[#15183b] tracking-tight whitespace-nowrap">
+            mood<span className="text-[#7148e9]">flip</span>
+          </span>
+        </Link>
+
+        <button 
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="w-9 h-9 rounded-xl bg-[#FAF8FD] text-[#1A1338] border border-[#EAE3F2] text-base font-bold flex items-center justify-center hover:bg-[#F0EBFA] transition-colors shrink-0"
+          aria-label="Toggle menu"
+        >
+          {sidebarOpen ? '✕' : '☰'}
+        </button>
       </div>
 
       {/* MAIN LAYOUT */}
@@ -1721,24 +1720,25 @@ export default function AdminDashboardPage() {
           {activeTab === 'Blog Manager' && !editingPost && (
             <div className="space-y-5">
               {/* Header Bar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs">
                 <div>
-                  <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Posts</h2>
-                  <div className="flex items-center gap-3 mt-1 text-xs font-semibold">
+                  <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Posts 📝</h2>
+                  <div className="flex items-center gap-3 mt-1.5 text-xs font-semibold">
                     {(['all', 'published', 'draft'] as const).map(f => (
                       <button key={f} onClick={() => setBlogFilter(f)}
-                        className={`capitalize transition ${blogFilter === f ? 'text-[#7147E8] font-extrabold underline underline-offset-2' : 'text-gray-400 hover:text-[#7147E8]'}`}>
+                        className={`capitalize transition ${blogFilter === f ? 'text-[#7147E8] font-extrabold underline underline-offset-4' : 'text-gray-400 hover:text-[#7147E8]'}`}>
                         {f} ({f === 'all' ? blogPosts.length : blogPosts.filter(p => f === 'published' ? p.published : !p.published).length})
                       </button>
                     ))}
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="relative">
+
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
+                  <div className="relative w-full sm:w-48">
                     <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     <input type="text" value={blogSearch} onChange={e => setBlogSearch(e.target.value)}
                       placeholder="Search posts..."
-                      className="pl-8 pr-3 py-2 text-xs font-semibold border border-[#EAE3F2] rounded-xl bg-white focus:outline-none focus:border-[#7147E8] w-44"
+                      className="w-full pl-8 pr-3 py-2 text-xs font-semibold border border-[#EAE3F2] rounded-xl bg-[#FAF8FD] focus:bg-white focus:outline-none focus:border-[#7147E8]"
                     />
                   </div>
                   <button
@@ -1764,57 +1764,69 @@ export default function AdminDashboardPage() {
                       });
                       setEditingPost(newPost);
                     }}
-                    className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-4 py-2 rounded-xl text-xs font-extrabold shadow-sm hover:opacity-90 transition cursor-pointer shrink-0"
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-4 py-2.5 rounded-xl text-xs font-extrabold shadow-sm hover:opacity-90 transition cursor-pointer text-center shrink-0"
                   >
                     + Add New Post
                   </button>
                 </div>
               </div>
 
-              {/* Posts Table */}
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
-                {/* Table Header */}
-                <div className="grid grid-cols-[1fr_130px_120px_90px_110px] items-center px-4 py-2.5 bg-[#FAF8FD] border-b border-[#EAE3F2] text-[10px] font-extrabold text-gray-500 uppercase tracking-wider">
-                  <span>Title</span>
-                  <span>Category</span>
-                  <span>Author</span>
-                  <span>Date</span>
-                  <span className="text-right">Status</span>
-                </div>
-
-                {/* Rows */}
+              {/* 1. MOBILE CARD VIEW (Block on mobile screens) */}
+              <div className="block md:hidden space-y-3">
                 {blogPosts
                   .filter(p => blogFilter === 'all' ? true : blogFilter === 'published' ? p.published : !p.published)
                   .filter(p => !blogSearch || p.title.toLowerCase().includes(blogSearch.toLowerCase()) || p.category.toLowerCase().includes(blogSearch.toLowerCase()))
-                  .map((post, i) => (
-                  <div key={post.id}
-                    className={`grid grid-cols-[1fr_130px_120px_90px_110px] items-start px-4 py-3.5 border-b border-[#F3EFF8] hover:bg-[#FAF8FD] transition group ${i % 2 === 0 ? 'bg-white' : 'bg-[#FDFCFF]'}`}
-                  >
-                    {/* Title + actions */}
-                    <div className="min-w-0 pr-3">
-                      <div className="flex items-center gap-2 mb-0.5">
-                        <span className="text-lg shrink-0">{post.emoji}</span>
-                        <span className="font-serif font-extrabold text-sm text-[#1A1338] leading-snug line-clamp-1 group-hover:text-[#7147E8] transition">{post.title}</span>
+                  .map((post) => (
+                    <div key={post.id} className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-2xs space-y-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-start gap-2.5 min-w-0">
+                          <span className="text-2xl shrink-0 mt-0.5">{post.emoji}</span>
+                          <div className="min-w-0">
+                            <h3 className="font-serif font-extrabold text-sm text-[#1A1338] leading-snug">{post.title}</h3>
+                            <p className="text-[11px] text-gray-400 font-mono truncate mt-0.5">/{post.slug}</p>
+                          </div>
+                        </div>
+                        <span className={`shrink-0 text-[10px] font-extrabold px-2.5 py-1 rounded-full ${
+                          post.published ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                        }`}>
+                          {post.published ? '● Published' : '○ Draft'}
+                        </span>
                       </div>
-                      <p className="text-[10px] text-gray-400 font-mono ml-7 mb-1.5">/{post.slug}</p>
-                      {/* Row actions — visible on hover */}
-                      <div className="ml-7 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => setEditingPost(post)}
-                          className="text-[11px] font-extrabold text-[#7147E8] hover:underline cursor-pointer">Edit</button>
-                        <span className="text-gray-300">|</span>
-                        <a href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer"
-                          className="text-[11px] font-extrabold text-gray-500 hover:text-[#7147E8] hover:underline">View</a>
-                        <span className="text-gray-300">|</span>
+
+                      <div className="flex flex-wrap items-center gap-2 text-[11px] text-gray-500 font-semibold pt-1 border-t border-gray-100">
+                        <span className="bg-purple-50 text-[#7147E8] px-2.5 py-0.5 rounded-md font-bold">{post.category}</span>
+                        <span>•</span>
+                        <span>{post.author}</span>
+                        <span>•</span>
+                        <span>{post.date}</span>
+                      </div>
+
+                      {/* Always Visible Mobile Action Buttons */}
+                      <div className="flex items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs font-extrabold">
+                        <button
+                          onClick={() => setEditingPost(post)}
+                          className="flex-1 py-1.5 rounded-lg bg-[#FAF8FD] border border-[#EAE3F2] text-[#7147E8] text-center hover:bg-[#7147E8] hover:text-white transition"
+                        >
+                          ✏️ Edit
+                        </button>
+                        <a
+                          href={`/blog/${post.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 py-1.5 rounded-lg bg-[#FAF8FD] border border-[#EAE3F2] text-gray-700 text-center hover:bg-gray-100 transition"
+                        >
+                          👁️ View
+                        </a>
                         <button
                           onClick={() => {
                             const updated = blogPosts.map(p => p.id === post.id ? { ...p, published: !p.published } : p);
                             setBlogPosts(updated);
                             localStorage.setItem('moodflip_blog_posts', JSON.stringify(updated));
                           }}
-                          className="text-[11px] font-extrabold text-amber-600 hover:underline cursor-pointer">
+                          className="flex-1 py-1.5 rounded-lg bg-[#FAF8FD] border border-[#EAE3F2] text-amber-600 text-center hover:bg-amber-50 transition"
+                        >
                           {post.published ? 'Unpublish' : 'Publish'}
                         </button>
-                        <span className="text-gray-300">|</span>
                         <button
                           onClick={() => {
                             if (!confirm(`Delete "${post.title}"?`)) return;
@@ -1822,27 +1834,90 @@ export default function AdminDashboardPage() {
                             setBlogPosts(updated);
                             localStorage.setItem('moodflip_blog_posts', JSON.stringify(updated));
                           }}
-                          className="text-[11px] font-extrabold text-rose-500 hover:underline cursor-pointer">Trash</button>
+                          className="px-3 py-1.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-600 text-center hover:bg-rose-600 hover:text-white transition"
+                        >
+                          🗑️
+                        </button>
                       </div>
                     </div>
-                    <span className="text-xs text-gray-600 font-semibold pt-0.5">{post.category}</span>
-                    <span className="text-xs text-gray-600 font-semibold pt-0.5">{post.author}</span>
-                    <span className="text-[11px] text-gray-400 font-semibold pt-0.5">{post.date}</span>
-                    <div className="text-right pt-0.5">
-                      <span className={`inline-block text-[10px] font-extrabold px-2.5 py-1 rounded-full ${
-                        post.published ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
-                      }`}>{post.published ? '● Published' : '○ Draft'}</span>
-                    </div>
-                  </div>
                 ))}
-
-                {blogPosts.filter(p => blogFilter === 'all' ? true : blogFilter === 'published' ? p.published : !p.published).filter(p => !blogSearch || p.title.toLowerCase().includes(blogSearch.toLowerCase())).length === 0 && (
-                  <div className="py-16 text-center">
-                    <span className="text-4xl">📭</span>
-                    <p className="mt-3 text-sm font-bold text-gray-400">No posts found</p>
-                  </div>
-                )}
               </div>
+
+              {/* 2. DESKTOP TABLE VIEW (Hidden on mobile) */}
+              <div className="hidden md:block bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[700px] text-left text-xs">
+                    <thead>
+                      <tr className="bg-[#FAF8FD] border-b border-[#EAE3F2] text-[10px] font-extrabold text-gray-500 uppercase tracking-wider">
+                        <th className="py-3 px-4">Title</th>
+                        <th className="py-3 px-3">Category</th>
+                        <th className="py-3 px-3">Author</th>
+                        <th className="py-3 px-3">Date</th>
+                        <th className="py-3 px-4 text-right">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#F3EFF8]">
+                      {blogPosts
+                        .filter(p => blogFilter === 'all' ? true : blogFilter === 'published' ? p.published : !p.published)
+                        .filter(p => !blogSearch || p.title.toLowerCase().includes(blogSearch.toLowerCase()) || p.category.toLowerCase().includes(blogSearch.toLowerCase()))
+                        .map((post, i) => (
+                        <tr key={post.id}
+                          className={`hover:bg-[#FAF8FD] transition group ${i % 2 === 0 ? 'bg-white' : 'bg-[#FDFCFF]'}`}
+                        >
+                          <td className="py-3.5 px-4">
+                            <div className="flex items-center gap-2 mb-0.5">
+                              <span className="text-lg shrink-0">{post.emoji}</span>
+                              <span className="font-serif font-extrabold text-sm text-[#1A1338] leading-snug line-clamp-1 group-hover:text-[#7147E8] transition">{post.title}</span>
+                            </div>
+                            <p className="text-[10px] text-gray-400 font-mono ml-7 mb-1.5">/{post.slug}</p>
+                            <div className="ml-7 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <button onClick={() => setEditingPost(post)}
+                                className="text-[11px] font-extrabold text-[#7147E8] hover:underline cursor-pointer">Edit</button>
+                              <span className="text-gray-300">|</span>
+                              <a href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer"
+                                className="text-[11px] font-extrabold text-gray-500 hover:text-[#7147E8] hover:underline">View</a>
+                              <span className="text-gray-300">|</span>
+                              <button
+                                onClick={() => {
+                                  const updated = blogPosts.map(p => p.id === post.id ? { ...p, published: !p.published } : p);
+                                  setBlogPosts(updated);
+                                  localStorage.setItem('moodflip_blog_posts', JSON.stringify(updated));
+                                }}
+                                className="text-[11px] font-extrabold text-amber-600 hover:underline cursor-pointer">
+                                {post.published ? 'Unpublish' : 'Publish'}
+                              </button>
+                              <span className="text-gray-300">|</span>
+                              <button
+                                onClick={() => {
+                                  if (!confirm(`Delete "${post.title}"?`)) return;
+                                  const updated = blogPosts.filter(p => p.id !== post.id);
+                                  setBlogPosts(updated);
+                                  localStorage.setItem('moodflip_blog_posts', JSON.stringify(updated));
+                                }}
+                                className="text-[11px] font-extrabold text-rose-500 hover:underline cursor-pointer">Trash</button>
+                            </div>
+                          </td>
+                          <td className="py-3.5 px-3 text-xs text-gray-600 font-semibold align-top pt-4">{post.category}</td>
+                          <td className="py-3.5 px-3 text-xs text-gray-600 font-semibold align-top pt-4">{post.author}</td>
+                          <td className="py-3.5 px-3 text-[11px] text-gray-400 font-semibold align-top pt-4">{post.date}</td>
+                          <td className="py-3.5 px-4 text-right align-top pt-4">
+                            <span className={`inline-block text-[10px] font-extrabold px-2.5 py-1 rounded-full ${
+                              post.published ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                            }`}>{post.published ? '● Published' : '○ Draft'}</span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {blogPosts.filter(p => blogFilter === 'all' ? true : blogFilter === 'published' ? p.published : !p.published).filter(p => !blogSearch || p.title.toLowerCase().includes(blogSearch.toLowerCase())).length === 0 && (
+                <div className="py-16 text-center bg-white border border-[#EAE3F2] rounded-2xl">
+                  <span className="text-4xl">📭</span>
+                  <p className="mt-3 text-sm font-bold text-gray-400">No posts found</p>
+                </div>
+              )}
             </div>
           )}
 
@@ -1850,8 +1925,8 @@ export default function AdminDashboardPage() {
           {activeTab === 'Blog Manager' && editingPost && (
             <div className="space-y-0">
               {/* Editor Top Bar */}
-              <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#EAE3F2]">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs mb-5">
+                <div className="flex items-center justify-between sm:justify-start gap-3">
                   <button onClick={() => setEditingPost(null)}
                     className="flex items-center gap-1.5 text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
                     ← All Posts
@@ -1863,7 +1938,7 @@ export default function AdminDashboardPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setEditingPost({ ...editingPost, published: false })}
-                    className="px-3.5 py-2 border border-[#EAE3F2] text-xs font-extrabold text-gray-600 rounded-xl hover:bg-gray-50 transition cursor-pointer"
+                    className="flex-1 sm:flex-initial px-3.5 py-2 border border-[#EAE3F2] text-xs font-extrabold text-gray-600 rounded-xl hover:bg-gray-50 transition cursor-pointer text-center"
                   >Save Draft</button>
                   <button
                     onClick={() => {
@@ -1875,7 +1950,7 @@ export default function AdminDashboardPage() {
                       localStorage.setItem('moodflip_blog_posts', JSON.stringify(updated));
                       setEditingPost(null);
                     }}
-                    className="px-4 py-2 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white text-xs font-extrabold rounded-xl shadow-sm hover:opacity-90 transition cursor-pointer"
+                    className="flex-1 sm:flex-initial px-4 py-2 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white text-xs font-extrabold rounded-xl shadow-sm hover:opacity-90 transition cursor-pointer text-center"
                   >
                     {editingPost.published ? '💾 Update' : '🚀 Publish'}
                   </button>
@@ -2070,39 +2145,84 @@ export default function AdminDashboardPage() {
           ═══════════════════════════════════════════════════════════ */}
           {activeTab === 'Legal Pages' && !editingLegalPage && (
             <div className="space-y-5">
-              <div>
-                <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Pages</h2>
-                <p className="text-xs text-gray-500 mt-1">Edit your legal pages. Changes are saved and reflected live on the public pages.</p>
+              <div className="bg-white p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs">
+                <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Pages 📄</h2>
+                <p className="text-xs text-gray-500 font-semibold mt-1">Edit your legal pages. Changes are saved and reflected live on the public pages.</p>
               </div>
 
-              {/* Pages Table */}
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
-                <div className="grid grid-cols-[1fr_160px_160px] items-center px-4 py-2.5 bg-[#FAF8FD] border-b border-[#EAE3F2] text-[10px] font-extrabold text-gray-500 uppercase tracking-wider">
-                  <span>Title</span>
-                  <span>Last Updated</span>
-                  <span className="text-right">Status</span>
-                </div>
-                {legalPages.map((page, i) => (
-                  <div key={page.id}
-                    className={`grid grid-cols-[1fr_160px_160px] items-start px-4 py-4 border-b border-[#F3EFF8] hover:bg-[#FAF8FD] transition group ${i % 2 === 0 ? 'bg-white' : 'bg-[#FDFCFF]'}`}
-                  >
-                    <div className="min-w-0 pr-3">
-                      <p className="font-serif font-extrabold text-sm text-[#1A1338] mb-0.5">{page.title}</p>
-                      <p className="text-[10px] text-gray-400 font-mono mb-1.5">/{page.slug}</p>
-                      <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => setEditingLegalPage(page)}
-                          className="text-[11px] font-extrabold text-[#7147E8] hover:underline cursor-pointer">Edit</button>
-                        <span className="text-gray-300">|</span>
-                        <a href={`/${page.slug}`} target="_blank" rel="noopener noreferrer"
-                          className="text-[11px] font-extrabold text-gray-500 hover:text-[#7147E8] hover:underline">View</a>
+              {/* 1. MOBILE CARD VIEW (Block on mobile screens) */}
+              <div className="block md:hidden space-y-3">
+                {legalPages.map((page) => (
+                  <div key={page.id} className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-2xs space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <h3 className="font-serif font-extrabold text-base text-[#1A1338] leading-snug">{page.title}</h3>
+                        <p className="text-[11px] text-gray-400 font-mono mt-0.5">/{page.slug}</p>
                       </div>
+                      <span className="shrink-0 text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">● Published</span>
                     </div>
-                    <span className="text-xs text-gray-500 font-semibold pt-0.5">{page.lastUpdated}</span>
-                    <div className="text-right pt-0.5">
-                      <span className="inline-block text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">● Published</span>
+
+                    <div className="text-[11px] text-gray-500 font-medium pt-1 border-t border-gray-100">
+                      <span>Last Updated: <strong className="text-gray-700">{page.lastUpdated}</strong></span>
+                    </div>
+
+                    {/* Always Visible Mobile Action Buttons */}
+                    <div className="flex items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs font-extrabold">
+                      <button
+                        onClick={() => setEditingLegalPage(page)}
+                        className="flex-1 py-2 rounded-xl bg-[#FAF8FD] border border-[#EAE3F2] text-[#7147E8] text-center hover:bg-[#7147E8] hover:text-white transition cursor-pointer"
+                      >
+                        ✏️ Edit Page
+                      </button>
+                      <a
+                        href={`/${page.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 py-2 rounded-xl bg-[#FAF8FD] border border-[#EAE3F2] text-gray-700 text-center hover:bg-gray-100 transition"
+                      >
+                        👁️ Preview ↗
+                      </a>
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* 2. DESKTOP TABLE VIEW (Hidden on mobile) */}
+              <div className="hidden md:block bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[600px] text-left text-xs">
+                    <thead>
+                      <tr className="bg-[#FAF8FD] border-b border-[#EAE3F2] text-[10px] font-extrabold text-gray-500 uppercase tracking-wider">
+                        <th className="py-3 px-4">Title</th>
+                        <th className="py-3 px-3">Last Updated</th>
+                        <th className="py-3 px-4 text-right">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#F3EFF8]">
+                      {legalPages.map((page, i) => (
+                        <tr key={page.id}
+                          className={`hover:bg-[#FAF8FD] transition group ${i % 2 === 0 ? 'bg-white' : 'bg-[#FDFCFF]'}`}
+                        >
+                          <td className="py-4 px-4">
+                            <p className="font-serif font-extrabold text-sm text-[#1A1338] mb-0.5">{page.title}</p>
+                            <p className="text-[10px] text-gray-400 font-mono mb-1.5">/{page.slug}</p>
+                            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <button onClick={() => setEditingLegalPage(page)}
+                                className="text-[11px] font-extrabold text-[#7147E8] hover:underline cursor-pointer">Edit</button>
+                              <span className="text-gray-300">|</span>
+                              <a href={`/${page.slug}`} target="_blank" rel="noopener noreferrer"
+                                className="text-[11px] font-extrabold text-gray-500 hover:text-[#7147E8] hover:underline">View</a>
+                            </div>
+                          </td>
+                          <td className="py-4 px-3 text-xs text-gray-500 font-semibold align-top pt-5">{page.lastUpdated}</td>
+                          <td className="py-4 px-4 text-right align-top pt-5">
+                            <span className="inline-block text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">● Published</span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           )}
@@ -2111,8 +2231,8 @@ export default function AdminDashboardPage() {
           {activeTab === 'Legal Pages' && editingLegalPage && (
             <div className="space-y-0">
               {/* Editor Top Bar */}
-              <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#EAE3F2]">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs mb-5">
+                <div className="flex items-center justify-between sm:justify-start gap-3">
                   <button onClick={() => setEditingLegalPage(null)}
                     className="flex items-center gap-1.5 text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
                     ← All Pages
@@ -2121,7 +2241,7 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <a href={`/${editingLegalPage.slug}`} target="_blank" rel="noopener noreferrer"
-                    className="px-3.5 py-2 border border-[#EAE3F2] text-xs font-extrabold text-gray-600 rounded-xl hover:bg-gray-50 transition">
+                    className="flex-1 sm:flex-initial px-3.5 py-2 border border-[#EAE3F2] text-xs font-extrabold text-gray-600 rounded-xl hover:bg-gray-50 transition text-center">
                     Preview ↗
                   </a>
                   <button
@@ -2131,7 +2251,7 @@ export default function AdminDashboardPage() {
                       localStorage.setItem('moodflip_legal_pages', JSON.stringify(updated));
                       setEditingLegalPage(null);
                     }}
-                    className="px-4 py-2 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white text-xs font-extrabold rounded-xl shadow-sm hover:opacity-90 transition cursor-pointer"
+                    className="flex-1 sm:flex-initial px-4 py-2 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white text-xs font-extrabold rounded-xl shadow-sm hover:opacity-90 transition cursor-pointer text-center"
                   >
                     💾 Update Page
                   </button>

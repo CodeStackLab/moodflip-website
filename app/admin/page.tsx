@@ -45,11 +45,12 @@ export default function AdminDashboardPage() {
 
   // Full Interactive Dummy Users Data
   const [users, setUsers] = useState([
-    { id: 1, name: 'Sarah Johnson', email: 'sarah.johnson@example.com', joinDate: 'May 15, 2026', visitCount: 24, status: 'Active', avatarBg: 'bg-purple-100 text-purple-700' },
-    { id: 2, name: 'Michael Chen', email: 'michael.chen@example.com', joinDate: 'May 15, 2026', visitCount: 18, status: 'Active', avatarBg: 'bg-blue-100 text-blue-700' },
-    { id: 3, name: 'Aisha Patel', email: 'aisha.patel@example.com', joinDate: 'May 14, 2026', visitCount: 31, status: 'Active', avatarBg: 'bg-pink-100 text-pink-700' },
-    { id: 4, name: 'Daniel Kim', email: 'daniel.kim@example.com', joinDate: 'May 14, 2026', visitCount: 12, status: 'Inactive', avatarBg: 'bg-indigo-100 text-indigo-700' },
-    { id: 5, name: 'Emily Davis', email: 'emily.davis@example.com', joinDate: 'May 13, 2026', visitCount: 27, status: 'Active', avatarBg: 'bg-emerald-100 text-emerald-700' },
+    { id: 1, name: 'Admin User', email: 'admin@moodflip.coach', joinDate: 'May 15, 2026', visitCount: 42, status: 'Active', avatarBg: 'bg-purple-600 text-white' },
+    { id: 2, name: 'Sarah Johnson', email: 'sarah.johnson@example.com', joinDate: 'May 15, 2026', visitCount: 24, status: 'Active', avatarBg: 'bg-purple-100 text-purple-700' },
+    { id: 3, name: 'Michael Chen', email: 'michael.chen@example.com', joinDate: 'May 15, 2026', visitCount: 18, status: 'Active', avatarBg: 'bg-blue-100 text-blue-700' },
+    { id: 4, name: 'Aisha Patel', email: 'aisha.patel@example.com', joinDate: 'May 14, 2026', visitCount: 31, status: 'Active', avatarBg: 'bg-pink-100 text-pink-700' },
+    { id: 5, name: 'Daniel Kim', email: 'daniel.kim@example.com', joinDate: 'May 14, 2026', visitCount: 12, status: 'Inactive', avatarBg: 'bg-indigo-100 text-indigo-700' },
+    { id: 6, name: 'Emily Davis', email: 'emily.davis@example.com', joinDate: 'May 13, 2026', visitCount: 27, status: 'Active', avatarBg: 'bg-emerald-100 text-emerald-700' },
   ]);
 
   const [editingUser, setEditingUser] = useState<{ id: number; name: string; email: string; status: string } | null>(null);
@@ -1013,18 +1014,18 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 4: MOOD LIBRARY MANAGEMENT */}
           {activeTab === 'Mood Library' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-2xl p-6 shadow-xs space-y-5">
-              <div className="flex items-center justify-between">
+            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-5">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                 <div>
-                  <h2 className="font-serif font-bold text-xl text-[#1A1338]">Mood Library Management</h2>
-                  <p className="text-xs text-gray-500">Configure supported moods, feelings tags and counterpart shifts.</p>
+                  <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Mood Library Management 🧠</h2>
+                  <p className="text-xs text-gray-500 font-semibold mt-1">Configure supported moods, feelings tags and counterpart shifts.</p>
                 </div>
-                <button onClick={() => setActiveModal('addMood')} className="bg-[#7147E8] text-white px-4 py-2 rounded-xl text-xs font-bold hover:opacity-95">
+                <button onClick={() => setActiveModal('addMood')} className="w-full sm:w-auto bg-[#7147E8] text-white px-4 py-2.5 rounded-xl text-xs font-extrabold hover:opacity-95 transition text-center shrink-0">
                   ➕ Add New Mood
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[
                   { name: 'Anxious', emoji: '😰', target: 'Calm & Confident', category: 'Anxious', feelings: ['Nervous', 'Uneasy', 'On edge'] },
                   { name: 'Angry', emoji: '😡', target: 'Peaceful', category: 'Angry', feelings: ['Mad', 'Furious', 'Resentful'] },
@@ -1038,10 +1039,12 @@ export default function AdminDashboardPage() {
                       <span className="text-2xl">{m.emoji}</span>
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-100 text-[#7147E8]">{m.category}</span>
                     </div>
-                    <strong className="block text-sm font-bold">{m.name} ➔ <span className="text-emerald-600">{m.target}</span></strong>
+                    <div className="font-serif font-extrabold text-sm text-[#1A1338] leading-tight">
+                      {m.name} → <span className="text-emerald-600 font-sans font-bold">{m.target}</span>
+                    </div>
                     <div className="flex flex-wrap gap-1 pt-1">
                       {m.feelings.map(f => (
-                        <span key={f} className="text-[10px] bg-white border border-gray-200 px-2 py-0.5 rounded-md text-gray-600">{f}</span>
+                        <span key={f} className="text-[10px] bg-white border border-[#EAE3F2] px-2 py-0.5 rounded-md text-gray-500 font-semibold">{f}</span>
                       ))}
                     </div>
                   </div>
@@ -1052,13 +1055,13 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 5: PLANS & PAYMENTS */}
           {activeTab === 'Plans & Payments' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-2xl p-6 shadow-xs space-y-6">
-              <div className="flex items-center justify-between">
+            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                 <div>
-                  <h2 className="font-serif font-bold text-xl text-[#1A1338]">Plans &amp; Payments Management</h2>
-                  <p className="text-xs text-gray-500">Track 7-Day &amp; 30-Day Plan pricing, sales and revenue metrics.</p>
+                  <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Plans &amp; Payments Management 💳</h2>
+                  <p className="text-xs text-gray-500 font-semibold mt-1">Track 7-Day &amp; 30-Day Plan pricing, sales and revenue metrics.</p>
                 </div>
-                <button onClick={() => setActiveModal('createPlan')} className="bg-[#7147E8] text-white px-4 py-2 rounded-xl text-xs font-bold">
+                <button onClick={() => setActiveModal('createPlan')} className="w-full sm:w-auto bg-[#7147E8] text-white px-4 py-2.5 rounded-xl text-xs font-extrabold shadow-sm hover:opacity-95 transition text-center shrink-0">
                   🎁 Create New Plan
                 </button>
               </div>

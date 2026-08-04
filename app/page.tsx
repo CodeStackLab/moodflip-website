@@ -763,51 +763,59 @@ export default function HomePage() {
 
 
         {/* Section: Resources Hub — anchored at #resources */}
-        <section id="resources" style={{ background: 'linear-gradient(135deg, #1A0A3B 0%, #2D1065 50%, #7147E8 100%)', padding: '72px 16px', position: 'relative', overflow: 'hidden' }}>
-          {/* Background glow */}
-          <div style={{ position: 'absolute', top: '10%', left: '5%', width: '300px', height: '300px', borderRadius: '50%', background: 'rgba(160,90,255,0.15)', filter: 'blur(80px)', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', bottom: '10%', right: '5%', width: '250px', height: '250px', borderRadius: '50%', background: 'rgba(255,100,150,0.12)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+        <section id="resources" style={{ background: 'linear-gradient(180deg, #F9F7FD 0%, #F3EEFA 100%)', borderTop: '1px solid #EAE3F2', borderBottom: '1px solid #EAE3F2', padding: '44px 16px', position: 'relative', overflow: 'hidden' }}>
+          {/* Subtle ambient background glow */}
+          <div style={{ position: 'absolute', top: '0', left: '10%', width: '250px', height: '250px', borderRadius: '50%', background: 'rgba(113,71,232,0.06)', filter: 'blur(70px)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: '0', right: '10%', width: '250px', height: '250px', borderRadius: '50%', background: 'rgba(217,80,192,0.05)', filter: 'blur(70px)', pointerEvents: 'none' }} />
 
           <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
             {/* Badge + heading */}
-            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-              <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', color: '#fff', fontSize: '11px', fontWeight: '900', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '6px 16px', borderRadius: '999px', marginBottom: '16px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EAE0FD', border: '1px solid #D8C8F8', color: '#7147E8', fontSize: '11px', fontWeight: '800', letterSpacing: '0.08em', textTransform: 'uppercase', padding: '5px 14px', borderRadius: '999px', marginBottom: '12px' }}>
                 📚 Free Resources
               </span>
-              <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.8rem, 4vw, 3rem)', fontWeight: '900', color: '#fff', margin: '0 0 12px', lineHeight: 1.2 }}>
-                Your Wellness<br />Resource Hub
+              <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.6rem, 3.5vw, 2.3rem)', fontWeight: '900', color: '#15183B', margin: '0 0 8px', lineHeight: 1.2 }}>
+                Your Wellness Resource Hub
               </h2>
-              <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1rem', fontWeight: '600', maxWidth: '560px', margin: '0 auto 32px' }}>
+              <p style={{ color: '#68607F', fontSize: '0.9rem', fontWeight: '600', maxWidth: '540px', margin: '0 auto 24px' }}>
                 Curated guides, science-backed articles, exercises, and tools — all free.
               </p>
             </div>
 
             {/* Resource cards grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '40px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginBottom: '28px' }}>
               {[
-                { emoji: '⚡', title: 'Instant Mood Flip', desc: '60-second micro-actions to shift your emotional state right now.', link: '/#check-in', color: 'rgba(113,71,232,0.6)' },
-                { emoji: '🧠', title: 'Mindset Science', desc: 'Evidence-based articles on neuroplasticity and cognitive reframing.', link: '/blog', color: 'rgba(59,130,246,0.5)' },
-                { emoji: '📅', title: '7-Day Reset Plan', desc: 'Structured daily plan to rewire negative thought patterns.', link: '/profile?tab=My%207-Day%20Plan', color: 'rgba(16,185,129,0.5)' },
-                { emoji: '🆘', title: 'Crisis Support', desc: 'Immediate help resources. Call 988 (US) or text HOME to 741741.', link: '/resources#crisis', color: 'rgba(239,68,68,0.45)' },
+                { emoji: '⚡', title: 'Instant Mood Flip', desc: '60-second micro-actions to shift your emotional state right now.', link: '/#check-in', iconBg: 'linear-gradient(135deg, #7147E8, #9333EA)', badgeBg: 'rgba(113,71,232,0.08)', badgeText: '#7147E8' },
+                { emoji: '🧠', title: 'Mindset Science', desc: 'Evidence-based articles on neuroplasticity and cognitive reframing.', link: '/blog', iconBg: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', badgeBg: 'rgba(59,130,246,0.08)', badgeText: '#2563EB' },
+                { emoji: '📅', title: '7-Day Reset Plan', desc: 'Structured daily plan to rewire negative thought patterns.', link: '/profile?tab=My%207-Day%20Plan', iconBg: 'linear-gradient(135deg, #10B981, #047857)', badgeBg: 'rgba(16,185,129,0.08)', badgeText: '#059669' },
+                { emoji: '🆘', title: 'Crisis Support', desc: 'Immediate help resources. Call 988 (US) or text HOME to 741741.', link: '/resources#crisis', iconBg: 'linear-gradient(135deg, #F43F5E, #BE123C)', badgeBg: 'rgba(244,63,94,0.08)', badgeText: '#E11D48' },
               ].map((card, i) => (
-                <a key={i} href={card.link} style={{ display: 'block', background: card.color, backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '20px', padding: '24px 20px', color: '#fff', textDecoration: 'none', transition: 'transform 0.2s, box-shadow 0.2s' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 30px rgba(0,0,0,0.25)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'none'; (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
+                <a key={i} href={card.link} style={{ display: 'flex', flexDirection: 'column', background: '#FFFFFF', border: '1px solid #EAE3F2', borderRadius: '18px', padding: '20px 18px', color: '#15183B', textDecoration: 'none', transition: 'all 0.2s ease', boxShadow: '0 4px 16px rgba(113, 71, 232, 0.03)' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'; (e.currentTarget as HTMLElement).style.borderColor = '#7147E8'; (e.currentTarget as HTMLElement).style.boxShadow = '0 10px 25px rgba(113, 71, 232, 0.12)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'none'; (e.currentTarget as HTMLElement).style.borderColor = '#EAE3F2'; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(113, 71, 232, 0.03)'; }}
                 >
-                  <div style={{ fontSize: '2rem', marginBottom: '12px' }}>{card.emoji}</div>
-                  <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', fontWeight: '800', color: '#fff', margin: '0 0 8px' }}>{card.title}</h3>
-                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.75)', fontWeight: '500', lineHeight: 1.6, margin: 0 }}>{card.desc}</p>
-                  <span style={{ display: 'block', marginTop: '14px', fontSize: '12px', fontWeight: '800', color: 'rgba(255,255,255,0.9)' }}>Explore →</span>
+                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: card.iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', color: '#fff', marginBottom: '14px', boxShadow: '0 4px 10px rgba(0,0,0,0.08)' }}>
+                    {card.emoji}
+                  </div>
+                  <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', fontWeight: '800', color: '#15183B', margin: '0 0 6px' }}>{card.title}</h3>
+                  <p style={{ fontSize: '12px', color: '#68607F', fontWeight: '500', lineHeight: 1.55, flex: 1, margin: '0 0 14px' }}>{card.desc}</p>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: card.badgeText, background: card.badgeBg, padding: '4px 10px', borderRadius: '8px', width: 'fit-content' }}>Explore →</span>
                 </a>
               ))}
             </div>
 
             {/* CTA buttons */}
             <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-              <a href="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#fff', color: '#7147E8', padding: '12px 24px', borderRadius: '14px', fontWeight: '800', fontSize: '14px', textDecoration: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
+              <a href="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#7147E8', color: '#FFFFFF', padding: '11px 22px', borderRadius: '12px', fontWeight: '800', fontSize: '13px', textDecoration: 'none', boxShadow: '0 4px 14px rgba(113, 71, 232, 0.25)', transition: 'transform 0.2s' }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'none'}
+              >
                 🎁 Browse All Resources
               </a>
-              <a href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '12px 24px', borderRadius: '14px', fontWeight: '800', fontSize: '14px', textDecoration: 'none' }}>
+              <a href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FFFFFF', border: '1px solid #EAE3F2', color: '#15183B', padding: '11px 22px', borderRadius: '12px', fontWeight: '800', fontSize: '13px', textDecoration: 'none', transition: 'all 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#F4EFFC'; (e.currentTarget as HTMLElement).style.borderColor = '#D8C8F8'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#FFFFFF'; (e.currentTarget as HTMLElement).style.borderColor = '#EAE3F2'; }}
+              >
                 📝 Read the Blog
               </a>
             </div>

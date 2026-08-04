@@ -97,27 +97,27 @@ export default function ResourcesPage() {
       <Header />
 
       {/* HERO */}
-      <section className="bg-gradient-to-br from-[#1A0A3B] via-[#2D1065] to-[#7147E8] text-white py-16 sm:py-24 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-10 left-[10%] w-64 h-64 rounded-full bg-purple-400 blur-3xl" />
-          <div className="absolute bottom-10 right-[10%] w-80 h-80 rounded-full bg-pink-500 blur-3xl" />
+      <section className="bg-gradient-to-b from-[#F9F7FD] via-[#F3EEFA] to-[#F8F7FC] border-b border-[#EAE3F2] py-10 sm:py-14 px-4 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-40 pointer-events-none">
+          <div className="absolute -top-10 left-[10%] w-64 h-64 rounded-full bg-[#EAE0FD] blur-3xl" />
+          <div className="absolute bottom-0 right-[10%] w-80 h-80 rounded-full bg-[#FCE7F3] blur-3xl" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full mb-5">
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider bg-[#EAE0FD] border border-[#D8C8F8] text-[#7147E8] px-3.5 py-1.5 rounded-full mb-4">
             📚 Free Wellness Resources
           </span>
-          <h1 className="font-serif text-4xl sm:text-6xl font-extrabold leading-tight mb-5">
+          <h1 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight text-[#15183B] mb-3">
             Your Emotional Wellness<br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#FF9F8D]"> Resource Hub</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7147E8] to-[#D950C0]"> Resource Hub</span>
           </h1>
-          <p className="text-base sm:text-xl text-white/80 font-semibold max-w-2xl mx-auto mb-10">
+          <p className="text-sm sm:text-lg text-[#68607F] font-semibold max-w-2xl mx-auto mb-7">
             Curated guides, exercises, articles, and tools to help you build lasting emotional resilience — all free.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-sm mx-auto sm:max-w-none">
-            <Link href="/#check-in" className="w-full sm:w-auto bg-white text-[#7147E8] px-6 py-3.5 rounded-2xl font-extrabold text-sm shadow-lg hover:scale-[1.02] transition-transform text-center">
+            <Link href="/#check-in" className="w-full sm:w-auto bg-[#7147E8] text-white px-6 py-3 rounded-xl font-extrabold text-sm shadow-md hover:bg-[#5f38d4] hover:scale-[1.01] transition-all text-center">
               ⚡ Try Instant Mood Flip
             </Link>
-            <Link href="/blog" className="w-full sm:w-auto border border-white/40 text-white px-6 py-3.5 rounded-2xl font-extrabold text-sm hover:bg-white/10 transition text-center">
+            <Link href="/blog" className="w-full sm:w-auto bg-white border border-[#EAE3F2] text-[#15183B] px-6 py-3 rounded-xl font-extrabold text-sm hover:bg-[#F4EFFC] hover:border-[#D8C8F8] transition text-center">
               📝 Read the Blog
             </Link>
           </div>

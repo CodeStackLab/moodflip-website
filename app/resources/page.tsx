@@ -112,11 +112,11 @@ export default function ResourcesPage() {
           <p className="text-base sm:text-xl text-white/80 font-semibold max-w-2xl mx-auto mb-10">
             Curated guides, exercises, articles, and tools to help you build lasting emotional resilience — all free.
           </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Link href="/#check-in" className="bg-white text-[#7147E8] px-6 py-3 rounded-2xl font-extrabold text-sm shadow-lg hover:scale-[1.02] transition-transform">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-sm mx-auto sm:max-w-none">
+            <Link href="/#check-in" className="w-full sm:w-auto bg-white text-[#7147E8] px-6 py-3.5 rounded-2xl font-extrabold text-sm shadow-lg hover:scale-[1.02] transition-transform text-center">
               ⚡ Try Instant Mood Flip
             </Link>
-            <Link href="/blog" className="border border-white/40 text-white px-6 py-3 rounded-2xl font-extrabold text-sm hover:bg-white/10 transition">
+            <Link href="/blog" className="w-full sm:w-auto border border-white/40 text-white px-6 py-3.5 rounded-2xl font-extrabold text-sm hover:bg-white/10 transition text-center">
               📝 Read the Blog
             </Link>
           </div>

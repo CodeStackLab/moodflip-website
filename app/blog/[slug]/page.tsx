@@ -87,34 +87,39 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <Header />
 
       {/* HERO BANNER */}
-      <div className={`bg-gradient-to-br ${post.coverColor} py-14 sm:py-20 px-4`}>
-        <div className="max-w-3xl mx-auto text-white">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-xs font-extrabold text-white/70 hover:text-white transition mb-6 uppercase tracking-widest">
-            ← Back to Blog
-          </Link>
-          <div className="flex items-center gap-3 mb-5">
-            <span className="text-5xl">{post.emoji}</span>
-            <span className="text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+      <div className={`bg-gradient-to-br ${post.coverColor} py-8 sm:py-14 px-4 sm:px-6`}>
+        <div className="max-w-3xl mx-auto text-white space-y-3.5">
+          <div className="flex items-center justify-between gap-3">
+            <Link href="/blog" className="inline-flex items-center gap-1.5 text-xs font-black text-white/90 hover:text-white transition uppercase tracking-wider bg-white/20 hover:bg-white/30 backdrop-blur-sm px-3.5 py-1.5 rounded-full">
+              ← Back to Blog
+            </Link>
+            <span className="text-[11px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
               {post.category}
             </span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight mb-4">
-            {post.title}
-          </h1>
-          <p className="text-base sm:text-lg text-white/80 font-semibold leading-relaxed mb-6">
+
+          <div className="flex items-start gap-3">
+            <span className="text-3xl sm:text-4xl shrink-0 mt-0.5">{post.emoji}</span>
+            <h1 className="font-serif text-xl sm:text-3xl md:text-4xl font-extrabold leading-tight">
+              {post.title}
+            </h1>
+          </div>
+
+          <p className="text-xs sm:text-base text-white/90 font-medium leading-relaxed">
             {post.excerpt}
           </p>
-          <div className="flex items-center gap-5 text-xs text-white/70 font-semibold flex-wrap">
-            <span>✍️ {post.author}</span>
-            <span>📅 {post.date}</span>
-            <span>⏱ {post.readTime}</span>
+
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/90 font-extrabold border-t border-white/20 pt-3">
+            <span className="bg-white/15 px-2.5 py-1 rounded-lg">✍️ {post.author}</span>
+            <span className="bg-white/15 px-2.5 py-1 rounded-lg">📅 {post.date}</span>
+            <span className="bg-white/15 px-2.5 py-1 rounded-lg">⏱ {post.readTime}</span>
           </div>
         </div>
       </div>
 
       {/* FEATURED IMAGE & CONTENT CONTAINER */}
-      <div className="max-w-3xl mx-auto px-4 py-10">
-        <article className="bg-white rounded-3xl border border-[#EAE3F2] shadow-xs p-6 sm:p-10 space-y-6">
+      <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
+        <article className="bg-white rounded-3xl border border-[#EAE3F2] shadow-xs p-4 sm:p-10 space-y-6">
           {/* FEATURED IMAGE */}
           {post.featuredImage && (
             <div className="rounded-2xl overflow-hidden shadow-sm mb-6 border border-[#EAE3F2]">

@@ -9,6 +9,8 @@ export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>(defaultBlogPosts);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const POSTS_PER_PAGE = 6;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -29,8 +31,21 @@ export default function BlogPage() {
     return matchCat && matchSearch;
   });
 
-  const featuredPost = filteredPosts[0];
-  const restPosts = filteredPosts.slice(1);
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE) || 1;
+  const paginatedPosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
+
+  const featuredPost = currentPage === 1 ? paginatedPosts[0] : null;
+  const restPosts = currentPage === 1 ? paginatedPosts.slice(1) : paginatedPosts;
+
+  const handleCategoryChange = (cat: string) => {
+    setActiveCategory(cat);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="min-h-screen bg-[#F8F7FC] text-[#1A1338] font-sans antialiased">
@@ -178,6 +193,41 @@ export default function BlogPage() {
                     </div>
                   </Link>
                 ))}
+              </div>
+            )}
+
+            {/* PAGINATION CONTROLS */}
+            {totalPages > 1 && (
+              <div className="flex flex-wrap items-center justify-center gap-2 pt-8 border-t border-[#EAE3F2]">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 rounded-xl bg-white border border-[#EAE3F2] text-xs font-extrabold text-[#1A1338] disabled:opacity-40 disabled:cursor-not-allowed hover:border-[#7147E8] hover:text-[#7147E8] transition cursor-pointer shadow-2xs"
+                >
+                  ← Previous
+                </button>
+                <div className="flex items-center gap-1.5 overflow-x-auto">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-9 h-9 rounded-xl text-xs font-extrabold transition cursor-pointer ${
+                        currentPage === page
+                          ? 'bg-[#7147E8] text-white shadow-md'
+                          : 'bg-white border border-[#EAE3F2] text-[#4A4268] hover:border-[#7147E8] hover:text-[#7147E8]'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 rounded-xl bg-white border border-[#EAE3F2] text-xs font-extrabold text-[#1A1338] disabled:opacity-40 disabled:cursor-not-allowed hover:border-[#7147E8] hover:text-[#7147E8] transition cursor-pointer shadow-2xs"
+                >
+                  Next →
+                </button>
               </div>
             )}
           </>

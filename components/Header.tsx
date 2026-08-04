@@ -39,9 +39,9 @@ export default function Header() {
           <a href="/#how" className="hover:text-[#7147e8] transition-colors">How It Works</a>
           <a href="/#library" className="hover:text-[#7147e8] transition-colors">Mood Library</a>
           <Link href="/resources" className="hover:text-[#7147e8] transition-colors">Resources</Link>
-          <Link href="/blog" className="hover:text-[#7147e8] transition-colors flex items-center gap-1">
+          <Link href="/blog" className="hover:text-[#7147e8] transition-colors inline-flex items-center gap-1.5">
             <span>Blog</span>
-            <span className="text-[9px] font-black bg-[#7147e8] text-white px-1.5 py-0.5 rounded-full leading-none">NEW</span>
+            <span className="text-[9px] font-black bg-[#7147e8] text-white px-1.5 py-0.5 rounded-full leading-none shrink-0 shadow-2xs">NEW</span>
           </Link>
         </nav>
 

@@ -170,7 +170,6 @@ export default function AdminDashboardPage() {
   const saveAdsSettings = () => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('moodflip_ads_settings', JSON.stringify(adsSettings));
-      alert('✅ Google AdSense & Ad Spaces settings updated and saved successfully!');
     }
   };
   // Email SMTP & Gmail Gateway Settings State
@@ -344,7 +343,6 @@ export default function AdminDashboardPage() {
       localStorage.setItem('moodflip_payment_settings', JSON.stringify(newSettings));
       window.dispatchEvent(new Event('storage'));
     }
-    alert('💳 Payment Gateway settings saved successfully!');
   };
 
   const saveAdSettings = (newSettings: any) => {
@@ -353,7 +351,6 @@ export default function AdminDashboardPage() {
       localStorage.setItem('moodflip_ad_settings', JSON.stringify(newSettings));
       window.dispatchEvent(new Event('storage'));
     }
-    alert('📢 Google AdSense & Ad Space configuration saved successfully!');
   };
 
   const saveSeoSettings = (newSettings: any) => {
@@ -362,7 +359,6 @@ export default function AdminDashboardPage() {
       localStorage.setItem('moodflip_seo_settings', JSON.stringify(newSettings));
       window.dispatchEvent(new Event('storage'));
     }
-    alert('🔍 SEO, Google Search Console & Analytics settings saved successfully!');
   };
 
 
@@ -844,7 +840,7 @@ export default function AdminDashboardPage() {
                     <p className="text-xs text-[#5B5278] leading-relaxed mb-2.5">
                       Users must consent to store their mood, moods, dates, actions and purchase history.
                     </p>
-                    <button onClick={() => alert('Consent Logs: 12,458 users granted active consent.')} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
+                    <button onClick={() => {}} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
                       View Consent Logs →
                     </button>
                   </div>
@@ -854,7 +850,7 @@ export default function AdminDashboardPage() {
                     <p className="text-xs text-[#5B5278] leading-relaxed mb-2.5">
                       User data is automatically deleted 90 days after account deletion.
                     </p>
-                    <button onClick={() => alert('Deletion Queue: 0 pending deletions.')} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
+                    <button onClick={() => {}} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
                       View Deletion Logs →
                     </button>
                   </div>
@@ -1111,7 +1107,7 @@ export default function AdminDashboardPage() {
                     <span className="px-2.5 py-1 rounded-full bg-purple-100 text-[#7147E8] text-xs font-extrabold">$19.99 (Draft)</span>
                   </div>
                   <p className="text-xs text-[#5B5278]">Total Sales: 0 units · Launching soon</p>
-                  <button onClick={() => alert('30-Day Plan settings edited')} className="px-3.5 py-2 rounded-xl bg-gray-100 text-gray-700 border border-gray-200 text-xs font-bold">
+                  <button onClick={() => {}} className="px-3.5 py-2 rounded-xl bg-gray-100 text-gray-700 border border-gray-200 text-xs font-bold">
                     Edit Plan Details
                   </button>
                 </div>
@@ -1251,7 +1247,7 @@ export default function AdminDashboardPage() {
                       <strong className="block text-xs font-bold text-[#1A1338]">{rep.name}</strong>
                       <span className="text-[10px] text-gray-400">{rep.date} · {rep.format}</span>
                     </div>
-                    <button onClick={() => alert(`Downloading report: ${rep.name}`)} className="px-3 py-1.5 rounded-lg bg-[#7147E8] text-white text-xs font-bold">
+                    <button onClick={() => {}} className="px-3 py-1.5 rounded-lg bg-[#7147E8] text-white text-xs font-bold">
                       Download
                     </button>
                   </div>
@@ -1611,7 +1607,6 @@ export default function AdminDashboardPage() {
                             type="button"
                             onClick={() => {
                               navigator.clipboard?.writeText(slot.code || '');
-                              alert(`📋 Copied code snippet for ${item.title}!`);
                             }}
                             className="text-[#7147E8] font-bold hover:underline flex items-center gap-1 cursor-pointer"
                           >
@@ -2480,8 +2475,7 @@ export default function AdminDashboardPage() {
                         {/* Test button */}
                         <button
                           onClick={() => {
-                            if (!provider.apiKey) { alert(`⚠️ Please enter your ${provider.label} API key first.`); return; }
-                            alert(`🔄 Testing connection to ${provider.label} (${provider.model})...\n\n✅ Connection successful! Provider is ready to use.`);
+                            if (!provider.apiKey) { return; }
                           }}
                           className="w-full py-2 border border-[#EAE3F2] text-xs font-extrabold text-[#7147E8] rounded-xl hover:bg-[#F0EBFA] transition cursor-pointer"
                         >
@@ -2647,7 +2641,6 @@ export default function AdminDashboardPage() {
                 <button
                   onClick={() => {
                     localStorage.setItem('moodflip_ai_settings', JSON.stringify(aiSettings));
-                    alert('✅ AI settings saved successfully! Changes are now active.');
                   }}
                   className="px-6 py-3 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold rounded-2xl shadow-md hover:opacity-90 transition cursor-pointer text-sm"
                 >
@@ -2963,7 +2956,7 @@ export default function AdminDashboardPage() {
                   <label className="block font-bold mb-1">Mindset Action</label>
                   <input type="text" placeholder="e.g. 60-Second Breathing Reset" className="w-full border p-2.5 rounded-xl" />
                 </div>
-                <button onClick={() => { alert('New Mood Page added!'); setActiveModal(null); }} className="w-full bg-[#7147E8] text-white py-2.5 rounded-xl font-bold">
+                <button onClick={() => { setActiveModal(null); }} className="w-full bg-[#7147E8] text-white py-2.5 rounded-xl font-bold">
                   Save &amp; Publish Mood Page
                 </button>
               </div>
@@ -2977,7 +2970,7 @@ export default function AdminDashboardPage() {
                   <label className="block font-bold mb-1">Price ($)</label>
                   <input type="number" placeholder="29" className="w-full border p-2.5 rounded-xl" />
                 </div>
-                <button onClick={() => { alert('New Plan Created!'); setActiveModal(null); }} className="w-full bg-[#7147E8] text-white py-2.5 rounded-xl font-bold">
+                <button onClick={() => { setActiveModal(null); }} className="w-full bg-[#7147E8] text-white py-2.5 rounded-xl font-bold">
                   Publish Plan
                 </button>
               </div>

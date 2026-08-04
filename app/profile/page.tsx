@@ -24,6 +24,7 @@ export default function UserDashboardPage() {
     period: 'one-time',
   });
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [notifDropdownOpen, setNotifDropdownOpen] = useState(false);
 
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
@@ -126,7 +127,7 @@ export default function UserDashboardPage() {
     } else if (timerSeconds === 0 && timerRunning) {
       setTimerRunning(false);
       setActionCompletedCount((prev) => prev + 1);
-      alert('🎉 60-Second Action Completed! Your mindset has been refreshed.');
+      // Action completed silently
     }
     return () => clearInterval(interval);
   }, [timerRunning, timerSeconds]);
@@ -250,18 +251,77 @@ export default function UserDashboardPage() {
 
         {/* Right Controls & Profile */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <button 
-            onClick={() => changeTab('Notifications')}
-            className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-sm sm:text-base text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer shadow-2xs shrink-0"
-            title="View Notifications"
-          >
-            🔔
-            {notifications.some(n => n.unread) && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-[#EC4899] text-white text-[9px] sm:text-[10px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-xs">
-                {notifications.filter(n => n.unread).length}
-              </span>
+          <div className="relative">
+            <button 
+              onClick={() => setNotifDropdownOpen(!notifDropdownOpen)}
+              className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-sm sm:text-base text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer shadow-2xs shrink-0"
+              title="Notifications"
+            >
+              🔔
+              {notifications.some(n => n.unread) && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-[#EC4899] text-white text-[9px] sm:text-[10px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-xs">
+                  {notifications.filter(n => n.unread).length}
+                </span>
+              )}
+            </button>
+
+            {/* NOTIFICATION POPUP DROPDOWN */}
+            {notifDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl border border-[#EAE3F2] shadow-2xl z-50 p-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className="font-serif font-extrabold text-base text-[#1A1338]">Notifications 🔔</span>
+                    <span className="bg-purple-100 text-[#7147E8] text-xs font-extrabold px-2.5 py-0.5 rounded-full">
+                      {notifications.length}
+                    </span>
+                  </div>
+                  {notifications.some(n => n.unread) && (
+                    <button
+                      onClick={() => setNotifications(prev => prev.map(n => ({ ...n, unread: false })))}
+                      className="text-xs font-bold text-[#7147E8] hover:underline cursor-pointer"
+                    >
+                      Mark all read
+                    </button>
+                  )}
+                </div>
+
+                <div className="max-h-72 overflow-y-auto space-y-2">
+                  {notifications.length === 0 ? (
+                    <div className="py-8 text-center text-xs font-medium text-gray-400">
+                      🔔 No notifications available.
+                    </div>
+                  ) : (
+                    notifications.map((notif) => (
+                      <div
+                        key={notif.id}
+                        className={`p-3 rounded-xl border text-xs flex items-start gap-2.5 transition-all ${
+                          notif.unread ? 'bg-[#F9F6FE] border-[#E8DEF8]' : 'bg-white border-gray-100'
+                        }`}
+                      >
+                        <span className="text-base shrink-0">{notif.icon}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-[#1A1338] leading-snug">{notif.text}</p>
+                          <span className="text-[10px] font-medium text-gray-400 mt-1 block">{notif.time}</span>
+                        </div>
+                        {notif.unread && <span className="w-2 h-2 rounded-full bg-[#7147E8] shrink-0 mt-1.5" />}
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                {notifications.length > 0 && (
+                  <div className="pt-2 border-t border-gray-100">
+                    <button
+                      onClick={() => setNotifications([])}
+                      className="w-full py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl text-xs font-extrabold transition-all cursor-pointer text-center"
+                    >
+                      🗑️ Clear All Notifications
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
-          </button>
+          </div>
 
           <div className="hidden sm:block h-6 w-px bg-gray-200" />
 
@@ -722,7 +782,7 @@ export default function UserDashboardPage() {
                 <div className="bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-2xs space-y-3">
                   <h4 className="font-serif font-extrabold text-base text-[#1A1338] mb-2 px-1">Quick Actions</h4>
                   
-                  <Link href="/" className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] hover:bg-[#F0EBFA] hover:border-purple-200 transition-all">
+                  <Link href="/#check-in" className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] hover:bg-[#F0EBFA] hover:border-purple-200 transition-all">
                     <div className="flex items-center gap-3">
                       <span className="w-9 h-9 rounded-xl bg-purple-100 text-[#7147E8] flex items-center justify-center text-base font-bold">😊</span>
                       <div>
@@ -1310,14 +1370,9 @@ export default function UserDashboardPage() {
                         if ('Notification' in window) {
                           Notification.requestPermission().then(perm => {
                             if (perm === 'granted') {
-                              alert('🔔 Push notifications granted! You will now receive mindset reminders.');
                               setNotifSettings(prev => ({ ...prev, pushNotifs: true }));
-                            } else {
-                              alert('⚠️ Push notifications were blocked in your browser settings.');
                             }
                           });
-                        } else {
-                          alert('⚠️ Your browser does not support push notifications.');
                         }
                       }}
                       className="text-xs font-extrabold bg-[#7147E8] text-white px-3 py-1.5 rounded-xl hover:opacity-90 transition"
@@ -1390,7 +1445,7 @@ export default function UserDashboardPage() {
                     <strong className="block font-extrabold text-rose-700">Delete Account &amp; History</strong>
                     <span className="text-xs text-rose-500 font-medium leading-relaxed block">Permanently wipe all check-ins and progress.</span>
                   </div>
-                  <button onClick={() => alert('Account deletion request submitted.')} className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs md:text-sm shadow-xs shrink-0 cursor-pointer self-start sm:self-auto">
+                  <button onClick={() => {}} className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs md:text-sm shadow-xs shrink-0 cursor-pointer self-start sm:self-auto">
                     Delete Data
                   </button>
                 </div>

@@ -53,30 +53,82 @@ export default function BlogPage() {
       {/* GLOBAL HEADER */}
       <Header />
 
-      {/* HERO */}
-      <section className="bg-gradient-to-br from-[#7147E8] via-[#9333EA] to-[#c026d3] text-white py-16 sm:py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full mb-5">
-            📝 MoodFlip Blog & Articles
-          </span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight mb-4">
-            Mindset & Emotional<br className="hidden sm:block" /> Wellness Insights
+      {/* ── STUNNING ULTRA-PREMIUM HERO ── */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#1E0B3B] via-[#2A1052] to-[#7147E8] text-white py-14 sm:py-20 px-4 sm:px-6 rounded-b-[36px] sm:rounded-b-[48px] shadow-2xl shadow-[#7147E8]/20">
+        
+        {/* Ambient Glowing Orbs Background */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-pink-500/20 rounded-full blur-[100px] pointer-events-none translate-y-1/2" />
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-5 sm:space-y-6">
+
+          {/* Top Pill Badge */}
+          <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest bg-white/10 border border-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-purple-200 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>✨ MOODFLIP WELLNESS JOURNAL</span>
+          </div>
+
+          {/* Main Title */}
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.15] text-white">
+            Mindset &amp; Emotional<br />
+            <span className="bg-gradient-to-r from-[#FFB8E0] via-[#D8B4FE] to-[#818CF8] bg-clip-text text-transparent">
+              Wellness Insights
+            </span>
           </h1>
-          <p className="text-base sm:text-lg text-white/80 font-semibold max-w-2xl mx-auto mb-8">
+
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base md:text-lg text-purple-100/90 font-medium max-w-2xl mx-auto leading-relaxed">
             Science-backed articles on emotional resilience, mindset shifts, anxiety relief, and daily wellbeing practices.
           </p>
-          <div className="relative max-w-lg mx-auto">
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search 10+ wellness articles..."
-              className="w-full bg-white border border-[#EAE3F2] rounded-2xl pl-11 pr-4 py-3.5 text-sm font-extrabold text-[#1A1338] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7147E8] shadow-xl transition-all"
-            />
+
+          {/* Search Box */}
+          <div className="relative max-w-xl mx-auto w-full pt-1">
+            <div className="relative flex items-center">
+              <svg
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none shrink-0"
+                style={{ width: '20px', height: '20px' }}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2.2"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={e => handleSearchChange(e.target.value)}
+                placeholder="Search wellness topics, anxiety relief, habits..."
+                className="w-full bg-white/95 backdrop-blur-xl border-2 border-white/80 rounded-2xl pl-12 pr-28 py-3.5 sm:py-4 text-xs sm:text-sm font-extrabold text-[#1A1338] placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-4 focus:ring-purple-300/40 shadow-2xl transition-all"
+              />
+              {searchQuery ? (
+                <button
+                  onClick={() => handleSearchChange('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 px-2.5 py-1 rounded-lg transition cursor-pointer"
+                >
+                  Clear ✕
+                </button>
+              ) : (
+                <span className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-extrabold text-[#7147E8] bg-purple-100 px-2.5 py-1 rounded-lg border border-purple-200 pointer-events-none">
+                  10+ Articles
+                </span>
+              )}
+            </div>
           </div>
+
+          {/* Quick Micro Indicators */}
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7 pt-2 text-xs sm:text-sm font-bold text-purple-200/90">
+            <div className="flex items-center gap-1.5">
+              <span>📚</span> <span>Evidence-Based Guides</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span>🧠</span> <span>60-Sec Mindset Shifts</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span>⚡</span> <span>3-Min Quick Reads</span>
+            </div>
+          </div>
+
         </div>
       </section>
 

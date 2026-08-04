@@ -10,9 +10,7 @@ export default function PWAInstallPrompt() {
   useEffect(() => {
     // Register Service Worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch((err) => {
-        console.log('Service Worker registration failed:', err);
-      });
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
 
     // Check if already in standalone mode
@@ -53,7 +51,7 @@ export default function PWAInstallPrompt() {
       }
       setDeferredPrompt(null);
     } else {
-      alert('📱 To install MoodFlip on Mobile or Desktop:\n\n• iOS (Safari): Tap Share icon → "Add to Home Screen"\n• Android (Chrome): Tap 3 Dots → "Install App"\n• Windows/Mac (Chrome/Edge): Click Install App in address bar 📲');
+      // silently do nothing if native install not available
     }
   };
 

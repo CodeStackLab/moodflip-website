@@ -11,34 +11,35 @@ type Mood = {
   emoji: string;
   category: "Low" | "Anxious" | "Angry" | "Overwhelmed" | "Lonely";
   tone: string;
+  bgColor: string;
   feelings: string[];
 };
 
 const moods: Mood[] = [
-  { name: "Sad", emoji: "😢", category: "Low", tone: "lavender", feelings: ["Down", "Heavy", "Blue"] },
-  { name: "Hopeless", emoji: "☁️", category: "Low", tone: "gray", feelings: ["Stuck", "Defeated", "Empty"] },
-  { name: "Disappointed", emoji: "💔", category: "Low", tone: "rose", feelings: ["Let down", "Discouraged", "Unseen"] },
-  { name: "Lonely", emoji: "🧍", category: "Lonely", tone: "blue", feelings: ["Disconnected", "Left out", "Missing someone"] },
-  { name: "Tired", emoji: "🪫", category: "Low", tone: "green", feelings: ["Drained", "Sleepy", "Burnt out"] },
-  { name: "Anxious", emoji: "🫀", category: "Anxious", tone: "cyan", feelings: ["Nervous", "Uneasy", "On edge"] },
-  { name: "Worried", emoji: "🌧️", category: "Anxious", tone: "aqua", feelings: ["Concerned", "Restless", "Uncertain"] },
-  { name: "Overwhelmed", emoji: "🌸", category: "Overwhelmed", tone: "purple", feelings: ["Flooded", "Scattered", "Too much"] },
-  { name: "Stressed", emoji: "⚡", category: "Overwhelmed", tone: "violet", feelings: ["Pressured", "Tense", "Rushed"] },
-  { name: "Insecure", emoji: "🛡️", category: "Anxious", tone: "peach", feelings: ["Doubtful", "Exposed", "Not enough"] },
-  { name: "Angry", emoji: "😡", category: "Angry", tone: "red", feelings: ["Mad", "Furious", "Resentful"] },
-  { name: "Frustrated", emoji: "💢", category: "Angry", tone: "orange", feelings: ["Blocked", "Annoyed", "Impatient"] },
-  { name: "Irritable", emoji: "😤", category: "Angry", tone: "yellow", feelings: ["Snappy", "Agitated", "Bothered"] },
-  { name: "Guilty", emoji: "😞", category: "Low", tone: "mauve", feelings: ["Regretful", "Ashamed", "Responsible"] },
-  { name: "Stuck", emoji: "🔐", category: "Overwhelmed", tone: "slate", feelings: ["Frozen", "Confused", "Unable to move"] },
+  { name: "Sad", emoji: "😢", category: "Low", tone: "lavender", bgColor: "#F0EBFB", feelings: ["Down", "Heavy", "Blue"] },
+  { name: "Hopeless", emoji: "☁️", category: "Low", tone: "gray", bgColor: "#F2F4F7", feelings: ["Stuck", "Defeated", "Empty"] },
+  { name: "Disappointed", emoji: "💔", category: "Low", tone: "rose", bgColor: "#FFF0F3", feelings: ["Let down", "Discouraged", "Unseen"] },
+  { name: "Lonely", emoji: "👤", category: "Lonely", tone: "blue", bgColor: "#EEF6FF", feelings: ["Disconnected", "Left out", "Missing someone"] },
+  { name: "Tired", emoji: "🔋", category: "Low", tone: "green", bgColor: "#ECFDF5", feelings: ["Drained", "Sleepy", "Burnt out"] },
+  { name: "Anxious", emoji: "🎯", category: "Anxious", tone: "cyan", bgColor: "#E6F7FF", feelings: ["Nervous", "Uneasy", "On edge"] },
+  { name: "Worried", emoji: "🌧️", category: "Anxious", tone: "aqua", bgColor: "#EAF8F6", feelings: ["Concerned", "Restless", "Uncertain"] },
+  { name: "Overwhelmed", emoji: "🌀", category: "Overwhelmed", tone: "purple", bgColor: "#F6F0FD", feelings: ["Flooded", "Scattered", "Too much"] },
+  { name: "Stressed", emoji: "🌩️", category: "Overwhelmed", tone: "violet", bgColor: "#FBF0F8", feelings: ["Pressured", "Tense", "Rushed"] },
+  { name: "Insecure", emoji: "🛡️", category: "Anxious", tone: "peach", bgColor: "#FFF7EB", feelings: ["Doubtful", "Exposed", "Not enough"] },
+  { name: "Angry", emoji: "😡", category: "Angry", tone: "red", bgColor: "#FFF0F0", feelings: ["Mad", "Furious", "Resentful"] },
+  { name: "Frustrated", emoji: "💥", category: "Angry", tone: "orange", bgColor: "#FFF4EB", feelings: ["Blocked", "Annoyed", "Impatient"] },
+  { name: "Irritable", emoji: "😟", category: "Angry", tone: "yellow", bgColor: "#FFFDEB", feelings: ["Snappy", "Agitated", "Bothered"] },
+  { name: "Guilty", emoji: "🥺", category: "Low", tone: "mauve", bgColor: "#F8EFFC", feelings: ["Regretful", "Ashamed", "Responsible"] },
+  { name: "Stuck", emoji: "🔒", category: "Overwhelmed", tone: "slate", bgColor: "#F3F4F6", feelings: ["Frozen", "Confused", "Unable to move"] },
 ];
 
 const categories = [
-  { name: "All", icon: "⊞", iconBg: "#7147e8", iconColor: "#fff" },
-  { name: "Low", icon: "😢", iconBg: "", iconColor: "" },
-  { name: "Anxious", icon: "🌧️", iconBg: "", iconColor: "" },
-  { name: "Angry", icon: "🔥", iconBg: "", iconColor: "" },
-  { name: "Overwhelmed", icon: "〰️", iconBg: "", iconColor: "" },
-  { name: "Lonely", icon: "🧍", iconBg: "", iconColor: "" },
+  { name: "All", icon: "⊞" },
+  { name: "Low", icon: "🥺" },
+  { name: "Anxious", icon: "🌧️" },
+  { name: "Angry", icon: "🔥" },
+  { name: "Overwhelmed", icon: "〰️" },
+  { name: "Lonely", icon: "👤" },
 ] as const;
 
 const plans = [
@@ -64,8 +65,75 @@ export default function HomePage() {
   const [seconds, setSeconds] = useState(60);
   const [running, setRunning] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [aiData, setAiData] = useState<{
+    reframingQuote?: string;
+    actionTitle?: string;
+    actionSteps?: string[];
+    scienceInsight?: string;
+  } | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [justGenerated, setJustGenerated] = useState(false);
+
+  const [mobileModalOpen, setMobileModalOpen] = useState(false);
+  const [mobileStep, setMobileStep] = useState<'feeling' | 'result'>('feeling');
+
+  useEffect(() => {
+    const isLoggedIn = typeof window !== 'undefined' && (localStorage.getItem('userLoggedIn') === 'true' || localStorage.getItem('isLoggedIn') === 'true');
+    if (isLoggedIn) return;
+
+    // Show automatically 5 seconds after page load
+    const timer = setTimeout(() => {
+      setShowWelcome(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleDismissWelcome = () => {
+    setShowWelcome(false);
+    // Re-appear automatically after 5 minutes (300,000 ms)
+    setTimeout(() => {
+      const isLoggedIn = typeof window !== 'undefined' && (localStorage.getItem('userLoggedIn') === 'true' || localStorage.getItem('isLoggedIn') === 'true');
+      if (!isLoggedIn) {
+        setShowWelcome(true);
+      }
+    }, 300000);
+  };
+
+  const fetchAiFlip = async (moodName: string, feelingName: string) => {
+    setAiLoading(true);
+    try {
+      const res = await fetch('/api/ai/flip', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mood: moodName, feeling: feelingName })
+      });
+      const data = await res.json();
+      if (data.success && data.aiData) {
+        setAiData(data.aiData);
+        setJustGenerated(true);
+        setTimeout(() => {
+          const el = document.getElementById("positive-flip");
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 50);
+        setTimeout(() => setJustGenerated(false), 2500);
+      }
+    } catch (e) {
+      // silently handle error
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  const handleFlipClick = () => {
+    if (selectedMood && selectedFeeling) {
+      fetchAiFlip(selectedMood.name, selectedFeeling);
+    }
+  };
 
   const handleSmartRedirect = (targetTab: string) => {
     const isLoggedIn = typeof window !== 'undefined' && (localStorage.getItem('userLoggedIn') === 'true' || localStorage.getItem('isLoggedIn') === 'true');
@@ -91,9 +159,34 @@ export default function HomePage() {
     if (seconds === 0) setRunning(false);
   }, [seconds]);
 
+  useEffect(() => {
+    const scrollToCheckIn = () => {
+      if (typeof window !== 'undefined' && (window.location.hash === '#check-in' || window.location.search.includes('checkin=true'))) {
+        setTimeout(() => {
+          const el = document.getElementById('check-in');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            el.style.transition = 'all 0.5s ease';
+            el.style.boxShadow = '0 0 0 4px rgba(113, 71, 232, 0.4)';
+            setTimeout(() => {
+              el.style.boxShadow = 'none';
+            }, 2500);
+          }
+        }, 150);
+      }
+    };
+    scrollToCheckIn();
+    window.addEventListener('hashchange', scrollToCheckIn);
+    return () => window.removeEventListener('hashchange', scrollToCheckIn);
+  }, []);
+
   function selectMood(mood: Mood) {
     setSelectedMood(mood);
     setSelectedFeeling(null);
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setMobileStep('feeling');
+      setMobileModalOpen(true);
+    }
   }
 
   function resetAction() {
@@ -119,7 +212,10 @@ export default function HomePage() {
             <a href="#how">How It Works</a>
             <a href="#library">Mood Library</a>
             <a href="#resources">Resources</a>
-            <Link href="/blog">Blog</Link>
+            <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <span>Blog</span>
+              <span style={{ fontSize: '9px', fontWeight: '900', background: '#7147e8', color: '#ffffff', padding: '2px 6px', borderRadius: '10px', lineHeight: 1 }}>NEW</span>
+            </Link>
           </nav>
 
           <div className={styles.headerActions}>
@@ -251,33 +347,67 @@ export default function HomePage() {
             <h1>How are you feeling right now?</h1>
             <p className={styles.subheading}>Select the mood that feels closest to you.</p>
 
-            <div className={styles.categoryRow}>
-              {categories.map((item) => (
-                <button
-                  key={item.name}
-                  className={`${styles.categoryButton} ${category === item.name ? styles.categoryActive : ""}`}
-                  type="button"
-                  onClick={() => setCategory(item.name)}
-                >
-                  <span>{item.icon}</span>{item.name}
-                </button>
-              ))}
+            <div className={styles.categoryRow} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px' }}>
+              {categories.map((item) => {
+                const isActive = category === item.name;
+                return (
+                  <button
+                    key={item.name}
+                    type="button"
+                    onClick={() => setCategory(item.name)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '10px 18px',
+                      borderRadius: '16px',
+                      fontSize: '13.5px',
+                      fontWeight: '800',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                      background: isActive ? 'linear-gradient(135deg, #7147E8, #8257F6)' : '#FFFFFF',
+                      color: isActive ? '#FFFFFF' : '#1A1338',
+                      border: isActive ? '1px solid #7147E8' : '1px solid #ECE7F5',
+                      boxShadow: isActive ? '0 6px 18px rgba(113, 71, 232, 0.28)' : '0 2px 6px rgba(0,0,0,0.02)'
+                    }}
+                  >
+                    <span style={{ fontSize: '17px', lineHeight: '1' }}>{item.icon}</span>
+                    <span>{item.name}</span>
+                  </button>
+                );
+              })}
             </div>
 
             <div className={styles.moodGrid}>
-              {visibleMoods.map((mood) => (
-                <button
-                  key={mood.name}
-                  type="button"
-                  className={`${styles.moodCard} ${styles[mood.tone]} ${selectedMood?.name === mood.name ? styles.moodSelected : ""}`}
-                  onClick={() => selectMood(mood)}
-                >
-                  <div className={styles.moodEmojiWrap}>
-                    <span className={styles.moodEmoji}>{mood.emoji}</span>
-                  </div>
-                  <span>{mood.name}</span>
-                </button>
-              ))}
+              {visibleMoods.map((mood) => {
+                const isSelected = selectedMood?.name === mood.name;
+                return (
+                  <button
+                    key={mood.name}
+                    type="button"
+                    className={`${styles.moodCard} ${isSelected ? styles.moodSelected : ""}`}
+                    style={{
+                      backgroundColor: isSelected ? '#F4EFFC' : mood.bgColor,
+                      borderColor: isSelected ? '#7147E8' : 'rgba(0, 0, 0, 0.04)',
+                      borderWidth: isSelected ? '2px' : '1px',
+                      borderRadius: '20px',
+                      padding: '18px 10px 14px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: isSelected ? '0 8px 24px rgba(113, 71, 232, 0.2)' : 'none',
+                      transform: isSelected ? 'scale(1.03)' : 'scale(1)',
+                      transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => selectMood(mood)}
+                  >
+                    <span style={{ fontSize: '36px', lineHeight: '1', marginBottom: '8px' }}>{mood.emoji}</span>
+                    <span style={{ fontWeight: '800', color: isSelected ? '#7147E8' : '#1A1338', fontSize: '13px' }}>{mood.name}</span>
+                  </button>
+                );
+              })}
             </div>
 
             <div className={styles.tipBar}><span>⚗</span><strong>Tip:</strong>&nbsp;There’s no right or wrong choice. Be honest with how you feel.</div>
@@ -309,14 +439,24 @@ export default function HomePage() {
             <button
               className={styles.flipButton}
               type="button"
-              disabled={!selectedMood || !selectedFeeling}
-              onClick={() => document.getElementById("positive-flip")?.scrollIntoView({ behavior: "smooth", block: "center" })}
+              disabled={!selectedMood || !selectedFeeling || aiLoading}
+              onClick={handleFlipClick}
             >
-              ✨ FLIP MY MOOD <span>→</span>
+              {aiLoading ? '🤖 MOODFLIP COACH THINKING...' : '✨ FLIP MY MOOD'} <span>→</span>
             </button>
           </section>
 
-          <section className={styles.flipCard} id="positive-flip" style={{ background: "url('/sunset-hero-bg.png') center 15% / cover no-repeat" }}>
+          <section
+            className={styles.flipCard}
+            id="positive-flip"
+            style={{
+              background: "url('/sunset-hero-bg.png') center 15% / cover no-repeat",
+              transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+              transform: justGenerated ? 'scale(1.025)' : 'scale(1)',
+              boxShadow: justGenerated ? '0 0 40px rgba(113, 71, 232, 0.5), 0 12px 40px rgba(0,0,0,0.12)' : 'none',
+              borderRadius: '24px'
+            }}
+          >
 
             <div className={styles.cardToolbar}>
               <span />
@@ -366,41 +506,191 @@ export default function HomePage() {
               </span>
             </div>
 
-            <h2>Towards Calm &amp; Clarity</h2>
-            <p className={styles.flipSubtitle}>You&apos;ve got this. Small steps, big shifts.</p>
+            <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#1a1338', margin: '0 0 10px 0', lineHeight: '1.3', letterSpacing: '-0.5px', transition: 'all 0.5s ease' }}>
+              {aiData?.actionTitle || 'Towards Calm & Clarity'}
+            </h2>
+            <p style={{
+              fontSize: '15px',
+              fontWeight: '600',
+              color: '#3d2f6e',
+              lineHeight: '1.6',
+              margin: '0 0 14px 0',
+              padding: '12px 16px',
+              background: justGenerated ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.72)',
+              borderRadius: '12px',
+              borderLeft: '4px solid #7147E8',
+              backdropFilter: 'blur(8px)',
+              transition: 'all 0.5s ease',
+              boxShadow: justGenerated ? '0 4px 20px rgba(113, 71, 232, 0.25)' : 'none'
+            }}>
+              {aiData?.reframingQuote || "You've got this. Small steps lead to big shifts."}
+            </p>
 
-            <div className={styles.actionCard}>
-              <div className={styles.actionTitleRow}>
-                <strong>✨ Your 60-Second Action</strong>
-                <span>⏱ {seconds}s</span>
+            {/* ⚡ ULTRA-PREMIUM 60-SECOND ACTION CARD ⚡ */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.94)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(113, 71, 232, 0.18)',
+              borderRadius: '20px',
+              padding: '20px',
+              margin: '16px 0',
+              boxShadow: '0 8px 30px rgba(113, 71, 232, 0.08)',
+              textAlign: 'left'
+            }}>
+              
+              {/* Header row */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                <span style={{ fontSize: '13px', fontWeight: '800', color: '#7147E8', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>✨</span> YOUR 60-SECOND ACTION
+                </span>
+                <span style={{ fontSize: '12px', fontWeight: '800', background: 'rgba(113, 71, 232, 0.12)', color: '#7147E8', padding: '4px 10px', borderRadius: '20px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span>⏱</span> {seconds}s
+                </span>
               </div>
 
-              <div className={styles.breathAction}>
-                <button
-                  type="button"
-                  className={styles.playButton}
-                  onClick={() => {
-                    if (seconds === 0) resetAction();
-                    setRunning((value) => !value);
-                  }}
-                  aria-label={running ? "Pause timer" : "Start timer"}
-                >
-                  {running ? "Ⅱ" : "▶"}
-                </button>
-                <div className={styles.actionCopy}>
-                  <strong>Take 3 deep breaths.</strong>
-                  <span>Inhale for 4 seconds, hold for 4,<br />exhale for 6 seconds.</span>
+              {/* Steps & Timer Body */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
+                {/* Primary Action Title */}
+                <div style={{
+                  background: 'linear-gradient(135deg, rgba(245, 240, 255, 0.9), rgba(253, 240, 250, 0.9))',
+                  borderLeft: '4px solid #7147E8',
+                  padding: '12px 14px',
+                  borderRadius: '12px'
+                }}>
+                  <strong style={{ fontSize: '15px', fontWeight: '800', color: '#1A1338', lineHeight: '1.4', display: 'block' }}>
+                    {aiData?.actionSteps && aiData.actionSteps.length > 0 ? aiData.actionSteps[0] : 'Take 3 deep, grounding breaths.'}
+                  </strong>
                 </div>
-                <button className={styles.timerCircle} type="button" onClick={resetAction} aria-label="Reset timer">
-                  <strong>{seconds}</strong>
-                  <small>SECONDS</small>
-                </button>
+
+                {/* Numbered Sub-steps */}
+                {aiData?.actionSteps && aiData.actionSteps.length > 1 ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', padding: '2px 0' }}>
+                    {aiData.actionSteps.slice(1).map((step, idx) => (
+                      <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                        <span style={{
+                          width: '22px',
+                          height: '22px',
+                          borderRadius: '50%',
+                          background: '#7147E8',
+                          color: '#ffffff',
+                          fontSize: '11px',
+                          fontWeight: '800',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          marginTop: '2px'
+                        }}>
+                          {idx + 1}
+                        </span>
+                        <span style={{ fontSize: '13.5px', fontWeight: '600', color: '#4A3F6D', lineHeight: '1.55' }}>
+                          {step}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{ fontSize: '13.5px', fontWeight: '600', color: '#4A3F6D', lineHeight: '1.5', margin: 0 }}>
+                    Inhale for 4 seconds, hold for 4, exhale slowly for 6 seconds while relaxing your shoulders.
+                  </p>
+                )}
+
+                {/* Interactive Timer Control Bar */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  background: '#FAF8FD',
+                  border: '1px solid #EAE3F2',
+                  borderRadius: '16px',
+                  padding: '10px 14px',
+                  marginTop: '4px'
+                }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (seconds === 0) resetAction();
+                      setRunning((v) => !v);
+                    }}
+                    style={{
+                      background: running ? '#1A1338' : 'linear-gradient(135deg, #7147E8, #9333EA)',
+                      color: '#ffffff',
+                      border: 'none',
+                      padding: '8px 18px',
+                      borderRadius: '12px',
+                      fontSize: '13px',
+                      fontWeight: '800',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 12px rgba(113, 71, 232, 0.25)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <span>{running ? 'Ⅱ' : '▶'}</span>
+                    <span>{running ? 'Pause Timer' : 'Start 60s Reset'}</span>
+                  </button>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '50%',
+                      background: running ? 'rgba(113, 71, 232, 0.15)' : '#F0EBFA',
+                      border: '2px solid #7147E8',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      lineHeight: '1'
+                    }}>
+                      <strong style={{ fontSize: '15px', fontWeight: '900', color: '#7147E8' }}>{seconds}</strong>
+                      <small style={{ fontSize: '7px', fontWeight: '800', color: '#7147E8' }}>SEC</small>
+                    </div>
+                    {seconds < 60 && (
+                      <button
+                        type="button"
+                        onClick={resetAction}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#8A81A8',
+                          fontSize: '11px',
+                          fontWeight: '700',
+                          cursor: 'pointer',
+                          textDecoration: 'underline'
+                        }}
+                      >
+                        Reset
+                      </button>
+                    )}
+                  </div>
+                </div>
+
               </div>
 
-              <div className={styles.whyBlock}>
-                <div>♡&nbsp;&nbsp; Why this helps</div>
-                <p>+&nbsp;&nbsp; Deep breathing activates your body&apos;s natural calm response<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and helps reset your mind.</p>
+              {/* Science Insight Block */}
+              <div style={{
+                marginTop: '14px',
+                paddingTop: '12px',
+                borderTop: '1px solid rgba(113, 71, 232, 0.1)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '8px'
+              }}>
+                <span style={{ fontSize: '15px', marginTop: '1px' }}>🧬</span>
+                <div>
+                  <strong style={{ fontSize: '12px', fontWeight: '800', color: '#7147E8', display: 'block', marginBottom: '2px' }}>
+                    WHY THIS HELPS
+                  </strong>
+                  <p style={{ fontSize: '12.5px', fontWeight: '600', color: '#5B5278', lineHeight: '1.5', margin: 0 }}>
+                    {aiData?.scienceInsight || "Gentle touch and slow breathing activate the vagus nerve, lowering cortisol and signaling safety to the brain, while acknowledging small wins releases dopamine."}
+                  </p>
+                </div>
               </div>
+
             </div>
 
             <div className={styles.flipActions}>
@@ -450,7 +740,7 @@ export default function HomePage() {
               <button
                 type="button"
                 className={styles.welcomeCloseBtn}
-                onClick={() => setShowWelcome(false)}
+                onClick={handleDismissWelcome}
                 aria-label="Close message"
               >
                 ✕
@@ -470,7 +760,7 @@ export default function HomePage() {
               <button
                 type="button"
                 className={styles.welcomeMaybeBtn}
-                onClick={() => setShowWelcome(false)}
+                onClick={handleDismissWelcome}
               >
                 Maybe Later
               </button>
@@ -841,6 +1131,174 @@ export default function HomePage() {
           <span>© 2026 MoodFlip.coach 💜</span>
         </footer>
 
+
+        {/* 📱 MOBILE STEP-BY-STEP BOTTOM SHEET WIZARD 📱 */}
+        {mobileModalOpen && selectedMood && (
+          <div className="fixed inset-0 z-[99999] bg-black/60 backdrop-blur-xs flex items-end justify-center sm:hidden animate-in fade-in duration-200">
+            <div className="w-full bg-white rounded-t-[32px] p-6 max-h-[90vh] overflow-y-auto space-y-5 border-t border-[#EAE3F2] shadow-2xl relative animate-in slide-in-from-bottom-8 duration-300">
+              
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setMobileModalOpen(false)}
+                className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 text-base font-extrabold w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"
+              >
+                ✕
+              </button>
+
+              {/* STEP 2: PICK FEELING */}
+              {mobileStep === 'feeling' && (
+                <div className="space-y-5 text-left">
+                  <div>
+                    <div className="flex items-center gap-2 text-xs font-black text-[#7147E8] uppercase tracking-wider mb-1">
+                      <span>Step 2 of 2</span> · <span>{selectedMood.emoji} {selectedMood.name}</span>
+                    </div>
+                    <h3 className="font-serif text-2xl font-extrabold text-[#1A1338]">
+                      How does your {selectedMood.name.toLowerCase()} feel?
+                    </h3>
+                    <p className="text-xs text-[#68607F] font-semibold mt-1">
+                      Pick the exact feeling that matches you right now.
+                    </p>
+                  </div>
+
+                  {/* Feeling Buttons */}
+                  <div className="grid grid-cols-1 gap-2.5">
+                    {selectedMood.feelings.map((feeling) => (
+                      <button
+                        key={feeling}
+                        type="button"
+                        onClick={() => setSelectedFeeling(feeling)}
+                        className={`w-full p-3.5 rounded-2xl border text-sm font-extrabold transition-all text-left flex items-center justify-between cursor-pointer ${
+                          selectedFeeling === feeling
+                            ? 'border-[#7147E8] bg-[#F4EFFC] text-[#7147E8] shadow-md ring-2 ring-[#7147E8]/20'
+                            : 'border-[#F0EBFA] bg-[#FAF8FD] text-[#4A4268]'
+                        }`}
+                      >
+                        <span>{feeling}</span>
+                        {selectedFeeling === feeling && <span>✓</span>}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="button"
+                    disabled={!selectedFeeling || aiLoading}
+                    onClick={() => {
+                      if (selectedFeeling) {
+                        setMobileStep('result');
+                        fetchAiFlip(selectedMood.name, selectedFeeling);
+                      }
+                    }}
+                    className="w-full py-4 rounded-2xl font-extrabold text-sm text-white bg-gradient-to-r from-[#7147E8] to-[#9333EA] shadow-lg shadow-[#7147E8]/25 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    {aiLoading ? (
+                      <>
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>🤖 MOODFLIP COACH THINKING...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>✨</span> <span>FLIP MY MOOD →</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {/* STEP 3: RESULT VIEW */}
+              {mobileStep === 'result' && (
+                <div className="space-y-4 text-left">
+                  {aiLoading ? (
+                    <div className="py-12 text-center space-y-4">
+                      <div className="w-14 h-14 bg-purple-100 text-[#7147E8] rounded-full flex items-center justify-center text-2xl mx-auto animate-bounce">
+                        ✨
+                      </div>
+                      <h4 className="font-serif text-lg font-extrabold text-[#1A1338]">Finding your positive flip...</h4>
+                      <p className="text-xs text-gray-500 font-medium">MoodFlip Coach is processing your mindset shift.</p>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                        <span className="text-xs font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                          ✓ POSITIVE FLIP GENERATED
+                        </span>
+                      </div>
+
+                      <h3 className="font-serif text-xl font-extrabold text-[#1A1338] leading-tight">
+                        {aiData?.actionTitle || 'Towards Calm & Clarity'}
+                      </h3>
+
+                      <p className="text-xs font-semibold text-[#3d2f6e] leading-relaxed p-3.5 bg-[#F8F5FE] border-l-4 border-[#7147E8] rounded-xl">
+                        {aiData?.reframingQuote || "You've got this. Small steps lead to big shifts."}
+                      </p>
+
+                      {/* 60-Second Action Box */}
+                      <div className="p-4 rounded-2xl bg-white border border-[#EAE3F2] shadow-sm space-y-3">
+                        <div className="flex items-center justify-between text-xs font-black text-[#7147E8]">
+                          <span>✨ YOUR 60-SECOND ACTION</span>
+                          <span className="bg-purple-100 px-2.5 py-0.5 rounded-full">⏱ {seconds}s</span>
+                        </div>
+
+                        <div className="p-3 rounded-xl bg-[#F5F0FF] border-l-4 border-[#7147E8] text-xs font-extrabold text-[#1A1338]">
+                          {aiData?.actionSteps && aiData.actionSteps.length > 0 ? aiData.actionSteps[0] : 'Take 3 deep breaths.'}
+                        </div>
+
+                        {aiData?.actionSteps && aiData.actionSteps.length > 1 && (
+                          <div className="space-y-2 text-xs font-semibold text-[#4A3F6D]">
+                            {aiData.actionSteps.slice(1).map((s, idx) => (
+                              <div key={idx} className="flex items-start gap-2">
+                                <span className="w-5 h-5 rounded-full bg-[#7147E8] text-white text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">{idx + 1}</span>
+                                <span>{s}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (seconds === 0) resetAction();
+                            setRunning((v) => !v);
+                          }}
+                          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold text-xs shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                          <span>{running ? 'Ⅱ' : '▶'}</span>
+                          <span>{running ? 'Pause Timer' : 'Start 60s Reset'}</span>
+                        </button>
+                      </div>
+
+                      {/* Science Insight */}
+                      <div className="p-3 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA] text-[11px] text-[#5B5278] font-medium space-y-1">
+                        <strong className="block text-[#7147E8] font-black">🧬 WHY THIS HELPS</strong>
+                        <p className="leading-relaxed">{aiData?.scienceInsight || "Gentle breathing activates the vagus nerve, reducing cortisol."}</p>
+                      </div>
+
+                      {/* Action buttons */}
+                      <div className="flex gap-2 pt-2">
+                        <button
+                          type="button"
+                          onClick={() => { setMobileStep('feeling'); setSelectedFeeling(null); }}
+                          className="flex-1 py-3 rounded-xl bg-gray-100 text-[#1A1338] font-extrabold text-xs hover:bg-gray-200 cursor-pointer"
+                        >
+                          ⟳ Try Another
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => { setSaved(!saved); setMobileModalOpen(false); }}
+                          className="flex-1 py-3 rounded-xl bg-[#7147E8] text-white font-extrabold text-xs shadow-md cursor-pointer"
+                        >
+                          {saved ? '✓ Saved' : '🔖 Save & Close'}
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+
+            </div>
+          </div>
+        )}
 
       </div>
     </main>

@@ -121,6 +121,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <img
                 src={post.featuredImage}
                 alt={post.title}
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 className="w-full h-auto max-h-[450px] object-cover"
               />
             </div>

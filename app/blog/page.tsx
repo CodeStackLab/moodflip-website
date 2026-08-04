@@ -50,7 +50,7 @@ export default function BlogPage() {
             Science-backed articles on emotional resilience, mindset shifts, anxiety relief, and daily wellbeing practices.
           </p>
           <div className="relative max-w-lg mx-auto">
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -58,7 +58,7 @@ export default function BlogPage() {
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search 10+ wellness articles..."
-              className="w-full bg-white/15 backdrop-blur-sm border border-white/30 rounded-2xl pl-11 pr-4 py-3 text-sm font-semibold text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40"
+              className="w-full bg-white border border-[#EAE3F2] rounded-2xl pl-11 pr-4 py-3.5 text-sm font-extrabold text-[#1A1338] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7147E8] shadow-xl transition-all"
             />
           </div>
         </div>
@@ -66,12 +66,12 @@ export default function BlogPage() {
 
       {/* CATEGORY PILLS */}
       <section className="max-w-6xl mx-auto px-4 py-6 overflow-x-auto">
-        <div className="flex items-center gap-2.5 min-w-max mx-auto justify-center flex-wrap">
+        <div className="flex items-center gap-2 min-w-max mx-auto justify-center flex-wrap">
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all whitespace-nowrap ${
+              className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all whitespace-nowrap cursor-pointer ${
                 activeCategory === cat
                   ? 'bg-[#7147E8] text-white shadow-md'
                   : 'bg-white border border-[#EAE3F2] text-[#4A4268] hover:border-[#7147E8] hover:text-[#7147E8]'
@@ -85,7 +85,7 @@ export default function BlogPage() {
 
       <main className="max-w-6xl mx-auto px-4 pb-20 space-y-10">
         {filteredPosts.length === 0 ? (
-          <div className="text-center py-20">
+          <div className="text-center py-20 bg-white rounded-3xl border border-[#EAE3F2] p-8 shadow-xs">
             <span className="text-5xl">📭</span>
             <p className="mt-4 text-lg font-bold text-[#4A4268]">No articles found</p>
             <p className="text-sm text-gray-400 mt-1">Try a different search or category.</p>
@@ -97,19 +97,19 @@ export default function BlogPage() {
               <Link href={`/blog/${featuredPost.slug}`} className="block group">
                 <div className="relative rounded-3xl bg-white border border-[#EAE3F2] overflow-hidden shadow-xl hover:shadow-2xl transition-all grid grid-cols-1 lg:grid-cols-12 items-center">
                   {/* Featured Image Column */}
-                  <div className="lg:col-span-6 h-64 sm:h-80 lg:h-full relative overflow-hidden bg-gradient-to-br from-purple-600 to-indigo-800">
+                  <div className="lg:col-span-6 h-64 sm:h-80 lg:h-full min-h-[260px] relative overflow-hidden bg-gradient-to-br from-purple-600 to-indigo-800 flex items-center justify-center">
                     {featuredPost.featuredImage ? (
                       <img
                         src={featuredPost.featuredImage}
                         alt={featuredPost.title}
+                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-6xl">
-                        {featuredPost.emoji}
-                      </div>
-                    )}
-                    <span className="absolute top-4 left-4 text-3xl drop-shadow">{featuredPost.emoji}</span>
+                    ) : null}
+                    <div className="absolute inset-0 flex items-center justify-center text-7xl select-none -z-0">
+                      {featuredPost.emoji}
+                    </div>
+                    <span className="absolute top-4 left-4 text-3xl drop-shadow bg-white/80 backdrop-blur-xs w-11 h-11 rounded-2xl flex items-center justify-center shadow-xs">{featuredPost.emoji}</span>
                   </div>
 
                   {/* Text Column */}
@@ -142,19 +142,19 @@ export default function BlogPage() {
                   <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
                     <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden hover:shadow-xl hover:border-[#7147E8]/40 transition-all h-full flex flex-col">
                       {/* Image or Gradient */}
-                      <div className="h-48 relative overflow-hidden bg-gradient-to-br from-purple-500 to-indigo-700">
+                      <div className="h-48 relative overflow-hidden bg-gradient-to-br from-purple-500 to-indigo-700 flex items-center justify-center">
                         {post.featuredImage ? (
                           <img
                             src={post.featuredImage}
                             alt={post.title}
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-5xl">
-                            {post.emoji}
-                          </div>
-                        )}
-                        <span className="absolute top-3 left-3 text-2xl bg-white/80 backdrop-blur-xs w-9 h-9 rounded-xl flex items-center justify-center shadow-2xs">{post.emoji}</span>
+                        ) : null}
+                        <div className="absolute inset-0 flex items-center justify-center text-6xl select-none">
+                          {post.emoji}
+                        </div>
+                        <span className="absolute top-3 left-3 text-2xl bg-white/80 backdrop-blur-xs w-9 h-9 rounded-xl flex items-center justify-center shadow-2xs z-10">{post.emoji}</span>
                       </div>
 
                       <div className="p-5 flex flex-col flex-1 space-y-3">

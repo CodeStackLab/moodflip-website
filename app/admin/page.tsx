@@ -14,6 +14,29 @@ export default function AdminDashboardPage() {
   const [statusFilter, setStatusFilter] = useState('All');
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
+  const [showNotificationsModal, setShowNotificationsModal] = useState(false);
+
+  // Full Interactive Notifications Data
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: 'New User Account', desc: 'Sarah Johnson registered a new account.', time: '5 mins ago', read: false, icon: '👤', category: 'User' },
+    { id: 2, title: '7-Day Plan Purchase', desc: 'Michael Chen purchased 7-Day Mindset Plan ($9.99).', time: '18 mins ago', read: false, icon: '💳', category: 'Sale' },
+    { id: 3, title: 'Users Export Completed', desc: 'Users CSV export is generated and ready for download.', time: '1 hour ago', read: false, icon: '📥', category: 'System' },
+    { id: 4, title: 'New Check-in Logged', desc: 'Aisha Patel completed a 60-second Anxious → Calm shift.', time: '2 hours ago', read: false, icon: '⚡', category: 'Activity' },
+    { id: 5, title: 'AI Provider Gateway Active', desc: 'Google Gemini 1.5 Pro connected successfully.', time: '3 hours ago', read: true, icon: '🤖', category: 'AI' },
+    { id: 6, title: 'Search Console Tag Verified', desc: 'Google Search Console verification meta tag active.', time: '5 hours ago', read: true, icon: '🔍', category: 'SEO' },
+    { id: 7, title: 'Database Backup Completed', desc: 'System database backup finished with zero errors.', time: '1 day ago', read: true, icon: '💾', category: 'System' },
+    { id: 8, title: 'Admin Session Security', desc: 'Admin login credentials updated and active.', time: '2 days ago', read: true, icon: '🛡️', category: 'Security' },
+  ]);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map(n => ({ ...n, read: true })));
+  };
+
+  const removeNotification = (id: number) => {
+    setNotifications(notifications.filter(n => n.id !== id));
+  };
 
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
@@ -536,12 +559,16 @@ export default function AdminDashboardPage() {
             <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto border-t sm:border-t-0 border-gray-100 pt-2.5 sm:pt-0">
               <div className="flex items-center gap-2">
                 <button 
-                  onClick={() => alert('Notifications (8): New user registration, 7-Day plan sale, export completed.')}
+                  onClick={() => setShowNotificationsModal(true)}
                   className="relative w-9 h-9 rounded-xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer shrink-0"
-                  title="Notifications"
+                  title="View Notifications"
                 >
                   🔔
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#EC4899] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center">8</span>
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#EC4899] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center animate-pulse">
+                      {unreadCount}
+                    </span>
+                  )}
                 </button>
                 <div className="flex items-center gap-2">
                   <div className="w-9 h-9 rounded-full bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold flex items-center justify-center text-sm shadow-xs shrink-0">
@@ -3018,7 +3045,6 @@ export default function AdminDashboardPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

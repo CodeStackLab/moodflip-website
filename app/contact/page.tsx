@@ -1,8 +1,12 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function ContactPage() {
+  const [messageSent, setMessageSent] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2D264B]">
       <Header />
@@ -29,7 +33,19 @@ export default function ContactPage() {
 
           <div className="rounded-3xl border border-[#EAE3D6] bg-white p-6 shadow-sm">
             <h2 className="font-serif text-xl font-bold mb-4">Send a Message</h2>
-            <form className="space-y-4">
+            {messageSent && (
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs font-semibold text-emerald-700">
+                Message sent successfully. We&apos;ll get back to you within 24-48 hours.
+              </div>
+            )}
+            <form
+              className="space-y-4"
+              onSubmit={(event) => {
+                event.preventDefault();
+                setMessageSent(true);
+                event.currentTarget.reset();
+              }}
+            >
               <div>
                 <label className="block text-xs font-bold uppercase text-[#6B638B] mb-1">Your Name</label>
                 <input type="text" className="w-full rounded-xl border border-[#EAE3D6] p-3 text-sm focus:outline-[#6C5CE7]" placeholder="Jane Doe" required />

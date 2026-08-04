@@ -22,7 +22,7 @@ export default function Footer() {
         <div className="flex flex-wrap gap-6 text-sm font-medium text-purple-200/80">
           <Link href="/about" className="hover:text-white transition">About</Link>
           <Link href="/#how-it-works" className="hover:text-white transition">How It Works</Link>
-          <Link href="/mood/sad" className="hover:text-white transition">Mood Library</Link>
+          <Link href="/#library" className="hover:text-white transition">Mood Library</Link>
           <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
           <Link href="/terms" className="hover:text-white transition">Terms</Link>
           <Link href="/contact" className="hover:text-white transition">Contact</Link>

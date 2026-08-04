@@ -42,10 +42,10 @@ const categories = [
 ] as const;
 
 const plans = [
-  { icon: "📅", title: "7-Day Plan", text: "Build a better mindset starting today.", action: "View Plan →", kind: "planPurple" },
-  { icon: "🗓️", title: "30-Day Plan", text: "Go deeper. Lasting change in 30 days.", action: "Coming Soon", kind: "planBlue" },
-  { icon: "🎁", title: "Daily Reminders", text: "Gentle nudges for your better days.", action: "Enable →", kind: "planGreen" },
-  { icon: "📊", title: "Track Progress", text: "See how far you’ve come.", action: "View Profile →", kind: "planPink" },
+  { icon: "📅", title: "7-Day Plan", text: "Build a better mindset starting today.", action: "View Plan →", kind: "planPurple", link: "/profile?tab=My%207-Day%20Plan" },
+  { icon: "🗓️", title: "30-Day Plan", text: "Go deeper. Lasting change in 30 days.", action: "Explore →", kind: "planBlue", link: "/profile?tab=My%2030-Day%20Plan" },
+  { icon: "🎁", title: "Daily Reminders", text: "Gentle nudges for your better days.", action: "Enable →", kind: "planGreen", link: "/profile?tab=Notifications" },
+  { icon: "📊", title: "Track Progress", text: "See how far you’ve come.", action: "View Profile →", kind: "planPink", link: "/profile?tab=Dashboard" },
 ];
 
 function IconButton({ label, children }: { label: string; children: React.ReactNode }) {
@@ -65,6 +65,7 @@ export default function HomePage() {
   const [running, setRunning] = useState(false);
   const [saved, setSaved] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const visibleMoods = useMemo(
     () => moods.filter((mood) => category === "All" || mood.category === category),
@@ -112,10 +113,114 @@ export default function HomePage() {
           </nav>
 
           <div className={styles.headerActions}>
-            <a href="/login" className={styles.loginButton}><span>👤</span> Login</a>
+            <a href="/login" className={styles.loginButton}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Login</span>
+            </a>
             <button className={styles.planButton} type="button">Get 7-Day Plan</button>
+            <button
+              className={styles.mobileToggleBtn}
+              type="button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle Navigation Menu"
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              )}
+            </button>
           </div>
         </header>
+
+        {menuOpen && (
+          <nav className={styles.mobileMenuDrawer} aria-label="Mobile Navigation">
+            <div className={styles.mobileNavLinks}>
+              <a href="#home" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>🏠</span>
+                <span>Home</span>
+              </a>
+              <a href="#about" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>ℹ️</span>
+                <span>About</span>
+              </a>
+              <a href="#how" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>⚙️</span>
+                <span>How It Works</span>
+              </a>
+              <a href="#library" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>📚</span>
+                <span>Mood Library</span>
+              </a>
+              <a href="#resources" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>🎁</span>
+                <span>Resources</span>
+              </a>
+            </div>
+
+            <div className={styles.mobileDrawerActions}>
+              <a href="/login" className={styles.mobileLoginBtn} onClick={() => setMenuOpen(false)}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Login</span>
+              </a>
+              <a href="/profile?tab=My%207-Day%20Plan" className={styles.mobilePlanBtn} onClick={() => setMenuOpen(false)}>
+                <span>Get 7-Day Plan</span>
+              </a>
+            </div>
+          </nav>
+        )}
+
+        {/* Animated Hero Intro Banner */}
+        <section className={styles.heroIntroBanner}>
+          <div className={styles.heroIntroContent}>
+            <div className={styles.heroIntroBadge}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="5" fill="#f59e0b"/>
+                <path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round"/>
+              </svg>
+              <span>Self-Reflection Utility &bull; Daily Mindset Shifts</span>
+            </div>
+            
+            <h1 className={styles.heroIntroTitle}>
+              Shift Your Mood,<br />
+              <span className={styles.heroIntroGradientText}>Instantly &amp; Meaningfully.</span>
+            </h1>
+            
+            <p className={styles.heroIntroSubtitle}>
+              Simple daily check-ins, personalized 60-second micro-actions,<br className={styles.desktopBr} />
+              and gentle guidance to help you find calm when feeling<br className={styles.desktopBr} />
+              low, anxious, or overwhelmed.
+            </p>
+
+            <div className={styles.heroIntroPills}>
+              <div className={styles.heroPillCard}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="1.2"/>
+                  <path d="M12 6.5l4.5 1.8v3.6c0 3.1-4.5 5.3-4.5 5.3s-4.5-2.2-4.5-5.3V8.3L12 6.5z" fill="#ffffff" opacity="0.95"/>
+                </svg>
+                <span className={styles.pillTextBold}>100% Private &amp; Free</span>
+              </div>
+
+              <div className={styles.heroPillCard}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#f59e0b" stroke="#d97706" strokeWidth="1.2" strokeLinejoin="round"/>
+                </svg>
+                <span className={styles.pillTextBold}>60-Second Micro-Actions</span>
+              </div>
+
+              <div className={styles.heroPillCard}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 21.5V11.5M12 11.5C12 7 16 3 21 3C21 8 17 12 12 12ZM12 11.5C12 7.5 8 4 3 4C3 9 7 12.5 12 12.5Z" stroke="#22c55e" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <div className={styles.pillTextTwoLines}>
+                  <span>Gentle Guidance,</span>
+                  <span>Not Medical Advice</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className={styles.topAd} aria-label="Advertisement placeholder">
           <span className={styles.adBadge}>Ad</span>
@@ -305,7 +410,7 @@ export default function HomePage() {
                   <div>
                     <strong>{plan.title}</strong>
                     <p>{plan.text}</p>
-                    <button type="button">{plan.action}</button>
+                    <a href={plan.link}>{plan.action}</a>
                   </div>
                 </article>
               ))}
@@ -334,11 +439,11 @@ export default function HomePage() {
                 onClick={() => setShowWelcome(false)}
                 aria-label="Close message"
               >
-                ×
+                ✕
               </button>
               <div className={styles.welcomeCardHeader}>
                 <div className={styles.welcomeAvatarCircle}>
-                  <span>👤</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#683cd7" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </div>
                 <div>
                   <h3>Welcome Back! 👋</h3>
@@ -361,11 +466,11 @@ export default function HomePage() {
         </section>
 
         <section className={styles.trustStrip}>
-          <article><span className={`${styles.trustIcon} ${styles.trustPurple}`}>🔒</span><div><strong>Private &amp; Secure</strong><p>Your data is encrypted<br />and protected.</p></div></article>
-          <article><span className={`${styles.trustIcon} ${styles.trustGreen}`}>🛡️</span><div><strong>90-Day Auto Delete</strong><p>We automatically delete your<br />data after 90 days.</p></div></article>
-          <article><span className={`${styles.trustIcon} ${styles.trustRed}`}>💗</span><div><strong>Not Therapy</strong><p>MoodFlip is a self-reflection<br />utility, not a medical service.</p></div></article>
-          <article><span className={`${styles.trustIcon} ${styles.trustBlue}`}>👥</span><div><strong>You&apos;re Not Alone</strong><p>Millions use MoodFlip for small<br />shifts, every day.</p></div></article>
-          <article><span className={`${styles.trustIcon} ${styles.trustOrange}`}>✨</span><div><strong>Made with Care</strong><p>Simple tools for a better<br />you, one step at a time.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustPurple}`}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><strong>Private &amp; Secure</strong><p>Your data is encrypted<br />and protected.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustGreen}`}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><div><strong>90-Day Auto Delete</strong><p>We automatically delete your<br />data after 90 days.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustRed}`}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span><div><strong>Not Therapy</strong><p>MoodFlip is a self-reflection<br />utility, not a medical service.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustBlue}`}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><strong>You&apos;re Not Alone</strong><p>Millions use MoodFlip for small<br />shifts, every day.</p></div></article>
+          <article><span className={`${styles.trustIcon} ${styles.trustOrange}`}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><div><strong>Made with Care</strong><p>Simple tools for a better<br />you, one step at a time.</p></div></article>
         </section>
 
         <section className={styles.bottomAd} aria-label="Advertisement placeholder">
@@ -603,14 +708,14 @@ export default function HomePage() {
             <img
               src="/about-girl.png"
               alt="About MoodFlip - Self reflection utility illustration"
-              className="w-full max-w-[320px] h-auto mx-auto drop-shadow-md hover:scale-102 transition-transform"
+              className={styles.aboutImg}
             />
           </div>
           <div className={styles.aboutCopy}>
             <h2>About MoodFlip</h2>
             <p>MoodFlip is a self-reflection utility designed to help you find your mood match, meaningfully.</p>
             <p>We are not a therapy or medical service. We provide simple tools, not medical advice.</p>
-            <p style={{ marginTop: '16px', fontSize: '13px', color: '#6c40e6', fontWeight: 500 }}>For emergencies, please contact local emergency services.</p>
+            <p className={styles.emergencyNotice}>For emergencies, please contact local emergency services.</p>
           </div>
           <div className={styles.aboutPoints}>
             <p><span>💗</span> Self-reflection, not diagnosis</p>
@@ -622,7 +727,7 @@ export default function HomePage() {
 
         {/* Section 5: Frequently Asked Questions */}
         <section className={styles.faqSection}>
-          <div className={styles.howHeader}>
+          <div className={styles.faqHeader}>
             <h2>Frequently Asked Questions</h2>
           </div>
           <div className={styles.faqGrid}>
@@ -635,8 +740,8 @@ export default function HomePage() {
               "Can I get a refund on my plan?"
             ].map((q, i) => (
               <details key={i}>
-                <summary>{q} <span style={{marginLeft: 'auto'}}>▼</span></summary>
-                <p>This is a placeholder answer. MoodFlip provides simple self-reflection tools to help you shift your mindset.</p>
+                <summary><span>{q}</span> <span className={styles.faqArrow}>▼</span></summary>
+                <p>MoodFlip provides simple, accessible self-reflection tools to help you shift your mindset. We are not a medical service or therapy replacement.</p>
               </details>
             ))}
           </div>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Header from '@/components/Header';
 import { defaultBlogPosts, BlogPost } from '@/lib/blogData';
 
 export default function BlogPage() {
@@ -33,34 +34,14 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F7FC] text-[#1A1338] font-sans antialiased">
-      {/* NAVBAR */}
-      <header className="bg-white/90 backdrop-blur-md border-b border-[#EAE3F2] px-4 lg:px-8 py-4 flex items-center justify-between sticky top-0 z-40 shadow-2xs">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="relative inline-block w-[30px] h-[22px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0 mt-0.5 shadow-sm">
-            <span className="absolute left-[6px] top-[3px] w-[17px] h-[9px] rounded-b-[12px] bg-white" />
-            <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-            <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-          </span>
-          <span className="font-serif text-xl font-extrabold text-[#15183b]">
-            mood<span className="text-[#7148e9]">flip</span>
-          </span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#4A4268]">
-          <Link href="/" className="hover:text-[#7147E8] transition">Home</Link>
-          <Link href="/resources" className="hover:text-[#7147E8] transition">Resources</Link>
-          <Link href="/blog" className="text-[#7147E8] font-extrabold">Blog</Link>
-          <Link href="/contact" className="hover:text-[#7147E8] transition">Contact</Link>
-        </nav>
-        <Link href="/profile" className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-4 py-2 rounded-xl text-sm font-extrabold shadow-sm hover:opacity-90 transition">
-          My Profile →
-        </Link>
-      </header>
+      {/* GLOBAL HEADER */}
+      <Header />
 
       {/* HERO */}
       <section className="bg-gradient-to-br from-[#7147E8] via-[#9333EA] to-[#c026d3] text-white py-16 sm:py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full mb-5">
-            📝 MoodFlip Blog
+            📝 MoodFlip Blog & Articles
           </span>
           <h1 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight mb-4">
             Mindset & Emotional<br className="hidden sm:block" /> Wellness Insights
@@ -76,7 +57,7 @@ export default function BlogPage() {
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search articles..."
+              placeholder="Search 10+ wellness articles..."
               className="w-full bg-white/15 backdrop-blur-sm border border-white/30 rounded-2xl pl-11 pr-4 py-3 text-sm font-semibold text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40"
             />
           </div>
@@ -114,25 +95,40 @@ export default function BlogPage() {
             {/* FEATURED POST */}
             {featuredPost && (
               <Link href={`/blog/${featuredPost.slug}`} className="block group">
-                <div className={`relative rounded-3xl bg-gradient-to-br ${featuredPost.coverColor} p-8 sm:p-10 text-white overflow-hidden shadow-xl hover:shadow-2xl transition-shadow`}>
-                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent pointer-events-none" />
-                  <div className="relative z-10 max-w-3xl">
-                    <div className="flex items-center gap-3 mb-5">
-                      <span className="text-4xl">{featuredPost.emoji}</span>
-                      <span className="text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                <div className="relative rounded-3xl bg-white border border-[#EAE3F2] overflow-hidden shadow-xl hover:shadow-2xl transition-all grid grid-cols-1 lg:grid-cols-12 items-center">
+                  {/* Featured Image Column */}
+                  <div className="lg:col-span-6 h-64 sm:h-80 lg:h-full relative overflow-hidden bg-gradient-to-br from-purple-600 to-indigo-800">
+                    {featuredPost.featuredImage ? (
+                      <img
+                        src={featuredPost.featuredImage}
+                        alt={featuredPost.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-6xl">
+                        {featuredPost.emoji}
+                      </div>
+                    )}
+                    <span className="absolute top-4 left-4 text-3xl drop-shadow">{featuredPost.emoji}</span>
+                  </div>
+
+                  {/* Text Column */}
+                  <div className="lg:col-span-6 p-6 sm:p-10 flex flex-col justify-center">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-xs font-black uppercase tracking-widest bg-[#F0EBFA] text-[#7147E8] px-3 py-1 rounded-full">
                         ⭐ Featured · {featuredPost.category}
                       </span>
                     </div>
-                    <h2 className="font-serif text-2xl sm:text-4xl font-extrabold leading-tight mb-4 group-hover:underline decoration-white/40 underline-offset-4">
+                    <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#1A1338] leading-tight mb-3 group-hover:text-[#7147E8] transition">
                       {featuredPost.title}
                     </h2>
-                    <p className="text-sm sm:text-base text-white/80 font-semibold leading-relaxed mb-6 max-w-2xl">
+                    <p className="text-sm text-[#68607F] font-medium leading-relaxed mb-6 line-clamp-3">
                       {featuredPost.excerpt}
                     </p>
-                    <div className="flex items-center gap-4 text-xs text-white/70 font-semibold">
+                    <div className="flex items-center justify-between text-xs text-gray-400 font-semibold border-t border-gray-100 pt-4">
                       <span>✍️ {featuredPost.author}</span>
-                      <span>📅 {featuredPost.date}</span>
                       <span>⏱ {featuredPost.readTime}</span>
+                      <span className="text-[#7147E8] font-extrabold group-hover:underline">Read Article →</span>
                     </div>
                   </div>
                 </div>
@@ -141,29 +137,42 @@ export default function BlogPage() {
 
             {/* REMAINING POSTS GRID */}
             {restPosts.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {restPosts.map(post => (
                   <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
-                    <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden hover:shadow-lg hover:border-[#7147E8]/40 transition-all h-full flex flex-col">
-                      <div className={`h-36 bg-gradient-to-br ${post.coverColor} flex items-center justify-center`}>
-                        <span className="text-5xl drop-shadow-lg">{post.emoji}</span>
+                    <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden hover:shadow-xl hover:border-[#7147E8]/40 transition-all h-full flex flex-col">
+                      {/* Image or Gradient */}
+                      <div className="h-48 relative overflow-hidden bg-gradient-to-br from-purple-500 to-indigo-700">
+                        {post.featuredImage ? (
+                          <img
+                            src={post.featuredImage}
+                            alt={post.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-5xl">
+                            {post.emoji}
+                          </div>
+                        )}
+                        <span className="absolute top-3 left-3 text-2xl bg-white/80 backdrop-blur-xs w-9 h-9 rounded-xl flex items-center justify-center shadow-2xs">{post.emoji}</span>
                       </div>
+
                       <div className="p-5 flex flex-col flex-1 space-y-3">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-between">
                           <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#F0EBFA] text-[#7147E8]">
                             {post.category}
                           </span>
-                          <span className="text-[10px] text-gray-400 font-semibold ml-auto">{post.readTime}</span>
+                          <span className="text-[10px] text-gray-400 font-semibold">{post.readTime}</span>
                         </div>
-                        <h3 className="font-serif text-base font-extrabold text-[#1A1338] leading-snug group-hover:text-[#7147E8] transition">
+                        <h3 className="font-serif text-base font-extrabold text-[#1A1338] leading-snug group-hover:text-[#7147E8] transition line-clamp-2">
                           {post.title}
                         </h3>
                         <p className="text-xs text-[#68607F] font-medium leading-relaxed flex-1 line-clamp-3">
                           {post.excerpt}
                         </p>
-                        <div className="flex items-center justify-between pt-2 border-t border-gray-100 text-[10px] text-gray-400 font-semibold">
+                        <div className="flex items-center justify-between pt-3 border-t border-gray-100 text-[10px] text-gray-400 font-semibold">
                           <span>{post.date}</span>
-                          <span className="text-[#7147E8] font-extrabold group-hover:underline">Read →</span>
+                          <span className="text-[#7147E8] font-extrabold group-hover:underline">Read Article →</span>
                         </div>
                       </div>
                     </div>

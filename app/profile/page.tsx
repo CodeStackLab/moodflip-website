@@ -1303,12 +1303,34 @@ export default function UserDashboardPage() {
                     <strong className="block text-base font-extrabold text-[#1A1338]">Browser Push Notifications</strong>
                     <span className="text-xs text-gray-500 font-medium leading-relaxed block">Get instant 60-second action reminders on your device screen.</span>
                   </div>
-                  <input
-                    type="checkbox"
-                    checked={notifSettings.pushNotifs}
-                    onChange={(e) => setNotifSettings({ ...notifSettings, pushNotifs: e.target.checked })}
-                    className="w-5 h-5 accent-[#7147E8] shrink-0 cursor-pointer self-start sm:self-auto"
-                  />
+                  <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if ('Notification' in window) {
+                          Notification.requestPermission().then(perm => {
+                            if (perm === 'granted') {
+                              alert('🔔 Push notifications granted! You will now receive mindset reminders.');
+                              setNotifSettings(prev => ({ ...prev, pushNotifs: true }));
+                            } else {
+                              alert('⚠️ Push notifications were blocked in your browser settings.');
+                            }
+                          });
+                        } else {
+                          alert('⚠️ Your browser does not support push notifications.');
+                        }
+                      }}
+                      className="text-xs font-extrabold bg-[#7147E8] text-white px-3 py-1.5 rounded-xl hover:opacity-90 transition"
+                    >
+                      Enable Permission
+                    </button>
+                    <input
+                      type="checkbox"
+                      checked={notifSettings.pushNotifs}
+                      onChange={(e) => setNotifSettings({ ...notifSettings, pushNotifs: e.target.checked })}
+                      className="w-5 h-5 accent-[#7147E8] shrink-0 cursor-pointer"
+                    />
+                  </div>
                 </div>
               </div>
 

@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 
 interface RichEditorProps {
@@ -27,6 +28,7 @@ const TOOLBAR = [
   { cmd: '|' },
   { cmd: 'blockquote', icon: '❝', title: 'Blockquote' },
   { cmd: 'createLink', icon: '🔗', title: 'Insert Link' },
+  { cmd: 'insertImage', icon: '🖼️', title: 'Insert Image' },
   { cmd: 'removeFormat', icon: '✕F', title: 'Clear Formatting' },
   { cmd: '|' },
   { cmd: 'foreColor_purple', icon: '<span style="color:#7147E8;font-weight:900">A</span>', title: 'Purple Text' },
@@ -36,6 +38,7 @@ const TOOLBAR = [
 
 export default function RichEditor({ value, onChange, placeholder = 'Write content here...', minHeight = '320px' }: RichEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [activeView, setActiveView] = useState<'edit' | 'html'>('edit');
   const isUpdatingRef = useRef(false);
 
@@ -64,8 +67,18 @@ export default function RichEditor({ value, onChange, placeholder = 'Write conte
     } else if (cmd === 'blockquote') {
       document.execCommand('formatBlock', false, 'blockquote');
     } else if (cmd === 'createLink') {
-      const url = prompt('Enter URL:', 'https://');
+      const url = prompt('Enter link URL:', 'https://');
       if (url) document.execCommand('createLink', false, url);
+    } else if (cmd === 'insertImage') {
+      const choice = confirm('Click OK to upload an image file from your device, or Cancel to enter an Image URL.');
+      if (choice) {
+        fileInputRef.current?.click();
+      } else {
+        const url = prompt('Enter Image URL:', 'https://');
+        if (url) {
+          document.execCommand('insertImage', false, url);
+        }
+      }
     } else if (cmd === 'foreColor_purple') {
       document.execCommand('foreColor', false, '#7147E8');
     } else if (cmd === 'foreColor_reset') {
@@ -78,8 +91,32 @@ export default function RichEditor({ value, onChange, placeholder = 'Write conte
     handleInput();
   }, [handleInput]);
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target?.result as string;
+        if (base64) {
+          editorRef.current?.focus();
+          document.execCommand('insertImage', false, base64);
+          handleInput();
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="border border-[#EAE3F2] rounded-2xl overflow-hidden bg-white shadow-xs">
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileUpload}
+        accept="image/*"
+        className="hidden"
+      />
+
       {/* Toolbar */}
       <div className="flex items-center flex-wrap gap-0.5 px-2 py-2 bg-[#FAF8FD] border-b border-[#EAE3F2]">
         {TOOLBAR.map((btn, i) =>
@@ -102,14 +139,14 @@ export default function RichEditor({ value, onChange, placeholder = 'Write conte
             onClick={() => setActiveView('edit')}
             className={`px-2.5 py-1 rounded-lg text-[10px] font-extrabold transition-colors ${activeView === 'edit' ? 'bg-[#7147E8] text-white' : 'text-[#4A4268] hover:bg-[#EAE3F2]'}`}
           >
-            Edit
+            Visual Edit
           </button>
           <button
             type="button"
             onClick={() => setActiveView('html')}
             className={`px-2.5 py-1 rounded-lg text-[10px] font-extrabold transition-colors ${activeView === 'html' ? 'bg-[#7147E8] text-white' : 'text-[#4A4268] hover:bg-[#EAE3F2]'}`}
           >
-            HTML
+            HTML Source
           </button>
         </div>
       </div>
@@ -122,7 +159,7 @@ export default function RichEditor({ value, onChange, placeholder = 'Write conte
           suppressContentEditableWarning
           onInput={handleInput}
           data-placeholder={placeholder}
-          className="outline-none p-4 text-sm text-[#1A1338] leading-relaxed overflow-auto"
+          className="outline-none p-4 text-sm text-[#1A1338] leading-relaxed overflow-auto editor-canvas"
           style={{
             minHeight,
             fontFamily: 'inherit',
@@ -140,23 +177,34 @@ export default function RichEditor({ value, onChange, placeholder = 'Write conte
 
       {/* Footer info */}
       <div className="px-3 py-1.5 bg-[#FAF8FD] border-t border-[#EAE3F2] text-[10px] text-gray-400 font-semibold flex items-center justify-between">
-        <span>Rich Text Editor · Use toolbar or keyboard shortcuts (Ctrl+B, Ctrl+I, Ctrl+U)</span>
+        <span>Rich Text Editor · Upload inline images or format text easily</span>
         <span>{value.replace(/<[^>]*>/g, '').length} chars</span>
       </div>
 
       <style>{`
-        [contenteditable]:empty:before {
+        .editor-canvas:empty:before {
           content: attr(data-placeholder);
           color: #9CA3AF;
           pointer-events: none;
         }
-        [contenteditable] h2 { font-family: Georgia, serif; font-size: 1.4rem; font-weight: 800; margin: 1rem 0 0.5rem; color: #1A1338; }
-        [contenteditable] h3 { font-family: Georgia, serif; font-size: 1.1rem; font-weight: 700; margin: 0.8rem 0 0.3rem; color: #1A1338; }
-        [contenteditable] blockquote { border-left: 3px solid #7147E8; padding-left: 1rem; margin: 0.8rem 0; color: #68607F; font-style: italic; }
-        [contenteditable] ul { padding-left: 1.4rem; margin: 0.5rem 0; list-style-type: disc; }
-        [contenteditable] ol { padding-left: 1.4rem; margin: 0.5rem 0; list-style-type: decimal; }
-        [contenteditable] li { margin-bottom: 0.25rem; }
-        [contenteditable] a { color: #7147E8; text-decoration: underline; }
+        .editor-canvas h2 { font-family: Georgia, serif; font-size: 1.4rem; font-weight: 800; margin: 1rem 0 0.5rem; color: #1A1338; }
+        .editor-canvas h3 { font-family: Georgia, serif; font-size: 1.1rem; font-weight: 700; margin: 0.8rem 0 0.3rem; color: #1A1338; }
+        .editor-canvas blockquote { border-left: 3px solid #7147E8; padding-left: 1rem; margin: 0.8rem 0; color: #68607F; font-style: italic; background: #FAF8FD; border-radius: 0 8px 8px 0; }
+        .editor-canvas ul { padding-left: 1.4rem; margin: 0.5rem 0; list-style-type: disc; }
+        .editor-canvas ol { padding-left: 1.4rem; margin: 0.5rem 0; list-style-type: decimal; }
+        .editor-canvas li { margin-bottom: 0.25rem; }
+        .editor-canvas a { color: #7147E8; text-decoration: underline; font-weight: 700; }
+        .editor-canvas img {
+          max-width: 100% !important;
+          max-height: 260px !important;
+          width: auto !important;
+          height: auto !important;
+          object-fit: cover !important;
+          border-radius: 14px !important;
+          margin: 12px 0 !important;
+          border: 1px solid #EAE3F2 !important;
+          display: block !important;
+        }
       `}</style>
     </div>
   );

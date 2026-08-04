@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { defaultBlogPosts } from '@/lib/blogData';
+import Header from '@/components/Header';
+import { defaultBlogPosts, BlogPost } from '@/lib/blogData';
 
 const resources = [
   {
@@ -91,28 +92,8 @@ export default function ResourcesPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F7FC] text-[#1A1338] font-sans antialiased">
-      {/* NAVBAR */}
-      <header className="bg-white/90 backdrop-blur-md border-b border-[#EAE3F2] px-4 lg:px-8 py-4 flex items-center justify-between sticky top-0 z-40 shadow-2xs">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="relative inline-block w-[30px] h-[22px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0 mt-0.5 shadow-sm">
-            <span className="absolute left-[6px] top-[3px] w-[17px] h-[9px] rounded-b-[12px] bg-white" />
-            <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-            <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-          </span>
-          <span className="font-serif text-xl font-extrabold text-[#15183b]">
-            mood<span className="text-[#7148e9]">flip</span>
-          </span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#4A4268]">
-          <Link href="/" className="hover:text-[#7147E8] transition">Home</Link>
-          <Link href="/resources" className="text-[#7147E8] font-extrabold">Resources</Link>
-          <Link href="/blog" className="hover:text-[#7147E8] transition">Blog</Link>
-          <Link href="/contact" className="hover:text-[#7147E8] transition">Contact</Link>
-        </nav>
-        <Link href="/profile" className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-4 py-2 rounded-xl text-sm font-extrabold shadow-sm hover:opacity-90 transition">
-          My Profile →
-        </Link>
-      </header>
+      {/* GLOBAL HEADER */}
+      <Header />
 
       {/* HERO */}
       <section className="bg-gradient-to-br from-[#1A0A3B] via-[#2D1065] to-[#7147E8] text-white py-16 sm:py-24 px-4 relative overflow-hidden">

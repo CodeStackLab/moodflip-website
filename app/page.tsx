@@ -119,6 +119,7 @@ export default function HomePage() {
             <a href="#how">How It Works</a>
             <a href="#library">Mood Library</a>
             <a href="#resources">Resources</a>
+            <Link href="/blog">Blog</Link>
           </nav>
 
           <div className={styles.headerActions}>
@@ -166,6 +167,10 @@ export default function HomePage() {
                 <span className={styles.mobileNavIcon}>🎁</span>
                 <span>Resources</span>
               </a>
+              <Link href="/blog" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>📝</span>
+                <span>Blog</span>
+              </Link>
             </div>
 
             <div className={styles.mobileDrawerActions}>

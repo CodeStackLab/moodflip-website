@@ -4,8 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { defaultBlogPosts, BlogPost } from '@/lib/blogData';
 
-// Simple markdown-to-JSX renderer
-function renderMarkdown(content: string) {
+// Content Renderer — renders HTML if present, or fallback markdown
+function renderContent(content: string) {
+  if (!content) return null;
+  const isHtml = /<[a-z][\s\S]*>/i.test(content);
+
+  if (isHtml) {
+    return (
+      <div
+        className="prose-custom text-[#5B5278] text-base leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
+  }
+
+  // Fallback markdown parsing
   return content.split('\n').map((line, i) => {
     if (line.startsWith('## ')) return <h2 key={i} className="font-serif text-2xl font-extrabold text-[#1A1338] mt-8 mb-3">{line.slice(3)}</h2>;
     if (line.startsWith('### ')) return <h3 key={i} className="font-serif text-lg font-extrabold text-[#1A1338] mt-6 mb-2">{line.slice(4)}</h3>;
@@ -17,7 +30,6 @@ function renderMarkdown(content: string) {
     if (line.match(/^\d+\. /)) return <li key={i} className="mb-1 list-decimal">{line.replace(/^\d+\. /, '')}</li>;
     if (line.startsWith('**') && line.endsWith('**')) return <p key={i} className="font-extrabold text-[#1A1338] my-2">{line.slice(2, -2)}</p>;
     if (line === '') return <div key={i} className="h-2" />;
-    // Handle inline bold
     const parts = line.split(/(\*\*[^*]+\*\*)/g);
     return (
       <p key={i} className="text-[#5B5278] text-base leading-relaxed mb-0">
@@ -30,6 +42,8 @@ function renderMarkdown(content: string) {
     );
   });
 }
+
+import Header from '@/components/Header';
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const [posts, setPosts] = useState<BlogPost[]>(defaultBlogPosts);
@@ -69,28 +83,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   return (
     <div className="min-h-screen bg-[#F8F7FC] text-[#1A1338] font-sans antialiased">
-      {/* NAVBAR */}
-      <header className="bg-white/90 backdrop-blur-md border-b border-[#EAE3F2] px-4 lg:px-8 py-4 flex items-center justify-between sticky top-0 z-40 shadow-2xs">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="relative inline-block w-[30px] h-[22px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0 mt-0.5 shadow-sm">
-            <span className="absolute left-[6px] top-[3px] w-[17px] h-[9px] rounded-b-[12px] bg-white" />
-            <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-            <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-          </span>
-          <span className="font-serif text-xl font-extrabold text-[#15183b]">
-            mood<span className="text-[#7148e9]">flip</span>
-          </span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#4A4268]">
-          <Link href="/" className="hover:text-[#7147E8] transition">Home</Link>
-          <Link href="/resources" className="hover:text-[#7147E8] transition">Resources</Link>
-          <Link href="/blog" className="text-[#7147E8] font-extrabold">Blog</Link>
-          <Link href="/contact" className="hover:text-[#7147E8] transition">Contact</Link>
-        </nav>
-        <Link href="/profile" className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-4 py-2 rounded-xl text-sm font-extrabold shadow-sm hover:opacity-90 transition">
-          My Profile →
-        </Link>
-      </header>
+      {/* GLOBAL HEADER */}
+      <Header />
 
       {/* HERO BANNER */}
       <div className={`bg-gradient-to-br ${post.coverColor} py-14 sm:py-20 px-4`}>
@@ -118,11 +112,23 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         </div>
       </div>
 
-      {/* CONTENT */}
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <article className="bg-white rounded-3xl border border-[#EAE3F2] shadow-xs p-6 sm:p-10 space-y-2">
-          <div className="prose-like text-[#5B5278] text-base leading-relaxed [&_ul]:pl-5 [&_ul]:space-y-1 [&_ol]:pl-5 [&_ol]:space-y-1">
-            {renderMarkdown(post.content)}
+      {/* FEATURED IMAGE & CONTENT CONTAINER */}
+      <div className="max-w-3xl mx-auto px-4 py-10">
+        <article className="bg-white rounded-3xl border border-[#EAE3F2] shadow-xs p-6 sm:p-10 space-y-6">
+          {/* FEATURED IMAGE */}
+          {post.featuredImage && (
+            <div className="rounded-2xl overflow-hidden shadow-sm mb-6 border border-[#EAE3F2]">
+              <img
+                src={post.featuredImage}
+                alt={post.title}
+                className="w-full h-auto max-h-[450px] object-cover"
+              />
+            </div>
+          )}
+
+          {/* ARTICLE CONTENT */}
+          <div>
+            {renderContent(post.content)}
           </div>
         </article>
 
@@ -151,12 +157,19 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               {relatedPosts.map(rp => (
                 <Link key={rp.id} href={`/blog/${rp.slug}`} className="group block">
                   <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden hover:shadow-md hover:border-[#7147E8]/40 transition-all">
-                    <div className={`h-24 bg-gradient-to-br ${rp.coverColor} flex items-center justify-center`}>
-                      <span className="text-4xl">{rp.emoji}</span>
-                    </div>
+                    {rp.featuredImage ? (
+                      <div className="h-28 overflow-hidden relative">
+                        <img src={rp.featuredImage} alt={rp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <span className="absolute bottom-2 left-2 text-2xl drop-shadow">{rp.emoji}</span>
+                      </div>
+                    ) : (
+                      <div className={`h-28 bg-gradient-to-br ${rp.coverColor} flex items-center justify-center`}>
+                        <span className="text-4xl">{rp.emoji}</span>
+                      </div>
+                    )}
                     <div className="p-4">
                       <span className="text-[10px] font-black uppercase tracking-wider text-[#7147E8]">{rp.category}</span>
-                      <h4 className="font-serif text-sm font-extrabold text-[#1A1338] mt-1 group-hover:text-[#7147E8] transition leading-snug">{rp.title}</h4>
+                      <h4 className="font-serif text-sm font-extrabold text-[#1A1338] mt-1 group-hover:text-[#7147E8] transition leading-snug line-clamp-2">{rp.title}</h4>
                     </div>
                   </div>
                 </Link>
@@ -165,6 +178,75 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
         )}
       </div>
+
+      {/* STYLES FOR RICH HTML IN BLOG POSTS */}
+      <style jsx global>{`
+        .prose-custom h2 {
+          font-family: Georgia, serif;
+          font-size: 1.6rem;
+          font-weight: 800;
+          color: #1A1338;
+          margin-top: 2rem;
+          margin-bottom: 0.75rem;
+          line-height: 1.3;
+        }
+        .prose-custom h3 {
+          font-family: Georgia, serif;
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: #1A1338;
+          margin-top: 1.5rem;
+          margin-bottom: 0.5rem;
+          line-height: 1.3;
+        }
+        .prose-custom p {
+          color: #5B5278;
+          font-size: 1rem;
+          line-height: 1.7;
+          margin-bottom: 1rem;
+        }
+        .prose-custom ul {
+          list-style-type: disc;
+          padding-left: 1.4rem;
+          margin-bottom: 1.25rem;
+          color: #5B5278;
+        }
+        .prose-custom ol {
+          list-style-type: decimal;
+          padding-left: 1.4rem;
+          margin-bottom: 1.25rem;
+          color: #5B5278;
+        }
+        .prose-custom li {
+          margin-bottom: 0.4rem;
+          line-height: 1.6;
+        }
+        .prose-custom blockquote {
+          border-left: 4px solid #7147E8;
+          padding: 0.75rem 1.25rem;
+          background: #FAF8FD;
+          border-radius: 0 12px 12px 0;
+          font-style: italic;
+          color: #4A4268;
+          margin: 1.5rem 0;
+        }
+        .prose-custom img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 16px;
+          margin: 1.5rem 0;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .prose-custom strong {
+          color: #1A1338;
+          font-weight: 800;
+        }
+        .prose-custom a {
+          color: #7147E8;
+          text-decoration: underline;
+          font-weight: 700;
+        }
+      `}</style>
 
       {/* FOOTER */}
       <footer className="bg-white border-t border-[#EAE3F2] py-8 px-4 text-center text-xs text-[#8A829E] font-semibold">

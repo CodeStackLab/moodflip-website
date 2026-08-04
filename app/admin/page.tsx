@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { defaultBlogPosts, defaultLegalPages } from '@/lib/blogData';
 import type { BlogPost, LegalPage } from '@/lib/blogData';
+import RichEditor from '@/components/RichEditor';
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -385,17 +386,17 @@ export default function AdminDashboardPage() {
     <div className="min-h-screen bg-[#FAF9FE] text-[#1A1338] font-sans antialiased flex flex-col">
 
       {/* MOBILE TOP NAVBAR */}
-      <div className="lg:hidden bg-white border-b border-[#EAE3F2] px-4 py-3 flex items-center justify-between shadow-xs sticky top-0 z-40">
-        <div className="flex items-center gap-2.5">
+      <div className="lg:hidden bg-white border-b border-[#EAE3F2] px-4 py-2.5 flex items-center justify-between shadow-xs sticky top-0 z-40">
+        <div className="flex items-center gap-3">
           <button 
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-xl bg-[#FAF8FD] text-[#1A1338] border border-[#EAE3F2] text-lg font-bold"
+            className="w-9 h-9 rounded-xl bg-[#FAF8FD] text-[#1A1338] border border-[#EAE3F2] text-base font-bold flex items-center justify-center hover:bg-[#F0EBFA] transition-colors shrink-0"
             aria-label="Toggle menu"
           >
             {sidebarOpen ? '✕' : '☰'}
           </button>
-          <Link href="/" className="flex items-center gap-2 sm:gap-2.5 text-decoration-none group">
-            <span className="relative inline-block w-[28px] h-[21px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0 mt-0.5">
+          <Link href="/" className="flex items-center gap-2 text-decoration-none group">
+            <span className="relative inline-block w-[28px] h-[21px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0">
               <span className="absolute left-[6px] top-[3px] w-[16px] h-[9px] rounded-b-[12px] bg-white" />
               <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
               <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
@@ -1235,19 +1236,19 @@ export default function AdminDashboardPage() {
           {/* VIEW TAB 7: EMAIL LEADS & MARKETING SUITE */}
           {activeTab === 'Email Leads' && (
             <div className="space-y-6">
-              <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6">
+              <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                   <div>
                     <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Collected Email Leads ({leads.length}) ✉️</h2>
                     <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Leads captured through 7-Day Plan popups and daily reminders.</p>
                   </div>
-                  <button onClick={exportLeadsCSV} className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer">
+                  <button onClick={exportLeadsCSV} className="w-full sm:w-auto bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center">
                     📥 Export Leads CSV
                   </button>
                 </div>
 
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs">
+                <div className="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+                  <table className="w-full min-w-[650px] text-left text-xs">
                     <thead>
                       <tr className="border-b border-gray-200 text-gray-400 font-extrabold uppercase text-[10px] tracking-wider">
                         <th className="py-3.5 px-3">ID</th>
@@ -1264,10 +1265,10 @@ export default function AdminDashboardPage() {
                           <td className="py-3.5 px-3 font-extrabold text-sm text-[#1A1338]">{l.email}</td>
                           <td className="py-3.5 px-3 text-gray-500 font-medium">{l.date}</td>
                           <td className="py-3.5 px-3">
-                            <span className="bg-purple-100 text-[#7147E8] px-3 py-1 rounded-full text-xs font-extrabold">{l.source}</span>
+                            <span className="bg-purple-100 text-[#7147E8] px-3 py-1 rounded-full text-xs font-extrabold whitespace-nowrap">{l.source}</span>
                           </td>
                           <td className="py-3.5 px-3 text-right">
-                            <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-extrabold">Subscribed</span>
+                            <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-extrabold whitespace-nowrap">Subscribed</span>
                           </td>
                         </tr>
                       ))}
@@ -1277,10 +1278,10 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* EMAIL MARKETING BROADCAST CAMPAIGN SUITE */}
-              <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6">
-                <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+              <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                   <div className="flex items-center gap-3">
-                    <span className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#7147E8] to-[#9333EA] text-white flex items-center justify-center font-extrabold text-lg shadow-xs">
+                    <span className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#7147E8] to-[#9333EA] text-white flex items-center justify-center font-extrabold text-lg shadow-xs shrink-0">
                       🚀
                     </span>
                     <div>
@@ -1288,7 +1289,7 @@ export default function AdminDashboardPage() {
                       <p className="text-xs text-[#68607F] font-semibold">Send promotional newsletters, drip sequences, and 7-day plan offers to user segments.</p>
                     </div>
                   </div>
-                  <span className="text-xs font-extrabold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700">
+                  <span className="text-xs font-extrabold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 shrink-0 self-start sm:self-auto">
                     SMTP Server Ready
                   </span>
                 </div>
@@ -1367,7 +1368,7 @@ export default function AdminDashboardPage() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between pt-2">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
                   <span className="text-[11px] text-gray-400 font-semibold">Tags available: {'{{name}}'}, {'{{email}}'}, {'{{plan_url}}'}</span>
                   <button
                     onClick={() => {
@@ -1376,7 +1377,7 @@ export default function AdminDashboardPage() {
                         setCampaignStatus({ type: 'success', text: `✅ Email Broadcast Campaign successfully sent to ${emailCampaign.audience} via SMTP!` });
                       }, 1800);
                     }}
-                    className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-6 py-3 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer"
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-6 py-3 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center"
                   >
                     🚀 Broadcast Campaign Now
                   </button>
@@ -1908,66 +1909,13 @@ export default function AdminDashboardPage() {
                       className="text-[#7147E8] hover:underline text-[10px] font-extrabold">View ↗</a>
                   </div>
 
-                  {/* Rich Text Editor */}
-                  <div className="border border-[#EAE3F2] rounded-2xl overflow-hidden bg-white shadow-xs">
-                    {/* Toolbar */}
-                    <div className="flex flex-wrap items-center gap-0.5 px-2 py-2 bg-[#FAF8FD] border-b border-[#EAE3F2]">
-                      {[
-                        { cmd: 'bold', label: '<b>B</b>' },
-                        { cmd: 'italic', label: '<i>I</i>' },
-                        { cmd: 'underline', label: '<u>U</u>' },
-                        { cmd: 'strikeThrough', label: '<s>S</s>' },
-                        { cmd: 'sep' },
-                        { cmd: 'h2', label: 'H2' },
-                        { cmd: 'h3', label: 'H3' },
-                        { cmd: 'p', label: '¶' },
-                        { cmd: 'sep' },
-                        { cmd: 'insertUnorderedList', label: '≡' },
-                        { cmd: 'insertOrderedList', label: '1.' },
-                        { cmd: 'sep' },
-                        { cmd: 'justifyLeft', label: '⬛' },
-                        { cmd: 'justifyCenter', label: '▪⬛▪' },
-                        { cmd: 'justifyRight', label: '▪▪⬛' },
-                        { cmd: 'sep' },
-                        { cmd: 'blockquote', label: '❝' },
-                        { cmd: 'link', label: '🔗' },
-                        { cmd: 'removeFormat', label: 'T✕' },
-                      ].map((btn, i) =>
-                        btn.cmd === 'sep'
-                          ? <div key={i} className="w-px h-5 bg-[#EAE3F2] mx-0.5" />
-                          : <button key={i} type="button" title={btn.cmd}
-                              onMouseDown={e => {
-                                e.preventDefault();
-                                const el = document.getElementById('post-editor');
-                                el?.focus();
-                                if (btn.cmd === 'h2') document.execCommand('formatBlock', false, 'h2');
-                                else if (btn.cmd === 'h3') document.execCommand('formatBlock', false, 'h3');
-                                else if (btn.cmd === 'p') document.execCommand('formatBlock', false, 'p');
-                                else if (btn.cmd === 'blockquote') document.execCommand('formatBlock', false, 'blockquote');
-                                else if (btn.cmd === 'link') { const u = prompt('URL:','https://'); if (u) document.execCommand('createLink', false, u); }
-                                else document.execCommand(btn.cmd, false, undefined);
-                              }}
-                              className="px-2 py-1 rounded-lg text-[11px] font-bold text-[#4A4268] hover:bg-[#EAE3F2] hover:text-[#7147E8] transition min-w-[26px] text-center"
-                              dangerouslySetInnerHTML={{ __html: btn.label || '' }}
-                            />
-                      )}
-                    </div>
-                    {/* Editable Content */}
-                    <div
-                      id="post-editor"
-                      contentEditable
-                      suppressContentEditableWarning
-                      onInput={e => setEditingPost({ ...editingPost, content: (e.currentTarget as HTMLDivElement).innerHTML })}
-                      dangerouslySetInnerHTML={{ __html: editingPost.content }}
-                      className="outline-none p-5 min-h-[380px] text-sm text-[#1A1338] leading-relaxed"
-                      style={{ fontFamily: 'inherit' }}
-                    />
-                    {/* Footer */}
-                    <div className="px-4 py-2 bg-[#FAF8FD] border-t border-[#EAE3F2] text-[10px] text-gray-400 font-semibold flex justify-between">
-                      <span>Rich Text Editor · Ctrl+B Bold · Ctrl+I Italic · Ctrl+U Underline</span>
-                      <span>{editingPost.content.replace(/<[^>]*>/g,'').length} chars</span>
-                    </div>
-                  </div>
+                  {/* Rich Text Editor Component */}
+                  <RichEditor
+                    value={editingPost.content}
+                    onChange={val => setEditingPost({ ...editingPost, content: val })}
+                    placeholder="Write post content with full formatting, headings, quotes, and inline images..."
+                    minHeight="380px"
+                  />
 
                   {/* Excerpt */}
                   <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs">
@@ -2027,52 +1975,56 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
 
-                  {/* Post Details */}
+                  {/* Featured Image Box */}
                   <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
-                    <div className="px-4 py-3 bg-[#FAF8FD] border-b border-[#EAE3F2]">
-                      <h4 className="font-serif font-extrabold text-sm text-[#1A1338]">Post Details</h4>
+                    <div className="px-4 py-3 bg-[#FAF8FD] border-b border-[#EAE3F2] flex items-center justify-between">
+                      <h4 className="font-serif font-extrabold text-sm text-[#1A1338]">🖼️ Featured Image</h4>
+                      {editingPost.featuredImage && (
+                        <button
+                          type="button"
+                          onClick={() => setEditingPost({ ...editingPost, featuredImage: '' })}
+                          className="text-[10px] font-extrabold text-rose-600 hover:underline"
+                        >Remove</button>
+                      )}
                     </div>
                     <div className="p-4 space-y-3 text-xs">
+                      {editingPost.featuredImage ? (
+                        <div className="relative rounded-xl overflow-hidden border border-[#EAE3F2]">
+                          <img src={editingPost.featuredImage} alt="Featured Preview" className="w-full h-36 object-cover" />
+                        </div>
+                      ) : (
+                        <div className="border-2 border-dashed border-[#EAE3F2] rounded-xl p-4 text-center text-gray-400">
+                          <span className="text-2xl block mb-1">🖼️</span>
+                          <span className="text-[11px] font-semibold">No featured image set</span>
+                        </div>
+                      )}
                       <div>
-                        <label className="block font-extrabold text-[#1A1338] mb-1">Category</label>
-                        <input type="text" value={editingPost.category}
-                          onChange={e => setEditingPost({ ...editingPost, category: e.target.value })}
-                          className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-semibold bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
+                        <label className="block font-extrabold text-[#1A1338] mb-1">Image URL</label>
+                        <input
+                          type="text"
+                          value={editingPost.featuredImage || ''}
+                          onChange={e => setEditingPost({ ...editingPost, featuredImage: e.target.value })}
+                          placeholder="https://images.unsplash.com/..."
+                          className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-mono text-[11px] bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
                         />
                       </div>
                       <div>
-                        <label className="block font-extrabold text-[#1A1338] mb-1">Author</label>
-                        <input type="text" value={editingPost.author}
-                          onChange={e => setEditingPost({ ...editingPost, author: e.target.value })}
-                          className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-semibold bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
+                        <label className="block font-extrabold text-[#1A1338] mb-1">Or Upload from Computer</label>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={e => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = ev => {
+                                setEditingPost({ ...editingPost, featuredImage: ev.target?.result as string });
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                          className="w-full text-[10px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-[11px] file:font-extrabold file:bg-[#F0EBFA] file:text-[#7147E8] hover:file:bg-[#E8E0F8] cursor-pointer"
                         />
-                      </div>
-                      <div>
-                        <label className="block font-extrabold text-[#1A1338] mb-1">Read Time</label>
-                        <input type="text" value={editingPost.readTime}
-                          onChange={e => setEditingPost({ ...editingPost, readTime: e.target.value })}
-                          className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-semibold bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-extrabold text-[#1A1338] mb-1">Cover Emoji</label>
-                        <input type="text" value={editingPost.emoji}
-                          onChange={e => setEditingPost({ ...editingPost, emoji: e.target.value })}
-                          className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 text-xl bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-extrabold text-[#1A1338] mb-1">Cover Gradient</label>
-                        <select value={editingPost.coverColor}
-                          onChange={e => setEditingPost({ ...editingPost, coverColor: e.target.value })}
-                          className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-semibold bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]">
-                          <option value="from-violet-500 to-purple-700">Purple</option>
-                          <option value="from-blue-500 to-cyan-600">Blue</option>
-                          <option value="from-emerald-500 to-teal-600">Green</option>
-                          <option value="from-rose-500 to-pink-600">Pink</option>
-                          <option value="from-amber-500 to-orange-600">Orange</option>
-                          <option value="from-indigo-500 to-purple-600">Indigo</option>
-                        </select>
                       </div>
                     </div>
                   </div>
@@ -2201,55 +2153,13 @@ export default function AdminDashboardPage() {
                     <span className="font-mono text-[#7147E8]">moodflip.coach/{editingLegalPage.slug}</span>
                   </div>
 
-                  {/* Rich Content Editor */}
-                  <div className="border border-[#EAE3F2] rounded-2xl overflow-hidden bg-white shadow-xs">
-                    <div className="flex flex-wrap items-center gap-0.5 px-2 py-2 bg-[#FAF8FD] border-b border-[#EAE3F2]">
-                      {[
-                        { cmd: 'bold', label: '<b>B</b>' },
-                        { cmd: 'italic', label: '<i>I</i>' },
-                        { cmd: 'underline', label: '<u>U</u>' },
-                        { cmd: 'sep' },
-                        { cmd: 'h2', label: 'H2' },
-                        { cmd: 'h3', label: 'H3' },
-                        { cmd: 'p', label: '¶' },
-                        { cmd: 'sep' },
-                        { cmd: 'insertUnorderedList', label: '≡' },
-                        { cmd: 'insertOrderedList', label: '1.' },
-                        { cmd: 'sep' },
-                        { cmd: 'link', label: '🔗' },
-                        { cmd: 'removeFormat', label: 'T✕' },
-                      ].map((btn, i) =>
-                        btn.cmd === 'sep'
-                          ? <div key={i} className="w-px h-5 bg-[#EAE3F2] mx-0.5" />
-                          : <button key={i} type="button"
-                              onMouseDown={e => {
-                                e.preventDefault();
-                                const el = document.getElementById('legal-editor');
-                                el?.focus();
-                                if (btn.cmd === 'h2') document.execCommand('formatBlock', false, 'h2');
-                                else if (btn.cmd === 'h3') document.execCommand('formatBlock', false, 'h3');
-                                else if (btn.cmd === 'p') document.execCommand('formatBlock', false, 'p');
-                                else if (btn.cmd === 'link') { const u = prompt('URL:','https://'); if (u) document.execCommand('createLink', false, u); }
-                                else document.execCommand(btn.cmd, false, undefined);
-                              }}
-                              className="px-2 py-1 rounded-lg text-[11px] font-bold text-[#4A4268] hover:bg-[#EAE3F2] hover:text-[#7147E8] transition min-w-[26px] text-center"
-                              dangerouslySetInnerHTML={{ __html: btn.label || '' }}
-                            />
-                      )}
-                    </div>
-                    <div
-                      id="legal-editor"
-                      contentEditable
-                      suppressContentEditableWarning
-                      onInput={e => setEditingLegalPage({ ...editingLegalPage, content: (e.currentTarget as HTMLDivElement).innerHTML })}
-                      dangerouslySetInnerHTML={{ __html: editingLegalPage.content }}
-                      className="outline-none p-5 min-h-[500px] text-sm text-[#1A1338] leading-relaxed"
-                      style={{ fontFamily: 'inherit' }}
-                    />
-                    <div className="px-4 py-2 bg-[#FAF8FD] border-t border-[#EAE3F2] text-[10px] text-gray-400 font-semibold">
-                      Rich Text Editor · Select text and use toolbar to format
-                    </div>
-                  </div>
+                  {/* Rich Text Editor Component for Legal Page */}
+                  <RichEditor
+                    value={editingLegalPage.content}
+                    onChange={val => setEditingLegalPage({ ...editingLegalPage, content: val })}
+                    placeholder="Edit legal terms or privacy policy content..."
+                    minHeight="450px"
+                  />
                 </div>
 
                 {/* RIGHT SIDEBAR */}

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { defaultBlogPosts, BlogPost } from '@/lib/blogData';
 
 const resources = [
@@ -205,23 +206,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-white border-t border-[#EAE3F2] py-8 px-4 text-center text-xs text-[#8A829E] font-semibold">
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <span className="relative inline-block w-[22px] h-[16px] rounded-b-[14px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9]">
-            <span className="absolute left-[5px] top-[3px] w-[12px] h-[7px] rounded-b-[9px] bg-white" />
-          </span>
-          <span className="font-serif text-base font-extrabold text-[#15183b]">mood<span className="text-[#7148e9]">flip</span></span>
-        </div>
-        <div className="flex items-center justify-center gap-4 flex-wrap mb-3">
-          <Link href="/" className="hover:text-[#7147E8] transition">Home</Link>
-          <Link href="/resources" className="hover:text-[#7147E8] transition">Resources</Link>
-          <Link href="/blog" className="hover:text-[#7147E8] transition">Blog</Link>
-          <Link href="/terms" className="hover:text-[#7147E8] transition">Terms</Link>
-          <Link href="/privacy" className="hover:text-[#7147E8] transition">Privacy</Link>
-          <Link href="/contact" className="hover:text-[#7147E8] transition">Contact</Link>
-        </div>
-        <p>© 2026 MoodFlip. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

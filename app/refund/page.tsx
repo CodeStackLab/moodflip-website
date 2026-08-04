@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { defaultLegalPages, LegalPage } from '@/lib/blogData';
 
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function RefundPage() {
   const [pageData, setPageData] = useState<LegalPage>(
@@ -38,22 +39,22 @@ export default function RefundPage() {
       {/* GLOBAL HEADER */}
       <Header />
 
-      {/* HEADER */}
-      <div className="bg-gradient-to-br from-[#7147E8] to-[#9333EA] text-white py-14 px-4 text-center">
-        <div className="max-w-3xl mx-auto">
-          <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full mb-3">
-            Legal & Policy
+      {/* HERO BANNER */}
+      <div className="bg-gradient-to-br from-[#7147E8] via-[#8B5CF6] to-[#9333EA] text-white py-10 sm:py-14 px-4 text-center">
+        <div className="max-w-3xl mx-auto space-y-2.5">
+          <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
+            💳 Refund Policy
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-extrabold mb-2">{pageData.title}</h1>
+          <h1 className="font-serif text-2xl sm:text-4xl font-extrabold leading-tight">{pageData.title}</h1>
           <p className="text-xs text-white/80 font-semibold">Last Updated: {pageData.lastUpdated}</p>
         </div>
       </div>
 
       {/* MAIN CONTENT */}
-      <main className="max-w-3xl mx-auto px-4 py-12">
-        <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-10 shadow-xs">
+      <main className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+        <div className="bg-white border border-[#EAE3F2] rounded-3xl p-5 sm:p-10 shadow-xs">
           <div
-            className="prose-custom text-[#5B5278] text-base leading-relaxed"
+            className="prose-custom text-[#5B5278] text-sm sm:text-base leading-relaxed"
             dangerouslySetInnerHTML={{ __html: pageData.content }}
           />
         </div>
@@ -89,9 +90,7 @@ export default function RefundPage() {
       `}</style>
 
       {/* FOOTER */}
-      <footer className="bg-white border-t border-[#EAE3F2] py-8 px-4 text-center text-xs text-[#8A829E] font-semibold">
-        <p>© 2026 MoodFlip. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

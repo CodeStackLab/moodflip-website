@@ -29,6 +29,7 @@ function renderContent(content: string) {
 }
 
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function TermsPage() {
   const [content, setContent] = useState(defaultLegalPages.find(p => p.id === 'terms')!);
@@ -50,18 +51,23 @@ export default function TermsPage() {
     <div className="min-h-screen bg-[#F8F7FC] text-[#1A1338] font-sans antialiased">
       <Header />
 
-      <main className="max-w-3xl mx-auto px-4 py-12">
-        <div className="mb-6">
-          <span className="text-xs font-black uppercase tracking-widest text-[#7147E8] bg-[#F0EBFA] px-3 py-1 rounded-full">⚖️ Legal</span>
+      {/* HERO BANNER */}
+      <div className="bg-gradient-to-br from-[#7147E8] via-[#8B5CF6] to-[#9333EA] text-white py-10 sm:py-14 px-4 text-center">
+        <div className="max-w-3xl mx-auto space-y-2.5">
+          <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
+            ⚖️ Terms of Service
+          </span>
+          <h1 className="font-serif text-2xl sm:text-4xl font-extrabold leading-tight">{content.title}</h1>
+          <p className="text-xs text-white/80 font-semibold">Last Updated: {content.lastUpdated}</p>
         </div>
-        <h1 className="font-serif text-3xl sm:text-4xl font-extrabold text-[#1A1338] mb-2">{content.title}</h1>
-        <p className="text-xs text-gray-400 font-semibold mb-8">Last updated: {content.lastUpdated}</p>
+      </div>
 
-        <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-10 shadow-xs">
+      <main className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+        <div className="bg-white border border-[#EAE3F2] rounded-3xl p-5 sm:p-10 shadow-xs">
           {renderContent(content.content)}
         </div>
 
-        <div className="mt-8 flex items-center gap-4 text-xs font-semibold text-[#68607F] flex-wrap">
+        <div className="mt-8 flex items-center gap-4 text-xs font-bold text-[#68607F] flex-wrap">
           <Link href="/privacy" className="hover:text-[#7147E8] transition">Privacy Policy →</Link>
           <Link href="/disclaimer" className="hover:text-[#7147E8] transition">Disclaimer →</Link>
           <Link href="/refund" className="hover:text-[#7147E8] transition">Refund Policy →</Link>
@@ -76,9 +82,7 @@ export default function TermsPage() {
         .prose-custom strong { color: #1A1338; font-weight: 800; }
       `}</style>
 
-      <footer className="bg-white border-t border-[#EAE3F2] py-6 px-4 text-center text-xs text-[#8A829E] font-semibold mt-12">
-        <p>© 2026 MoodFlip. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -23,6 +23,9 @@ function renderMarkdown(content: string) {
   });
 }
 
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+
 export default function DisclaimerPage() {
   const [content, setContent] = useState(defaultLegalPages.find(p => p.id === 'disclaimer')!);
 
@@ -41,45 +44,31 @@ export default function DisclaimerPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F7FC] text-[#1A1338] font-sans antialiased">
-      <header className="bg-white/90 backdrop-blur-md border-b border-[#EAE3F2] px-4 lg:px-8 py-4 flex items-center justify-between sticky top-0 z-40 shadow-2xs">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="relative inline-block w-[30px] h-[22px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0 mt-0.5">
-            <span className="absolute left-[6px] top-[3px] w-[17px] h-[9px] rounded-b-[12px] bg-white" />
-            <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-            <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-          </span>
-          <span className="font-serif text-xl font-extrabold text-[#15183b]">mood<span className="text-[#7148e9]">flip</span></span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#4A4268]">
-          <Link href="/" className="hover:text-[#7147E8] transition">Home</Link>
-          <Link href="/blog" className="hover:text-[#7147E8] transition">Blog</Link>
-          <Link href="/resources" className="hover:text-[#7147E8] transition">Resources</Link>
-        </nav>
-      </header>
+      <Header />
 
-      <main className="max-w-3xl mx-auto px-4 py-12">
-        <div className="mb-6">
-          <span className="text-xs font-black uppercase tracking-widest text-amber-700 bg-amber-50 px-3 py-1 rounded-full">⚠️ Disclaimer</span>
+      {/* HERO BANNER */}
+      <div className="bg-gradient-to-br from-[#7147E8] via-[#8B5CF6] to-[#9333EA] text-white py-10 sm:py-14 px-4 text-center">
+        <div className="max-w-3xl mx-auto space-y-2.5">
+          <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
+            ⚠️ Medical &amp; Legal Disclaimer
+          </span>
+          <h1 className="font-serif text-2xl sm:text-4xl font-extrabold leading-tight">{content.title}</h1>
+          <p className="text-xs text-white/80 font-semibold">Last Updated: {content.lastUpdated}</p>
         </div>
-        <h1 className="font-serif text-3xl sm:text-4xl font-extrabold text-[#1A1338] mb-2">{content.title}</h1>
-        <p className="text-xs text-gray-400 font-semibold mb-8">Last updated: {content.lastUpdated}</p>
-        <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-10 shadow-xs space-y-1">
+      </div>
+
+      <main className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+        <div className="bg-white border border-[#EAE3F2] rounded-3xl p-5 sm:p-10 shadow-xs space-y-1">
           {renderMarkdown(content.content)}
         </div>
-        <div className="mt-8 flex items-center gap-4 text-xs font-semibold text-[#68607F] flex-wrap">
+        <div className="mt-8 flex items-center gap-4 text-xs font-bold text-[#68607F] flex-wrap">
           <Link href="/terms" className="hover:text-[#7147E8] transition">Terms of Service →</Link>
           <Link href="/privacy" className="hover:text-[#7147E8] transition">Privacy Policy →</Link>
+          <Link href="/refund" className="hover:text-[#7147E8] transition">Refund Policy →</Link>
         </div>
       </main>
 
-      <footer className="bg-white border-t border-[#EAE3F2] py-6 px-4 text-center text-xs text-[#8A829E] font-semibold mt-12">
-        <div className="flex items-center justify-center gap-4 flex-wrap mb-2">
-          <Link href="/" className="hover:text-[#7147E8] transition">Home</Link>
-          <Link href="/terms" className="hover:text-[#7147E8] transition">Terms</Link>
-          <Link href="/privacy" className="hover:text-[#7147E8] transition">Privacy</Link>
-        </div>
-        <p>© 2026 MoodFlip. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

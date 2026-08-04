@@ -44,6 +44,7 @@ function renderContent(content: string) {
 }
 
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const [posts, setPosts] = useState<BlogPost[]>(defaultBlogPosts);
@@ -255,16 +256,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       `}</style>
 
       {/* FOOTER */}
-      <footer className="bg-white border-t border-[#EAE3F2] py-8 px-4 text-center text-xs text-[#8A829E] font-semibold">
-        <div className="flex items-center justify-center gap-4 flex-wrap mb-3">
-          <Link href="/" className="hover:text-[#7147E8] transition">Home</Link>
-          <Link href="/blog" className="hover:text-[#7147E8] transition">Blog</Link>
-          <Link href="/resources" className="hover:text-[#7147E8] transition">Resources</Link>
-          <Link href="/terms" className="hover:text-[#7147E8] transition">Terms</Link>
-          <Link href="/privacy" className="hover:text-[#7147E8] transition">Privacy</Link>
-        </div>
-        <p>© 2026 MoodFlip. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -21,10 +21,17 @@ export default function RegisterPage() {
       setMsg('Passwords do not match. Please try again.');
       return;
     }
-    setMsg('Account created successfully! Redirecting to your profile...');
-    setTimeout(() => {
-      window.location.href = '/profile';
-    }, 1200);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('userLoggedIn', 'true');
+      localStorage.setItem('isLoggedIn', 'true');
+      if (fullName) localStorage.setItem('userName', fullName);
+      const params = new URLSearchParams(window.location.search);
+      const redirectUrl = params.get('redirect') || '/profile';
+      setMsg('Account created successfully! Redirecting...');
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 1000);
+    }
   };
 
   // Password strength calculation helper

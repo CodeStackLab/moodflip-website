@@ -20,15 +20,22 @@ export default function LoginPage() {
       password === 'admin123' ||
       password === 'admin';
 
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('userLoggedIn', 'true');
+      localStorage.setItem('isLoggedIn', 'true');
+    }
+
     if (isAdmin) {
       setMsg('🔑 Admin Credentials Verified! Redirecting to Admin Dashboard...');
       setTimeout(() => {
         window.location.href = '/admin';
       }, 1000);
     } else {
-      setMsg('Account login successful! Redirecting to your profile...');
+      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+      const redirectUrl = params?.get('redirect') || '/profile';
+      setMsg('Account login successful! Redirecting...');
       setTimeout(() => {
-        window.location.href = '/profile';
+        window.location.href = redirectUrl;
       }, 1000);
     }
   };

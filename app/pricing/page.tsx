@@ -55,7 +55,7 @@ export default function PricingPage() {
                 <li>✓ Automatic email backup copy</li>
               </ul>
             </div>
-            <Link href="/register" className="block w-full text-center rounded-full bg-[#6C5CE7] py-2.5 text-xs font-bold text-white shadow-md hover:bg-[#5B4B9A]">
+            <Link href="/register?redirect=/profile?tab=My%207-Day%20Plan" className="block w-full text-center rounded-full bg-[#6C5CE7] py-2.5 text-xs font-bold text-white shadow-md hover:bg-[#5B4B9A]">
               Get my 7-day plan →
             </Link>
           </div>

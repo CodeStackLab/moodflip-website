@@ -6,6 +6,16 @@ import Link from 'next/link';
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handlePlanClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const isLoggedIn = typeof window !== 'undefined' && (localStorage.getItem('userLoggedIn') === 'true' || localStorage.getItem('isLoggedIn') === 'true');
+    if (isLoggedIn) {
+      window.location.href = '/profile?tab=My%207-Day%20Plan';
+    } else {
+      window.location.href = '/register?redirect=/profile?tab=My%207-Day%20Plan';
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-[rgba(33,31,75,0.08)] bg-white/90 backdrop-blur-md shadow-xs">
       <div className="mx-auto max-w-[1560px] px-3 md:px-10 h-16 md:h-17 py-2.5 md:py-3 flex items-center justify-between gap-2.5">
@@ -41,12 +51,13 @@ export default function Header() {
             <span>Login</span>
           </Link>
 
-          <Link
-            href="/register"
-            className="inline-flex items-center gap-1 px-3 md:px-5 h-8.5 md:h-10 rounded-full bg-gradient-to-r from-[#7147e8] to-[#a644c9] text-white text-xs md:text-sm font-bold shadow-md shadow-purple-200 hover:opacity-95 transition-all whitespace-nowrap"
+          <a
+            href="/profile?tab=My%207-Day%20Plan"
+            onClick={handlePlanClick}
+            className="inline-flex items-center gap-1 px-3 md:px-5 h-8.5 md:h-10 rounded-full bg-gradient-to-r from-[#7147e8] to-[#a644c9] text-white text-xs md:text-sm font-bold shadow-md shadow-purple-200 hover:opacity-95 transition-all whitespace-nowrap cursor-pointer"
           >
             <span>Get 7-Day Plan</span>
-          </Link>
+          </a>
 
           {/* MOBILE TOGGLE BUTTON */}
           <button

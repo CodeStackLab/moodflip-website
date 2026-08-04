@@ -67,6 +67,15 @@ export default function HomePage() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleSmartRedirect = (targetTab: string) => {
+    const isLoggedIn = typeof window !== 'undefined' && (localStorage.getItem('userLoggedIn') === 'true' || localStorage.getItem('isLoggedIn') === 'true');
+    if (isLoggedIn) {
+      window.location.href = `/profile?tab=${encodeURIComponent(targetTab)}`;
+    } else {
+      window.location.href = `/register?redirect=${encodeURIComponent(`/profile?tab=${targetTab}`)}`;
+    }
+  };
+
   const visibleMoods = useMemo(
     () => moods.filter((mood) => category === "All" || mood.category === category),
     [category],
@@ -117,7 +126,7 @@ export default function HomePage() {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               <span>Login</span>
             </a>
-            <button className={styles.planButton} type="button">Get 7-Day Plan</button>
+            <button className={styles.planButton} type="button" onClick={() => handleSmartRedirect('My 7-Day Plan')}>Get 7-Day Plan</button>
             <button
               className={styles.mobileToggleBtn}
               type="button"
@@ -164,7 +173,7 @@ export default function HomePage() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span>Login</span>
               </a>
-              <a href="/profile?tab=My%207-Day%20Plan" className={styles.mobilePlanBtn} onClick={() => setMenuOpen(false)}>
+              <a href="#" className={styles.mobilePlanBtn} onClick={(e) => { e.preventDefault(); setMenuOpen(false); handleSmartRedirect('My 7-Day Plan'); }}>
                 <span>Get 7-Day Plan</span>
               </a>
             </div>
@@ -589,7 +598,7 @@ export default function HomePage() {
             <p>Perfect for getting started</p>
             <strong><span>$</span>7</strong>
             <span className={styles.oneTimePay}>One-time payment</span>
-            <button type="button">Get 7-Day Plan Now</button>
+            <button type="button" onClick={() => handleSmartRedirect('My 7-Day Plan')}>Get 7-Day Plan Now</button>
             <small>Secure payment • Instant PDF</small>
           </div>
         </section>
@@ -692,12 +701,12 @@ export default function HomePage() {
                 <div>
                   <strong>{mood.title}</strong>
                   <p>{mood.sub}</p>
-                  <a href="#">View &rarr;</a>
+                  <button type="button" style={{ background: 'none', border: 'none', padding: 0, color: 'inherit', font: 'inherit', cursor: 'pointer' }} onClick={() => handleSmartRedirect('Mood Library')}>View &rarr;</button>
                 </div>
               </div>
             ))}
           </div>
-          <a href="#library" className={styles.allMoodsButton}>View All Moods &rarr;</a>
+          <button type="button" className={styles.allMoodsButton} onClick={() => handleSmartRedirect('Mood Library')}>View All Moods &rarr;</button>
         </section>
 
 

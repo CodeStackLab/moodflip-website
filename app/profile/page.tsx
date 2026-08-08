@@ -1042,9 +1042,14 @@ export default function UserDashboardPage() {
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">My 7-Day Mindset Plan 📅</h2>
                   <p className="text-xs md:text-base text-[#68607F] font-semibold mt-1">Your personalized step-by-step daily guide to mental clarity.</p>
                 </div>
-                <button onClick={() => openPaymentModal('7-Day Mindset Plan', 9.99)} className="px-5 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-[#7147E8] text-white text-xs sm:text-sm font-extrabold shadow-md hover:bg-[#5f38d4] self-start sm:self-auto shrink-0 cursor-pointer">
-                  📥 Download Official PDF ($9.99)
-                </button>
+                <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+                  <button onClick={() => triggerPDFDownload('MoodFlip 7-Day Mindset Guide (PDF)', userProfile.name)} className="px-4 py-2.5 rounded-2xl bg-[#7147E8] text-white text-xs sm:text-sm font-extrabold shadow-md hover:bg-[#5f38d4] shrink-0 cursor-pointer flex items-center gap-2 transition-transform active:scale-95">
+                    📥 Download 7-Day Plan PDF
+                  </button>
+                  <button onClick={() => triggerPDFDownload('7-Day Mindset Plan Completion Certificate', userProfile.name)} className="px-4 py-2.5 rounded-2xl bg-emerald-600 text-white text-xs sm:text-sm font-extrabold shadow-md hover:bg-emerald-700 shrink-0 cursor-pointer flex items-center gap-2 transition-transform active:scale-95">
+                    🎓 Completion Certificate (PDF)
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-3.5">
@@ -1104,9 +1109,14 @@ export default function UserDashboardPage() {
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">My 30-Day Transformation Plan 🗓️</h2>
                   <p className="text-xs md:text-base text-[#68607F] font-semibold mt-1">Build permanent emotional resilience over 4 structured weeks.</p>
                 </div>
-                <button onClick={() => openPaymentModal('30-Day Transformation Plan', 19.99)} className="px-5 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-[#7147E8] text-white text-xs sm:text-sm font-extrabold shadow-md hover:bg-[#5f38d4] self-start sm:self-auto shrink-0 cursor-pointer">
-                  Unlock 30-Day Plan ($19.99)
-                </button>
+                <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+                  <button onClick={() => triggerPDFDownload('30-Day Emotional Resilience E-Book', userProfile.name)} className="px-4 py-2.5 rounded-2xl bg-[#7147E8] text-white text-xs sm:text-sm font-extrabold shadow-md hover:bg-[#5f38d4] shrink-0 cursor-pointer flex items-center gap-2 transition-transform active:scale-95">
+                    📥 Download 30-Day Plan PDF
+                  </button>
+                  <button onClick={() => triggerPDFDownload('30-Day Transformation Plan Completion Certificate', userProfile.name)} className="px-4 py-2.5 rounded-2xl bg-amber-600 text-white text-xs sm:text-sm font-extrabold shadow-md hover:bg-amber-700 shrink-0 cursor-pointer flex items-center gap-2 transition-transform active:scale-95">
+                    🎓 Completion Certificate (PDF)
+                  </button>
+                </div>
               </div>
 
               {/* 30-DAY CALENDAR GRID */}
@@ -1149,25 +1159,33 @@ export default function UserDashboardPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 min-w-0">
                 {[
-                  { title: 'MoodFlip 7-Day Mindset Guide (PDF)', size: '4.2 MB', desc: 'Complete 7-day step-by-step exercise workbook.', icon: '📘' },
-                  { title: '60-Second Micro-Actions Cheat Sheet', size: '1.8 MB', desc: 'Printable pocket guide for fast emotional resets.', icon: '📗' },
-                  { title: 'Daily Reflection Printable Journal', size: '2.5 MB', desc: 'Daily morning & evening mindset prompts.', icon: '📙' },
-                  { title: '30-Day Emotional Resilience E-Book', size: '8.1 MB', desc: 'Comprehensive guide to long-term emotional mastery.', icon: '📕' },
+                  { title: 'MoodFlip 7-Day Mindset Guide (PDF)', size: '4.2 MB', pages: '14 Pages', desc: 'Complete 7-day step-by-step exercise workbook.', icon: '📘', badge: 'Mindset Guide' },
+                  { title: '60-Second Micro-Actions Cheat Sheet', size: '1.8 MB', pages: '8 Pages', desc: 'Printable pocket guide for fast emotional resets.', icon: '📗', badge: 'Action Guide' },
+                  { title: 'Daily Reflection Printable Journal', size: '2.5 MB', pages: '12 Pages', desc: 'Daily morning & evening mindset prompts.', icon: '📙', badge: 'Journal' },
+                  { title: '30-Day Emotional Resilience E-Book', size: '8.1 MB', pages: '16 Pages', desc: 'Comprehensive guide to long-term emotional mastery.', icon: '📕', badge: 'E-Book' },
                 ].map((res, i) => (
-                  <div key={i} className="p-4 sm:p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] flex flex-col sm:flex-row sm:items-center justify-between gap-4 min-w-0 overflow-hidden shadow-2xs">
-                    <div className="flex items-start sm:items-center gap-3.5 min-w-0">
-                      <span className="text-3xl sm:text-4xl shrink-0 mt-0.5 sm:mt-0">{res.icon}</span>
+                  <div key={i} className="p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] hover:border-[#7147E8]/40 hover:shadow-md transition-all flex flex-col justify-between gap-4 min-w-0 overflow-hidden">
+                    <div className="flex items-start gap-4 min-w-0">
+                      <span className="text-4xl shrink-0 p-2.5 rounded-2xl bg-white border border-[#EAE3F2] shadow-2xs">{res.icon}</span>
                       <div className="min-w-0 flex-1">
-                        <strong className="block text-sm sm:text-base font-extrabold text-[#1A1338] leading-snug">{res.title}</strong>
-                        <span className="text-xs text-gray-500 font-medium block mt-1 leading-relaxed">{res.desc} · <strong className="text-[#7147E8] font-bold">{res.size}</strong></span>
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#7147E8]/10 text-[#7147E8] tracking-wider">{res.badge}</span>
+                          <span className="text-[11px] font-extrabold text-gray-400">{res.pages}</span>
+                        </div>
+                        <strong className="block text-base font-extrabold text-[#1A1338] leading-snug">{res.title}</strong>
+                        <p className="text-xs text-gray-500 font-medium mt-1 leading-relaxed">{res.desc}</p>
                       </div>
                     </div>
-                    <button
-                      onClick={() => triggerPDFDownload(res.title, userProfile.name)}
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#7147E8] text-white text-xs sm:text-sm font-extrabold hover:bg-[#5f38d4] transition shrink-0 cursor-pointer shadow-xs text-center"
-                    >
-                      Download PDF
-                    </button>
+
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-100/80 mt-1">
+                      <span className="text-xs font-extrabold text-[#7147E8]">{res.size} · High-Quality PDF</span>
+                      <button
+                        onClick={() => triggerPDFDownload(res.title, userProfile.name)}
+                        className="px-5 py-2.5 rounded-xl bg-[#7147E8] text-white text-xs md:text-sm font-extrabold hover:bg-[#5f38d4] transition shrink-0 cursor-pointer shadow-xs flex items-center gap-2 active:scale-95"
+                      >
+                        <span>📥</span> Download PDF
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

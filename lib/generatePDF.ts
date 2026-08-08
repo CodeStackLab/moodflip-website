@@ -1,15 +1,15 @@
 import jsPDF from 'jspdf';
-import { COVER_IMAGE_BASE64 } from './coverImage';
+import { COVER_IMAGE_BASE64, BRAND_GIRL_BASE64, BRAND_LOGO_ICON_BASE64 } from './coverImage';
 
 // ════════════════════════════════════════════════════════════════════
-// MOODFLIP PREMIUM VECTOR PDF ENGINE (jsPDF Powered)
-// * Full-Bleed Cover Artwork Matching Website Design System
-// * Matching Website UI/UX Color Palette (#7147E8, #15183B, #FAF8FD)
-// * Brand Logo Mark in Headers & Footers
-// * Ultra-Transparent (4% Opacity) Copyright Protection Watermark
+// MOODFLIP ULTIMATE BRANDED PDF ENGINE (jsPDF Powered)
+// * Official Site Logo & Vector Marks Throughout
+// * Full-Bleed Cover Artwork & Official Girl Illustration (about-girl.png)
+// * 100% Exact Match to Website UI/UX Design System
+// * Ultra-Transparent (4% Opacity) Copyright Watermark
+// * Prominent Back-Cover Branding Section with Site Badges & Domain
 // ════════════════════════════════════════════════════════════════════
 
-// Safe text sanitizer for Type1 fonts
 function esc(str: string): string {
   if (!str) return '';
   return str
@@ -42,19 +42,39 @@ const FILENAMES: Record<number, string> = {
   5: 'MoodFlip_Plan_Completion_Certificate',
 };
 
-// ── BRAND LOGO & DECORATORS ──────────────────────────────────────────
+// ── BRANDING & LOGO FUNCTIONS ──────────────────────────────────────────
 
-function drawBrandLogo(doc: jsPDF, x: number, y: number, scale: number = 1) {
-  // MoodFlip curved bowl logo shape
+function drawBrandLogoIcon(doc: jsPDF, x: number, y: number, size: number = 22) {
+  try {
+    if (BRAND_LOGO_ICON_BASE64) {
+      doc.addImage(BRAND_LOGO_ICON_BASE64, 'PNG', x, y, size, size);
+      return;
+    }
+  } catch (e) {}
+
+  // Exact site header logo vector mark fallback
+  const s = size / 22;
   doc.setFillColor(255, 159, 141);
-  doc.ellipse(x + 10 * scale, y + 10 * scale, 8 * scale, 5 * scale, 'F');
+  doc.ellipse(x + 11 * s, y + 14 * s, 11 * s, 7 * s, 'F');
   
-  doc.setFillColor(217, 80, 192);
-  doc.ellipse(x + 10 * scale, y + 11 * scale, 6 * scale, 4 * scale, 'F');
+  doc.setFillColor(255, 255, 255);
+  doc.ellipse(x + 11 * s, y + 13 * s, 7 * s, 4 * s, 'F');
 
-  doc.setFillColor(113, 71, 232);
-  doc.circle(x + 5 * scale, y + 4 * scale, 2 * scale, 'F');
-  doc.circle(x + 15 * scale, y + 4 * scale, 2 * scale, 'F');
+  doc.setFillColor(255, 173, 100);
+  doc.circle(x + 4 * s, y + 4 * s, 3 * s, 'F');
+  doc.circle(x + 18 * s, y + 4 * s, 3 * s, 'F');
+}
+
+function drawBrandHeaderLogo(doc: jsPDF, x: number, y: number, scale: number = 1) {
+  drawBrandLogoIcon(doc, x, y, 22 * scale);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14 * scale);
+  doc.setTextColor(21, 24, 59); // #15183B
+  doc.text('mood', x + 26 * scale, y + 16 * scale);
+
+  doc.setTextColor(113, 71, 232); // #7147E8
+  doc.text('flip', x + 62 * scale, y + 16 * scale);
 }
 
 function drawWatermark(doc: jsPDF) {
@@ -63,7 +83,7 @@ function drawWatermark(doc: jsPDF) {
     doc.setGState(gstate);
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(42);
+    doc.setFontSize(40);
     doc.setTextColor(113, 71, 232); // #7147E8
     doc.text('MOODFLIP  *  OFFICIAL WORKBOOK', 306, 396, {
       align: 'center',
@@ -78,52 +98,157 @@ function drawWatermark(doc: jsPDF) {
 }
 
 function drawHeader(doc: jsPDF, title: string, subtitle?: string) {
-  // Midnight Indigo Bar (#15183B)
+  // Header Bar: Midnight Indigo Bar (#15183B)
   doc.setFillColor(21, 24, 59);
-  doc.rect(0, 0, 612, 36, 'F');
+  doc.rect(0, 0, 612, 38, 'F');
 
-  // Brand Logo Mark + Text
-  drawBrandLogo(doc, 36, 8, 0.75);
+  // Header Brand Logo
+  drawBrandLogoIcon(doc, 36, 8, 22);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(11);
+  doc.setFontSize(12);
   doc.setTextColor(255, 255, 255);
-  doc.text('mood', 58, 22);
+  doc.text('mood', 64, 23);
 
   doc.setTextColor(212, 171, 255); // #D4ABFF
-  doc.text('flip', 86, 22);
+  doc.text('flip', 95, 23);
 
   if (subtitle) {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
     doc.setTextColor(212, 171, 255);
-    doc.text(esc(subtitle), 572, 22, { align: 'right' });
+    doc.text(esc(subtitle), 572, 23, { align: 'right' });
   }
 }
 
 function drawFooter(doc: jsPDF, page: number, total: number, label: string) {
   // Soft Lilac Footer Bar (#FAF8FD with #EAE3F2 top border line)
   doc.setFillColor(250, 248, 253);
-  doc.rect(0, 760, 612, 32, 'F');
+  doc.rect(0, 758, 612, 34, 'F');
 
   doc.setFillColor(234, 227, 242);
-  doc.rect(0, 760, 612, 1, 'F');
+  doc.rect(0, 758, 612, 1, 'F');
 
-  drawBrandLogo(doc, 36, 768, 0.65);
+  drawBrandLogoIcon(doc, 36, 764, 20);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
+  doc.setFontSize(9.5);
   doc.setTextColor(21, 24, 59);
-  doc.text('mood', 54, 780);
+  doc.text('mood', 60, 778);
 
   doc.setTextColor(113, 71, 232);
-  doc.text('flip', 78, 780);
+  doc.text('flip', 86, 778);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(104, 96, 127);
-  doc.text(esc(label), 140, 780);
-  doc.text(`Page ${page} of ${total}`, 572, 780, { align: 'right' });
+  doc.text(`*  ${esc(label)}  *  moodflip.app`, 140, 778);
+  doc.text(`Page ${page} of ${total}`, 572, 778, { align: 'right' });
+}
+
+// ── PROMINENT BACK COVER BRANDING PAGE ──────────────────────────────────
+function drawBackCoverPage(doc: jsPDF, bookTitle: string, totalPages: number) {
+  doc.addPage();
+  doc.setFillColor(21, 24, 59); // Midnight Indigo (#15183B)
+  doc.rect(0, 0, 612, 792, 'F');
+
+  // Top Accent Gradient Bar
+  doc.setFillColor(113, 71, 232); // #7147E8
+  doc.rect(0, 0, 612, 180, 'F');
+
+  // Brand Logo Mark Header
+  drawBrandLogoIcon(doc, 246, 35, 48);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(32);
+  doc.setTextColor(255, 255, 255);
+  doc.text('mood', 220, 115);
+  doc.setTextColor(212, 171, 255);
+  doc.text('flip', 306, 115);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(230, 220, 255);
+  doc.text('Self-reflection utility for real life', 306, 142, { align: 'center' });
+
+  // Official Girl Illustration in Center Box
+  try {
+    if (BRAND_GIRL_BASE64) {
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(216, 195, 180, 180, 90, 90, 'F');
+      doc.setDrawColor(212, 171, 255);
+      doc.setLineWidth(2);
+      doc.roundedRect(216, 195, 180, 180, 90, 90, 'S');
+
+      doc.addImage(BRAND_GIRL_BASE64, 'PNG', 226, 205, 160, 160);
+    }
+  } catch (e) {}
+
+  // Core Value Proposition Box
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.setTextColor(255, 255, 255);
+  doc.text('Shift Your Mood, Instantly & Meaningfully.', 306, 410, { align: 'center' });
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10.5);
+  doc.setTextColor(200, 190, 230);
+  doc.text('Simple daily check-ins, personalized 60-second micro-actions,', 306, 434, { align: 'center' });
+  doc.text('and gentle guidance to help you find calm when feeling low, anxious, or overwhelmed.', 306, 452, { align: 'center' });
+
+  // 4 Site UI Badges (2x2 Grid)
+  const badges = [
+    '100% Private & Free',
+    '60-Second Micro-Actions',
+    'Gentle Guidance',
+    '7 Days of Calm & Progress'
+  ];
+
+  badges.forEach((bText, idx) => {
+    const col = idx % 2;
+    const row = Math.floor(idx / 2);
+    const bx = col === 0 ? 60 : 316;
+    const by = 482 + row * 46;
+
+    doc.setFillColor(34, 39, 85);
+    doc.roundedRect(bx, by, 236, 36, 18, 18, 'F');
+    doc.setDrawColor(113, 71, 232);
+    doc.setLineWidth(1);
+    doc.roundedRect(bx, by, 236, 36, 18, 18, 'S');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(212, 171, 255);
+    doc.text(bText, bx + 118, by + 22, { align: 'center' });
+  });
+
+  // Call-To-Action Card
+  doc.setFillColor(113, 71, 232);
+  doc.roundedRect(60, 588, 492, 95, 12, 12, 'F');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.setTextColor(255, 255, 255);
+  doc.text('Continue Your Journey on MoodFlip', 306, 616, { align: 'center' });
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(230, 220, 255);
+  doc.text('Visit moodflip.app anytime for instant daily mood check-ins & reflections.', 306, 638, { align: 'center' });
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.setTextColor(255, 255, 255);
+  doc.text('https://moodflip.app', 306, 664, { align: 'center' });
+
+  // Copyright & Medical Disclaimer Footer
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  doc.setTextColor(150, 140, 180);
+  doc.text('MoodFlip is a self-reflection utility for everyday emotional awareness. It is not therapy or medical advice.', 306, 715, { align: 'center' });
+  doc.text('© 2026 MoodFlip. All rights reserved. Built with care for your mindset.', 306, 732, { align: 'center' });
+
+  drawFooter(doc, totalPages, totalPages, bookTitle);
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -133,108 +258,114 @@ function buildBook1(doc: jsPDF, userName: string) {
   const user = userName || 'Valued Member';
   const total = 14;
 
-  // ── Cover Page (Page 1): Full Artwork Background ──
+  // ── Cover Page (Page 1) ──
   try {
     doc.addImage(COVER_IMAGE_BASE64, 'JPEG', 0, 0, 612, 792);
   } catch (e) {
-    // Fallback if image load fails
     doc.setFillColor(21, 24, 59);
     doc.rect(0, 0, 612, 792, 'F');
   }
 
-  // Cover Card Overlay (Frosted glass effect at bottom)
+  // Cover Card Overlay
   try {
-    const cardGState = new (doc as any).GState({ opacity: 0.92 });
-    doc.setGState(cardGState);
+    doc.setGState(new (doc as any).GState({ opacity: 0.92 }));
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(40, 560, 532, 175, 12, 12, 'F');
+    doc.roundedRect(40, 555, 532, 180, 12, 12, 'F');
     doc.setGState(new (doc as any).GState({ opacity: 1.0 }));
   } catch (e) {
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(40, 560, 532, 175, 12, 12, 'F');
+    doc.roundedRect(40, 555, 532, 180, 12, 12, 'F');
   }
 
   doc.setDrawColor(212, 171, 255);
   doc.setLineWidth(1.5);
-  doc.roundedRect(40, 560, 532, 175, 12, 12, 'S');
+  doc.roundedRect(40, 555, 532, 180, 12, 12, 'S');
 
-  // Title on Cover Overlay Card
+  // Title on Cover Card
+  drawBrandHeaderLogo(doc, 60, 570, 0.9);
+
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(22);
-  doc.setTextColor(21, 24, 59); // #15183B
-  doc.text('7-Day Mindset Guide & Workbook', 60, 595);
+  doc.setFontSize(21);
+  doc.setTextColor(21, 24, 59);
+  doc.text('7-Day Mindset Guide & Workbook', 60, 615);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(11);
-  doc.setTextColor(113, 71, 232); // #7147E8
-  doc.text('Your complete step-by-step emotional reset companion', 60, 618);
+  doc.setFontSize(10.5);
+  doc.setTextColor(113, 71, 232);
+  doc.text('Your complete step-by-step emotional reset companion', 60, 634);
 
   doc.setFillColor(234, 227, 242);
-  doc.rect(60, 630, 492, 1, 'F');
+  doc.rect(60, 644, 492, 1, 'F');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   doc.setTextColor(104, 96, 127);
-  doc.text('THIS GUIDE BELONGS TO:', 60, 652);
+  doc.text('THIS GUIDE BELONGS TO:', 60, 664);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
+  doc.setFontSize(13.5);
   doc.setTextColor(21, 24, 59);
-  doc.text(esc(user), 60, 674);
+  doc.text(esc(user), 60, 684);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   doc.setTextColor(104, 96, 127);
-  doc.text('Start Date: ____________________', 350, 674);
+  doc.text('Start Date: ____________________', 350, 684);
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(113, 71, 232);
-  doc.text('moodflip', 60, 715);
   doc.setFont('helvetica', 'normal');
-  doc.text('  *  Self-reflection utility for real life  *  Not medical advice', 102, 715);
+  doc.setFontSize(8.5);
+  doc.setTextColor(113, 71, 232);
+  doc.text('* Self-reflection utility for real life * Not medical advice', 60, 718);
 
-  // ── Page 2: Welcome & Instructions ──
+  // ── Page 2: Welcome Page with Girl Illustration ──
   doc.addPage();
   drawHeader(doc, 'moodflip | 7-Day Mindset Guide');
   drawWatermark(doc);
 
-  doc.setFillColor(113, 71, 232); // #7147E8
-  doc.roundedRect(40, 52, 532, 42, 8, 8, 'F');
+  doc.setFillColor(113, 71, 232);
+  doc.roundedRect(40, 48, 532, 42, 8, 8, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(18);
   doc.setTextColor(255, 255, 255);
-  doc.text('Welcome to Your 7-Day Journey', 56, 78);
+  doc.text('Welcome to Your 7-Day Journey', 56, 74);
+
+  // Embed Girl Illustration on Welcome Page
+  try {
+    if (BRAND_GIRL_BASE64) {
+      doc.addImage(BRAND_GIRL_BASE64, 'PNG', 430, 105, 130, 130);
+    }
+  } catch (e) {}
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10);
   doc.setTextColor(26, 19, 56);
-  doc.text('This guide helps you build a sustainable daily mindset practice through small, proven 60-second actions.', 40, 115);
-  doc.text('You do not need to be perfect. You only need to show up each day with curiosity.', 40, 132);
+  const wWidth = BRAND_GIRL_BASE64 ? 370 : 500;
+  doc.text(doc.splitTextToSize('This guide helps you build a sustainable daily mindset practice through small, proven 60-second actions.', wWidth), 40, 115);
+  doc.text(doc.splitTextToSize('You do not need to be perfect. You only need to show up each day with curiosity and gentleness.', wWidth), 40, 150);
 
   doc.setFillColor(234, 227, 242);
-  doc.rect(40, 148, 532, 1, 'F');
+  doc.rect(40, 242, 532, 1, 'F');
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(13);
   doc.setTextColor(21, 24, 59);
-  doc.text('How to Use This Guide', 40, 172);
+  doc.text('How to Use This Guide', 40, 264);
 
   const stepsP2 = [
-    { n: '01', t: 'Daily Check-In', d: 'Each morning, identify your starting mood and the positive direction you want to move toward.', y: 192 },
-    { n: '02', t: '60-Second Action', d: 'Perform the recommended micro-action. It takes just 60 seconds and is evidence-informed.', y: 265 },
-    { n: '03', t: 'Record and Reflect', d: 'Write down your before and after. Notice what shifted, even slightly.', y: 338 },
-    { n: '04', t: 'End-of-Day Review', d: 'Use the evening reflection prompts to close your day with intention.', y: 411 },
+    { n: '01', t: 'Daily Check-In', d: 'Each morning, identify your starting mood and the positive direction you want to move toward.', y: 280 },
+    { n: '02', t: '60-Second Action', d: 'Perform the recommended micro-action. It takes just 60 seconds and is evidence-informed.', y: 350 },
+    { n: '03', t: 'Record and Reflect', d: 'Write down your before and after. Notice what shifted, even slightly.', y: 420 },
+    { n: '04', t: 'End-of-Day Review', d: 'Use the evening reflection prompts to close your day with intention.', y: 490 },
   ];
 
-  stepsP2.forEach((s, i) => {
-    doc.setFillColor(244, 239, 252); // #F4EFFC
-    doc.roundedRect(40, s.y, 532, 60, 8, 8, 'F');
+  stepsP2.forEach((s) => {
+    doc.setFillColor(244, 239, 252);
+    doc.roundedRect(40, s.y, 532, 58, 8, 8, 'F');
     doc.setDrawColor(234, 227, 242);
-    doc.roundedRect(40, s.y, 532, 60, 8, 8, 'S');
+    doc.roundedRect(40, s.y, 532, 58, 8, 8, 'S');
 
     doc.setFillColor(113, 71, 232);
-    doc.roundedRect(40, s.y, 42, 60, 8, 8, 'F');
+    doc.roundedRect(40, s.y, 42, 58, 8, 8, 'F');
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(15);
@@ -254,17 +385,17 @@ function buildBook1(doc: jsPDF, userName: string) {
 
   // Notice box
   doc.setFillColor(250, 248, 253);
-  doc.roundedRect(40, 500, 532, 195, 8, 8, 'F');
+  doc.roundedRect(40, 565, 532, 175, 8, 8, 'F');
   doc.setDrawColor(234, 227, 242);
-  doc.roundedRect(40, 500, 532, 195, 8, 8, 'S');
+  doc.roundedRect(40, 565, 532, 175, 8, 8, 'S');
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
   doc.setTextColor(113, 71, 232);
-  doc.text('A Note on Wellbeing & Self-Care', 56, 530);
+  doc.text('A Note on Wellbeing & Self-Care', 56, 590);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9.5);
+  doc.setFontSize(9);
   doc.setTextColor(104, 96, 127);
   const noticeLines = [
     'MoodFlip is a self-reflection utility designed to support everyday emotional awareness.',
@@ -272,7 +403,7 @@ function buildBook1(doc: jsPDF, userName: string) {
     'Emergency / Crisis Help: Please contact your local helpline or emergency services immediately.'
   ];
   noticeLines.forEach((line, idx) => {
-    doc.text(line, 56, 560 + idx * 22);
+    doc.text(line, 56, 615 + idx * 22);
   });
 
   drawFooter(doc, 2, total, '7-Day Mindset Guide');
@@ -531,7 +662,7 @@ function buildBook1(doc: jsPDF, userName: string) {
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
-    doc.setTextColor(236, 72, 153); // Rose
+    doc.setTextColor(236, 72, 153);
     doc.text(bad, x + 12, y + 22);
 
     doc.setTextColor(113, 71, 232);
@@ -539,7 +670,7 @@ function buildBook1(doc: jsPDF, userName: string) {
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
-    doc.setTextColor(16, 185, 129); // Emerald
+    doc.setTextColor(16, 185, 129);
     doc.text(good, x + 135, y + 22);
   });
 
@@ -547,8 +678,8 @@ function buildBook1(doc: jsPDF, userName: string) {
 
   // ── Page 12: Commitment Page ──
   doc.addPage();
-  doc.setFillColor(21, 24, 59);
-  doc.rect(0, 0, 612, 792, 'F');
+  drawHeader(doc, 'moodflip | My 7-Day Commitment');
+  drawWatermark(doc);
 
   doc.setFillColor(113, 71, 232);
   doc.roundedRect(40, 48, 532, 45, 8, 8, 'F');
@@ -557,54 +688,25 @@ function buildBook1(doc: jsPDF, userName: string) {
   doc.setTextColor(255, 255, 255);
   doc.text('MY 7-DAY MINDSET COMMITMENT', 130, 76);
 
-  doc.setFillColor(34, 39, 85);
-  doc.roundedRect(40, 115, 532, 205, 8, 8, 'F');
-  doc.setDrawColor(212, 171, 255);
-  doc.roundedRect(40, 115, 532, 205, 8, 8, 'S');
+  doc.setFillColor(244, 239, 252);
+  doc.roundedRect(40, 115, 532, 225, 8, 8, 'F');
+  doc.setDrawColor(234, 227, 242);
+  doc.roundedRect(40, 115, 532, 225, 8, 8, 'S');
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(14);
-  doc.setTextColor(212, 171, 255);
+  doc.setTextColor(113, 71, 232);
   doc.text('I Commit to:', 60, 145);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10.5);
-  doc.setTextColor(230, 220, 255);
+  doc.setTextColor(26, 19, 56);
   doc.text('* Checking in with my mood honestly each morning', 60, 172);
   doc.text('* Completing the 60-second action even on hard days', 60, 194);
   doc.text('* Treating myself with patience and curiosity', 60, 216);
   doc.text('* Noticing small shifts, not demanding perfection', 60, 238);
   doc.text('* Using MoodFlip as a daily mindset companion', 60, 260);
-  doc.text('Signed: ______________________________ Date: __________________', 60, 292);
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(32);
-  doc.setTextColor(255, 255, 255);
-  doc.text('A Small Shift Today.', 120, 365);
-  doc.setTextColor(212, 171, 255);
-  doc.text('A Better You Tomorrow.', 90, 410);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(12);
-  doc.setTextColor(200, 190, 230);
-  doc.text('Thank you for committing to 7 days of intentional growth.', 110, 455);
-  doc.text('Small consistent actions always outperform grand gestures.', 110, 477);
-
-  doc.setFillColor(34, 39, 85);
-  doc.roundedRect(40, 515, 532, 115, 8, 8, 'F');
-  doc.setDrawColor(212, 171, 255);
-  doc.roundedRect(40, 515, 532, 115, 8, 8, 'S');
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(16);
-  doc.setTextColor(212, 171, 255);
-  doc.text('MoodFlip', 250, 550);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  doc.setTextColor(230, 220, 255);
-  doc.text('Self-reflection utility * Daily mindset shifts', 160, 575);
-  doc.text('moodflip.app * Not medical advice', 160, 595);
+  doc.text('Signed: ______________________________ Date: __________________', 60, 305);
 
   drawFooter(doc, 12, total, '7-Day Mindset Guide');
 
@@ -656,42 +758,8 @@ function buildBook1(doc: jsPDF, userName: string) {
 
   drawFooter(doc, 13, total, '7-Day Mindset Guide');
 
-  // ── Page 14: Dark Back Cover ──
-  doc.addPage();
-  doc.setFillColor(21, 24, 59);
-  doc.rect(0, 0, 612, 792, 'F');
-
-  doc.setFillColor(113, 71, 232);
-  doc.rect(0, 0, 612, 310, 'F');
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(48);
-  doc.setTextColor(255, 255, 255);
-  doc.text('moodflip', 140, 160);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(14);
-  doc.setTextColor(230, 220, 255);
-  doc.text('Build a better mindset, one day at a time.', 90, 210);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(12);
-  doc.setTextColor(200, 190, 230);
-  doc.text('Thank you for completing the 7-Day Mindset Guide.', 90, 360);
-  doc.text('Your consistency is the proof of your commitment.', 90, 385);
-
-  doc.setFillColor(34, 39, 85);
-  doc.roundedRect(80, 460, 452, 115, 8, 8, 'F');
-  doc.setDrawColor(212, 171, 255);
-  doc.roundedRect(80, 460, 452, 115, 8, 8, 'S');
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(212, 171, 255);
-  doc.text('MoodFlip is a self-reflection tool. It is not a substitute for professional mental health care.', 96, 500);
-  doc.text('If you are struggling, please consult a licensed professional or crisis services.', 96, 525);
-
-  drawFooter(doc, 14, total, '7-Day Mindset Guide');
+  // ── Page 14: Prominent Back Cover Branding Page ──
+  drawBackCoverPage(doc, '7-Day Mindset Guide', total);
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -701,7 +769,6 @@ function buildBook2(doc: jsPDF, userName: string) {
   const user = userName || 'Valued Member';
   const total = 8;
 
-  // Cover Artwork Page 1
   try {
     doc.addImage(COVER_IMAGE_BASE64, 'JPEG', 0, 0, 612, 792);
   } catch (e) {
@@ -709,45 +776,45 @@ function buildBook2(doc: jsPDF, userName: string) {
     doc.rect(0, 0, 612, 792, 'F');
   }
 
-  // Cover Card Overlay
   try {
     doc.setGState(new (doc as any).GState({ opacity: 0.92 }));
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(40, 560, 532, 175, 12, 12, 'F');
+    doc.roundedRect(40, 555, 532, 180, 12, 12, 'F');
     doc.setGState(new (doc as any).GState({ opacity: 1.0 }));
   } catch (e) {
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(40, 560, 532, 175, 12, 12, 'F');
+    doc.roundedRect(40, 555, 532, 180, 12, 12, 'F');
   }
 
   doc.setDrawColor(16, 185, 129);
   doc.setLineWidth(1.5);
-  doc.roundedRect(40, 560, 532, 175, 12, 12, 'S');
+  doc.roundedRect(40, 555, 532, 180, 12, 12, 'S');
+
+  drawBrandHeaderLogo(doc, 60, 570, 0.9);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(22);
+  doc.setFontSize(21);
   doc.setTextColor(8, 50, 32);
-  doc.text('60-Second Micro-Actions Cheat Sheet', 60, 595);
+  doc.text('60-Second Micro-Actions Cheat Sheet', 60, 615);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setTextColor(16, 185, 129);
-  doc.text('Printable pocket guide for fast emotional resets', 60, 618);
+  doc.text('Printable pocket guide for fast emotional resets', 60, 634);
 
   doc.setFillColor(234, 227, 242);
-  doc.rect(60, 630, 492, 1, 'F');
+  doc.rect(60, 644, 492, 1, 'F');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   doc.setTextColor(104, 96, 127);
-  doc.text('THIS GUIDE BELONGS TO:', 60, 652);
+  doc.text('THIS GUIDE BELONGS TO:', 60, 664);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
+  doc.setFontSize(13.5);
   doc.setTextColor(8, 50, 32);
-  doc.text(esc(user), 60, 674);
+  doc.text(esc(user), 60, 684);
 
-  // Micro Action Pages
   const cats = [
     { n: 'ANXIETY AND FEAR', acts: ['5-4-3-2-1: Name 5 things you see, 4 you feel, 3 hear, 2 smell, 1 taste.', 'Box breathing: Inhale 4 - Hold 4 - Exhale 4 - Hold 4. Repeat 4 times.', 'Feet flat on floor. Say: Right now, I am safe.', 'Splash cold water on your wrists for an instant calm reset.', 'Write one worry on paper, fold it, and put it physically aside.'] },
     { n: 'ANGER AND FRUSTRATION', acts: ['Unclench your jaw. Drop shoulders. Breathe out slowly for 6 counts.', 'Walk for 60 seconds before responding to the situation.', 'Write what you want to say, then choose not to send it.', 'Press palms together and push hard for 10 seconds. Then release.', 'Name it out loud: I am angry because. Naming reduces its power.'] },
@@ -844,7 +911,7 @@ function buildBook2(doc: jsPDF, userName: string) {
 
   drawFooter(doc, 5, total, '60-Second Micro-Actions');
 
-  // Page 6 & 7 & 8 Personal Action Log & Back Cover
+  // Page 6 & 7 Personal Action Log
   doc.addPage();
   drawHeader(doc, 'moodflip | My Personal Action Log');
   drawWatermark(doc);
@@ -873,21 +940,35 @@ function buildBook2(doc: jsPDF, userName: string) {
   drawFooter(doc, 6, total, '60-Second Micro-Actions');
 
   doc.addPage();
-  doc.setFillColor(21, 24, 59);
-  doc.rect(0, 0, 612, 792, 'F');
-
+  drawHeader(doc, 'moodflip | Action Reflection');
+  drawWatermark(doc);
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(38);
-  doc.setTextColor(212, 171, 255);
-  doc.text('Every second counts.', 110, 200);
+  doc.setFontSize(18);
+  doc.setTextColor(21, 24, 59);
+  doc.text('Weekly Micro-Action Reflection', 60, 70);
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(13);
-  doc.setTextColor(230, 220, 255);
-  doc.text('You do not need an hour. You need 60 seconds and the willingness.', 60, 250);
-  doc.text('Use this guide every day. Notice every small shift.', 60, 280);
+  for (let i = 0; i < 3; i++) {
+    const y = 95 + i * 200;
+    doc.setFillColor(244, 239, 252);
+    doc.roundedRect(40, y, 532, 180, 6, 6, 'F');
+    doc.setDrawColor(234, 227, 242);
+    doc.roundedRect(40, y, 532, 180, 6, 6, 'S');
 
-  drawFooter(doc, 8, total, '60-Second Micro-Actions');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(113, 71, 232);
+    doc.text(`Reflection Note #${i + 1}`, 56, y + 30);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(104, 96, 127);
+    doc.text('__________________________________________________________________________', 56, y + 70);
+    doc.text('__________________________________________________________________________', 56, y + 110);
+    doc.text('__________________________________________________________________________', 56, y + 150);
+  }
+  drawFooter(doc, 7, total, '60-Second Micro-Actions');
+
+  // Page 8 Prominent Back Cover
+  drawBackCoverPage(doc, '60-Second Micro-Actions', total);
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -897,7 +978,6 @@ function buildBook3(doc: jsPDF, userName: string) {
   const user = userName || 'Valued Member';
   const total = 12;
 
-  // Page 1 Cover Artwork
   try {
     doc.addImage(COVER_IMAGE_BASE64, 'JPEG', 0, 0, 612, 792);
   } catch (e) {
@@ -905,43 +985,44 @@ function buildBook3(doc: jsPDF, userName: string) {
     doc.rect(0, 0, 612, 792, 'F');
   }
 
-  // Cover Card Overlay
   try {
     doc.setGState(new (doc as any).GState({ opacity: 0.92 }));
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(40, 560, 532, 175, 12, 12, 'F');
+    doc.roundedRect(40, 555, 532, 180, 12, 12, 'F');
     doc.setGState(new (doc as any).GState({ opacity: 1.0 }));
   } catch (e) {
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(40, 560, 532, 175, 12, 12, 'F');
+    doc.roundedRect(40, 555, 532, 180, 12, 12, 'F');
   }
 
   doc.setDrawColor(212, 171, 255);
   doc.setLineWidth(1.5);
-  doc.roundedRect(40, 560, 532, 175, 12, 12, 'S');
+  doc.roundedRect(40, 555, 532, 180, 12, 12, 'S');
+
+  drawBrandHeaderLogo(doc, 60, 570, 0.9);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(22);
+  doc.setFontSize(21);
   doc.setTextColor(21, 24, 59);
-  doc.text('Daily Reflection Printable Journal', 60, 595);
+  doc.text('Daily Reflection Printable Journal', 60, 615);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setTextColor(113, 71, 232);
-  doc.text('Your 7-day guided mindset & emotional reflection companion', 60, 618);
+  doc.text('Your 7-day guided mindset & emotional reflection companion', 60, 634);
 
   doc.setFillColor(234, 227, 242);
-  doc.rect(60, 630, 492, 1, 'F');
+  doc.rect(60, 644, 492, 1, 'F');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   doc.setTextColor(104, 96, 127);
-  doc.text('THIS JOURNAL BELONGS TO:', 60, 652);
+  doc.text('THIS JOURNAL BELONGS TO:', 60, 664);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
+  doc.setFontSize(13.5);
   doc.setTextColor(21, 24, 59);
-  doc.text(esc(user), 60, 674);
+  doc.text(esc(user), 60, 684);
 
   // Pages 2-3 Welcome & Intention
   doc.addPage();
@@ -1087,7 +1168,7 @@ function buildBook3(doc: jsPDF, userName: string) {
     drawFooter(doc, 3 + d, total, 'Daily Reflection Journal');
   }
 
-  // Page 11 & 12 End of Week Review & Back Cover
+  // Page 11 End of Week Review
   doc.addPage();
   drawHeader(doc, 'moodflip | Daily Reflection Journal', '7 DAYS COMPLETE');
   drawWatermark(doc);
@@ -1125,23 +1206,8 @@ function buildBook3(doc: jsPDF, userName: string) {
 
   drawFooter(doc, 11, total, 'Daily Reflection Journal');
 
-  doc.addPage();
-  doc.setFillColor(21, 24, 59);
-  doc.rect(0, 0, 612, 792, 'F');
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(40);
-  doc.setTextColor(212, 171, 255);
-  doc.text('moodflip', 140, 200);
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(26);
-  doc.setTextColor(255, 255, 255);
-  doc.text('A Small Shift Today.', 160, 260);
-  doc.setTextColor(212, 171, 255);
-  doc.text('A Better You Tomorrow.', 130, 300);
-
-  drawFooter(doc, 12, total, 'Daily Reflection Journal');
+  // Page 12 Prominent Back Cover Branding Page
+  drawBackCoverPage(doc, 'Daily Reflection Journal', total);
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -1161,42 +1227,44 @@ function buildBook4(doc: jsPDF, userName: string) {
   try {
     doc.setGState(new (doc as any).GState({ opacity: 0.92 }));
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(40, 560, 532, 175, 12, 12, 'F');
+    doc.roundedRect(40, 555, 532, 180, 12, 12, 'F');
     doc.setGState(new (doc as any).GState({ opacity: 1.0 }));
   } catch (e) {
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(40, 560, 532, 175, 12, 12, 'F');
+    doc.roundedRect(40, 555, 532, 180, 12, 12, 'F');
   }
 
   doc.setDrawColor(247, 159, 32);
   doc.setLineWidth(1.5);
-  doc.roundedRect(40, 560, 532, 175, 12, 12, 'S');
+  doc.roundedRect(40, 555, 532, 180, 12, 12, 'S');
+
+  drawBrandHeaderLogo(doc, 60, 570, 0.9);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(22);
+  doc.setFontSize(21);
   doc.setTextColor(21, 24, 59);
-  doc.text('30-Day Emotional Resilience E-Book', 60, 595);
+  doc.text('30-Day Emotional Resilience E-Book', 60, 615);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setTextColor(247, 159, 32);
-  doc.text('Comprehensive guide to long-term emotional mastery', 60, 618);
+  doc.text('Comprehensive guide to long-term emotional mastery', 60, 634);
 
   doc.setFillColor(234, 227, 242);
-  doc.rect(60, 630, 492, 1, 'F');
+  doc.rect(60, 644, 492, 1, 'F');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   doc.setTextColor(104, 96, 127);
-  doc.text('THIS E-BOOK BELONGS TO:', 60, 652);
+  doc.text('THIS E-BOOK BELONGS TO:', 60, 664);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
+  doc.setFontSize(13.5);
   doc.setTextColor(21, 24, 59);
-  doc.text(esc(user), 60, 674);
+  doc.text(esc(user), 60, 684);
 
-  // Pages 2-16 Weekly Content
-  for (let p = 2; p <= total; p++) {
+  // Pages 2-15 Content
+  for (let p = 2; p <= 15; p++) {
     doc.addPage();
     drawHeader(doc, 'moodflip | 30-Day Resilience E-Book');
     drawWatermark(doc);
@@ -1234,17 +1302,20 @@ function buildBook4(doc: jsPDF, userName: string) {
 
     drawFooter(doc, p, total, '30-Day Resilience E-Book');
   }
+
+  // Page 16 Prominent Back Cover Page
+  drawBackCoverPage(doc, '30-Day Resilience E-Book', total);
 }
 
 // ════════════════════════════════════════════════════════════════════
-// BOOK 5: Completed Plan Certificate PDF
+// BOOK 5: Completed Plan Certificate PDF (2 Pages)
 // ════════════════════════════════════════════════════════════════════
 function buildBook5(doc: jsPDF, planType: string, userName: string) {
   const user = userName || 'Valued Member';
   const totalDays = planType.includes('30') ? 30 : 7;
-  const title = totalDays === 30 ? '30-Day Emotional Resilience Completion Certificate' : '7-Day Mindset Plan Completion Certificate';
+  const title = totalDays === 30 ? '30-Day Resilience Completion Certificate' : '7-Day Mindset Completion Certificate';
 
-  // Certificate Page 1
+  // Page 1 Certificate
   doc.setFillColor(21, 24, 59);
   doc.rect(0, 0, 612, 792, 'F');
 
@@ -1254,32 +1325,32 @@ function buildBook5(doc: jsPDF, planType: string, userName: string) {
   doc.setFillColor(212, 171, 255);
   doc.rect(0, 376, 612, 4, 'F');
 
-  drawBrandLogo(doc, 50, 40, 1.2);
+  drawBrandHeaderLogo(doc, 50, 40, 1.4);
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(12);
   doc.setTextColor(212, 171, 255);
-  doc.text('MOODFLIP OFFICIAL CERTIFICATE', 80, 62);
+  doc.text('MOODFLIP OFFICIAL CERTIFICATE', 50, 95);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(36);
+  doc.setFontSize(34);
   doc.setTextColor(255, 255, 255);
-  doc.text('CERTIFICATE OF COMPLETION', 50, 120);
+  doc.text('CERTIFICATE OF COMPLETION', 50, 140);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(13);
   doc.setTextColor(230, 220, 250);
-  doc.text('This is proudly presented to:', 50, 165);
+  doc.text('This is proudly presented to:', 50, 180);
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(28);
   doc.setTextColor(212, 171, 255);
-  doc.text(esc(user), 50, 210);
+  doc.text(esc(user), 50, 225);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(11);
   doc.setTextColor(255, 255, 255);
-  doc.text(`For successfully completing all ${totalDays} days of the MoodFlip ${totalDays === 30 ? '30-Day Transformation Plan' : '7-Day Mindset Journey'}.`, 50, 250);
+  doc.text(`For successfully completing all ${totalDays} days of the MoodFlip ${totalDays === 30 ? '30-Day Transformation Plan' : '7-Day Mindset Journey'}.`, 50, 265);
 
   doc.setFillColor(34, 39, 85);
   doc.roundedRect(40, 420, 532, 220, 8, 8, 'F');
@@ -1302,38 +1373,8 @@ function buildBook5(doc: jsPDF, planType: string, userName: string) {
 
   drawFooter(doc, 1, 2, title);
 
-  // Page 2 Daily Log Summary
-  doc.addPage();
-  drawHeader(doc, 'moodflip | Completion Report');
-  drawWatermark(doc);
-
-  doc.setFillColor(113, 71, 232);
-  doc.roundedRect(40, 50, 532, 40, 6, 6, 'F');
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(18);
-  doc.setTextColor(255, 255, 255);
-  doc.text('Completed Daily Mindset Log Summary', 60, 76);
-
-  for (let i = 0; i < 7; i++) {
-    const y = 110 + i * 85;
-    doc.setFillColor(244, 239, 252);
-    doc.roundedRect(40, y, 532, 75, 6, 6, 'F');
-    doc.setDrawColor(234, 227, 242);
-    doc.roundedRect(40, y, 532, 75, 6, 6, 'S');
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(113, 71, 232);
-    doc.text(`Day ${i + 1}: Verified Completed Exercise`, 56, y + 25);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9.5);
-    doc.setTextColor(104, 96, 127);
-    doc.text('Status: Verified Complete | 60-Second Action Applied', 56, y + 45);
-    doc.text('Reflection Note: Personal mindset shift recorded on MoodFlip.', 56, y + 62);
-  }
-
-  drawFooter(doc, 2, 2, title);
+  // Page 2 Prominent Back Cover Page
+  drawBackCoverPage(doc, title, 2);
 }
 
 // ════════════════════════════════════════════════════════════════════

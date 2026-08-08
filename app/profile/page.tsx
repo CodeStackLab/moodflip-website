@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { triggerPDFDownload } from '@/lib/generatePDF';
 // AdBanner removed — ads only shown on homepage and blog
 
 export default function UserDashboardPage() {
@@ -164,15 +165,9 @@ export default function UserDashboardPage() {
         isPaid: true,
       });
 
-      // Instant PDF Download simulator
-      const element = document.createElement('a');
-      const file = new Blob([`Official MoodFlip ${selectedPlan.name} PDF Guide\n\nThank you ${userProfile.name} for your order!\nPrice Paid: $${selectedPlan.price}\n\nYour mindset transformation starts now.`], { type: 'text/plain' });
-      element.href = URL.createObjectURL(file);
-      element.download = `MoodFlip_${selectedPlan.name.replace(/\s+/g, '_')}_Guide.pdf`;
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-    }, 1500);
+      // Instant Valid Binary PDF Download
+      triggerPDFDownload(selectedPlan.name, userProfile.name);
+    }, 1200);
   };
 
   const checkins = [
@@ -1168,7 +1163,7 @@ export default function UserDashboardPage() {
                       </div>
                     </div>
                     <button
-                      onClick={() => openPaymentModal(res.title, 9.99)}
+                      onClick={() => triggerPDFDownload(res.title, userProfile.name)}
                       className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#7147E8] text-white text-xs sm:text-sm font-extrabold hover:bg-[#5f38d4] transition shrink-0 cursor-pointer shadow-xs text-center"
                     >
                       Download PDF
@@ -1715,7 +1710,10 @@ export default function UserDashboardPage() {
                 </div>
                 <div className="pt-2">
                   <button
-                    onClick={() => setPaymentModalOpen(false)}
+                    onClick={() => {
+                      setPaymentModalOpen(false);
+                      triggerPDFDownload(selectedPlan?.name || 'MoodFlip Mindset Guide', userProfile.name);
+                    }}
                     className="px-8 py-3.5 rounded-2xl bg-[#7147E8] text-white font-extrabold text-sm shadow-md hover:bg-[#5f38d4] transition cursor-pointer"
                   >
                     Done &amp; Start Exploring →

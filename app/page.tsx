@@ -1,37 +1,14 @@
-// Cache buster: 2026-08-04-v1.0.2
+// Cache buster: 2026-08-08-counselor-v1.0
 "use client";
 
 import React, { useEffect, useMemo, useState, Fragment } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
+import BoxBreathingWidget from "@/components/BoxBreathingWidget";
 import styles from "./page.module.css";
+import { COUNSELOR_MOODS, CounselorPromptItem } from "@/data/moods";
 
-type Mood = {
-  name: string;
-  emoji: string;
-  category: "Low" | "Anxious" | "Angry" | "Overwhelmed" | "Lonely";
-  tone: string;
-  bgColor: string;
-  feelings: string[];
-};
-
-const moods: Mood[] = [
-  { name: "Sad", emoji: "😢", category: "Low", tone: "lavender", bgColor: "#F0EBFB", feelings: ["Down", "Heavy", "Blue"] },
-  { name: "Hopeless", emoji: "☁️", category: "Low", tone: "gray", bgColor: "#F2F4F7", feelings: ["Stuck", "Defeated", "Empty"] },
-  { name: "Disappointed", emoji: "💔", category: "Low", tone: "rose", bgColor: "#FFF0F3", feelings: ["Let down", "Discouraged", "Unseen"] },
-  { name: "Lonely", emoji: "👤", category: "Lonely", tone: "blue", bgColor: "#EEF6FF", feelings: ["Disconnected", "Left out", "Missing someone"] },
-  { name: "Tired", emoji: "🔋", category: "Low", tone: "green", bgColor: "#ECFDF5", feelings: ["Drained", "Sleepy", "Burnt out"] },
-  { name: "Anxious", emoji: "🎯", category: "Anxious", tone: "cyan", bgColor: "#E6F7FF", feelings: ["Nervous", "Uneasy", "On edge"] },
-  { name: "Worried", emoji: "🌧️", category: "Anxious", tone: "aqua", bgColor: "#EAF8F6", feelings: ["Concerned", "Restless", "Uncertain"] },
-  { name: "Overwhelmed", emoji: "🌀", category: "Overwhelmed", tone: "purple", bgColor: "#F6F0FD", feelings: ["Flooded", "Scattered", "Too much"] },
-  { name: "Stressed", emoji: "🌩️", category: "Overwhelmed", tone: "violet", bgColor: "#FBF0F8", feelings: ["Pressured", "Tense", "Rushed"] },
-  { name: "Insecure", emoji: "🛡️", category: "Anxious", tone: "peach", bgColor: "#FFF7EB", feelings: ["Doubtful", "Exposed", "Not enough"] },
-  { name: "Angry", emoji: "😡", category: "Angry", tone: "red", bgColor: "#FFF0F0", feelings: ["Mad", "Furious", "Resentful"] },
-  { name: "Frustrated", emoji: "💥", category: "Angry", tone: "orange", bgColor: "#FFF4EB", feelings: ["Blocked", "Annoyed", "Impatient"] },
-  { name: "Irritable", emoji: "😟", category: "Angry", tone: "yellow", bgColor: "#FFFDEB", feelings: ["Snappy", "Agitated", "Bothered"] },
-  { name: "Guilty", emoji: "🥺", category: "Low", tone: "mauve", bgColor: "#F8EFFC", feelings: ["Regretful", "Ashamed", "Responsible"] },
-  { name: "Stuck", emoji: "🔒", category: "Overwhelmed", tone: "slate", bgColor: "#F3F4F6", feelings: ["Frozen", "Confused", "Unable to move"] },
-];
+const moods: CounselorPromptItem[] = COUNSELOR_MOODS;
 
 const categories = [
   { name: "All", icon: "⊞" },
@@ -59,25 +36,56 @@ function IconButton({ label, children }: { label: string; children: React.ReactN
 }
 
 export default function HomePage() {
+  const [moodsList, setMoodsList] = useState<CounselorPromptItem[]>(COUNSELOR_MOODS);
+
+  useEffect(() => {
+    const loadMoods = () => {
+      if (typeof window !== 'undefined') {
+        const isV6Synced = localStorage.getItem('moodflip_counselor_v6_synced');
+        if (!isV6Synced) {
+          localStorage.setItem('moodflip_counselor_moods', JSON.stringify(COUNSELOR_MOODS));
+          localStorage.setItem('moodflip_counselor_v6_synced', 'true');
+          setMoodsList(COUNSELOR_MOODS);
+          return;
+        }
+        const saved = localStorage.getItem('moodflip_counselor_moods');
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              setMoodsList(parsed);
+            }
+          } catch (e) {}
+        } else {
+          setMoodsList(COUNSELOR_MOODS);
+        }
+      }
+    };
+    loadMoods();
+    window.addEventListener('storage', loadMoods);
+    return () => window.removeEventListener('storage', loadMoods);
+  }, []);
+
   const [category, setCategory] = useState<(typeof categories)[number]["name"]>("All");
-  const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
+  const [selectedMood, setSelectedMood] = useState<CounselorPromptItem | null>(null);
   const [selectedFeeling, setSelectedFeeling] = useState<string | null>(null);
   const [seconds, setSeconds] = useState(60);
   const [running, setRunning] = useState(false);
   const [saved, setSaved] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [aiData, setAiData] = useState<{
+  const [flipData, setFlipData] = useState<{
     reframingQuote?: string;
     actionTitle?: string;
     actionSteps?: string[];
     scienceInsight?: string;
+    target?: string;
   } | null>(null);
-  const [aiLoading, setAiLoading] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const [justGenerated, setJustGenerated] = useState(false);
 
   const [mobileModalOpen, setMobileModalOpen] = useState(false);
   const [mobileStep, setMobileStep] = useState<'feeling' | 'result'>('feeling');
+  const [showMobileSteps, setShowMobileSteps] = useState(false);
 
   useEffect(() => {
     const isLoggedIn = typeof window !== 'undefined' && (localStorage.getItem('userLoggedIn') === 'true' || localStorage.getItem('isLoggedIn') === 'true');
@@ -102,36 +110,24 @@ export default function HomePage() {
     }, 300000);
   };
 
-  const fetchAiFlip = async (moodName: string, feelingName: string) => {
-    setAiLoading(true);
-    try {
-      const res = await fetch('/api/ai/flip', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mood: moodName, feeling: feelingName })
-      });
-      const data = await res.json();
-      if (data.success && data.aiData) {
-        setAiData(data.aiData);
-        setJustGenerated(true);
-        setTimeout(() => {
-          const el = document.getElementById("positive-flip");
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-        }, 50);
-        setTimeout(() => setJustGenerated(false), 2500);
-      }
-    } catch (e) {
-      // silently handle error
-    } finally {
-      setAiLoading(false);
-    }
-  };
-
   const handleFlipClick = () => {
     if (selectedMood && selectedFeeling) {
-      fetchAiFlip(selectedMood.name, selectedFeeling);
+      // Use verified human-reviewed counselor prompt data directly (no AI API call)
+      setFlipData({
+        reframingQuote: selectedMood.reframeQuote || selectedMood.actionDesc,
+        actionTitle: selectedMood.actionTitle,
+        actionSteps: selectedMood.actions,
+        scienceInsight: selectedMood.whyHelps,
+        target: selectedMood.target
+      });
+      setJustGenerated(true);
+      setTimeout(() => {
+        const el = document.getElementById("positive-flip");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 50);
+      setTimeout(() => setJustGenerated(false), 2500);
     }
   };
 
@@ -145,8 +141,8 @@ export default function HomePage() {
   };
 
   const visibleMoods = useMemo(
-    () => moods.filter((mood) => category === "All" || mood.category === category),
-    [category],
+    () => moodsList.filter((mood) => category === "All" || mood.category === category),
+    [category, moodsList],
   );
 
   useEffect(() => {
@@ -180,7 +176,7 @@ export default function HomePage() {
     return () => window.removeEventListener('hashchange', scrollToCheckIn);
   }, []);
 
-  function selectMood(mood: Mood) {
+  function selectMood(mood: CounselorPromptItem) {
     setSelectedMood(mood);
     setSelectedFeeling(null);
     if (typeof window !== 'undefined' && window.innerWidth < 768) {
@@ -439,10 +435,10 @@ export default function HomePage() {
             <button
               className={styles.flipButton}
               type="button"
-              disabled={!selectedMood || !selectedFeeling || aiLoading}
+              disabled={!selectedMood || !selectedFeeling}
               onClick={handleFlipClick}
             >
-              {aiLoading ? '🤖 MOODFLIP COACH THINKING...' : '✨ FLIP MY MOOD'} <span>→</span>
+              ✨ FLIP MY MOOD <span>→</span>
             </button>
           </section>
 
@@ -507,7 +503,7 @@ export default function HomePage() {
             </div>
 
             <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#1a1338', margin: '0 0 10px 0', lineHeight: '1.3', letterSpacing: '-0.5px', transition: 'all 0.5s ease' }}>
-              {aiData?.actionTitle || 'Towards Calm & Clarity'}
+              {flipData?.target || selectedMood?.target || 'Towards Calm & Clarity'}
             </h2>
             <p style={{
               fontSize: '15px',
@@ -523,7 +519,7 @@ export default function HomePage() {
               transition: 'all 0.5s ease',
               boxShadow: justGenerated ? '0 4px 20px rgba(113, 71, 232, 0.25)' : 'none'
             }}>
-              {aiData?.reframingQuote || "You've got this. Small steps lead to big shifts."}
+              {flipData?.reframingQuote || selectedMood?.reframeQuote || "You've got this. Small steps lead to big shifts."}
             </p>
 
             {/* ⚡ ULTRA-PREMIUM 60-SECOND ACTION CARD ⚡ */}
@@ -559,14 +555,14 @@ export default function HomePage() {
                   borderRadius: '12px'
                 }}>
                   <strong style={{ fontSize: '15px', fontWeight: '800', color: '#1A1338', lineHeight: '1.4', display: 'block' }}>
-                    {aiData?.actionSteps && aiData.actionSteps.length > 0 ? aiData.actionSteps[0] : 'Take 3 deep, grounding breaths.'}
+                    {flipData?.actionTitle || selectedMood?.actionTitle || 'Take 3 deep, grounding breaths.'}
                   </strong>
                 </div>
 
                 {/* Numbered Sub-steps */}
-                {aiData?.actionSteps && aiData.actionSteps.length > 1 ? (
+                {Boolean(flipData?.actionSteps || selectedMood?.actions) && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', padding: '2px 0' }}>
-                    {aiData.actionSteps.slice(1).map((step, idx) => (
+                    {(flipData?.actionSteps || selectedMood?.actions || []).map((step, idx) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                         <span style={{
                           width: '22px',
@@ -590,13 +586,8 @@ export default function HomePage() {
                       </div>
                     ))}
                   </div>
-                ) : (
-                  <p style={{ fontSize: '13.5px', fontWeight: '600', color: '#4A3F6D', lineHeight: '1.5', margin: 0 }}>
-                    Inhale for 4 seconds, hold for 4, exhale slowly for 6 seconds while relaxing your shoulders.
-                  </p>
                 )}
-
-                {/* Interactive Timer Control Bar */}
+                                   {/* Interactive Timer Control Bar */}
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -671,30 +662,52 @@ export default function HomePage() {
 
               </div>
 
-              {/* Science Insight Block */}
+              {/* Ultra-Premium Science Insight Card */}
               <div style={{
-                marginTop: '14px',
-                paddingTop: '12px',
-                borderTop: '1px solid rgba(113, 71, 232, 0.1)',
+                marginTop: '16px',
+                padding: '12px 14px',
+                background: 'linear-gradient(135deg, rgba(246, 240, 255, 0.85), rgba(254, 242, 248, 0.85))',
+                border: '1px solid rgba(113, 71, 232, 0.18)',
+                borderLeft: '4px solid #7147E8',
+                borderRadius: '14px',
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '8px'
+                gap: '10px',
+                boxShadow: '0 4px 15px rgba(113, 71, 232, 0.05)'
               }}>
-                <span style={{ fontSize: '15px', marginTop: '1px' }}>🧬</span>
+                <span style={{
+                  width: '26px',
+                  height: '26px',
+                  borderRadius: '50%',
+                  background: 'rgba(113, 71, 232, 0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '13px',
+                  flexShrink: 0,
+                  marginTop: '1px'
+                }}>🧬</span>
                 <div>
-                  <strong style={{ fontSize: '12px', fontWeight: '800', color: '#7147E8', display: 'block', marginBottom: '2px' }}>
-                    WHY THIS HELPS
+                  <strong style={{ fontSize: '11px', fontWeight: '900', color: '#7147E8', letterSpacing: '0.6px', display: 'block', marginBottom: '3px', textTransform: 'uppercase' }}>
+                    WHY THIS HELPS (SCIENCE-BACKED INSIGHT)
                   </strong>
-                  <p style={{ fontSize: '12.5px', fontWeight: '600', color: '#5B5278', lineHeight: '1.5', margin: 0 }}>
-                    {aiData?.scienceInsight || "Gentle touch and slow breathing activate the vagus nerve, lowering cortisol and signaling safety to the brain, while acknowledging small wins releases dopamine."}
+                  <p style={{ fontSize: '12.5px', fontWeight: '600', color: '#4A3F6D', lineHeight: '1.5', margin: 0 }}>
+                    {flipData?.scienceInsight || selectedMood?.whyHelps || "Gentle touch and slow breathing activate the vagus nerve, lowering cortisol and signaling safety to the brain, while acknowledging small wins releases dopamine."}
                   </p>
                 </div>
               </div>
 
+              {/* Show Animated Box Breathing Circle ONLY AFTER user clicks FLIP MY MOOD */}
+              {Boolean(flipData) && (
+                <div style={{ marginTop: '24px', paddingTop: '6px' }}>
+                  <BoxBreathingWidget />
+                </div>
+              )}
+
             </div>
 
             <div className={styles.flipActions}>
-              <button type="button" onClick={() => { setSelectedMood(null); setSelectedFeeling(null); }}><span>⟳</span> Try Another</button>
+              <button type="button" onClick={() => { setSelectedMood(null); setSelectedFeeling(null); setFlipData(null); }}><span>⟳</span> Try Another</button>
               <button
                 type="button"
                 className={styles.saveButton}
@@ -1135,20 +1148,20 @@ export default function HomePage() {
         {/* 📱 MOBILE STEP-BY-STEP BOTTOM SHEET WIZARD 📱 */}
         {mobileModalOpen && selectedMood && (
           <div className="fixed inset-0 z-[99999] bg-black/60 backdrop-blur-xs flex items-end justify-center sm:hidden animate-in fade-in duration-200">
-            <div className="w-full bg-white rounded-t-[32px] p-6 max-h-[90vh] overflow-y-auto space-y-5 border-t border-[#EAE3F2] shadow-2xl relative animate-in slide-in-from-bottom-8 duration-300">
+            <div className="w-full bg-white rounded-t-[32px] p-6 max-h-[92vh] flex flex-col overflow-hidden border-t border-[#EAE3F2] shadow-2xl relative animate-in slide-in-from-bottom-8 duration-300">
               
               {/* Close Button */}
               <button
                 type="button"
                 onClick={() => setMobileModalOpen(false)}
-                className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 text-base font-extrabold w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"
+                className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 text-base font-extrabold w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer z-20"
               >
                 ✕
               </button>
 
               {/* STEP 2: PICK FEELING */}
               {mobileStep === 'feeling' && (
-                <div className="space-y-5 text-left">
+                <div className="space-y-5 text-left overflow-y-auto pr-1 pt-2 pb-4">
                   <div>
                     <div className="flex items-center gap-2 text-xs font-black text-[#7147E8] uppercase tracking-wider mb-1">
                       <span>Step 2 of 2</span> · <span>{selectedMood.emoji} {selectedMood.name}</span>
@@ -1161,8 +1174,8 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  {/* Feeling Buttons */}
-                  <div className="grid grid-cols-1 gap-2.5">
+                  {/* Feeling Buttons Grid */}
+                  <div className="grid grid-cols-1 gap-2.5 max-h-[48vh] overflow-y-auto pr-1">
                     {selectedMood.feelings.map((feeling) => (
                       <button
                         key={feeling}
@@ -1183,116 +1196,131 @@ export default function HomePage() {
                   {/* Submit Button */}
                   <button
                     type="button"
-                    disabled={!selectedFeeling || aiLoading}
+                    disabled={!selectedFeeling}
                     onClick={() => {
-                      if (selectedFeeling) {
+                      if (selectedFeeling && selectedMood) {
+                        setFlipData({
+                          reframingQuote: selectedMood.reframeQuote || selectedMood.actionDesc,
+                          actionTitle: selectedMood.actionTitle,
+                          actionSteps: selectedMood.actions,
+                          scienceInsight: selectedMood.whyHelps,
+                          target: selectedMood.target
+                        });
                         setMobileStep('result');
-                        fetchAiFlip(selectedMood.name, selectedFeeling);
                       }
                     }}
                     className="w-full py-4 rounded-2xl font-extrabold text-sm text-white bg-gradient-to-r from-[#7147E8] to-[#9333EA] shadow-lg shadow-[#7147E8]/25 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    {aiLoading ? (
-                      <>
-                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>🤖 MOODFLIP COACH THINKING...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>✨</span> <span>FLIP MY MOOD →</span>
-                      </>
-                    )}
+                    <span>✨</span> <span>FLIP MY MOOD →</span>
                   </button>
                 </div>
               )}
 
               {/* STEP 3: RESULT VIEW */}
               {mobileStep === 'result' && (
-                <div className="space-y-4 text-left">
-                  {aiLoading ? (
-                    <div className="py-12 text-center space-y-4">
-                      <div className="w-14 h-14 bg-purple-100 text-[#7147E8] rounded-full flex items-center justify-center text-2xl mx-auto animate-bounce">
-                        ✨
-                      </div>
-                      <h4 className="font-serif text-lg font-extrabold text-[#1A1338]">Finding your positive flip...</h4>
-                      <p className="text-xs text-gray-500 font-medium">MoodFlip Coach is processing your mindset shift.</p>
+                <div className="flex flex-col h-full overflow-hidden text-left">
+                  
+                  {/* Scrollable Content Body */}
+                  <div className="flex-1 overflow-y-auto pr-1.5 pb-6 space-y-4">
+                    <div className="flex items-center justify-between border-b border-gray-100 pb-3 pt-1">
+                      <span className="text-xs font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                        ✓ POSITIVE FLIP GENERATED
+                      </span>
                     </div>
-                  ) : (
-                    <>
-                      <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-                        <span className="text-xs font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                          ✓ POSITIVE FLIP GENERATED
-                        </span>
+
+                    <h3 className="font-serif text-xl font-extrabold text-[#1A1338] leading-tight">
+                      {flipData?.target || selectedMood?.target || 'Towards Calm & Clarity'}
+                    </h3>
+
+                    <p className="text-xs font-semibold text-[#3d2f6e] leading-relaxed p-3.5 bg-[#F8F5FE] border-l-4 border-[#7147E8] rounded-xl">
+                      {flipData?.reframingQuote || selectedMood?.reframeQuote || "You've got this. Small steps lead to big shifts."}
+                    </p>
+
+                    {/* 60-Second Action Box (Collapsible) */}
+                    <div className="p-3.5 rounded-2xl bg-white border border-[#EAE3F2] shadow-sm space-y-2.5">
+                      <div className="flex items-center justify-between text-xs font-black text-[#7147E8]">
+                        <span>✨ YOUR 60-SECOND ACTION</span>
+                        <span className="bg-purple-100 px-2.5 py-0.5 rounded-full text-[10px]">⏱ {seconds}s</span>
                       </div>
 
-                      <h3 className="font-serif text-xl font-extrabold text-[#1A1338] leading-tight">
-                        {aiData?.actionTitle || 'Towards Calm & Clarity'}
-                      </h3>
+                      <div className="p-2.5 rounded-xl bg-[#F5F0FF] border-l-4 border-[#7147E8] text-xs font-extrabold text-[#1A1338]">
+                        {flipData?.actionTitle || selectedMood?.actionTitle || 'Take 3 deep breaths.'}
+                      </div>
 
-                      <p className="text-xs font-semibold text-[#3d2f6e] leading-relaxed p-3.5 bg-[#F8F5FE] border-l-4 border-[#7147E8] rounded-xl">
-                        {aiData?.reframingQuote || "You've got this. Small steps lead to big shifts."}
-                      </p>
+                      {/* Collapsible Action Steps Toggle */}
+                      {(flipData?.actionSteps || selectedMood?.actions) && (
+                        <div>
+                          <button
+                            type="button"
+                            onClick={() => setShowMobileSteps((v) => !v)}
+                            className="w-full py-2 px-3 rounded-xl bg-[#F4EFFC] hover:bg-[#EAE1FA] border border-[#E2D9F5] text-[11.5px] font-extrabold text-[#7147E8] flex items-center justify-between transition-all cursor-pointer shadow-xs active:scale-[0.98]"
+                          >
+                            <span className="flex items-center gap-1.5">
+                              <span>📋</span>
+                              <span>{showMobileSteps ? 'Hide 3-Step Guide' : 'View 3-Step Guide'}</span>
+                            </span>
+                            <span className="flex items-center gap-1 bg-[#7147E8] text-white px-2 py-0.5 rounded-lg text-[10px] font-extrabold">
+                              <span>{showMobileSteps ? '▲' : '▼'}</span>
+                              <span>{(flipData?.actionSteps || selectedMood?.actions || []).length || 3} Steps</span>
+                            </span>
+                          </button>
 
-                      {/* 60-Second Action Box */}
-                      <div className="p-4 rounded-2xl bg-white border border-[#EAE3F2] shadow-sm space-y-3">
-                        <div className="flex items-center justify-between text-xs font-black text-[#7147E8]">
-                          <span>✨ YOUR 60-SECOND ACTION</span>
-                          <span className="bg-purple-100 px-2.5 py-0.5 rounded-full">⏱ {seconds}s</span>
+                          {showMobileSteps && (
+                            <div className="space-y-2 text-xs font-semibold text-[#4A3F6D] pt-2 border-t border-purple-100 mt-1.5 animate-in fade-in duration-200">
+                              {(flipData?.actionSteps || selectedMood?.actions || []).map((s, idx) => (
+                                <div key={idx} className="flex items-start gap-2">
+                                  <span className="w-4 h-4 rounded-full bg-[#7147E8] text-white text-[9px] font-black flex items-center justify-center shrink-0 mt-0.5">{idx + 1}</span>
+                                  <span>{s}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
+                      )}
 
-                        <div className="p-3 rounded-xl bg-[#F5F0FF] border-l-4 border-[#7147E8] text-xs font-extrabold text-[#1A1338]">
-                          {aiData?.actionSteps && aiData.actionSteps.length > 0 ? aiData.actionSteps[0] : 'Take 3 deep breaths.'}
-                        </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (seconds === 0) resetAction();
+                          setRunning((v) => !v);
+                        }}
+                        className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold text-xs shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <span>{running ? 'Ⅱ' : '▶'}</span>
+                        <span>{running ? 'Pause Timer' : 'Start 60s Reset'}</span>
+                      </button>
+                    </div>
 
-                        {aiData?.actionSteps && aiData.actionSteps.length > 1 && (
-                          <div className="space-y-2 text-xs font-semibold text-[#4A3F6D]">
-                            {aiData.actionSteps.slice(1).map((s, idx) => (
-                              <div key={idx} className="flex items-start gap-2">
-                                <span className="w-5 h-5 rounded-full bg-[#7147E8] text-white text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">{idx + 1}</span>
-                                <span>{s}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                    {/* Animated Box Breathing Widget in Mobile Modal (ACTIVE & VISIBLE BY DEFAULT) */}
+                    <div className="pt-1 pb-2">
+                      <BoxBreathingWidget />
+                    </div>
 
-                        <button
-                          type="button"
-                          onClick={() => {
-                            if (seconds === 0) resetAction();
-                            setRunning((v) => !v);
-                          }}
-                          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold text-xs shadow-md flex items-center justify-center gap-2 cursor-pointer"
-                        >
-                          <span>{running ? 'Ⅱ' : '▶'}</span>
-                          <span>{running ? 'Pause Timer' : 'Start 60s Reset'}</span>
-                        </button>
-                      </div>
+                    {/* Science Insight */}
+                    <div className="p-3 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA] text-[11px] text-[#5B5278] font-medium space-y-1">
+                      <strong className="block text-[#7147E8] font-black">🧬 WHY THIS HELPS</strong>
+                      <p className="leading-relaxed">{flipData?.scienceInsight || selectedMood?.whyHelps || "Gentle breathing activates the vagus nerve, reducing cortisol."}</p>
+                    </div>
+                  </div>
 
-                      {/* Science Insight */}
-                      <div className="p-3 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA] text-[11px] text-[#5B5278] font-medium space-y-1">
-                        <strong className="block text-[#7147E8] font-black">🧬 WHY THIS HELPS</strong>
-                        <p className="leading-relaxed">{aiData?.scienceInsight || "Gentle breathing activates the vagus nerve, reducing cortisol."}</p>
-                      </div>
+                  {/* Fixed Bottom Action Buttons Bar */}
+                  <div className="pt-3 pb-1 bg-white border-t border-gray-100 flex gap-2 shrink-0 z-10">
+                    <button
+                      type="button"
+                      onClick={() => { setMobileStep('feeling'); setSelectedFeeling(null); }}
+                      className="flex-1 py-3.5 rounded-xl bg-gray-100 text-[#1A1338] font-extrabold text-xs hover:bg-gray-200 cursor-pointer"
+                    >
+                      ⟳ Try Another
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setSaved(!saved); setMobileModalOpen(false); }}
+                      className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold text-xs shadow-md cursor-pointer"
+                    >
+                      {saved ? '✓ Saved' : '🔖 Save & Close'}
+                    </button>
+                  </div>
 
-                      {/* Action buttons */}
-                      <div className="flex gap-2 pt-2">
-                        <button
-                          type="button"
-                          onClick={() => { setMobileStep('feeling'); setSelectedFeeling(null); }}
-                          className="flex-1 py-3 rounded-xl bg-gray-100 text-[#1A1338] font-extrabold text-xs hover:bg-gray-200 cursor-pointer"
-                        >
-                          ⟳ Try Another
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => { setSaved(!saved); setMobileModalOpen(false); }}
-                          className="flex-1 py-3 rounded-xl bg-[#7147E8] text-white font-extrabold text-xs shadow-md cursor-pointer"
-                        >
-                          {saved ? '✓ Saved' : '🔖 Save & Close'}
-                        </button>
-                      </div>
-                    </>
-                  )}
                 </div>
               )}
 

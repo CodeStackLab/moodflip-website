@@ -37,7 +37,7 @@ export default function RegisterPage() {
   };
   const strength = getPasswordStrength();
 
-  // Step 1: Submit form → show OTP screen
+  // Step 1: Submit form → Direct account creation (OTP disabled as requested)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -49,13 +49,19 @@ export default function RegisterPage() {
     setIsLoading(true);
     setLoadingStep(1);
 
-    setTimeout(() => setLoadingStep(2), 600);
+    setTimeout(() => setLoadingStep(2), 500);
     setTimeout(() => {
       setLoadingStep(3);
-      setIsLoading(false);
-      setOtpSent(true);
-      setShowOtp(true);
-    }, 1400);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('userLoggedIn', 'true');
+        localStorage.setItem('isLoggedIn', 'true');
+        if (fullName) localStorage.setItem('userName', fullName);
+        if (email) localStorage.setItem('userEmail', email);
+        const params = new URLSearchParams(window.location.search);
+        const redirectUrl = params.get('redirect') || '/profile';
+        window.location.href = redirectUrl;
+      }
+    }, 1000);
   };
 
   // Step 2: Verify OTP → create account & redirect

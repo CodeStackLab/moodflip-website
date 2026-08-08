@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { defaultBlogPosts, defaultLegalPages } from '@/lib/blogData';
 import type { BlogPost, LegalPage } from '@/lib/blogData';
 import RichEditor from '@/components/RichEditor';
+import { COUNSELOR_MOODS, CounselorPromptItem } from '@/data/moods';
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -22,7 +23,6 @@ export default function AdminDashboardPage() {
     { id: 2, title: '7-Day Plan Purchase', desc: 'Michael Chen purchased 7-Day Mindset Plan ($9.99).', time: '18 mins ago', read: false, icon: '💳', category: 'Sale' },
     { id: 3, title: 'Users Export Completed', desc: 'Users CSV export is generated and ready for download.', time: '1 hour ago', read: false, icon: '📥', category: 'System' },
     { id: 4, title: 'New Check-in Logged', desc: 'Aisha Patel completed a 60-second Anxious → Calm shift.', time: '2 hours ago', read: false, icon: '⚡', category: 'Activity' },
-    { id: 5, title: 'AI Provider Gateway Active', desc: 'Google Gemini 1.5 Pro connected successfully.', time: '3 hours ago', read: true, icon: '🤖', category: 'AI' },
     { id: 6, title: 'Search Console Tag Verified', desc: 'Google Search Console verification meta tag active.', time: '5 hours ago', read: true, icon: '🔍', category: 'SEO' },
     { id: 7, title: 'Database Backup Completed', desc: 'System database backup finished with zero errors.', time: '1 day ago', read: true, icon: '💾', category: 'System' },
     { id: 8, title: 'Admin Session Security', desc: 'Admin login credentials updated and active.', time: '2 days ago', read: true, icon: '🛡️', category: 'Security' },
@@ -250,6 +250,47 @@ export default function AdminDashboardPage() {
     paypalMode: 'sandbox',
   });
 
+  // Counselor Mood Pairings Database State
+  const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(() => {
+    if (typeof window !== 'undefined') {
+      const isV6Synced = localStorage.getItem('moodflip_counselor_v6_synced');
+      if (!isV6Synced) {
+        localStorage.setItem('moodflip_counselor_moods', JSON.stringify(COUNSELOR_MOODS));
+        localStorage.setItem('moodflip_counselor_v6_synced', 'true');
+        return COUNSELOR_MOODS;
+      }
+      const saved = localStorage.getItem('moodflip_counselor_moods');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+    }
+    return COUNSELOR_MOODS;
+  });
+
+  const [editingCounselorMoodItem, setEditingCounselorMoodItem] = useState<CounselorPromptItem | null>(null);
+  const [showAddMoodModal, setShowAddMoodModal] = useState(false);
+  const [moodSearchQuery, setMoodSearchQuery] = useState('');
+  const [moodCategoryFilter, setMoodCategoryFilter] = useState('All');
+  const [moodPage, setMoodPage] = useState(1);
+  const MOODS_PER_PAGE = 18;
+
+  const PREDEFINED_EMOJIS = ['😨', '🌀', '🤏', '🕯️', '💔', '💧', '😰', '😡', '🌸', '😢', '🧍', '⚡', '🧘', '🪴', '☀️', '🌊', '💡', '🛡️', '💜', '✨', '🕊️', '🌿', '🌈', '🔑', '❤️', '🧠', '🎁', '🔥'];
+
+  const [newMoodForm, setNewMoodForm] = useState({
+    serial: 29,
+    name: '',
+    target: '',
+    actionDesc: '',
+    actionsList: [''],
+    reframeQuote: '',
+    whyHelps: '',
+    column1Notes: '',
+    feelingsInput: '',
+    emoji: '✨',
+    iconUrl: '',
+    category: 'Anxious' as const,
+  });
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedAdminEmail = localStorage.getItem('admin_login_email');
@@ -470,7 +511,6 @@ export default function AdminDashboardPage() {
                 { name: 'Blog Manager', icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
                 { name: 'Legal Pages', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
                 { name: 'SEO & Search Console', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' },
-                { name: 'AI-Powered MoodFlip', icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
                 { name: 'Settings', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z' },
               ].map((item) => (
                 <button
@@ -532,7 +572,7 @@ export default function AdminDashboardPage() {
         )}
 
         {/* 2. MAIN DASHBOARD CONTENT AREA */}
-        <main className="flex-1 p-4 md:p-8 bg-[#FAF9FE] flex flex-col gap-6 overflow-y-auto w-full">
+        <main className="flex-1 p-3 sm:p-6 md:p-8 bg-[#FAF9FE] flex flex-col gap-6 overflow-y-auto w-full min-w-0">
 
           {/* TOP SEARCH & PROFILE HEADER BAR */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 md:p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs">
@@ -1035,46 +1075,763 @@ export default function AdminDashboardPage() {
             </div>
           )}
 
-          {/* VIEW TAB 4: MOOD LIBRARY MANAGEMENT */}
-          {activeTab === 'Mood Library' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-5">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
-                <div>
-                  <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Mood Library Management 🧠</h2>
-                  <p className="text-xs text-gray-500 font-semibold mt-1">Configure supported moods, feelings tags and counterpart shifts.</p>
-                </div>
-                <button onClick={() => setActiveModal('addMood')} className="w-full sm:w-auto bg-[#7147E8] text-white px-4 py-2.5 rounded-xl text-xs font-extrabold hover:opacity-95 transition text-center shrink-0">
-                  ➕ Add New Mood
-                </button>
-              </div>
+          {/* VIEW TAB 4: MOOD LIBRARY MANAGEMENT — BEAUTIFUL CARDS GRID WITH PAGINATION & CUSTOM LOGO UPLOAD */}
+          {activeTab === 'Mood Library' && (() => {
+            const filteredMoods = counselorMoods.filter(m => {
+              const matchesSearch = !moodSearchQuery || 
+                m.name.toLowerCase().includes(moodSearchQuery.toLowerCase()) || 
+                m.target.toLowerCase().includes(moodSearchQuery.toLowerCase()) ||
+                m.actionDesc.toLowerCase().includes(moodSearchQuery.toLowerCase()) ||
+                (m.feelings && m.feelings.some(f => f.toLowerCase().includes(moodSearchQuery.toLowerCase())));
+              const matchesCategory = moodCategoryFilter === 'All' || m.category === moodCategoryFilter;
+              return matchesSearch && matchesCategory;
+            });
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {[
-                  { name: 'Anxious', emoji: '😰', target: 'Calm & Confident', category: 'Anxious', feelings: ['Nervous', 'Uneasy', 'On edge'] },
-                  { name: 'Angry', emoji: '😡', target: 'Peaceful', category: 'Angry', feelings: ['Mad', 'Furious', 'Resentful'] },
-                  { name: 'Overwhelmed', emoji: '🌸', target: 'Organized & Serene', category: 'Overwhelmed', feelings: ['Flooded', 'Scattered', 'Too much'] },
-                  { name: 'Sad', emoji: '😢', target: 'Hopeful', category: 'Low', feelings: ['Down', 'Heavy', 'Blue'] },
-                  { name: 'Lonely', emoji: '🧍', target: 'Connected', category: 'Lonely', feelings: ['Disconnected', 'Left out', 'Missing someone'] },
-                  { name: 'Stressed', emoji: '⚡', target: 'Relaxed', category: 'Overwhelmed', feelings: ['Pressured', 'Tense', 'Rushed'] },
-                ].map((m, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA] space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl">{m.emoji}</span>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-100 text-[#7147E8]">{m.category}</span>
+            const totalPages = Math.ceil(filteredMoods.length / MOODS_PER_PAGE) || 1;
+            const currentPage = Math.min(moodPage, totalPages);
+            const paginatedMoods = filteredMoods.slice((currentPage - 1) * MOODS_PER_PAGE, currentPage * MOODS_PER_PAGE);
+
+            return (
+              <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+                {/* HEADER & TOP CONTROL BAR */}
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-b border-gray-100 pb-5">
+                  <div>
+                    <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338] flex items-center gap-2">
+                      Mood Library Management 🧠
+                    </h2>
+                    <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">
+                      Configure supported moods, feelings tags, 60-second micro-actions, and counterpart shifts.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                    {/* Search Box */}
+                    <div className="relative flex-1 sm:w-64">
+                      <input
+                        type="text"
+                        placeholder="Search mood, feeling, action..."
+                        value={moodSearchQuery}
+                        onChange={(e) => { setMoodSearchQuery(e.target.value); setMoodPage(1); }}
+                        className="w-full bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl pl-9 pr-3 py-2 text-xs font-bold text-[#1A1338] focus:outline-none focus:border-[#7147E8] focus:bg-white transition shadow-2xs"
+                      />
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">🔍</span>
                     </div>
-                    <div className="font-serif font-extrabold text-sm text-[#1A1338] leading-tight">
-                      {m.name} → <span className="text-emerald-600 font-sans font-bold">{m.target}</span>
+
+                    {/* + Add New Mood Button (Matching User Screenshot!) */}
+                    <button
+                      onClick={() => {
+                        setNewMoodForm({
+                          serial: counselorMoods.length + 1,
+                          name: '',
+                          target: '',
+                          actionDesc: '',
+                          actionsList: [''],
+                          reframeQuote: '',
+                          whyHelps: '',
+                          column1Notes: '',
+                          feelingsInput: '',
+                          emoji: '✨',
+                          iconUrl: '',
+                          category: 'Anxious',
+                        });
+                        setShowAddMoodModal(true);
+                      }}
+                      className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-2xl text-xs font-black shadow-md shadow-[#7147E8]/25 hover:scale-[1.02] active:scale-95 transition cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap"
+                    >
+                      <span>+</span> Add New Mood
+                    </button>
+                  </div>
+                </div>
+
+                {/* CATEGORY FILTER PILLS */}
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+                  {['All', 'Low', 'Anxious', 'Angry', 'Overwhelmed', 'Lonely'].map(cat => (
+                    <button
+                      key={cat}
+                      onClick={() => { setMoodCategoryFilter(cat); setMoodPage(1); }}
+                      className={`px-3.5 py-1.5 rounded-xl font-extrabold transition cursor-pointer whitespace-nowrap ${
+                        moodCategoryFilter === cat
+                          ? 'bg-[#7147E8] text-white shadow-xs'
+                          : 'bg-[#FAF8FD] text-[#5B5278] border border-[#EAE3F2] hover:bg-[#F0EBFA]'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                  <span className="ml-auto text-[11px] font-bold text-gray-400">
+                    Showing {paginatedMoods.length} of {filteredMoods.length} moods
+                  </span>
+                </div>
+
+                {/* CARDS GRID (Equal Height Boxes & Responsive Breakpoints) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 items-stretch w-full">
+                  {paginatedMoods.map((m) => (
+                    <div
+                      key={m.id}
+                      className="bg-white border border-[#EFE8F8] hover:border-[#7147E8]/40 rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full group"
+                    >
+                      <div className="flex-1 flex flex-col justify-between space-y-3 pb-3">
+                        <div className="space-y-2.5">
+                          {/* Top Bar: Icon/Logo/Emoji + Category Badge */}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              {m.iconUrl ? (
+                                <img src={m.iconUrl} alt={m.name} className="w-8 h-8 rounded-lg object-contain shrink-0" />
+                              ) : (
+                                <span className="text-2xl shrink-0">{m.emoji || '💧'}</span>
+                              )}
+                              <span className="text-[10px] font-black text-gray-400">#{m.serial}</span>
+                            </div>
+                            <span className="text-[10px] font-black px-2.5 py-1 rounded-lg bg-[#F0EBFA] text-[#7147E8] shrink-0">
+                              {m.category || 'Anxious'}
+                            </span>
+                          </div>
+
+                          {/* Mood Shift Headline: Bad Mood ➔ Good Mood Target */}
+                          <div className="font-serif font-extrabold text-base text-[#1A1338] leading-tight break-words">
+                            {m.name} <span className="text-emerald-600 font-sans font-extrabold">➔ {m.target}</span>
+                          </div>
+
+                          {/* Feelings Tags */}
+                          {m.feelings && m.feelings.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5">
+                              {m.feelings.map(f => (
+                                <span key={f} className="text-[10.5px] bg-[#FAF8FD] border border-[#EAE3F2] px-2.5 py-0.5 rounded-lg text-[#5B5278] font-bold">
+                                  {f}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* 60-Second Micro-Actions List (Support multiple rotating actions) */}
+                          <div className="bg-[#FAF8FD] border border-[#F3EFF8] rounded-xl p-3 space-y-1.5 text-xs text-[#2D264B]">
+                            <div className="text-[10px] font-black uppercase tracking-wider text-[#7147E8] flex items-center justify-between">
+                              <span>⚡ 60s Micro-Actions ({m.actions ? m.actions.length : 1})</span>
+                            </div>
+                            {m.actions && m.actions.length > 0 ? (
+                              <ul className="space-y-1 text-[11.5px] font-medium leading-snug">
+                                {m.actions.map((act, idx) => (
+                                  <li key={idx} className="flex items-start gap-1.5 break-words">
+                                    <span className="text-[#7147E8] font-bold shrink-0">{idx + 1}.</span>
+                                    <span>{act}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="text-[11.5px] font-medium leading-snug break-words">{m.actionDesc}</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Counsellor Feedback / Notes (Anchored at bottom of top section) */}
+                        {(m.whyHelps || m.reframeQuote) && (
+                          <div className="text-[11px] text-[#68607F] font-semibold italic bg-[#FFFDF5] border border-amber-200/60 rounded-xl p-2.5 leading-snug break-words mt-auto">
+                            💬 {m.whyHelps || m.reframeQuote}
+                          </div>
+                        )}
+
+                        {/* Column1 Review Notes Badge */}
+                        {m.column1Notes && (
+                          <div className="text-[10.5px] text-amber-900 font-semibold bg-amber-50 border border-amber-200/80 rounded-xl p-2 leading-snug break-words">
+                            <strong className="block text-amber-800 font-extrabold text-[9.5px] uppercase">📝 Column1 (Review Note):</strong>
+                            <span>{m.column1Notes}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Card Action Buttons: Edit ✏️ and Delete 🗑️ (Red Color Accent) */}
+                      <div className="pt-3 border-t border-[#F0EBFA] flex items-center justify-between gap-2.5 shrink-0">
+                        <button
+                          onClick={() => setEditingCounselorMoodItem(m)}
+                          className="flex-1 bg-[#F0EBFA] text-[#7147E8] hover:bg-[#7147E8] hover:text-white py-2.5 px-3 rounded-2xl text-xs font-black transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 shadow-2xs active:scale-98"
+                        >
+                          <span>✏️</span> Edit Mood
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm(`Delete '${m.name}' mood card?`)) {
+                              const updated = counselorMoods.filter(item => item.id !== m.id);
+                              setCounselorMoods(updated);
+                              localStorage.setItem('moodflip_counselor_moods', JSON.stringify(updated));
+                              window.dispatchEvent(new Event('storage'));
+                            }
+                          }}
+                          className="bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-600 hover:text-white hover:border-rose-600 p-2.5 rounded-2xl text-xs font-black transition-all duration-200 cursor-pointer flex items-center justify-center gap-1 shrink-0 shadow-2xs active:scale-95"
+                          title="Delete Mood Card"
+                        >
+                          <span>🗑️</span>
+                          <span className="hidden sm:inline font-bold">Delete</span>
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex flex-wrap gap-1 pt-1">
-                      {m.feelings.map(f => (
-                        <span key={f} className="text-[10px] bg-white border border-[#EAE3F2] px-2 py-0.5 rounded-md text-gray-500 font-semibold">{f}</span>
+                  ))}
+                </div>
+
+                {/* PAGINATION CONTROLS (When total moods > 18) */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-between border-t border-gray-100 pt-5 text-xs">
+                    <span className="font-extrabold text-[#5B5278]">
+                      Page {currentPage} of {totalPages} ({filteredMoods.length} total moods)
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setMoodPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className="px-3.5 py-2 rounded-xl border border-[#EAE3F2] font-bold text-[#1A1338] hover:bg-[#FAF8FD] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                      >
+                        ← Previous
+                      </button>
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                        <button
+                          key={p}
+                          onClick={() => setMoodPage(p)}
+                          className={`w-8 h-8 rounded-xl font-extrabold text-xs transition cursor-pointer ${
+                            currentPage === p ? 'bg-[#7147E8] text-white shadow-xs' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                        >
+                          {p}
+                        </button>
                       ))}
+                      <button
+                        onClick={() => setMoodPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className="px-3.5 py-2 rounded-xl border border-[#EAE3F2] font-bold text-[#1A1338] hover:bg-[#FAF8FD] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                      >
+                        Next →
+                      </button>
                     </div>
                   </div>
-                ))}
+                )}
+
+                {/* EDIT MOOD ITEM MODAL (Wider Container & Sticky Header/Footer) */}
+                {editingCounselorMoodItem && (
+                  <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
+                    <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 md:p-8 max-w-2xl md:max-w-3xl w-full shadow-2xl max-h-[90vh] flex flex-col justify-between overflow-hidden">
+                      
+                      {/* STICKY TOP HEADER */}
+                      <div className="flex items-center justify-between border-b border-gray-100 pb-3 shrink-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#7147E8] text-xl font-black">✏️</span>
+                          <h3 className="font-serif font-extrabold text-lg text-[#1A1338]">
+                            Edit Mood: {editingCounselorMoodItem.name}
+                          </h3>
+                        </div>
+                        <button onClick={() => setEditingCounselorMoodItem(null)} className="text-gray-400 hover:text-gray-600 text-lg font-extrabold p-1 cursor-pointer">✕</button>
+                      </div>
+
+                      {/* SCROLLABLE FORM BODY */}
+                      <div className="overflow-y-auto flex-1 space-y-4 py-4 pr-1.5 text-xs">
+                        {/* Icon / Emoji Selection */}
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1">
+                            Mood Logo / Emoji / Custom Image Upload
+                          </label>
+                          <div className="flex items-center gap-3 mb-2">
+                            <div className="w-12 h-12 rounded-2xl bg-[#FAF8FD] border border-[#EAE3F2] flex items-center justify-center text-2xl shrink-0 overflow-hidden shadow-2xs">
+                              {editingCounselorMoodItem.iconUrl ? (
+                                <img src={editingCounselorMoodItem.iconUrl} alt="Logo" className="w-full h-full object-contain" />
+                              ) : (
+                                editingCounselorMoodItem.emoji || '💧'
+                              )}
+                            </div>
+                            <div className="flex-1 space-y-1">
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (ev) => {
+                                      setEditingCounselorMoodItem({ ...editingCounselorMoodItem, iconUrl: ev.target?.result as string });
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                                className="text-[11px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#F0EBFA] file:text-[#7147E8]"
+                              />
+                              <p className="text-[10px] text-gray-400">Upload custom logo PNG/SVG or pick an emoji below</p>
+                            </div>
+                          </div>
+
+                          {/* Predefined Emojis Grid */}
+                          <div className="grid grid-cols-7 gap-1.5 p-2 bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl">
+                            {PREDEFINED_EMOJIS.map(em => (
+                              <button
+                                key={em}
+                                type="button"
+                                onClick={() => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, emoji: em, iconUrl: '' })}
+                                className={`h-8 rounded-lg text-lg flex items-center justify-center hover:bg-white transition ${
+                                  editingCounselorMoodItem.emoji === em && !editingCounselorMoodItem.iconUrl ? 'bg-white border border-[#7147E8] shadow-xs' : ''
+                                }`}
+                              >
+                                {em}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-3">
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">Serial Number</label>
+                            <input
+                              type="number"
+                              value={editingCounselorMoodItem.serial}
+                              onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, serial: parseInt(e.target.value) || 1 })}
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-extrabold bg-[#FAF8FD] text-[#7147E8]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">Bad Mood</label>
+                            <input
+                              type="text"
+                              value={editingCounselorMoodItem.name}
+                              onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, name: e.target.value })}
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-extrabold bg-[#FAF8FD]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">Category</label>
+                            <select
+                              value={editingCounselorMoodItem.category || 'Anxious'}
+                              onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, category: e.target.value as any })}
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold bg-[#FAF8FD]"
+                            >
+                              <option value="Low">Low</option>
+                              <option value="Anxious">Anxious</option>
+                              <option value="Angry">Angry</option>
+                              <option value="Overwhelmed">Overwhelmed</option>
+                              <option value="Lonely">Lonely</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1">Good Mood Target</label>
+                          <input
+                            type="text"
+                            value={editingCounselorMoodItem.target}
+                            onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, target: e.target.value })}
+                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold text-emerald-700 bg-emerald-50/50"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1">Feelings Tags (comma separated)</label>
+                          <input
+                            type="text"
+                            value={(editingCounselorMoodItem.feelings || []).join(', ')}
+                            onChange={e => setEditingCounselorMoodItem({
+                              ...editingCounselorMoodItem,
+                              feelings: e.target.value.split(',').map(s => s.trim()).filter(Boolean)
+                            })}
+                            placeholder="e.g. Nervous, Uneasy, On edge"
+                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">Action Title</label>
+                            <input
+                              type="text"
+                              value={editingCounselorMoodItem.actionTitle || ''}
+                              onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, actionTitle: e.target.value })}
+                              placeholder="e.g. Ground Your Feet & Name 5 Things"
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold text-[#7147E8] bg-[#FAF8FD]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">Positive Reframe Quote</label>
+                            <input
+                              type="text"
+                              value={editingCounselorMoodItem.reframeQuote || ''}
+                              onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, reframeQuote: e.target.value })}
+                              placeholder="e.g. Right now, I am safe."
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold text-[#3d2f6e] bg-[#FAF8FD]"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Multiple 60-Second Actions Input */}
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <label className="font-extrabold text-[#1A1338]">
+                              60-Second Micro-Actions (Add extra actions)
+                            </label>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const current = editingCounselorMoodItem.actions || [editingCounselorMoodItem.actionDesc];
+                                setEditingCounselorMoodItem({
+                                  ...editingCounselorMoodItem,
+                                  actions: [...current, '']
+                                });
+                              }}
+                              className="text-[10px] font-extrabold text-[#7147E8] bg-[#F0EBFA] px-2.5 py-1 rounded-lg hover:bg-[#7147E8] hover:text-white transition cursor-pointer"
+                            >
+                              + Add Extra Action
+                            </button>
+                          </div>
+                          <div className="space-y-2">
+                            {(editingCounselorMoodItem.actions || [editingCounselorMoodItem.actionDesc]).map((act, idx) => (
+                              <div key={idx} className="flex gap-2">
+                                <span className="font-bold text-[#7147E8] pt-2 shrink-0">{idx + 1}.</span>
+                                <textarea
+                                  rows={2}
+                                  value={act}
+                                  onChange={e => {
+                                    const newActions = [...(editingCounselorMoodItem.actions || [editingCounselorMoodItem.actionDesc])];
+                                    newActions[idx] = e.target.value;
+                                    setEditingCounselorMoodItem({
+                                      ...editingCounselorMoodItem,
+                                      actionDesc: newActions[0],
+                                      actions: newActions
+                                    });
+                                  }}
+                                  className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                                />
+                                {(editingCounselorMoodItem.actions || []).length > 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const newActions = (editingCounselorMoodItem.actions || []).filter((_, i) => i !== idx);
+                                      setEditingCounselorMoodItem({
+                                        ...editingCounselorMoodItem,
+                                        actionDesc: newActions[0] || '',
+                                        actions: newActions
+                                      });
+                                    }}
+                                    className="text-rose-500 hover:text-rose-700 font-extrabold text-xs px-2"
+                                  >
+                                    ✕
+                                  </button>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1">Counsellor Feedback / Notes (Why it helps)</label>
+                          <textarea
+                            rows={2}
+                            value={editingCounselorMoodItem.whyHelps}
+                            onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, whyHelps: e.target.value })}
+                            placeholder="Enter counsellor notes..."
+                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1">Column1 (Counsellor Review Notes)</label>
+                          <textarea
+                            rows={2}
+                            value={editingCounselorMoodItem.column1Notes || ''}
+                            onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, column1Notes: e.target.value })}
+                            placeholder="e.g. I would remove the word 'enough'"
+                            className="w-full border border-amber-200/80 rounded-xl px-3 py-2 font-medium bg-amber-50/50 text-amber-900"
+                          />
+                        </div>
+                      </div>
+
+                      {/* STICKY BOTTOM BUTTON BAR */}
+                      <div className="flex items-center gap-3 pt-3 border-t border-gray-100 shrink-0">
+                        <button
+                          onClick={() => {
+                            const updated = counselorMoods.map(item => item.id === editingCounselorMoodItem.id ? editingCounselorMoodItem : item);
+                            setCounselorMoods(updated);
+                            localStorage.setItem('moodflip_counselor_moods', JSON.stringify(updated));
+                            window.dispatchEvent(new Event('storage'));
+                            setEditingCounselorMoodItem(null);
+                          }}
+                          className="flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-3 rounded-2xl text-xs font-extrabold shadow-lg shadow-[#7147E8]/25 hover:opacity-95 transition cursor-pointer active:scale-98"
+                        >
+                          💾 Save Changes
+                        </button>
+                        <button
+                          onClick={() => setEditingCounselorMoodItem(null)}
+                          className="px-5 py-3 rounded-2xl border border-[#EAE3F2] text-gray-600 text-xs font-bold hover:bg-gray-50 cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ADD NEW MOOD PAGE MODAL (Wider Container) */}
+                {showAddMoodModal && (
+                  <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
+                    <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 md:p-8 max-w-2xl md:max-w-3xl w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+                      {/* Modal Header */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#7147E8] text-2xl font-black">+</span>
+                          <h3 className="font-serif font-extrabold text-xl text-[#1A1338]">
+                            Add New Mood Page
+                          </h3>
+                        </div>
+                        <button onClick={() => setShowAddMoodModal(false)} className="text-gray-400 hover:text-gray-600 text-lg font-extrabold p-1 cursor-pointer">✕</button>
+                      </div>
+
+                      <div className="space-y-4 text-xs">
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">
+                              Serial Number
+                            </label>
+                            <input
+                              type="number"
+                              value={newMoodForm.serial}
+                              onChange={(e) => setNewMoodForm({ ...newMoodForm, serial: parseInt(e.target.value) || 29 })}
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-extrabold bg-[#FAF8FD] text-[#7147E8]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">
+                              Category
+                            </label>
+                            <select
+                              value={newMoodForm.category}
+                              onChange={e => setNewMoodForm({ ...newMoodForm, category: e.target.value as any })}
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold bg-[#FAF8FD]"
+                            >
+                              <option value="Low">Low</option>
+                              <option value="Anxious">Anxious</option>
+                              <option value="Angry">Angry</option>
+                              <option value="Overwhelmed">Overwhelmed</option>
+                              <option value="Lonely">Lonely</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">
+                              Bad Mood
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="e.g. Scared, Anxious, Weak..."
+                              value={newMoodForm.name}
+                              onChange={(e) => setNewMoodForm({ ...newMoodForm, name: e.target.value })}
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-extrabold bg-[#FAF8FD]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block font-extrabold text-[#1A1338] mb-1">
+                              Good Mood Target
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="e.g. Safe / Peaceful, Confident..."
+                              value={newMoodForm.target}
+                              onChange={(e) => setNewMoodForm({ ...newMoodForm, target: e.target.value })}
+                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold text-emerald-700 bg-emerald-50/50"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Dynamic 60-Second Micro-Actions (+ Add Extra Action) List */}
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <label className="font-extrabold text-[#1A1338]">
+                              60-Second Micro-Actions (Add extra actions)
+                            </label>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setNewMoodForm({
+                                  ...newMoodForm,
+                                  actionsList: [...(newMoodForm.actionsList || ['']), '']
+                                });
+                              }}
+                              className="text-[10px] font-extrabold text-[#7147E8] bg-[#F0EBFA] px-2.5 py-1 rounded-lg hover:bg-[#7147E8] hover:text-white transition cursor-pointer"
+                            >
+                              + Add Extra Action
+                            </button>
+                          </div>
+                          <div className="space-y-2">
+                            {(newMoodForm.actionsList || ['']).map((act, idx) => (
+                              <div key={idx} className="flex gap-2">
+                                <span className="font-bold text-[#7147E8] pt-2 shrink-0">{idx + 1}.</span>
+                                <textarea
+                                  rows={2}
+                                  value={act}
+                                  onChange={e => {
+                                    const newActions = [...(newMoodForm.actionsList || [''])];
+                                    newActions[idx] = e.target.value;
+                                    setNewMoodForm({
+                                      ...newMoodForm,
+                                      actionDesc: newActions[0] || '',
+                                      actionsList: newActions
+                                    });
+                                  }}
+                                  placeholder={`Action step ${idx + 1}...`}
+                                  className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                                />
+                                {(newMoodForm.actionsList || []).length > 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const newActions = (newMoodForm.actionsList || []).filter((_, i) => i !== idx);
+                                      setNewMoodForm({
+                                        ...newMoodForm,
+                                        actionDesc: newActions[0] || '',
+                                        actionsList: newActions
+                                      });
+                                    }}
+                                    className="text-rose-500 hover:text-rose-700 font-extrabold text-xs px-2 cursor-pointer"
+                                  >
+                                    ✕
+                                  </button>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1">
+                            Column1 (Counsellor Review Notes)
+                          </label>
+                          <textarea
+                            rows={2}
+                            placeholder="e.g. I would remove the word 'enough'..."
+                            value={newMoodForm.column1Notes}
+                            onChange={(e) => setNewMoodForm({ ...newMoodForm, column1Notes: e.target.value })}
+                            className="w-full border border-amber-200/80 rounded-xl px-3 py-2 font-medium bg-amber-50/50 text-amber-900"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1">Feelings Tags (comma separated)</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. Fearful, Terrified, Panicked, Uneasy"
+                            value={newMoodForm.feelingsInput}
+                            onChange={e => setNewMoodForm({ ...newMoodForm, feelingsInput: e.target.value })}
+                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                          />
+                        </div>
+
+                        {/* Mood Logo / Emoji / Custom Image Upload */}
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1">
+                            Mood Logo / Emoji / Custom Image Upload
+                          </label>
+                          <div className="flex items-center gap-3 mb-2">
+                            <div className="w-12 h-12 rounded-2xl bg-[#FAF8FD] border border-[#EAE3F2] flex items-center justify-center text-2xl shrink-0 overflow-hidden shadow-2xs">
+                              {newMoodForm.iconUrl ? (
+                                <img src={newMoodForm.iconUrl} alt="Logo" className="w-full h-full object-contain" />
+                              ) : (
+                                newMoodForm.emoji || '😨'
+                              )}
+                            </div>
+                            <div className="flex-1 space-y-1">
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (ev) => {
+                                      setNewMoodForm({ ...newMoodForm, iconUrl: ev.target?.result as string });
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                                className="text-[11px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#F0EBFA] file:text-[#7147E8]"
+                              />
+                              <p className="text-[10px] text-gray-400">Upload custom logo PNG/SVG or pick an emoji below</p>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-7 gap-1.5 p-2 bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl">
+                            {PREDEFINED_EMOJIS.slice(0, 14).map(em => (
+                              <button
+                                key={em}
+                                type="button"
+                                onClick={() => setNewMoodForm({ ...newMoodForm, emoji: em, iconUrl: '' })}
+                                className={`h-8 rounded-lg text-lg flex items-center justify-center hover:bg-white transition ${
+                                  newMoodForm.emoji === em && !newMoodForm.iconUrl ? 'bg-white border border-[#7147E8] shadow-xs' : ''
+                                }`}
+                              >
+                                {em}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Counsellor Notes */}
+                        <div>
+                          <label className="block font-extrabold text-[#1A1338] mb-1 text-[11px]">Counsellor Feedback / Notes</label>
+                          <textarea
+                            rows={2}
+                            placeholder="Optional counsellor review notes..."
+                            value={newMoodForm.whyHelps}
+                            onChange={e => setNewMoodForm({ ...newMoodForm, whyHelps: e.target.value })}
+                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD] text-xs"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Primary Button: Save & Publish Mood Page (Matching User Screenshot!) */}
+                      <div className="pt-2">
+                        <button
+                          onClick={() => {
+                            if (!newMoodForm.name) {
+                              alert('Please enter a Mood Title.');
+                              return;
+                            }
+                            const validActions = newMoodForm.actionsList.filter(Boolean);
+                            const feelingsArr = newMoodForm.feelingsInput
+                              ? newMoodForm.feelingsInput.split(',').map(s => s.trim()).filter(Boolean)
+                              : [newMoodForm.name];
+
+                            const newEntry: CounselorPromptItem = {
+                              serial: counselorMoods.length + 1,
+                              id: newMoodForm.name.toLowerCase().replace(/\s+/g, '-'),
+                              name: newMoodForm.name,
+                              emoji: newMoodForm.emoji,
+                              iconUrl: newMoodForm.iconUrl || undefined,
+                              category: newMoodForm.category,
+                              bgColor: '#F3E8FF',
+                              textColor: '#7147E8',
+                              feelings: feelingsArr,
+                              target: newMoodForm.target || 'Peaceful',
+                              actionTitle: newMoodForm.actionDesc || newMoodForm.name,
+                              actionDesc: newMoodForm.actionDesc || 'Take 3 deep breaths and relax.',
+                              whyHelps: newMoodForm.whyHelps || 'Grounds your body and clears your mind.',
+                              actions: validActions.length > 0 ? validActions : [newMoodForm.actionDesc || 'Take 3 deep breaths.'],
+                              reframeQuote: newMoodForm.reframeQuote || 'This is temporary and you are in control.',
+                              column1Notes: newMoodForm.column1Notes || undefined,
+                            };
+                            const updated = [...counselorMoods, newEntry];
+                            setCounselorMoods(updated);
+                            localStorage.setItem('moodflip_counselor_moods', JSON.stringify(updated));
+                            window.dispatchEvent(new Event('storage'));
+                            setShowAddMoodModal(false);
+                          }}
+                          className="w-full bg-[#7147E8] hover:bg-[#6035DB] text-white py-3.5 rounded-2xl text-xs font-black shadow-lg shadow-[#7147E8]/25 transition cursor-pointer active:scale-98"
+                        >
+                          Save & Publish Mood Page
+                        </button>
+                        <button
+                          onClick={() => setShowAddMoodModal(false)}
+                          className="w-full mt-3 py-3 rounded-2xl border border-[#EAE3F2] text-gray-600 text-xs font-bold hover:bg-gray-50"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* VIEW TAB 5: PLANS & PAYMENTS */}
           {activeTab === 'Plans & Payments' && (
@@ -2347,307 +3104,6 @@ export default function AdminDashboardPage() {
                     <h4 className="font-extrabold text-xs text-amber-700 mb-2">⚠️ Note</h4>
                     <p className="text-[11px] text-amber-600 font-medium leading-relaxed">Changes to this page are saved immediately to localStorage and reflected on <strong className="font-extrabold">/{editingLegalPage.slug}</strong> when users visit.</p>
                   </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ══════════════════════════════════════════════════════════════
-               AI-POWERED MOODFLIP — Multi-Provider AI Settings
-          ══════════════════════════════════════════════════════════════ */}
-          {activeTab === 'AI-Powered MoodFlip' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
-                <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <span className="text-2xl">🤖</span>
-                    <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">AI-Powered MoodFlip</h2>
-                    <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full ${aiSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'}`}>
-                      {aiSettings.enabled ? '● ACTIVE' : '○ INACTIVE'}
-                    </span>
-                  </div>
-                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure AI providers (Gemini, OpenAI, Mistral, Claude) to power mood analysis, action suggestions, and personalised insights.</p>
-                </div>
-                <div className="flex items-center justify-between w-full sm:w-auto bg-[#FAF8FD] border border-[#EAE3F2] px-4 py-2.5 rounded-2xl shrink-0 gap-3">
-                  <span className="text-xs font-extrabold text-gray-700">Master AI Switch</span>
-                  <button
-                    onClick={() => {
-                      const updated = { ...aiSettings, enabled: !aiSettings.enabled };
-                      setAiSettings(updated);
-                      localStorage.setItem('moodflip_ai_settings', JSON.stringify(updated));
-                    }}
-                    className={`relative w-12 h-6.5 rounded-full transition-colors cursor-pointer shrink-0 ${aiSettings.enabled ? 'bg-[#7147E8]' : 'bg-gray-300'}`}
-                  >
-                    <span className={`absolute top-0.5 w-5.5 h-5.5 bg-white rounded-full shadow transition-transform ${aiSettings.enabled ? 'translate-x-6' : 'translate-x-0.5'}`} />
-                  </button>
-                </div>
-              </div>
-
-              {/* Provider Cards */}
-              <div>
-                <h3 className="font-serif font-extrabold text-base text-[#1A1338] mb-3">AI Providers</h3>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  {(Object.entries(aiSettings.providers) as [string, typeof aiSettings.providers.gemini][]).map(([key, provider]) => (
-                    <div key={key} className={`bg-white border-2 rounded-2xl overflow-hidden shadow-xs transition-all ${provider.enabled ? 'border-[#7147E8]/40' : 'border-[#EAE3F2]'}`}>
-                      {/* Provider Header */}
-                      <div className="flex items-center justify-between px-5 py-4 bg-[#FAF8FD] border-b border-[#EAE3F2]">
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white font-extrabold text-sm shadow-sm"
-                            style={{ background: provider.color }}>
-                            {key === 'gemini' ? 'G' : key === 'openai' ? 'AI' : key === 'mistral' ? 'M' : 'C'}
-                          </div>
-                          <div>
-                            <h4 className="font-serif font-extrabold text-sm text-[#1A1338]">{provider.label}</h4>
-                            <p className="text-[10px] text-gray-400 font-semibold">{provider.model}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {provider.enabled && (
-                            <span className="text-[10px] font-extrabold px-2 py-1 rounded-full bg-emerald-100 text-emerald-700">● Active</span>
-                          )}
-                          <button
-                            onClick={() => {
-                              const updated = {
-                                ...aiSettings,
-                                providers: {
-                                  ...aiSettings.providers,
-                                  [key]: { ...provider, enabled: !provider.enabled }
-                                }
-                              };
-                              setAiSettings(updated);
-                              localStorage.setItem('moodflip_ai_settings', JSON.stringify(updated));
-                            }}
-                            className={`relative w-11 h-6 rounded-full transition-colors cursor-pointer ${provider.enabled ? 'bg-[#7147E8]' : 'bg-gray-200'}`}
-                          >
-                            <span className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${provider.enabled ? 'translate-x-5' : 'translate-x-0.5'}`} />
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Provider Config */}
-                      <div className="p-5 space-y-3 text-xs">
-                        {/* API Key */}
-                        <div>
-                          <label className="block font-extrabold text-[#1A1338] mb-1">
-                            API Key
-                            {key === 'gemini' && <span className="ml-2 text-[10px] text-blue-500 font-semibold">→ aistudio.google.com/apikey</span>}
-                            {key === 'openai' && <span className="ml-2 text-[10px] text-green-600 font-semibold">→ platform.openai.com/api-keys</span>}
-                            {key === 'mistral' && <span className="ml-2 text-[10px] text-orange-500 font-semibold">→ console.mistral.ai</span>}
-                            {key === 'claude' && <span className="ml-2 text-[10px] text-amber-600 font-semibold">→ console.anthropic.com</span>}
-                          </label>
-                          <div className="relative">
-                            <input
-                              type="password"
-                              value={provider.apiKey}
-                              onChange={e => setAiSettings({
-                                ...aiSettings,
-                                providers: { ...aiSettings.providers, [key]: { ...provider, apiKey: e.target.value } }
-                              })}
-                              placeholder={`Enter your ${provider.label} API key...`}
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 font-mono bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8] pr-16"
-                            />
-                            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">
-                              {provider.apiKey && (
-                                <span className="text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">SET</span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Model Selection */}
-                        <div>
-                          <label className="block font-extrabold text-[#1A1338] mb-1">Model</label>
-                          <select
-                            value={provider.model}
-                            onChange={e => setAiSettings({
-                              ...aiSettings,
-                              providers: { ...aiSettings.providers, [key]: { ...provider, model: e.target.value } }
-                            })}
-                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2.5 font-semibold bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
-                          >
-                            {provider.models.map(m => (
-                              <option key={m} value={m}>{m}</option>
-                            ))}
-                          </select>
-                        </div>
-
-                        {/* Test button */}
-                        <button
-                          onClick={() => {
-                            if (!provider.apiKey) { return; }
-                          }}
-                          className="w-full py-2 border border-[#EAE3F2] text-xs font-extrabold text-[#7147E8] rounded-xl hover:bg-[#F0EBFA] transition cursor-pointer"
-                        >
-                          🔌 Test {provider.label} Connection
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Auto-Fallback Configuration */}
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl shadow-xs overflow-hidden">
-                <div className="px-5 py-4 bg-[#FAF8FD] border-b border-[#EAE3F2] flex items-center justify-between">
-                  <div>
-                    <h3 className="font-serif font-extrabold text-sm text-[#1A1338]">⚡ Auto-Fallback</h3>
-                    <p className="text-[10px] text-gray-400 font-semibold mt-0.5">If the primary provider fails, automatically switch to the next one in order</p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      const updated = { ...aiSettings, autoFallback: !aiSettings.autoFallback };
-                      setAiSettings(updated);
-                      localStorage.setItem('moodflip_ai_settings', JSON.stringify(updated));
-                    }}
-                    className={`relative w-11 h-6 rounded-full transition-colors cursor-pointer ${aiSettings.autoFallback ? 'bg-[#7147E8]' : 'bg-gray-200'}`}
-                  >
-                    <span className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${aiSettings.autoFallback ? 'translate-x-5' : 'translate-x-0.5'}`} />
-                  </button>
-                </div>
-                {aiSettings.autoFallback && (
-                  <div className="p-5">
-                    <p className="text-xs font-extrabold text-[#1A1338] mb-3">Fallback Priority Order</p>
-                    <div className="space-y-2">
-                      {aiSettings.fallbackOrder.map((provKey, idx) => {
-                        const prov = aiSettings.providers[provKey as keyof typeof aiSettings.providers];
-                        return (
-                          <div key={provKey} className="flex items-center gap-3 bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl px-4 py-2.5">
-                            <span className="w-5 h-5 rounded-full bg-[#7147E8] text-white text-[10px] font-extrabold flex items-center justify-center shrink-0">{idx + 1}</span>
-                            <div className="w-3 h-3 rounded-full shrink-0" style={{ background: prov.color }} />
-                            <span className="text-xs font-extrabold text-[#1A1338] flex-1">{prov.label}</span>
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${prov.enabled && prov.apiKey ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'}`}>
-                              {prov.enabled && prov.apiKey ? 'Ready' : 'Not Configured'}
-                            </span>
-                            <div className="flex gap-1">
-                              <button
-                                onClick={() => {
-                                  if (idx === 0) return;
-                                  const newOrder = [...aiSettings.fallbackOrder];
-                                  [newOrder[idx - 1], newOrder[idx]] = [newOrder[idx], newOrder[idx - 1]];
-                                  setAiSettings({ ...aiSettings, fallbackOrder: newOrder });
-                                }}
-                                disabled={idx === 0}
-                                className="w-6 h-6 rounded-lg border border-[#EAE3F2] flex items-center justify-center text-xs text-gray-400 hover:bg-[#EAE3F2] disabled:opacity-30 cursor-pointer"
-                              >↑</button>
-                              <button
-                                onClick={() => {
-                                  if (idx === aiSettings.fallbackOrder.length - 1) return;
-                                  const newOrder = [...aiSettings.fallbackOrder];
-                                  [newOrder[idx + 1], newOrder[idx]] = [newOrder[idx], newOrder[idx + 1]];
-                                  setAiSettings({ ...aiSettings, fallbackOrder: newOrder });
-                                }}
-                                disabled={idx === aiSettings.fallbackOrder.length - 1}
-                                className="w-6 h-6 rounded-lg border border-[#EAE3F2] flex items-center justify-center text-xs text-gray-400 hover:bg-[#EAE3F2] disabled:opacity-30 cursor-pointer"
-                              >↓</button>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* AI Feature Toggles */}
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl shadow-xs overflow-hidden">
-                <div className="px-5 py-4 bg-[#FAF8FD] border-b border-[#EAE3F2]">
-                  <h3 className="font-serif font-extrabold text-sm text-[#1A1338]">🎛️ AI Features</h3>
-                  <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Enable or disable individual AI-powered features on your platform</p>
-                </div>
-                <div className="p-5 space-y-1">
-                  {[
-                    { key: 'moodAnalysis', label: 'Mood Analysis', desc: 'AI analyses user check-ins to detect emotional patterns' },
-                    { key: 'actionSuggestions', label: 'Action Suggestions', desc: 'AI suggests personalised 60-second micro-actions' },
-                    { key: 'journalInsights', label: 'Journal Insights', desc: 'AI provides insights from user journal entries' },
-                    { key: 'crisisDetection', label: 'Crisis Detection', desc: 'AI flags high-risk emotional states and suggests crisis resources' },
-                    { key: 'personalizedPlan', label: 'Personalised 7-Day Plan', desc: 'AI generates custom wellness plans based on mood history' },
-                  ].map(feat => (
-                    <div key={feat.key} className="flex items-start justify-between gap-4 py-3 border-b border-[#F3EFF8] last:border-0">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-extrabold text-[#1A1338]">{feat.label}</p>
-                        <p className="text-[10px] text-gray-400 font-medium mt-0.5">{feat.desc}</p>
-                      </div>
-                      <button
-                        onClick={() => {
-                          const updated = {
-                            ...aiSettings,
-                            features: { ...aiSettings.features, [feat.key]: !aiSettings.features[feat.key as keyof typeof aiSettings.features] }
-                          };
-                          setAiSettings(updated);
-                          localStorage.setItem('moodflip_ai_settings', JSON.stringify(updated));
-                        }}
-                        className={`relative w-11 h-6 rounded-full transition-colors cursor-pointer shrink-0 ${aiSettings.features[feat.key as keyof typeof aiSettings.features] ? 'bg-[#7147E8]' : 'bg-gray-200'}`}
-                      >
-                        <span className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${aiSettings.features[feat.key as keyof typeof aiSettings.features] ? 'translate-x-5' : 'translate-x-0.5'}`} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Advanced: System Prompt + Parameters */}
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl shadow-xs overflow-hidden">
-                <div className="px-5 py-4 bg-[#FAF8FD] border-b border-[#EAE3F2]">
-                  <h3 className="font-serif font-extrabold text-sm text-[#1A1338]">🧠 Advanced Configuration</h3>
-                  <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Customise the AI system prompt and generation parameters</p>
-                </div>
-                <div className="p-5 space-y-4 text-xs">
-                  <div>
-                    <label className="block font-extrabold text-[#1A1338] mb-1">System Prompt</label>
-                    <p className="text-[10px] text-gray-400 mb-2">This prompt guides AI behaviour across all providers. Keep it concise and wellness-focused.</p>
-                    <textarea
-                      rows={5}
-                      value={aiSettings.systemPrompt}
-                      onChange={e => setAiSettings({ ...aiSettings, systemPrompt: e.target.value })}
-                      className="w-full border border-[#EAE3F2] rounded-xl px-3.5 py-3 font-medium text-xs text-[#1A1338] bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8] resize-y"
-                    />
-                    <p className="text-[10px] text-gray-400 mt-1">{aiSettings.systemPrompt.length} characters</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-extrabold text-[#1A1338] mb-1">Max Tokens</label>
-                      <input
-                        type="number"
-                        min={256}
-                        max={8192}
-                        value={aiSettings.maxTokens}
-                        onChange={e => setAiSettings({ ...aiSettings, maxTokens: Number(e.target.value) })}
-                        className="w-full border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 font-mono bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-extrabold text-[#1A1338] mb-1">Temperature ({aiSettings.temperature})</label>
-                      <input
-                        type="range"
-                        min={0}
-                        max={1}
-                        step={0.1}
-                        value={aiSettings.temperature}
-                        onChange={e => setAiSettings({ ...aiSettings, temperature: Number(e.target.value) })}
-                        className="w-full mt-2 accent-[#7147E8]"
-                      />
-                      <div className="flex justify-between text-[9px] text-gray-400 font-semibold">
-                        <span>Precise (0)</span>
-                        <span>Creative (1)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Save Button */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => {
-                    localStorage.setItem('moodflip_ai_settings', JSON.stringify(aiSettings));
-                  }}
-                  className="px-6 py-3 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold rounded-2xl shadow-md hover:opacity-90 transition cursor-pointer text-sm"
-                >
-                  💾 Save AI Settings
-                </button>
-                <div className="text-xs text-gray-400 font-semibold">
-                  {Object.values(aiSettings.providers).filter(p => p.enabled && p.apiKey).length} of 4 providers configured
                 </div>
               </div>
             </div>

@@ -4,16 +4,15 @@ import './globals.css';
 import SiteLoader from '@/components/SiteLoader';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 import CookieConsent from '@/components/CookieConsent';
-import AICoachWidget from '@/components/AICoachWidget';
+import MobileBottomNav from '@/components/MobileBottomNav';
 
 export const metadata: Metadata = {
   title: 'MoodFlip | Self-Reflection & Mindset Utility',
   description: 'Tap-only, 60-second mindset shifts for everyday emotional clarity without therapy or questionnaires.',
   manifest: '/manifest.json',
-  themeColor: '#7147E8',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'MoodFlip',
   },
 };
@@ -26,8 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -47,7 +48,7 @@ export default function RootLayout({
         {children}
         <PWAInstallPrompt />
         <CookieConsent />
-        <AICoachWidget />
+        <MobileBottomNav />
       </body>
     </html>
   );

@@ -32,6 +32,12 @@ body {
   letter-spacing: -0.01em;
 }
 
+@media (max-width: 768px) {
+  body {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* Apply Fraunces to all headings globally — same as homepage/dashboard */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);

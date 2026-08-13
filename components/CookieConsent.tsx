@@ -7,22 +7,30 @@ export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('moodflip_cookie_consent');
-    if (!consent) {
+    // Check both localStorage and document.cookie
+    const localConsent = localStorage.getItem('moodflip_cookie_consent');
+    const hasCookie = document.cookie.split('; ').some((row) => row.startsWith('moodflip_cookie_consent='));
+
+    if (!localConsent && !hasCookie) {
       const timer = setTimeout(() => {
         setShowBanner(true);
-      }, 1000);
+      }, 800);
       return () => clearTimeout(timer);
     }
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem('moodflip_cookie_consent', 'accepted');
-    setShowBanner(false);
-  };
+  const saveConsent = (value: string) => {
+    // 1. Save to LocalStorage
+    try {
+      localStorage.setItem('moodflip_cookie_consent', value);
+    } catch (e) {
+      console.warn('LocalStorage unavailable:', e);
+    }
 
-  const handleDecline = () => {
-    localStorage.setItem('moodflip_cookie_consent', 'essential_only');
+    // 2. Set actual Browser Cookie (1 year expiration)
+    const maxAge = 365 * 24 * 60 * 60; // 1 year in seconds
+    document.cookie = `moodflip_cookie_consent=${value}; path=/; max-age=${maxAge}; SameSite=Lax`;
+
     setShowBanner(false);
   };
 
@@ -41,7 +49,7 @@ export default function CookieConsent() {
               We Value Your Privacy &amp; Cookies
             </h4>
             <button
-              onClick={handleDecline}
+              onClick={() => saveConsent('essential_only')}
               className="sm:hidden text-gray-400 hover:text-gray-600 text-xs font-bold p-1"
               aria-label="Close"
             >
@@ -56,13 +64,13 @@ export default function CookieConsent() {
           </p>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <button
-              onClick={handleAccept}
+              onClick={() => saveConsent('accepted')}
               className="w-full sm:flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-2.5 px-4 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer active:scale-95 text-center"
             >
               ✓ Accept All Cookies
             </button>
             <button
-              onClick={handleDecline}
+              onClick={() => saveConsent('essential_only')}
               className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-[#EAE3F2] text-[#5B5278] hover:bg-[#FAF8FD] text-xs font-bold transition cursor-pointer text-center"
             >
               Essential Only

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { triggerPDFDownload } from '@/lib/generatePDF';
+import BoxBreathingWidget from '@/components/BoxBreathingWidget';
 // AdBanner removed — ads only shown on homepage and blog
 
 export default function UserDashboardPage() {
@@ -899,46 +900,9 @@ export default function UserDashboardPage() {
                 ))}
               </div>
 
-              {/* LIVE TIMER PLAYER BOX */}
-              <div className={`p-6 sm:p-10 rounded-3xl bg-gradient-to-br ${actionsList[selectedActionIndex].color} text-white shadow-2xl flex flex-col items-center text-center space-y-5 sm:space-y-6 relative overflow-hidden w-full min-w-0`}>
-                <span className="text-4xl sm:text-6xl">{actionsList[selectedActionIndex].icon}</span>
-                <div className="px-2">
-                  <h3 className="font-serif text-2xl sm:text-3xl font-extrabold">{actionsList[selectedActionIndex].title}</h3>
-                  <p className="text-xs sm:text-sm md:text-base text-white/90 font-medium max-w-md mx-auto mt-2 leading-relaxed">{actionsList[selectedActionIndex].desc}</p>
-                </div>
-
-                {/* ANIMATED BREATHING CIRCLE */}
-                <div className="relative w-36 h-36 sm:w-48 sm:h-48 flex items-center justify-center my-2 sm:my-4">
-                  <div className={`absolute inset-0 rounded-full border-4 border-white/40 ${timerRunning ? 'animate-ping duration-1000' : ''}`} />
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-white/20 backdrop-blur-md border border-white/50 flex flex-col items-center justify-center shadow-inner">
-                    <span className="font-serif text-3xl sm:text-5xl font-extrabold">{timerSeconds}s</span>
-                    <span className="text-[10px] sm:text-xs uppercase font-extrabold tracking-widest text-white/90 mt-1">{timerRunning ? 'Breathing...' : 'Ready'}</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto justify-center min-w-0">
-                  {!timerRunning ? (
-                    <button
-                      onClick={() => { if (timerSeconds === 0) setTimerSeconds(60); setTimerRunning(true); }}
-                      className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-3.5 rounded-full bg-white text-[#1A1338] font-extrabold text-sm sm:text-base shadow-xl hover:bg-gray-100 transition cursor-pointer hover:scale-105 shrink-0"
-                    >
-                      ▶ Start 60s Reset
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setTimerRunning(false)}
-                      className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-3.5 rounded-full bg-black/40 backdrop-blur-md text-white font-extrabold text-sm sm:text-base border border-white/30 hover:bg-black/60 transition cursor-pointer shrink-0"
-                    >
-                      ⏸ Pause Timer
-                    </button>
-                  )}
-                  <button
-                    onClick={() => { setTimerRunning(false); setTimerSeconds(60); }}
-                    className="w-full sm:w-auto px-6 py-3 sm:py-3.5 rounded-full bg-white/20 hover:bg-white/30 text-white font-extrabold text-xs sm:text-sm transition cursor-pointer shrink-0"
-                  >
-                    🔄 Reset
-                  </button>
-                </div>
+              {/* MAIN 60-SECOND ACTION & BOX BREATHING PLAYER */}
+              <div className="pt-2">
+                <BoxBreathingWidget />
               </div>
             </div>
           )}

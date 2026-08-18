@@ -281,56 +281,7 @@ export default function HomePage() {
           </nav>
         )}
 
-        {/* Animated Hero Intro Banner */}
-        <section className={styles.heroIntroBanner}>
-          <div className={styles.heroIntroContent}>
-            <div className={styles.heroIntroBadge}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="5" fill="#f59e0b"/>
-                <path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round"/>
-              </svg>
-              <span>Self-Reflection Utility &bull; Daily Mindset Shifts</span>
-            </div>
-            
-            <h1 className={styles.heroIntroTitle}>
-              Shift Your Mood,<br />
-              <span className={styles.heroIntroGradientText}>Instantly &amp; Meaningfully.</span>
-            </h1>
-            
-            <p className={styles.heroIntroSubtitle}>
-              Simple daily check-ins, personalized 60-second micro-actions,<br className={styles.desktopBr} />
-              and gentle guidance to help you find calm when feeling<br className={styles.desktopBr} />
-              low, anxious, or overwhelmed.
-            </p>
 
-            <div className={styles.heroIntroPills}>
-              <div className={styles.heroPillCard}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="1.2"/>
-                  <path d="M12 6.5l4.5 1.8v3.6c0 3.1-4.5 5.3-4.5 5.3s-4.5-2.2-4.5-5.3V8.3L12 6.5z" fill="#ffffff" opacity="0.95"/>
-                </svg>
-                <span className={styles.pillTextBold}>100% Private &amp; Free</span>
-              </div>
-
-              <div className={styles.heroPillCard}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#f59e0b" stroke="#d97706" strokeWidth="1.2" strokeLinejoin="round"/>
-                </svg>
-                <span className={styles.pillTextBold}>60-Second Micro-Actions</span>
-              </div>
-
-              <div className={styles.heroPillCard}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 21.5V11.5M12 11.5C12 7 16 3 21 3C21 8 17 12 12 12ZM12 11.5C12 7.5 8 4 3 4C3 9 7 12.5 12 12.5Z" stroke="#22c55e" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <div className={styles.pillTextTwoLines}>
-                  <span>Gentle Guidance,</span>
-                  <span>Not Medical Advice</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <section className={styles.topAd} aria-label="Advertisement placeholder">
           <span className={styles.adBadge}>Ad</span>
@@ -756,39 +707,7 @@ export default function HomePage() {
             </div>
           </aside>
 
-          {/* Welcome Back Floating Card Popup (Anchored at Bottom-Right of Dashboard) */}
-          {showWelcome && (
-            <aside className={styles.welcomeCardPopup} aria-label="Welcome Back Prompt">
-              <button
-                type="button"
-                className={styles.welcomeCloseBtn}
-                onClick={handleDismissWelcome}
-                aria-label="Close message"
-              >
-                ✕
-              </button>
-              <div className={styles.welcomeCardHeader}>
-                <div className={styles.welcomeAvatarCircle}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#683cd7" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                </div>
-                <div>
-                  <h3>Welcome Back! 👋</h3>
-                  <p>Create a profile to save your mood check-ins and get personalized support.</p>
-                </div>
-              </div>
-              <a href="/register" className={styles.welcomeCreateBtn}>
-                Create My Profile
-              </a>
-              <button
-                type="button"
-                className={styles.welcomeMaybeBtn}
-                onClick={handleDismissWelcome}
-              >
-                Maybe Later
-              </button>
-              <span className={styles.welcomeSubnote}>It only takes 30 seconds.</span>
-            </aside>
-          )}
+
         </section>
 
         <section className={styles.trustStrip}>
@@ -1051,107 +970,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Section 5: Frequently Asked Questions */}
-        <section className={styles.faqSection}>
-          <div className={styles.faqHeader}>
-            <h2>Frequently Asked Questions</h2>
-          </div>
-          <div className={styles.faqGrid}>
-            {[
-              "Is MoodFlip a therapy or medical service?",
-              "Do I need an account to use MoodFlip?",
-              "How does the 60-second action work?",
-              "How long is my data kept?",
-              "How is my data stored and protected?",
-              "Can I get a refund on my plan?"
-            ].map((q, i) => (
-              <details key={i}>
-                <summary><span>{q}</span> <span className={styles.faqArrow}>▼</span></summary>
-                <p>MoodFlip provides simple, accessible self-reflection tools to help you shift your mindset. We are not a medical service or therapy replacement.</p>
-              </details>
-            ))}
-          </div>
-        </section>
 
 
-        {/* Section: Resources Hub — anchored at #resources */}
-        <section id="resources" style={{ background: 'linear-gradient(180deg, #F9F7FD 0%, #F3EEFA 100%)', borderTop: '1px solid #EAE3F2', borderBottom: '1px solid #EAE3F2', padding: '44px 16px', position: 'relative', overflow: 'hidden' }}>
-          {/* Subtle ambient background glow */}
-          <div style={{ position: 'absolute', top: '0', left: '10%', width: '250px', height: '250px', borderRadius: '50%', background: 'rgba(113,71,232,0.06)', filter: 'blur(70px)', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', bottom: '0', right: '10%', width: '250px', height: '250px', borderRadius: '50%', background: 'rgba(217,80,192,0.05)', filter: 'blur(70px)', pointerEvents: 'none' }} />
 
-          <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            {/* Badge + heading */}
-            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EAE0FD', border: '1px solid #D8C8F8', color: '#7147E8', fontSize: '11px', fontWeight: '800', letterSpacing: '0.08em', textTransform: 'uppercase', padding: '5px 14px', borderRadius: '999px', marginBottom: '12px' }}>
-                📚 Free Resources
-              </span>
-              <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.6rem, 3.5vw, 2.3rem)', fontWeight: '900', color: '#15183B', margin: '0 0 8px', lineHeight: 1.2 }}>
-                Your Wellness Resource Hub
-              </h2>
-              <p style={{ color: '#68607F', fontSize: '0.9rem', fontWeight: '600', maxWidth: '540px', margin: '0 auto 24px' }}>
-                Curated guides, science-backed articles, exercises, and tools — all free.
-              </p>
-            </div>
 
-            {/* Resource cards grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginBottom: '28px' }}>
-              {[
-                { emoji: '⚡', title: 'Instant Mood Flip', desc: '60-second micro-actions to shift your emotional state right now.', link: '/#check-in', iconBg: 'linear-gradient(135deg, #7147E8, #9333EA)', badgeBg: 'rgba(113,71,232,0.08)', badgeText: '#7147E8' },
-                { emoji: '🧠', title: 'Mindset Science', desc: 'Evidence-based articles on neuroplasticity and cognitive reframing.', link: '/blog', iconBg: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', badgeBg: 'rgba(59,130,246,0.08)', badgeText: '#2563EB' },
-                { emoji: '📅', title: '7-Day Reset Plan', desc: 'Structured daily plan to rewire negative thought patterns.', link: '/profile?tab=My%207-Day%20Plan', iconBg: 'linear-gradient(135deg, #10B981, #047857)', badgeBg: 'rgba(16,185,129,0.08)', badgeText: '#059669' },
-                { emoji: '🆘', title: 'Crisis Support', desc: 'Immediate help resources. Call 988 (US) or text HOME to 741741.', link: '/resources#crisis', iconBg: 'linear-gradient(135deg, #F43F5E, #BE123C)', badgeBg: 'rgba(244,63,94,0.08)', badgeText: '#E11D48' },
-              ].map((card, i) => (
-                <a key={i} href={card.link} style={{ display: 'flex', flexDirection: 'column', background: '#FFFFFF', border: '1px solid #EAE3F2', borderRadius: '18px', padding: '20px 18px', color: '#15183B', textDecoration: 'none', transition: 'all 0.2s ease', boxShadow: '0 4px 16px rgba(113, 71, 232, 0.03)' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'; (e.currentTarget as HTMLElement).style.borderColor = '#7147E8'; (e.currentTarget as HTMLElement).style.boxShadow = '0 10px 25px rgba(113, 71, 232, 0.12)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'none'; (e.currentTarget as HTMLElement).style.borderColor = '#EAE3F2'; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(113, 71, 232, 0.03)'; }}
-                >
-                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: card.iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', color: '#fff', marginBottom: '14px', boxShadow: '0 4px 10px rgba(0,0,0,0.08)' }}>
-                    {card.emoji}
-                  </div>
-                  <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '1rem', fontWeight: '800', color: '#15183B', margin: '0 0 6px' }}>{card.title}</h3>
-                  <p style={{ fontSize: '12px', color: '#68607F', fontWeight: '500', lineHeight: 1.55, flex: 1, margin: '0 0 14px' }}>{card.desc}</p>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: '800', color: card.badgeText, background: card.badgeBg, padding: '4px 10px', borderRadius: '8px', width: 'fit-content' }}>Explore →</span>
-                </a>
-              ))}
-            </div>
 
-            {/* CTA buttons */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-              <a href="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#7147E8', color: '#FFFFFF', padding: '11px 22px', borderRadius: '12px', fontWeight: '800', fontSize: '13px', textDecoration: 'none', boxShadow: '0 4px 14px rgba(113, 71, 232, 0.25)', transition: 'transform 0.2s' }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'none'}
-              >
-                🎁 Browse All Resources
-              </a>
-              <a href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FFFFFF', border: '1px solid #EAE3F2', color: '#15183B', padding: '11px 22px', borderRadius: '12px', fontWeight: '800', fontSize: '13px', textDecoration: 'none', transition: 'all 0.2s' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#F4EFFC'; (e.currentTarget as HTMLElement).style.borderColor = '#D8C8F8'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#FFFFFF'; (e.currentTarget as HTMLElement).style.borderColor = '#EAE3F2'; }}
-              >
-                📝 Read the Blog
-              </a>
-            </div>
-          </div>
-        </section>
 
-        <footer className={styles.footer}>
-          <a className={`${styles.logo} ${styles.footerLogo}`} href="#">
-            <span className={styles.logoMark} aria-hidden="true"><span /><span /></span>
-            <span>mood<span>flip</span></span>
-          </a>
-          <p>A self-reflection utility for real life.</p>
-          <nav>
-            <a href="/#about">About</a>
-            <a href="/#library">Mood Library</a>
-            <a href="/resources">Resources</a>
-            <a href="/blog">Blog</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms</a>
-            <a href="/refund">Refund Policy</a>
-            <a href="/contact">Contact</a>
-          </nav>
-          <span>© 2026 MoodFlip.coach 💜</span>
-        </footer>
 
 
         {/* 📱 MOBILE STEP-BY-STEP BOTTOM SHEET WIZARD 📱 */}

@@ -65,7 +65,7 @@
 /* Main Split Grid Layout */
 .splitGrid {
   display: grid;
-  grid-template-columns: 1.08fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 36px;
   position: relative;
   align-items: stretch;
@@ -75,7 +75,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 52%;
+  left: 50%;
   width: 1px;
   background: #E4DAD7;
   z-index: 2;
@@ -83,7 +83,7 @@
 
 .dividerHeart {
   position: absolute;
-  top: 32%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #FDF8F5;
@@ -104,7 +104,7 @@
   gap: 16px;
   position: relative;
   z-index: 1;
-  padding-right: 52px;
+  padding-right: 48px;
 }
 
 /* Arrow Badges */
@@ -318,8 +318,8 @@
 /* Center Floating 3D Action Arrow */
 .centerCtaWrapper {
   position: absolute;
-  top: 50%;
-  left: 52%;
+  top: 45%;
+  left: 50%;
   transform: translate(-45%, -50%);
   z-index: 10;
 }

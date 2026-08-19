@@ -336,19 +336,31 @@ export default function HeroSectionExact({
 
   return (
     <section className={styles.heroContainer} id="hero-section">
-      {/* Top Header / Centered Brand Logo */}
+      {/* Top Header / Centered Styled Logo with Heart Dot on 'i' */}
       <div className={styles.topHeader}>
-        <img
-          src="/moodflip-logo.png"
-          alt="MoodFlip"
-          className={styles.heroLogoImg}
-        />
+        <div className={styles.logoTitle} aria-label="MoodFlip">
+          <span className={styles.logoMood}>Mood</span>
+          <span className={styles.logoFlipWrapper}>
+            <span>Fl</span>
+            <span style={{ position: "relative", display: "inline-block" }}>
+              <span className={styles.heartDot}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E2786B" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+              </span>
+              <span>ı</span>
+            </span>
+            <span>p</span>
+          </span>
+        </div>
       </div>
 
       {/* Main 2-Column Split Section */}
       <div className={styles.splitGrid}>
-        {/* Subtle Vertical Divider */}
-        <div className={styles.verticalDivider} />
+        {/* Subtle Vertical Divider with center heart */}
+        <div className={styles.verticalDivider}>
+          <span className={styles.dividerHeart}>{"\u2661"}</span>
+        </div>
 
         {/* LEFT COLUMN: Interactive Selector */}
         <div className={styles.leftColumn}>
@@ -377,7 +389,7 @@ export default function HeroSectionExact({
                     onClick={() => handleMoodSelect(mood)}
                     aria-pressed={isSelected}
                   >
-                    {mood}
+                    <span className={styles.cloudInner}>{mood}</span>
                   </button>
                 );
               })}
@@ -444,22 +456,29 @@ export default function HeroSectionExact({
           </div>
         </div>
 
-        {/* Center Floating Action Arrow ("Change My Mood ->") */}
+        {/* Center Floating 3D Action Arrow ("Change My Mood ->") */}
         <div className={styles.centerCtaWrapper}>
           <button
             type="button"
-            className={styles.changeMoodBtn}
+            className={`${styles.changeMoodBtn} ${isFlipping ? styles.changeMoodBtnFlipping : ""}`}
             onClick={handleFlip}
             disabled={aiLoading}
-            style={{
-              opacity: aiLoading ? 0.7 : 1,
-              transform: isFlipping ? "scale(1.1) translateX(6px)" : undefined,
-            }}
+            aria-label="Change My Mood"
           >
-            <span className={styles.changeMoodText}>
-              {aiLoading ? "Thinking..." : "Change\nMy Mood"}
-            </span>
-            <span className={styles.changeMoodArrow}>{"\u2192"}</span>
+            <div className={styles.changeMoodBtnBevel}>
+              <div className={styles.changeMoodInner}>
+                <div className={styles.changeMoodLine1}>
+                  {aiLoading ? "Thinking..." : "Change"}
+                </div>
+                <div className={styles.changeMoodLine2}>
+                  <span>My Mood</span>
+                  <svg className={styles.changeMoodArrowSvg} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <polyline points="13 5 20 12 13 19"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
           </button>
         </div>
 

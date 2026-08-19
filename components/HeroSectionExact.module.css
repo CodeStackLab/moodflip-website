@@ -13,7 +13,7 @@
   font-family: var(--font-sans, 'Inter', -apple-system, sans-serif);
 }
 
-/* Top Header & Styled Logo with Heart Dot on 'i' */
+/* Top Header & Official Brand Logo */
 .topHeader {
   display: flex;
   justify-content: center;
@@ -22,44 +22,13 @@
   position: relative;
 }
 
-.logoTitle {
-  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
-  font-size: 56px;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.5px;
-  display: inline-flex;
-  align-items: baseline;
-  user-select: none;
-}
-
-.logoMood {
-  color: #6C5484;
-}
-
-.logoFlipWrapper {
-  position: relative;
-  display: inline-flex;
-  align-items: baseline;
-  background: linear-gradient(135deg, #E49C8C 0%, #EDAA7A 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.heartDot {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 14px;
-  display: inline-block;
-  animation: gentlePulse 3s infinite ease-in-out;
-}
-
-@keyframes gentlePulse {
-  0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.18); }
+.heroLogoImg {
+  height: 52px;
+  max-height: 56px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply;
 }
 
 /* Main Split Grid Layout */

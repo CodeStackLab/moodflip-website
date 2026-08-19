@@ -2,8 +2,8 @@
 const CACHE_NAME = 'moodflip-v1';
 const ASSETS_TO_CACHE = [
   '/',
-  '/blog',
-  '/resources',
+  '/about',
+  '/contact',
   '/terms',
   '/privacy',
   '/manifest.json',

@@ -123,15 +123,13 @@ export default function NotFound() {
 
         {/* Quick links */}
         <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-bold text-[#8A81A8]">
-          <Link href="/blog" className="hover:text-[#7147E8] transition-colors">Blog</Link>
+          <Link href="/" className="hover:text-[#7147E8] transition-colors">Mood Tool</Link>
           <span>·</span>
           <Link href="/about" className="hover:text-[#7147E8] transition-colors">About</Link>
           <span>·</span>
-          <Link href="/resources" className="hover:text-[#7147E8] transition-colors">Resources</Link>
-          <span>·</span>
-          <Link href="/privacy" className="hover:text-[#7147E8] transition-colors">Privacy</Link>
-          <span>·</span>
           <Link href="/contact" className="hover:text-[#7147E8] transition-colors">Contact</Link>
+          <span>·</span>
+          <Link href="/privacy" className="hover:text-[#7147E8] transition-colors">Privacy Policy</Link>
         </div>
 
         {/* 60-second mood action */}

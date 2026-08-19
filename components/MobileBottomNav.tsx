@@ -178,20 +178,28 @@ export default function MobileBottomNav() {
               <span>My 7-Day Plan</span>
             </Link>
             <Link
-              href="/blog"
+              href="/about"
               onClick={() => setDrawerOpen(false)}
               className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
             >
-              <span className="text-xl">📝</span>
-              <span>Wellness Blog</span>
+              <span className="text-xl">ℹ️</span>
+              <span>About MoodFlip</span>
             </Link>
             <Link
-              href="/resources"
+              href="/contact"
               onClick={() => setDrawerOpen(false)}
               className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
             >
-              <span className="text-xl">🎁</span>
-              <span>Free Resources & PDF Downloads</span>
+              <span className="text-xl">✉️</span>
+              <span>Contact Support</span>
+            </Link>
+            <Link
+              href="/privacy"
+              onClick={() => setDrawerOpen(false)}
+              className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
+            >
+              <span className="text-xl">🔒</span>
+              <span>Privacy Policy</span>
             </Link>
             <Link
               href="/admin"

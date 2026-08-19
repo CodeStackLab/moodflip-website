@@ -31,15 +31,11 @@ export default function Header() {
 
         {/* DESKTOP NAV */}
         <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-bold text-[#6b638b]">
-          <Link href="/" className="text-[#15183b] hover:text-[#7147e8] transition-colors">Home</Link>
-          <a href="/#about" className="hover:text-[#7147e8] transition-colors">About</a>
-          <a href="/#how" className="hover:text-[#7147e8] transition-colors">How It Works</a>
-          <a href="/#library" className="hover:text-[#7147e8] transition-colors">Mood Library</a>
-          <Link href="/resources" className="hover:text-[#7147e8] transition-colors">Resources</Link>
-          <Link href="/blog" className="hover:text-[#7147e8] transition-colors inline-flex items-center gap-1.5">
-            <span>Blog</span>
-            <span className="text-[9px] font-black bg-[#7147e8] text-white px-1.5 py-0.5 rounded-full leading-none shrink-0 shadow-2xs">NEW</span>
-          </Link>
+          <Link href="/" className="text-[#15183b] hover:text-[#7147e8] transition-colors">Mood Tool</Link>
+          <Link href="/about" className="hover:text-[#7147e8] transition-colors">About</Link>
+          <Link href="/contact" className="hover:text-[#7147e8] transition-colors">Contact</Link>
+          <Link href="/privacy" className="hover:text-[#7147e8] transition-colors">Privacy Policy</Link>
+          <Link href="/login" className="hover:text-[#7147e8] transition-colors">Login</Link>
         </nav>
 
         {/* ACTION BUTTONS */}
@@ -84,24 +80,19 @@ export default function Header() {
         <nav className="lg:hidden flex flex-col p-4 bg-white/98 backdrop-blur-xl border-t border-[#ede8f7] shadow-xl animate-in slide-in-from-top-2 duration-200 gap-1.5">
           <div className="flex flex-col gap-1">
             <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
-              <span className="w-7 text-center text-xl">🏠</span> Home
+              <span className="w-7 text-center text-xl">🏠</span> Mood Tool
             </Link>
-            <a href="/#about" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
+            <Link href="/about" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
               <span className="w-7 text-center text-xl">ℹ️</span> About
-            </a>
-            <a href="/#how" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
-              <span className="w-7 text-center text-xl">⚙️</span> How It Works
-            </a>
-            <a href="/#library" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
-              <span className="w-7 text-center text-xl">📚</span> Mood Library
-            </a>
-            <Link href="/resources" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
-              <span className="w-7 text-center text-lg">🎁</span> Resources
             </Link>
-            <Link href="/blog" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
-              <span className="w-7 text-center text-lg">📝</span>
-              <span>Blog</span>
-              <span className="ml-1 text-[9px] font-black bg-[#7147e8] text-white px-1.5 py-0.5 rounded-full">NEW</span>
+            <Link href="/contact" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
+              <span className="w-7 text-center text-xl">✉️</span> Contact
+            </Link>
+            <Link href="/privacy" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
+              <span className="w-7 text-center text-xl">🔒</span> Privacy Policy
+            </Link>
+            <Link href="/login" onClick={() => setMenuOpen(false)} className="flex items-center gap-3.5 p-3 rounded-[14px] text-[#231f47] font-bold text-base hover:bg-[#f4edff] hover:text-[#683cd7] transition">
+              <span className="w-7 text-center text-xl">🔑</span> Login
             </Link>
           </div>
 

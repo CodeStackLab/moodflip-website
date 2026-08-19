@@ -45,14 +45,34 @@
   align-items: center;
   gap: 8px;
   width: fit-content;
-  color: #1A143F;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -1.7px;
   text-decoration: none;
 }
 
-.logo > span:last-child > span { color: #7464AC; }
+.logo img {
+  height: 38px;
+  max-height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav a {
+  color: #6b638b;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover {
+  color: #7464AC;
+}
 
 .logoMark {
   position: relative;

@@ -469,7 +469,7 @@ export default function HeroSectionExact({
             <span className={styles.changeMoodText}>
               {aiLoading ? "Thinking..." : "Change\nMy Mood"}
             </span>
-            <span className={styles.changeMoodArrow}>→</span>
+            <span className={styles.changeMoodArrow}>{"\u2192"}</span>
           </button>
         </div>
 
@@ -536,7 +536,7 @@ export default function HeroSectionExact({
               {/* Delicate Heart Divider */}
               <div className={styles.actionDivider}>
                 <span className={styles.actionDividerLine} />
-                <span className={styles.actionDividerHeart}>♡</span>
+                <span className={styles.actionDividerHeart}>{"\u2661"}</span>
                 <span className={styles.actionDividerLine} />
               </div>
 
@@ -550,7 +550,7 @@ export default function HeroSectionExact({
                   onClick={() => setIsTimerRunning(!isTimerRunning)}
                   aria-label={isTimerRunning ? "Pause timer" : "Start 60-second breathing timer"}
                 >
-                  <span>{isTimerRunning ? "⏸ Pause" : "▶ Start 60s Breath"}</span>
+                  <span>{isTimerRunning ? "\u23F8 Pause" : "\u25B6 Start 60s Breath"}</span>
                   <span>({timerSeconds}s)</span>
                 </button>
 

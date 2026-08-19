@@ -204,28 +204,19 @@ export default function HomePage() {
             <img
               src="/moodflip-logo.png"
               alt="MoodFlip"
-              style={{ height: '38px', width: 'auto', objectFit: 'contain', mixBlendMode: 'multiply' }}
+              style={{ height: '36px', maxHeight: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
             />
           </Link>
 
           <nav className={styles.nav} aria-label="Primary navigation">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#how">How It Works</a>
-            <a href="#library">Mood Library</a>
-            <a href="#resources">Resources</a>
-            <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-              <span>Blog</span>
-              <span style={{ fontSize: '9px', fontWeight: '900', background: '#7147e8', color: '#ffffff', padding: '2px 6px', borderRadius: '10px', lineHeight: 1 }}>NEW</span>
-            </Link>
+            <Link href="/">Mood Tool</Link>
+            <Link href="/about">About</Link>
+            <Link href="/contact">Contact</Link>
+            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/login">Login</Link>
           </nav>
 
           <div className={styles.headerActions}>
-            <a href="/login" className={styles.loginButton}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span>Login</span>
-            </a>
-            <button className={styles.planButton} type="button" onClick={() => handleSmartRedirect('My 7-Day Plan')}>Get 7-Day Plan</button>
             <button
               className={styles.mobileToggleBtn}
               type="button"
@@ -245,29 +236,25 @@ export default function HomePage() {
         {menuOpen && (
           <nav className={styles.mobileMenuDrawer} aria-label="Mobile Navigation">
             <div className={styles.mobileNavLinks}>
-              <a href="#home" onClick={() => setMenuOpen(false)}>
+              <Link href="/" onClick={() => setMenuOpen(false)}>
                 <span className={styles.mobileNavIcon}>🏠</span>
-                <span>Home</span>
-              </a>
-              <a href="#about" onClick={() => setMenuOpen(false)}>
+                <span>Mood Tool</span>
+              </Link>
+              <Link href="/about" onClick={() => setMenuOpen(false)}>
                 <span className={styles.mobileNavIcon}>ℹ️</span>
                 <span>About</span>
-              </a>
-              <a href="#how" onClick={() => setMenuOpen(false)}>
-                <span className={styles.mobileNavIcon}>⚙️</span>
-                <span>How It Works</span>
-              </a>
-              <a href="#library" onClick={() => setMenuOpen(false)}>
-                <span className={styles.mobileNavIcon}>📚</span>
-                <span>Mood Library</span>
-              </a>
-              <a href="#resources" onClick={() => setMenuOpen(false)}>
-                <span className={styles.mobileNavIcon}>🎁</span>
-                <span>Resources</span>
-              </a>
-              <Link href="/blog" onClick={() => setMenuOpen(false)}>
-                <span className={styles.mobileNavIcon}>📝</span>
-                <span>Blog</span>
+              </Link>
+              <Link href="/contact" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>✉️</span>
+                <span>Contact</span>
+              </Link>
+              <Link href="/privacy" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>🔒</span>
+                <span>Privacy Policy</span>
+              </Link>
+              <Link href="/login" onClick={() => setMenuOpen(false)}>
+                <span className={styles.mobileNavIcon}>🔑</span>
+                <span>Login</span>
               </Link>
             </div>
 

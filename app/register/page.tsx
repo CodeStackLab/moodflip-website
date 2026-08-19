@@ -366,19 +366,19 @@ export default function RegisterPage() {
                     </div>
 
                     {/* Checkboxes */}
-                    <div className="space-y-1.5 text-[10.5px] text-[#5C527A] font-medium leading-tight pt-1">
+                    <div className="space-y-2 text-[10.5px] text-[#5C527A] font-medium leading-tight pt-1">
                       <label className="flex items-start gap-2 cursor-pointer">
                         <input type="checkbox" required checked={consentData} onChange={(e) => setConsentData(e.target.checked)}
                           className="accent-[#7464AC] w-3.5 h-3.5 cursor-pointer mt-0.5 flex-shrink-0" />
                         <span>
-                          I consent to store my email, moods, and progress data for personalized features.{' '}
-                          <a href="/privacy" className="font-bold hover:underline text-[#7464AC]">Learn more</a>
+                          I consent to MoodFlip storing my email and saved mood check-ins. I understand that inactive profiles and saved mood history are automatically deleted after 90 days of inactivity.{' '}
+                          <a href="/privacy" className="font-bold hover:underline text-[#7464AC]">Privacy Policy</a>
                         </span>
                       </label>
                       <label className="flex items-start gap-2 cursor-pointer">
                         <input type="checkbox" checked={consentEmails} onChange={(e) => setConsentEmails(e.target.checked)}
                           className="accent-[#7464AC] w-3.5 h-3.5 cursor-pointer mt-0.5 flex-shrink-0" />
-                        <span>I&apos;d like helpful tips and updates. (Unsubscribe anytime.)</span>
+                        <span>I would like to receive occasional reflection tips. (Unsubscribe anytime.)</span>
                       </label>
                     </div>
 

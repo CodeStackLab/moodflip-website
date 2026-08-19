@@ -549,10 +549,25 @@ export default function HeroSectionExact({
     activeFeeling.name
   );
 
-  // Save check-in to profile
+  // Save check-in to profile (Max 3 saved check-ins per calendar day)
   const handleSaveToProfile = () => {
     if (typeof window !== "undefined") {
       try {
+        const todayStr = new Date().toDateString();
+        const existing = JSON.parse(localStorage.getItem("moodflip_user_checkins") || "[]");
+        
+        // Check how many check-ins were saved today
+        const todayCheckins = existing.filter((c: any) => {
+          const checkinDate = c.time ? new Date(c.time) : new Date(c.id || Date.now());
+          return !isNaN(checkinDate.getTime()) && checkinDate.toDateString() === todayStr;
+        });
+
+        if (todayCheckins.length >= 3) {
+          setSavedMsg("🌿 Daily limit reached: Max 3 saved check-ins per calendar day. Great job reflecting today!");
+          setTimeout(() => setSavedMsg(null), 4500);
+          return;
+        }
+
         const newCheckin = {
           id: Date.now(),
           mood: selectedMood,
@@ -562,10 +577,9 @@ export default function HeroSectionExact({
           action: displayedActionTitle,
           time: new Date().toLocaleString(),
         };
-        const existing = JSON.parse(localStorage.getItem("moodflip_user_checkins") || "[]");
         existing.unshift(newCheckin);
         localStorage.setItem("moodflip_user_checkins", JSON.stringify(existing.slice(0, 50)));
-        setSavedMsg("✓ Check-in saved to your profile!");
+        setSavedMsg(`✓ Check-in saved to your profile! (${todayCheckins.length + 1} of 3 today)`);
         setTimeout(() => setSavedMsg(null), 3500);
       } catch (e) {
         setSavedMsg("✓ Saved!");

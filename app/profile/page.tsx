@@ -1417,9 +1417,27 @@ export default function UserDashboardPage() {
                 <div className="p-4.5 rounded-2xl bg-rose-50 border border-rose-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 min-w-0">
                   <div className="min-w-0">
                     <strong className="block font-extrabold text-rose-700">Delete Account &amp; History</strong>
-                    <span className="text-xs text-rose-500 font-medium leading-relaxed block">Permanently wipe all check-ins and progress.</span>
+                    <span className="text-xs text-rose-500 font-medium leading-relaxed block">Permanently wipe all check-ins, profile data, and progress.</span>
                   </div>
-                  <button onClick={() => {}} className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs md:text-sm shadow-xs shrink-0 cursor-pointer self-start sm:self-auto">
+                  <button
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        const confirmed = window.confirm('Are you sure you want to permanently delete your account and all saved check-in history? This action cannot be undone.');
+                        if (confirmed) {
+                          localStorage.removeItem('userLoggedIn');
+                          localStorage.removeItem('isLoggedIn');
+                          localStorage.removeItem('userName');
+                          localStorage.removeItem('userEmail');
+                          localStorage.removeItem('moodflip_user_checkins');
+                          localStorage.removeItem('moodflip_free_flip_count');
+                          localStorage.removeItem('moodflip_saved_checkins');
+                          alert('✓ Your account and data have been permanently deleted.');
+                          window.location.href = '/register';
+                        }
+                      }
+                    }}
+                    className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs md:text-sm shadow-xs shrink-0 cursor-pointer self-start sm:self-auto"
+                  >
                     Delete Data
                   </button>
                 </div>

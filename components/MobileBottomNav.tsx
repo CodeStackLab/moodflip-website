@@ -141,13 +141,12 @@ export default function MobileBottomNav() {
       {drawerOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-[#0B061A]/95 backdrop-blur-2xl flex flex-col p-6 animate-in fade-in duration-200">
           <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-            <span className="font-extrabold text-lg text-white flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-[#7147E8]" />
-              MoodFlip Navigation
-            </span>
+            <Link href="/" onClick={() => setDrawerOpen(false)} className="inline-flex items-center bg-white px-3 py-1 rounded-xl shadow-xs">
+              <img src="/moodflip-logo.png" alt="MoodFlip" className="h-6 w-auto object-contain" />
+            </Link>
             <button
               onClick={() => setDrawerOpen(false)}
-              className="w-9 h-9 rounded-full bg-white/10 text-white font-bold flex items-center justify-center text-lg"
+              className="w-9 h-9 rounded-full bg-white/10 text-white font-bold flex items-center justify-center text-lg cursor-pointer"
             >
               ✕
             </button>

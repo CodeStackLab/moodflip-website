@@ -199,13 +199,13 @@ export default function HomePage() {
     <main className={styles.pageShell}>
       <div className={styles.appFrame}>
         <header className={styles.header}>
-          <a className={styles.logo} href="#" aria-label="MoodFlip home">
-            <span className={styles.logoMark} aria-hidden="true">
-              <span />
-              <span />
-            </span>
-            <span>mood<span>flip</span></span>
-          </a>
+          <Link className={styles.logo} href="/" aria-label="MoodFlip home">
+            <img
+              src="/moodflip-logo.png"
+              alt="MoodFlip"
+              style={{ height: '38px', width: 'auto', objectFit: 'contain', mixBlendMode: 'multiply' }}
+            />
+          </Link>
 
           <nav className={styles.nav} aria-label="Primary navigation">
             <a href="#home">Home</a>

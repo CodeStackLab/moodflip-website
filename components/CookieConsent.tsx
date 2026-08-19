@@ -45,7 +45,8 @@ export default function CookieConsent() {
     };
     window.addEventListener('storage', handleStorage);
 
-    if (!current.enabled) {
+    if (!current || !current.enabled) {
+      setShowBanner(false);
       return () => {
         window.removeEventListener('storage', handleStorage);
       };
@@ -58,7 +59,7 @@ export default function CookieConsent() {
     if (!localConsent && !hasCookie) {
       const timer = setTimeout(() => {
         setShowBanner(true);
-      }, 800);
+      }, 1000);
       return () => {
         window.removeEventListener('storage', handleStorage);
         clearTimeout(timer);

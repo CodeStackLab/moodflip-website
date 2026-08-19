@@ -43,10 +43,12 @@ export default function SiteLoader() {
       </div>
 
       {/* ── BRANDING & SUBTITLE ── */}
-      <div className="text-center space-y-1.5 animate-in fade-in zoom-in duration-300">
-        <h3 className="font-serif text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-[#7147E8] via-[#8356F8] to-[#9333EA] bg-clip-text text-transparent tracking-tight">
-          MoodFlip
-        </h3>
+      <div className="text-center space-y-2 animate-in fade-in zoom-in duration-300">
+        <img
+          src="/moodflip-logo.png"
+          alt="MoodFlip"
+          className="h-7 sm:h-8 w-auto object-contain mx-auto mix-blend-multiply"
+        />
         <p className="text-xs sm:text-sm text-[#68607F] font-semibold flex items-center justify-center gap-1.5">
           <span>Preparing your mindset shift</span>
           <span className="inline-flex gap-1">

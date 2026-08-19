@@ -22,14 +22,11 @@ export default function Header() {
         
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2.5 text-decoration-none shrink-0 group">
-          <span className="relative inline-block w-[29px] h-[22px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0 mt-1.5">
-            <span className="absolute left-[6px] top-[4px] w-[17px] h-[9px] rounded-b-[12px] bg-white" />
-            <span className="absolute -top-[6px] left-[3px] w-[8px] h-[8px] rounded-full bg-[#ffad64] z-10" />
-            <span className="absolute -top-[6px] right-[3px] w-[8px] h-[8px] rounded-full bg-[#ffad64] z-10" />
-          </span>
-          <span className="font-serif text-2xl font-extrabold text-[#15183b] tracking-tight whitespace-nowrap">
-            mood<span className="text-[#7147e8]">flip</span>
-          </span>
+          <img
+            src="/moodflip-logo.png"
+            alt="MoodFlip"
+            className="h-8 sm:h-9 md:h-10 w-auto object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-105"
+          />
         </Link>
 
         {/* DESKTOP NAV */}

@@ -512,19 +512,16 @@ export default function AdminDashboardPage() {
       {/* MOBILE TOP NAVBAR */}
       <div className="lg:hidden bg-white border-b border-[#EAE3F2] px-4 py-2.5 flex items-center justify-between shadow-xs sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2.5 text-decoration-none group">
-          <span className="relative inline-block w-[28px] h-[21px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0">
-            <span className="absolute left-[6px] top-[3px] w-[16px] h-[9px] rounded-b-[12px] bg-white" />
-            <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-            <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-          </span>
-          <span className="font-serif text-xl font-extrabold text-[#15183b] tracking-tight whitespace-nowrap">
-            mood<span className="text-[#7148e9]">flip</span>
-          </span>
+          <img
+            src="/moodflip-logo.png"
+            alt="MoodFlip"
+            className="h-7 w-auto object-contain mix-blend-multiply"
+          />
         </Link>
 
         <button 
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="w-9 h-9 rounded-xl bg-[#FAF8FD] text-[#1A1338] border border-[#EAE3F2] text-base font-bold flex items-center justify-center hover:bg-[#F0EBFA] transition-colors shrink-0"
+          className="w-9 h-9 rounded-xl bg-[#FAF8FD] text-[#1A1338] border border-[#EAE3F2] text-base font-bold flex items-center justify-center hover:bg-[#F0EBFA] transition-colors shrink-0 cursor-pointer"
           aria-label="Toggle menu"
         >
           {sidebarOpen ? '✕' : '☰'}
@@ -540,17 +537,14 @@ export default function AdminDashboardPage() {
           ${sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div>
-            {/* DESKTOP BRAND LOGO (Exact Homepage Brand Mark) */}
-            <div className="hidden lg:flex items-center gap-3 mb-6 px-3 py-2.5 bg-white/80 backdrop-blur-md rounded-2xl border border-[#EAE3F2] shadow-2xs">
-              <Link href="/" className="flex items-center gap-2.5 text-decoration-none group">
-                <span className="relative inline-block w-[30px] h-[22px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9] shrink-0 mt-0.5 shadow-2xs">
-                  <span className="absolute left-[6px] top-[3px] w-[17px] h-[9px] rounded-b-[12px] bg-white" />
-                  <span className="absolute -top-[5px] left-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-                  <span className="absolute -top-[5px] right-[2px] w-[7px] h-[7px] rounded-full bg-[#ffad64] z-10" />
-                </span>
-                <span className="font-serif text-2xl font-extrabold text-[#15183b] tracking-tight whitespace-nowrap">
-                  mood<span className="text-[#7148e9]">flip</span>
-                </span>
+            {/* DESKTOP BRAND LOGO */}
+            <div className="hidden lg:flex items-center gap-3 mb-6 px-3 py-2.5 bg-white/90 backdrop-blur-md rounded-2xl border border-[#EAE3F2] shadow-2xs">
+              <Link href="/" className="flex items-center gap-2.5 text-decoration-none group w-full">
+                <img
+                  src="/moodflip-logo.png"
+                  alt="MoodFlip"
+                  className="h-8 w-auto object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-105"
+                />
               </Link>
             </div>
 

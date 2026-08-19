@@ -8,12 +8,13 @@ export default function Footer() {
     <footer className="mt-12 bg-[#1E1935] text-white py-12 px-6">
       <div className="mx-auto max-w-[1340px] flex flex-col md:flex-row items-center justify-between gap-8 border-b border-white/10 pb-8">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-2xl">😄</span>
-            <span className="font-serif text-2xl font-bold tracking-tight">
-              mood<span className="text-[#A78BFA]">flip</span>
-            </span>
-          </div>
+          <Link href="/" className="inline-flex items-center gap-2 mb-3 bg-white px-3.5 py-1.5 rounded-2xl shadow-xs hover:opacity-95 transition-opacity">
+            <img
+              src="/moodflip-logo.png"
+              alt="MoodFlip"
+              className="h-7 w-auto object-contain"
+            />
+          </Link>
           <p className="text-sm text-purple-200/70 max-w-sm">
             A self-reflection utility for real life. Tap-only, 60-second mindset shifts without questionnaires or medical jargon.
           </p>

@@ -507,10 +507,10 @@ export default function AdminDashboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#FAF9FE] text-[#1A1338] font-sans antialiased flex flex-col">
+    <div className="min-h-screen bg-[#FDF8F5] text-[#1A143F] font-sans antialiased flex flex-col">
 
       {/* MOBILE TOP NAVBAR */}
-      <div className="lg:hidden bg-white border-b border-[#EAE3F2] px-4 py-2.5 flex items-center justify-between shadow-xs sticky top-0 z-40">
+      <div className="lg:hidden bg-[#FEFAF8] border-b border-[#E4DAD7] px-4 py-2.5 flex items-center justify-between shadow-xs sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2.5 text-decoration-none group">
           <img
             src="/moodflip-logo.png"
@@ -521,7 +521,7 @@ export default function AdminDashboardPage() {
 
         <button 
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="w-9 h-9 rounded-xl bg-[#FAF8FD] text-[#1A1338] border border-[#EAE3F2] text-base font-bold flex items-center justify-center hover:bg-[#F0EBFA] transition-colors shrink-0 cursor-pointer"
+          className="w-9 h-9 rounded-xl bg-[#F4EBF5] text-[#1A143F] border border-[#E4DAD7] text-base font-bold flex items-center justify-center hover:bg-[#EEE0FC] transition-colors shrink-0 cursor-pointer"
           aria-label="Toggle menu"
         >
           {sidebarOpen ? '✕' : '☰'}
@@ -533,12 +533,12 @@ export default function AdminDashboardPage() {
 
         {/* 1. LEFT SIDEBAR */}
         <aside className={`
-          fixed lg:static inset-y-0 left-0 z-50 w-[295px] bg-[#FAF8FD] border-r border-[#EAE3F2] p-5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out overflow-y-auto overflow-x-hidden
+          fixed lg:static inset-y-0 left-0 z-50 w-[295px] bg-[#FEFAF8] border-r border-[#E4DAD7] p-5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out overflow-y-auto overflow-x-hidden
           ${sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div>
             {/* DESKTOP BRAND LOGO */}
-            <div className="hidden lg:flex items-center gap-3 mb-6 px-3 py-2.5 bg-white/90 backdrop-blur-md rounded-2xl border border-[#EAE3F2] shadow-2xs">
+            <div className="hidden lg:flex items-center gap-3 mb-6 px-3 py-2.5 bg-[#FEFAF8] rounded-2xl border border-[#E4DAD7] shadow-2xs">
               <Link href="/" className="flex items-center gap-2.5 text-decoration-none group w-full">
                 <img
                   src="/moodflip-logo.png"
@@ -551,7 +551,7 @@ export default function AdminDashboardPage() {
 
 
             {/* NAVIGATION MENU — Larger 14px bold text for easy readability */}
-            <div className="mb-2 px-2 text-[11px] font-black uppercase tracking-wider text-[#8A829E]">
+            <div className="mb-2 px-2 text-[11px] font-black uppercase tracking-wider text-[#A49BA8]">
               Main Menu
             </div>
             <nav className="space-y-1">
@@ -575,8 +575,8 @@ export default function AdminDashboardPage() {
                   onClick={() => changeTab(item.name)}
                   className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl text-[14px] font-bold transition-all ${
                     activeTab === item.name
-                      ? 'bg-gradient-to-r from-[#7147E8] to-[#8C60F7] text-white shadow-md shadow-[#7147E8]/25 scale-[1.01]'
-                      : 'text-[#4A4268] hover:bg-[#F0EBFA] hover:text-[#1A1338]'
+                      ? 'bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white shadow-md shadow-[#7464AC]/25 scale-[1.01]'
+                      : 'text-[#5C527A] hover:bg-[#F4EBF5] hover:text-[#1A143F]'
                   }`}
                 >
                   <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
@@ -588,7 +588,7 @@ export default function AdminDashboardPage() {
 
               <Link
                 href="/login"
-                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl text-[14px] font-bold text-gray-500 hover:bg-rose-50 hover:text-rose-600 transition-all cursor-pointer mt-3"
+                className="w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl text-[14px] font-bold text-[#A49BA8] hover:bg-[#FAF5F6] hover:text-[#E49C8C] transition-all cursor-pointer mt-3"
               >
                 <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -600,22 +600,22 @@ export default function AdminDashboardPage() {
 
           {/* SIDEBAR MOTIVATIONAL CARD */}
           <div 
-            className="mt-6 relative overflow-hidden rounded-[24px] border border-[#EAE3D6] p-5 shadow-sm flex flex-col justify-between text-center min-h-[260px] bg-cover bg-center"
+            className="mt-6 relative overflow-hidden rounded-[24px] border border-[#E4DAD7] p-5 shadow-sm flex flex-col justify-between text-center min-h-[260px] bg-cover bg-center"
             style={{ backgroundImage: "url('/login-bg.jpg')" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/50 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#FEFAF8]/95 via-[#FEFAF8]/50 to-transparent pointer-events-none" />
 
             <div className="relative z-10 text-center pt-2">
-              <h4 className="font-serif font-extrabold text-base md:text-lg text-[#1A1338] leading-snug mb-1.5 tracking-tight">
+              <h4 className="font-serif font-extrabold text-base md:text-lg text-[#1A143F] leading-snug mb-1.5 tracking-tight">
                 Spread positivity.<br />Inspire change.
               </h4>
-              <p className="text-xs text-[#5B5278] font-medium leading-relaxed max-w-[210px] mx-auto">
+              <p className="text-xs text-[#5C527A] font-medium leading-relaxed max-w-[210px] mx-auto">
                 Thank you for helping millions live better.
               </p>
             </div>
 
-            <div className="relative z-10 w-11 h-11 rounded-full bg-[#7147E8] text-white flex items-center justify-center shadow-lg shadow-[#7147E8]/40 mx-auto mt-4 mb-1 text-base">
-              ❤️
+            <div className="relative z-10 w-11 h-11 rounded-full bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white flex items-center justify-center shadow-lg shadow-[#7464AC]/40 mx-auto mt-4 mb-1 text-base">
+              💜
             </div>
           </div>
         </aside>
@@ -629,54 +629,54 @@ export default function AdminDashboardPage() {
         )}
 
         {/* 2. MAIN DASHBOARD CONTENT AREA */}
-        <main className="flex-1 p-3 sm:p-6 md:p-8 bg-[#FAF9FE] flex flex-col gap-6 overflow-y-auto w-full min-w-0">
+        <main className="flex-1 p-3 sm:p-6 md:p-8 bg-[#FDF8F5] flex flex-col gap-6 overflow-y-auto w-full min-w-0">
 
           {/* TOP SEARCH & PROFILE HEADER BAR */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 md:p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#FEFAF8] p-3 md:p-4 rounded-2xl border border-[#E4DAD7] shadow-[0_10px_28px_rgba(26,20,63,0.03)]">
             {/* Search Input */}
             <div className="relative w-full sm:w-[380px] lg:w-[440px]">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#A49BA8] text-sm">🔍</span>
               <input
                 type="text"
                 placeholder="Search users, emails, check-ins, plans..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#F5F2FA] border border-[#EBE5F5] rounded-xl pl-10 pr-12 py-2 text-xs text-[#1A1338] placeholder-gray-400 focus:outline-none focus:border-[#7147E8] focus:bg-white transition-all"
+                className="w-full bg-[#FEFAF8] border border-[#E4DAD7] rounded-xl pl-10 pr-12 py-2 text-xs text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:border-[#7464AC] focus:bg-white transition-all"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-400 bg-white border border-gray-200 px-1.5 py-0.5 rounded-md hidden sm:inline-block">
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-[#A49BA8] bg-[#F4EBF5] border border-[#E4DAD7] px-1.5 py-0.5 rounded-md hidden sm:inline-block">
                 ⌘K
               </span>
             </div>
 
             {/* Top Right Controls & Profile */}
-            <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto border-t sm:border-t-0 border-gray-100 pt-2.5 sm:pt-0">
+            <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto border-t sm:border-t-0 border-[#E4DAD7] pt-2.5 sm:pt-0">
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => setShowNotificationsModal(true)}
-                  className="relative w-9 h-9 rounded-xl bg-[#F5F2FA] border border-[#EBE5F5] flex items-center justify-center text-[#5B5278] hover:bg-[#EBE4F7] transition-all cursor-pointer shrink-0"
+                  className="relative w-9 h-9 rounded-xl bg-[#F4EBF5] border border-[#E4DAD7] flex items-center justify-center text-[#5C527A] hover:bg-[#EEE0FC] transition-all cursor-pointer shrink-0"
                   title="View Notifications"
                 >
                   🔔
                   {unreadCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#EC4899] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center animate-pulse">
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#E49C8C] text-white text-[9px] font-extrabold rounded-full flex items-center justify-center animate-pulse">
                       {unreadCount}
                     </span>
                   )}
                 </button>
                 <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold flex items-center justify-center text-sm shadow-xs shrink-0">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white font-extrabold flex items-center justify-center text-sm shadow-xs shrink-0">
                     A
                   </div>
                   <div className="text-left hidden md:block">
-                    <span className="block text-xs font-bold text-[#1A1338]">Admin Panel</span>
-                    <span className="block text-[10px] text-gray-500 font-medium">{adminCreds.email}</span>
+                    <span className="block text-xs font-bold text-[#1A143F]">Admin Panel</span>
+                    <span className="block text-[10px] text-[#7E7096] font-medium">{adminCreds.email}</span>
                   </div>
                 </div>
               </div>
 
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 font-extrabold text-xs hover:bg-rose-600 hover:text-white transition-all cursor-pointer shadow-2xs shrink-0"
+                className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-[#FAF5F6] border border-[#E4DAD7] text-[#E49C8C] font-extrabold text-xs hover:bg-[#E49C8C] hover:text-white transition-all cursor-pointer shadow-2xs shrink-0"
                 title="Logout Admin Session"
               >
                 <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.2">
@@ -690,19 +690,19 @@ export default function AdminDashboardPage() {
           {/* PAGE TITLE & DATE SELECTOR ROW */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h1 className="font-serif text-2xl md:text-3xl font-extrabold text-[#1A1338] tracking-tight">
+              <h1 className="font-serif text-2xl md:text-3xl font-extrabold text-[#1A143F] tracking-tight">
                 {activeTab === 'Dashboard' ? 'Admin Dashboard' : `Admin — ${activeTab}`}
               </h1>
-              <p className="text-xs md:text-sm text-[#68607F] font-medium mt-0.5">
+              <p className="text-xs md:text-sm text-[#5C527A] font-medium mt-0.5">
                 Overview of users, check-ins, revenue and platform management
               </p>
             </div>
-            <div className="flex items-center gap-2 bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2 shadow-xs cursor-pointer self-start sm:self-auto">
+            <div className="flex items-center gap-2 bg-[#FEFAF8] border border-[#E4DAD7] rounded-xl px-3.5 py-2 shadow-xs cursor-pointer self-start sm:self-auto">
               <span>📅</span>
               <select 
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
-                className="text-xs font-bold text-[#1A1338] bg-transparent focus:outline-none cursor-pointer"
+                className="text-xs font-bold text-[#1A143F] bg-transparent focus:outline-none cursor-pointer"
               >
                 <option>May 9 - May 15, 2026</option>
                 <option>May 1 - May 8, 2026</option>
@@ -718,25 +718,25 @@ export default function AdminDashboardPage() {
               {/* TOP 6 METRIC CARDS ROW */}
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4">
                 {[
-                  { label: 'Total Users', val: '12,458', change: '↑ 8.7%', icon: '👥', color: 'from-[#7147E8] to-[#9333EA]' },
-                  { label: 'Total Check-ins', val: '89,142', change: '↑ 12.4%', icon: '📋', color: 'from-sky-500 to-blue-600' },
-                  { label: 'Active Paid Users', val: '3,276', change: '↑ 9.3%', icon: '💎', color: 'from-amber-500 to-orange-600' },
-                  { label: '7-Day Plan Sales', val: '1,842', change: '↑ 15.2%', icon: '👑', color: 'from-emerald-500 to-teal-600' },
-                  { label: 'Total Revenue', val: '$18,942', change: '↑ 13.1%', icon: '💵', color: 'from-purple-600 to-pink-600' },
-                  { label: 'Avg. Daily Visits', val: '5,819', change: '↑ 10.8%', icon: '📈', color: 'from-indigo-500 to-purple-600' },
+                  { label: 'Total Users', val: '12,458', change: '↑ 8.7%', icon: '👥', badgeBg: 'bg-[#F4EBF5]', iconColor: 'text-[#7464AC]' },
+                  { label: 'Total Check-ins', val: '89,142', change: '↑ 12.4%', icon: '📋', badgeBg: 'bg-[#FCF3E9]', iconColor: 'text-[#7D8164]' },
+                  { label: 'Active Paid Users', val: '3,276', change: '↑ 9.3%', icon: '💎', badgeBg: 'bg-[#FDE8C8]', iconColor: 'text-[#EDAA7A]' },
+                  { label: '7-Day Plan Sales', val: '1,842', change: '↑ 15.2%', icon: '👑', badgeBg: 'bg-[#FAF5F6]', iconColor: 'text-[#E49C8C]' },
+                  { label: 'Total Revenue', val: '$18,942', change: '↑ 13.1%', icon: '💵', badgeBg: 'bg-[#F4EBF5]', iconColor: 'text-[#7464AC]' },
+                  { label: 'Avg. Daily Visits', val: '5,819', change: '↑ 10.8%', icon: '📈', badgeBg: 'bg-[#FCF3E9]', iconColor: 'text-[#7D8164]' },
                 ].map((stat, idx) => (
-                  <div key={idx} className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-2xs flex flex-col justify-between hover:border-[#7147E8] hover:shadow-md hover:scale-[1.02] transition-all cursor-pointer">
+                  <div key={idx} className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:border-[#7666AB] hover:shadow-md transition-all cursor-pointer">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[11px] font-extrabold text-[#68607F] uppercase tracking-wider">{stat.label}</span>
-                      <span className={`w-7 h-7 rounded-xl bg-gradient-to-br ${stat.color} text-white flex items-center justify-center text-xs shadow-xs shrink-0`}>
+                      <span className="text-[11px] font-extrabold text-[#5C527A] uppercase tracking-wider">{stat.label}</span>
+                      <span className={`w-8 h-8 rounded-xl ${stat.badgeBg} ${stat.iconColor} border border-[#E4DAD7] flex items-center justify-center text-sm shadow-2xs shrink-0`}>
                         {stat.icon}
                       </span>
                     </div>
                     <div>
-                      <div className="font-serif text-xl sm:text-2xl font-extrabold text-[#1A1338]">{stat.val}</div>
-                      <div className="text-[11px] font-extrabold text-emerald-600 mt-1 flex items-center gap-1">
+                      <div className="font-serif text-xl sm:text-2xl font-extrabold text-[#1A143F]">{stat.val}</div>
+                      <div className="text-[11px] font-extrabold text-[#7D8164] mt-1 flex items-center gap-1">
                         <span>{stat.change}</span>
-                        <span className="text-gray-400 font-medium">vs last 7d</span>
+                        <span className="text-[#7E7096] font-medium">vs last 7d</span>
                       </div>
                     </div>
                   </div>
@@ -746,30 +746,30 @@ export default function AdminDashboardPage() {
               {/* MIDDLE SECTION GRID */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                 {/* WEEKLY ACTIVITY LINE CHART */}
-                <div className="lg:col-span-5 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="lg:col-span-5 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <h3 className="font-serif font-bold text-base text-[#1A1338]">Weekly Activity (Check-ins)</h3>
+                      <h3 className="font-serif font-bold text-base text-[#1A143F]">Weekly Activity (Check-ins)</h3>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#7147E8]" />
-                        <span className="text-xs text-gray-500 font-medium">Check-ins</span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#7464AC]" />
+                        <span className="text-xs text-[#5C527A] font-medium">Check-ins</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="w-full h-[180px] relative mt-2">
                     <svg className="w-full h-full overflow-visible" viewBox="0 0 400 150">
-                      <line x1="0" y1="30" x2="400" y2="30" stroke="#F1EEF8" strokeDasharray="3 3" />
-                      <line x1="0" y1="70" x2="400" y2="70" stroke="#F1EEF8" strokeDasharray="3 3" />
-                      <line x1="0" y1="110" x2="400" y2="110" stroke="#F1EEF8" strokeDasharray="3 3" />
+                      <line x1="0" y1="30" x2="400" y2="30" stroke="#E4DAD7" strokeDasharray="3 3" />
+                      <line x1="0" y1="70" x2="400" y2="70" stroke="#E4DAD7" strokeDasharray="3 3" />
+                      <line x1="0" y1="110" x2="400" y2="110" stroke="#E4DAD7" strokeDasharray="3 3" />
                       <defs>
                         <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#7147E8" stopOpacity="0.25" />
-                          <stop offset="100%" stopColor="#7147E8" stopOpacity="0.0" />
+                          <stop offset="0%" stopColor="#7464AC" stopOpacity="0.25" />
+                          <stop offset="100%" stopColor="#7464AC" stopOpacity="0.0" />
                         </linearGradient>
                       </defs>
                       <path d="M 10 100 L 70 85 L 130 90 L 190 60 L 250 50 L 310 40 L 370 65 L 370 140 L 10 140 Z" fill="url(#chartGrad)" />
-                      <path d="M 10 100 Q 40 92 70 85 T 130 90 T 190 60 T 250 50 T 310 40 T 370 65" fill="none" stroke="#7147E8" strokeWidth="3" />
+                      <path d="M 10 100 Q 40 92 70 85 T 130 90 T 190 60 T 250 50 T 310 40 T 370 65" fill="none" stroke="#7464AC" strokeWidth="3" />
                       {[
                         { x: 10, y: 100 },
                         { x: 70, y: 85 },
@@ -779,11 +779,11 @@ export default function AdminDashboardPage() {
                         { x: 310, y: 40 },
                         { x: 370, y: 65 },
                       ].map((pt, i) => (
-                        <circle key={i} cx={pt.x} cy={pt.y} r="4.5" fill="#7147E8" stroke="#FFFFFF" strokeWidth="2" />
+                        <circle key={i} cx={pt.x} cy={pt.y} r="4.5" fill="#7464AC" stroke="#FEFAF8" strokeWidth="2" />
                       ))}
                     </svg>
 
-                    <div className="flex justify-between text-[11px] text-gray-400 font-semibold mt-2 px-1">
+                    <div className="flex justify-between text-[11px] text-[#7E7096] font-semibold mt-2 px-1">
                       <span>Fri 9</span>
                       <span>Sat 10</span>
                       <span>Sun 11</span>
@@ -796,66 +796,66 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* MOOD DISTRIBUTION DONUT CHART */}
-                <div className="lg:col-span-4 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
-                  <h3 className="font-serif font-bold text-base text-[#1A1338] mb-2">Mood Distribution (All Time)</h3>
+                <div className="lg:col-span-4 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                  <h3 className="font-serif font-bold text-base text-[#1A143F] mb-2">Mood Distribution (All Time)</h3>
 
                   <div className="flex items-center gap-4 my-auto">
                     <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
                       <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="38" fill="none" stroke="#F87171" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="0" />
-                        <circle cx="50" cy="50" r="38" fill="none" stroke="#60A5FA" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="30" />
-                        <circle cx="50" cy="50" r="38" fill="none" stroke="#A78BFA" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="65" />
-                        <circle cx="50" cy="50" r="38" fill="none" stroke="#34D399" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="110" />
-                        <circle cx="50" cy="50" r="38" fill="none" stroke="#FBBF24" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="175" />
+                        <circle cx="50" cy="50" r="38" fill="none" stroke="#E49C8C" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="0" />
+                        <circle cx="50" cy="50" r="38" fill="none" stroke="#9C8CC4" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="30" />
+                        <circle cx="50" cy="50" r="38" fill="none" stroke="#7464AC" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="65" />
+                        <circle cx="50" cy="50" r="38" fill="none" stroke="#7D8164" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="110" />
+                        <circle cx="50" cy="50" r="38" fill="none" stroke="#EDAA7A" strokeWidth="18" strokeDasharray="238.7" strokeDashoffset="175" />
                       </svg>
                       <div className="absolute text-center">
-                        <span className="block font-serif font-extrabold text-sm text-[#1A1338]">89,142</span>
-                        <span className="block text-[9px] font-bold text-gray-400 uppercase">Total</span>
+                        <span className="block font-serif font-extrabold text-sm text-[#1A143F]">89,142</span>
+                        <span className="block text-[9px] font-bold text-[#7E7096] uppercase">Total</span>
                       </div>
                     </div>
 
-                    <div className="space-y-1.5 text-[11px] font-semibold text-[#5B5278] flex-1">
+                    <div className="space-y-1.5 text-[11px] font-semibold text-[#5C527A] flex-1">
                       <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#FBBF24]" /> 😊 Happy</span>
-                        <strong className="text-[#1A1338]">34.2%</strong>
+                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#EDAA7A]" /> 😊 Happy</span>
+                        <strong className="text-[#1A143F]">34.2%</strong>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#34D399]" /> 🌿 Calm</span>
-                        <strong className="text-[#1A1338]">25.6%</strong>
+                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#7D8164]" /> 🌿 Calm</span>
+                        <strong className="text-[#1A143F]">25.6%</strong>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#A78BFA]" /> 😰 Anxious</span>
-                        <strong className="text-[#1A1338]">14.8%</strong>
+                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#7464AC]" /> 😰 Anxious</span>
+                        <strong className="text-[#1A143F]">14.8%</strong>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#60A5FA]" /> 😔 Sad</span>
-                        <strong className="text-[#1A1338]">11.3%</strong>
+                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#9C8CC4]" /> 😔 Sad</span>
+                        <strong className="text-[#1A143F]">11.3%</strong>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#F87171]" /> 😡 Angry</span>
-                        <strong className="text-[#1A1338]">6.4%</strong>
+                        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#E49C8C]" /> 😡 Angry</span>
+                        <strong className="text-[#1A143F]">6.4%</strong>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* QUICK ACTIONS BUTTONS */}
-                <div className="lg:col-span-3 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-2xs flex flex-col justify-between">
-                  <h3 className="font-serif font-extrabold text-base text-[#1A1338] mb-3">Quick Actions</h3>
+                <div className="lg:col-span-3 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                  <h3 className="font-serif font-extrabold text-base text-[#1A143F] mb-3">Quick Actions</h3>
                   <div className="space-y-2.5">
-                    <button onClick={exportUsersCSV} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#7147E8]/20 bg-[#FAF8FD] hover:bg-[#7147E8] hover:text-white hover:border-[#7147E8] text-xs font-extrabold text-[#7147E8] transition-all cursor-pointer shadow-2xs">
+                    <button onClick={exportUsersCSV} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#E4DAD7] bg-[#F4EBF5] hover:bg-gradient-to-r hover:from-[#7464AC] hover:to-[#4F438B] hover:text-white text-xs font-extrabold text-[#7464AC] transition-all cursor-pointer shadow-2xs">
                       <span>📥 Export Users CSV</span>
                     </button>
-                    <button onClick={exportLeadsCSV} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#7147E8]/20 bg-[#FAF8FD] hover:bg-[#7147E8] hover:text-white hover:border-[#7147E8] text-xs font-extrabold text-[#7147E8] transition-all cursor-pointer shadow-2xs">
+                    <button onClick={exportLeadsCSV} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#E4DAD7] bg-[#F4EBF5] hover:bg-gradient-to-r hover:from-[#7464AC] hover:to-[#4F438B] hover:text-white text-xs font-extrabold text-[#7464AC] transition-all cursor-pointer shadow-2xs">
                       <span>✉️ Export Leads CSV</span>
                     </button>
-                    <button onClick={() => setActiveModal('addMood')} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#7147E8]/20 bg-[#FAF8FD] hover:bg-[#7147E8] hover:text-white hover:border-[#7147E8] text-xs font-extrabold text-[#7147E8] transition-all cursor-pointer shadow-2xs">
+                    <button onClick={() => setActiveModal('addMood')} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#E4DAD7] bg-[#F4EBF5] hover:bg-gradient-to-r hover:from-[#7464AC] hover:to-[#4F438B] hover:text-white text-xs font-extrabold text-[#7464AC] transition-all cursor-pointer shadow-2xs">
                       <span>➕ Add Mood Page</span>
                     </button>
-                    <button onClick={() => setActiveModal('createPlan')} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#7147E8]/20 bg-[#FAF8FD] hover:bg-[#7147E8] hover:text-white hover:border-[#7147E8] text-xs font-extrabold text-[#7147E8] transition-all cursor-pointer shadow-2xs">
+                    <button onClick={() => setActiveModal('createPlan')} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#E4DAD7] bg-[#F4EBF5] hover:bg-gradient-to-r hover:from-[#7464AC] hover:to-[#4F438B] hover:text-white text-xs font-extrabold text-[#7464AC] transition-all cursor-pointer shadow-2xs">
                       <span>🎁 Create New Plan</span>
                     </button>
-                    <button onClick={() => changeTab('Reports')} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#7147E8]/20 bg-[#FAF8FD] hover:bg-[#7147E8] hover:text-white hover:border-[#7147E8] text-xs font-extrabold text-[#7147E8] transition-all cursor-pointer shadow-2xs">
+                    <button onClick={() => changeTab('Reports')} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#E4DAD7] bg-[#F4EBF5] hover:bg-gradient-to-r hover:from-[#7464AC] hover:to-[#4F438B] hover:text-white text-xs font-extrabold text-[#7464AC] transition-all cursor-pointer shadow-2xs">
                       <span>📊 View Reports</span>
                     </button>
                   </div>
@@ -865,15 +865,15 @@ export default function AdminDashboardPage() {
               {/* LOWER SECTION ROW 1 */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                 {/* RECENT USERS TABLE */}
-                <div className="lg:col-span-5 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="lg:col-span-5 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-serif font-bold text-base text-[#1A1338]">Recent Users</h3>
-                    <button onClick={() => changeTab('Users')} className="text-xs font-bold text-[#7147E8] hover:underline cursor-pointer">View All</button>
+                    <h3 className="font-serif font-bold text-base text-[#1A143F]">Recent Users</h3>
+                    <button onClick={() => changeTab('Users')} className="text-xs font-bold text-[#7464AC] hover:underline cursor-pointer">View All</button>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
                       <thead>
-                        <tr className="border-b border-gray-100 text-gray-400 font-bold uppercase text-[10px]">
+                        <tr className="border-b border-[#E4DAD7] text-[#5C527A] font-bold uppercase text-[10px]">
                           <th className="pb-2.5">Name</th>
                           <th className="pb-2.5">Email</th>
                           <th className="pb-2.5">Join Date</th>
@@ -881,15 +881,15 @@ export default function AdminDashboardPage() {
                           <th className="pb-2.5">Status</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-50 text-[#1A1338] font-medium">
+                      <tbody className="divide-y divide-[#E4DAD7] text-[#1A143F] font-medium">
                         {filteredUsers.slice(0, 5).map((u) => (
-                          <tr key={u.id} className="hover:bg-[#FAF8FD] transition-all">
+                          <tr key={u.id} className="hover:bg-[#F4EBF5] transition-all">
                             <td className="py-2.5 font-bold text-[11px]">{u.name}</td>
-                            <td className="py-2.5 text-gray-500 text-[11px]">{u.email}</td>
+                            <td className="py-2.5 text-[#7E7096] text-[11px]">{u.email}</td>
                             <td className="py-2.5 text-[11px]">{u.joinDate}</td>
                             <td className="py-2.5 text-[11px] font-bold">{u.visitCount}</td>
                             <td className="py-2.5">
-                              <span className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold ${u.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                              <span className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold ${u.status === 'Active' ? 'bg-[#FCF3E9] text-[#7D8164] border border-[#E4DAD7]' : 'bg-[#F1ECED] text-[#7E7096]'}`}>
                                 {u.status}
                               </span>
                             </td>
@@ -901,22 +901,22 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* LATEST CHECK-INS TABLE */}
-                <div className="lg:col-span-4 bg-white border border-[#EAE3F2] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="lg:col-span-4 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-serif font-bold text-base text-[#1A1338]">Latest Check-ins</h3>
-                    <button onClick={() => changeTab('Check-ins')} className="text-xs font-bold text-[#7147E8] hover:underline cursor-pointer">View All</button>
+                    <h3 className="font-serif font-bold text-base text-[#1A143F]">Latest Check-ins</h3>
+                    <button onClick={() => changeTab('Check-ins')} className="text-xs font-bold text-[#7464AC] hover:underline cursor-pointer">View All</button>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
                       <thead>
-                        <tr className="border-b border-gray-100 text-gray-400 font-bold uppercase text-[10px]">
+                        <tr className="border-b border-[#E4DAD7] text-[#5C527A] font-bold uppercase text-[10px]">
                           <th className="pb-2.5">User</th>
                           <th className="pb-2.5">Mood</th>
                           <th className="pb-2.5">Action Shown</th>
                           <th className="pb-2.5">Date</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-50 text-[#1A1338] font-medium">
+                      <tbody className="divide-y divide-[#E4DAD7] text-[#1A143F] font-medium">
                         {filteredCheckins.slice(0, 5).map((c) => (
                           <tr key={c.id} className="hover:bg-[#FAF8FD] transition-all">
                             <td className="py-2.5 font-bold text-[11px]">{c.user}</td>

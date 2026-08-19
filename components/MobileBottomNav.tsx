@@ -89,32 +89,32 @@ export default function MobileBottomNav() {
     <>
       {/* Sleek App Bottom Navigation Bar (Mobile Only) */}
       <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#120B2E]/95 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_25px_rgba(0,0,0,0.3)] px-2 py-1.5"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FDF8F5]/96 backdrop-blur-xl border-t border-[#E4DAD7] shadow-[0_-4px_20px_rgba(26,20,63,0.06)] px-2 py-1.5"
         style={{ paddingBottom: 'calc(6px + env(safe-area-inset-bottom, 0px))' }}
       >
         <div className="flex items-center justify-around max-w-md mx-auto">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             const content = (
-              <div className="flex flex-col items-center justify-center gap-1 cursor-pointer py-1 px-3 rounded-2xl transition-all duration-200">
+              <div className="flex flex-col items-center justify-center gap-0.5 cursor-pointer py-1 px-3 rounded-2xl transition-all duration-200">
                 <div
                   className={`transition-all duration-200 ${
-                    isActive ? 'text-[#F59E0B] scale-110' : 'text-white/60 hover:text-white'
+                    isActive ? 'text-[#7464AC] scale-105' : 'text-[#7E7096] hover:text-[#1A143F]'
                   }`}
                 >
                   {item.icon}
                 </div>
                 <span
-                  className={`text-[11px] font-extrabold tracking-tight transition-colors duration-200 ${
-                    isActive ? 'text-[#F59E0B]' : 'text-white/60'
+                  className={`text-[11px] font-bold tracking-tight transition-colors duration-200 ${
+                    isActive ? 'text-[#7464AC]' : 'text-[#7E7096]'
                   }`}
                 >
                   {item.label}
                 </span>
-                {/* Dot Indicator beneath active tab (matching user screenshot) */}
+                {/* Dot Indicator beneath active tab */}
                 <div
                   className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                    isActive ? 'bg-[#F59E0B] scale-100 opacity-100' : 'bg-transparent scale-0 opacity-0'
+                    isActive ? 'bg-[#7464AC] scale-100 opacity-100' : 'bg-transparent scale-0 opacity-0'
                   }`}
                 />
               </div>
@@ -139,93 +139,95 @@ export default function MobileBottomNav() {
 
       {/* Mobile Full Menu Drawer */}
       {drawerOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-[#0B061A]/95 backdrop-blur-2xl flex flex-col p-6 animate-in fade-in duration-200">
-          <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-            <Link href="/" onClick={() => setDrawerOpen(false)} className="inline-flex items-center bg-white px-3 py-1 rounded-xl shadow-xs">
-              <img src="/moodflip-logo.png" alt="MoodFlip" className="h-6 w-auto object-contain" />
-            </Link>
-            <button
-              onClick={() => setDrawerOpen(false)}
-              className="w-9 h-9 rounded-full bg-white/10 text-white font-bold flex items-center justify-center text-lg cursor-pointer"
-            >
-              ✕
-            </button>
-          </div>
+        <div className="md:hidden fixed inset-0 z-50 bg-[#1A143F]/60 backdrop-blur-md flex flex-col justify-end animate-in fade-in duration-200">
+          <div className="w-full bg-[#FEFAF8] rounded-t-[28px] border-t border-[#E4DAD7] shadow-2xl p-6 space-y-4 max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom duration-300">
+            <div className="flex items-center justify-between border-b border-[#E4DAD7] pb-3">
+              <Link href="/" onClick={() => setDrawerOpen(false)} className="inline-flex items-center">
+                <img src="/moodflip-logo.png" alt="MoodFlip" className="h-8 w-auto object-contain mix-blend-multiply" />
+              </Link>
+              <button
+                onClick={() => setDrawerOpen(false)}
+                className="w-8 h-8 rounded-full bg-[#F4EBF5] text-[#7464AC] font-bold flex items-center justify-center text-sm cursor-pointer border border-[#E4DAD7]"
+              >
+                ✕
+              </button>
+            </div>
 
-          <div className="flex-1 space-y-3">
-            <Link
-              href="/"
-              onClick={() => setDrawerOpen(false)}
-              className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
-            >
-              <span className="text-xl">🏠</span>
-              <span>Home & Daily Check-In</span>
-            </Link>
-            <Link
-              href="/#check-in"
-              onClick={() => setDrawerOpen(false)}
-              className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
-            >
-              <span className="text-xl">⚡</span>
-              <span>60-Second Mindset Flips</span>
-            </Link>
-            <Link
-              href="/profile?tab=My%207-Day%20Plan"
-              onClick={() => setDrawerOpen(false)}
-              className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
-            >
-              <span className="text-xl">📅</span>
-              <span>My 7-Day Plan</span>
-            </Link>
-            <Link
-              href="/about"
-              onClick={() => setDrawerOpen(false)}
-              className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
-            >
-              <span className="text-xl">ℹ️</span>
-              <span>About MoodFlip</span>
-            </Link>
-            <Link
-              href="/contact"
-              onClick={() => setDrawerOpen(false)}
-              className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
-            >
-              <span className="text-xl">✉️</span>
-              <span>Contact Support</span>
-            </Link>
-            <Link
-              href="/privacy"
-              onClick={() => setDrawerOpen(false)}
-              className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
-            >
-              <span className="text-xl">🔒</span>
-              <span>Privacy Policy</span>
-            </Link>
-            <Link
-              href="/admin"
-              onClick={() => setDrawerOpen(false)}
-              className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 text-white font-bold hover:bg-white/10"
-            >
-              <span className="text-xl">⚙️</span>
-              <span>Admin Dashboard</span>
-            </Link>
-          </div>
+            <div className="space-y-1.5">
+              <Link
+                href="/"
+                onClick={() => setDrawerOpen(false)}
+                className="flex items-center gap-3 p-3 rounded-xl text-[#1A143F] font-bold text-sm hover:bg-[#F4EBF5] hover:text-[#7464AC] transition"
+              >
+                <span className="text-lg">🏠</span>
+                <span>Home & Daily Check-In</span>
+              </Link>
+              <Link
+                href="/#how"
+                onClick={() => setDrawerOpen(false)}
+                className="flex items-center gap-3 p-3 rounded-xl text-[#1A143F] font-bold text-sm hover:bg-[#F4EBF5] hover:text-[#7464AC] transition"
+              >
+                <span className="text-lg">✨</span>
+                <span>How MoodFlip Works</span>
+              </Link>
+              <Link
+                href="/profile?tab=My%207-Day%20Plan"
+                onClick={() => setDrawerOpen(false)}
+                className="flex items-center gap-3 p-3 rounded-xl text-[#1A143F] font-bold text-sm hover:bg-[#F4EBF5] hover:text-[#7464AC] transition"
+              >
+                <span className="text-lg">📅</span>
+                <span>My 7-Day Plan</span>
+              </Link>
+              <Link
+                href="/about"
+                onClick={() => setDrawerOpen(false)}
+                className="flex items-center gap-3 p-3 rounded-xl text-[#1A143F] font-bold text-sm hover:bg-[#F4EBF5] hover:text-[#7464AC] transition"
+              >
+                <span className="text-lg">ℹ️</span>
+                <span>About MoodFlip</span>
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setDrawerOpen(false)}
+                className="flex items-center gap-3 p-3 rounded-xl text-[#1A143F] font-bold text-sm hover:bg-[#F4EBF5] hover:text-[#7464AC] transition"
+              >
+                <span className="text-lg">✉️</span>
+                <span>Contact Support</span>
+              </Link>
+              <Link
+                href="/privacy"
+                onClick={() => setDrawerOpen(false)}
+                className="flex items-center gap-3 p-3 rounded-xl text-[#1A143F] font-bold text-sm hover:bg-[#F4EBF5] hover:text-[#7464AC] transition"
+              >
+                <span className="text-lg">🔒</span>
+                <span>Privacy Policy</span>
+              </Link>
+              <Link
+                href="/admin"
+                onClick={() => setDrawerOpen(false)}
+                className="flex items-center gap-3 p-3 rounded-xl text-[#1A143F] font-bold text-sm hover:bg-[#F4EBF5] hover:text-[#7464AC] transition"
+              >
+                <span className="text-lg">⚙️</span>
+                <span>Admin Dashboard</span>
+              </Link>
+            </div>
 
-          <div className="pt-4 border-t border-white/10 flex gap-3">
-            <Link
-              href="/login"
-              onClick={() => setDrawerOpen(false)}
-              className="flex-1 py-3.5 rounded-xl bg-white/10 text-white font-extrabold text-center text-sm"
-            >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              onClick={() => setDrawerOpen(false)}
-              className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold text-center text-sm shadow-lg"
-            >
-              Get Started
-            </Link>
+            <div className="pt-3 border-t border-[#E4DAD7] flex gap-3">
+              <Link
+                href="/login"
+                onClick={() => setDrawerOpen(false)}
+                className="flex-1 py-3 rounded-xl bg-[#F4EBF5] text-[#7464AC] font-bold text-center text-sm border border-[#E4DAD7]"
+              >
+                Login
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => setDrawerOpen(false)}
+                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white font-bold text-center text-sm shadow-md"
+              >
+                Get Started
+              </Link>
+            </div>
           </div>
         </div>
       )}

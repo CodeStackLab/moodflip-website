@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 // Demo OTP — in production this would be emailed from a real backend
 const DEMO_OTP = '123456';
@@ -37,7 +38,7 @@ export default function RegisterPage() {
   };
   const strength = getPasswordStrength();
 
-  // Step 1: Submit form → Direct account creation (OTP disabled as requested)
+  // Step 1: Submit form → Direct account creation
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -96,127 +97,119 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F5FC] px-3 md:px-[3%] py-3 md:py-5 font-sans text-[#2D264B]">
-      <div className="mx-auto max-w-[1160px] w-full bg-white border border-[#E8E0F4] rounded-[26px] shadow-xl overflow-hidden flex flex-col">
+    <div className="min-h-screen bg-[#FDF8F5] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B]">
+      <Header />
 
-        <Header />
+      <main className="flex-1 flex items-center justify-center p-4 md:p-8 py-8 md:py-12">
+        <div className="w-full max-w-4xl mx-auto space-y-6">
 
-        <main className="flex-1 p-4 md:p-7 bg-gradient-to-br from-[#FAF8FD] to-[#F3EFFE] flex flex-col gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
 
-          <div className="grid grid-cols-1 lg:grid-cols-[440px_1fr] gap-6 items-stretch">
-
-            {/* ── LEFT HERO CARD ── text TOP, pills BOTTOM */}
+            {/* ── LEFT HERO CARD ── */}
             <div
-              className="relative overflow-hidden rounded-[24px] border border-[#EAE3D6] flex flex-col justify-between shadow-sm bg-cover bg-center min-h-[480px] lg:min-h-full p-6 md:p-8 order-2 lg:order-1"
+              className="relative overflow-hidden rounded-[24px] border border-[#E4DAD7] flex flex-col justify-between shadow-[0_10px_28px_rgba(26,20,63,0.03)] bg-cover bg-center min-h-[440px] lg:min-h-full p-6 md:p-8 order-2 lg:order-1"
               style={{ backgroundImage: "url('/login-bg.jpg')" }}
             >
               {/* Gradient overlays */}
-              <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-white/93 via-white/65 to-transparent pointer-events-none" />
-              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#2a1466]/25 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-[#FDF8F5]/95 via-[#FDF8F5]/70 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#1A143F]/30 to-transparent pointer-events-none" />
 
-              {/* Headline — TOP */}
+              {/* Headline */}
               <div className="relative z-10 text-center flex flex-col items-center pt-2">
                 <span
-                  className="inline-flex items-center gap-1 px-3.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider mb-3 border border-[#e0d4f8]"
-                  style={{
-                    background: 'linear-gradient(90deg, #7147e8, #e044b8, #f97316)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-black uppercase tracking-wider mb-3 border border-[#E4DAD7] bg-[#F4EBF5] text-[#7464AC]"
                 >
                   ✦ Start Your Journey
                 </span>
                 <h1
-                  className="font-serif leading-[1.2] mb-2 tracking-tight text-[#1A1338]"
+                  className="font-serif leading-[1.2] mb-2 tracking-tight text-[#1A143F]"
                   style={{ fontSize: 'clamp(24px, 3.2vw, 36px)', fontWeight: 800 }}
                 >
                   Begin your journey.<br />
-                  <span style={{
-                    background: 'linear-gradient(100deg, #7147e8 0%, #c840cc 50%, #f97316 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}>
+                  <span
+                    style={{
+                      background: 'linear-gradient(100deg, #7464AC 0%, #E49C8C 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
                     One small step today.
                   </span>
                 </h1>
-                <p className="text-xs md:text-sm text-[#554D6E] leading-relaxed font-medium max-w-xs mx-auto">
-                  Create your free profile to save check-ins, track progress, and build a better mind.
+                <p className="text-xs md:text-sm text-[#5C527A] leading-relaxed font-medium max-w-xs mx-auto">
+                  Create your free profile to save check-ins, track progress, and build emotional clarity.
                 </p>
               </div>
 
-              {/* Feature pills — BOTTOM */}
-              <div className="relative z-10 grid grid-cols-2 gap-3 bg-white/95 backdrop-blur-md rounded-[20px] p-4 border border-white/70 shadow-sm mt-6">
+              {/* Feature pills */}
+              <div className="relative z-10 grid grid-cols-2 gap-3 bg-[#FEFAF8]/95 backdrop-blur-md rounded-[20px] p-4 border border-[#E4DAD7] shadow-sm mt-6">
                 {[
-                  { icon: '🛡️', bg: '#F0EAFF', title: 'Private & Secure', sub: 'Data is encrypted' },
-                  { icon: '👤', bg: '#EDFBF1', title: 'Free Profile', sub: 'Upgrade anytime' },
-                  { icon: '💜', bg: '#FFF0F3', title: 'Save Progress', sub: 'Check-ins saved' },
-                  { icon: '🔑', bg: '#F8F0FF', title: '90-Day Privacy', sub: 'Never sold' },
+                  { icon: '🛡️', bg: '#F4EBF5', title: 'Private & Secure', sub: 'Data is encrypted' },
+                  { icon: '👤', bg: '#FCF3E9', title: 'Free Profile', sub: 'Instant access' },
+                  { icon: '💜', bg: '#FAF5F6', title: 'Save Progress', sub: 'Check-ins saved' },
+                  { icon: '🔑', bg: '#EEE0FC', title: 'Privacy First', sub: 'Never shared' },
                 ].map((f) => (
                   <div key={f.title} className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-base" style={{ background: f.bg }}>
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-base border border-[#E4DAD7]" style={{ background: f.bg }}>
                       {f.icon}
                     </div>
                     <div>
-                      <strong className="block text-[12px] font-extrabold text-[#1D1737] leading-tight">{f.title}</strong>
-                      <span className="text-[10.5px] text-[#68607F] font-medium leading-tight block mt-0.5">{f.sub}</span>
+                      <strong className="block text-[12px] font-extrabold text-[#1A143F] leading-tight">{f.title}</strong>
+                      <span className="text-[10.5px] text-[#5C527A] font-medium leading-tight block mt-0.5">{f.sub}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* ── RIGHT FORM (Registration OR OTP) ── */}
-            <div className="rounded-[22px] border border-[#EFE8F8] bg-white p-5 md:p-7 shadow-sm flex flex-col order-1 lg:order-2">
+            {/* ── RIGHT FORM ── */}
+            <div className="rounded-[24px] border border-[#E4DAD7] bg-[#FEFAF8] p-6 md:p-8 shadow-[0_10px_28px_rgba(26,20,63,0.03)] flex flex-col justify-center order-1 lg:order-2">
 
               {/* ── OTP VERIFICATION SCREEN ── */}
               {showOtp ? (
                 <div className="flex flex-col items-center text-center">
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl"
-                    style={{ background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)', width: 56, height: 56 }}>
+                  <div className="w-13 h-13 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl border border-[#E4DAD7] bg-[#FCF3E9]"
+                    style={{ width: 52, height: 52 }}>
                     📧
                   </div>
-                  <h2 className="font-serif font-extrabold text-[#181236] mb-1" style={{ fontSize: 24 }}>
+                  <h2 className="font-serif font-extrabold text-[#1A143F] mb-1 text-2xl">
                     Verify Your Email
                   </h2>
-                  <p className="text-sm font-bold mb-1" style={{
-                    background: 'linear-gradient(90deg, #7147e8, #c840cc)',
-                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
-                  }}>
+                  <p className="text-sm font-bold mb-1 text-[#7464AC]">
                     OTP Verification Required
                   </p>
-                  <p className="text-[11px] text-[#6B638B] mb-5 max-w-xs">
-                    We&apos;ve sent a 6-digit OTP to <strong className="text-[#383054]">{email}</strong>. Enter it below to activate your account.
-                    <br /><span className="text-[10px] text-purple-400 mt-1 block">(Demo OTP: <strong>123456</strong>)</span>
+                  <p className="text-xs text-[#5C527A] mb-5 max-w-xs">
+                    We&apos;ve sent a 6-digit OTP to <strong className="text-[#1A143F]">{email}</strong>. Enter it below to activate your account.
+                    <br /><span className="text-[10px] text-[#7464AC] mt-1 block">(Demo OTP: <strong>123456</strong>)</span>
                   </p>
 
-                  {/* OTP input boxes */}
+                  {/* OTP input */}
                   <div className="flex gap-2 justify-center mb-3">
                     <input
                       type="text"
                       maxLength={6}
                       value={otpInput}
                       onChange={(e) => { setOtpInput(e.target.value.replace(/\D/g, '')); setOtpError(''); }}
-                      placeholder="Enter 6-digit OTP"
-                      className="text-center text-xl font-extrabold tracking-[0.3em] w-48 h-12 rounded-xl border bg-[#FAF9FD] text-[#1E1938] focus:outline-none transition"
-                      style={{ borderColor: otpError ? '#f43f5e' : '#E2D5F8', letterSpacing: '0.4em' }}
-                      onFocus={(e) => e.target.style.borderColor = '#7147E8'}
-                      onBlur={(e) => e.target.style.borderColor = otpError ? '#f43f5e' : '#E2D5F8'}
+                      placeholder="123456"
+                      className="text-center text-xl font-extrabold tracking-[0.3em] w-48 h-12 rounded-xl border bg-[#FEFAF8] text-[#1A143F] focus:outline-none transition"
+                      style={{ borderColor: otpError ? '#E49C8C' : '#E4DAD7' }}
+                      onFocus={(e) => e.target.style.borderColor = '#7464AC'}
+                      onBlur={(e) => e.target.style.borderColor = otpError ? '#E49C8C' : '#E4DAD7'}
                     />
                   </div>
 
                   {otpError && (
-                    <p className="text-xs text-rose-500 font-semibold mb-3">{otpError}</p>
+                    <p className="text-xs text-[#E49C8C] font-semibold mb-3">{otpError}</p>
                   )}
 
                   <button
                     onClick={handleOtpVerify}
                     disabled={otpVerifying}
-                    className="w-full h-12 rounded-xl text-white text-sm font-extrabold flex items-center justify-center gap-2 mb-3"
+                    className="w-full h-12 rounded-xl text-white text-sm font-extrabold flex items-center justify-center gap-2 mb-3 cursor-pointer shadow-md hover:opacity-95 transition"
                     style={{
-                      background: otpVerifying ? 'linear-gradient(90deg,#a78bfa,#c084fc)' : 'linear-gradient(90deg, #7147E8, #c840cc)',
-                      boxShadow: '0 4px 16px rgba(113,71,232,0.3)'
+                      background: 'linear-gradient(135deg, #7464AC, #4F438B)',
+                      boxShadow: '0 4px 16px rgba(79, 67, 139, 0.28)'
                     }}
                   >
                     {otpVerifying
@@ -224,15 +217,15 @@ export default function RegisterPage() {
                       : <><span>✅</span> Verify & Create Account</>}
                   </button>
 
-                  <div className="flex items-center gap-2 text-xs text-[#6B638B]">
+                  <div className="flex items-center gap-2 text-xs text-[#5C527A]">
                     <span>Didn&apos;t receive it?</span>
-                    <button onClick={handleResendOtp} className="font-bold hover:underline" style={{ color: '#7147E8' }}>
+                    <button onClick={handleResendOtp} className="font-bold hover:underline text-[#7464AC] cursor-pointer">
                       {otpSent ? 'Resend OTP' : '⟳ Sending...'}
                     </button>
                   </div>
 
                   <button onClick={() => { setShowOtp(false); setOtpInput(''); setOtpError(''); }}
-                    className="mt-3 text-xs text-[#9B93B0] hover:text-[#7147E8] transition font-medium">
+                    className="mt-3 text-xs text-[#A49BA8] hover:text-[#7464AC] transition font-medium cursor-pointer">
                     ← Back to registration
                   </button>
                 </div>
@@ -241,36 +234,32 @@ export default function RegisterPage() {
                 /* ── REGISTRATION FORM ── */
                 <>
                   {/* Avatar + Titles */}
-                  <div className="text-center mb-3">
-                    <div className="rounded-full flex items-center justify-center mx-auto mb-2 text-2xl shadow-sm"
-                      style={{ background: 'linear-gradient(135deg, #f0eaff, #fce7f3)', width: 48, height: 48 }}>
+                  <div className="text-center mb-4">
+                    <div className="rounded-full flex items-center justify-center mx-auto mb-2 text-2xl border border-[#E4DAD7]"
+                      style={{ background: 'linear-gradient(135deg, #F4EBF5, #FCF3E9)', width: 48, height: 48 }}>
                       🌱
                     </div>
-                    <h2 className="font-serif font-extrabold text-[#181236] mb-0.5" style={{ fontSize: 'clamp(19px, 2.5vw, 26px)' }}>
+                    <h2 className="font-serif font-extrabold text-[#1A143F] mb-0.5 text-2xl">
                       Create Account
                     </h2>
-                    <p className="text-sm font-bold mb-0.5" style={{
-                      background: 'linear-gradient(90deg, #7147e8, #c840cc)',
-                      WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
-                    }}>
+                    <p className="text-sm font-bold mb-0.5 text-[#7464AC]">
                       Join MoodFlip — It&apos;s Free
                     </p>
-                    <p className="text-[10.5px] text-[#8A829E] font-medium">
-                      <strong className="text-[#383054]">Free User Registration</strong> — Start tracking your mood today.
+                    <p className="text-[11px] text-[#7E7096] font-medium">
+                      Start tracking your moods and building calm today.
                     </p>
                   </div>
 
                   {/* Backend loading steps */}
                   {isLoading && (
-                    <div className="mb-3 rounded-xl p-3 border text-xs space-y-1.5"
-                      style={{ background: 'linear-gradient(135deg,#f5f0ff,#fdf4ff)', borderColor: '#e0d4f8' }}>
+                    <div className="mb-3 rounded-xl p-3 border border-[#E4DAD7] bg-[#FDF8F5] text-xs space-y-1.5">
                       {[
                         { step: 1, label: '📝 Validating your information...' },
                         { step: 2, label: '🔐 Setting up secure profile...' },
-                        { step: 3, label: '📧 Sending OTP to your email...' },
+                        { step: 3, label: '🚀 Finalizing your account...' },
                       ].map(({ step, label }) => (
                         <div key={step} className="flex items-center gap-2 font-semibold"
-                          style={{ color: loadingStep >= step ? '#7147e8' : '#b0a8c8', opacity: loadingStep >= step ? 1 : 0.4 }}>
+                          style={{ color: loadingStep >= step ? '#7464AC' : '#A49BA8', opacity: loadingStep >= step ? 1 : 0.4 }}>
                           {loadingStep > step ? '✓' : loadingStep === step
                             ? <span style={{ display: 'inline-block', animation: 'spin 0.8s linear infinite' }}>⟳</span>
                             : '○'}
@@ -281,74 +270,72 @@ export default function RegisterPage() {
                   )}
 
                   {msg && !isLoading && (
-                    <div className="mb-3 rounded-xl p-3 text-xs font-semibold text-center border"
-                      style={isError
-                        ? { background: '#fff0f3', borderColor: '#fecdd3', color: '#be123c' }
-                        : { background: '#f0fdf4', borderColor: '#bbf7d0', color: '#15803d' }
-                      }>
+                    <div className={`mb-3 rounded-xl p-3 text-xs font-semibold text-center border ${
+                      isError ? 'bg-[#FAF5F6] border-[#E4DAD7] text-[#E49C8C]' : 'bg-[#FCF3E9] border-[#E4DAD7] text-[#7D8164]'
+                    }`}>
                       {msg}
                     </div>
                   )}
 
                   {/* Form */}
-                  <form onSubmit={handleSubmit} className="space-y-2.5 text-left">
+                  <form onSubmit={handleSubmit} className="space-y-3 text-left">
 
                     {/* Full Name */}
                     <div>
-                      <label className="block text-[10px] font-extrabold uppercase tracking-wider text-[#6B638B] mb-1">Full Name</label>
+                      <label className="block text-[10.5px] font-extrabold uppercase tracking-wider text-[#5C527A] mb-1">Full Name</label>
                       <div className="relative">
-                        <span className="absolute left-3 top-3 text-[#9B93B0] text-sm">👤</span>
+                        <span className="absolute left-3.5 top-3 text-[#A49BA8] text-sm">👤</span>
                         <input type="text" required value={fullName} onChange={(e) => setFullName(e.target.value)}
                           placeholder="Enter your full name" disabled={isLoading}
-                          className="w-full h-10 pl-9 pr-4 rounded-xl border bg-[#FAF9FD] text-sm text-[#1E1938] focus:outline-none transition"
-                          style={{ borderColor: '#E2D5F8' }}
-                          onFocus={(e) => e.target.style.borderColor = '#7147E8'}
-                          onBlur={(e) => e.target.style.borderColor = '#E2D5F8'} />
+                          className="w-full h-10 pl-10 pr-4 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                          style={{ borderColor: '#E4DAD7' }}
+                          onFocus={(e) => e.target.style.borderColor = '#7464AC'}
+                          onBlur={(e) => e.target.style.borderColor = '#E4DAD7'} />
                       </div>
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label className="block text-[10px] font-extrabold uppercase tracking-wider text-[#6B638B] mb-1">Email Address</label>
+                      <label className="block text-[10.5px] font-extrabold uppercase tracking-wider text-[#5C527A] mb-1">Email Address</label>
                       <div className="relative">
-                        <span className="absolute left-3 top-3 text-[#9B93B0] text-sm">✉</span>
+                        <span className="absolute left-3.5 top-3 text-[#A49BA8] text-sm">✉</span>
                         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
                           placeholder="Enter your email address" disabled={isLoading}
-                          className="w-full h-10 pl-9 pr-4 rounded-xl border bg-[#FAF9FD] text-sm text-[#1E1938] focus:outline-none transition"
-                          style={{ borderColor: '#E2D5F8' }}
-                          onFocus={(e) => e.target.style.borderColor = '#7147E8'}
-                          onBlur={(e) => e.target.style.borderColor = '#E2D5F8'} />
+                          className="w-full h-10 pl-10 pr-4 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                          style={{ borderColor: '#E4DAD7' }}
+                          onFocus={(e) => e.target.style.borderColor = '#7464AC'}
+                          onBlur={(e) => e.target.style.borderColor = '#E4DAD7'} />
                       </div>
                     </div>
 
                     {/* Password */}
                     <div>
-                      <label className="block text-[10px] font-extrabold uppercase tracking-wider text-[#6B638B] mb-1">Password</label>
+                      <label className="block text-[10.5px] font-extrabold uppercase tracking-wider text-[#5C527A] mb-1">Password</label>
                       <div className="relative">
-                        <span className="absolute left-3 top-3 text-[#9B93B0] text-sm">🔒</span>
+                        <span className="absolute left-3.5 top-3 text-[#A49BA8] text-sm">🔒</span>
                         <input type={showPassword ? 'text' : 'password'} required value={password}
                           onChange={(e) => setPassword(e.target.value)} placeholder="Create a strong password" disabled={isLoading}
-                          className="w-full h-10 pl-9 pr-10 rounded-xl border bg-[#FAF9FD] text-sm text-[#1E1938] focus:outline-none transition"
-                          style={{ borderColor: '#E2D5F8' }}
-                          onFocus={(e) => e.target.style.borderColor = '#7147E8'}
-                          onBlur={(e) => e.target.style.borderColor = '#E2D5F8'} />
+                          className="w-full h-10 pl-10 pr-10 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                          style={{ borderColor: '#E4DAD7' }}
+                          onFocus={(e) => e.target.style.borderColor = '#7464AC'}
+                          onBlur={(e) => e.target.style.borderColor = '#E4DAD7'} />
                         <button type="button" onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-2 text-base text-[#9B93B0] hover:text-[#7147E8] transition" aria-label="Toggle password">
+                          className="absolute right-3.5 top-2 text-base text-[#A49BA8] hover:text-[#7464AC] transition" aria-label="Toggle password">
                           {showPassword ? '👁️' : '🙈'}
                         </button>
                       </div>
-                      <div className="flex items-center gap-2 mt-1 text-[10px] text-[#6B638B]">
+                      <div className="flex items-center gap-2 mt-1 text-[10px] text-[#5C527A]">
                         <span>Strength:</span>
                         <div className="flex-1 flex gap-1 h-1.5">
                           {[1, 2, 3, 4].map((level) => (
                             <div key={level} className="flex-1 rounded-full transition-colors" style={{
                               background: strength >= level
-                                ? level <= 1 ? '#f43f5e' : level <= 2 ? '#f59e0b' : level <= 3 ? '#22c55e' : '#7147E8'
-                                : '#EAE3F2'
+                                ? level <= 1 ? '#E49C8C' : level <= 2 ? '#EDAA7A' : level <= 3 ? '#7D8164' : '#7464AC'
+                                : '#E4DAD7'
                             }} />
                           ))}
                         </div>
-                        <span style={{ color: strength >= 4 ? '#7147E8' : strength >= 3 ? '#22c55e' : strength >= 2 ? '#f59e0b' : '#f43f5e' }}>
+                        <span style={{ color: strength >= 4 ? '#7464AC' : strength >= 3 ? '#7D8164' : strength >= 2 ? '#EDAA7A' : '#E49C8C' }}>
                           {strength === 0 ? '' : strength === 1 ? 'Weak' : strength === 2 ? 'Fair' : strength === 3 ? 'Good' : 'Strong'}
                         </span>
                       </div>
@@ -356,81 +343,70 @@ export default function RegisterPage() {
 
                     {/* Confirm Password */}
                     <div>
-                      <label className="block text-[10px] font-extrabold uppercase tracking-wider text-[#6B638B] mb-1">Confirm Password</label>
+                      <label className="block text-[10.5px] font-extrabold uppercase tracking-wider text-[#5C527A] mb-1">Confirm Password</label>
                       <div className="relative">
-                        <span className="absolute left-3 top-3 text-[#9B93B0] text-sm">🔒</span>
+                        <span className="absolute left-3.5 top-3 text-[#A49BA8] text-sm">🔒</span>
                         <input type={showConfirmPassword ? 'text' : 'password'} required value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" disabled={isLoading}
-                          className="w-full h-10 pl-9 pr-10 rounded-xl border bg-[#FAF9FD] text-sm text-[#1E1938] focus:outline-none transition"
-                          style={{ borderColor: confirmPassword && confirmPassword !== password ? '#f43f5e' : '#E2D5F8' }}
-                          onFocus={(e) => e.target.style.borderColor = '#7147E8'}
-                          onBlur={(e) => e.target.style.borderColor = confirmPassword && confirmPassword !== password ? '#f43f5e' : '#E2D5F8'} />
+                          className="w-full h-10 pl-10 pr-10 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                          style={{ borderColor: confirmPassword && confirmPassword !== password ? '#E49C8C' : '#E4DAD7' }}
+                          onFocus={(e) => e.target.style.borderColor = '#7464AC'}
+                          onBlur={(e) => e.target.style.borderColor = confirmPassword && confirmPassword !== password ? '#E49C8C' : '#E4DAD7'} />
                         <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          className="absolute right-3 top-2 text-base text-[#9B93B0] hover:text-[#7147E8] transition" aria-label="Toggle confirm">
+                          className="absolute right-3.5 top-2 text-base text-[#A49BA8] hover:text-[#7464AC] transition" aria-label="Toggle confirm">
                           {showConfirmPassword ? '👁️' : '🙈'}
                         </button>
                       </div>
                       {confirmPassword && confirmPassword !== password && (
-                        <p className="text-[10px] text-rose-500 font-semibold mt-0.5">Passwords do not match</p>
+                        <p className="text-[10px] text-[#E49C8C] font-semibold mt-0.5">Passwords do not match</p>
                       )}
                       {confirmPassword && confirmPassword === password && (
-                        <p className="text-[10px] font-semibold mt-0.5" style={{ color: '#22c55e' }}>✓ Passwords match</p>
+                        <p className="text-[10px] font-semibold mt-0.5 text-[#7D8164]">✓ Passwords match</p>
                       )}
                     </div>
 
                     {/* Checkboxes */}
-                    <div className="space-y-1.5 text-[10.5px] text-[#383252] font-medium leading-tight">
+                    <div className="space-y-1.5 text-[10.5px] text-[#5C527A] font-medium leading-tight pt-1">
                       <label className="flex items-start gap-2 cursor-pointer">
                         <input type="checkbox" required checked={consentData} onChange={(e) => setConsentData(e.target.checked)}
-                          className="accent-[#7147E8] w-3.5 h-3.5 cursor-pointer mt-0.5 flex-shrink-0" />
+                          className="accent-[#7464AC] w-3.5 h-3.5 cursor-pointer mt-0.5 flex-shrink-0" />
                         <span>
                           I consent to store my email, moods, and progress data for personalized features.{' '}
-                          <a href="/privacy" className="font-bold hover:underline" style={{ color: '#7147E8' }}>Learn more</a>
+                          <a href="/privacy" className="font-bold hover:underline text-[#7464AC]">Learn more</a>
                         </span>
                       </label>
                       <label className="flex items-start gap-2 cursor-pointer">
                         <input type="checkbox" checked={consentEmails} onChange={(e) => setConsentEmails(e.target.checked)}
-                          className="accent-[#7147E8] w-3.5 h-3.5 cursor-pointer mt-0.5 flex-shrink-0" />
+                          className="accent-[#7464AC] w-3.5 h-3.5 cursor-pointer mt-0.5 flex-shrink-0" />
                         <span>I&apos;d like helpful tips and updates. (Unsubscribe anytime.)</span>
                       </label>
                     </div>
 
                     {/* Submit */}
                     <button type="submit" disabled={isLoading}
-                      className="w-full h-11 rounded-xl text-white text-sm font-extrabold shadow-md hover:opacity-95 transition cursor-pointer flex items-center justify-center gap-2 mt-1"
+                      className="w-full h-11 rounded-xl text-white text-sm font-extrabold shadow-md hover:opacity-95 transition cursor-pointer flex items-center justify-center gap-2 mt-2"
                       style={{
-                        background: isLoading ? 'linear-gradient(90deg,#a78bfa,#c084fc)' : 'linear-gradient(90deg,#7147E8,#c840cc)',
-                        boxShadow: '0 4px 16px rgba(113,71,232,0.3)'
+                        background: isLoading ? 'linear-gradient(90deg, #9C8CC4, #7464AC)' : 'linear-gradient(135deg, #7464AC, #4F438B)',
+                        boxShadow: '0 4px 16px rgba(79, 67, 139, 0.28)'
                       }}>
                       {isLoading
                         ? <><span style={{ display: 'inline-block', animation: 'spin 1s linear infinite' }}>⟳</span> Processing...</>
-                        : <><span>🌱</span> Continue to Verify Email</>}
+                        : <><span>🌱</span> Create Free Account</>}
                     </button>
                   </form>
 
                   {/* Divider + Login link */}
                   <div className="flex items-center gap-3 my-3">
-                    <div className="flex-1 h-px bg-[#EFE8F8]" />
-                    <span className="text-xs text-[#A097B5] font-medium">or</span>
-                    <div className="flex-1 h-px bg-[#EFE8F8]" />
+                    <div className="flex-1 h-px bg-[#E4DAD7]" />
+                    <span className="text-xs text-[#A49BA8] font-medium">or</span>
+                    <div className="flex-1 h-px bg-[#E4DAD7]" />
                   </div>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-xs text-[#6B638B] font-medium">Already have an account?</span>
+                    <span className="text-xs text-[#5C527A] font-medium">Already have an account?</span>
                     <Link href="/login"
-                      className="inline-flex items-center gap-1.5 px-4 h-8 rounded-xl border text-xs font-bold transition"
-                      style={{ borderColor: '#DCD2F7', color: '#683CD7', background: 'white' }}>
+                      className="inline-flex items-center gap-1.5 px-4 h-8 rounded-xl border border-[#E4DAD7] bg-[#F4EBF5] text-[#7464AC] text-xs font-bold hover:border-[#7666AB] transition">
                       <span>👤</span> Login
                     </Link>
-                  </div>
-
-                  {/* Info note */}
-                  <div className="mt-3 p-2.5 rounded-xl flex items-start gap-2 text-[10.5px] text-[#6E6785] text-left"
-                    style={{ background: 'linear-gradient(135deg,#faf8ff,#fef0ff)', border: '1px solid #ede4f8' }}>
-                    <span className="text-sm mt-0.5 flex-shrink-0">🔒</span>
-                    <div className="leading-snug">
-                      <strong className="text-[#2C2548]">Email OTP verification is required.</strong><br />
-                      You&apos;ll receive a 6-digit code to confirm your account is real.
-                    </div>
                   </div>
                 </>
               )}
@@ -439,40 +415,22 @@ export default function RegisterPage() {
           </div>
 
           {/* SECURITY STRIP */}
-          <section className="p-3 md:px-5 rounded-2xl border border-[#EAE3D6] bg-white flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#443C60] shadow-xs">
+          <section className="p-4 rounded-2xl border border-[#E4DAD7] bg-[#FEFAF8] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#5C527A] shadow-[0_4px_16px_rgba(26,20,63,0.03)]">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0" style={{ background: '#F2EBFF' }}>🛡️</div>
-              <span className="font-medium text-[#383054] text-[11.5px]">Industry-standard encryption keeps your data safe.</span>
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0 bg-[#F4EBF5] text-[#7464AC] border border-[#E4DAD7]">🛡️</div>
+              <span className="font-medium text-[#1A143F] text-[12px]">Industry-standard encryption keeps your data safe and private.</span>
             </div>
-            <div className="flex flex-wrap gap-3 text-[10.5px] font-bold text-[#5E547A]">
-              {['256-bit SSL', 'Secure auth', 'Privacy by design', 'OTP verified'].map(t => (
-                <span key={t} className="flex items-center gap-1"><span style={{ color: '#7147E8' }}>✓</span> {t}</span>
+            <div className="flex flex-wrap gap-3 text-[11px] font-bold text-[#5C527A]">
+              {['256-bit SSL', 'Secure auth', 'Privacy by design', 'Protected data'].map(t => (
+                <span key={t} className="flex items-center gap-1"><span className="text-[#7464AC]">✓</span> {t}</span>
               ))}
             </div>
           </section>
 
-        </main>
+        </div>
+      </main>
 
-        {/* FOOTER */}
-        <footer className="px-5 py-3 bg-[#171542] text-white flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2">
-            <span className="text-base">😊</span>
-            <span className="font-serif text-base font-bold tracking-tight">mood<span className="text-[#A78BFA]">flip</span></span>
-            <span className="text-purple-200/60 ml-2 hidden sm:inline">A self-reflection utility for real life.</span>
-          </div>
-          <div className="flex items-center gap-5 text-purple-200/80 font-medium">
-            {[['/#about','About'],['/#how','How It Works'],['/#library','Mood Library'],['/privacy','Privacy'],['/terms','Terms'],['/contact','Contact']].map(([href, label]) => (
-              <a key={label} href={href} className="hover:text-white transition">{label}</a>
-            ))}
-          </div>
-          <div className="text-purple-200/60">© 2026 MoodFlip.coach 💜</div>
-        </footer>
-
-      </div>
-
-      <style jsx global>{`
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-      `}</style>
+      <Footer />
     </div>
   );
 }

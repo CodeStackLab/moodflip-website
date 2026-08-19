@@ -3,8 +3,38 @@
 @tailwind utilities;
 
 :root {
-  --background: #FDF8F5;
-  --foreground: #1A143F;
+  /* Exact MoodFlip Brand Color Tokens */
+  --bg-primary: #FDF8F5;          /* Main warm background (soft ivory) */
+  --bg-secondary: #FCF3E9;        /* Secondary background / panels (warm cream) */
+  --bg-card: #FEFAF8;             /* Card background (almost white) */
+  --bg-tint: #F4EBF5;             /* Pale pink/lavender card tint */
+  --bg-selected: #EEE0FC;         /* Selected tile / cloud fill (pale lavender) */
+  --bg-inactive: #F1ECED;         /* Inactive cloud fill (warm off-white) */
+  
+  --border-subtle: #E4DAD7;       /* Card border (soft beige-pink) */
+  --border-selected: #7666AB;     /* Selected mood tile border (medium purple) */
+  
+  --text-primary: #1A143F;        /* Main dark text (deep navy-purple) */
+  --text-secondary: #5C527A;      /* Secondary text / description (muted slate-purple) */
+  --text-muted: #7E7096;          /* Muted text */
+  --text-light: #A49BA8;          /* Muted icon grey / warm grey */
+  
+  --title-mood: #6C5484;          /* MoodFlip title — "Mood" (muted purple) */
+  --title-flip: #E49C8C;          /* MoodFlip title — "Flip" (peach/coral) */
+  --title-highlight: #EDAA7A;     /* Title highlight peach (warm peach) */
+  
+  --primary-purple: #7464AC;      /* Main purple outline / buttons (violet purple) */
+  --purple-dark: #4F438B;         /* Button darker purple (deep violet) */
+  --purple-light: #9C8CC4;        /* Button lighter highlight (soft violet) */
+  
+  --sun-glow: #FDE8C8;            /* Sun glow (pale warm yellow) */
+  --sun-shadow: #E9D3B3;          /* Sun / action card warm shadow (soft gold-beige) */
+  
+  --green-peaceful: #7D8164;      /* "Peaceful" text (muted sage green) */
+  --green-sage: #898B71;          /* Landscape / leaf green (soft sage) */
+  
+  --footer-bg: #FAF5F6;           /* Footer strip (pale lavender-pink) */
+  
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
 }
@@ -16,12 +46,14 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
@@ -38,21 +70,19 @@ body {
   }
 }
 
-/* Apply Fraunces to all headings globally — same as homepage/dashboard */
+/* Headings with Fraunces serif globally */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.03em;
-  color: var(--foreground);
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
 }
 
-/* Tailwind font-serif class → Fraunces */
 .font-serif {
   font-family: var(--font-serif) !important;
 }
 
-/* Tailwind font-sans class → Inter */
 .font-sans {
   font-family: var(--font-sans) !important;
 }

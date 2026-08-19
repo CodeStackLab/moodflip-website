@@ -625,9 +625,38 @@ export default function HeroSectionExact({
     setIsTimerRunning(false);
   };
 
-  // Handler: Flip Action
+  const [freeFlipCount, setFreeFlipCount] = useState<number>(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = parseInt(localStorage.getItem("moodflip_free_flip_count") || "0", 10);
+      setFreeFlipCount(saved);
+    }
+  }, []);
+
+  // Handler: Flip Action (3-4 free flips, then redirects to /profile?tab=60-Second+Actions)
   const handleFlip = () => {
     syncMoodLibrary();
+
+    let count = 0;
+    if (typeof window !== "undefined") {
+      count = parseInt(localStorage.getItem("moodflip_free_flip_count") || "0", 10);
+    }
+
+    // If user has already used 4 free flips, immediately redirect to 60-Second Actions dashboard
+    if (count >= 4) {
+      if (typeof window !== "undefined") {
+        window.location.href = "/profile?tab=60-Second+Actions";
+      }
+      return;
+    }
+
+    const newCount = count + 1;
+    if (typeof window !== "undefined") {
+      localStorage.setItem("moodflip_free_flip_count", newCount.toString());
+    }
+    setFreeFlipCount(newCount);
+
     setIsFlipping(true);
     setTimerSeconds(60);
     setIsTimerRunning(false);
@@ -639,6 +668,16 @@ export default function HeroSectionExact({
     setTimeout(() => {
       setIsFlipping(false);
     }, 600);
+
+    // On 4th flip, transition user to the full 60-Second Actions dashboard
+    if (newCount >= 4) {
+      setSavedMsg("✨ Taking you to the 60-Second Actions player in your dashboard...");
+      setTimeout(() => {
+        if (typeof window !== "undefined") {
+          window.location.href = "/profile?tab=60-Second+Actions";
+        }
+      }, 1800);
+    }
   };
 
   // Dynamic Outcome Display Values fetched from Mood Library
@@ -939,6 +978,29 @@ export default function HeroSectionExact({
                 >
                   <span>💾 SAVE MY PROFILE</span>
                 </button>
+              </div>
+
+              <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', flexWrap: 'wrap' }}>
+                <a
+                  href="/profile?tab=60-Second+Actions"
+                  style={{
+                    fontSize: '11.5px',
+                    fontWeight: 700,
+                    color: '#7464AC',
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <span>⚡ Open Full 60-Second Actions Dashboard →</span>
+                </a>
+
+                {freeFlipCount > 0 && freeFlipCount <= 4 && (
+                  <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#7D8164', background: '#FCF3E9', padding: '2px 8px', borderRadius: '12px', border: '1px solid #E4DAD7' }}>
+                    Free Flips: {freeFlipCount}/4
+                  </span>
+                )}
               </div>
 
               {savedMsg && (

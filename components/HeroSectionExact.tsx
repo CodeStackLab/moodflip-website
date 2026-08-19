@@ -336,23 +336,13 @@ export default function HeroSectionExact({
 
   return (
     <section className={styles.heroContainer} id="hero-section">
-      {/* Top Header / Centered Logo with Heart Dot on 'i' */}
+      {/* Top Header / Centered Brand Logo */}
       <div className={styles.topHeader}>
-        <div className={styles.logoTitle} aria-label="MoodFlip">
-          <span className={styles.logoMood}>Mood</span>
-          <span className={styles.logoFlipWrapper}>
-            <span>Fl</span>
-            <span style={{ position: "relative", display: "inline-block" }}>
-              <span className={styles.heartDot}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E2786B" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                </svg>
-              </span>
-              <span>ı</span>
-            </span>
-            <span>p</span>
-          </span>
-        </div>
+        <img
+          src="/moodflip-logo.png"
+          alt="MoodFlip"
+          className={styles.heroLogoImg}
+        />
       </div>
 
       {/* Main 2-Column Split Section */}

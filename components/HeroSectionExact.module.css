@@ -22,19 +22,12 @@
   position: relative;
 }
 
-.logoTitle {
-  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
-  font-size: 54px;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.5px;
-  display: inline-flex;
-  align-items: baseline;
-  user-select: none;
-}
-
-.logoMood {
-  color: #6C5484;
+.heroLogoImg {
+  height: 56px;
+  max-height: 60px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .logoFlipWrapper {

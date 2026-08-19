@@ -165,7 +165,54 @@
   transform: translateY(-1px);
 }
 
-/* Row 2: Feelings Row & Grid */
+/* Layer 2: Second-Layer Feeling Branch Row */
+.branchRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.branchList {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex: 1;
+  max-width: 380px;
+}
+
+.branchBtn {
+  background: #FEFAF8;
+  border: 1.5px solid #E4DAD7;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5C527A;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.branchBtn:hover {
+  transform: translateY(-1px);
+  border-color: #9C8CC4;
+  color: #1A143F;
+  box-shadow: 0 3px 8px rgba(113, 71, 232, 0.1);
+}
+
+.branchBtnSelected {
+  background: #F4EBF5 !important;
+  border-color: #7666AB !important;
+  color: #4F438B !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(118, 102, 171, 0.2) !important;
+  transform: translateY(-1px);
+}
+
+/* Layer 3: Feelings Row & Grid */
 .feelingRow {
   display: flex;
   align-items: flex-start;

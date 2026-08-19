@@ -34,3 +34,6 @@ next-env.d.ts
 .cursor/
 .agents/
 moodflip_exact_clone.html
+
+# Google OAuth client secret
+client_secret_*.json

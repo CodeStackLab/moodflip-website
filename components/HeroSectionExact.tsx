@@ -675,22 +675,22 @@ export default function HeroSectionExact({
           </div>
         </div>
 
-        {/* Center Floating 3D Action Arrow ("Change My Mood ->") */}
+        {/* Center Floating 3D Action Arrow ("FLIP YOUR MOOD ->") */}
         <div className={styles.centerCtaWrapper}>
           <button
             type="button"
             className={`${styles.changeMoodBtn} ${isFlipping ? styles.changeMoodBtnFlipping : ""}`}
             onClick={handleFlip}
             disabled={aiLoading}
-            aria-label="Change My Mood"
+            aria-label="Flip Your Mood"
           >
             <div className={styles.changeMoodBtnBevel}>
               <div className={styles.changeMoodInner}>
                 <div className={styles.changeMoodLine1}>
-                  {aiLoading ? "Thinking..." : "Change"}
+                  {aiLoading ? "Thinking..." : "Flip Your"}
                 </div>
                 <div className={styles.changeMoodLine2}>
-                  <span>My Mood</span>
+                  <span>Mood</span>
                   <svg className={styles.changeMoodArrowSvg} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="4" y1="12" x2="20" y2="12"></line>
                     <polyline points="13 5 20 12 13 19"></polyline>

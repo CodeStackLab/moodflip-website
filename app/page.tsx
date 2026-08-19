@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState, Fragment } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import HeroSectionExact from "@/components/HeroSectionExact";
+import AdBanner from "@/components/AdBanner";
 import styles from "./page.module.css";
 
 type Mood = {
@@ -284,10 +285,7 @@ export default function HomePage() {
 
 
 
-        <section className={styles.topAd} aria-label="Advertisement placeholder">
-          <span className={styles.adBadge}>Ad</span>
-          <span>Google AdSense Banner (728x90)</span>
-        </section>
+        <AdBanner placement="headerBanner" />
 
         {/* Exact Hero Section matching the design reference */}
         <section id="home" style={{ width: '100%', maxWidth: '1240px', margin: '0 auto 28px auto', padding: '0 16px' }}>
@@ -335,10 +333,7 @@ export default function HomePage() {
           <article><span className={`${styles.trustIcon} ${styles.trustOrange}`}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><div><strong>Made with Care</strong><p>Simple tools for a better<br />you, one step at a time.</p></div></article>
         </section>
 
-        <section className={styles.bottomAd} aria-label="Advertisement placeholder">
-          <span className={styles.adBadge}>Ad</span>
-          <span>Google AdSense Banner (728x90)</span>
-        </section>
+        <AdBanner placement="footerBanner" />
 
 
         {/* Section 1: How MoodFlip Works */}

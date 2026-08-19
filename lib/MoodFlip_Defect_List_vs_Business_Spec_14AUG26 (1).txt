@@ -1,0 +1,267 @@
+﻿MoodFlip Website Defect List
+Against the Approved Business Specification v3
+Prepared for DigitalWorkify / Sohel review | 14 August 2026
+
+
+Purpose: This document lists the website items that are not completed, not aligned with the approved Business Specification, or not proven completed. Items marked “Not proven” require Sohel to demonstrate the working feature in the test/live environment or admin area.
+Overall conclusion: The current site is not ready for acceptance. It needs to be rebuilt around the approved Business Specification and the intended clean, simple MoodFlip user experience, not patched with extra generic sections.
+Immediate correction required
+1. Remove junk/clutter and rebuild the homepage around the approved MoodFlip tool flow. – as a reference see the sketch of the website ChatGPT created. 
+The Homepage needs to be 1 easily usable single page which fills 1 screen let it be desktop, mobile or tablet and the user does not need to scroll down! 
+2. Remove Blog / Resources / generic wellness-journal content.
+3. Remove fake AdSense placeholders from the early launch design; only keep clean planned ad spaces for later.
+4. Implement the approved 3-layer mood selection: main mood family -> second-layer feeling -> third-layer feeling.
+5. Use the required five main mood families: Sad, Disgusted, Angry, Fearful, Bad.
+6. Implement the result layout exactly as specified: selected negative mood(s) on the left; positive target mood and one 60-second action on the right, with the uplifting sun/right-side design and the FLIP YOUR MOOD arrow/button in the middle.
+7. Show proof for the paid PDF, profile, Stripe, admin dashboard, CSV export, 90-day deletion and tracking features.
+8. Remove every single added part
+Screenshots / evidence panels
+Important: I could not capture a full live browser screenshot inside this environment. The two images below are screenshot-style evidence panels created from live page text fetched today. Joy can paste actual browser screenshots above or below these panels before sending, if desired.
+  
+
+Evidence Panel A - Blog/Journal content currently visible
+  
+
+Evidence Panel B - Broken article pages currently visible
+________________
+
+
+Detailed defect list
+#
+	Defect / not completed item
+	Approved requirement
+	Required correction
+	1
+	Overall design is not clean, simple, calm or easy to use.
+	Spec required a useful, fast, mobile-friendly, emotionally supportive utility site with a clean/professional design.
+	Simplify the page, remove clutter, make the Mood Tool the obvious central function.
+	2
+	Too much junk/clutter appears to have been added.
+	The approved scope focused on the core tool, pages, profiles and paid PDF flow.
+	Remove unnecessary sections, filler blocks, duplicate content and anything not in the approved scope.
+	3
+	Resources / Blog sections appear to be added.
+	Business Spec did not require Blog/Resources at launch; affiliate links are not required at launch.
+	Remove Blog and Resources. They should not distract from the tool.
+As per the BS there should be 4 pages / links on the top; 
+Homepage / Mood Tool
+About
+Contact
+Privacy Policy
+I agree to add the Login as 5th but it needs to be the exact same design as the other page titles. 
+	4
+	Fake AdSense-style placeholders appear too early / look messy.
+	AdSense should appear in Phase 2 after approval; the site only needs clean ad spaces prepared.
+	Remove fake ad placeholder banners. Keep subtle spacing for future approved ads only.
+	5
+	Mood selection does not follow the approved 3-layer emotion-wheel flow.
+	Spec requires broad mood family -> second-layer feelings -> third-layer feeling tiles, as presented; 
+https://feelingswheel.app/
+	Rebuild mood selection exactly as a three-step visual flow. Using the clouds in the first layer what I asked; 
+https://www.magnific.com/free-vector/cartoon-style-cloud-collection_15694444.htm
+	6
+	Required five main mood families are missing or incorrect.
+	Spec requires Sad / Disgusted / Angry / Fearful / Bad.
+	Replace generic mood categories with the five approved main families.
+	7
+	Cloud animation / sad-face cloud concept is not properly implemented.
+	Spec says the first-layer feeling should appear in a sad-face looking cloud animation, with capital bold letters.
+	Implement the cloud/card visual.
+	8
+	Second-layer and third-layer feeling tiles from the emotion wheel are not properly shown.
+	Spec refers to feelingswheel.app style layers and visual cards with small drawings and feeling names.
+	Show second-layer cards and then third-layer choices before showing the result.
+	9
+	“Flip My Mood” button flow is not as specified.
+	Spec requires a large, visible, central Flip My Mood button after feeling selection.
+	Make the button central, obvious and activated after the required mood selection steps.
+	10
+	Result layout is not as specified.
+	Spec requires selected negative moods on the left, positive target mood and one 60-second action on the right.
+The whole page needs to fit into a screen when it loads, without scrolling down! 
+The separate pages need to load on separate pages and not be on the same page just further down. 
+	Rebuild result screen using the approved left/right structure.
+	11
+	Right-side uplifting sun design is missing or not close enough.
+	Spec says the right side should preserve the soft, uplifting sun/rising light design.
+	Recreate the approved sun background and make the positive mood visually pop. – see the sketch image ChatGPT created. I want the exact same sun with same pastel colours! 
+	12
+	The site does not feel emotionally supportive/professional enough.
+	Spec requires clean, modern, professional and emotionally supportive design.
+	Replace generic wellness styling with a calmer, more premium, focused interface.
+	13
+	Generic moods are being used instead of the approved mood-pairing structure.
+	Spec requires the current 28 bad mood / good mood pairings.
+	Load and display the approved 28 pairings, not random simplified categories.
+	14
+	28 bad mood / good mood pairings are not proven loaded.
+	Spec requires 28 pairings at launch.
+	Provide the loaded pairing database/content file or show all 28 in the app/admin.
+	15
+	10 rotating 60-second actions per mood are not proven loaded.
+	Spec requires 10 rotating actions per mood at launch.
+	Provide evidence that every mood has 10 actions loaded.
+	16
+	Action rotation logic is not proven working.
+	Spec requires repeat visitors not to always see the same action.
+	Demonstrate action rotation using browser local storage and/or profile history.
+	17
+	Free tool working without profile is not proven.
+	Spec requires free basic tool without profile creation.
+	Show that a new user can complete the mood flow and get an action without login.
+	18
+	Profile / login / saved check-ins area is not proven complete.
+	Spec requires optional profile, saved check-ins, selected moods/dates, actions shown and purchase status.
+	Demonstrate profile creation, login, saved check-ins and purchase status.
+	19
+	Second-visit profile invitation pop-up is not proven.
+	Spec requires a pop-up on the second site visit inviting profile creation.
+	Demonstrate repeat-visit tracking and the second-visit profile prompt.
+	20
+	“Save My Profile” button under the action is not proven.
+	Spec says a SAVE MY PROFILE button needs to appear under the 60-second action.
+	Add the button directly under the action or show where it is implemented.
+	21
+	Maximum 3 saved check-ins per day is not proven.
+	Spec update requires max 3 saved check-ins per calendar day toward the paid report.
+	Implement daily save limit and friendly limit message.
+	22
+	7-day report progress messages/popups are not proven.
+	Spec requires prompts after first save, from second saved calendar day onward, progress messages and report-ready message.
+	Implement the agreed pop-up/message wording and progress logic.
+	23
+	US$7 paid 7-day PDF checkout is not proven.
+	Spec requires secure checkout for the US$7 7-day PDF.
+	Show checkout flow and pricing in test mode.
+	24
+	Automatic PDF generation / download / email delivery is not proven.
+	Spec requires automatic payment and PDF delivery by download and email.
+	Demonstrate full test purchase and automatic PDF delivery.
+	25
+	Payment-success-but-PDF-fails fallback is not proven.
+	Spec requires payment to be recorded and PDF resend/download available if generation/email fails.
+	Add robust fallback: record purchase, allow admin/user re-download or resend.
+	26
+	Private admin dashboard is not proven.
+	Spec requires a secure admin area for Joy.
+	Demonstrate admin login and dashboard access.
+	27
+	CSV/Excel export of users/emails is not proven.
+	Spec requires export of user/email data to CSV/Excel.
+	Add and demonstrate export functionality.
+	28
+	Stripe/payment account owned by Joy is not proven.
+	Spec update requires no customer payments to go through DigitalWorkify.
+	Confirm Stripe belongs to Joy and API keys are securely connected through environment variables.
+	29
+	Privacy consent wording is not clearly proven.
+	Spec includes exact consent wording for profile creation.
+	Show the exact wording in profile/signup flow with checkbox.
+	30
+	90-day deletion notice is not clearly proven.
+	Spec requires users to be told inactive profiles and saved mood history are deleted after 90 days.
+	Display this under profile consent and in Privacy Policy.
+	31
+	Automatic 90-day inactive profile deletion is not proven working.
+	Spec requires last_active_at or equivalent and automatic deletion.
+	Show scheduled cleanup logic and test/proof of deletion process.
+	32
+	20-30 proper SEO mood pages are not proven.
+	Spec requires original, helpful mood pages internally linked to the tool.
+	Provide a list of all SEO mood pages and confirm they are published and working.
+Sohel, I think I should phrase these. How long should a text like this be? Please advise. 
+	33
+	Current content looks generic/filler rather than approved useful mood pages.
+	Spec requires original helpful pages, not generic wellness-journal filler.
+	Remove generic wellness blog material and replace with approved mood-specific pages only.
+	34
+	Google Analytics / Search Console / sitemap / indexing setup is not proven.
+	Spec requires GA, Search Console, XML sitemap and indexing submission.
+	Provide screenshots/access confirmation for GA, Search Console and sitemap submission.
+	35
+	AdSense-ready layout is not subtle/clean.
+	Spec says ads should be designed for later and activated only after approval.
+	Remove messy/fake ads and create clean top/bottom space for later AdSense.
+	36
+	Mobile/tablet/desktop quality needs checking.
+	Spec requires optimization for phones, tablets and desktops.
+	Provide screenshots or live demonstration on mobile, tablet and desktop sizes.
+	37
+	Medical/scientific overclaiming needs review.
+	Spec says not therapy, not mental health treatment and not medical advice.
+	Remove claims such as “science-backed”, “rewire neural pathways”, “anxiety relief techniques that actually work”, unless legally/safely supported.
+	38
+	Crisis/support wording needs removed
+	Spec requires no emergency/crisis support and careful wording.
+	Remove this whole section where it appears. See screenshot below. 
+	39
+	No affiliate links at launch must be confirmed.
+	Spec says affiliate links are not required at launch.
+	Confirm there are no affiliate links, affiliate blocks or third-party product recommendations.
+	40
+	Source code / Vercel / Supabase / database / admin access handover is not proven.
+	Spec requires source code, deployment access, database access, admin login, documentation and instructions.
+	Provide access/ownership transfer plan and credentials/invitations before completion.
+	41
+	Supabase backup/export plan is not proven.
+	Spec asks for a backup plan while on free plan because automatic backups may not be included.
+	Explain backup/export process and provide a launch export of the content/database.
+	42
+	Testing/staging environment and bug-fix process are not proven.
+	Spec requires test environment and bug fixing before launch.
+	Provide staging link, bug list process and confirm testing before live acceptance.
+	43
+	Logo/header/brand presentation is not polished enough.
+	Spec requires clean, professional brand direction; Joy is developing a specific MF logo.
+	Use approved MoodFlip logo/wordmark once finalized. Do not use weak emoji/text branding.
+	44
+	Overall: website does not match the approved Business Specification and is not ready for acceptance.
+	Spec is the controlling build scope.
+	Rebuild/repair against the spec item-by-item before requesting approval.
+	45
+	Welcome Back popup
+	It is not required. 
+	Delete it! It`s annoying. 
+	46
+	Bottom section 
+	It is not required.
+	Remove completely!
+	47
+	Frequently Asked Questions section
+	It is not required.
+	Remove completely!
+	48
+	Branner Part
+	It is not required.
+	Remove completely!
+	Notes for Sohel
+* Please do not treat this as a request for extra features. This is a correction list against the already approved specification.
+* Anything marked “not proven” must be demonstrated in the live/test environment or admin dashboard before the site is accepted.
+* Please remove anything not in the approved scope unless Joy approves it in writing.
+* Please respond item-by-item, confirming either “fixed”, “included and demonstrated”, or “requires clarification”.
+
+
+________________
+
+
+38. 
+Remove this section completely!
+  
+
+
+
+45. Delete this popup!
+  
+
+
+
+46. Delete this section!
+  
+
+________________
+
+
+47. Delete this section!
+  
+
+48. Delete this section!

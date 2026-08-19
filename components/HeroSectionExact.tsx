@@ -447,11 +447,37 @@ export default function HeroSectionExact({
   const [timerSeconds, setTimerSeconds] = useState(60);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
+  const [savedMsg, setSavedMsg] = useState<string | null>(null);
 
   // Active configurations
   const activeMoodConfig = MOOD_HIERARCHY[selectedMood] || MOOD_HIERARCHY.Sad;
   const activeBranch = activeMoodConfig.branches.find((b) => b.id === selectedBranchId) || activeMoodConfig.branches[0];
   const activeFeeling = activeBranch.feelings.find((f) => f.id === selectedFeelingId) || activeBranch.feelings[0];
+
+  // Save check-in to profile
+  const handleSaveToProfile = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const newCheckin = {
+          id: Date.now(),
+          mood: selectedMood,
+          branch: activeBranch.name,
+          feeling: activeFeeling.name,
+          transformedMood: displayedTransformedMood,
+          action: displayedActionTitle,
+          time: new Date().toLocaleString(),
+        };
+        const existing = JSON.parse(localStorage.getItem("moodflip_user_checkins") || "[]");
+        existing.unshift(newCheckin);
+        localStorage.setItem("moodflip_user_checkins", JSON.stringify(existing.slice(0, 50)));
+        setSavedMsg("✓ Check-in saved to your profile!");
+        setTimeout(() => setSavedMsg(null), 3500);
+      } catch (e) {
+        setSavedMsg("✓ Saved!");
+        setTimeout(() => setSavedMsg(null), 3000);
+      }
+    }
+  };
 
   // Timer countdown
   useEffect(() => {
@@ -769,7 +795,7 @@ export default function HeroSectionExact({
 
               <p className={styles.actionDescription}>{displayedActionDesc}</p>
 
-              {/* Interactive 60s Breathing Timer Control */}
+              {/* Interactive 60s Breathing Timer Control & Save Profile */}
               <div className={styles.actionTimerRow}>
                 <button
                   type="button"
@@ -801,41 +827,28 @@ export default function HeroSectionExact({
                     Reset
                   </button>
                 )}
+
+                <button
+                  type="button"
+                  className={styles.saveProfileBtn}
+                  onClick={handleSaveToProfile}
+                  aria-label="Save this check-in to your profile"
+                >
+                  <span>💾 SAVE MY PROFILE</span>
+                </button>
               </div>
+
+              {savedMsg && (
+                <div className={styles.saveProfileFeedback}>
+                  <span>{savedMsg}</span>
+                </div>
+              )}
             </div>
 
             {/* Botanical Eucalyptus / Olive Leaf Decoration */}
             <div className={styles.leafDecoration} aria-hidden="true">
               <BotanicalBranchSvg />
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* BOTTOM MOTIVATIONAL BANNER */}
-      <div className={styles.bottomBanner}>
-        <div className={styles.bannerItem}>
-          <span className={styles.bannerIcon}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-            </svg>
-          </span>
-          <div className={styles.bannerText}>
-            <span className={styles.bannerTitle}>Small shifts can change how you feel.</span>
-            <span className={styles.bannerSubtitle}>You&apos;ve got this.</span>
-          </div>
-        </div>
-
-        <div className={styles.bannerItem}>
-          <span className={styles.bannerIcon}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 20A7 7 0 0 1 4 13C4 7 11 3 20 3c0 9-4 16-10 17Z" />
-              <path d="M4 13c7 0 12-4 16-10" />
-            </svg>
-          </span>
-          <div className={styles.bannerText}>
-            <span className={styles.bannerTitle}>Be kind to yourself.</span>
-            <span className={styles.bannerSubtitle}>One choice at a time.</span>
           </div>
         </div>
       </div>

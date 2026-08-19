@@ -22,7 +22,7 @@ export default function UserDashboardPage() {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{ name: string; price: number; period: string }>({
     name: '7-Day Mindset Plan',
-    price: 9.99,
+    price: 7,
     period: 'one-time',
   });
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -496,10 +496,10 @@ export default function UserDashboardPage() {
               Get your personalized 7-Day plan &amp; start transforming your days.
             </p>
             <button 
-              onClick={() => openPaymentModal('7-Day Mindset Plan', 9.99)}
+              onClick={() => openPaymentModal('7-Day Mindset Plan', 7)}
               className="w-full block py-2 px-3 rounded-xl bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white text-xs font-extrabold shadow-sm hover:opacity-95 transition-transform cursor-pointer"
             >
-              Upgrade Now ($9.99)
+              Upgrade Now ($7)
             </button>
           </div>
         </aside>
@@ -829,10 +829,10 @@ export default function UserDashboardPage() {
                     Get personalized daily guidance, actions &amp; printable PDF.
                   </p>
                   <button 
-                    onClick={() => openPaymentModal('7-Day Mindset Plan', 9.99)}
+                    onClick={() => openPaymentModal('7-Day Mindset Plan', 7)}
                     className="w-full py-2.5 sm:py-3 rounded-xl bg-[#FEFAF8] text-[#7464AC] font-extrabold text-xs sm:text-sm shadow-md hover:bg-white transition cursor-pointer hover:scale-[1.01] block truncate"
                   >
-                    Upgrade Now ($9.99)
+                    Upgrade Now ($7)
                   </button>
                 </div>
 

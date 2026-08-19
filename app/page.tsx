@@ -285,32 +285,7 @@ export default function HomePage() {
           />
         </section>
 
-        {/* More For You & Plans Quick Access */}
-        <section style={{ width: '100%', maxWidth: '1240px', margin: '0 auto 36px auto', padding: '0 16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
-            <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#1A1338', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>✨</span> More for You
-            </h3>
-            <span style={{ fontSize: '13px', fontWeight: '600', color: '#7147E8' }}>Guided Plans &amp; Tools</span>
-          </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-            {plans.map((plan) => (
-              <article
-                key={plan.title}
-                className={`${styles.planCard} ${styles[plan.kind]}`}
-                style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '14px', padding: '18px 20px', borderRadius: '18px', background: '#FFFFFF', border: '1px solid #ECE7F5', boxShadow: '0 4px 14px rgba(0,0,0,0.03)' }}
-              >
-                <div className={styles.planIcon} style={{ fontSize: '28px', lineHeight: 1 }}>{plan.icon}</div>
-                <div style={{ flex: 1 }}>
-                  <strong style={{ fontSize: '15px', fontWeight: '800', color: '#1A1338', display: 'block', marginBottom: '4px' }}>{plan.title}</strong>
-                  <p style={{ fontSize: '13px', color: '#5C527A', margin: '0 0 8px 0', lineHeight: '1.4' }}>{plan.text}</p>
-                  <a href={plan.link} style={{ fontSize: '13px', fontWeight: '700', color: '#7147E8', textDecoration: 'none' }}>{plan.action}</a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
 
         <section className={styles.trustStrip}>
           <article><span className={`${styles.trustIcon} ${styles.trustPurple}`}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><strong>Private &amp; Secure</strong><p>Your data is encrypted<br />and protected.</p></div></article>

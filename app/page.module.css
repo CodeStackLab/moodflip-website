@@ -4,8 +4,8 @@
   background:
     radial-gradient(circle at 84% 12%, rgba(255, 227, 238, .5), transparent 28%),
     radial-gradient(circle at 10% 35%, rgba(244, 236, 255, .5), transparent 25%),
-    #fffdfc;
-  color: #121536;
+    #FDF8F5;
+  color: #1A143F;
 }
 
 .appFrame {
@@ -45,14 +45,14 @@
   align-items: center;
   gap: 8px;
   width: fit-content;
-  color: #15183b;
+  color: #1A143F;
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -1.7px;
   text-decoration: none;
 }
 
-.logo > span:last-child > span { color: #7147e8; }
+.logo > span:last-child > span { color: #7464AC; }
 
 .logoMark {
   position: relative;
@@ -60,7 +60,7 @@
   height: 22px;
   display: inline-block;
   border-radius: 0 0 19px 19px;
-  background: linear-gradient(135deg, #ff9f8d 0%, #d950c0 55%, #7148e9 100%);
+  background: linear-gradient(135deg, #E49C8C 0%, #d950c0 55%, #7464AC 100%);
   transform: translateY(1px);
 }
 
@@ -82,7 +82,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #ffad64;
+  background: #EDAA7A;
 }
 .pageShell {
   min-height: 100vh;
@@ -90,8 +90,8 @@
   background:
     radial-gradient(circle at 84% 12%, rgba(255, 227, 238, .5), transparent 28%),
     radial-gradient(circle at 10% 35%, rgba(244, 236, 255, .5), transparent 25%),
-    #fffdfc;
-  color: #121536;
+    #FDF8F5;
+  color: #1A143F;
 }
 
 .appFrame {
@@ -217,7 +217,7 @@
   justify-content: center !important;
   height: 46px !important;
   border-radius: 14px !important;
-  background: linear-gradient(135deg, #7147e8 0%, #a644c9 100%) !important;
+  background: linear-gradient(135deg, #7464AC 0%, #a644c9 100%) !important;
   color: #ffffff !important;
   font-size: 15px !important;
   font-weight: 700 !important;
@@ -269,14 +269,14 @@
   align-items: center;
   gap: 8px;
   width: fit-content;
-  color: #15183b;
+  color: #1A143F;
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -1.7px;
   text-decoration: none;
 }
 
-.logo > span:last-child > span { color: #7147e8; }
+.logo > span:last-child > span { color: #7464AC; }
 
 .logoMark {
   position: relative;
@@ -284,7 +284,7 @@
   height: 22px;
   display: inline-block;
   border-radius: 0 0 19px 19px;
-  background: linear-gradient(135deg, #ff9f8d 0%, #d950c0 55%, #7148e9 100%);
+  background: linear-gradient(135deg, #E49C8C 0%, #d950c0 55%, #7464AC 100%);
   transform: translateY(1px);
 }
 
@@ -306,7 +306,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #ffad64;
+  background: #EDAA7A;
 }
 .logoMark span:first-child { left: 2px; }
 .logoMark span:last-child { right: 2px; }
@@ -561,7 +561,7 @@
 .planButton {
   color: white;
   border: none;
-  background: linear-gradient(135deg, #7147e8 0%, #a644c9 100%);
+  background: linear-gradient(135deg, #7464AC 0%, #a644c9 100%);
   box-shadow: 0 6px 18px rgba(113, 71, 232, 0.28);
 }
 
@@ -1792,7 +1792,7 @@ text-align: center;
 .trustStrip article { display: grid; grid-template-columns: 50px 1fr; gap: 12px; align-items: center; }
 .trustIcon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; }
 
-.trustPurple { background: #f2ebfc; color: #7147e8; }
+.trustPurple { background: #f2ebfc; color: #7464AC; }
 .trustGreen { background: #eef9f2; color: #16a34a; }
 .trustRed { background: #ffeff1; color: #e11d48; }
 .trustBlue { background: #edf4fc; color: #2563eb; }
@@ -2808,7 +2808,7 @@ text-align: center;
   cursor: pointer;
   transition: background 0.15s ease;
 }
-.welcomeMaybeBtn:hover { background: #f8f4ff; }
+.welcomeMaybeBtn:hover { background: #FAF5F6; }
 
 .welcomeSubnote {
   display: block;
@@ -3004,7 +3004,7 @@ text-align: center;
   cursor: pointer;
   transition: background 0.15s ease;
 }
-.welcomeMaybeBtn:hover { background: #f8f4ff; }
+.welcomeMaybeBtn:hover { background: #FAF5F6; }
 
 .welcomeSubnote {
   display: block;

@@ -45,15 +45,13 @@
   align-items: center;
   gap: 8px;
   width: fit-content;
-  max-height: 52px;
   text-decoration: none;
 }
 
 .logo img {
-  height: 50px !important;
-  max-height: 50px !important;
+  height: 48px !important;
+  max-height: 48px !important;
   width: auto !important;
-  max-width: 220px !important;
   object-fit: contain !important;
   display: block !important;
 }

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./HeroSectionExact.module.css";
 
-export type MainMoodFamily = "Sad" | "Fearful" | "Angry" | "Disgusted" | "Bad";
+export type MainMoodFamily = "Sad" | "Disgusted" | "Angry" | "Fearful" | "Bad";
 
 export interface ThirdLayerFeeling {
   id: string;
@@ -282,38 +282,28 @@ export const MOOD_HIERARCHY: Record<MainMoodFamily, MoodFamilyConfig> = {
       },
     ],
   },
-  Fearful: {
-    name: "Fearful",
-    label: "Fearful",
+  Disgusted: {
+    name: "Disgusted",
+    label: "Disgusted",
     branches: [
       {
-        id: "anxious",
-        name: "Anxious",
+        id: "disapproving",
+        name: "Disapproving",
         feelings: [
-          { id: "panicked", name: "Panicked", targetMood: "Safe & Centered", actionTitle: "60-sec 5-4-3-2-1 Sensory Grounding", actionDesc: "Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, and take 1 deep belly breath.", icon: ScaredShockIcon },
-          { id: "overwhelmed_f", name: "Overwhelmed", targetMood: "Calm & In Control", actionTitle: "60-sec Box Breathing Flow", actionDesc: "Inhale 4s, hold 4s, exhale 4s, hold empty 4s. Repeat 4 times to regulate your nervous system.", icon: SpiralOverwhelmedIcon },
-          { id: "worried", name: "Worried", targetMood: "Confident & Grounded", actionTitle: "60-sec Worry Containment Exercise", actionDesc: "Acknowledge the worry, place it in an imaginary box, and return your full attention to this present minute.", icon: AnxiousWavesIcon },
-          { id: "on_edge", name: "On Edge", targetMood: "Relaxed & Safe", actionTitle: "60-sec Muscle De-escalation", actionDesc: "Unclench jaw, drop shoulders 2 inches, open clenched fists, and take a long sighing exhale.", icon: ShieldDefensiveIcon },
+          { id: "judgmental", name: "Judgmental", targetMood: "Open & Gracious", actionTitle: "60-sec Mindful Non-Judgment Breath", actionDesc: "Notice the judgment without acting on it. Breathe in understanding, exhale rigid expectations.", icon: AverseTurnIcon },
+          { id: "disappointed", name: "Disappointed", targetMood: "Hopeful & Clear", actionTitle: "60-sec Silver Lining Reframe", actionDesc: "Identify one lesson or hidden opportunity that emerges from this disappointment.", icon: TeardropGriefIcon },
+          { id: "appalled", name: "Appalled", targetMood: "Centered & Dignified", actionTitle: "60-sec Core Peace Alignment", actionDesc: "Take 4 slow breaths. Focus on what is noble, pure, and uplifting in your surroundings.", icon: AverseTurnIcon },
+          { id: "critical_d", name: "Critical", targetMood: "Gentle & Constructive", actionTitle: "60-sec Encouraging Thought", actionDesc: "Replace one critical thought with one constructive, supportive observation.", icon: AverseTurnIcon },
         ],
       },
       {
-        id: "scared",
-        name: "Scared",
+        id: "repelled",
+        name: "Repelled",
         feelings: [
-          { id: "terrified", name: "Terrified", targetMood: "Protected & Grounded", actionTitle: "60-sec Safety Anchor Statement", actionDesc: "Feel your feet on the floor. Repeat aloud: 'Right here, right now, in this exact second, I am safe.'", icon: ScaredShockIcon },
-          { id: "frightened", name: "Frightened", targetMood: "Courageous & Calm", actionTitle: "60-sec Deep Belly Breath", actionDesc: "Place both hands on your stomach. Feel your hands rise for 4s, then sink down slowly for 6s.", icon: ScaredShockIcon },
-          { id: "shaken", name: "Shaken", targetMood: "Steady & Composed", actionTitle: "60-sec Steady Stance Grounding", actionDesc: "Plant both feet shoulder-width apart, roll your shoulders back, and feel the solid ground holding you.", icon: AnxiousWavesIcon },
-          { id: "threatened", name: "Threatened", targetMood: "Secure & Supported", actionTitle: "60-sec Perimeter Safety Awareness", actionDesc: "Look slowly around your room. Observe 4 secure objects and affirm your safety.", icon: ShieldDefensiveIcon },
-        ],
-      },
-      {
-        id: "insecure",
-        name: "Insecure",
-        feelings: [
-          { id: "inadequate", name: "Inadequate", targetMood: "More Than Enough", actionTitle: "60-sec Capability Remembrance", actionDesc: "Remember a difficult obstacle you overcame in the past. You possess that exact strength today.", icon: AshamedHeadBowedIcon },
-          { id: "doubtful", name: "Doubtful", targetMood: "Decisive & Trusting", actionTitle: "60-sec Intuition Alignment", actionDesc: "Place a hand on your heart and take 3 slow breaths. Trust your inner wisdom.", icon: AnxiousWavesIcon },
-          { id: "exposed", name: "Exposed", targetMood: "Safe & Dignified", actionTitle: "60-sec Energetic Boundary Wrap", actionDesc: "Cross your arms gently over your chest, hugging yourself warmly. You are protected and whole.", icon: ShieldDefensiveIcon },
-          { id: "weak", name: "Weak", targetMood: "Strong & Capable", actionTitle: "60-sec Power Posture Shift", actionDesc: "Stand tall with hands on hips, lift your chin, take 3 powerful breaths, and feel your resilience.", icon: BatteryDrainedIcon },
+          { id: "averse", name: "Averse", targetMood: "Fresh & Harmonious", actionTitle: "60-sec Fresh Air Inhale", actionDesc: "Step outside or open a window. Take 3 full breaths of crisp, fresh air.", icon: AverseTurnIcon },
+          { id: "hesitant", name: "Hesitant", targetMood: "Confident & Brave", actionTitle: "60-sec Decisive Step", actionDesc: "Commit to taking just one small, clear positive step forward right now.", icon: BlockedWallIcon },
+          { id: "uncomfortable", name: "Uncomfortable", targetMood: "Ease & Comfort", actionTitle: "60-sec Physical Realignment", actionDesc: "Change your seating posture, roll your neck gently, and relax all facial muscles.", icon: SpiralOverwhelmedIcon },
+          { id: "awful", name: "Awful", targetMood: "Uplifted & Refreshed", actionTitle: "60-sec Pleasant Memory Recall", actionDesc: "Bring to mind a moment of pure laughter or warmth and let it fill your heart.", icon: TeardropGriefIcon },
         ],
       },
     ],
@@ -354,35 +344,45 @@ export const MOOD_HIERARCHY: Record<MainMoodFamily, MoodFamilyConfig> = {
       },
     ],
   },
-  Disgusted: {
-    name: "Disgusted",
-    label: "Disgusted",
+  Fearful: {
+    name: "Fearful",
+    label: "Fearful",
     branches: [
       {
-        id: "disapproving",
-        name: "Disapproving",
+        id: "anxious",
+        name: "Anxious",
         feelings: [
-          { id: "judgmental", name: "Judgmental", targetMood: "Open & Gracious", actionTitle: "60-sec Mindful Non-Judgment Breath", actionDesc: "Notice the judgment without acting on it. Breathe in understanding, exhale rigid expectations.", icon: AverseTurnIcon },
-          { id: "disappointed", name: "Disappointed", targetMood: "Hopeful & Clear", actionTitle: "60-sec Silver Lining Reframe", actionDesc: "Identify one lesson or hidden opportunity that emerges from this disappointment.", icon: TeardropGriefIcon },
-          { id: "appalled", name: "Appalled", targetMood: "Centered & Dignified", actionTitle: "60-sec Core Peace Alignment", actionDesc: "Take 4 slow breaths. Focus on what is noble, pure, and uplifting in your surroundings.", icon: AverseTurnIcon },
-          { id: "critical_d", name: "Critical", targetMood: "Gentle & Constructive", actionTitle: "60-sec Encouraging Thought", actionDesc: "Replace one critical thought with one constructive, supportive observation.", icon: AverseTurnIcon },
+          { id: "panicked", name: "Panicked", targetMood: "Safe & Centered", actionTitle: "60-sec 5-4-3-2-1 Sensory Grounding", actionDesc: "Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, and take 1 deep belly breath.", icon: ScaredShockIcon },
+          { id: "overwhelmed_f", name: "Overwhelmed", targetMood: "Calm & In Control", actionTitle: "60-sec Box Breathing Flow", actionDesc: "Inhale 4s, hold 4s, exhale 4s, hold empty 4s. Repeat 4 times to regulate your nervous system.", icon: SpiralOverwhelmedIcon },
+          { id: "worried", name: "Worried", targetMood: "Confident & Grounded", actionTitle: "60-sec Worry Containment Exercise", actionDesc: "Acknowledge the worry, place it in an imaginary box, and return your full attention to this present minute.", icon: AnxiousWavesIcon },
+          { id: "on_edge", name: "On Edge", targetMood: "Relaxed & Safe", actionTitle: "60-sec Muscle De-escalation", actionDesc: "Unclench jaw, drop shoulders 2 inches, open clenched fists, and take a long sighing exhale.", icon: ShieldDefensiveIcon },
         ],
       },
       {
-        id: "repelled",
-        name: "Repelled",
+        id: "scared",
+        name: "Scared",
         feelings: [
-          { id: "averse", name: "Averse", targetMood: "Fresh & Harmonious", actionTitle: "60-sec Fresh Air Inhale", actionDesc: "Step outside or open a window. Take 3 full breaths of crisp, fresh air.", icon: AverseTurnIcon },
-          { id: "hesitant", name: "Hesitant", targetMood: "Confident & Brave", actionTitle: "60-sec Decisive Step", actionDesc: "Commit to taking just one small, clear positive step forward right now.", icon: BlockedWallIcon },
-          { id: "uncomfortable", name: "Uncomfortable", targetMood: "Ease & Comfort", actionTitle: "60-sec Physical Realignment", actionDesc: "Change your seating posture, roll your neck gently, and relax all facial muscles.", icon: SpiralOverwhelmedIcon },
-          { id: "awful", name: "Awful", targetMood: "Uplifted & Refreshed", actionTitle: "60-sec Pleasant Memory Recall", actionDesc: "Bring to mind a moment of pure laughter or warmth and let it fill your heart.", icon: TeardropGriefIcon },
+          { id: "terrified", name: "Terrified", targetMood: "Protected & Grounded", actionTitle: "60-sec Safety Anchor Statement", actionDesc: "Feel your feet on the floor. Repeat aloud: 'Right here, right now, in this exact second, I am safe.'", icon: ScaredShockIcon },
+          { id: "frightened", name: "Frightened", targetMood: "Courageous & Calm", actionTitle: "60-sec Deep Belly Breath", actionDesc: "Place both hands on your stomach. Feel your hands rise for 4s, then sink down slowly for 6s.", icon: ScaredShockIcon },
+          { id: "shaken", name: "Shaken", targetMood: "Steady & Composed", actionTitle: "60-sec Steady Stance Grounding", actionDesc: "Plant both feet shoulder-width apart, roll your shoulders back, and feel the solid ground holding you.", icon: AnxiousWavesIcon },
+          { id: "threatened", name: "Threatened", targetMood: "Secure & Supported", actionTitle: "60-sec Perimeter Safety Awareness", actionDesc: "Look slowly around your room. Observe 4 secure objects and affirm your safety.", icon: ShieldDefensiveIcon },
+        ],
+      },
+      {
+        id: "insecure",
+        name: "Insecure",
+        feelings: [
+          { id: "inadequate", name: "Inadequate", targetMood: "More Than Enough", actionTitle: "60-sec Capability Remembrance", actionDesc: "Remember a difficult obstacle you overcame in the past. You possess that exact strength today.", icon: AshamedHeadBowedIcon },
+          { id: "doubtful", name: "Doubtful", targetMood: "Decisive & Trusting", actionTitle: "60-sec Intuition Alignment", actionDesc: "Place a hand on your heart and take 3 slow breaths. Trust your inner wisdom.", icon: AnxiousWavesIcon },
+          { id: "exposed", name: "Exposed", targetMood: "Safe & Dignified", actionTitle: "60-sec Energetic Boundary Wrap", actionDesc: "Cross your arms gently over your chest, hugging yourself warmly. You are protected and whole.", icon: ShieldDefensiveIcon },
+          { id: "weak", name: "Weak", targetMood: "Strong & Capable", actionTitle: "60-sec Power Posture Shift", actionDesc: "Stand tall with hands on hips, lift your chin, take 3 powerful breaths, and feel your resilience.", icon: BatteryDrainedIcon },
         ],
       },
     ],
   },
   Bad: {
     name: "Bad",
-    label: "Bad / Stressed",
+    label: "Bad",
     branches: [
       {
         id: "overwhelmed_b",
@@ -418,7 +418,7 @@ export const MOOD_HIERARCHY: Record<MainMoodFamily, MoodFamilyConfig> = {
   },
 };
 
-const MAIN_MOOD_FAMILIES: MainMoodFamily[] = ["Sad", "Fearful", "Angry", "Disgusted", "Bad"];
+const MAIN_MOOD_FAMILIES: MainMoodFamily[] = ["Sad", "Disgusted", "Angry", "Fearful", "Bad"];
 
 interface HeroSectionExactProps {
   onFlipTriggered?: (mood: string, feeling: string) => void;

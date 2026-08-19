@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import styles from "./HeroSectionExact.module.css";
+import { COUNSELOR_MOODS, CounselorPromptItem } from "@/data/moods";
 
 export type MainMoodFamily = "Sad" | "Disgusted" | "Angry" | "Fearful" | "Bad";
 
@@ -449,10 +450,104 @@ export default function HeroSectionExact({
   const [isFlipping, setIsFlipping] = useState(false);
   const [savedMsg, setSavedMsg] = useState<string | null>(null);
 
+  // ── MOOD LIBRARY DATABASE INTEGRATION ──
+  const [libraryMoods, setLibraryMoods] = useState<CounselorPromptItem[]>(COUNSELOR_MOODS);
+
+  // Sync with live Admin Mood Library from localStorage
+  const syncMoodLibrary = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("moodflip_counselor_moods");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setLibraryMoods(parsed);
+          }
+        }
+      } catch (e) {}
+    }
+  };
+
+  useEffect(() => {
+    syncMoodLibrary();
+    // Listen for storage events if edited in another tab/window
+    window.addEventListener("storage", syncMoodLibrary);
+    return () => window.removeEventListener("storage", syncMoodLibrary);
+  }, []);
+
   // Active configurations
   const activeMoodConfig = MOOD_HIERARCHY[selectedMood] || MOOD_HIERARCHY.Sad;
   const activeBranch = activeMoodConfig.branches.find((b) => b.id === selectedBranchId) || activeMoodConfig.branches[0];
   const activeFeeling = activeBranch.feelings.find((f) => f.id === selectedFeelingId) || activeBranch.feelings[0];
+
+  // Helper: Find exact or best matching pairing from Mood Library database
+  const findMatchingLibraryMood = (
+    moodFamily: MainMoodFamily,
+    branchName: string,
+    feelingName: string
+  ): CounselorPromptItem | null => {
+    const fLower = feelingName.toLowerCase().trim();
+    const bLower = branchName.toLowerCase().trim();
+
+    // 1. Direct name match in item.feelings tags or item.name
+    const directMatch = libraryMoods.find((item) => {
+      const nameMatch =
+        item.name.toLowerCase() === fLower ||
+        item.name.toLowerCase() === bLower;
+      const feelingsMatch = item.feelings?.some(
+        (f) =>
+          f.toLowerCase() === fLower ||
+          f.toLowerCase() === bLower ||
+          f.toLowerCase().includes(fLower) ||
+          fLower.includes(f.toLowerCase())
+      );
+      return nameMatch || feelingsMatch;
+    });
+    if (directMatch) return directMatch;
+
+    // 2. Partial substring match in feeling or branch
+    const partialMatch = libraryMoods.find((item) => {
+      const itemTitle = item.name.toLowerCase();
+      const feelingsMatch = item.feelings?.some((f) => {
+        const fLowerTag = f.toLowerCase();
+        return (
+          fLowerTag.includes(fLower) ||
+          fLower.includes(fLowerTag) ||
+          fLowerTag.includes(bLower) ||
+          bLower.includes(fLowerTag)
+        );
+      });
+      return (
+        feelingsMatch ||
+        itemTitle.includes(fLower) ||
+        fLower.includes(itemTitle) ||
+        itemTitle.includes(bLower) ||
+        bLower.includes(itemTitle)
+      );
+    });
+    if (partialMatch) return partialMatch;
+
+    // 3. Category / Family fallback
+    const categoryMap: Record<MainMoodFamily, string[]> = {
+      Sad: ["Low", "Lonely"],
+      Disgusted: ["Low", "Angry"],
+      Angry: ["Angry", "Overwhelmed"],
+      Fearful: ["Anxious", "Overwhelmed"],
+      Bad: ["Low", "Anxious", "Angry"],
+    };
+    const categories = categoryMap[moodFamily] || ["Low"];
+    const categoryMatch = libraryMoods.find((item) =>
+      categories.includes(item.category)
+    );
+
+    return categoryMatch || libraryMoods[0] || null;
+  };
+
+  const matchedLibraryMood = findMatchingLibraryMood(
+    selectedMood,
+    activeBranch.name,
+    activeFeeling.name
+  );
 
   // Save check-in to profile
   const handleSaveToProfile = () => {
@@ -532,6 +627,7 @@ export default function HeroSectionExact({
 
   // Handler: Flip Action
   const handleFlip = () => {
+    syncMoodLibrary();
     setIsFlipping(true);
     setTimerSeconds(60);
     setIsTimerRunning(false);
@@ -545,17 +641,24 @@ export default function HeroSectionExact({
     }, 600);
   };
 
-  // Outcome Display Values
+  // Dynamic Outcome Display Values fetched from Mood Library
   const displayedTransformedMood =
-    aiData?.reframingQuote ? "Peaceful" : activeFeeling.targetMood;
+    aiData?.reframingQuote
+      ? "Peaceful"
+      : (matchedLibraryMood?.target || activeFeeling.targetMood);
 
   const displayedActionTitle =
-    aiData?.actionTitle || activeFeeling.actionTitle;
+    aiData?.actionTitle ||
+    matchedLibraryMood?.actionTitle ||
+    activeFeeling.actionTitle;
 
   const displayedActionDesc =
     aiData?.actionSteps && aiData.actionSteps.length > 0
       ? aiData.actionSteps.join(" ")
-      : activeFeeling.actionDesc;
+      : (matchedLibraryMood?.actionDesc ||
+         (matchedLibraryMood?.actions && matchedLibraryMood.actions.length > 0
+           ? matchedLibraryMood.actions.join(" ")
+           : activeFeeling.actionDesc));
 
   return (
     <section className={styles.heroContainer} id="hero-section">

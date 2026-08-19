@@ -1,0 +1,720 @@
+/* Exact MoodFlip Hero Section CSS - Perfect Pixel Match */
+.heroContainer {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto 32px auto;
+  background: #FAF7F2;
+  border: 1px solid rgba(220, 214, 228, 0.85);
+  border-radius: 28px;
+  box-shadow: 0 12px 40px rgba(78, 54, 118, 0.05), 0 2px 10px rgba(0, 0, 0, 0.02);
+  padding: 30px 32px 22px 32px;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-sans, 'Inter', -apple-system, sans-serif);
+}
+
+/* Top Header & Logo */
+.topHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.logoTitle {
+  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
+  font-size: 54px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  display: inline-flex;
+  align-items: baseline;
+  user-select: none;
+}
+
+.logoMood {
+  color: #554876;
+}
+
+.logoFlipWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  background: linear-gradient(135deg, #DE8072 0%, #E89E7D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heartDot {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  animation: gentlePulse 3s infinite ease-in-out;
+}
+
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+/* Main Split Grid Layout */
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
+  position: relative;
+  align-items: stretch;
+}
+
+.verticalDivider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 53.5%;
+  width: 1px;
+  background: #EAE3DA;
+  z-index: 2;
+}
+
+/* Left Column */
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  padding-right: 14px;
+}
+
+/* Arrow Badges */
+.arrowBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EDE6F7;
+  border: 1px solid #DED4F0;
+  border-radius: 12px 0 0 12px;
+  padding: 8px 16px 8px 10px;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  color: #4C3A6B;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  width: 128px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(113, 71, 232, 0.04);
+}
+
+.badgeIconCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #8B67C9;
+  background: #FAF8FD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #7147E8;
+}
+
+.badgeText {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Row 1: Mood Row */
+.moodRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cloudList {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  flex: 1;
+}
+
+/* Clean Cloud Button with SVG Background / Soft Cloud Border */
+.cloudBtn {
+  position: relative;
+  background: #FFFFFF;
+  border: 1.5px solid #E5DEEE;
+  border-radius: 20px 20px 18px 18px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #372A4E;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.cloudBtn:hover {
+  transform: translateY(-2px);
+  border-color: #A78BFA;
+  box-shadow: 0 6px 14px rgba(113, 71, 232, 0.12);
+}
+
+.cloudBtnSelected {
+  background: #EDE5FC !important;
+  border-color: #8B5CF6 !important;
+  color: #4C2B80 !important;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25) !important;
+  transform: translateY(-1px);
+}
+
+/* Row 2: Feelings Row & Grid */
+.feelingRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.feelingGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  flex: 1;
+}
+
+.feelingCard {
+  background: #FFFFFF;
+  border: 1.5px solid #E8E1EE;
+  border-radius: 14px;
+  padding: 10px 4px 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  min-height: 84px;
+  user-select: none;
+}
+
+.feelingCard:hover {
+  transform: translateY(-2px);
+  border-color: #A78BFA;
+  box-shadow: 0 6px 14px rgba(113, 71, 232, 0.12);
+}
+
+.feelingCardSelected {
+  border: 2px solid #8B5CF6 !important;
+  background: #F6F1FD !important;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2) !important;
+  transform: scale(1.02);
+}
+
+.feelingIconWrapper {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #554472;
+}
+
+.feelingCardSelected .feelingIconWrapper {
+  color: #6D3ABF;
+}
+
+.feelingLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #372A4E;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.feelingCardSelected .feelingLabel {
+  color: #4C2B80;
+  font-weight: 700;
+}
+
+/* Row 3: Bottom Left Action */
+.leftBottomActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2px;
+}
+
+.clearBtn {
+  background: #F3EEF9;
+  border: 1px solid #E3D9EE;
+  border-radius: 14px;
+  padding: 8px 14px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.clearBtn:hover {
+  background: #EDE4F7;
+  border-color: #C8B6E2;
+  transform: translateY(-1px);
+}
+
+.clearIcon {
+  color: #7961A6;
+  margin-bottom: 2px;
+}
+
+.clearTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #433060;
+  line-height: 1;
+}
+
+.clearSubtitle {
+  font-size: 10px;
+  font-weight: 500;
+  color: #7E7096;
+  line-height: 1;
+}
+
+/* Center Floating CTA Arrow */
+.centerCtaWrapper {
+  position: absolute;
+  top: 57%;
+  left: 53.5%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.changeMoodBtn {
+  background: linear-gradient(135deg, #6C44BC 0%, #542F9E 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 24px 12px 18px;
+  border-radius: 12px 0 0 12px;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(84, 47, 158, 0.45), 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.changeMoodBtn:hover {
+  transform: scale(1.06) translateX(4px);
+  box-shadow: 0 12px 30px rgba(84, 47, 158, 0.55);
+  background: linear-gradient(135deg, #784FD0 0%, #5E35AF 100%);
+}
+
+.changeMoodBtn:active {
+  transform: scale(0.98) translateX(2px);
+}
+
+.changeMoodText {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: left;
+  letter-spacing: -0.2px;
+}
+
+.changeMoodArrow {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+  margin-left: 2px;
+}
+
+/* Right Column */
+.rightColumn {
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #FDF4F2 0%, #F7ECED 45%, #EBECE1 100%);
+  padding: 20px 20px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 360px;
+  overflow: hidden;
+  border: 1px solid rgba(230, 220, 215, 0.6);
+}
+
+/* Sun Landscape Art */
+.landscapeBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.flyingBirds {
+  position: absolute;
+  top: 36px;
+  right: 24px;
+  color: #8C7B88;
+  opacity: 0.85;
+}
+
+.sunDomeWrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  pointer-events: none;
+}
+
+.sunDome {
+  position: absolute;
+  bottom: -20px;
+  width: 380px;
+  height: 230px;
+  border-radius: 240px 240px 0 0;
+  background: radial-gradient(circle at 50% 100%, #FFF5DF 0%, #FFEAB8 65%, rgba(255, 234, 184, 0) 100%);
+  opacity: 0.95;
+  filter: blur(1px);
+}
+
+.sunRays {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+}
+
+.hillsBack {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 85px;
+  background: #E2DDD5;
+  border-radius: 50% 50% 0 0 / 25px 25px 0 0;
+  transform: scaleX(1.3);
+  opacity: 0.8;
+}
+
+.hillsFront {
+  position: absolute;
+  bottom: 0;
+  left: -20px;
+  right: -20px;
+  height: 60px;
+  background: linear-gradient(180deg, #D4DEC7 0%, #C3CEB5 100%);
+  border-radius: 60% 40% 0 0 / 28px 20px 0 0;
+  opacity: 0.9;
+}
+
+/* Transformed Outcome Header */
+.outcomeHeader {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.outcomeHeartIcon {
+  color: #E05868;
+  margin-bottom: 2px;
+  animation: gentlePulse 2.5s infinite ease-in-out;
+}
+
+.outcomeSubtitle {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #4A3E5C;
+  letter-spacing: -0.2px;
+}
+
+.outcomeMoodTitle {
+  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
+  font-size: 52px;
+  font-weight: 500;
+  color: #416047;
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+  margin: 0;
+}
+
+/* Action Card (White Floating Box) */
+.actionCard {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #ECE6DE;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.actionIconBadge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #EBF3E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #3C5A40;
+}
+
+.actionContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-right: 28px;
+}
+
+.actionHeading {
+  font-size: 16px;
+  font-weight: 700;
+  color: #3A1E48;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.actionDivider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 1px 0;
+}
+
+.actionDividerLine {
+  flex: 1;
+  height: 1px;
+  background: #EAE4DE;
+}
+
+.actionDividerHeart {
+  color: #B5A8BE;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.actionDescription {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #4C4459;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.actionTimerRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.actionTimerBtn {
+  background: #F4EFFC;
+  color: #6C44BC;
+  border: 1px solid #DED4F0;
+  padding: 5px 12px;
+  border-radius: 18px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.actionTimerBtn:hover {
+  background: #6C44BC;
+  color: #FFFFFF;
+  border-color: #6C44BC;
+}
+
+.leafDecoration {
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+  width: 44px;
+  height: 60px;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* Bottom Motivational Banner */
+.bottomBanner {
+  background: #F3EDF9;
+  border-radius: 16px;
+  padding: 12px 24px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.bannerItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bannerIcon {
+  width: 28px;
+  height: 28px;
+  color: #6E5397;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bannerText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.bannerTitle {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #35204C;
+  line-height: 1.2;
+}
+
+.bannerSubtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6E6185;
+  line-height: 1.2;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .splitGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .verticalDivider {
+    display: none;
+  }
+
+  .centerCtaWrapper {
+    position: static;
+    transform: none;
+    display: flex;
+    justify-content: center;
+    margin: 8px 0;
+  }
+
+  .changeMoodBtn {
+    border-radius: 16px;
+    clip-path: none;
+    padding: 12px 22px;
+  }
+
+  .cloudList {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroContainer {
+    padding: 18px 14px 16px 14px;
+    border-radius: 20px;
+  }
+
+  .logoTitle {
+    font-size: 38px;
+  }
+
+  .moodRow, .feelingRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .arrowBadge {
+    width: 100%;
+    border-radius: 12px;
+    clip-path: none;
+  }
+
+  .cloudList {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .feelingGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .bottomBanner {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .outcomeMoodTitle {
+    font-size: 40px;
+  }
+
+  .actionCard {
+    flex-direction: column;
+    text-align: center;
+    padding: 14px;
+  }
+
+  .actionContent {
+    padding-right: 0;
+  }
+
+  .actionDivider {
+    justify-content: center;
+  }
+
+  .leafDecoration {
+    display: none;
+  }
+}

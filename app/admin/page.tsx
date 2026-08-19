@@ -250,6 +250,27 @@ export default function AdminDashboardPage() {
     paypalMode: 'sandbox',
   });
 
+  // PWA & Mobile "Add to Home Screen" Prompt Settings (DEFAULT: OFF)
+  const [pwaSettings, setPwaSettings] = useState({
+    enabled: false, // Default is OFF as requested
+    showDelay: 2000,
+    bannerTitle: 'Install MoodFlip App',
+    bannerSubtitle: 'Add MoodFlip to your Mobile Home Screen for instant 60-second mindset reset anywhere!',
+    buttonText: 'Add to Home Screen',
+  });
+  const [pwaSavedMsg, setPwaSavedMsg] = useState('');
+
+  // Cookie Consent & Privacy Banner Settings (DEFAULT: OFF)
+  const [cookieSettings, setCookieSettings] = useState({
+    enabled: false, // Default is OFF as requested
+    bannerTitle: 'We Value Your Privacy & Cookies',
+    bannerText: 'MoodFlip uses essential cookies and analytics to enhance your self-reflection experience and show personalized wellness insights.',
+    privacyLink: '/privacy',
+    acceptButtonText: '✓ Accept All Cookies',
+    essentialButtonText: 'Essential Only',
+  });
+  const [cookieSavedMsg, setCookieSavedMsg] = useState('');
+
   // Counselor Mood Pairings Database State
   const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(() => {
     if (typeof window !== 'undefined') {
@@ -336,6 +357,26 @@ export default function AdminDashboardPage() {
       if (savedUsers) {
         try { setUsers(JSON.parse(savedUsers)); } catch (e) {}
       }
+
+      const savedPwa = localStorage.getItem('moodflip_pwa_settings');
+      if (savedPwa) {
+        try { setPwaSettings(JSON.parse(savedPwa)); } catch (e) {}
+      } else {
+        const flag = localStorage.getItem('moodflip_pwa_enabled');
+        if (flag !== null) {
+          setPwaSettings((prev) => ({ ...prev, enabled: flag === 'true' }));
+        }
+      }
+
+      const savedCookie = localStorage.getItem('moodflip_cookie_settings');
+      if (savedCookie) {
+        try { setCookieSettings(JSON.parse(savedCookie)); } catch (e) {}
+      } else {
+        const flag = localStorage.getItem('moodflip_cookie_consent_enabled');
+        if (flag !== null) {
+          setCookieSettings((prev) => ({ ...prev, enabled: flag === 'true' }));
+        }
+      }
     }
   }, []);
 
@@ -399,6 +440,28 @@ export default function AdminDashboardPage() {
     if (typeof window !== 'undefined') {
       localStorage.setItem('moodflip_seo_settings', JSON.stringify(newSettings));
       window.dispatchEvent(new Event('storage'));
+    }
+  };
+
+  const savePwaSettings = (newSettings: typeof pwaSettings) => {
+    setPwaSettings(newSettings);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('moodflip_pwa_settings', JSON.stringify(newSettings));
+      localStorage.setItem('moodflip_pwa_enabled', newSettings.enabled ? 'true' : 'false');
+      window.dispatchEvent(new Event('storage'));
+      setPwaSavedMsg(newSettings.enabled ? '✅ Add to Home Screen prompt ENABLED and saved!' : '✅ Add to Home Screen prompt TURNED OFF and saved!');
+      setTimeout(() => setPwaSavedMsg(''), 4500);
+    }
+  };
+
+  const saveCookieSettings = (newSettings: typeof cookieSettings) => {
+    setCookieSettings(newSettings);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('moodflip_cookie_settings', JSON.stringify(newSettings));
+      localStorage.setItem('moodflip_cookie_consent_enabled', newSettings.enabled ? 'true' : 'false');
+      window.dispatchEvent(new Event('storage'));
+      setCookieSavedMsg(newSettings.enabled ? '✅ Cookie Consent banner ENABLED and saved!' : '✅ Cookie Consent banner TURNED OFF and saved!');
+      setTimeout(() => setCookieSavedMsg(''), 4500);
     }
   };
 
@@ -3114,7 +3177,334 @@ export default function AdminDashboardPage() {
             <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
               <div className="border-b border-gray-100 pb-5">
                 <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Platform System &amp; Developer Settings ⚙️</h2>
-                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure Admin Login Credentials, Email SMTP &amp; Gmail Gateway, Payment APIs, and Developer Options.</p>
+                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure Add to Home Screen App Prompt, Cookie Consent Banner, Admin Login, Email SMTP, and Payment Gateways.</p>
+              </div>
+
+              {/* 1. MOBILE "ADD TO HOME SCREEN" / PWA APP PROMPT SETTINGS CARD */}
+              <div className="bg-white border-2 border-[#7147E8]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-5 relative overflow-hidden">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
+                  <div className="flex items-start sm:items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7147E8] to-[#f59e0b] flex items-center justify-center text-2xl shrink-0 shadow-md text-white">
+                      📱
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-serif font-extrabold text-lg text-[#1A1338]">
+                          Mobile "Add to Home Screen" &amp; App Prompt
+                        </h3>
+                        <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                          DEFAULT: OFF
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 font-medium mt-0.5">
+                        Controls the floating "Install MoodFlip App / Add to Home Screen" popup and iOS installation guide modal for visitors.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 self-end sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => savePwaSettings({ ...pwaSettings, enabled: !pwaSettings.enabled })}
+                      className={`relative inline-flex h-7 w-14 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                        pwaSettings.enabled ? 'bg-[#7147E8]' : 'bg-gray-300'
+                      }`}
+                    >
+                      <span
+                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                          pwaSettings.enabled ? 'translate-x-7' : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${pwaSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                      {pwaSettings.enabled ? '🟢 ACTIVE (ON)' : '⚪ DISABLED (OFF)'}
+                    </span>
+                  </div>
+                </div>
+
+                {pwaSavedMsg && (
+                  <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 animate-in fade-in">
+                    {pwaSavedMsg}
+                  </div>
+                )}
+
+                {/* Status Notice */}
+                <div className={`p-4 rounded-2xl border text-xs leading-relaxed flex items-start gap-3 ${
+                  pwaSettings.enabled 
+                    ? 'bg-purple-50/70 border-purple-200 text-purple-900' 
+                    : 'bg-amber-50/70 border-amber-200 text-amber-900'
+                }`}>
+                  <span className="text-lg shrink-0">{pwaSettings.enabled ? '✨' : 'ℹ️'}</span>
+                  <div>
+                    <strong className="font-extrabold block mb-0.5">
+                      {pwaSettings.enabled 
+                        ? 'Add to Home Screen banner is currently ENABLED for website visitors.' 
+                        : 'Add to Home Screen banner is currently OFF by default.'}
+                    </strong>
+                    <span>
+                      {pwaSettings.enabled 
+                        ? 'Visitors on mobile and desktop browsers will see the install banner after the configured delay.' 
+                        : 'No install popup or floating banner will be shown to users. Toggle ON anytime above when you want to promote the app.'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Configuration Fields */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Banner Title</label>
+                    <input
+                      type="text"
+                      value={pwaSettings.bannerTitle}
+                      onChange={(e) => setPwaSettings({ ...pwaSettings, bannerTitle: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      placeholder="Install MoodFlip App"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Action Button Text</label>
+                    <input
+                      type="text"
+                      value={pwaSettings.buttonText}
+                      onChange={(e) => setPwaSettings({ ...pwaSettings, buttonText: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      placeholder="Add to Home Screen"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block font-bold text-gray-700 mb-1">Banner Description / Pitch</label>
+                    <input
+                      type="text"
+                      value={pwaSettings.bannerSubtitle}
+                      onChange={(e) => setPwaSettings({ ...pwaSettings, bannerSubtitle: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      placeholder="Add MoodFlip to your Mobile Home Screen for instant 60-second mindset reset anywhere!"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Popup Delay (seconds after page load)</label>
+                    <select
+                      value={pwaSettings.showDelay}
+                      onChange={(e) => setPwaSettings({ ...pwaSettings, showDelay: Number(e.target.value) })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                    >
+                      <option value={1000}>1 second</option>
+                      <option value={2000}>2 seconds (Recommended)</option>
+                      <option value={5000}>5 seconds</option>
+                      <option value={10000}>10 seconds</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Live Preview of PWA Prompt */}
+                <div className="border border-dashed border-gray-300 rounded-2xl p-4 bg-[#FAF9FE]">
+                  <span className="block text-[11px] font-extrabold uppercase tracking-wider text-gray-500 mb-2">
+                    👁️ Banner Live Preview (How it looks on mobile/desktop)
+                  </span>
+                  <div className="max-w-md bg-[#170E3B] border border-white/20 text-white rounded-2xl p-3.5 shadow-lg">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#7147E8] to-[#f59e0b] flex items-center justify-center text-xl shrink-0 shadow-md">
+                        📱
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-serif font-extrabold text-xs text-white">
+                            {pwaSettings.bannerTitle || 'Install MoodFlip App'}
+                          </h4>
+                          <span className="text-white/60 text-xs font-bold">✕</span>
+                        </div>
+                        <p className="text-[11px] text-white/80 font-medium leading-tight mt-0.5 mb-2.5">
+                          {pwaSettings.bannerSubtitle || 'Add MoodFlip to your Mobile Home Screen for instant 60-second mindset reset anywhere!'}
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-1.5 px-3 rounded-lg text-[11px] font-black text-center shadow-xs">
+                            📲 {pwaSettings.buttonText || 'Add to Home Screen'}
+                          </div>
+                          <span className="px-2 py-1 text-[11px] font-bold text-white/60">Later</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-3 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => savePwaSettings(pwaSettings)}
+                    className="w-full sm:w-auto bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
+                  >
+                    💾 Save PWA &amp; Add to Home Screen Settings
+                  </button>
+                </div>
+              </div>
+
+              {/* 2. COOKIE CONSENT & PRIVACY POLICY BANNER SETTINGS CARD */}
+              <div className="bg-white border-2 border-amber-500/20 rounded-2xl p-5 sm:p-7 shadow-xs space-y-5">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
+                  <div className="flex items-start sm:items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center text-2xl shrink-0 shadow-xs">
+                      🍪
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-serif font-extrabold text-lg text-[#1A1338]">
+                          Cookie Consent &amp; Privacy Policy Banner
+                        </h3>
+                        <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                          DEFAULT: OFF
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 font-medium mt-0.5">
+                        Controls the privacy compliance cookie consent bar shown to website visitors.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 self-end sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => saveCookieSettings({ ...cookieSettings, enabled: !cookieSettings.enabled })}
+                      className={`relative inline-flex h-7 w-14 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                        cookieSettings.enabled ? 'bg-[#7147E8]' : 'bg-gray-300'
+                      }`}
+                    >
+                      <span
+                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                          cookieSettings.enabled ? 'translate-x-7' : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${cookieSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                      {cookieSettings.enabled ? '🟢 ACTIVE (ON)' : '⚪ DISABLED (OFF)'}
+                    </span>
+                  </div>
+                </div>
+
+                {cookieSavedMsg && (
+                  <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 animate-in fade-in">
+                    {cookieSavedMsg}
+                  </div>
+                )}
+
+                {/* Status Notice */}
+                <div className={`p-4 rounded-2xl border text-xs leading-relaxed flex items-start gap-3 ${
+                  cookieSettings.enabled 
+                    ? 'bg-purple-50/70 border-purple-200 text-purple-900' 
+                    : 'bg-amber-50/70 border-amber-200 text-amber-900'
+                }`}>
+                  <span className="text-lg shrink-0">{cookieSettings.enabled ? '✨' : 'ℹ️'}</span>
+                  <div>
+                    <strong className="font-extrabold block mb-0.5">
+                      {cookieSettings.enabled 
+                        ? 'Cookie Consent banner is currently ENABLED for website visitors.' 
+                        : 'Cookie Consent banner is currently OFF by default.'}
+                    </strong>
+                    <span>
+                      {cookieSettings.enabled 
+                        ? 'Visitors will see the cookie banner on their first visit.' 
+                        : 'No cookie consent popup will be shown to users. Toggle ON anytime above if you need cookie compliance.'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Banner Heading</label>
+                    <input
+                      type="text"
+                      value={cookieSettings.bannerTitle}
+                      onChange={(e) => setCookieSettings({ ...cookieSettings, bannerTitle: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      placeholder="We Value Your Privacy & Cookies"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Privacy Policy Link URL</label>
+                    <input
+                      type="text"
+                      value={cookieSettings.privacyLink}
+                      onChange={(e) => setCookieSettings({ ...cookieSettings, privacyLink: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      placeholder="/privacy"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block font-bold text-gray-700 mb-1">Consent Message Body</label>
+                    <textarea
+                      rows={2}
+                      value={cookieSettings.bannerText}
+                      onChange={(e) => setCookieSettings({ ...cookieSettings, bannerText: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      placeholder="MoodFlip uses essential cookies and analytics to enhance your self-reflection experience..."
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Accept Button Label</label>
+                    <input
+                      type="text"
+                      value={cookieSettings.acceptButtonText}
+                      onChange={(e) => setCookieSettings({ ...cookieSettings, acceptButtonText: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      placeholder="✓ Accept All Cookies"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Secondary Button Label</label>
+                    <input
+                      type="text"
+                      value={cookieSettings.essentialButtonText}
+                      onChange={(e) => setCookieSettings({ ...cookieSettings, essentialButtonText: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      placeholder="Essential Only"
+                    />
+                  </div>
+                </div>
+
+                {/* Live Preview of Cookie Banner */}
+                <div className="border border-dashed border-gray-300 rounded-2xl p-4 bg-[#FAF9FE]">
+                  <span className="block text-[11px] font-extrabold uppercase tracking-wider text-gray-500 mb-2">
+                    👁️ Cookie Banner Live Preview
+                  </span>
+                  <div className="max-w-md bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-sm text-[#1A1338]">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl shrink-0">🍪</span>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-serif font-extrabold text-xs text-[#1A1338] mb-0.5">
+                          {cookieSettings.bannerTitle || 'We Value Your Privacy & Cookies'}
+                        </h4>
+                        <p className="text-[11px] text-[#5B5278] leading-tight mb-2.5">
+                          {cookieSettings.bannerText || 'MoodFlip uses essential cookies and analytics to enhance your self-reflection experience.'}{' '}
+                          <span className="text-[#7147E8] font-bold underline">Privacy Policy</span>
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-1.5 px-3 rounded-lg text-[11px] font-black text-center shadow-xs">
+                            {cookieSettings.acceptButtonText || '✓ Accept All Cookies'}
+                          </div>
+                          <div className="px-2.5 py-1.5 rounded-lg border border-[#EAE3F2] text-[11px] font-bold text-[#5B5278]">
+                            {cookieSettings.essentialButtonText || 'Essential Only'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-3 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => saveCookieSettings(cookieSettings)}
+                    className="w-full sm:w-auto bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
+                  >
+                    💾 Save Cookie Consent Settings
+                  </button>
+                </div>
               </div>
 
               {/* 1. ADMIN LOGIN CREDENTIALS CARD */}

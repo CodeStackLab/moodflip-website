@@ -4,6 +4,7 @@
 import React, { useEffect, useMemo, useState, Fragment } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
+import HeroSectionExact from "@/components/HeroSectionExact";
 import styles from "./page.module.css";
 
 type Mood = {
@@ -288,426 +289,42 @@ export default function HomePage() {
           <span>Google AdSense Banner (728x90)</span>
         </section>
 
-        <section className={styles.dashboard} id="home">
-          <section className={styles.moodPanel} id="check-in">
-            <div className={styles.stepHeader}>
-              <div className={styles.stepTitle}><span>1</span><strong>STEP 1 · CHOOSE YOUR MOOD</strong></div>
-              <div className={styles.stepCount}>1 of 2</div>
-            </div>
-
-            <h1>How are you feeling right now?</h1>
-            <p className={styles.subheading}>Select the mood that feels closest to you.</p>
-
-            <div className={styles.categoryRow} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '22px' }}>
-              {categories.map((item) => {
-                const isActive = category === item.name;
-                return (
-                  <button
-                    key={item.name}
-                    type="button"
-                    onClick={() => setCategory(item.name)}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '10px 18px',
-                      borderRadius: '16px',
-                      fontSize: '13.5px',
-                      fontWeight: '800',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                      background: isActive ? 'linear-gradient(135deg, #7147E8, #8257F6)' : '#FFFFFF',
-                      color: isActive ? '#FFFFFF' : '#1A1338',
-                      border: isActive ? '1px solid #7147E8' : '1px solid #ECE7F5',
-                      boxShadow: isActive ? '0 6px 18px rgba(113, 71, 232, 0.28)' : '0 2px 6px rgba(0,0,0,0.02)'
-                    }}
-                  >
-                    <span style={{ fontSize: '17px', lineHeight: '1' }}>{item.icon}</span>
-                    <span>{item.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className={styles.moodGrid}>
-              {visibleMoods.map((mood) => {
-                const isSelected = selectedMood?.name === mood.name;
-                return (
-                  <button
-                    key={mood.name}
-                    type="button"
-                    className={`${styles.moodCard} ${isSelected ? styles.moodSelected : ""}`}
-                    style={{
-                      backgroundColor: isSelected ? '#F4EFFC' : mood.bgColor,
-                      borderColor: isSelected ? '#7147E8' : 'rgba(0, 0, 0, 0.04)',
-                      borderWidth: isSelected ? '2px' : '1px',
-                      borderRadius: '20px',
-                      padding: '18px 10px 14px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: isSelected ? '0 8px 24px rgba(113, 71, 232, 0.2)' : 'none',
-                      transform: isSelected ? 'scale(1.03)' : 'scale(1)',
-                      transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                      cursor: 'pointer'
-                    }}
-                    onClick={() => selectMood(mood)}
-                  >
-                    <span style={{ fontSize: '36px', lineHeight: '1', marginBottom: '8px' }}>{mood.emoji}</span>
-                    <span style={{ fontWeight: '800', color: isSelected ? '#7147E8' : '#1A1338', fontSize: '13px' }}>{mood.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className={styles.tipBar}><span>⚗</span><strong>Tip:</strong>&nbsp;There’s no right or wrong choice. Be honest with how you feel.</div>
-
-            <div className={styles.divider} />
-
-            <div className={styles.stepHeader}>
-              <div className={styles.stepTitle}><span>2</span><strong>STEP 2 · PICK EXACT FEELING</strong></div>
-              <div className={styles.stepCount}>2 of 2</div>
-            </div>
-
-            {!selectedMood ? (
-              <div className={styles.feelingPlaceholder}>☝&nbsp;&nbsp; Select a mood above to see specific feelings</div>
-            ) : (
-              <div className={styles.feelingChoices}>
-                {selectedMood.feelings.map((feeling) => (
-                  <button
-                    key={feeling}
-                    type="button"
-                    className={selectedFeeling === feeling ? styles.feelingSelected : ""}
-                    onClick={() => setSelectedFeeling(feeling)}
-                  >
-                    {feeling}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            <button
-              className={styles.flipButton}
-              type="button"
-              disabled={!selectedMood || !selectedFeeling || aiLoading}
-              onClick={handleFlipClick}
-            >
-              {aiLoading ? '🤖 MOODFLIP COACH THINKING...' : '✨ FLIP MY MOOD'} <span>→</span>
-            </button>
-          </section>
-
-          <section
-            className={styles.flipCard}
-            id="positive-flip"
-            style={{
-              background: "url('/sunset-hero-bg.png') center 15% / cover no-repeat",
-              transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-              transform: justGenerated ? 'scale(1.025)' : 'scale(1)',
-              boxShadow: justGenerated ? '0 0 40px rgba(113, 71, 232, 0.5), 0 12px 40px rgba(0,0,0,0.12)' : 'none',
-              borderRadius: '24px'
+        {/* Exact Hero Section matching the design reference */}
+        <section id="home" style={{ width: '100%', maxWidth: '1240px', margin: '0 auto 28px auto', padding: '0 16px' }}>
+          <HeroSectionExact
+            onFlipTriggered={(mood, feeling) => {
+              fetchAiFlip(mood, feeling);
             }}
-          >
+            aiData={aiData}
+            aiLoading={aiLoading}
+          />
+        </section>
 
-            <div className={styles.cardToolbar}>
-              <span />
-              <div>
-                <button type="button" className={styles.topIconBtn}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save
-                </button>
-                <button type="button" className={styles.topIconBtn}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share
-                </button>
-              </div>
-            </div>
+        {/* More For You & Plans Quick Access */}
+        <section style={{ width: '100%', maxWidth: '1240px', margin: '0 auto 36px auto', padding: '0 16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#1A1338', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>✨</span> More for You
+            </h3>
+            <span style={{ fontSize: '13px', fontWeight: '600', color: '#7147E8' }}>Guided Plans &amp; Tools</span>
+          </div>
 
-            <div className={styles.flipIntro}>
-              <span className={styles.checkCircle}>
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              </span>
-              Here&apos;s your <strong>positive flip</strong>
-            </div>
-
-            <div className={styles.sunBadge}>
-              <span className={styles.sunCore}>
-                <svg width="48" height="40" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="sunGradient" x1="24" y1="14" x2="24" y2="27" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#FFC107" />
-                      <stop offset="100%" stopColor="#FF9800" />
-                    </linearGradient>
-                    <linearGradient id="oceanGradient1" x1="10" y1="28" x2="38" y2="32" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#FF7675" />
-                      <stop offset="100%" stopColor="#E84393" />
-                    </linearGradient>
-                    <linearGradient id="oceanGradient2" x1="14" y1="34" x2="34" y2="37.5" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#FD79A8" />
-                      <stop offset="100%" stopColor="#E84393" />
-                    </linearGradient>
-                  </defs>
-                  <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="#FFC107" />
-                  <rect x="11.5" y="6" width="3" height="6.5" rx="1.5" transform="rotate(-45 11.5 6)" fill="#FFC107" />
-                  <rect x="33.5" y="8" width="3" height="6.5" rx="1.5" transform="rotate(45 33.5 8)" fill="#FFC107" />
-                  <rect x="4" y="19" width="6.5" height="3" rx="1.5" fill="#FFB300" />
-                  <rect x="37.5" y="19" width="6.5" height="3" rx="1.5" fill="#FFB300" />
-                  <path d="M12 27A12 12 0 0 1 36 27H12Z" fill="url(#sunGradient)" />
-                  <rect x="10" y="28" width="28" height="4" rx="2" fill="url(#oceanGradient1)" />
-                  <rect x="14" y="34" width="20" height="3.5" rx="1.75" fill="url(#oceanGradient2)" />
-                </svg>
-              </span>
-            </div>
-
-            <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#1a1338', margin: '0 0 10px 0', lineHeight: '1.3', letterSpacing: '-0.5px', transition: 'all 0.5s ease' }}>
-              {aiData?.actionTitle || 'Towards Calm & Clarity'}
-            </h2>
-            <p style={{
-              fontSize: '15px',
-              fontWeight: '600',
-              color: '#3d2f6e',
-              lineHeight: '1.6',
-              margin: '0 0 14px 0',
-              padding: '12px 16px',
-              background: justGenerated ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.72)',
-              borderRadius: '12px',
-              borderLeft: '4px solid #7147E8',
-              backdropFilter: 'blur(8px)',
-              transition: 'all 0.5s ease',
-              boxShadow: justGenerated ? '0 4px 20px rgba(113, 71, 232, 0.25)' : 'none'
-            }}>
-              {aiData?.reframingQuote || "You've got this. Small steps lead to big shifts."}
-            </p>
-
-            {/* ⚡ ULTRA-PREMIUM 60-SECOND ACTION CARD ⚡ */}
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.94)',
-              backdropFilter: 'blur(16px)',
-              border: '1px solid rgba(113, 71, 232, 0.18)',
-              borderRadius: '20px',
-              padding: '20px',
-              margin: '16px 0',
-              boxShadow: '0 8px 30px rgba(113, 71, 232, 0.08)',
-              textAlign: 'left'
-            }}>
-              
-              {/* Header row */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                <span style={{ fontSize: '13px', fontWeight: '800', color: '#7147E8', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span>✨</span> YOUR 60-SECOND ACTION
-                </span>
-                <span style={{ fontSize: '12px', fontWeight: '800', background: 'rgba(113, 71, 232, 0.12)', color: '#7147E8', padding: '4px 10px', borderRadius: '20px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <span>⏱</span> {seconds}s
-                </span>
-              </div>
-
-              {/* Steps & Timer Body */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-
-                {/* Primary Action Title */}
-                <div style={{
-                  background: 'linear-gradient(135deg, rgba(245, 240, 255, 0.9), rgba(253, 240, 250, 0.9))',
-                  borderLeft: '4px solid #7147E8',
-                  padding: '12px 14px',
-                  borderRadius: '12px'
-                }}>
-                  <strong style={{ fontSize: '15px', fontWeight: '800', color: '#1A1338', lineHeight: '1.4', display: 'block' }}>
-                    {aiData?.actionSteps && aiData.actionSteps.length > 0 ? aiData.actionSteps[0] : 'Take 3 deep, grounding breaths.'}
-                  </strong>
-                </div>
-
-                {/* Numbered Sub-steps */}
-                {aiData?.actionSteps && aiData.actionSteps.length > 1 ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', padding: '2px 0' }}>
-                    {aiData.actionSteps.slice(1).map((step, idx) => (
-                      <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                        <span style={{
-                          width: '22px',
-                          height: '22px',
-                          borderRadius: '50%',
-                          background: '#7147E8',
-                          color: '#ffffff',
-                          fontSize: '11px',
-                          fontWeight: '800',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                          marginTop: '2px'
-                        }}>
-                          {idx + 1}
-                        </span>
-                        <span style={{ fontSize: '13.5px', fontWeight: '600', color: '#4A3F6D', lineHeight: '1.55' }}>
-                          {step}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p style={{ fontSize: '13.5px', fontWeight: '600', color: '#4A3F6D', lineHeight: '1.5', margin: 0 }}>
-                    Inhale for 4 seconds, hold for 4, exhale slowly for 6 seconds while relaxing your shoulders.
-                  </p>
-                )}
-
-                {/* Interactive Timer Control Bar */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  background: '#FAF8FD',
-                  border: '1px solid #EAE3F2',
-                  borderRadius: '16px',
-                  padding: '10px 14px',
-                  marginTop: '4px'
-                }}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (seconds === 0) resetAction();
-                      setRunning((v) => !v);
-                    }}
-                    style={{
-                      background: running ? '#1A1338' : 'linear-gradient(135deg, #7147E8, #9333EA)',
-                      color: '#ffffff',
-                      border: 'none',
-                      padding: '8px 16px',
-                      borderRadius: '12px',
-                      fontSize: '13px',
-                      fontWeight: '800',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      cursor: 'pointer',
-                      boxShadow: '0 4px 12px rgba(113, 71, 232, 0.25)',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <span>{running ? 'Ⅱ' : '▶'}</span>
-                    <span>{running ? 'Pause' : 'Start 60s Reset'}</span>
-                  </button>
-
-                  <Link
-                    href="/profile?tab=60-Second+Actions"
-                    style={{
-                      background: '#F4EFFC',
-                      color: '#7147E8',
-                      border: '1.5px solid #DCD4EE',
-                      padding: '8px 14px',
-                      borderRadius: '12px',
-                      fontSize: '12.5px',
-                      fontWeight: '800',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '5px',
-                      cursor: 'pointer',
-                      textDecoration: 'none',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <span>🧘</span>
-                    <span>Mood Breath →</span>
-                  </Link>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{
-                      width: '42px',
-                      height: '42px',
-                      borderRadius: '50%',
-                      background: running ? 'rgba(113, 71, 232, 0.15)' : '#F0EBFA',
-                      border: '2px solid #7147E8',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      lineHeight: '1'
-                    }}>
-                      <strong style={{ fontSize: '15px', fontWeight: '900', color: '#7147E8' }}>{seconds}</strong>
-                      <small style={{ fontSize: '7px', fontWeight: '800', color: '#7147E8' }}>SEC</small>
-                    </div>
-                    {seconds < 60 && (
-                      <button
-                        type="button"
-                        onClick={resetAction}
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          color: '#8A81A8',
-                          fontSize: '11px',
-                          fontWeight: '700',
-                          cursor: 'pointer',
-                          textDecoration: 'underline'
-                        }}
-                      >
-                        Reset
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Science Insight Block */}
-              <div style={{
-                marginTop: '14px',
-                paddingTop: '12px',
-                borderTop: '1px solid rgba(113, 71, 232, 0.1)',
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '8px'
-              }}>
-                <span style={{ fontSize: '15px', marginTop: '1px' }}>🧬</span>
-                <div>
-                  <strong style={{ fontSize: '12px', fontWeight: '800', color: '#7147E8', display: 'block', marginBottom: '2px' }}>
-                    WHY THIS HELPS
-                  </strong>
-                  <p style={{ fontSize: '12.5px', fontWeight: '600', color: '#5B5278', lineHeight: '1.5', margin: 0 }}>
-                    {aiData?.scienceInsight || "Gentle touch and slow breathing activate the vagus nerve, lowering cortisol and signaling safety to the brain, while acknowledging small wins releases dopamine."}
-                  </p>
-                </div>
-              </div>
-
-            </div>
-
-            <div className={styles.flipActions}>
-              <button type="button" onClick={() => { setSelectedMood(null); setSelectedFeeling(null); }}><span>⟳</span> Try Another</button>
-              <button
-                type="button"
-                className={styles.saveButton}
-                onClick={() => setSaved((value) => !value)}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+            {plans.map((plan) => (
+              <article
+                key={plan.title}
+                className={`${styles.planCard} ${styles[plan.kind]}`}
+                style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '14px', padding: '18px 20px', borderRadius: '18px', background: '#FFFFFF', border: '1px solid #ECE7F5', boxShadow: '0 4px 14px rgba(0,0,0,0.03)' }}
               >
-                <span>{saved ? "✓" : "🔖"}</span> {saved ? "Saved to My Check-ins" : "Save to My Check-ins"}
-              </button>
-            </div>
-          </section>
-
-          <aside className={styles.morePanel}>
-            <h3>✨ More for You</h3>
-            <div className={styles.planList}>
-              {plans.map((plan) => (
-                <article key={plan.title} className={`${styles.planCard} ${styles[plan.kind]}`}>
-                  <div className={styles.planIcon}>{plan.icon}</div>
-                  <div>
-                    <strong>{plan.title}</strong>
-                    <p>{plan.text}</p>
-                    <a href={plan.link}>{plan.action}</a>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className={styles.privacyBox}>
-              <div className={styles.privacyLockIcon}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
-              </div>
-              <div>
-                <strong>Your data is private</strong>
-                <p>We use encryption &amp; auto-delete your data after 90 days.</p>
-              </div>
-            </div>
-          </aside>
-
-
+                <div className={styles.planIcon} style={{ fontSize: '28px', lineHeight: 1 }}>{plan.icon}</div>
+                <div style={{ flex: 1 }}>
+                  <strong style={{ fontSize: '15px', fontWeight: '800', color: '#1A1338', display: 'block', marginBottom: '4px' }}>{plan.title}</strong>
+                  <p style={{ fontSize: '13px', color: '#5C527A', margin: '0 0 8px 0', lineHeight: '1.4' }}>{plan.text}</p>
+                  <a href={plan.link} style={{ fontSize: '13px', fontWeight: '700', color: '#7147E8', textDecoration: 'none' }}>{plan.action}</a>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className={styles.trustStrip}>

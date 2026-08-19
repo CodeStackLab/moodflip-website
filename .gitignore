@@ -28,3 +28,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local tool & IDE artifacts
+.playwright-mcp/
+.cursor/
+.agents/
+moodflip_exact_clone.html

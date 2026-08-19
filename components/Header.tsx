@@ -25,7 +25,7 @@ export default function Header() {
           <img
             src="/moodflip-logo.png"
             alt="MoodFlip"
-            className="h-8 sm:h-9 md:h-10 w-auto object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-105"
+            className="h-11 sm:h-12 md:h-13 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
           />
         </Link>
 

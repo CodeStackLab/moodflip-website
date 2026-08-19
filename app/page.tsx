@@ -204,7 +204,7 @@ export default function HomePage() {
             <img
               src="/moodflip-logo.png"
               alt="MoodFlip"
-              style={{ height: '36px', maxHeight: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
+              style={{ height: '50px', maxHeight: '50px', maxWidth: '220px', width: 'auto', objectFit: 'contain', display: 'block' }}
             />
           </Link>
 

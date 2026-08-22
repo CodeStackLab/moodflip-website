@@ -1,5 +1,28 @@
 /* ─────────────────────────────────────────────────────────────────────────────
-   EXACT MOODFLIP HERO SECTION CSS (PIXEL-PERFECT CLONE OF SKETCH DESIGN)
+   EXACT MOODFLIP HERO SECTION CSS (PIXEL-PERFECT WITH EXACT BRAND PALETTE)
+   
+   HEX Color Palette Ground Truth:
+   - Main warm background:          #FDF8F5
+   - Secondary background / panels: #FCF3E9
+   - Pale pink/lavender card tint:  #F4EBF5
+   - Card background:               #FEFAF8
+   - Card border:                   #E4DAD7
+   - Main dark text:                #1A143F
+   - MoodFlip title — “Mood”:       #6C5484
+   - MoodFlip title — “Flip”:       #E49C8C
+   - Title highlight peach:         #EDAA7A
+   - Main purple outline/buttons:   #7464AC
+   - Button darker purple:          #4F438B
+   - Button lighter highlight:      #9C8CC4
+   - Selected mood tile border:     #7666AB
+   - Selected tile/cloud fill:      #EEE0FC
+   - Inactive cloud fill:           #F1ECED
+   - Sun glow:                      #FDE8C8
+   - Sun / action card warm shadow: #E9D3B3
+   - “Peaceful” text:               #7D8164
+   - Landscape / leaf green:        #898B71
+   - Muted icon grey:               #A49BA8
+   - Footer strip:                  #FAF5F6
    ───────────────────────────────────────────────────────────────────────────── */
 
 .heroWrapper {
@@ -11,17 +34,18 @@
   gap: 20px;
   padding: 12px 28px 32px 28px;
   position: relative;
+  background: transparent;
 }
 
-/* ── 1. TOP AD BANNER (Exact Match from Screenshot) ── */
+/* ── 1. TOP AD BANNER ── */
 .topAdBanner {
   width: 100%;
   max-width: 728px;
   height: 90px;
   margin: 0 auto 6px auto;
-  border: 1.5px dashed #D3C9E2;
+  border: 1.5px dashed #E4DAD7;
   border-radius: 12px;
-  background: #F8F4FC;
+  background: #F4EBF5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,14 +56,14 @@
 .adBannerTitle {
   font-size: 13px;
   font-weight: 700;
-  color: #6C5E8F;
+  color: #6C5484;
   letter-spacing: 0.2px;
 }
 
 .adBannerDimensions {
   font-size: 11px;
   font-weight: 500;
-  color: #9A8EB8;
+  color: #A49BA8;
 }
 
 /* ── 2. MAIN WORKSPACE ROW ── */
@@ -54,10 +78,10 @@
 .mainCard {
   flex: 1;
   min-width: 0;
-  background: #FFFFFF;
-  border: 1px solid #ECE4F0;
+  background: #FEFAF8;
+  border: 1px solid #E4DAD7;
   border-radius: 28px;
-  box-shadow: 0 12px 40px rgba(78, 54, 118, 0.07), 0 2px 10px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 12px 40px rgba(79, 67, 139, 0.06), 0 2px 10px rgba(233, 211, 179, 0.2);
   display: grid;
   grid-template-columns: 145px 1.32fr 1.38fr;
   position: relative;
@@ -90,8 +114,8 @@
 }
 
 .stepBadge {
-  background: #ECE6F8;
-  color: #432E7C;
+  background: #F4EBF5;
+  color: #4F438B;
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
   font-size: 12px;
   font-weight: 700;
@@ -107,7 +131,7 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
   font-size: 13.5px;
   font-weight: 800;
-  color: #161C52;
+  color: #1A143F;
   line-height: 1.25;
   text-align: center;
   margin-top: 2px;
@@ -118,7 +142,7 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
   font-size: 11.5px;
   font-weight: 600;
-  color: #353B6E;
+  color: #6C5484;
   text-align: center;
   margin-top: 1px;
 }
@@ -135,8 +159,8 @@
   margin-top: 16px;
   width: 100%;
   max-width: 130px;
-  background: #FFFFFF;
-  border: 1.5px solid #EDE6F0;
+  background: #FEFAF8;
+  border: 1.5px solid #E4DAD7;
   border-radius: 18px;
   padding: 6px 10px;
   display: flex;
@@ -144,13 +168,13 @@
   justify-content: flex-start;
   gap: 7px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(78, 54, 118, 0.04);
+  box-shadow: 0 2px 6px rgba(79, 67, 139, 0.04);
   transition: all 0.2s ease;
   user-select: none;
 }
 
 .clearSelectionBtn:hover {
-  background: #FAF7FC;
+  background: #F4EBF5;
   border-color: #7464AC;
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(116, 100, 172, 0.12);
@@ -176,7 +200,7 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
   font-size: 11px;
   font-weight: 800;
-  color: #161C52;
+  color: #1A143F;
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -185,14 +209,14 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
   font-size: 10px;
   font-weight: 600;
-  color: #533B93;
+  color: #6C5484;
   line-height: 1.2;
   white-space: nowrap;
 }
 
 /* ── 5. MIDDLE COLUMN: INTERACTIVE MOOD TOOL ── */
 .centerMoodCol {
-  background: #FFFFFF;
+  background: #FEFAF8;
   padding: 32px 24px 20px 24px;
   display: flex;
   flex-direction: column;
@@ -202,7 +226,7 @@
   z-index: 1;
 }
 
-/* Layer 1: 5 Clouds (Big & Prominent, Full Span, Zero Cropping) */
+/* Layer 1: 5 Clouds */
 .cloudRow {
   display: flex;
   align-items: flex-end;
@@ -216,7 +240,7 @@
   background: transparent;
   border: 1.5px solid transparent;
   border-radius: 22px;
-  padding: 6px 4px 6px 4px;
+  padding: 6px 4px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -263,7 +287,7 @@
 .cloudName {
   font-size: 16px;
   font-weight: 800;
-  color: #161C52;
+  color: #1A143F;
   transition: color 0.2s ease;
 }
 
@@ -272,7 +296,7 @@
   border: 1.5px solid transparent !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  padding: 6px 4px 6px 4px !important;
+  padding: 6px 4px !important;
 }
 
 .cloudBtnActive .cloudSvgWrap {
@@ -281,11 +305,11 @@
 }
 
 .cloudBtnActive .cloudName {
-  color: #432E7C;
+  color: #4F438B;
   font-weight: 800;
 }
 
-/* Layer 2: 2x4 Feeling Cards Grid (Smaller Width than Clouds, Compact Cards) */
+/* Layer 2: 2x4 Feeling Cards Grid */
 .feelingsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -294,8 +318,8 @@
 }
 
 .feelingCard {
-  background: #FFFFFF;
-  border: 1.5px solid #EAE3F2;
+  background: #FEFAF8;
+  border: 1.5px solid #E4DAD7;
   border-radius: 14px;
   padding: 8px 3px 6px 3px;
   display: flex;
@@ -314,13 +338,13 @@
 .feelingCard:hover {
   transform: translateY(-2px);
   border-color: #9C8CC4;
-  background: #FFFFFF;
+  background: #FEFAF8;
   box-shadow: 0 6px 14px rgba(116, 100, 172, 0.12);
 }
 
 .feelingCardActive {
-  background: #ECE6F8 !important;
-  border: 1.5px solid #8C7AC4 !important;
+  background: #EEE0FC !important;
+  border: 1.5px solid #7666AB !important;
   box-shadow: 0 3px 10px rgba(116, 100, 172, 0.18) !important;
 }
 
@@ -330,7 +354,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #5C527A;
+  color: #A49BA8;
 }
 
 .feelingIconWrap svg,
@@ -341,7 +365,7 @@
 }
 
 .feelingCardActive .feelingIconWrap {
-  color: #533B93;
+  color: #4F438B;
 }
 
 .feelingName {
@@ -353,15 +377,15 @@
 }
 
 .feelingCardActive .feelingName {
-  color: #432E7C;
+  color: #4F438B;
   font-weight: 800;
 }
 
-/* Layer 3: Specific Feeling Chips Enclosed Box (Matches Width of Feeling Cards) */
+/* Layer 3: Specific Feeling Chips Enclosed Box */
 .chipsBoxContainer {
   width: calc(100% - 110px);
-  background: #FAF8FD;
-  border: 1px solid #ECE4F2;
+  background: #F4EBF5;
+  border: 1px solid #E4DAD7;
   border-radius: 16px;
   padding: 8px 10px 7px 10px;
   display: flex;
@@ -380,14 +404,14 @@
 }
 
 .chipPill {
-  background: #FFFFFF;
-  border: 1.5px solid #EDE6F0;
+  background: #FEFAF8;
+  border: 1.5px solid #E4DAD7;
   border-radius: 9999px;
   padding: 4px 6px;
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
   font-size: 11px;
   font-weight: 700;
-  color: #161C52;
+  color: #1A143F;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
@@ -402,15 +426,15 @@
 
 .chipPill:hover {
   transform: translateY(-1px);
-  border-color: #A89BC8;
-  color: #432E7C;
+  border-color: #9C8CC4;
+  color: #4F438B;
   box-shadow: 0 3px 8px rgba(116, 100, 172, 0.1);
 }
 
 .chipPillActive {
-  background: #ECE6F8 !important;
-  border-color: #C4BADB !important;
-  color: #432E7C !important;
+  background: #EEE0FC !important;
+  border-color: #7666AB !important;
+  color: #4F438B !important;
   font-weight: 800 !important;
   box-shadow: 0 2px 6px rgba(116, 100, 172, 0.14) !important;
 }
@@ -422,7 +446,7 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
   font-size: 11.5px;
   font-weight: 600;
-  color: #6E648B;
+  color: #6C5484;
   font-style: normal;
   margin-top: 0;
   padding-left: 2px;
@@ -435,13 +459,13 @@
   flex-shrink: 0;
 }
 
-/* Divider Hearts (Positioned exactly along the dividing line) */
+/* Divider Hearts */
 .dividerHeartTop {
   position: absolute;
-  left: calc(150px + ((100% - 150px) * (1.4 / 2.65)));
+  left: calc(145px + ((100% - 145px) * (1.32 / 2.7)));
   top: 26%;
   transform: translate(-50%, -50%);
-  color: #8C7AC4;
+  color: #7666AB;
   font-size: 26px;
   font-weight: 700;
   z-index: 5;
@@ -449,10 +473,10 @@
 
 .dividerHeartBottom {
   position: absolute;
-  left: calc(150px + ((100% - 150px) * (1.4 / 2.65)));
+  left: calc(145px + ((100% - 145px) * (1.32 / 2.7)));
   bottom: 24%;
   transform: translate(-50%, 50%);
-  color: #8C7AC4;
+  color: #7666AB;
   font-size: 26px;
   font-weight: 700;
   z-index: 5;
@@ -461,7 +485,7 @@
 /* ── 6. CENTER OVERLAPPING ARROW BUTTON ── */
 .flipMoodArrowBtn {
   position: absolute;
-  left: calc(150px + ((100% - 150px) * (1.4 / 2.65)));
+  left: calc(145px + ((100% - 145px) * (1.32 / 2.7)));
   top: 47%;
   transform: translate(-58%, -50%);
   z-index: 10;
@@ -481,14 +505,14 @@
   width: 185px;
   height: 98px;
   object-fit: fill;
-  filter: drop-shadow(0 10px 28px rgba(67, 46, 124, 0.52));
+  filter: drop-shadow(0 10px 28px rgba(79, 67, 139, 0.48));
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
   display: block;
 }
 
 .flipMoodArrowBtn:hover .flipMoodArrowImg {
   transform: scale(1.08) translateX(2px);
-  filter: drop-shadow(0 12px 28px rgba(67, 46, 124, 0.6));
+  filter: drop-shadow(0 12px 28px rgba(79, 67, 139, 0.58));
 }
 
 .flipMoodArrowBtn:active .flipMoodArrowImg {
@@ -508,8 +532,8 @@
 /* ── 7. RIGHT OUTCOME PANEL (Sunrise Pastel Landscape) ── */
 .rightOutcomeCol {
   position: relative;
-  background: #FFF8F3;
-  border-left: 1px solid #F0EAF5;
+  background: #FCF3E9;
+  border-left: 1px solid #E4DAD7;
   padding: 26px 34px 22px 34px;
   display: flex;
   flex-direction: column;
@@ -518,7 +542,7 @@
   min-height: 550px;
 }
 
-/* Sunburst Art Background using user-uploaded artwork image */
+/* Sunburst Art Background */
 .sunburstBg {
   position: absolute;
   inset: 0;
@@ -555,20 +579,18 @@
 }
 
 .sunTopHeart {
-  color: #E66A6A;
+  color: #EDAA7A;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 2px;
 }
 
-
-
 .outcomeSubtitle {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
   font-size: 15px;
   font-weight: 700;
-  color: #101C56;
+  color: #1A143F;
   letter-spacing: -0.1px;
 }
 
@@ -576,7 +598,7 @@
   font-family: 'Playfair Display', 'Fraunces', Georgia, serif;
   font-size: 40px;
   font-weight: 700;
-  color: #2F5938;
+  color: #7D8164;
   line-height: 1.15;
   letter-spacing: -0.5px;
   margin: 3px 0 2px 0;
@@ -623,28 +645,28 @@
 .outcomeDividerLine {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(232, 221, 212, 0.15) 0%, #E8DDD4 100%);
+  background: linear-gradient(90deg, rgba(237, 170, 122, 0.15) 0%, #EDAA7A 100%);
 }
 
 .outcomeDividerLine:last-child {
-  background: linear-gradient(90deg, #E8DDD4 0%, rgba(232, 221, 212, 0.15) 100%);
+  background: linear-gradient(90deg, #EDAA7A 0%, rgba(237, 170, 122, 0.15) 100%);
 }
 
 .outcomeDividerHeart {
-  color: #E66A6A;
+  color: #EDAA7A;
   font-size: 20px;
   line-height: 1;
   font-weight: 700;
 }
 
-/* 60-Second Action Floating Card (Exact Clone from Reference) */
+/* 60-Second Action Floating Card */
 .actionFloatingCard {
   position: relative;
   z-index: 2;
-  background: #FFFFFF;
-  border: 1px solid #ECE4EF;
+  background: #FEFAF8;
+  border: 1px solid #E4DAD7;
   border-radius: 24px;
-  box-shadow: 0 12px 32px rgba(78, 54, 118, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 12px 32px rgba(233, 211, 179, 0.45), 0 2px 8px rgba(79, 67, 139, 0.04);
   padding: 16px 22px;
   margin-top: 14px;
   overflow: hidden;
@@ -666,7 +688,7 @@
   justify-content: center;
   flex-shrink: 0;
   border-radius: 50%;
-  background: #F0EEE8;
+  background: #FCF3E9;
   transition: transform 0.3s ease;
   overflow: hidden;
 }
@@ -701,7 +723,7 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
   font-size: 16px;
   font-weight: 800;
-  color: #101C56;
+  color: #1A143F;
   line-height: 1.25;
   letter-spacing: -0.2px;
 }
@@ -718,16 +740,16 @@
 .actionHeartLine {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(238, 184, 155, 0.15) 0%, #EEB89B 100%);
+  background: linear-gradient(90deg, rgba(237, 170, 122, 0.15) 0%, #EDAA7A 100%);
 }
 
 .actionHeartLine:last-child {
-  background: linear-gradient(90deg, #EEB89B 0%, rgba(238, 184, 155, 0.15) 100%);
+  background: linear-gradient(90deg, #EDAA7A 0%, rgba(237, 170, 122, 0.15) 100%);
 }
 
 .actionSmallHeart {
   font-size: 18px;
-  color: #E29B7A;
+  color: #EDAA7A;
   line-height: 1;
   font-weight: 700;
 }
@@ -736,7 +758,7 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
   font-size: 12.5px;
   font-weight: 600;
-  color: #161C52;
+  color: #1A143F;
   line-height: 1.45;
   margin: 0;
 }
@@ -788,7 +810,7 @@
 
 .actionTimerPill:hover {
   background: #7464AC;
-  color: #FFFFFF;
+  color: #FEFAF8;
 }
 
 .actionResetBtn {
@@ -855,105 +877,10 @@
   margin-top: 2px;
 }
 
-.actionCardBotanical {
-  position: absolute;
-  right: -4px;
-  bottom: -4px;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
-/* ── 8. DESKTOP RIGHT AD CARD (Image 2 Sketch) ── */
-.desktopRightAdCard {
-  width: 260px;
-  flex-shrink: 0;
-  background: #FFF5F2;
-  border: 1.5px dashed #F87171;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 18px;
-  text-align: center;
-  user-select: none;
-}
-
-.adOrangeTitle {
-  font-size: 13px;
-  font-weight: 800;
-  color: #EA580C;
-  line-height: 1.2;
-}
-
-.adOrangeSub {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: #C2410C;
-  line-height: 1.2;
-}
-
-.adOrangeDim {
-  font-size: 12px;
-  font-weight: 700;
-  color: #9A3412;
-  margin-top: 4px;
-}
-
-/* ── 9. RIGHT OUTCOME AD BANNER & BOTTOM AD RESPONSIVE BANNER ── */
-.rightOutcomeAdBanner {
-  width: 100%;
-  height: 52px;
-  background: #FDF4F0;
-  border: 1.5px dashed #F6C4B4;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1px;
-  user-select: none;
-  margin-top: 10px;
-  position: relative;
-  z-index: 2;
-}
-
-.bottomAdResponsiveBanner {
-  width: 100%;
-  max-width: 728px;
-  height: 90px;
-  margin: 12px auto 0 auto;
-  border: 1.5px dashed #D3C9E2;
-  border-radius: 12px;
-  background: #F8F4FC;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  user-select: none;
-}
-
-.peachAdTitle {
-  font-size: 13px;
-  font-weight: 700;
-  color: #DE6C53;
-  letter-spacing: 0.2px;
-  line-height: 1.2;
-}
-
-.peachAdSubtitle {
-  font-size: 11px;
-  font-weight: 600;
-  color: #C75841;
-  line-height: 1.2;
-}
-
-/* ── 10. BOTTOM MOTIVATIONAL BAR (Exact Clone from Reference) ── */
+/* ── 8. BOTTOM MOTIVATIONAL BAR (Exact Clone from Reference) ── */
 .bottomMotivationalBar {
-  background: #FFFFFF;
-  border: 1px solid #ECE4F0;
+  background: #FAF5F6;
+  border: 1px solid #E4DAD7;
   border-radius: 24px;
   padding: 16px 44px;
   display: flex;
@@ -963,7 +890,7 @@
   width: 100%;
   max-width: 840px;
   margin: 0 auto;
-  box-shadow: 0 4px 16px rgba(78, 54, 118, 0.04);
+  box-shadow: 0 4px 16px rgba(79, 67, 139, 0.04);
 }
 
 .motivationalItem {
@@ -1011,7 +938,7 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
   font-size: 13.5px;
   font-weight: 800;
-  color: #101C56;
+  color: #1A143F;
   letter-spacing: -0.1px;
   line-height: 1.25;
 }
@@ -1020,7 +947,7 @@
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
   font-size: 12px;
   font-weight: 600;
-  color: #533B93;
+  color: #6C5484;
   line-height: 1.25;
 }
 
@@ -1030,32 +957,28 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  color: #E2AC8A;
+  color: #EDAA7A;
   flex-shrink: 0;
 }
 
 .motivationalVerticalLine {
   width: 1px;
   height: 14px;
-  background: repeating-linear-gradient(to bottom, #E8DFE3, #E8DFE3 3px, transparent 3px, transparent 6px);
+  background: repeating-linear-gradient(to bottom, #E4DAD7, #E4DAD7 3px, transparent 3px, transparent 6px);
 }
 
 .motivationalHeartSvg {
   font-size: 14px;
-  color: #E2AC8A;
+  color: #EDAA7A;
   line-height: 1;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   RESPONSIVE BREAKPOINTS (DESKTOP, TABLET, MOBILE WITH NO SCROLL OVERFLOW)
+   RESPONSIVE BREAKPOINTS
    ───────────────────────────────────────────────────────────────────────────── */
 
 /* Tablet View (960px - 1200px) */
 @media (max-width: 1200px) {
-  .desktopRightAdCard {
-    display: none;
-  }
-
   .mainCard {
     grid-template-columns: 130px 1.2fr 1.05fr;
   }
@@ -1175,7 +1098,7 @@
 
   .rightOutcomeCol {
     border-left: none;
-    border-top: 1px solid rgba(230, 220, 215, 0.7);
+    border-top: 1px solid #E4DAD7;
     padding: 16px 14px;
     min-height: auto;
   }

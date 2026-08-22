@@ -342,14 +342,25 @@ export default function HeroSectionExact({
 }: HeroSectionExactProps) {
   // State
   const [selectedMood, setSelectedMood] = useState<MainMoodFamily>("Sad");
-  const [selectedFeelingId, setSelectedFeelingId] = useState<string>("lonely");
-  const [selectedChip, setSelectedChip] = useState<string>("Isolated");
+  const [selectedFeelingId, setSelectedFeelingId] = useState<string>("rejected");
+  const [selectedChip, setSelectedChip] = useState<string>("Excluded");
   const [isFlipping, setIsFlipping] = useState(false);
   const [timerSeconds, setTimerSeconds] = useState(60);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [savedMsg, setSavedMsg] = useState("");
   const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(COUNSELOR_MOODS);
   const [freeFlipCount, setFreeFlipCount] = useState<number>(0);
+
+  // Outcome state that ONLY updates when user clicks "Flip Your Mood" (or on initial load / reset)
+  const [flippedOutcome, setFlippedOutcome] = useState<{
+    targetMood: string;
+    actionTitle: string;
+    actionDesc: string;
+  }>({
+    targetMood: "Accepted & Valued",
+    actionTitle: "60-sec Self-Validation Grounding",
+    actionDesc: "Place both feet flat, inhale worthiness, and say: 'My value is intrinsic and unchanged.'"
+  });
 
   // Global Ads Setting State (controlled by Admin Panel - enabled by default to match design reference)
   const [adsEnabled, setAdsEnabled] = useState<boolean>(true);
@@ -403,6 +414,17 @@ export default function HeroSectionExact({
       setFreeFlipCount(savedCount);
     }
   }, []);
+
+  // Update outcome when AI data arrives after flip
+  useEffect(() => {
+    if (aiData?.actionTitle || aiData?.reframingQuote) {
+      setFlippedOutcome(prev => ({
+        targetMood: aiData.reframingQuote ? (activeFeeling.targetMood || prev.targetMood) : prev.targetMood,
+        actionTitle: aiData.actionTitle || prev.actionTitle,
+        actionDesc: (aiData.actionSteps && aiData.actionSteps.length > 0) ? aiData.actionSteps.join(" ") : prev.actionDesc
+      }));
+    }
+  }, [aiData]);
 
   // Timer countdown
   useEffect(() => {
@@ -469,8 +491,13 @@ export default function HeroSectionExact({
 
   const handleClearSelection = () => {
     setSelectedMood("Sad");
-    setSelectedFeelingId("lonely");
-    setSelectedChip("Isolated");
+    setSelectedFeelingId("rejected");
+    setSelectedChip("Excluded");
+    setFlippedOutcome({
+      targetMood: "Accepted & Valued",
+      actionTitle: "60-sec Self-Validation Grounding",
+      actionDesc: "Place both feet flat, inhale worthiness, and say: 'My value is intrinsic and unchanged.'"
+    });
     setTimerSeconds(60);
     setIsTimerRunning(false);
   };
@@ -507,6 +534,26 @@ export default function HeroSectionExact({
     setTimerSeconds(60);
     setIsTimerRunning(false);
 
+    // Compute and update outcome ONLY when user clicks Flip Your Mood
+    const newTargetMood =
+      activeFeeling.targetMood || matchedLibraryMood?.target || "Peaceful";
+    const newActionTitle =
+      activeFeeling.actionTitle ||
+      matchedLibraryMood?.actionTitle ||
+      "60-sec action to get to a peaceful mood";
+    const newActionDesc =
+      activeFeeling.actionDesc ||
+      matchedLibraryMood?.actionDesc ||
+      (matchedLibraryMood?.actions && matchedLibraryMood.actions.length > 0
+        ? matchedLibraryMood.actions.join(" ")
+        : "Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.");
+
+    setFlippedOutcome({
+      targetMood: newTargetMood,
+      actionTitle: newActionTitle,
+      actionDesc: newActionDesc,
+    });
+
     if (onFlipTriggered) {
       onFlipTriggered(selectedMood, `${activeFeeling.name} (${selectedChip})`);
     }
@@ -516,26 +563,10 @@ export default function HeroSectionExact({
     }, 600);
   };
 
-  // Outcome texts (Default: Peaceful + 60-sec action to get to a peaceful mood)
-  const displayedTransformedMood =
-    aiData?.reframingQuote
-      ? (activeFeeling.targetMood || "Peaceful")
-      : (activeFeeling.targetMood || matchedLibraryMood?.target || "Peaceful");
-
-  const displayedActionTitle =
-    aiData?.actionTitle ||
-    activeFeeling.actionTitle ||
-    matchedLibraryMood?.actionTitle ||
-    "60-sec action to get to a peaceful mood";
-
-  const displayedActionDesc =
-    aiData?.actionSteps && aiData.actionSteps.length > 0
-      ? aiData.actionSteps.join(" ")
-      : (activeFeeling.actionDesc ||
-         matchedLibraryMood?.actionDesc ||
-         (matchedLibraryMood?.actions && matchedLibraryMood.actions.length > 0
-           ? matchedLibraryMood.actions.join(" ")
-           : "Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders."));
+  // Outcome texts rendered on right panel (only changes when user flips)
+  const displayedTransformedMood = flippedOutcome.targetMood;
+  const displayedActionTitle = flippedOutcome.actionTitle;
+  const displayedActionDesc = flippedOutcome.actionDesc;
 
   return (
     <section className={styles.heroWrapper} id="hero-section">

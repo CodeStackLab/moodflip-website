@@ -526,25 +526,26 @@ export default function HeroSectionExact({
     }
   };
 
-  // Outcome texts
+  // Outcome texts (Default: Peaceful + 60-sec action to get to a peaceful mood)
   const displayedTransformedMood =
     aiData?.reframingQuote
-      ? "Peaceful"
-      : (matchedLibraryMood?.target || activeFeeling.targetMood || "Peaceful");
+      ? (activeFeeling.targetMood || "Peaceful")
+      : (activeFeeling.targetMood || matchedLibraryMood?.target || "Peaceful");
 
   const displayedActionTitle =
     aiData?.actionTitle ||
-    matchedLibraryMood?.actionTitle ||
     activeFeeling.actionTitle ||
+    matchedLibraryMood?.actionTitle ||
     "60-sec action to get to a peaceful mood";
 
   const displayedActionDesc =
     aiData?.actionSteps && aiData.actionSteps.length > 0
       ? aiData.actionSteps.join(" ")
-      : (matchedLibraryMood?.actionDesc ||
+      : (activeFeeling.actionDesc ||
+         matchedLibraryMood?.actionDesc ||
          (matchedLibraryMood?.actions && matchedLibraryMood.actions.length > 0
            ? matchedLibraryMood.actions.join(" ")
-           : activeFeeling.actionDesc));
+           : "Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders."));
 
   return (
     <section className={styles.heroWrapper} id="hero-section">

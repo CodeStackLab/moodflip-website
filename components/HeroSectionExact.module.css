@@ -334,23 +334,24 @@
   font-weight: 800;
 }
 
-/* Layer 3: Specific Feeling Chips */
+/* Layer 3: Specific Feeling Chips (Exact Clone from Reference) */
 .chipsRow {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 11px;
+  gap: 12px;
   width: 100%;
 }
 
 .chipPill {
   background: #FFFFFF;
-  border: 1.5px solid #EAE3F2;
-  border-radius: 26px;
-  padding: 8px 22px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #5C527A;
+  border: 1.5px solid #EDE6F0;
+  border-radius: 9999px;
+  padding: 8px 24px;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #161C52;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
@@ -360,24 +361,36 @@
 
 .chipPill:hover {
   transform: translateY(-1px);
-  border-color: #9C8CC4;
-  color: #1A143F;
+  border-color: #A89BC8;
+  color: #432E7C;
   box-shadow: 0 3px 8px rgba(116, 100, 172, 0.1);
 }
 
 .chipPillActive {
   background: #ECE6F8 !important;
-  border-color: #8C7AC4 !important;
-  color: #533B93 !important;
-  font-weight: 700 !important;
-  box-shadow: 0 2px 8px rgba(116, 100, 172, 0.18) !important;
+  border-color: #C4BADB !important;
+  color: #432E7C !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 6px rgba(116, 100, 172, 0.14) !important;
 }
 
 .chipsExplanationNote {
-  font-size: 12px;
-  color: #A49BA8;
-  font-style: italic;
-  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #6E648B;
+  font-style: normal;
+  margin-top: 2px;
+  user-select: none;
+}
+
+.noteSparkleSvg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 /* Divider Hearts (Positioned exactly between layers along the dividing line) */

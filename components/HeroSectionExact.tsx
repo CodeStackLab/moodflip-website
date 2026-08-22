@@ -709,9 +709,16 @@ export default function HeroSectionExact({
               })}
             </div>
 
-            {/* Explanatory Note */}
+            {/* Explanatory Note (Exact Match with Sparkle Icon) */}
             <div className={styles.chipsExplanationNote}>
-              ✦ These are examples. You can explore what feels right for you.
+              <svg className={styles.noteSparkleSvg} width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#9C8CC4" />
+                <circle cx="5" cy="5" r="1.2" fill="#9C8CC4" />
+                <circle cx="19" cy="5" r="1.2" fill="#9C8CC4" />
+                <circle cx="19" cy="19" r="1.2" fill="#9C8CC4" />
+                <circle cx="5" cy="19" r="1.2" fill="#9C8CC4" />
+              </svg>
+              <span>These are examples. You can explore what feels right for you.</span>
             </div>
           </div>
 

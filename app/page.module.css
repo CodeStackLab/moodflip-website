@@ -2,9 +2,9 @@
 
 .homeContainer {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 16px 48px 16px;
+  padding: 0 24px 48px 24px;
   display: flex;
   flex-direction: column;
   gap: 28px;

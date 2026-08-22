@@ -58,6 +58,12 @@ export default function RefundPage() {
             dangerouslySetInnerHTML={{ __html: pageData.content }}
           />
         </div>
+
+        <div className="mt-8 flex items-center gap-4 text-xs font-bold text-[#68607F] flex-wrap">
+          <Link href="/terms" className="hover:text-[#7147E8] transition">Terms of Service →</Link>
+          <Link href="/privacy" className="hover:text-[#7147E8] transition">Privacy Policy →</Link>
+          <Link href="/disclaimer" className="hover:text-[#7147E8] transition">Medical &amp; General Disclaimer →</Link>
+        </div>
       </main>
 
       <style jsx global>{`

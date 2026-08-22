@@ -150,26 +150,40 @@ export default function AdminDashboardPage() {
     },
   });
 
-  // Google AdSense & Ad Spaces Manager State
+  // Google AdSense & Ad Spaces Manager State (Default Disabled for Clean Launch)
   const [adsSettings, setAdsSettings] = useState({
-    globalEnabled: true,
+    globalEnabled: false,
     mode: 'auto', // 'auto' | 'manual'
     adSenseClient: 'ca-pub-9876543210123456',
     autoAdsScript: '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9876543210123456" crossorigin="anonymous"></script>',
     slots: {
-      headerBanner: { enabled: true, slotId: '1234567890', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="1234567890" data-ad-format="auto"></ins>' },
-      sidebarAd: { enabled: true, slotId: '2345678901', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="2345678901" data-ad-format="rectangle"></ins>' },
-      moodLibraryAd: { enabled: true, slotId: '3456789012', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="3456789012" data-ad-format="horizontal"></ins>' },
-      footerBanner: { enabled: true, slotId: '4567890123', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="4567890123" data-ad-format="auto"></ins>' },
-      planPageAd: { enabled: true, slotId: '5678901234', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="5678901234" data-ad-format="auto"></ins>' },
-      checkinModalAd: { enabled: true, slotId: '6789012345', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="6789012345" data-ad-format="fluid"></ins>' },
-      stickyMobileAd: { enabled: true, slotId: '7890123456', code: '<ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px" data-ad-client="ca-pub-9876543210123456" data-ad-slot="7890123456"></ins>' }
+      headerBanner: { enabled: false, slotId: '1234567890', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="1234567890" data-ad-format="auto"></ins>' },
+      sidebarAd: { enabled: false, slotId: '2345678901', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="2345678901" data-ad-format="rectangle"></ins>' },
+      moodLibraryAd: { enabled: false, slotId: '3456789012', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="3456789012" data-ad-format="horizontal"></ins>' },
+      footerBanner: { enabled: false, slotId: '4567890123', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="4567890123" data-ad-format="auto"></ins>' },
+      planPageAd: { enabled: false, slotId: '5678901234', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="5678901234" data-ad-format="auto"></ins>' },
+      checkinModalAd: { enabled: false, slotId: '6789012345', code: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9876543210123456" data-ad-slot="6789012345" data-ad-format="fluid"></ins>' },
+      stickyMobileAd: { enabled: false, slotId: '7890123456', code: '<ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px" data-ad-client="ca-pub-9876543210123456" data-ad-slot="7890123456"></ins>' }
     }
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('moodflip_ads_settings');
+      if (saved) {
+        try {
+          setAdsSettings(prev => ({ ...prev, ...JSON.parse(saved) }));
+        } catch (e) {}
+      }
+    }
+  }, []);
 
   const saveAdsSettings = () => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('moodflip_ads_settings', JSON.stringify(adsSettings));
+      window.dispatchEvent(new Event('moodflip_ads_updated'));
+      window.dispatchEvent(new Event('storage'));
+      alert('✅ Ad settings saved and applied globally!');
     }
   };
   // Email SMTP & Gmail Gateway Settings State

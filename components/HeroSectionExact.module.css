@@ -1,192 +1,323 @@
-/* Exact MoodFlip Hero Section CSS - Perfect Pixel Match */
-.heroContainer {
+/* ─────────────────────────────────────────────────────────────────────────────
+   EXACT MOODFLIP HERO SECTION CSS (PIXEL-PERFECT CLONE OF SKETCH DESIGN)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.heroWrapper {
   width: 100%;
-  max-width: 1240px;
-  margin: 0 auto 32px auto;
-  background: #FDF8F5;
-  border: 1px solid rgba(220, 214, 228, 0.85);
-  border-radius: 28px;
-  box-shadow: 0 12px 40px rgba(78, 54, 118, 0.05), 0 2px 10px rgba(0, 0, 0, 0.02);
-  padding: 30px 32px 22px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 8px 16px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--font-sans, 'Inter', -apple-system, sans-serif);
+  color: #1A143F;
+}
+
+/* ── 1. TOP AD BANNER (Exact Match from Screenshot) ── */
+.topAdBanner {
+  width: 100%;
+  height: 48px;
+  background: #F3EEF9;
+  border: 1.5px dashed #D4C9E6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  user-select: none;
+}
+
+.adBannerTitle {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #7464AC;
+  letter-spacing: 0.2px;
+}
+
+.adBannerDimensions {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #9C8CC4;
+}
+
+/* ── 2. MAIN WORKSPACE ROW ── */
+.workspaceRow {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ── 3. CENTRAL APP CARD (Single Crisp White Container with 3 Columns) ── */
+.mainCard {
+  flex: 1;
+  min-width: 0;
+  background: #FFFFFF;
+  border: 1px solid #ECE4F0;
+  border-radius: 20px;
+  box-shadow: 0 6px 28px rgba(78, 54, 118, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
+  display: grid;
+  grid-template-columns: 140px 1.05fr 1fr;
   position: relative;
   overflow: hidden;
-  font-family: var(--font-sans, 'Inter', -apple-system, sans-serif);
-}
-
-/* Top Header & Official Brand Logo */
-.topHeader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 24px;
-  position: relative;
-}
-
-.heroLogoImg {
-  height: 52px;
-  max-height: 56px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-  mix-blend-mode: multiply;
-}
-
-/* Main Split Grid Layout */
-.splitGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
-  position: relative;
   align-items: stretch;
 }
 
-.verticalDivider {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background: #E4DAD7;
-  z-index: 2;
-}
-
-.dividerHeart {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #FDF8F5;
-  color: #D8CCD0;
-  font-size: 12px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-}
-
-/* Left Column */
-.leftColumn {
+/* ── 4. LEFT STEPS COLUMN ── */
+.leftStepsCol {
+  background: transparent;
+  padding: 22px 14px 18px 14px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  position: relative;
-  z-index: 1;
-  padding-right: 28px;
+  align-items: center;
+  gap: 3px;
+  border-right: 1px solid #F2ECF6;
 }
 
-/* Arrow Badges */
-.arrowBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #F4EBF5;
-  border: 1px solid #E4DAD7;
-  border-radius: 12px 0 0 12px;
-  padding: 8px 16px 8px 10px;
-  position: relative;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
-  color: #4F438B;
+.stepBox {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #EAE2EE;
+  border-radius: 12px;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.stepBadge {
+  background: #EDE6F8;
+  color: #533B93;
+  border: 1px solid #D6CEE8;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: capitalize;
+  letter-spacing: 0.2px;
+}
+
+.stepTitle {
   font-size: 11.5px;
   font-weight: 700;
-  line-height: 1.2;
-  width: 128px;
-  flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(113, 71, 232, 0.04);
+  color: #1A143F;
+  line-height: 1.3;
 }
 
-.badgeIconCircle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1.5px solid #7464AC;
-  background: #FEFAF8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #7464AC;
+.stepSub {
+  font-size: 10px;
+  font-weight: 500;
+  color: #7E7096;
+  font-style: italic;
 }
 
-.badgeText {
+.stepDashedArrow {
+  font-size: 16px;
+  color: #B8AED0;
+  line-height: 1;
+  margin: 1px 0;
+}
+
+/* Clear Selection Button */
+.clearSelectionBtn {
+  margin-top: auto;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1.5px solid #E4DAD7;
+  border-radius: 12px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-}
-
-/* Row 1: Mood Row */
-.moodRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.cloudList {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: nowrap;
-  flex: 1;
-  max-width: 380px;
-}
-
-/* Clean Cloud Button with SVG Background / Soft Cloud Border */
-.cloudBtn {
-  position: relative;
-  background: #FFFFFF;
-  border: 1.5px solid #E8DFE3;
-  border-radius: 22px 22px 18px 18px;
-  padding: 8px 13px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #1A143F;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  gap: 2px;
+  cursor: pointer;
+  color: #7464AC;
+  transition: all 0.2s ease;
   user-select: none;
-  white-space: nowrap;
 }
 
-.cloudBtn:hover {
-  transform: translateY(-2px);
-  border-color: #9C8CC4;
-  box-shadow: 0 6px 14px rgba(113, 71, 232, 0.12);
-}
-
-.cloudBtnSelected {
-  background: #EEE0FC !important;
-  border-color: #7666AB !important;
-  color: #4F438B !important;
-  font-weight: 700 !important;
-  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25) !important;
+.clearSelectionBtn:hover {
+  background: #F4EBF5;
+  border-color: #7464AC;
   transform: translateY(-1px);
 }
 
-/* Layer 2: Second-Layer Feeling Branch Row */
-.branchRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.clearTitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1A143F;
 }
 
-.branchList {
+.clearSub {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #7E7096;
+}
+
+/* ── 5. MIDDLE COLUMN: INTERACTIVE MOOD TOOL ── */
+.centerMoodCol {
+  background: #FFFFFF;
+  padding: 24px 32px 20px 20px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Layer 1: 5 Clouds */
+.cloudRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: 6px;
-  flex-wrap: wrap;
-  flex: 1;
-  max-width: 380px;
+  width: 100%;
+  padding-top: 6px;
 }
 
-.branchBtn {
-  background: #FEFAF8;
-  border: 1.5px solid #E4DAD7;
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-size: 12px;
+.cloudBtn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  flex: 1;
+  max-width: 94px;
+}
+
+.cloudSvgWrap {
+  transition: transform 0.22s ease, filter 0.22s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.04));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cloudSvgWrap svg,
+.cloudSvgWrap img {
+  width: 100%;
+  height: auto;
+  max-width: 84px;
+  object-fit: contain;
+}
+
+.cloudBtn:hover .cloudSvgWrap {
+  transform: translateY(-3px) scale(1.05);
+  filter: drop-shadow(0 6px 12px rgba(116, 100, 172, 0.2));
+}
+
+.cloudName {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5C527A;
+  transition: color 0.2s ease;
+}
+
+.cloudBtnActive .cloudSvgWrap {
+  transform: translateY(-4px) scale(1.08);
+  filter: drop-shadow(0 8px 16px rgba(116, 100, 172, 0.28));
+}
+
+.cloudBtnActive .cloudName {
+  color: #7464AC;
+  font-weight: 800;
+}
+
+/* Layer 2: 2x4 Feeling Cards Grid */
+.feelingsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.feelingCard {
+  background: #FFFFFF;
+  border: 1.5px solid #EAE3F2;
+  border-radius: 14px;
+  padding: 10px 4px 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  user-select: none;
+  min-height: 80px;
+}
+
+.feelingCard:hover {
+  transform: translateY(-2px);
+  border-color: #9C8CC4;
+  background: #FFFFFF;
+  box-shadow: 0 6px 14px rgba(116, 100, 172, 0.12);
+}
+
+.feelingCardActive {
+  background: #ECE6F8 !important;
+  border: 1.5px solid #8C7AC4 !important;
+  box-shadow: 0 3px 10px rgba(116, 100, 172, 0.18) !important;
+}
+
+.feelingIconWrap {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5C527A;
+}
+
+.feelingIconWrap svg,
+.feelingIconWrap img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.feelingCardActive .feelingIconWrap {
+  color: #533B93;
+}
+
+.feelingName {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #1A143F;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.feelingCardActive .feelingName {
+  color: #432E7C;
+  font-weight: 800;
+}
+
+/* Layer 3: Specific Feeling Chips */
+.chipsRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.chipPill {
+  background: #FFFFFF;
+  border: 1.5px solid #EAE3F2;
+  border-radius: 24px;
+  padding: 6px 16px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #5C527A;
   cursor: pointer;
@@ -196,620 +327,721 @@
   white-space: nowrap;
 }
 
-.branchBtn:hover {
+.chipPill:hover {
   transform: translateY(-1px);
   border-color: #9C8CC4;
   color: #1A143F;
-  box-shadow: 0 3px 8px rgba(113, 71, 232, 0.1);
+  box-shadow: 0 3px 8px rgba(116, 100, 172, 0.1);
 }
 
-.branchBtnSelected {
-  background: #F4EBF5 !important;
-  border-color: #7666AB !important;
-  color: #4F438B !important;
+.chipPillActive {
+  background: #ECE6F8 !important;
+  border-color: #8C7AC4 !important;
+  color: #533B93 !important;
   font-weight: 700 !important;
-  box-shadow: 0 2px 8px rgba(118, 102, 171, 0.2) !important;
-  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(116, 100, 172, 0.18) !important;
 }
 
-/* Layer 3: Feelings Row & Grid */
-.feelingRow {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+.chipsExplanationNote {
+  font-size: 11px;
+  color: #A49BA8;
+  font-style: italic;
+  margin-top: 2px;
 }
 
-.feelingGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  flex: 1;
-  max-width: 376px;
-}
-
-.feelingCard {
-  background: #FEFAF8;
-  border: 1.5px solid #E4DAD7;
-  border-radius: 14px;
-  padding: 8px 4px 6px 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
-  min-height: 80px;
-  user-select: none;
-}
-
-.feelingCard:hover {
-  transform: translateY(-2px);
-  border-color: #9C8CC4;
-  box-shadow: 0 6px 14px rgba(113, 71, 232, 0.12);
-}
-
-.feelingCardSelected {
-  border: 2px solid #7666AB !important;
-  background: #EEE0FC !important;
-  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2) !important;
-  transform: scale(1.02);
-}
-
-.feelingIconWrapper {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #55486B;
-}
-
-.feelingCardSelected .feelingIconWrapper {
-  color: #7666AB;
-}
-
-.feelingLabel {
-  font-size: 11.5px;
-  font-weight: 700;
-  color: #1A143F;
-  text-align: center;
-  line-height: 1.1;
-}
-
-.feelingCardSelected .feelingLabel {
-  color: #4F438B;
-}
-
-/* Row 3: Bottom Left Action */
-.leftBottomActions {
-  display: flex;
-  margin-top: 4px;
-  padding-left: 0;
-}
-
-.clearBtn {
-  background: #FEFAF8;
-  border: 1.5px solid #E4DAD7;
-  border-radius: 12px;
-  padding: 8px 14px;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-  user-select: none;
-  min-width: 90px;
-}
-
-.clearBtn:hover {
-  background: #F4EBF5;
-  border-color: #7666AB;
-  transform: translateY(-1px);
-}
-
-.clearIcon {
-  color: #7464AC;
-  margin-bottom: 2px;
-}
-
-.clearTitle {
-  font-size: 12px;
-  font-weight: 700;
-  color: #1A143F;
-  line-height: 1;
-}
-
-.clearSubtitle {
-  font-size: 10px;
-  font-weight: 500;
-  color: #7E7096;
-  line-height: 1;
-}
-
-/* Center Floating 3D Action Arrow */
-.centerCtaWrapper {
+/* Divider Hearts */
+.dividerHeartTop {
   position: absolute;
-  top: 45%;
-  left: 50%;
+  left: calc(140px + ((100% - 140px) * (1.05 / 2.05)));
+  top: 14px;
+  transform: translateX(-50%);
+  color: #A89BC8;
+  font-size: 15px;
+  z-index: 5;
+}
+
+.dividerHeartBottom {
+  position: absolute;
+  left: calc(140px + ((100% - 140px) * (1.05 / 2.05)));
+  bottom: 14px;
+  transform: translateX(-50%);
+  color: #A89BC8;
+  font-size: 15px;
+  z-index: 5;
+}
+
+/* ── 6. CENTER OVERLAPPING ARROW BUTTON ── */
+.flipMoodArrowBtn {
+  position: absolute;
+  left: calc(140px + ((100% - 140px) * (1.05 / 2.05)));
+  top: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-}
-
-.changeMoodBtn {
-  background: #3B2E68;
+  background: transparent;
   border: none;
   padding: 0;
-  border-radius: 14px 0 0 14px;
   cursor: pointer;
-  box-shadow: 0 8px 22px rgba(45, 30, 85, 0.38), 0 2px 5px rgba(0, 0, 0, 0.15);
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
   user-select: none;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.flipMoodArrowImg {
+  width: 146px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(67, 46, 124, 0.45));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
   display: block;
 }
 
-.changeMoodBtnBevel {
-  background: linear-gradient(180deg, #7464AC 0%, #5E4E98 50%, #4F3F88 100%);
-  padding: 8px 16px 8px 13px;
-  border-radius: 12px 0 0 12px;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.45);
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
-  border-bottom: 2px solid #36295E;
-  display: flex;
-  align-items: center;
-  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%);
+.flipMoodArrowBtn:hover .flipMoodArrowImg {
+  transform: scale(1.08) translateX(2px);
+  filter: drop-shadow(0 12px 28px rgba(67, 46, 124, 0.6));
 }
 
-.changeMoodInner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  color: #FFFFFF;
-  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  text-align: left;
+.flipMoodArrowBtn:active .flipMoodArrowImg {
+  transform: scale(0.96);
 }
 
-.changeMoodLine1 {
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.2px;
+.flipMoodArrowFlipping .flipMoodArrowImg {
+  animation: pulseArrow 0.6s ease-in-out;
 }
 
-.changeMoodLine2 {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.2px;
+@keyframes pulseArrow {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15) translateX(4px); }
+  100% { transform: scale(1); }
 }
 
-.changeMoodArrowSvg {
-  color: #FFFFFF;
-  margin-left: 1px;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
-}
-
-.changeMoodBtn:hover {
-  transform: scale(1.05) translateX(3px);
-  box-shadow: 0 12px 28px rgba(45, 30, 85, 0.48);
-}
-
-.changeMoodBtn:active {
-  transform: scale(0.98) translateX(1px);
-}
-
-.changeMoodBtnFlipping {
-  transform: scale(1.08) translateX(4px);
-}
-
-/* Right Column */
-.rightColumn {
+/* ── 7. RIGHT OUTCOME PANEL (Sunrise Pastel Landscape) ── */
+.rightOutcomeCol {
   position: relative;
-  border-radius: 24px;
-  background: linear-gradient(180deg, #FDF8F5 0%, #FCF3E9 45%, #FCF3E9 100%);
-  padding: 18px 20px 18px 28px;
+  background: #FFF8F3;
+  border-left: 1px solid #F0EAF5;
+  padding: 16px 20px 16px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 360px;
   overflow: hidden;
-  border: 1px solid rgba(230, 220, 215, 0.6);
+  min-height: 410px;
 }
 
-/* Sun Landscape Art */
-.landscapeBg {
+/* Sunburst Art Background using user-uploaded artwork image */
+.sunburstBg {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   pointer-events: none;
-  z-index: 0;
   overflow: hidden;
-}
-
-.flyingBirds {
-  position: absolute;
-  top: 36px;
-  right: 24px;
-  color: #A49BA8;
-  opacity: 0.85;
-}
-
-.sunDomeWrapper {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 480px;
-  height: 240px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  pointer-events: none;
+  justify-content: center;
 }
 
-.sunDome {
-  position: absolute;
-  bottom: -20px;
-  width: 380px;
-  height: 230px;
-  border-radius: 240px 240px 0 0;
-  background: radial-gradient(circle at 50% 100%, #FDE8C8 0%, #E9D3B3 65%, rgba(255, 234, 184, 0) 100%);
-  opacity: 0.95;
-  filter: blur(1px);
-}
-
-.sunRays {
+.sunriseArtworkImg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.7;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
+  opacity: 0.62;
+  filter: saturate(0.92) brightness(1.02);
 }
 
-.hillsBack {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 85px;
-  background: #E9D3B3;
-  border-radius: 50% 50% 0 0 / 25px 25px 0 0;
-  transform: scaleX(1.3);
-  opacity: 0.8;
-}
-
-.hillsFront {
-  position: absolute;
-  bottom: 0;
-  left: -20px;
-  right: -20px;
-  height: 60px;
-  background: linear-gradient(180deg, #898B71 0%, #7D8164 100%);
-  border-radius: 60% 40% 0 0 / 28px 20px 0 0;
-  opacity: 0.9;
-}
-
-/* Transformed Outcome Header */
-.outcomeHeader {
+/* Outcome Header placed on top of the Sun */
+.outcomeTopHeader {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
-  margin-top: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
+  margin-top: 18px;
 }
 
-.outcomeHeartIcon {
-  color: #E49C8C;
+.sunTopHeart {
+  color: #E66A6A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 2px;
-  animation: gentlePulse 2.5s infinite ease-in-out;
 }
 
 .outcomeSubtitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
   font-size: 14.5px;
-  font-weight: 600;
-  color: #1A143F;
-  letter-spacing: -0.2px;
+  font-weight: 700;
+  color: #1A2859;
+  letter-spacing: -0.1px;
 }
 
-.outcomeMoodTitle {
-  font-family: var(--font-serif, 'Fraunces', Georgia, serif);
-  font-size: 52px;
-  font-weight: 500;
-  color: #7D8164;
+.outcomeMoodHeading {
+  font-family: 'Playfair Display', 'Fraunces', Georgia, serif;
+  font-size: 58px;
+  font-weight: 700;
+  color: #234D35;
   line-height: 1.05;
-  letter-spacing: -0.8px;
-  margin: 0;
+  letter-spacing: -1px;
+  margin: 4px 0 2px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-/* Action Card (White Floating Box) */
-.actionCard {
-  position: relative;
-  z-index: 1;
-  background: #FEFAF8;
-  border-radius: 20px;
-  border: 1px solid #E4DAD7;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02);
-  padding: 16px 20px;
+.headingLeafBranch {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 2px;
+  transform: translateY(2px);
+}
+
+.headingLeafImg {
+  width: 26px;
+  height: 34px;
+  object-fit: contain;
+  transform: rotate(12deg);
+}
+
+.outcomeUnderlineHeart {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 14px;
-  overflow: hidden;
+  justify-content: center;
+  gap: 12px;
+  width: 140px;
+  margin-top: 4px;
 }
 
-.actionIconBadge {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #FCF3E9;
+.outcomeDividerLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(232, 221, 212, 0.1) 0%, #E8DDD4 100%);
+}
+
+.outcomeDividerLine:last-child {
+  background: linear-gradient(90deg, #E8DDD4 0%, rgba(232, 221, 212, 0.1) 100%);
+}
+
+.outcomeDividerHeart {
+  color: #ECA898;
+  font-size: 11.5px;
+  line-height: 1;
+}
+
+/* 60-Second Action Floating Card */
+.actionFloatingCard {
+  position: relative;
+  z-index: 2;
+  background: #FFFFFF;
+  border: 1px solid #ECE4EF;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(78, 54, 118, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02);
+  padding: 16px 18px;
+  margin-top: 14px;
+}
+
+.actionCardInner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+
+.actionZenBadge {
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #7D8164;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(238, 248, 235, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: drop-shadow(0 4px 10px rgba(100, 160, 100, 0.15));
+  transition: transform 0.3s ease;
 }
 
-.actionContent {
+.actionZenBadge:hover {
+  transform: scale(1.06);
+}
+
+.actionZenImg {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(45, 59, 72, 0.1));
+}
+
+.actionCardText {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding-right: 28px;
+  gap: 3px;
 }
 
-.actionHeading {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1A143F;
+.actionCardTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
+  font-size: 15px;
+  font-weight: 800;
+  color: #141C4F;
   line-height: 1.25;
-  margin: 0;
+  letter-spacing: -0.2px;
 }
 
-.actionDivider {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.actionSmallHeart {
+  font-size: 10px;
+  color: #E2AC8A;
   margin: 1px 0;
 }
 
-.actionDividerLine {
-  flex: 1;
-  height: 1px;
-  background: #E4DAD7;
-}
-
-.actionDividerHeart {
-  color: #A49BA8;
-  font-size: 11px;
-  line-height: 1;
-}
-
-.actionDescription {
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #1A143F;
-  line-height: 1.5;
+.actionCardDesc {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  color: #202D62;
+  line-height: 1.45;
   margin: 0;
 }
 
-.actionTimerRow {
+.actionCardBotanical {
+  flex-shrink: 0;
+  margin-left: 4px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 4px;
+  justify-content: center;
+  transition: transform 0.3s ease;
 }
 
-.actionTimerBtn {
-  background: #F4EBF5;
-  color: #4F438B;
-  border: 1px solid #E4DAD7;
-  padding: 5px 12px;
-  border-radius: 18px;
-  font-size: 11.5px;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
+.actionCardBotanical:hover {
+  transform: rotate(3deg) scale(1.04);
+}
+
+.botanicalBranchImg {
+  width: 48px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(100, 130, 80, 0.12));
+}
+
+.actionButtonsRow {
+  display: flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.2s ease;
+  margin-top: 6px;
+  flex-wrap: wrap;
 }
 
-.actionTimerBtn:hover {
-  background: #4F438B;
-  color: #FEFAF8;
-  border-color: #4F438B;
-}
-
-.saveProfileBtn {
-  background: #FCF3E9;
-  color: #7D8164;
-  border: 1px solid #E4DAD7;
-  padding: 5px 12px;
-  border-radius: 18px;
-  font-size: 11px;
+.actionTimerPill {
+  background: #F4EBF5;
+  border: 1.5px solid #7464AC;
+  border-radius: 12px;
+  padding: 5px 10px;
+  font-size: 10.5px;
   font-weight: 700;
+  color: #7464AC;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   transition: all 0.2s ease;
 }
 
-.saveProfileBtn:hover {
-  background: #7D8164;
-  color: #FEFAF8;
-  border-color: #7D8164;
+.actionTimerPill:hover {
+  background: #7464AC;
+  color: #FFFFFF;
 }
 
-.saveProfileFeedback {
-  font-size: 11.5px;
+.actionResetBtn {
+  background: none;
+  border: none;
+  color: #7464AC;
+  font-size: 10.5px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.actionSavePill {
+  background: #FCF3E9;
+  border: 1.5px solid #E4DAD7;
+  border-radius: 12px;
+  padding: 5px 10px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #1A143F;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.actionSavePill:hover {
+  background: #FDE8C8;
+  border-color: #EDAA7A;
+}
+
+.actionFooterLinks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.openDashboardLink {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #7464AC;
+  text-decoration: none;
+}
+
+.openDashboardLink:hover {
+  text-decoration: underline;
+}
+
+.freeFlipsBadge {
+  font-size: 10px;
   font-weight: 700;
   color: #7D8164;
-  margin-top: 4px;
-  animation: fadeIn 0.3s ease;
+  background: #FCF3E9;
+  padding: 2px 6px;
+  border-radius: 8px;
+  border: 1px solid #E4DAD7;
 }
 
-.leafDecoration {
+.savedFeedbackMsg {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #7D8164;
+  margin-top: 2px;
+}
+
+.actionCardBotanical {
   position: absolute;
-  right: 10px;
-  bottom: 6px;
-  width: 44px;
-  height: 60px;
-  pointer-events: none;
+  right: -4px;
+  bottom: -4px;
   opacity: 0.85;
+  pointer-events: none;
 }
 
-/* Bottom Motivational Banner */
-.bottomBanner {
-  background: #F3EDF9;
-  border-radius: 16px;
-  padding: 12px 24px;
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+/* ── 8. DESKTOP RIGHT AD CARD (Image 2 Sketch) ── */
+.desktopRightAdCard {
+  width: 260px;
+  flex-shrink: 0;
+  background: #FFF5F2;
+  border: 1.5px dashed #F87171;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 18px;
+  text-align: center;
+  user-select: none;
 }
 
-.bannerItem {
+.adOrangeTitle {
+  font-size: 13px;
+  font-weight: 800;
+  color: #EA580C;
+  line-height: 1.2;
+}
+
+.adOrangeSub {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #C2410C;
+  line-height: 1.2;
+}
+
+.adOrangeDim {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9A3412;
+  margin-top: 4px;
+}
+
+/* ── 9. RIGHT OUTCOME AD BANNER & BOTTOM AD RESPONSIVE BANNER ── */
+.rightOutcomeAdBanner {
+  width: 100%;
+  height: 52px;
+  background: #FDF4F0;
+  border: 1.5px dashed #F6C4B4;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  user-select: none;
+  margin-top: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.bottomAdResponsiveBanner {
+  width: 100%;
+  height: 48px;
+  background: #F3EEF9;
+  border: 1.5px dashed #D4C9E6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  user-select: none;
+  margin-top: 4px;
+}
+
+.peachAdTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #DE6C53;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+}
+
+.peachAdSubtitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: #C75841;
+  line-height: 1.2;
+}
+
+/* ── 10. BOTTOM MOTIVATIONAL BAR (Exact Sketch Match) ── */
+.bottomMotivationalBar {
+  background: #FFFFFF;
+  border: 1px solid #ECE4F0;
+  border-radius: 16px;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(78, 54, 118, 0.03);
+}
+
+.motivationalItem {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.bannerIcon {
-  width: 28px;
-  height: 28px;
-  color: #7464AC;
+.motivationalIconCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  background: transparent;
+  filter: drop-shadow(0 4px 10px rgba(116, 100, 172, 0.18));
+  transition: transform 0.25s ease;
 }
 
-.bannerText {
+.motivationalItem:hover .motivationalIconCircle {
+  transform: scale(1.08);
+}
+
+.motivationalOrbImg {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+}
+
+.motivationalText {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
 }
 
-.bannerTitle {
+.motivationalTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
   font-size: 13.5px;
-  font-weight: 700;
+  font-weight: 800;
   color: #1A143F;
-  line-height: 1.2;
+  letter-spacing: -0.1px;
 }
 
-.bannerSubtitle {
-  font-size: 12px;
-  font-weight: 500;
-  color: #A49BA8;
-  line-height: 1.2;
+.motivationalSub {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #7E7096;
 }
 
-/* Responsive Media Queries */
-@media (max-width: 1024px) {
-  .splitGrid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
+.motivationalCenterHeart {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #E66A6A;
+}
 
-  .verticalDivider {
+.motivationalHeartDivider {
+  width: 24px;
+  height: 1px;
+  background: #E8DFE3;
+}
+
+.motivationalHeartSvg {
+  font-size: 14px;
+  color: #E66A6A;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE BREAKPOINTS (DESKTOP, TABLET, MOBILE WITH NO SCROLL OVERFLOW)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Tablet View (900px - 1180px) */
+@media (max-width: 1180px) {
+  .desktopRightAdCard {
     display: none;
   }
 
-  .centerCtaWrapper {
-    position: static;
-    transform: none;
-    display: flex;
-    justify-content: center;
-    margin: 8px 0;
+  .mainCard {
+    grid-template-columns: 120px 1.05fr 1fr;
   }
 
-  .changeMoodBtn {
-    border-radius: 16px;
-    clip-path: none;
-    padding: 12px 22px;
+  .dividerHeartTop, .dividerHeartBottom, .flipMoodArrowBtn {
+    left: calc(120px + ((100% - 120px) * (1.05 / 2.05)));
   }
 
-  .cloudList {
-    flex-wrap: wrap;
+  .outcomeMoodHeading {
+    font-size: 36px;
   }
 }
 
+/* Medium Tablet / iPad Portrait (768px - 960px) */
+@media (max-width: 960px) {
+  .mainCard {
+    grid-template-columns: 1.05fr 1fr;
+  }
+
+  .leftStepsCol {
+    display: none;
+  }
+
+  .dividerHeartTop, .dividerHeartBottom, .flipMoodArrowBtn {
+    left: 51.2%;
+  }
+
+  .outcomeMoodHeading {
+    font-size: 32px;
+  }
+}
+
+/* Mobile Devices (<768px) */
 @media (max-width: 768px) {
-  .heroContainer {
-    padding: 18px 14px 16px 14px;
-    border-radius: 20px;
-  }
-
-  .logoTitle {
-    font-size: 38px;
-  }
-
-  .moodRow, .feelingRow {
-    flex-direction: column;
-    align-items: stretch;
+  .heroWrapper {
     gap: 8px;
+    padding: 4px 0;
   }
 
-  .arrowBadge {
-    width: 100%;
-    border-radius: 12px;
-    clip-path: none;
-  }
-
-  .cloudList {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .feelingGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-
-  .bottomBanner {
+  .mainCard {
     grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 12px 16px;
+    border-radius: 18px;
   }
 
-  .outcomeMoodTitle {
-    font-size: 40px;
+  .leftStepsCol {
+    display: none;
   }
 
-  .actionCard {
-    flex-direction: column;
-    text-align: center;
-    padding: 14px;
+  .dividerHeartTop, .dividerHeartBottom {
+    display: none;
   }
 
-  .actionContent {
-    padding-right: 0;
+  .centerMoodCol {
+    padding: 14px 12px;
+    gap: 10px;
   }
 
-  .actionDivider {
+  .cloudRow {
+    gap: 4px;
+  }
+
+  .cloudSvgWrap svg {
+    max-width: 60px;
+  }
+
+  .cloudName {
+    font-size: 9.5px;
+  }
+
+  .feelingsGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+  .feelingCard {
+    min-height: 64px;
+    padding: 6px 2px;
+    border-radius: 10px;
+  }
+
+  .feelingIconWrap {
+    width: 24px;
+    height: 24px;
+  }
+
+  .feelingName {
+    font-size: 9.5px;
+  }
+
+  .chipPill {
+    padding: 4px 10px;
+    font-size: 10.5px;
+  }
+
+  .flipMoodArrowBtn {
+    position: static;
+    transform: none;
+    width: calc(100% - 24px);
+    margin: 8px 12px;
+    clip-path: none;
+    border-radius: 14px;
+    padding: 12px 20px;
+    display: flex;
     justify-content: center;
   }
 
-  .leafDecoration {
+  .flipArrowText {
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+    font-size: 13px;
+  }
+
+  .flipArrowLine2 {
+    font-size: 13px;
+  }
+
+  .rightOutcomeCol {
+    border-left: none;
+    border-top: 1px solid rgba(230, 220, 215, 0.7);
+    padding: 16px 14px;
+    min-height: auto;
+  }
+
+  .outcomeMoodHeading {
+    font-size: 28px;
+  }
+
+  .bottomMotivationalBar {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 14px;
+  }
+
+  .motivationalCenterHeart {
     display: none;
   }
 }

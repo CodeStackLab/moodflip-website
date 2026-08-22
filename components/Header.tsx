@@ -31,32 +31,23 @@ export default function Header() {
 
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-[#5C527A]">
-          <Link href="/" className="text-[#1A143F] hover:text-[#7464AC] transition-colors">Mood Tool</Link>
+          <Link href="/" className="text-[#1A143F] font-bold pb-1 border-b-2 border-[#7464AC] hover:text-[#7464AC] transition-all">Home</Link>
           <Link href="/about" className="hover:text-[#7464AC] transition-colors">About</Link>
-          <Link href="/contact" className="hover:text-[#7464AC] transition-colors">Contact</Link>
           <Link href="/privacy" className="hover:text-[#7464AC] transition-colors">Privacy Policy</Link>
-          <Link href="/login" className="hover:text-[#7464AC] transition-colors">Login</Link>
+          <Link href="/contact" className="hover:text-[#7464AC] transition-colors">Contact</Link>
         </nav>
 
         {/* ACTION BUTTONS */}
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/login"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 h-10 rounded-full border border-[#E4DAD7] bg-[#F4EBF5] text-[#7464AC] text-xs md:text-sm font-bold shadow-xs hover:border-[#7464AC] hover:bg-[#7464AC] hover:text-white transition-all whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-4 h-9 rounded-full border border-[#D6CEE8] bg-white text-[#533B93] text-xs md:text-sm font-bold shadow-2xs hover:border-[#7464AC] hover:bg-[#F4EBF5] transition-all whitespace-nowrap"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
             </svg>
             <span>Login</span>
           </Link>
-
-          <a
-            href="/profile?tab=My%207-Day%20Plan"
-            onClick={handlePlanClick}
-            className="hidden sm:inline-flex items-center gap-1.5 px-5 h-10 rounded-full bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white text-xs md:text-sm font-bold shadow-md shadow-[#4F438B]/20 hover:opacity-95 hover:scale-[1.02] transition-all whitespace-nowrap cursor-pointer shrink-0"
-          >
-            <span>Get 7-Day Plan</span>
-          </a>
 
           {/* MOBILE TOGGLE */}
           <button

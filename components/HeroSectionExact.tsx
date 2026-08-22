@@ -783,7 +783,11 @@ export default function HeroSectionExact({
             <div className={styles.actionFloatingCard}>
               <div className={styles.actionCardInner}>
                 <div className={styles.actionZenBadge}>
-                  <MeditatingZenIcon className={styles.zenMascotSvg} />
+                  <img
+                    src="/zen-mascot-orb.png?v=2"
+                    alt="Zen Mascot"
+                    className={styles.zenMascotImg}
+                  />
                 </div>
 
                 <div className={styles.actionCardText}>
@@ -802,7 +806,7 @@ export default function HeroSectionExact({
                 {/* Botanical leaf on right using user-provided image asset */}
                 <div className={styles.actionCardBotanical}>
                   <img
-                    src="/action-botanical-branch.png"
+                    src="/action-botanical-branch.png?v=2"
                     alt="Botanical Leaf Branch"
                     className={styles.botanicalBranchImg}
                   />

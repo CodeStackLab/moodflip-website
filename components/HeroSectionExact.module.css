@@ -132,13 +132,13 @@
 
 /* Clear Selection Button */
 .clearSelectionBtn {
-  margin-top: 18px;
+  margin-top: 16px;
   width: 100%;
-  max-width: 144px;
+  max-width: 156px;
   background: #FFFFFF;
   border: 1.5px solid #EDE6F0;
   border-radius: 18px;
-  padding: 9px 14px;
+  padding: 6px 12px;
   display: flex;
   align-items: center;
   justify-content: flex-start;

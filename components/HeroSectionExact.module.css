@@ -648,6 +648,7 @@
 .actionCardText {
   flex: 1;
   min-width: 0;
+  max-width: 215px;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -698,7 +699,7 @@
 
 .actionCardBotanical {
   position: absolute;
-  right: -12px;
+  right: -24px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -713,8 +714,8 @@
 }
 
 .botanicalBranchImg {
-  width: 56px;
-  height: 110px;
+  width: 70px;
+  height: 135px;
   object-fit: contain;
   display: block;
 }

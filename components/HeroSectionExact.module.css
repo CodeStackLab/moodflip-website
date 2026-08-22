@@ -200,7 +200,7 @@
   z-index: 1;
 }
 
-/* Layer 1: 5 Clouds (Big & Prominent) */
+/* Layer 1: 5 Clouds (Big & Prominent, Full Span) */
 .cloudRow {
   display: flex;
   align-items: flex-end;
@@ -223,8 +223,8 @@
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   flex: 1;
-  max-width: 175px;
-  min-height: 118px;
+  max-width: 180px;
+  min-height: 120px;
   justify-content: space-between;
 }
 
@@ -242,7 +242,7 @@
 .cloudSvgWrap img {
   width: 100%;
   height: auto;
-  max-width: 170px;
+  max-width: 175px;
   object-fit: contain;
 }
 
@@ -281,13 +281,12 @@
   font-weight: 800;
 }
 
-/* Layer 2: 2x4 Feeling Cards Grid (Compact & Smaller Width/Height) */
+/* Layer 2: 2x4 Feeling Cards Grid (Smaller Width than Clouds, Compact Cards) */
 .feelingsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  width: 100%;
-  padding-right: 96px;
+  gap: 10px;
+  width: calc(100% - 105px);
 }
 
 .feelingCard {
@@ -304,8 +303,8 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   user-select: none;
-  min-height: 84px;
-  aspect-ratio: 1 / 0.98;
+  min-height: 82px;
+  aspect-ratio: 1 / 0.96;
 }
 
 .feelingCard:hover {
@@ -354,9 +353,9 @@
   font-weight: 800;
 }
 
-/* Layer 3: Specific Feeling Chips Enclosed Box (Exact Match from Reference) */
+/* Layer 3: Specific Feeling Chips Enclosed Box (Matches Smaller Width of Feeling Cards) */
 .chipsBoxContainer {
-  width: calc(100% - 96px);
+  width: calc(100% - 105px);
   background: #FAF8FD;
   border: 1px solid #ECE4F2;
   border-radius: 16px;

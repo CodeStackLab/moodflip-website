@@ -191,7 +191,7 @@
 /* ── 5. MIDDLE COLUMN: INTERACTIVE MOOD TOOL ── */
 .centerMoodCol {
   background: #FFFFFF;
-  padding: 28px 24px 20px 24px;
+  padding: 32px 24px 20px 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -200,31 +200,31 @@
   z-index: 1;
 }
 
-/* Layer 1: 5 Clouds (Big & Prominent, Full Span, No Cropping) */
+/* Layer 1: 5 Clouds (Big & Prominent, Full Span, Zero Cropping) */
 .cloudRow {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  padding-top: 8px;
+  padding-top: 14px;
 }
 
 .cloudBtn {
   background: transparent;
   border: 1.5px solid transparent;
   border-radius: 22px;
-  padding: 8px 6px 10px 6px;
+  padding: 6px 4px 8px 4px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   flex: 1;
   max-width: 180px;
-  min-height: 116px;
+  min-height: 108px;
   justify-content: space-between;
 }
 
@@ -235,15 +235,16 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  flex: 1;
-  padding-top: 2px;
+  height: 75px;
+  overflow: visible;
 }
 
 .cloudSvgWrap svg,
 .cloudSvgWrap img {
-  width: 100%;
+  width: auto;
   height: auto;
-  max-width: 175px;
+  max-height: 72px;
+  max-width: 100%;
   object-fit: contain;
 }
 
@@ -269,7 +270,7 @@
   border: 1.5px solid #8C7AC4 !important;
   border-radius: 22px !important;
   box-shadow: 0 4px 14px rgba(116, 100, 172, 0.18) !important;
-  padding: 8px 6px 10px 6px !important;
+  padding: 6px 4px 8px 4px !important;
 }
 
 .cloudBtnActive .cloudSvgWrap {
@@ -294,18 +295,18 @@
   background: #FFFFFF;
   border: 1.5px solid #EAE3F2;
   border-radius: 14px;
-  padding: 6px 2px 5px 2px;
+  padding: 8px 3px 6px 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 4px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   user-select: none;
-  min-height: 76px;
-  aspect-ratio: 1 / 1.1;
+  min-height: 82px;
+  aspect-ratio: 1 / 1.06;
 }
 
 .feelingCard:hover {
@@ -322,8 +323,8 @@
 }
 
 .feelingIconWrap {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -332,8 +333,8 @@
 
 .feelingIconWrap svg,
 .feelingIconWrap img {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
 }
 

@@ -43,7 +43,7 @@ async function slicePerfectAssets() {
     { name: 'guilty', left: 90, top: 450, width: 195, height: 180, iconCrop: { left: 120, top: 465, width: 140, height: 140 } },
     { name: 'empty', left: 300, top: 450, width: 195, height: 180, iconCrop: { left: 330, top: 465, width: 140, height: 140 } },
     { name: 'overwhelmed', left: 510, top: 450, width: 195, height: 180, iconCrop: { left: 535, top: 465, width: 155, height: 145 } },
-    { name: 'abandoned', left: 720, top: 450, width: 195, height: 180, iconCrop: { left: 760, top: 468, width: 120, height: 135 } },
+    { name: 'abandoned', left: 720, top: 450, width: 195, height: 180, iconCrop: { left: 772, top: 470, width: 102, height: 105 } },
   ];
 
   for (const cfg of feelingConfigs) {

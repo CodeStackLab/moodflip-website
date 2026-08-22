@@ -763,14 +763,34 @@ export default function HeroSectionExact({
               </div>
               <div className={styles.outcomeSubtitle}>You can change your mood to be:</div>
               <h2 className={styles.outcomeMoodHeading}>
-                <span>{displayedTransformedMood}</span>
-                <span className={styles.headingLeafBranch}>
-                  <img
-                    src="/action-botanical-branch.png"
-                    alt="Leaf Branch"
-                    className={styles.headingLeafImg}
-                  />
-                </span>
+                {displayedTransformedMood.includes(" & ") ? (
+                  <>
+                    <span className={styles.headingLine1}>
+                      {displayedTransformedMood.split(" & ")[0]} &amp;
+                    </span>
+                    <span className={styles.headingLine2}>
+                      {displayedTransformedMood.split(" & ")[1]}
+                      <span className={styles.headingLeafBranch}>
+                        <img
+                          src="/action-botanical-branch.png"
+                          alt="Leaf Branch"
+                          className={styles.headingLeafImg}
+                        />
+                      </span>
+                    </span>
+                  </>
+                ) : (
+                  <span className={styles.headingLine1}>
+                    {displayedTransformedMood}
+                    <span className={styles.headingLeafBranch}>
+                      <img
+                        src="/action-botanical-branch.png"
+                        alt="Leaf Branch"
+                        className={styles.headingLeafImg}
+                      />
+                    </span>
+                  </span>
+                )}
               </h2>
 
               {/* Sub-divider line with delicate center heart */}

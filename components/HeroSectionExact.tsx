@@ -573,9 +573,9 @@ export default function HeroSectionExact({
             </div>
 
             <div className={styles.stepDashedArrow}>
-              <svg width="12" height="42" viewBox="0 0 12 42" fill="none">
-                <line x1="6" y1="0" x2="6" y2="34" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
-                <path d="M2.5 30L6 34.5L9.5 30" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="12" height="48" viewBox="0 0 12 48" fill="none">
+                <line x1="6" y1="0" x2="6" y2="40" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
+                <path d="M2.5 36L6 40.5L9.5 36" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
 
@@ -587,9 +587,9 @@ export default function HeroSectionExact({
             </div>
 
             <div className={styles.stepDashedArrow}>
-              <svg width="12" height="42" viewBox="0 0 12 42" fill="none">
-                <line x1="6" y1="0" x2="6" y2="34" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
-                <path d="M2.5 30L6 34.5L9.5 30" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="12" height="48" viewBox="0 0 12 48" fill="none">
+                <line x1="6" y1="0" x2="6" y2="40" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
+                <path d="M2.5 36L6 40.5L9.5 36" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
 

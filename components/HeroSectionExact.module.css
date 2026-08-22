@@ -461,7 +461,7 @@
   position: absolute;
   left: calc(150px + ((100% - 150px) * (1.4 / 2.65)));
   top: 47%;
-  transform: translate(-45%, -50%);
+  transform: translate(-58%, -50%);
   z-index: 10;
   background: transparent;
   border: none;

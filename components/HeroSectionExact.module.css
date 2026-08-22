@@ -571,16 +571,16 @@
   z-index: 2;
   background: #FFFFFF;
   border: 1px solid #ECE4EF;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(78, 54, 118, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02);
-  padding: 16px 20px;
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(78, 54, 118, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02);
+  padding: 18px 24px 18px 20px;
   margin-top: 14px;
 }
 
 .actionCardInner {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   position: relative;
 }
 
@@ -600,6 +600,13 @@
   transform: scale(1.06);
 }
 
+.zenMascotSvg {
+  width: 76px;
+  height: 76px;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.04));
+}
+
 .zenMascotImg {
   width: 76px;
   height: 76px;
@@ -617,7 +624,7 @@
 
 .actionCardTitle {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
-  font-size: 15.5px;
+  font-size: 16.5px;
   font-weight: 800;
   color: #101C56;
   line-height: 1.25;
@@ -629,31 +636,31 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  max-width: 130px;
-  margin: 2px 0;
+  max-width: 150px;
+  margin: 3px 0;
 }
 
 .actionHeartLine {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(238, 184, 155, 0.2) 0%, #EEB89B 100%);
+  background: linear-gradient(90deg, rgba(238, 184, 155, 0.15) 0%, #EEB89B 100%);
 }
 
 .actionHeartLine:last-child {
-  background: linear-gradient(90deg, #EEB89B 0%, rgba(238, 184, 155, 0.2) 100%);
+  background: linear-gradient(90deg, #EEB89B 0%, rgba(238, 184, 155, 0.15) 100%);
 }
 
 .actionSmallHeart {
-  font-size: 10.5px;
+  font-size: 11px;
   color: #E2AC8A;
   line-height: 1;
 }
 
 .actionCardDesc {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
-  color: #1A245C;
+  color: #161C52;
   line-height: 1.45;
   margin: 0;
 }

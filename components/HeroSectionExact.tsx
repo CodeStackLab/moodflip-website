@@ -173,27 +173,44 @@ function AbandonedAuraIcon({ className }: { className?: string }) {
   );
 }
 
-// Meditating Zen Lotus Icon (Exact Match: Person in cross-legged lotus with head, body, arms on knees, and leaves beside)
+// Meditating Zen Lotus Mascot Badge (Exact Clone from Reference Screenshot)
 function MeditatingZenIcon({ className }: { className?: string }) {
   return (
-    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#2D3B48" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      {/* Soft cream-sage circular badge background */}
+      <circle cx="38" cy="38" r="36" fill="#EAE9E1" />
+      
+      {/* Ambient background particles */}
+      <circle cx="20" cy="24" r="1.2" fill="#B0AFA6" />
+      <circle cx="56" cy="23" r="1.2" fill="#B0AFA6" />
+      <circle cx="54" cy="54" r="1.2" fill="#B0AFA6" />
+      
+      {/* Zen Meditating Figure */}
       {/* Head */}
-      <circle cx="22" cy="11.5" r="3.2" />
-      {/* Body torso with soft chest lines */}
-      <path d="M19.5 16.5c-.8 2-1 4.5-1 7h7c0-2.5-.2-5-1-7" />
-      <path d="M21 19h2" strokeWidth="1.2" />
-      {/* Cross-legged meditation base */}
-      <path d="M15 25.5c-2.5 1.5-4 4-1 6.5 2.5 2 12 2 16 0 3-2.5 1.5-5-1-6.5" />
-      <path d="M17 29.5c3 1.5 7 1.5 10 0" />
-      {/* Arms resting on knees with open mudra */}
-      <path d="M18.5 17.5L14 22.5l2 4" />
-      <path d="M25.5 17.5L30 22.5l-2 4" />
-      {/* Left Leaf sprig */}
-      <path d="M10.5 24c-.5-2.5-3-3.5-3-3.5s-.2 3 1.5 4.5c1 1 2 1 2 1" fill="#7D9871" stroke="#5E7A52" strokeWidth="1" />
-      <path d="M10 26c-2 .5-3.5-.5-3.5-.5s.5 2.5 2.5 3c1 .2 2-.5 2-.5" fill="#7D9871" stroke="#5E7A52" strokeWidth="1" />
-      {/* Right Leaf sprig */}
-      <path d="M33.5 24c.5-2.5 3-3.5 3-3.5s.2 3-1.5 4.5c-1 1-2 1-2 1" fill="#7D9871" stroke="#5E7A52" strokeWidth="1" />
-      <path d="M34 26c2 .5 3.5-.5 3.5-.5s-.5 2.5-2.5 3c-1 .2-2-.5-2-.5" fill="#7D9871" stroke="#5E7A52" strokeWidth="1" />
+      <circle cx="38" cy="20" r="5.5" stroke="#161C52" strokeWidth="2.2" fill="none" />
+      
+      {/* Torso & Neck */}
+      <path d="M34 28.5c-2.5 3-4 6.5-4 11.5h16c0-5-1.5-8.5-4-11.5" stroke="#161C52" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      
+      {/* Chest subtle accents */}
+      <circle cx="36" cy="34" r="0.8" fill="#161C52" />
+      <circle cx="40" cy="34" r="0.8" fill="#161C52" />
+      
+      {/* Arms resting on knees with open palms */}
+      <path d="M30 33L23 40.5l4 5.5h3" stroke="#161C52" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M46 33L53 40.5l-4 5.5h-3" stroke="#161C52" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      
+      {/* Cross-legged Lotus Base */}
+      <path d="M26 46c-4 2-5 5.5-1.5 8 3.5 2.5 17 2.5 27 0 3.5-2.5 2.5-6-1.5-8" stroke="#161C52" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M29 51c5.5 2 12.5 2 18 0" stroke="#161C52" strokeWidth="2" strokeLinecap="round" fill="none" />
+      
+      {/* Left Leaf sprig (Green watercolor leaves) */}
+      <path d="M19 40c-1-3.5-4.5-4.5-4.5-4.5s0 4.5 2.5 6.5c1.2 1 2 1 2 1" fill="#7E9A70" stroke="#5E7852" strokeWidth="0.8" />
+      <path d="M18 43.5c-2.5 1-4.5-.5-4.5-.5s1 3.5 3.5 4c1.2.2 2-.5 2-.5" fill="#7E9A70" stroke="#5E7852" strokeWidth="0.8" />
+      
+      {/* Right Leaf sprig (Green watercolor leaves) */}
+      <path d="M57 40c1-3.5 4.5-4.5 4.5-4.5s0 4.5-2.5 6.5c-1.2 1-2 1-2 1" fill="#7E9A70" stroke="#5E7852" strokeWidth="0.8" />
+      <path d="M58 43.5c2.5 1 4.5-.5 4.5-.5s-1 3.5-3.5 4c-1.2.2-2-.5-2-.5" fill="#7E9A70" stroke="#5E7852" strokeWidth="0.8" />
     </svg>
   );
 }
@@ -759,11 +776,7 @@ export default function HeroSectionExact({
             <div className={styles.actionFloatingCard}>
               <div className={styles.actionCardInner}>
                 <div className={styles.actionZenBadge}>
-                  <img
-                    src="/zen-mascot-orb.png"
-                    alt="Zen Mascot"
-                    className={styles.zenMascotImg}
-                  />
+                  <MeditatingZenIcon className={styles.zenMascotSvg} />
                 </div>
 
                 <div className={styles.actionCardText}>

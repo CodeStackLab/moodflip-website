@@ -285,15 +285,15 @@
 .feelingsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  width: calc(100% - 135px);
+  gap: 10px;
+  width: calc(100% - 170px);
 }
 
 .feelingCard {
   background: #FFFFFF;
   border: 1.5px solid #EAE3F2;
   border-radius: 14px;
-  padding: 7px 3px 6px 3px;
+  padding: 7px 3px 5px 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -303,8 +303,8 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   user-select: none;
-  min-height: 74px;
-  aspect-ratio: 1 / 1.05;
+  min-height: 72px;
+  aspect-ratio: 1 / 1.1;
 }
 
 .feelingCard:hover {
@@ -355,7 +355,7 @@
 
 /* Layer 3: Specific Feeling Chips Enclosed Box (Matches Smaller Width of Feeling Cards) */
 .chipsBoxContainer {
-  width: calc(100% - 135px);
+  width: calc(100% - 170px);
   background: #FAF8FD;
   border: 1px solid #ECE4F2;
   border-radius: 16px;

@@ -754,11 +754,6 @@ export default function HeroSectionExact({
 
             {/* Outcome Header */}
             <div className={styles.outcomeTopHeader}>
-              <div className={styles.sunTopHeart}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E66A6A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                </svg>
-              </div>
               <div className={styles.outcomeSubtitle}>You can change your mood to be:</div>
               <h2 className={styles.outcomeMoodHeading}>
                 <span>{displayedTransformedMood}</span>
@@ -777,6 +772,13 @@ export default function HeroSectionExact({
                 <span className={styles.outcomeDividerHeart}>♡</span>
                 <span className={styles.outcomeDividerLine} />
               </div>
+            </div>
+
+            {/* Floating heart over sunburst orb top-center (absolutely positioned like reference) */}
+            <div className={styles.sunTopHeartAbs} aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E66A6A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
             </div>
 
             {/* 60-Second Action Floating Card (Exact Clone from Reference) */}

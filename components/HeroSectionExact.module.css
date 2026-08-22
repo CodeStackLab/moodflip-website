@@ -470,7 +470,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
+  overflow: visible;
   min-height: 550px;
 }
 
@@ -507,7 +507,7 @@
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  margin-top: 8px;
+  margin-top: 44px;
 }
 
 .sunTopHeart {
@@ -516,6 +516,19 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 3px;
+}
+
+/* Absolutely positioned heart over sunburst orb center-top (matches reference) */
+.sunTopHeartAbs {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 .outcomeSubtitle {
@@ -586,8 +599,9 @@
   border: 1px solid #ECE4EF;
   border-radius: 24px;
   box-shadow: 0 12px 32px rgba(78, 54, 118, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02);
-  padding: 18px 24px 18px 20px;
+  padding: 18px 60px 18px 20px;
   margin-top: 14px;
+  overflow: visible;
 }
 
 .actionCardInner {
@@ -679,24 +693,25 @@
 }
 
 .actionCardBotanical {
-  flex-shrink: 0;
-  margin-left: 4px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
-  align-self: stretch;
+  pointer-events: none;
 }
 
 .actionCardBotanical:hover {
-  transform: rotate(3deg) scale(1.06);
+  transform: translateY(-50%) rotate(3deg) scale(1.06);
 }
 
 .botanicalBranchImg {
   width: 52px;
-  height: 100px;
+  height: 105px;
   object-fit: contain;
-  object-position: bottom;
   display: block;
 }
 

@@ -532,7 +532,7 @@
 /* ── 7. RIGHT OUTCOME PANEL (Sunrise Pastel Landscape) ── */
 .rightOutcomeCol {
   position: relative;
-  background: #FCF3E9;
+  background: #FDF9F6;
   border-left: 1px solid #E4DAD7;
   padding: 26px 34px 22px 34px;
   display: flex;
@@ -551,7 +551,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FCF3E9;
+  background: #FDF9F6;
 }
 
 .sunriseArtworkImg {
@@ -563,8 +563,8 @@
   object-fit: cover;
   object-position: center top;
   pointer-events: none;
-  opacity: 1;
-  filter: saturate(1.08) contrast(1.03) brightness(0.99);
+  opacity: 0.72;
+  filter: saturate(0.85) brightness(1.04);
 }
 
 /* Outcome Header placed on top of the Sun */

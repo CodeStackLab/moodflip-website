@@ -249,8 +249,8 @@
 }
 
 .cloudBtn:hover {
-  background: rgba(236, 230, 248, 0.4);
-  border-color: rgba(140, 122, 196, 0.3);
+  background: transparent;
+  border-color: transparent;
 }
 
 .cloudBtn:hover .cloudSvgWrap {
@@ -266,16 +266,16 @@
 }
 
 .cloudBtnActive {
-  background: #ECE6F8 !important;
-  border: 1.5px solid #8C7AC4 !important;
-  border-radius: 22px !important;
-  box-shadow: 0 4px 14px rgba(116, 100, 172, 0.18) !important;
+  background: transparent !important;
+  border: 1.5px solid transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   padding: 6px 4px 8px 4px !important;
 }
 
 .cloudBtnActive .cloudSvgWrap {
-  transform: translateY(-2px) scale(1.06);
-  filter: drop-shadow(0 8px 16px rgba(116, 100, 172, 0.25));
+  transform: translateY(-4px) scale(1.08);
+  filter: drop-shadow(0 8px 18px rgba(116, 100, 172, 0.3));
 }
 
 .cloudBtnActive .cloudName {

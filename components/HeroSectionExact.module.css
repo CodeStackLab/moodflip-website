@@ -551,6 +551,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: radial-gradient(circle at 50% 32%, #FDE8C8 0%, #FCF3E9 65%);
 }
 
 .sunriseArtworkImg {
@@ -563,7 +564,7 @@
   object-position: center top;
   pointer-events: none;
   opacity: 1;
-  filter: saturate(1.2) contrast(1.05) brightness(0.97);
+  filter: saturate(1.45) contrast(1.15) brightness(0.95);
 }
 
 /* Outcome Header placed on top of the Sun */

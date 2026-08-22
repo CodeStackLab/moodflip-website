@@ -205,26 +205,27 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
-  padding-right: 96px;
   padding-top: 0;
 }
 
 .cloudBtn {
   background: transparent;
   border: 1.5px solid transparent;
-  border-radius: 20px;
-  padding: 8px 6px 10px 6px;
+  border-radius: 22px;
+  padding: 10px 6px 12px 6px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   flex: 1;
-  max-width: 155px;
+  max-width: 175px;
+  min-height: 118px;
+  justify-content: space-between;
 }
 
 .cloudSvgWrap {
@@ -234,13 +235,14 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  flex: 1;
 }
 
 .cloudSvgWrap svg,
 .cloudSvgWrap img {
   width: 100%;
   height: auto;
-  max-width: 150px;
+  max-width: 170px;
   object-fit: contain;
 }
 
@@ -255,17 +257,18 @@
 }
 
 .cloudName {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 800;
-  color: #5C527A;
+  color: #161C52;
   transition: color 0.2s ease;
 }
 
 .cloudBtnActive {
   background: #ECE6F8 !important;
   border: 1.5px solid #8C7AC4 !important;
-  box-shadow: 0 4px 12px rgba(116, 100, 172, 0.18) !important;
-  padding: 8px 6px 10px 6px !important;
+  border-radius: 22px !important;
+  box-shadow: 0 4px 14px rgba(116, 100, 172, 0.18) !important;
+  padding: 10px 6px 12px 6px !important;
 }
 
 .cloudBtnActive .cloudSvgWrap {

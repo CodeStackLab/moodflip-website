@@ -32,7 +32,7 @@ function SadCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-sad.png"
       alt="Sad Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "135px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "155px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -43,7 +43,7 @@ function FearfulCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-fearful.png"
       alt="Fearful Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "135px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "155px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -54,7 +54,7 @@ function AngryCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-angry.png"
       alt="Angry Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "135px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "155px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -65,7 +65,7 @@ function DisgustedCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-disgusted.png"
       alt="Disgusted Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "135px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "155px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -76,7 +76,7 @@ function StressedCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-stressed.png"
       alt="Stressed Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "140px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "160px", height: "auto", objectFit: "contain" }}
     />
   );
 }

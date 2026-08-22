@@ -214,8 +214,8 @@
 .cloudBtn {
   background: transparent;
   border: 1.5px solid transparent;
-  border-radius: 18px;
-  padding: 6px 4px 6px 4px;
+  border-radius: 20px;
+  padding: 8px 6px 10px 6px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -224,7 +224,7 @@
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   flex: 1;
-  max-width: 135px;
+  max-width: 155px;
 }
 
 .cloudSvgWrap {
@@ -233,13 +233,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .cloudSvgWrap svg,
 .cloudSvgWrap img {
   width: 100%;
   height: auto;
-  max-width: 130px;
+  max-width: 150px;
   object-fit: contain;
 }
 
@@ -264,6 +265,7 @@
   background: #ECE6F8 !important;
   border: 1.5px solid #8C7AC4 !important;
   box-shadow: 0 4px 12px rgba(116, 100, 172, 0.18) !important;
+  padding: 8px 6px 10px 6px !important;
 }
 
 .cloudBtnActive .cloudSvgWrap {
@@ -276,11 +278,11 @@
   font-weight: 800;
 }
 
-/* Layer 2: 2x4 Feeling Cards Grid */
+/* Layer 2: 2x4 Feeling Cards Grid (Compact & Smaller Width/Height) */
 .feelingsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 10px;
   width: 100%;
   padding-right: 96px;
 }
@@ -288,18 +290,19 @@
 .feelingCard {
   background: #FFFFFF;
   border: 1.5px solid #EAE3F2;
-  border-radius: 20px;
-  padding: 16px 8px 14px 8px;
+  border-radius: 16px;
+  padding: 10px 4px 8px 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 5px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   user-select: none;
-  min-height: 120px;
+  min-height: 98px;
+  aspect-ratio: 1 / 1.05;
 }
 
 .feelingCard:hover {
@@ -316,8 +319,8 @@
 }
 
 .feelingIconWrap {
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -326,8 +329,8 @@
 
 .feelingIconWrap svg,
 .feelingIconWrap img {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
@@ -336,7 +339,7 @@
 }
 
 .feelingName {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   color: #1A143F;
   text-align: center;

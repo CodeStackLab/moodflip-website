@@ -229,16 +229,16 @@ export default function AdminDashboardPage() {
 
   // Ad Spaces & Google AdSense State
   const [adSettings, setAdSettings] = useState({
-    adsGlobalEnabled: true,
-    adsenseClientId: 'ca-pub-9842019481928401',
-    autoAdsEnabled: true,
-    headerBannerEnabled: true,
-    headerBannerSlotId: '7289012345',
-    sidebarAdEnabled: true,
-    sidebarAdSlotId: '3002501234',
-    inFeedAdEnabled: true,
-    inFeedAdSlotId: '5432109876',
-    customAdScript: `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9842019481928401" crossorigin="anonymous"></script>`,
+    adsGlobalEnabled: false,
+    adsenseClientId: '',
+    autoAdsEnabled: false,
+    headerBannerEnabled: false,
+    headerBannerSlotId: '',
+    sidebarAdEnabled: false,
+    sidebarAdSlotId: '',
+    inFeedAdEnabled: false,
+    inFeedAdSlotId: '',
+    customAdScript: '',
   });
 
   // SEO, Google Search Console & Analytics State

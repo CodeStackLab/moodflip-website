@@ -362,8 +362,8 @@ export default function HeroSectionExact({
     actionDesc: "Place both feet flat, inhale worthiness, and say: 'My value is intrinsic and unchanged.'"
   });
 
-  // Global Ads Setting State (controlled by Admin Panel - enabled by default to match design reference)
-  const [adsEnabled, setAdsEnabled] = useState<boolean>(true);
+  // Global Ads Setting State (controlled by Admin Panel - disabled globally by default)
+  const [adsEnabled, setAdsEnabled] = useState<boolean>(false);
 
   // Load and subscribe to Admin Ads toggle
   useEffect(() => {
@@ -379,7 +379,7 @@ export default function HeroSectionExact({
             }
           } catch (e) {}
         }
-        setAdsEnabled(true);
+        setAdsEnabled(false);
       }
     };
 

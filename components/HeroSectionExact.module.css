@@ -207,7 +207,7 @@
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  padding-right: 62px;
+  padding-right: 86px;
   padding-top: 0;
 }
 
@@ -270,7 +270,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   width: 100%;
-  padding-right: 62px;
+  padding-right: 86px;
 }
 
 .feelingCard {
@@ -338,7 +338,7 @@
 
 /* Layer 3: Specific Feeling Chips Enclosed Box (Exact Match from Reference) */
 .chipsBoxContainer {
-  width: calc(100% - 62px);
+  width: calc(100% - 86px);
   background: #FAF8FD;
   border: 1px solid #ECE4F2;
   border-radius: 20px;

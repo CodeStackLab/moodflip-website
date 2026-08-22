@@ -503,24 +503,6 @@ export default function HeroSectionExact({
   const handleFlip = () => {
     syncMoodLibrary();
 
-    let count = 0;
-    if (typeof window !== "undefined") {
-      count = parseInt(localStorage.getItem("moodflip_free_flip_count") || "0", 10);
-    }
-
-    if (count >= 4) {
-      if (typeof window !== "undefined") {
-        window.location.href = "/profile?tab=60-Second+Actions";
-      }
-      return;
-    }
-
-    const newCount = count + 1;
-    if (typeof window !== "undefined") {
-      localStorage.setItem("moodflip_free_flip_count", newCount.toString());
-    }
-    setFreeFlipCount(newCount);
-
     setIsFlipping(true);
     setTimerSeconds(60);
     setIsTimerRunning(false);
@@ -532,15 +514,6 @@ export default function HeroSectionExact({
     setTimeout(() => {
       setIsFlipping(false);
     }, 600);
-
-    if (newCount >= 4) {
-      setSavedMsg("✨ Taking you to the 60-Second Actions player in your dashboard...");
-      setTimeout(() => {
-        if (typeof window !== "undefined") {
-          window.location.href = "/profile?tab=60-Second+Actions";
-        }
-      }, 1800);
-    }
   };
 
   // Outcome texts (Default: Peaceful + 60-sec action to get to a peaceful mood)

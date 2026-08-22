@@ -563,30 +563,40 @@ export default function HeroSectionExact({
         {/* ── CENTRAL APP CARD ── */}
         <div className={styles.mainCard}>
 
-          {/* 1. LEFT COLUMN: 3-Step Guide */}
+          {/* 1. LEFT COLUMN: 3-Step Guide (Exact Clone) */}
           <div className={styles.leftStepsCol}>
             {/* Step 1 */}
             <div className={styles.stepBox}>
               <div className={styles.stepBadge}>Step 1</div>
-              <div className={styles.stepTitle}>Choose your main mood</div>
+              <div className={styles.stepTitle}>Choose your<br />main mood</div>
               <div className={styles.stepSub}>Click a cloud</div>
             </div>
 
-            <div className={styles.stepDashedArrow}>↓</div>
+            <div className={styles.stepDashedArrow}>
+              <svg width="12" height="42" viewBox="0 0 12 42" fill="none">
+                <line x1="6" y1="0" x2="6" y2="34" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
+                <path d="M2.5 30L6 34.5L9.5 30" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
 
             {/* Step 2 */}
             <div className={styles.stepBox}>
               <div className={styles.stepBadge}>Step 2</div>
-              <div className={styles.stepTitle}>Pick the feeling closest to how you feel</div>
+              <div className={styles.stepTitle}>Pick the feeling<br />closest to how<br />you feel</div>
               <div className={styles.stepSub}>Click a card</div>
             </div>
 
-            <div className={styles.stepDashedArrow}>↓</div>
+            <div className={styles.stepDashedArrow}>
+              <svg width="12" height="42" viewBox="0 0 12 42" fill="none">
+                <line x1="6" y1="0" x2="6" y2="34" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
+                <path d="M2.5 30L6 34.5L9.5 30" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
 
             {/* Step 3 */}
             <div className={styles.stepBox}>
               <div className={styles.stepBadge}>Step 3</div>
-              <div className={styles.stepTitle}>Choose a more specific feeling</div>
+              <div className={styles.stepTitle}>Choose a more<br />specific feeling</div>
               <div className={styles.stepSub}>Click a chip</div>
             </div>
 
@@ -597,12 +607,16 @@ export default function HeroSectionExact({
               onClick={handleClearSelection}
               aria-label="Clear selection and start over"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0" />
-                <path d="M15 9l-6 6M9 9l6 6" />
-              </svg>
-              <span className={styles.clearTitle}>Clear selection</span>
-              <span className={styles.clearSub}>Start over</span>
+              <div className={styles.clearIconWrap}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7464AC" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                  <path d="M3 3v5h5" />
+                </svg>
+              </div>
+              <div className={styles.clearTextWrap}>
+                <span className={styles.clearTitle}>Clear selection</span>
+                <span className={styles.clearSub}>Start over</span>
+              </div>
             </button>
           </div>
 
@@ -740,20 +754,27 @@ export default function HeroSectionExact({
               </div>
             </div>
 
-            {/* 60-Second Action Floating Card */}
+            {/* 60-Second Action Floating Card (Exact Clone from Reference) */}
             <div className={styles.actionFloatingCard}>
               <div className={styles.actionCardInner}>
                 <div className={styles.actionZenBadge}>
                   <img
-                    src="/action-zen-badge.png"
-                    alt="Meditating Zen Badge"
-                    className={styles.actionZenImg}
+                    src="/zen-mascot-orb.png"
+                    alt="Zen Mascot"
+                    className={styles.zenMascotImg}
                   />
                 </div>
 
                 <div className={styles.actionCardText}>
                   <div className={styles.actionCardTitle}>{displayedActionTitle}</div>
-                  <div className={styles.actionSmallHeart}>♡</div>
+                  
+                  {/* Subtle divider with centered tiny heart */}
+                  <div className={styles.actionHeartDivider}>
+                    <span className={styles.actionHeartLine} />
+                    <span className={styles.actionSmallHeart}>♡</span>
+                    <span className={styles.actionHeartLine} />
+                  </div>
+
                   <p className={styles.actionCardDesc}>{displayedActionDesc}</p>
                 </div>
 
@@ -797,9 +818,9 @@ export default function HeroSectionExact({
         </div>
 
         <div className={styles.motivationalCenterHeart}>
-          <div className={styles.motivationalHeartDivider} />
+          <div className={styles.motivationalVerticalLine} />
           <span className={styles.motivationalHeartSvg}>♡</span>
-          <div className={styles.motivationalHeartDivider} />
+          <div className={styles.motivationalVerticalLine} />
         </div>
 
         <div className={styles.motivationalItem}>

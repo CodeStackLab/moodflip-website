@@ -191,7 +191,7 @@
 /* ── 5. MIDDLE COLUMN: INTERACTIVE MOOD TOOL ── */
 .centerMoodCol {
   background: #FFFFFF;
-  padding: 24px 74px 20px 24px;
+  padding: 24px 86px 20px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -419,7 +419,7 @@
   position: absolute;
   left: calc(155px + ((100% - 155px) * (1.48 / 2.63)));
   top: 46%;
-  transform: translate(-38%, -50%);
+  transform: translate(-30%, -50%);
   z-index: 10;
   background: transparent;
   border: none;
@@ -434,10 +434,10 @@
 }
 
 .flipMoodArrowImg {
-  width: 178px;
+  width: 200px;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 8px 22px rgba(67, 46, 124, 0.45));
+  filter: drop-shadow(0 8px 24px rgba(67, 46, 124, 0.48));
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
   display: block;
 }

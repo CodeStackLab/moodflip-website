@@ -645,7 +645,7 @@
   border: 1px solid #ECE4EF;
   border-radius: 24px;
   box-shadow: 0 12px 32px rgba(78, 54, 118, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02);
-  padding: 18px 75px 18px 20px;
+  padding: 18px 84px 18px 20px;
   margin-top: 14px;
   overflow: hidden;
 }
@@ -690,15 +690,15 @@
 .actionCardText {
   flex: 1;
   min-width: 0;
-  max-width: 280px;
   display: flex;
   flex-direction: column;
   gap: 3px;
+  padding-right: 6px;
 }
 
 .actionCardTitle {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
-  font-size: 16.5px;
+  font-size: 16px;
   font-weight: 800;
   color: #101C56;
   line-height: 1.25;
@@ -733,7 +733,7 @@
 
 .actionCardDesc {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   color: #161C52;
   line-height: 1.45;
@@ -742,8 +742,8 @@
 
 .actionCardBotanical {
   position: absolute;
-  right: 18px;
-  bottom: 8px;
+  right: 12px;
+  bottom: 0px;
   top: auto;
   transform: none;
   display: flex;
@@ -751,6 +751,7 @@
   justify-content: center;
   transition: transform 0.3s ease;
   pointer-events: none;
+  z-index: 1;
 }
 
 .actionCardBotanical:hover {
@@ -758,8 +759,8 @@
 }
 
 .botanicalBranchImg {
-  width: 58px;
-  height: 112px;
+  width: 50px;
+  height: 96px;
   object-fit: contain;
   object-position: bottom right;
   display: block;

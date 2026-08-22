@@ -887,14 +887,14 @@
 .bottomMotivationalBar {
   background: #FFFFFF;
   border: 1px solid #ECE4F0;
-  border-radius: 22px;
-  padding: 18px 56px;
+  border-radius: 24px;
+  padding: 16px 44px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 32px;
   width: 100%;
-  max-width: 1140px;
+  max-width: 840px;
   margin: 0 auto;
   box-shadow: 0 4px 16px rgba(78, 54, 118, 0.04);
 }

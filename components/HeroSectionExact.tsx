@@ -839,9 +839,14 @@ export default function HeroSectionExact({
         </div>
 
         <div className={styles.motivationalCenterHeart}>
-          <div className={styles.motivationalVerticalLine} />
-          <span className={styles.motivationalHeartSvg}>♡</span>
-          <div className={styles.motivationalVerticalLine} />
+          <svg width="24" height="56" viewBox="0 0 24 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Top Dotted Line */}
+            <line x1="12" y1="2" x2="12" y2="18" stroke="#DACFE0" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="1 5" />
+            {/* Center Peach Heart */}
+            <path d="M12 35.5l-1.45-1.32C5.4 29.36 2 26.28 2 22.5 2 19.42 4.42 17 7.5 17c1.74 0 3.41.81 4.5 2.09C13.09 17.81 14.76 17 16.5 17 19.58 17 22 19.42 22 22.5c0 3.78-3.4 6.86-8.55 11.68L12 35.5z" fill="none" stroke="#EAA492" strokeWidth="1.8" />
+            {/* Bottom Dotted Line */}
+            <line x1="12" y1="38" x2="12" y2="54" stroke="#DACFE0" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="1 5" />
+          </svg>
         </div>
 
         <div className={styles.motivationalItem}>

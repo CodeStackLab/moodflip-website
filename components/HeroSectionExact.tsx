@@ -351,8 +351,8 @@ export default function HeroSectionExact({
   const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(COUNSELOR_MOODS);
   const [freeFlipCount, setFreeFlipCount] = useState<number>(0);
 
-  // Global Ads Setting State (controlled by Admin Panel - disabled by default)
-  const [adsEnabled, setAdsEnabled] = useState<boolean>(false);
+  // Global Ads Setting State (controlled by Admin Panel - enabled by default to match design reference)
+  const [adsEnabled, setAdsEnabled] = useState<boolean>(true);
 
   // Load and subscribe to Admin Ads toggle
   useEffect(() => {
@@ -368,7 +368,7 @@ export default function HeroSectionExact({
             }
           } catch (e) {}
         }
-        setAdsEnabled(false);
+        setAdsEnabled(true);
       }
     };
 

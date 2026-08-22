@@ -191,7 +191,7 @@
 /* ── 5. MIDDLE COLUMN: INTERACTIVE MOOD TOOL ── */
 .centerMoodCol {
   background: #FFFFFF;
-  padding: 24px 86px 20px 24px;
+  padding: 24px 24px 20px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -207,6 +207,7 @@
   justify-content: space-between;
   gap: 12px;
   width: 100%;
+  padding-right: 62px;
   padding-top: 0;
 }
 
@@ -269,6 +270,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   width: 100%;
+  padding-right: 62px;
 }
 
 .feelingCard {

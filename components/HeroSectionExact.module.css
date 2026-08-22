@@ -393,11 +393,11 @@
   flex-shrink: 0;
 }
 
-/* Divider Hearts (Positioned exactly between layers along the dividing line) */
+/* Divider Hearts (Positioned exactly along the dividing line) */
 .dividerHeartTop {
   position: absolute;
   left: calc(155px + ((100% - 155px) * (1.48 / 2.63)));
-  top: 28%;
+  top: 14%;
   transform: translate(-50%, -50%);
   color: #A89BC8;
   font-size: 16px;
@@ -407,7 +407,7 @@
 .dividerHeartBottom {
   position: absolute;
   left: calc(155px + ((100% - 155px) * (1.48 / 2.63)));
-  bottom: 23%;
+  bottom: 12%;
   transform: translate(-50%, 50%);
   color: #A89BC8;
   font-size: 16px;
@@ -418,8 +418,8 @@
 .flipMoodArrowBtn {
   position: absolute;
   left: calc(155px + ((100% - 155px) * (1.48 / 2.63)));
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 46%;
+  transform: translate(-38%, -50%);
   z-index: 10;
   background: transparent;
   border: none;
@@ -434,7 +434,7 @@
 }
 
 .flipMoodArrowImg {
-  width: 180px;
+  width: 178px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 8px 22px rgba(67, 46, 124, 0.45));

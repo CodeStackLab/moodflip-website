@@ -68,11 +68,11 @@
 /* ── 4. LEFT STEPS COLUMN (Exact Clone from Reference) ── */
 .leftStepsCol {
   background: transparent;
-  padding: 36px 16px 30px 16px;
+  padding: 28px 14px 22px 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   border-right: 1px solid #F0EAF5;
   width: 100%;
 }
@@ -86,7 +86,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 3px;
+  gap: 2px;
 }
 
 .stepBadge {
@@ -105,10 +105,10 @@
 
 .stepTitle {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 800;
   color: #161C52;
-  line-height: 1.3;
+  line-height: 1.25;
   text-align: center;
   margin-top: 2px;
   letter-spacing: -0.1px;
@@ -116,7 +116,7 @@
 
 .stepSub {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #353B6E;
   text-align: center;
@@ -127,18 +127,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2px 0;
+  margin: 1px 0;
 }
 
 /* Clear Selection Button */
 .clearSelectionBtn {
   margin-top: auto;
   width: 100%;
-  max-width: 146px;
+  max-width: 144px;
   background: #FFFFFF;
   border: 1.5px solid #EDE6F0;
   border-radius: 18px;
-  padding: 10px 14px;
+  padding: 9px 14px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -191,29 +191,29 @@
 /* ── 5. MIDDLE COLUMN: INTERACTIVE MOOD TOOL ── */
 .centerMoodCol {
   background: #FFFFFF;
-  padding: 30px 74px 28px 26px;
+  padding: 24px 74px 20px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 18px;
+  gap: 16px;
   position: relative;
   z-index: 1;
 }
 
-/* Layer 1: 5 Clouds (Enlarged and Prominent) */
+/* Layer 1: 5 Clouds (Big & Prominent) */
 .cloudRow {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
-  padding-top: 2px;
+  padding-top: 0;
 }
 
 .cloudBtn {
   background: none;
   border: none;
-  padding: 2px;
+  padding: 0;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -222,7 +222,7 @@
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   flex: 1;
-  max-width: 120px;
+  max-width: 135px;
 }
 
 .cloudSvgWrap {
@@ -237,7 +237,7 @@
 .cloudSvgWrap img {
   width: 100%;
   height: auto;
-  max-width: 115px;
+  max-width: 130px;
   object-fit: contain;
 }
 
@@ -247,8 +247,8 @@
 }
 
 .cloudName {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 14.5px;
+  font-weight: 800;
   color: #5C527A;
   transition: color 0.2s ease;
 }
@@ -339,7 +339,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 11px;
   width: 100%;
 }
 
@@ -377,7 +377,7 @@
   font-size: 12px;
   color: #A49BA8;
   font-style: italic;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 /* Divider Hearts (Positioned exactly between layers along the dividing line) */
@@ -453,12 +453,12 @@
   position: relative;
   background: #FFF8F3;
   border-left: 1px solid #F0EAF5;
-  padding: 30px 34px 28px 34px;
+  padding: 26px 34px 22px 34px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  min-height: 590px;
+  min-height: 550px;
 }
 
 /* Sunburst Art Background using user-uploaded artwork image */

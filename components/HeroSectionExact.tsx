@@ -32,7 +32,7 @@ function SadCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-sad.png"
       alt="Sad Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "115px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "135px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -43,7 +43,7 @@ function FearfulCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-fearful.png"
       alt="Fearful Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "115px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "135px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -54,7 +54,7 @@ function AngryCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-angry.png"
       alt="Angry Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "115px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "135px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -65,7 +65,7 @@ function DisgustedCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-disgusted.png"
       alt="Disgusted Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "115px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "135px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -76,7 +76,7 @@ function StressedCloudSvg({ className }: { className?: string }) {
       src="/moods/clouds/cloud-stressed.png"
       alt="Stressed Cloud"
       className={className}
-      style={{ width: "100%", maxWidth: "120px", height: "auto", objectFit: "contain" }}
+      style={{ width: "100%", maxWidth: "140px", height: "auto", objectFit: "contain" }}
     />
   );
 }
@@ -574,9 +574,9 @@ export default function HeroSectionExact({
             </div>
 
             <div className={styles.stepDashedArrow}>
-              <svg width="12" height="36" viewBox="0 0 12 36" fill="none">
-                <line x1="6" y1="0" x2="6" y2="28" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
-                <path d="M2.5 24L6 28.5L9.5 24" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="12" height="30" viewBox="0 0 12 30" fill="none">
+                <line x1="6" y1="0" x2="6" y2="22" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
+                <path d="M2.5 18L6 22.5L9.5 18" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
 
@@ -588,9 +588,9 @@ export default function HeroSectionExact({
             </div>
 
             <div className={styles.stepDashedArrow}>
-              <svg width="12" height="36" viewBox="0 0 12 36" fill="none">
-                <line x1="6" y1="0" x2="6" y2="28" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
-                <path d="M2.5 24L6 28.5L9.5 24" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="12" height="30" viewBox="0 0 12 30" fill="none">
+                <line x1="6" y1="0" x2="6" y2="22" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
+                <path d="M2.5 18L6 22.5L9.5 18" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
 

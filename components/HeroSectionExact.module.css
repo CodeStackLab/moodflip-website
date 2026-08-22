@@ -507,7 +507,7 @@
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  margin-top: 18px;
+  margin-top: 8px;
 }
 
 .sunTopHeart {
@@ -515,25 +515,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .outcomeSubtitle {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', 'Inter', sans-serif);
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 700;
-  color: #1A2859;
+  color: #101C56;
   letter-spacing: -0.1px;
 }
 
 .outcomeMoodHeading {
   font-family: 'Playfair Display', 'Fraunces', Georgia, serif;
-  font-size: 58px;
+  font-size: 64px;
   font-weight: 700;
-  color: #234D35;
+  color: #2F5938;
   line-height: 1.05;
-  letter-spacing: -1px;
-  margin: 4px 0 2px 0;
+  letter-spacing: -0.5px;
+  margin: 3px 0 2px 0;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -547,10 +547,10 @@
 }
 
 .headingLeafImg {
-  width: 26px;
-  height: 34px;
+  width: 24px;
+  height: 32px;
   object-fit: contain;
-  transform: rotate(12deg);
+  transform: rotate(10deg);
 }
 
 .outcomeUnderlineHeart {
@@ -558,23 +558,23 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  width: 140px;
+  width: 130px;
   margin-top: 4px;
 }
 
 .outcomeDividerLine {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(232, 221, 212, 0.1) 0%, #E8DDD4 100%);
+  background: linear-gradient(90deg, rgba(232, 221, 212, 0.15) 0%, #E8DDD4 100%);
 }
 
 .outcomeDividerLine:last-child {
-  background: linear-gradient(90deg, #E8DDD4 0%, rgba(232, 221, 212, 0.1) 100%);
+  background: linear-gradient(90deg, #E8DDD4 0%, rgba(232, 221, 212, 0.15) 100%);
 }
 
 .outcomeDividerHeart {
-  color: #ECA898;
-  font-size: 11.5px;
+  color: #EFA696;
+  font-size: 12px;
   line-height: 1;
 }
 

@@ -34,16 +34,16 @@ async function slicePerfectAssets() {
   // 2. Eight Feeling Icons & Cards with safe generous margins
   const feelingConfigs = [
     // Row 1
-    { name: 'lonely', left: 90, top: 242, width: 195, height: 190, iconCrop: { left: 130, top: 275, width: 115, height: 125 } },
-    { name: 'rejected', left: 300, top: 242, width: 195, height: 190, iconCrop: { left: 340, top: 275, width: 115, height: 125 } },
-    { name: 'hurt', left: 510, top: 242, width: 195, height: 190, iconCrop: { left: 550, top: 275, width: 115, height: 125 } },
-    { name: 'ashamed', left: 720, top: 242, width: 195, height: 190, iconCrop: { left: 760, top: 275, width: 115, height: 125 } },
+    { name: 'lonely', left: 90, top: 242, width: 195, height: 190, iconCrop: { left: 120, top: 260, width: 140, height: 140 } },
+    { name: 'rejected', left: 300, top: 242, width: 195, height: 190, iconCrop: { left: 330, top: 260, width: 140, height: 140 } },
+    { name: 'hurt', left: 510, top: 242, width: 195, height: 190, iconCrop: { left: 535, top: 255, width: 145, height: 145 } },
+    { name: 'ashamed', left: 720, top: 242, width: 195, height: 190, iconCrop: { left: 755, top: 258, width: 125, height: 135 } },
 
     // Row 2
-    { name: 'guilty', left: 90, top: 450, width: 195, height: 180, iconCrop: { left: 130, top: 480, width: 115, height: 125 } },
-    { name: 'empty', left: 300, top: 450, width: 195, height: 180, iconCrop: { left: 340, top: 480, width: 115, height: 125 } },
-    { name: 'overwhelmed', left: 510, top: 450, width: 195, height: 180, iconCrop: { left: 550, top: 480, width: 115, height: 125 } },
-    { name: 'abandoned', left: 720, top: 450, width: 195, height: 180, iconCrop: { left: 760, top: 480, width: 115, height: 125 } },
+    { name: 'guilty', left: 90, top: 450, width: 195, height: 180, iconCrop: { left: 120, top: 465, width: 140, height: 140 } },
+    { name: 'empty', left: 300, top: 450, width: 195, height: 180, iconCrop: { left: 330, top: 465, width: 140, height: 140 } },
+    { name: 'overwhelmed', left: 510, top: 450, width: 195, height: 180, iconCrop: { left: 535, top: 465, width: 155, height: 145 } },
+    { name: 'abandoned', left: 720, top: 450, width: 195, height: 180, iconCrop: { left: 760, top: 468, width: 120, height: 135 } },
   ];
 
   for (const cfg of feelingConfigs) {
@@ -60,12 +60,12 @@ async function slicePerfectAssets() {
       .raw()
       .toBuffer({ resolveWithObject: true });
 
-    // Make light purple / tinted background pixels transparent
+    // Make light background pixels transparent
     for (let i = 0; i < iconBuffer.info.width * iconBuffer.info.height; i++) {
       const r = iconBuffer.data[i * 4];
       const g = iconBuffer.data[i * 4 + 1];
       const b = iconBuffer.data[i * 4 + 2];
-      if (r > 195 && g > 185 && b > 215) {
+      if ((r > 200 && g > 190 && b > 210) || (r > 235 && g > 235 && b > 235)) {
         iconBuffer.data[i * 4 + 3] = 0;
       }
     }
@@ -82,7 +82,7 @@ async function slicePerfectAssets() {
       .png()
       .toFile(outIconPath);
 
-    console.log(`Saved card and icon: ${cfg.name}`);
+    console.log(`Saved unclipped card and icon: ${cfg.name}`);
   }
 
   console.log('All assets sliced perfectly with full unclipped tops!');

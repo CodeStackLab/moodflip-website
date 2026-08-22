@@ -191,7 +191,7 @@
 /* ── 5. MIDDLE COLUMN: INTERACTIVE MOOD TOOL ── */
 .centerMoodCol {
   background: #FFFFFF;
-  padding: 24px 24px 20px 24px;
+  padding: 28px 24px 20px 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -200,21 +200,21 @@
   z-index: 1;
 }
 
-/* Layer 1: 5 Clouds (Big & Prominent, Full Span) */
+/* Layer 1: 5 Clouds (Big & Prominent, Full Span, No Cropping) */
 .cloudRow {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  padding-top: 0;
+  padding-top: 8px;
 }
 
 .cloudBtn {
   background: transparent;
   border: 1.5px solid transparent;
   border-radius: 22px;
-  padding: 10px 6px 12px 6px;
+  padding: 8px 6px 10px 6px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -224,7 +224,7 @@
   user-select: none;
   flex: 1;
   max-width: 180px;
-  min-height: 120px;
+  min-height: 116px;
   justify-content: space-between;
 }
 
@@ -236,6 +236,7 @@
   align-items: center;
   width: 100%;
   flex: 1;
+  padding-top: 2px;
 }
 
 .cloudSvgWrap svg,
@@ -268,7 +269,7 @@
   border: 1.5px solid #8C7AC4 !important;
   border-radius: 22px !important;
   box-shadow: 0 4px 14px rgba(116, 100, 172, 0.18) !important;
-  padding: 10px 6px 12px 6px !important;
+  padding: 8px 6px 10px 6px !important;
 }
 
 .cloudBtnActive .cloudSvgWrap {
@@ -293,17 +294,17 @@
   background: #FFFFFF;
   border: 1.5px solid #EAE3F2;
   border-radius: 14px;
-  padding: 7px 3px 5px 3px;
+  padding: 6px 2px 5px 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 3px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   user-select: none;
-  min-height: 72px;
+  min-height: 76px;
   aspect-ratio: 1 / 1.1;
 }
 
@@ -321,8 +322,8 @@
 }
 
 .feelingIconWrap {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -331,8 +332,8 @@
 
 .feelingIconWrap svg,
 .feelingIconWrap img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
 }
 

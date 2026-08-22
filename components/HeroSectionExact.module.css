@@ -598,15 +598,16 @@
 }
 
 .actionZenBadge {
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   border-radius: 50%;
-  background: transparent;
+  background: #F0EEE8;
   transition: transform 0.3s ease;
+  overflow: hidden;
 }
 
 .actionZenBadge:hover {
@@ -614,17 +615,16 @@
 }
 
 .zenMascotSvg {
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 80px;
   display: block;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.04));
 }
 
 .zenMascotImg {
-  width: 76px;
-  height: 76px;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(100, 160, 100, 0.18));
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  display: block;
 }
 
 .actionCardText {
@@ -680,11 +680,12 @@
 
 .actionCardBotanical {
   flex-shrink: 0;
-  margin-left: 2px;
+  margin-left: 4px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   transition: transform 0.3s ease;
+  align-self: stretch;
 }
 
 .actionCardBotanical:hover {
@@ -692,10 +693,11 @@
 }
 
 .botanicalBranchImg {
-  width: 58px;
-  height: 82px;
+  width: 52px;
+  height: 100px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(100, 130, 80, 0.15));
+  object-position: bottom;
+  display: block;
 }
 
 .actionButtonsRow {

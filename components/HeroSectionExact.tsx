@@ -782,8 +782,13 @@ export default function HeroSectionExact({
             {/* 60-Second Action Floating Card (Exact Clone from Reference) */}
             <div className={styles.actionFloatingCard}>
               <div className={styles.actionCardInner}>
+                {/* Left: User-provided Zen Mascot PNG (ChatGPT Image 07_48_59 PM) */}
                 <div className={styles.actionZenBadge}>
-                  <MeditatingZenIcon className={styles.zenMascotSvg} />
+                  <img
+                    src="/zen-mascot-orb.png?v=3"
+                    alt="Zen Mascot"
+                    className={styles.zenMascotImg}
+                  />
                 </div>
 
                 <div className={styles.actionCardText}>
@@ -799,10 +804,10 @@ export default function HeroSectionExact({
                   <p className={styles.actionCardDesc}>{displayedActionDesc}</p>
                 </div>
 
-                {/* Botanical leaf on right using user-provided image asset */}
+                {/* Right: User-provided Botanical Branch PNG (ChatGPT Image 07_48_49 PM) */}
                 <div className={styles.actionCardBotanical}>
                   <img
-                    src="/action-botanical-branch.png"
+                    src="/action-botanical-branch.png?v=3"
                     alt="Botanical Leaf Branch"
                     className={styles.botanicalBranchImg}
                   />

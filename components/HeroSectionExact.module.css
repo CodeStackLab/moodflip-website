@@ -285,7 +285,7 @@
 .feelingsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 8px;
   width: 100%;
   padding-right: 96px;
 }
@@ -293,19 +293,19 @@
 .feelingCard {
   background: #FFFFFF;
   border: 1.5px solid #EAE3F2;
-  border-radius: 16px;
-  padding: 10px 4px 8px 4px;
+  border-radius: 14px;
+  padding: 8px 3px 6px 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   user-select: none;
-  min-height: 98px;
-  aspect-ratio: 1 / 1.05;
+  min-height: 84px;
+  aspect-ratio: 1 / 0.98;
 }
 
 .feelingCard:hover {
@@ -322,8 +322,8 @@
 }
 
 .feelingIconWrap {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -332,8 +332,8 @@
 
 .feelingIconWrap svg,
 .feelingIconWrap img {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 
@@ -342,7 +342,7 @@
 }
 
 .feelingName {
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #1A143F;
   text-align: center;
@@ -359,11 +359,11 @@
   width: calc(100% - 96px);
   background: #FAF8FD;
   border: 1px solid #ECE4F2;
-  border-radius: 20px;
-  padding: 12px 14px 10px 14px;
+  border-radius: 16px;
+  padding: 9px 12px 8px 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6);
 }
 
@@ -371,7 +371,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
 }
 
@@ -379,9 +379,9 @@
   background: #FFFFFF;
   border: 1.5px solid #EDE6F0;
   border-radius: 9999px;
-  padding: 7px 22px;
+  padding: 5px 16px;
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
-  font-size: 13.5px;
+  font-size: 12px;
   font-weight: 700;
   color: #161C52;
   cursor: pointer;
@@ -409,9 +409,9 @@
 .chipsExplanationNote {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #6E648B;
   font-style: normal;

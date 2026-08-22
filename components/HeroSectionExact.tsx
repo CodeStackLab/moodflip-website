@@ -690,35 +690,37 @@ export default function HeroSectionExact({
               })}
             </div>
 
-            {/* LAYER 3: Chips Row */}
-            <div className={styles.chipsRow} role="radiogroup" aria-label="3. Pick Exact Specific Feeling Chip">
-              {activeFeeling.chips.map((chip) => {
-                const isSelected = selectedChip === chip;
-                return (
-                  <button
-                    key={chip}
-                    type="button"
-                    className={`${styles.chipPill} ${isSelected ? styles.chipPillActive : ""}`}
-                    onClick={() => handleChipSelect(chip)}
-                    role="radio"
-                    aria-checked={isSelected}
-                  >
-                    {chip}
-                  </button>
-                );
-              })}
-            </div>
+            {/* LAYER 3: Chips & Note Enclosed Box (Exact Match) */}
+            <div className={styles.chipsBoxContainer}>
+              <div className={styles.chipsRow} role="radiogroup" aria-label="3. Pick Exact Specific Feeling Chip">
+                {activeFeeling.chips.map((chip) => {
+                  const isSelected = selectedChip === chip;
+                  return (
+                    <button
+                      key={chip}
+                      type="button"
+                      className={`${styles.chipPill} ${isSelected ? styles.chipPillActive : ""}`}
+                      onClick={() => handleChipSelect(chip)}
+                      role="radio"
+                      aria-checked={isSelected}
+                    >
+                      {chip}
+                    </button>
+                  );
+                })}
+              </div>
 
-            {/* Explanatory Note (Exact Match with Sparkle Icon) */}
-            <div className={styles.chipsExplanationNote}>
-              <svg className={styles.noteSparkleSvg} width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#9C8CC4" />
-                <circle cx="5" cy="5" r="1.2" fill="#9C8CC4" />
-                <circle cx="19" cy="5" r="1.2" fill="#9C8CC4" />
-                <circle cx="19" cy="19" r="1.2" fill="#9C8CC4" />
-                <circle cx="5" cy="19" r="1.2" fill="#9C8CC4" />
-              </svg>
-              <span>These are examples. You can explore what feels right for you.</span>
+              {/* Explanatory Note (Exact Match with Sparkle Icon) */}
+              <div className={styles.chipsExplanationNote}>
+                <svg className={styles.noteSparkleSvg} width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#9C8CC4" />
+                  <circle cx="5" cy="5" r="1.2" fill="#9C8CC4" />
+                  <circle cx="19" cy="5" r="1.2" fill="#9C8CC4" />
+                  <circle cx="19" cy="19" r="1.2" fill="#9C8CC4" />
+                  <circle cx="5" cy="19" r="1.2" fill="#9C8CC4" />
+                </svg>
+                <span>These are examples. You can explore what feels right for you.</span>
+              </div>
             </div>
           </div>
 

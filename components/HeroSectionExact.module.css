@@ -564,15 +564,18 @@
 
 .outcomeMoodHeading {
   font-family: 'Playfair Display', 'Fraunces', Georgia, serif;
-  font-size: 64px;
+  font-size: 44px;
   font-weight: 700;
   color: #2F5938;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -0.5px;
   margin: 3px 0 2px 0;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
+  max-width: 90%;
+  text-align: center;
 }
 
 .headingLeafBranch {

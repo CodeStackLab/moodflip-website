@@ -538,8 +538,8 @@
   object-fit: cover;
   object-position: center top;
   pointer-events: none;
-  opacity: 0.88;
-  filter: saturate(1.05) brightness(1.0);
+  opacity: 1;
+  filter: saturate(1.2) contrast(1.05) brightness(0.97);
 }
 
 /* Outcome Header placed on top of the Sun */

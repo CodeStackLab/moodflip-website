@@ -293,7 +293,7 @@
   background: #FFFFFF;
   border: 1.5px solid #EAE3F2;
   border-radius: 14px;
-  padding: 9px 3px 7px 3px;
+  padding: 7px 3px 6px 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -303,8 +303,8 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   user-select: none;
-  min-height: 84px;
-  aspect-ratio: 1 / 1.18;
+  min-height: 74px;
+  aspect-ratio: 1 / 1.05;
 }
 
 .feelingCard:hover {

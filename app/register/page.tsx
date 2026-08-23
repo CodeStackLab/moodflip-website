@@ -371,7 +371,7 @@ export default function RegisterPage() {
                         <input type="checkbox" required checked={consentData} onChange={(e) => setConsentData(e.target.checked)}
                           className="accent-[#7464AC] w-3.5 h-3.5 cursor-pointer mt-0.5 flex-shrink-0" />
                         <span>
-                          I consent to MoodFlip storing my email and saved mood check-ins. I understand that inactive profiles and saved mood history are automatically deleted after 90 days of inactivity.{' '}
+                          By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history so we can create and offer personalised downloads. (Inactive profiles and data are automatically deleted after 90 days).{' '}
                           <a href="/privacy" className="font-bold hover:underline text-[#7464AC]">Privacy Policy</a>
                         </span>
                       </label>

@@ -1701,8 +1701,11 @@ export default function UserDashboardPage() {
                 </div>
                 <div>
                   <h3 className="font-serif text-2xl font-extrabold text-[#1A1338]">Payment Successful! 🎉</h3>
-                  <p className="text-sm text-[#5C527A] font-semibold mt-1 max-w-xs mx-auto">
-                    Welcome to the <strong>{selectedPlan.name}</strong>. Your printable PDF is now unlocked!
+                  <p className="text-sm text-[#5C527A] font-semibold mt-1 max-w-sm mx-auto">
+                    Payment successful. Your MoodFlip Report is ready to download. A copy has also been emailed to you.
+                  </p>
+                  <p className="text-xs text-[#A49BA8] font-medium mt-2 max-w-xs mx-auto">
+                    (If the email does not arrive immediately, you can always re-download your report anytime from this profile tab or contact support.)
                   </p>
                 </div>
                 <div className="pt-2">

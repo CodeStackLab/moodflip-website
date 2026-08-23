@@ -592,13 +592,13 @@ export default function HeroSectionExact({
   const handleSaveToProfile = () => {
     if (typeof window === "undefined") return;
 
-    // ── #21: Enforce max 3 saved check-ins per calendar day ──
+    // ── Spec v4: Enforce max 3 saved check-ins per calendar day ──
     const today = new Date().toISOString().split("T")[0];
     const dailyData = JSON.parse(localStorage.getItem("moodflip_daily_checkins") || "{}");
     const todayCount = dailyData[today] || 0;
     if (todayCount >= 3) {
-      setSavedMsg("You've reached today's 3 check-in limit. Come back tomorrow! 💛");
-      setTimeout(() => setSavedMsg(""), 4000);
+      setSavedMsg("You’ve saved today’s 3 check-ins. You can still use the free MoodFlip tool. You can save more check-ins tomorrow.");
+      setTimeout(() => setSavedMsg(""), 6000);
       return;
     }
 
@@ -624,25 +624,27 @@ export default function HeroSectionExact({
       localStorage.setItem("moodflip_daily_checkins", JSON.stringify(dailyData));
       setDailyCheckInCount(newCount);
 
-      // ── #22: 7-Day Report Progress Messages ──
+      // ── Spec v4: 7-Day Report Progress Messages ──
       const savedDays = new Set<string>(
         (updated as {date:string}[]).map((c) => c.date.split("T")[0])
       );
       const daysSaved = savedDays.size;
-      let progressNote = "✓ Saved to your check-in journal!";
-      if (daysSaved === 1) progressNote = "✓ Day 1 of 7 saved! Keep going — your 7-day mood report is building. 🌱";
-      else if (daysSaved === 2) progressNote = "✓ Day 2 of 7! Great momentum. Each check-in builds your personalised report. 💛";
-      else if (daysSaved === 3) progressNote = "✓ Day 3 of 7! You're halfway there. Your mood patterns are taking shape. ☀️";
-      else if (daysSaved === 4) progressNote = "✓ Day 4 of 7! Incredible consistency. 3 more days and your report is ready. 🌸";
-      else if (daysSaved === 5) progressNote = "✓ Day 5 of 7! Almost there — just 2 more days for your full 7-day report! 🎯";
-      else if (daysSaved === 6) progressNote = "✓ Day 6 of 7! One more day — your personalised PDF report will be ready tomorrow! 🥳";
-      else if (daysSaved >= 7) progressNote = "🎉 7-Day Report Ready! You can now download your personalised mood report. ✨";
+
+      let progressNote = `Saved. Today’s check-ins: [${newCount}/3] 7-Day Report progress: Day [${Math.min(daysSaved, 7)}] of 7`;
+
+      if (updated.length === 1) {
+        // Message 1: After first saved check-in
+        progressNote = "Your first MoodFlip check-in is saved. You can save up to 3 check-ins per day. After 7 days, you’ll be able to download your personalised 7-Day MoodFlip Report.";
+      } else if (daysSaved >= 7) {
+        // Message 5: 7-day report ready
+        progressNote = "Your 7-Day MoodFlip Report is ready. Download your personalised report with your saved moods, positive moods, 60-second actions, and mood pattern summary. Download for US$7";
+      }
 
       setSavedMsg(progressNote);
       setProgressMsg(progressNote);
-      setTimeout(() => setSavedMsg(""), 5000);
+      setTimeout(() => setSavedMsg(""), 7000);
     } catch (e) {
-      setSavedMsg("✓ Saved locally!");
+      setSavedMsg("Saved locally!");
       setTimeout(() => setSavedMsg(""), 3000);
     }
   };
@@ -1138,10 +1140,10 @@ export default function HeroSectionExact({
             >×</button>
             <div style={{ fontSize: 38, marginBottom: 10 }}>🌸</div>
             <h2 style={{ fontSize: 20, fontWeight: 800, color: "#3D2D5E", marginBottom: 8 }}>
-              {popupSettings.modalTitle || "Welcome back to MoodFlip!"}
+              {popupSettings.modalTitle || "Save your MoodFlip check-ins?"}
             </h2>
             <p style={{ fontSize: 14, color: "#5A4A7A", lineHeight: 1.6, marginBottom: 20 }}>
-              {popupSettings.modalDescription || "Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report."}
+              {popupSettings.modalDescription || "Create a free profile to save your moods, actions, and progress toward your 7-Day MoodFlip Report."}
             </p>
             <a
               href={popupSettings.buttonLink || "/register"}

@@ -351,6 +351,9 @@ export default function HeroSectionExact({
   const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(COUNSELOR_MOODS);
   const [freeFlipCount, setFreeFlipCount] = useState<number>(0);
   const [actionRotationIndex, setActionRotationIndex] = useState<Record<string, number>>({});
+  const [showSecondVisitPopup, setShowSecondVisitPopup] = useState(false);
+  const [dailyCheckInCount, setDailyCheckInCount] = useState(0);
+  const [progressMsg, setProgressMsg] = useState("");
 
   // Outcome state that ONLY updates when user clicks "Flip Your Mood" (or on initial load / reset)
   const [flippedOutcome, setFlippedOutcome] = useState<{
@@ -415,6 +418,19 @@ export default function HeroSectionExact({
     if (typeof window !== "undefined") {
       const savedCount = parseInt(localStorage.getItem("moodflip_free_flip_count") || "0", 10);
       setFreeFlipCount(savedCount);
+
+      // ── #19: Second-Visit Profile Invitation Popup ──
+      const visits = parseInt(localStorage.getItem("moodflip_visit_count") || "0", 10) + 1;
+      localStorage.setItem("moodflip_visit_count", String(visits));
+      const alreadyDismissed = localStorage.getItem("moodflip_visit_popup_dismissed") === "1";
+      if (visits >= 2 && !alreadyDismissed) {
+        setTimeout(() => setShowSecondVisitPopup(true), 3000);
+      }
+
+      // ── #21: Load today's check-in count ──
+      const today = new Date().toISOString().split("T")[0];
+      const dailyData = JSON.parse(localStorage.getItem("moodflip_daily_checkins") || "{}");
+      setDailyCheckInCount(dailyData[today] || 0);
     }
   }, []);
 
@@ -507,6 +523,17 @@ export default function HeroSectionExact({
 
   const handleSaveToProfile = () => {
     if (typeof window === "undefined") return;
+
+    // ── #21: Enforce max 3 saved check-ins per calendar day ──
+    const today = new Date().toISOString().split("T")[0];
+    const dailyData = JSON.parse(localStorage.getItem("moodflip_daily_checkins") || "{}");
+    const todayCount = dailyData[today] || 0;
+    if (todayCount >= 3) {
+      setSavedMsg("You've reached today's 3 check-in limit. Come back tomorrow! 💛");
+      setTimeout(() => setSavedMsg(""), 4000);
+      return;
+    }
+
     const checkin = {
       id: Date.now().toString(),
       date: new Date().toISOString(),
@@ -522,8 +549,30 @@ export default function HeroSectionExact({
       const existing = JSON.parse(localStorage.getItem("moodflip_checkin_history") || "[]");
       const updated = [checkin, ...existing.slice(0, 49)];
       localStorage.setItem("moodflip_checkin_history", JSON.stringify(updated));
-      setSavedMsg("✓ Saved to your check-in journal!");
-      setTimeout(() => setSavedMsg(""), 3500);
+
+      // Update daily count
+      const newCount = todayCount + 1;
+      dailyData[today] = newCount;
+      localStorage.setItem("moodflip_daily_checkins", JSON.stringify(dailyData));
+      setDailyCheckInCount(newCount);
+
+      // ── #22: 7-Day Report Progress Messages ──
+      const savedDays = new Set<string>(
+        (updated as {date:string}[]).map((c) => c.date.split("T")[0])
+      );
+      const daysSaved = savedDays.size;
+      let progressNote = "✓ Saved to your check-in journal!";
+      if (daysSaved === 1) progressNote = "✓ Day 1 of 7 saved! Keep going — your 7-day mood report is building. 🌱";
+      else if (daysSaved === 2) progressNote = "✓ Day 2 of 7! Great momentum. Each check-in builds your personalised report. 💛";
+      else if (daysSaved === 3) progressNote = "✓ Day 3 of 7! You're halfway there. Your mood patterns are taking shape. ☀️";
+      else if (daysSaved === 4) progressNote = "✓ Day 4 of 7! Incredible consistency. 3 more days and your report is ready. 🌸";
+      else if (daysSaved === 5) progressNote = "✓ Day 5 of 7! Almost there — just 2 more days for your full 7-day report! 🎯";
+      else if (daysSaved === 6) progressNote = "✓ Day 6 of 7! One more day — your personalised PDF report will be ready tomorrow! 🥳";
+      else if (daysSaved >= 7) progressNote = "🎉 7-Day Report Ready! You can now download your personalised mood report. ✨";
+
+      setSavedMsg(progressNote);
+      setProgressMsg(progressNote);
+      setTimeout(() => setSavedMsg(""), 5000);
     } catch (e) {
       setSavedMsg("✓ Saved locally!");
       setTimeout(() => setSavedMsg(""), 3000);
@@ -890,6 +939,40 @@ export default function HeroSectionExact({
               </div>
             </div>
 
+            {/* ── #20: SAVE MY PROFILE button under the 60-second action ── */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, marginTop: 12 }}>
+              <button
+                type="button"
+                onClick={handleSaveToProfile}
+                style={{
+                  background: "linear-gradient(135deg, #7464AC 0%, #9C6FBF 100%)",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: 14,
+                  padding: "10px 28px",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  letterSpacing: 0.3,
+                  boxShadow: "0 2px 12px rgba(116,100,172,0.22)",
+                  transition: "transform 0.15s",
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
+                onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                aria-label="Save My Profile Check-in"
+              >
+                💾 Save My Profile
+              </button>
+              {savedMsg && (
+                <div style={{ fontSize: 12, color: "#5A4A7A", textAlign: "center", maxWidth: 240, lineHeight: 1.4, fontWeight: 600 }}>
+                  {savedMsg}
+                </div>
+              )}
+              <div style={{ fontSize: 11, color: "#A899C0", textAlign: "center", maxWidth: 220 }}>
+                {dailyCheckInCount}/3 check-ins saved today
+              </div>
+            </div>
+
             {/* Mobile-Only Switch Back Action Button (Zero Scrolling Needed) */}
             <div className={styles.mobileOutcomeActionsBar}>
               <button
@@ -955,6 +1038,64 @@ export default function HeroSectionExact({
           </div>
         </div>
       </div>
+
+      {/* ── #19: SECOND-VISIT PROFILE INVITATION POPUP ── */}
+      {showSecondVisitPopup && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Welcome back! Create a free profile"
+          style={{
+            position: "fixed", inset: 0, zIndex: 9000,
+            background: "rgba(80,60,110,0.45)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: 20,
+          }}
+          onClick={(e) => { if (e.target === e.currentTarget) { setShowSecondVisitPopup(false); localStorage.setItem("moodflip_visit_popup_dismissed", "1"); } }}
+        >
+          <div style={{
+            background: "#FAF7FD",
+            borderRadius: 22,
+            padding: "32px 28px",
+            maxWidth: 380,
+            width: "100%",
+            textAlign: "center",
+            boxShadow: "0 8px 40px rgba(116,100,172,0.25)",
+            position: "relative",
+          }}>
+            <button
+              onClick={() => { setShowSecondVisitPopup(false); localStorage.setItem("moodflip_visit_popup_dismissed", "1"); }}
+              style={{ position: "absolute", top: 14, right: 18, background: "none", border: "none", fontSize: 20, cursor: "pointer", color: "#A899C0" }}
+              aria-label="Close popup"
+            >×</button>
+            <div style={{ fontSize: 38, marginBottom: 10 }}>🌸</div>
+            <h2 style={{ fontSize: 20, fontWeight: 800, color: "#3D2D5E", marginBottom: 8 }}>Welcome back to MoodFlip!</h2>
+            <p style={{ fontSize: 14, color: "#5A4A7A", lineHeight: 1.6, marginBottom: 20 }}>
+              Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report.
+            </p>
+            <a
+              href="/register"
+              style={{
+                display: "inline-block",
+                background: "linear-gradient(135deg, #7464AC 0%, #9C6FBF 100%)",
+                color: "#fff", borderRadius: 14, padding: "11px 28px",
+                fontWeight: 700, fontSize: 14, textDecoration: "none",
+                boxShadow: "0 3px 14px rgba(116,100,172,0.22)",
+                marginBottom: 10,
+              }}
+            >
+              Create Free Profile
+            </a>
+            <br />
+            <button
+              onClick={() => { setShowSecondVisitPopup(false); localStorage.setItem("moodflip_visit_popup_dismissed", "1"); }}
+              style={{ background: "none", border: "none", fontSize: 12, color: "#A899C0", cursor: "pointer", marginTop: 6 }}
+            >
+              Maybe later
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

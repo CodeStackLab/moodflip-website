@@ -1,86 +1,111 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { defaultLegalPages } from '@/lib/blogData';
-
-function renderContent(content: string) {
-  if (!content) return null;
-  const isHtml = /<[a-z][\s\S]*>/i.test(content);
-  if (isHtml) {
-    return <div className="prose-custom text-[#5B5278] text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: content }} />;
-  }
-  return content.split('\n').map((line, i) => {
-    if (line.startsWith('## ')) return <h2 key={i} className="font-serif text-2xl font-extrabold text-[#1A1338] mt-8 mb-3">{line.slice(3)}</h2>;
-    if (line.startsWith('### ')) return <h3 key={i} className="font-serif text-lg font-extrabold text-[#1A1338] mt-6 mb-2">{line.slice(4)}</h3>;
-    if (line.startsWith('- ')) return <li key={i} className="mb-1 ml-4">{line.slice(2)}</li>;
-    if (line === '') return <div key={i} className="h-2" />;
-    const parts = line.split(/(\*\*[^*]+\*\*)/g);
-    return (
-      <p key={i} className="text-[#5B5278] text-sm leading-relaxed mb-0">
-        {parts.map((part, j) =>
-          part.startsWith('**') && part.endsWith('**')
-            ? <strong key={j} className="font-extrabold text-[#1A1338]">{part.slice(2, -2)}</strong>
-            : part
-        )}
-      </p>
-    );
-  });
-}
-
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+export const metadata = {
+  title: 'Terms of Service | MoodFlip',
+  description: 'Terms of Service for using MoodFlip self-reflection utility and digital coaching downloads.',
+};
+
 export default function TermsPage() {
-  const [content, setContent] = useState(defaultLegalPages.find(p => p.id === 'terms')!);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('moodflip_legal_pages');
-      if (saved) {
-        try {
-          const pages = JSON.parse(saved);
-          const page = pages.find((p: any) => p.id === 'terms' || p.slug === 'terms');
-          if (page) setContent(page);
-        } catch (e) {}
-      }
-    }
-  }, []);
-
   return (
-    <div className="min-h-screen bg-[#FEF9F5] text-[#1A143F] font-sans antialiased">
+    <div className="min-h-screen bg-[#FCF5EE] text-[#1A143F] font-sans antialiased flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
       <Header />
 
-      {/* HERO BANNER */}
-      <div className="bg-gradient-to-br from-[#7464AC] to-[#4F438B] text-white py-10 sm:py-14 px-4 text-center">
-        <div className="max-w-3xl mx-auto space-y-2.5">
-          <span className="inline-block text-xs font-black uppercase tracking-widest bg-[#FEF9F5]/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
-            ⚖️ Terms of Service
-          </span>
-          <h1 className="font-serif text-2xl sm:text-4xl font-extrabold leading-tight">{content.title}</h1>
-          <p className="text-xs text-white/80 font-semibold">Last Updated: {content.lastUpdated}</p>
-        </div>
-      </div>
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-6">
+        
+        {/* ── WIDE SUNRISE BANNER: TEXT DIRECTLY ON TOP OF ARTWORK ── */}
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm min-h-[220px] sm:min-h-[280px] md:min-h-[300px] flex flex-col items-center justify-center text-center p-6 sm:p-10 bg-[#FCF5EE]">
+          {/* Full Sunrise Landscape Artwork */}
+          <img
+            src="/peaceful-sunrise-bg.png"
+            alt="MoodFlip Peaceful Sunrise"
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+          />
 
-      <main className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
-        <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-10 shadow-[0_10px_28px_rgba(26,20,63,0.03)]">
-          {renderContent(content.content)}
+          {/* Text directly on top of the image */}
+          <div className="relative z-10 max-w-3xl mx-auto space-y-3 px-2">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A143F] tracking-tight">
+              Terms of Service
+            </h1>
+            <p className="text-xs sm:text-sm text-[#533B93] font-extrabold tracking-wide uppercase">
+              Last updated: 21 August 2026
+            </p>
+            <p className="text-base sm:text-lg md:text-xl text-[#1A143F] font-bold leading-relaxed max-w-2xl mx-auto">
+              Please review these Terms of Service before using the MoodFlip self-reflection utility and downloads.
+            </p>
+          </div>
         </div>
 
-        <div className="mt-8 flex items-center gap-4 text-xs font-bold text-[#5C527A] flex-wrap">
-          <Link href="/privacy" className="hover:text-[#7464AC] transition">Privacy Policy →</Link>
-          <Link href="/disclaimer" className="hover:text-[#7464AC] transition">Disclaimer →</Link>
-          <Link href="/refund" className="hover:text-[#7464AC] transition">Refund Policy →</Link>
+        {/* ── MAIN CONTENT CARD ── */}
+        <div className="rounded-2xl sm:rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 sm:p-12 shadow-[0_4px_24px_rgba(26,20,63,0.04)] space-y-8 text-[#1A143F]">
+
+          {/* Section 1 */}
+          <section className="space-y-3">
+            <h2 className="text-lg sm:text-xl font-bold text-[#4F438B]">
+              1. Acceptance of Terms
+            </h2>
+            <p className="text-sm sm:text-base leading-relaxed">
+              By accessing or using MoodFlip (&ldquo;Service&rdquo;), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service.
+            </p>
+          </section>
+
+          {/* Section 2 */}
+          <section className="space-y-3">
+            <h2 className="text-lg sm:text-xl font-bold text-[#4F438B]">
+              2. Nature of Service (Not Medical Advice)
+            </h2>
+            <p className="text-sm sm:text-base leading-relaxed">
+              MoodFlip is a self-reflection and emotional awareness utility. <strong>MoodFlip is NOT a medical, psychiatric, or healthcare provider.</strong> Content, micro-actions, AI reflections, and assessments provided through MoodFlip are for educational and personal reflection purposes only and do not constitute professional diagnosis, clinical therapy, or medical treatment.
+            </p>
+          </section>
+
+          {/* Section 3 */}
+          <section className="space-y-3">
+            <h2 className="text-lg sm:text-xl font-bold text-[#4F438B]">
+              3. User Profiles &amp; Accounts
+            </h2>
+            <p className="text-sm sm:text-base leading-relaxed">
+              You may use the core MoodFlip tool without creating an account. If you choose to create a profile, you are responsible for maintaining the confidentiality of your account credentials. Inactive profiles and saved mood data are automatically deleted after 90 days in accordance with our Privacy Policy.
+            </p>
+          </section>
+
+          {/* Section 4 */}
+          <section className="space-y-3">
+            <h2 className="text-lg sm:text-xl font-bold text-[#4F438B]">
+              4. Paid Downloads &amp; Subscriptions
+            </h2>
+            <p className="text-sm sm:text-base leading-relaxed">
+              If you purchase a paid download, customized 7-day report, or coaching plan, payments are processed securely through accredited third-party payment gateways. We offer a 30-day money-back guarantee on eligible digital products.
+            </p>
+          </section>
+
+          {/* Section 5 */}
+          <section className="space-y-3">
+            <h2 className="text-lg sm:text-xl font-bold text-[#4F438B]">
+              5. Intellectual Property
+            </h2>
+            <p className="text-sm sm:text-base leading-relaxed">
+              All branding, text, illustrations, artwork, interactive widgets, and methodologies displayed on MoodFlip are the exclusive property of MoodFlip and protected by copyright and intellectual property laws.
+            </p>
+          </section>
+
+          {/* Navigation Links */}
+          <div className="pt-6 border-t border-[#E4DAD7] flex flex-wrap items-center justify-between gap-4 text-sm font-bold text-[#7464AC]">
+            <Link href="/" className="hover:underline">
+              ← Back to Home
+            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
+              <Link href="/disclaimer" className="hover:underline">Disclaimer</Link>
+              <Link href="/refund" className="hover:underline">Refund Policy</Link>
+            </div>
+          </div>
+
         </div>
+
       </main>
-
-      <style jsx global>{`
-        .prose-custom h2 { font-family: var(--font-serif, 'Fraunces', Georgia, serif); font-size: 1.4rem; font-weight: 800; color: #1A143F; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-        .prose-custom p { color: #5C527A; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
-        .prose-custom ul, .prose-custom ol { padding-left: 1.4rem; margin-bottom: 1rem; color: #5C527A; }
-        .prose-custom li { margin-bottom: 0.3rem; }
-        .prose-custom strong { color: #1A143F; font-weight: 800; }
-      `}</style>
 
       <Footer />
     </div>

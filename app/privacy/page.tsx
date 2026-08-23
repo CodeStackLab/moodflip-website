@@ -10,65 +10,55 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[#FCF5EE] text-[#1A143F] font-sans antialiased relative flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
+    <div className="min-h-screen bg-[#FCF5EE] text-[#1A143F] font-sans antialiased flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
       <Header />
 
-      {/* ── BACKGROUND ARTWORK (Peaceful sunrise/sun style - Soft & Faded) ── */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-start justify-center opacity-25">
-        <img
-          src="/peaceful-sunrise-bg.png"
-          alt="Peaceful Sunrise Backdrop"
-          className="w-full max-w-5xl object-cover object-top filter contrast-105"
-        />
-      </div>
-
-      {/* ── MAIN CONTENT ── */}
-      <main className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 w-full">
-        {/* TOP HERO HEADING */}
-        <div className="text-center space-y-3 mb-10">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F4EBF5] border border-[#E4DAD7] px-4 py-1 text-xs font-extrabold text-[#7464AC] uppercase tracking-wider shadow-2xs">
-            🔒 Privacy &amp; Data Transparency
-          </span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-extrabold text-[#1A143F] tracking-tight">
-            Privacy Policy
-          </h1>
-          <p className="text-xs sm:text-sm text-[#7E7096] font-semibold bg-[#FCF3E9] inline-block px-4 py-1 rounded-full border border-[#E4DAD7]">
-            Last updated: 21 August 2026
-          </p>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-6">
+        
+        {/* ── TOP SUNRISE ARTWORK BANNER (Exact Mockup Match) ── */}
+        <div className="w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm bg-[#FEFAF8] flex items-center justify-center">
+          <img
+            src="/peaceful-sunrise-bg.png"
+            alt="MoodFlip Peaceful Sunrise Landscape"
+            className="w-full h-auto max-h-[260px] object-cover object-center"
+          />
         </div>
 
-        {/* MAIN WARM-CREAM CONTENT CARD */}
-        <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8]/95 backdrop-blur-sm p-6 sm:p-12 shadow-[0_12px_40px_rgba(79,67,139,0.05)] space-y-10">
-          {/* Intro */}
-          <p className="text-base sm:text-lg text-[#1A143F] font-medium leading-relaxed">
-            MoodFlip respects your privacy. This Privacy Policy explains what information we may collect and how it is used.
-          </p>
-
-          <hr className="border-[#E4DAD7]" />
+        {/* ── MAIN CONTENT CARD (Exact Google Doc Structure) ── */}
+        <div className="rounded-2xl sm:rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 sm:p-12 shadow-[0_4px_24px_rgba(26,20,63,0.04)] space-y-7 text-[#1A143F]">
+          
+          {/* Header Section */}
+          <div className="space-y-2 border-b border-[#E4DAD7] pb-4">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A143F] tracking-tight">
+              Privacy Policy
+            </h1>
+            <p className="text-xs sm:text-sm text-[#7E7096] font-semibold">
+              Last updated: 21 August 2026
+            </p>
+            <p className="text-sm sm:text-base text-[#1A143F] leading-relaxed pt-1">
+              MoodFlip respects your privacy. This Privacy Policy explains what information we may collect and how it is used.
+            </p>
+          </div>
 
           {/* Section 1 */}
-          <section className="space-y-3">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1A143F] flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-[#F4EBF5] text-[#7464AC] font-black text-sm flex items-center justify-center border border-[#E4DAD7] shrink-0">1</span>
-              <span>1. Using MoodFlip without a profile</span>
+          <section className="space-y-2">
+            <h2 className="text-base sm:text-lg font-bold text-[#4F438B]">
+              1. Using MoodFlip without a profile
             </h2>
-            <div className="pl-10 space-y-2 text-sm sm:text-base text-[#5C527A] leading-relaxed">
+            <div className="space-y-1.5 text-sm sm:text-base text-[#1A143F] leading-relaxed pl-1">
               <p>You can use the basic MoodFlip tool without creating a profile.</p>
               <p>If you do not create a profile, MoodFlip does not need to store your email address or saved mood history.</p>
             </div>
           </section>
 
-          <hr className="border-[#E4DAD7]" />
-
           {/* Section 2 */}
-          <section className="space-y-3">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1A143F] flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-[#F4EBF5] text-[#7464AC] font-black text-sm flex items-center justify-center border border-[#E4DAD7] shrink-0">2</span>
-              <span>2. Information we may collect</span>
+          <section className="space-y-2">
+            <h2 className="text-base sm:text-lg font-bold text-[#4F438B]">
+              2. Information we may collect
             </h2>
-            <div className="pl-10 space-y-3 text-sm sm:text-base text-[#5C527A] leading-relaxed">
+            <div className="space-y-2 text-sm sm:text-base text-[#1A143F] leading-relaxed pl-1">
               <p>If you create a profile, MoodFlip may store:</p>
-              <ul className="list-disc pl-5 space-y-1.5 text-[#1A143F] font-medium">
+              <ul className="space-y-1 pl-5 list-disc text-[#1A143F]">
                 <li>your email address</li>
                 <li>selected moods and feelings</li>
                 <li>check-in dates</li>
@@ -81,62 +71,52 @@ export default function PrivacyPage() {
             </div>
           </section>
 
-          <hr className="border-[#E4DAD7]" />
-
           {/* Section 3 */}
-          <section className="space-y-3">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1A143F] flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-[#F4EBF5] text-[#7464AC] font-black text-sm flex items-center justify-center border border-[#E4DAD7] shrink-0">3</span>
-              <span>3. Paid downloads</span>
+          <section className="space-y-2">
+            <h2 className="text-base sm:text-lg font-bold text-[#4F438B]">
+              3. Paid downloads
             </h2>
-            <div className="pl-10 space-y-2 text-sm sm:text-base text-[#5C527A] leading-relaxed">
+            <div className="space-y-1.5 text-sm sm:text-base text-[#1A143F] leading-relaxed pl-1">
               <p>If you buy a paid MoodFlip download, payment may be processed through a secure third-party payment provider.</p>
               <p>MoodFlip does not need to store your full card details.</p>
             </div>
           </section>
 
-          <hr className="border-[#E4DAD7]" />
-
           {/* Section 4 */}
-          <section className="space-y-3">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1A143F] flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-[#F4EBF5] text-[#7464AC] font-black text-sm flex items-center justify-center border border-[#E4DAD7] shrink-0">4</span>
-              <span>4. 90-day automatic deletion</span>
+          <section className="space-y-2">
+            <h2 className="text-base sm:text-lg font-bold text-[#4F438B]">
+              4. 90-day automatic deletion
             </h2>
-            <div className="pl-10 space-y-2 text-sm sm:text-base text-[#5C527A] leading-relaxed">
+            <div className="space-y-1.5 text-sm sm:text-base text-[#1A143F] leading-relaxed pl-1">
               <p>Inactive profiles and saved mood history are automatically deleted after 90 days.</p>
               <p>This helps keep stored information limited and relevant.</p>
             </div>
           </section>
 
-          <hr className="border-[#E4DAD7]" />
-
           {/* Section 5 */}
-          <section className="space-y-3">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1A143F] flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-[#F4EBF5] text-[#7464AC] font-black text-sm flex items-center justify-center border border-[#E4DAD7] shrink-0">5</span>
-              <span>5. Email messages</span>
+          <section className="space-y-2">
+            <h2 className="text-base sm:text-lg font-bold text-[#4F438B]">
+              5. Email messages
             </h2>
-            <div className="pl-10 space-y-2 text-sm sm:text-base text-[#5C527A] leading-relaxed">
+            <div className="space-y-1.5 text-sm sm:text-base text-[#1A143F] leading-relaxed pl-1">
               <p>If you create a profile, you may receive emails related to your saved check-ins, paid downloads, reminders, or relevant MoodFlip offers.</p>
               <p>You can unsubscribe from marketing emails.</p>
             </div>
           </section>
 
-          <hr className="border-[#E4DAD7]" />
-
           {/* Section 6 */}
-          <section className="space-y-3">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1A143F] flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-[#F4EBF5] text-[#7464AC] font-black text-sm flex items-center justify-center border border-[#E4DAD7] shrink-0">6</span>
-              <span>6. Not medical or crisis support</span>
+          <section className="space-y-2 pt-2 border-t border-[#E4DAD7]">
+            <h2 className="text-base sm:text-lg font-bold text-[#4F438B]">
+              6. Not medical or crisis support
             </h2>
-            <div className="pl-10 space-y-2 text-sm sm:text-base text-[#5C527A] leading-relaxed">
+            <div className="space-y-1.5 text-sm sm:text-base text-[#1A143F] leading-relaxed pl-1">
               <p>MoodFlip is a self-reflection tool. It is not therapy, medical advice, diagnosis, treatment, or crisis support.</p>
               <p>If you feel unsafe or need urgent help, please contact emergency services or a crisis support service in your country.</p>
             </div>
           </section>
+
         </div>
+
       </main>
 
       <Footer />

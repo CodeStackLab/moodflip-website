@@ -513,7 +513,7 @@ export default function UserDashboardPage() {
         )}
 
         {/* 2. MAIN DASHBOARD CONTENT AREA */}
-        <main className="flex-1 p-3.5 sm:p-4.5 md:p-6 bg-[#FDF8F5] overflow-y-auto overflow-x-hidden w-full min-w-0">
+        <main className="flex-1 p-3.5 sm:p-4.5 md:p-6 pb-24 sm:pb-6 bg-[#FDF8F5] overflow-y-auto overflow-x-hidden w-full min-w-0">
 
 
           {/* TAB 1: DASHBOARD OVERVIEW */}

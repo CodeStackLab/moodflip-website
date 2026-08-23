@@ -100,7 +100,7 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-[#FDF8F5] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B]">
       <Header />
 
-      <main className="flex-1 flex items-center justify-center p-4 md:p-8 py-8 md:py-12">
+      <main className="flex-1 flex items-center justify-center p-4 md:p-8 py-8 md:py-12 pb-24 sm:pb-12">
         <div className="w-full max-w-4xl mx-auto space-y-6">
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
@@ -143,20 +143,20 @@ export default function RegisterPage() {
               </div>
 
               {/* Feature pills */}
-              <div className="relative z-10 grid grid-cols-2 gap-3 bg-[#FEFAF8]/95 backdrop-blur-md rounded-[20px] p-4 border border-[#E4DAD7] shadow-sm mt-6">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 bg-[#FEFAF8]/95 backdrop-blur-md rounded-[20px] p-3.5 sm:p-4 border border-[#E4DAD7] shadow-sm mt-6">
                 {[
                   { icon: '🛡️', bg: '#F4EBF5', title: 'Private & Secure', sub: 'Data is encrypted' },
                   { icon: '👤', bg: '#FCF3E9', title: 'Free Profile', sub: 'Instant access' },
                   { icon: '💜', bg: '#FAF5F6', title: 'Save Progress', sub: 'Check-ins saved' },
                   { icon: '🔑', bg: '#EEE0FC', title: 'Privacy First', sub: 'Never shared' },
                 ].map((f) => (
-                  <div key={f.title} className="flex items-center gap-2.5">
+                  <div key={f.title} className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-base border border-[#E4DAD7]" style={{ background: f.bg }}>
                       {f.icon}
                     </div>
-                    <div>
-                      <strong className="block text-[12px] font-extrabold text-[#1A143F] leading-tight">{f.title}</strong>
-                      <span className="text-[10.5px] text-[#5C527A] font-medium leading-tight block mt-0.5">{f.sub}</span>
+                    <div className="min-w-0 flex-1">
+                      <strong className="block text-[13px] font-extrabold text-[#1A143F] leading-snug whitespace-nowrap">{f.title}</strong>
+                      <span className="text-[11px] text-[#5C527A] font-medium leading-tight block">{f.sub}</span>
                     </div>
                   </div>
                 ))}
@@ -415,14 +415,16 @@ export default function RegisterPage() {
           </div>
 
           {/* SECURITY STRIP */}
-          <section className="p-4 rounded-2xl border border-[#E4DAD7] bg-[#FEFAF8] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#5C527A] shadow-[0_4px_16px_rgba(26,20,63,0.03)]">
+          <section className="p-4 sm:p-5 rounded-2xl border border-[#E4DAD7] bg-[#FEFAF8] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#5C527A] shadow-[0_4px_16px_rgba(26,20,63,0.03)]">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0 bg-[#F4EBF5] text-[#7464AC] border border-[#E4DAD7]">🛡️</div>
               <span className="font-medium text-[#1A143F] text-[12px]">Industry-standard encryption keeps your data safe and private.</span>
             </div>
-            <div className="flex flex-wrap gap-3 text-[11px] font-bold text-[#5C527A]">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-[11.5px] font-bold text-[#5C527A] w-full md:w-auto">
               {['256-bit SSL', 'Secure auth', 'Privacy by design', 'Protected data'].map(t => (
-                <span key={t} className="flex items-center gap-1"><span className="text-[#7464AC]">✓</span> {t}</span>
+                <span key={t} className="flex items-center gap-1.5 whitespace-nowrap">
+                  <span className="text-[#7464AC] font-black">✓</span> {t}
+                </span>
               ))}
             </div>
           </section>

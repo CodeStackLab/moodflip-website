@@ -87,9 +87,13 @@ export default function HomePage() {
                   <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" fill="#4F438B" />
                 </svg>
               </div>
-              <span className={styles.stepNumber}>1</span>
-              <h3 className={styles.stepTitle}>Choose Your Mood</h3>
-              <p className={styles.stepDesc}>Pick the mood that feels closest to you.</p>
+              <div className={styles.stepContentWrap}>
+                <div className={styles.stepHeaderRow}>
+                  <span className={styles.stepNumber}>1</span>
+                  <h3 className={styles.stepTitle}>Choose Your Mood</h3>
+                </div>
+                <p className={styles.stepDesc}>Pick the mood that feels closest to you.</p>
+              </div>
               <div className={styles.stepConnector} />
             </div>
 
@@ -100,9 +104,13 @@ export default function HomePage() {
                   <path d="M17.5 14C19.433 14 21 12.433 21 10.5C21 8.76 19.73 7.32 18.06 7.05C17.62 4.73 15.57 3 13 3C10.74 3 8.84 4.32 8.19 6.25C7.5 6.16 4 7.73 4 9.66C4 10.84 4.21 11.37 4.21 11.84C2.91 12.37 2 13.64 2 15.12C2 17.1 3.61 18.71 5.59 18.71H17.5" fill="#7464AC" />
                 </svg>
               </div>
-              <span className={styles.stepNumber}>2</span>
-              <h3 className={styles.stepTitle}>Pick Exact Feeling</h3>
-              <p className={styles.stepDesc}>Select the feeling that matches you best.</p>
+              <div className={styles.stepContentWrap}>
+                <div className={styles.stepHeaderRow}>
+                  <span className={styles.stepNumber}>2</span>
+                  <h3 className={styles.stepTitle}>Pick Exact Feeling</h3>
+                </div>
+                <p className={styles.stepDesc}>Select the feeling that matches you best.</p>
+              </div>
               <div className={styles.stepConnector} />
             </div>
 
@@ -114,9 +122,13 @@ export default function HomePage() {
                   <path d="M2.5 11.5a10 10 0 0 1 15.9-4.8L21.5 8M2.5 16l3.1 1.3a10 10 0 0 0 15.9-4.8"/>
                 </svg>
               </div>
-              <span className={styles.stepNumber}>3</span>
-              <h3 className={styles.stepTitle}>Flip Your Mood</h3>
-              <p className={styles.stepDesc}>We find your positive counterpart.</p>
+              <div className={styles.stepContentWrap}>
+                <div className={styles.stepHeaderRow}>
+                  <span className={styles.stepNumber}>3</span>
+                  <h3 className={styles.stepTitle}>Flip Your Mood</h3>
+                </div>
+                <p className={styles.stepDesc}>We find your positive counterpart.</p>
+              </div>
               <div className={styles.stepConnector} />
             </div>
 
@@ -128,9 +140,13 @@ export default function HomePage() {
                   <path d="M9.5 8L16.5 12L9.5 16V8Z" fill="white" />
                 </svg>
               </div>
-              <span className={styles.stepNumber}>4</span>
-              <h3 className={styles.stepTitle}>Get 60-Second Action</h3>
-              <p className={styles.stepDesc}>A short action to shift your energy.</p>
+              <div className={styles.stepContentWrap}>
+                <div className={styles.stepHeaderRow}>
+                  <span className={styles.stepNumber}>4</span>
+                  <h3 className={styles.stepTitle}>Get 60-Second Action</h3>
+                </div>
+                <p className={styles.stepDesc}>A short action to shift your energy.</p>
+              </div>
               <div className={styles.stepConnector} />
             </div>
 
@@ -144,9 +160,13 @@ export default function HomePage() {
                   <rect x="15" y="9" width="2" height="7" rx="0.5" fill="white" />
                 </svg>
               </div>
-              <span className={styles.stepNumber}>5</span>
-              <h3 className={styles.stepTitle}>Save & Track Progress</h3>
-              <p className={styles.stepDesc}>Save your check-in and see growth.</p>
+              <div className={styles.stepContentWrap}>
+                <div className={styles.stepHeaderRow}>
+                  <span className={styles.stepNumber}>5</span>
+                  <h3 className={styles.stepTitle}>Save & Track Progress</h3>
+                </div>
+                <p className={styles.stepDesc}>Save your check-in and see growth.</p>
+              </div>
             </div>
           </div>
         </section>

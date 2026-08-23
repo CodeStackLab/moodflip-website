@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./HeroSectionExact.module.css";
 import { COUNSELOR_MOODS, CounselorPromptItem } from "@/data/moods";
 
@@ -364,6 +364,8 @@ export default function HeroSectionExact({
 
   // Global Ads Setting State (controlled by Admin Panel - disabled globally by default)
   const [adsEnabled, setAdsEnabled] = useState<boolean>(false);
+  const [mobileActiveView, setMobileActiveView] = useState<"input" | "outcome">("input");
+  const outcomeRef = useRef<HTMLDivElement>(null);
 
   // Load and subscribe to Admin Ads toggle
   useEffect(() => {
@@ -558,6 +560,8 @@ export default function HeroSectionExact({
       onFlipTriggered(selectedMood, `${activeFeeling.name} (${selectedChip})`);
     }
 
+    setMobileActiveView("outcome");
+
     setTimeout(() => {
       setIsFlipping(false);
     }, 600);
@@ -585,41 +589,72 @@ export default function HeroSectionExact({
         {/* ── CENTRAL APP CARD ── */}
         <div className={styles.mainCard}>
 
+          {/* Mobile Tab Switcher (Visible on Mobile only - Allows instant switch without scrolling) */}
+          <div className={styles.mobileHeroToggle}>
+            <button
+              type="button"
+              className={`${styles.mobileHeroTab} ${mobileActiveView === "input" ? styles.mobileHeroTabActive : ""}`}
+              onClick={() => setMobileActiveView("input")}
+            >
+              <span>☁️</span> 1. Select Mood
+            </button>
+            <button
+              type="button"
+              className={`${styles.mobileHeroTab} ${mobileActiveView === "outcome" ? styles.mobileHeroTabActive : ""}`}
+              onClick={() => setMobileActiveView("outcome")}
+            >
+              <span>🌅</span> 2. Result &amp; Action ✨
+            </button>
+          </div>
+
           {/* 1. LEFT COLUMN: 3-Step Guide (Exact Clone) */}
-          <div className={styles.leftStepsCol}>
-            {/* Step 1 */}
-            <div className={styles.stepBox}>
-              <div className={styles.stepBadge}>Step 1</div>
-              <div className={styles.stepTitle}>Choose your<br />main mood</div>
-              <div className={styles.stepSub}>Click a cloud</div>
-            </div>
+          <div className={`${styles.leftStepsCol} ${mobileActiveView === "outcome" ? styles.mobileHiddenOnOutcome : ""}`}>
+            <div className={styles.mobileStepsRow}>
+              {/* Step 1 */}
+              <div className={styles.stepBox}>
+                <div className={styles.stepBadge}>Step 1</div>
+                <div className={styles.stepTitle}>
+                  <span className={styles.stepLine}>Choose your</span>
+                  <span className={styles.stepLine}>main mood</span>
+                </div>
+                <div className={styles.stepSub}>Click a cloud</div>
+              </div>
 
-            <div className={styles.stepDashedArrow}>
-              <svg width="12" height="30" viewBox="0 0 12 30" fill="none">
-                <line x1="6" y1="0" x2="6" y2="22" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
-                <path d="M2.5 18L6 22.5L9.5 18" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
+              <div className={styles.stepDashedArrow}>
+                <svg width="12" height="30" viewBox="0 0 12 30" fill="none" className={styles.desktopArrowSvg}>
+                  <line x1="6" y1="0" x2="6" y2="22" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
+                  <path d="M2.5 18L6 22.5L9.5 18" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className={styles.mobileArrowSpan}>➔</span>
+              </div>
 
-            {/* Step 2 */}
-            <div className={styles.stepBox}>
-              <div className={styles.stepBadge}>Step 2</div>
-              <div className={styles.stepTitle}>Pick the feeling<br />closest to how<br />you feel</div>
-              <div className={styles.stepSub}>Click a card</div>
-            </div>
+              {/* Step 2 */}
+              <div className={styles.stepBox}>
+                <div className={styles.stepBadge}>Step 2</div>
+                <div className={styles.stepTitle}>
+                  <span className={styles.stepLine}>Pick feeling</span>
+                  <span className={styles.stepLine}>closest to you</span>
+                </div>
+                <div className={styles.stepSub}>Click a card</div>
+              </div>
 
-            <div className={styles.stepDashedArrow}>
-              <svg width="12" height="30" viewBox="0 0 12 30" fill="none">
-                <line x1="6" y1="0" x2="6" y2="22" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
-                <path d="M2.5 18L6 22.5L9.5 18" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
+              <div className={styles.stepDashedArrow}>
+                <svg width="12" height="30" viewBox="0 0 12 30" fill="none" className={styles.desktopArrowSvg}>
+                  <line x1="6" y1="0" x2="6" y2="22" stroke="#C4BADB" strokeWidth="1.5" strokeDasharray="3.5 3.5" />
+                  <path d="M2.5 18L6 22.5L9.5 18" stroke="#C4BADB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className={styles.mobileArrowSpan}>➔</span>
+              </div>
 
-            {/* Step 3 */}
-            <div className={styles.stepBox}>
-              <div className={styles.stepBadge}>Step 3</div>
-              <div className={styles.stepTitle}>Choose a more<br />specific feeling</div>
-              <div className={styles.stepSub}>Click a chip</div>
+              {/* Step 3 */}
+              <div className={styles.stepBox}>
+                <div className={styles.stepBadge}>Step 3</div>
+                <div className={styles.stepTitle}>
+                  <span className={styles.stepLine}>Choose more</span>
+                  <span className={styles.stepLine}>specific feeling</span>
+                </div>
+                <div className={styles.stepSub}>Click a chip</div>
+              </div>
             </div>
 
             {/* Clear Selection Button */}
@@ -630,7 +665,7 @@ export default function HeroSectionExact({
               aria-label="Clear selection and start over"
             >
               <div className={styles.clearIconWrap}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7464AC" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7464AC" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
                   <path d="M3 3v5h5" />
                 </svg>
@@ -643,7 +678,7 @@ export default function HeroSectionExact({
           </div>
 
           {/* 2. MIDDLE COLUMN: Interactive Mood Tool */}
-          <div className={styles.centerMoodCol}>
+          <div className={`${styles.centerMoodCol} ${mobileActiveView === "outcome" ? styles.mobileHiddenOnOutcome : ""}`}>
 
             {/* LAYER 1: 5 Clouds Row */}
             <div className={styles.cloudRow} role="group" aria-label="1. Choose Main Mood Cloud">
@@ -735,7 +770,7 @@ export default function HeroSectionExact({
           {/* 3. CENTER OVERLAPPING FLIP YOUR MOOD ARROW BUTTON (EXACT MATCH) */}
           <button
             type="button"
-            className={`${styles.flipMoodArrowBtn} ${isFlipping ? styles.flipMoodArrowFlipping : ""}`}
+            className={`${styles.flipMoodArrowBtn} ${isFlipping ? styles.flipMoodArrowFlipping : ""} ${mobileActiveView === "outcome" ? styles.mobileHiddenOnOutcome : ""}`}
             onClick={handleFlip}
             disabled={aiLoading}
             aria-label="Flip Your Mood"
@@ -748,7 +783,7 @@ export default function HeroSectionExact({
           </button>
 
           {/* 4. RIGHT COLUMN: Outcome Display & Action Card */}
-          <div className={styles.rightOutcomeCol}>
+          <div className={`${styles.rightOutcomeCol} ${mobileActiveView === "input" ? styles.mobileHiddenOnInput : ""}`} ref={outcomeRef} id="outcome-panel">
             {/* Sunrise Landscape Art Background using user-provided artwork */}
             <div className={styles.sunburstBg} aria-hidden="true">
               <img
@@ -840,6 +875,17 @@ export default function HeroSectionExact({
                 </div>
               </div>
             </div>
+
+            {/* Mobile-Only Switch Back Action Button (Zero Scrolling Needed) */}
+            <div className={styles.mobileOutcomeActionsBar}>
+              <button
+                type="button"
+                className={styles.mobileBackToMoodBtn}
+                onClick={() => setMobileActiveView("input")}
+              >
+                <span>🔄</span> Flip Another Mood / Change Selection
+              </button>
+            </div>
           </div>
         </div>
 
@@ -870,7 +916,7 @@ export default function HeroSectionExact({
         </div>
 
         <div className={styles.motivationalCenterHeart}>
-          <svg width="24" height="56" viewBox="0 0 24 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="24" height="56" viewBox="0 0 24 56" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.desktopHeartSvg}>
             {/* Top Dotted Line */}
             <line x1="12" y1="2" x2="12" y2="18" stroke="#DACFE0" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="1 5" />
             {/* Center Peach Heart */}
@@ -878,6 +924,7 @@ export default function HeroSectionExact({
             {/* Bottom Dotted Line */}
             <line x1="12" y1="38" x2="12" y2="54" stroke="#DACFE0" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="1 5" />
           </svg>
+          <span className={styles.mobileMotivationalHeart}>♡</span>
         </div>
 
         <div className={styles.motivationalItem}>

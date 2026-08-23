@@ -74,7 +74,7 @@
   width: 100%;
 }
 
-/* ── 3. CENTRAL APP CARD (Single Crisp White Container with 3 Columns) ── */
+/* ── 3. CENTRAL APP CARD (Single Crisp Container) ── */
 .mainCard {
   flex: 1;
   min-width: 0;
@@ -87,6 +87,14 @@
   position: relative;
   overflow: hidden;
   align-items: stretch;
+}
+
+.mobileHeroToggle {
+  display: none;
+}
+
+.mobileOutcomeActionsBar {
+  display: none;
 }
 
 /* ── 4. LEFT STEPS COLUMN (Exact Clone from Reference) ── */
@@ -138,6 +146,10 @@
   letter-spacing: -0.1px;
 }
 
+.stepLine {
+  display: block;
+}
+
 .stepSub {
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', sans-serif);
   font-size: 11.5px;
@@ -152,6 +164,18 @@
   align-items: center;
   justify-content: center;
   margin: 1px 0;
+}
+
+.desktopArrowSvg {
+  display: block;
+}
+
+.mobileArrowSpan {
+  display: none;
+}
+
+.mobileStepsRow {
+  display: contents;
 }
 
 /* Clear Selection Button */
@@ -289,6 +313,7 @@
   font-weight: 800;
   color: #1A143F;
   transition: color 0.2s ease;
+  text-align: center;
 }
 
 .cloudBtnActive {
@@ -469,6 +494,9 @@
   font-size: 26px;
   font-weight: 700;
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dividerHeartBottom {
@@ -480,6 +508,9 @@
   font-size: 26px;
   font-weight: 700;
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── 6. CENTER OVERLAPPING ARROW BUTTON ── */
@@ -962,6 +993,14 @@
   flex-shrink: 0;
 }
 
+.desktopHeartSvg {
+  display: block;
+}
+
+.mobileMotivationalHeart {
+  display: none;
+}
+
 .motivationalVerticalLine {
   width: 1px;
   height: 14px;
@@ -975,146 +1014,962 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE BREAKPOINTS (ALL SECTIONS 100% VISIBLE ON TABLET & MOBILE)
    ───────────────────────────────────────────────────────────────────────────── */
 
-/* Tablet View (960px - 1200px) */
-@media (max-width: 1200px) {
+/* Large Desktop / Compact (1200px - 1400px) */
+@media (max-width: 1400px) {
+  .heroWrapper {
+    padding: 12px 20px 28px 20px;
+  }
   .mainCard {
-    grid-template-columns: 130px 1.2fr 1.05fr;
+    grid-template-columns: 125px 1.22fr 1.28fr;
   }
-
   .dividerHeartTop, .dividerHeartBottom, .flipMoodArrowBtn {
-    left: calc(130px + ((100% - 130px) * (1.2 / 2.25)));
-  }
-
-  .outcomeMoodHeading {
-    font-size: 42px;
+    left: calc(125px + ((100% - 125px) * (1.22 / 2.5)));
   }
 }
 
-/* Medium Tablet / iPad Portrait (768px - 960px) */
-@media (max-width: 960px) {
+/* Tablet Landscape (992px - 1200px) */
+@media (max-width: 1200px) {
+  .heroWrapper {
+    padding: 10px 16px 24px 16px;
+    gap: 16px;
+  }
+
   .mainCard {
-    grid-template-columns: 1.05fr 1fr;
+    grid-template-columns: 115px 1.2fr 1.2fr;
+    border-radius: 24px;
   }
 
   .leftStepsCol {
-    display: none;
+    padding: 20px 8px 16px 8px;
+    gap: 6px;
+  }
+
+  .stepBadge {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .stepTitle {
+    font-size: 12px;
+  }
+
+  .stepSub {
+    font-size: 10px;
+  }
+
+  .clearSelectionBtn {
+    max-width: 105px;
+    padding: 5px 6px;
+    gap: 4px;
+    margin-top: 10px;
+  }
+
+  .clearTitle {
+    font-size: 9.5px;
+  }
+
+  .clearSub {
+    font-size: 8.5px;
+  }
+
+  .centerMoodCol {
+    padding: 22px 14px 18px 14px;
+    gap: 12px;
+  }
+
+  .feelingsGrid {
+    width: calc(100% - 60px);
+    gap: 8px;
+  }
+
+  .feelingCard {
+    min-height: 74px;
+  }
+
+  .chipsBoxContainer {
+    width: calc(100% - 60px);
   }
 
   .dividerHeartTop, .dividerHeartBottom, .flipMoodArrowBtn {
-    left: 51.2%;
+    left: calc(115px + ((100% - 115px) * (1.2 / 2.4)));
+  }
+
+  .flipMoodArrowImg {
+    width: 155px;
+    height: auto;
+  }
+
+  .rightOutcomeCol {
+    padding: 22px 20px 18px 20px;
+  }
+
+  .outcomeTopHeader {
+    margin-top: 85px;
   }
 
   .outcomeMoodHeading {
     font-size: 32px;
   }
+
+  .actionFloatingCard {
+    padding: 14px 16px;
+  }
+
+  .actionCardBotanical {
+    width: 50px;
+    height: 100px;
+  }
+
+  .botanicalBranchImg {
+    width: 50px;
+    height: 100px;
+  }
 }
 
-/* Mobile Devices (<768px) */
-@media (max-width: 768px) {
+/* Tablet Portrait & iPad (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
   .heroWrapper {
-    gap: 8px;
-    padding: 4px 0;
+    padding: 10px 12px 22px 12px;
+    gap: 14px;
   }
 
   .mainCard {
-    grid-template-columns: 1fr;
-    border-radius: 18px;
+    grid-template-columns: 105px 1.15fr 1.15fr;
+    border-radius: 22px;
   }
 
   .leftStepsCol {
-    display: none;
+    padding: 16px 6px 14px 6px;
+    gap: 4px;
   }
 
-  .dividerHeartTop, .dividerHeartBottom {
-    display: none;
+  .stepBadge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .stepTitle {
+    font-size: 10.5px;
+    line-height: 1.2;
+  }
+
+  .stepSub {
+    font-size: 9px;
+  }
+
+  .stepDashedArrow svg {
+    height: 18px;
+  }
+
+  .clearSelectionBtn {
+    max-width: 95px;
+    padding: 4px 4px;
+    gap: 4px;
+    margin-top: 8px;
+    border-radius: 12px;
+  }
+
+  .clearIconWrap svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .clearTitle {
+    font-size: 9px;
+  }
+
+  .clearSub {
+    font-size: 8px;
   }
 
   .centerMoodCol {
-    padding: 14px 12px;
+    padding: 18px 12px 14px 12px;
     gap: 10px;
   }
 
   .cloudRow {
     gap: 4px;
+    padding-top: 2px;
   }
 
-  .cloudSvgWrap svg {
-    max-width: 60px;
+  .cloudBtn {
+    min-height: 84px;
+    padding: 2px;
+  }
+
+  .cloudSvgWrap {
+    height: 52px;
+  }
+
+  .cloudSvgWrap img, .cloudSvgWrap svg {
+    max-height: 50px;
   }
 
   .cloudName {
-    font-size: 9.5px;
+    font-size: 11.5px;
   }
 
   .feelingsGrid {
-    grid-template-columns: repeat(4, 1fr);
+    width: calc(100% - 40px);
     gap: 5px;
   }
 
   .feelingCard {
-    min-height: 64px;
-    padding: 6px 2px;
-    border-radius: 10px;
+    min-height: 68px;
+    padding: 4px 2px;
   }
 
   .feelingIconWrap {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
   }
 
   .feelingName {
     font-size: 9.5px;
   }
 
+  .chipsBoxContainer {
+    width: calc(100% - 40px);
+    padding: 6px 8px;
+  }
+
+  .chipsRow {
+    gap: 3px;
+  }
+
   .chipPill {
-    padding: 4px 10px;
-    font-size: 10.5px;
+    font-size: 9.5px;
+    padding: 3px 4px;
+  }
+
+  .chipsExplanationNote {
+    font-size: 9.5px;
+  }
+
+  .dividerHeartTop, .dividerHeartBottom {
+    left: calc(105px + ((100% - 105px) * (1.15 / 2.3)));
+    font-size: 18px;
   }
 
   .flipMoodArrowBtn {
-    position: static;
-    transform: none;
-    width: calc(100% - 24px);
-    margin: 8px 12px;
-    clip-path: none;
-    border-radius: 14px;
-    padding: 12px 20px;
-    display: flex;
-    justify-content: center;
+    left: calc(105px + ((100% - 105px) * (1.15 / 2.3)));
+    top: 48%;
+    transform: translate(-50%, -50%);
   }
 
-  .flipArrowText {
-    flex-direction: row;
-    gap: 6px;
-    align-items: center;
-    font-size: 13px;
-  }
-
-  .flipArrowLine2 {
-    font-size: 13px;
+  .flipMoodArrowImg {
+    width: 130px;
+    height: auto;
   }
 
   .rightOutcomeCol {
-    border-left: none;
-    border-top: 1px solid #E4DAD7;
     padding: 16px 14px;
-    min-height: auto;
+    min-height: 460px;
+  }
+
+  .outcomeTopHeader {
+    margin-top: 55px;
+    gap: 2px;
+  }
+
+  .outcomeSubtitle {
+    font-size: 12.5px;
   }
 
   .outcomeMoodHeading {
-    font-size: 28px;
+    font-size: 26px;
+    max-width: 240px;
+  }
+
+  .headingLeafImg {
+    width: 18px;
+    height: 24px;
+  }
+
+  .actionFloatingCard {
+    padding: 10px 12px;
+    border-radius: 16px;
+    margin-top: 8px;
+  }
+
+  .actionCardInner {
+    gap: 8px;
+  }
+
+  .actionZenBadge {
+    width: 50px;
+    height: 50px;
+  }
+
+  .zenMascotSvg, .zenMascotImg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .actionCardTitle {
+    font-size: 13px;
+  }
+
+  .actionCardDesc {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .actionCardBotanical {
+    width: 38px;
+    height: 76px;
+    display: flex;
+  }
+
+  .botanicalBranchImg {
+    width: 38px;
+    height: 76px;
   }
 
   .bottomMotivationalBar {
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px 14px;
+    padding: 12px 20px;
+    gap: 16px;
+  }
+
+  .motivationalTitle {
+    font-size: 12px;
+  }
+
+  .motivationalSub {
+    font-size: 11px;
+  }
+}
+
+/* Mobile Devices (<768px) - COMPLETE VISIBILITY OF ALL SECTIONS */
+@media (max-width: 767px) {
+  .heroWrapper {
+    gap: 12px;
+    padding: 4px 8px 24px 8px;
+  }
+
+  .topAdBanner {
+    height: 60px;
+    margin-bottom: 2px;
+  }
+
+  .mainCard {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(79, 67, 139, 0.05);
+  }
+
+  /* Mobile View Toggle Switch (Zero Scrolling Needed) */
+  .mobileHeroToggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    background: #F4EBF5;
+    border-bottom: 1.5px solid #E4DAD7;
+    padding: 6px 8px;
+    gap: 6px;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .mobileHeroTab {
+    flex: 1;
+    background: #FEFAF8;
+    border: 1.5px solid #E4DAD7;
+    border-radius: 12px;
+    padding: 7px 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #1A143F;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+
+  .mobileHeroTabActive {
+    background: #7464AC !important;
+    border-color: #4F438B !important;
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    box-shadow: 0 3px 10px rgba(116, 100, 172, 0.28) !important;
+  }
+
+  /* View Switching on Mobile: only active state is shown */
+  .mobileHiddenOnOutcome {
+    display: none !important;
+  }
+
+  .mobileHiddenOnInput {
+    display: none !important;
+  }
+
+  /* Mobile Outcome Actions Bar */
+  .mobileOutcomeActionsBar {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobileBackToMoodBtn {
+    width: 100%;
+    background: #FCF3E9;
+    border: 1.5px solid #EDAA7A;
+    border-radius: 14px;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #4F438B;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 3px 8px rgba(233, 211, 179, 0.4);
+    transition: all 0.2s ease;
+  }
+
+  .mobileBackToMoodBtn:hover {
+    background: #FDE8C8;
+    transform: translateY(-1px);
+  }
+
+  /* 3-Steps Guide Bar rendered at the top of the mobile card */
+  .leftStepsCol {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 12px 8px 12px !important;
+    background: #F8F1F8 !important;
+    border-bottom: 1.5px dashed #E4DAD7 !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .mobileStepsRow {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 4px !important;
+  }
+
+  .leftStepsCol .stepBox {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 2px !important;
+  }
+
+  .leftStepsCol .stepBadge {
+    font-size: 11px !important;
+    padding: 2.5px 8px !important;
+    border-radius: 8px !important;
+    font-weight: 800 !important;
+    background: #EAE2F2 !important;
+    color: #4F438B !important;
+    white-space: nowrap !important;
+  }
+
+  .leftStepsCol .stepTitle {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    color: #1A143F !important;
+    text-align: center !important;
+    margin: 0 !important;
+  }
+
+  .leftStepsCol .stepLine {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
+  .leftStepsCol .stepSub {
+    font-size: 9.5px !important;
+    font-weight: 600 !important;
+    color: #6C5484 !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+  }
+
+  .leftStepsCol .desktopArrowSvg {
+    display: none !important;
+  }
+
+  .leftStepsCol .mobileArrowSpan {
+    display: inline-block !important;
+    font-size: 13px !important;
+    color: #7464AC !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    padding: 0 2px !important;
+    flex-shrink: 0 !important;
+    opacity: 0.9 !important;
+  }
+
+  .leftStepsCol .stepDashedArrow {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+    margin: 0 1px !important;
+    width: auto !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  .leftStepsCol .clearSelectionBtn {
+    margin: 0 auto !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 5px 14px !important;
+    border-radius: 14px !important;
+    flex-shrink: 0 !important;
+    gap: 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #FEFAF8 !important;
+    border: 1.5px solid #E4DAD7 !important;
+    box-shadow: 0 2px 6px rgba(79, 67, 139, 0.05) !important;
+  }
+
+  .leftStepsCol .clearIconWrap svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  .leftStepsCol .clearTitle {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    color: #4F438B !important;
+    white-space: nowrap !important;
+  }
+
+  .leftStepsCol .clearSub {
+    display: inline !important;
+    font-size: 9.5px !important;
+    color: #6C5484 !important;
+    margin-left: 2px !important;
+  }
+
+  /* Seam Divider Hearts: hidden on mobile single-column to save vertical space */
+  .dividerHeartTop, .dividerHeartBottom {
+    display: none !important;
+  }
+
+  .centerMoodCol {
+    padding: 12px 10px 8px 10px !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .cloudRow {
+    gap: 4px !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+  }
+
+  .cloudBtn {
+    min-height: 80px !important;
+    max-width: none !important;
+    padding: 4px 2px !important;
+    gap: 4px !important;
+  }
+
+  .cloudSvgWrap {
+    height: 50px !important;
+  }
+
+  .cloudSvgWrap svg,
+  .cloudSvgWrap img {
+    max-height: 48px !important;
+    max-width: 100% !important;
+  }
+
+  .cloudName {
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    color: #1A143F !important;
+  }
+
+  /* Full-width cards & chips on mobile */
+  .feelingsGrid {
+    width: 100% !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .feelingCard {
+    min-height: 68px !important;
+    padding: 6px 3px 4px 3px !important;
+    border-radius: 12px !important;
+    aspect-ratio: auto !important;
+  }
+
+  .feelingIconWrap {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .feelingIconWrap svg,
+  .feelingIconWrap img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .feelingName {
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+  }
+
+  .chipsBoxContainer {
+    width: 100% !important;
+    padding: 8px 10px !important;
+    border-radius: 14px !important;
+    gap: 6px !important;
+  }
+
+  .chipsRow {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+
+  .chipPill {
+    padding: 6px 3px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    width: 100% !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    border-radius: 8px !important;
+  }
+
+  .chipsExplanationNote {
+    font-size: 11px !important;
+    gap: 4px !important;
+    margin-top: 2px !important;
+  }
+
+  .noteSparkleSvg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  /* Centered Sleek 3D Arrow on Mobile - Perfect Prominent Size */
+  .flipMoodArrowBtn {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 175px !important;
+    margin: 10px auto 6px auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .flipMoodArrowImg {
+    width: 160px !important;
+    height: auto !important;
+    max-height: 68px !important;
+    filter: drop-shadow(0 4px 14px rgba(79, 67, 139, 0.35)) !important;
+  }
+
+  /* Right Outcome Panel on Mobile */
+  .rightOutcomeCol {
+    border-left: none !important;
+    border-top: 1.5px dashed #E4DAD7 !important;
+    padding: 16px 12px 24px 12px !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .outcomeTopHeader {
+    margin-top: 2px !important;
+    gap: 3px !important;
+  }
+
+  .sunTopHeart {
+    margin-bottom: 0 !important;
+  }
+
+  .sunTopHeart svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .outcomeSubtitle {
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+  }
+
+  .outcomeMoodHeading {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+    margin: 4px 0 !important;
+    max-width: 280px !important;
+  }
+
+  .headingLeafImg {
+    width: 18px !important;
+    height: 24px !important;
+  }
+
+  .outcomeUnderlineHeart {
+    margin-top: 3px !important;
+    width: 110px !important;
+  }
+
+  .outcomeDividerHeart {
+    font-size: 15px !important;
+  }
+
+  /* 60-Second Action Floating Card on Mobile - PROMINENT & BEAUTIFUL */
+  .actionFloatingCard {
+    padding: 14px 12px !important;
+    border-radius: 18px !important;
+    margin-top: 10px !important;
+    margin-bottom: 8px !important;
+    box-shadow: 0 6px 20px rgba(233, 211, 179, 0.35) !important;
+    overflow: visible !important;
+  }
+
+  .actionCardInner {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .actionZenBadge {
+    width: 50px !important;
+    height: 50px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .zenMascotSvg, .zenMascotImg {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .actionCardText {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding-right: 0 !important;
+    gap: 3px !important;
+  }
+
+  .actionCardTitle {
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+  }
+
+  .actionCardDesc {
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
+    font-weight: 500 !important;
+  }
+
+  .actionHeartDivider {
+    margin: 3px 0 !important;
+    max-width: 120px !important;
+  }
+
+  .actionSmallHeart {
+    font-size: 13px !important;
+  }
+
+  /* Botanical branch VISIBLE on mobile! */
+  .actionCardBotanical {
+    display: flex !important;
+    width: 36px !important;
+    height: 72px !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .botanicalBranchImg {
+    width: 36px !important;
+    height: 72px !important;
+    object-fit: contain !important;
+  }
+
+  .actionButtonsRow {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-top: 6px !important;
+  }
+
+  .actionTimerPill {
+    font-size: 11px !important;
+    padding: 6px 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .actionResetBtn {
+    font-size: 11px !important;
+  }
+
+  .actionSavePill {
+    font-size: 11px !important;
+    padding: 6px 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .actionFooterLinks {
+    gap: 6px !important;
+    margin-top: 4px !important;
+  }
+
+  .openDashboardLink {
+    font-size: 11px !important;
+  }
+
+  .freeFlipsBadge {
+    font-size: 10px !important;
+  }
+
+  .savedFeedbackMsg {
+    font-size: 11px !important;
+  }
+
+  /* Bottom Motivational Bar on Mobile - ELEGANT HORIZONTAL DIVIDER */
+  .bottomMotivationalBar {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 12px 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .motivationalItem {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .motivationalIconCircle {
+    width: 38px !important;
+    height: 38px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .motivationalOrbImg {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .motivationalText {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    text-align: left !important;
+  }
+
+  .motivationalTitle {
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #1A143F !important;
+  }
+
+  .motivationalSub {
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    color: #6C5484 !important;
   }
 
   .motivationalCenterHeart {
-    display: none;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 4px 0 !important;
+  }
+
+  .desktopHeartSvg {
+    display: none !important;
+  }
+
+  .mobileMotivationalHeart {
+    display: inline-block !important;
+    font-size: 17px !important;
+    color: #EAA492 !important;
+    line-height: 1 !important;
+  }
+
+  .motivationalCenterHeart::before,
+  .motivationalCenterHeart::after {
+    content: '' !important;
+    flex: 1 !important;
+    height: 1px !important;
+    background: repeating-linear-gradient(90deg, #DACFE0, #DACFE0 3px, transparent 3px, transparent 6px) !important;
+  }
+}
+
+/* Extra Small Phones (< 380px) */
+@media (max-width: 380px) {
+  .cloudName {
+    font-size: 9px;
+  }
+
+  .feelingName {
+    font-size: 9px;
+  }
+
+  .chipPill {
+    font-size: 9px;
+    padding: 4px 1px;
+  }
+
+  .outcomeMoodHeading {
+    font-size: 21px;
+  }
+
+  .actionCardTitle {
+    font-size: 12px;
+  }
+
+  .actionCardDesc {
+    font-size: 10px;
+  }
+
+  .actionCardBotanical {
+    width: 26px !important;
+    height: 52px !important;
+  }
+
+  .botanicalBranchImg {
+    width: 26px !important;
+    height: 52px !important;
   }
 }

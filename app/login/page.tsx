@@ -75,7 +75,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#FDF8F5] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B]">
       <Header />
 
-      <main className="flex-1 flex items-center justify-center p-4 md:p-8 py-8 md:py-12">
+      <main className="flex-1 flex items-center justify-center p-4 md:p-8 py-8 md:py-12 pb-24 sm:pb-12">
         <div className="w-full max-w-4xl mx-auto space-y-6">
           
           {/* Main Card Container */}
@@ -119,7 +119,7 @@ export default function LoginPage() {
               </div>
 
               {/* Bottom feature pills */}
-              <div className="relative z-10 grid grid-cols-2 gap-3 bg-[#FEFAF8]/95 backdrop-blur-md rounded-[20px] p-4 border border-[#E4DAD7] shadow-sm mt-6">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 bg-[#FEFAF8]/95 backdrop-blur-md rounded-[20px] p-4 border border-[#E4DAD7] shadow-sm mt-6">
                 {[
                   { icon: '🛡️', color: '#7464AC', bg: '#F4EBF5', title: 'Private & Secure', sub: 'Your data is encrypted' },
                   { icon: '🔐', color: '#7D8164', bg: '#FCF3E9', title: 'Encrypted Access', sub: 'Privacy-first security' },
@@ -353,7 +353,7 @@ export default function LoginPage() {
                 We use industry-standard encryption to keep your data safe and your mind at ease.
               </span>
             </div>
-            <div className="flex flex-wrap gap-3 text-[11px] font-bold text-[#5C527A]">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2.5 sm:gap-3 text-[11.5px] font-bold text-[#5C527A] w-full md:w-auto">
               {['256-bit SSL encryption', 'Secure authentication', 'Regular security audits', 'Privacy by design'].map(t => (
                 <span key={t} className="flex items-center gap-1">
                   <span className="text-[#7464AC]">✓</span> {t}

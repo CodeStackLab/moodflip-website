@@ -368,6 +368,18 @@ export default function HeroSectionExact({
 
   // Global Ads Setting State (controlled by Admin Panel - disabled globally by default)
   const [adsEnabled, setAdsEnabled] = useState<boolean>(false);
+  const [popupSettings, setPopupSettings] = useState({
+    enabled: true,
+    targetAudience: "unregistered",
+    frequencyHours: 12,
+    maxDailyLimit: 2,
+    showDelaySeconds: 4,
+    modalTitle: "Welcome back to MoodFlip!",
+    modalDescription: "Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report.",
+    buttonText: "Create Free Profile",
+    buttonLink: "/register",
+    showMaybeLater: true,
+  });
   const [mobileActiveView, setMobileActiveView] = useState<"input" | "outcome">("input");
   const outcomeRef = useRef<HTMLDivElement>(null);
 
@@ -419,32 +431,51 @@ export default function HeroSectionExact({
       const savedCount = parseInt(localStorage.getItem("moodflip_free_flip_count") || "0", 10);
       setFreeFlipCount(savedCount);
 
-      // ── Profile Invitation Popup: every 12 hrs, max 2x/day, ONLY for non-logged-in users ──
-      const isLoggedIn =
-        localStorage.getItem('userLoggedIn') === 'true' ||
-        localStorage.getItem('isLoggedIn') === 'true';
+      // Load live Admin Popup Settings
+      let currentPopupConfig = popupSettings;
+      const savedPopupCfg = localStorage.getItem("moodflip_popup_settings");
+      if (savedPopupCfg) {
+        try {
+          currentPopupConfig = { ...popupSettings, ...JSON.parse(savedPopupCfg) };
+          setPopupSettings(currentPopupConfig);
+        } catch (e) {}
+      }
 
-      if (!isLoggedIn) {
-        const now = Date.now();
-        const todayKey = new Date().toISOString().split('T')[0];
-        const popupRaw = localStorage.getItem('moodflip_popup_data');
-        const popupData: { lastShown?: number; todayDate?: string; todayCount?: number } =
-          popupRaw ? JSON.parse(popupRaw) : {};
+      // ── Admin-Controlled Profile Invitation Popup ──
+      if (currentPopupConfig.enabled) {
+        const isLoggedIn =
+          localStorage.getItem('userLoggedIn') === 'true' ||
+          localStorage.getItem('isLoggedIn') === 'true';
 
-        const todayCount = popupData.todayDate === todayKey ? (popupData.todayCount || 0) : 0;
-        const lastShown  = popupData.lastShown || 0;
-        const hoursSinceLast = (now - lastShown) / (1000 * 60 * 60);
+        // Check Target Audience (unregistered only vs all)
+        const shouldTarget = currentPopupConfig.targetAudience === 'all' || !isLoggedIn;
 
-        // Show if: < 2 times shown today AND at least 12 hours since last
-        if (todayCount < 2 && (lastShown === 0 || hoursSinceLast >= 12)) {
-          setTimeout(() => {
-            setShowSecondVisitPopup(true);
-            localStorage.setItem('moodflip_popup_data', JSON.stringify({
-              lastShown: now,
-              todayDate: todayKey,
-              todayCount: todayCount + 1,
-            }));
-          }, 4000);
+        if (shouldTarget) {
+          const now = Date.now();
+          const todayKey = new Date().toISOString().split('T')[0];
+          const popupRaw = localStorage.getItem('moodflip_popup_data');
+          const popupData: { lastShown?: number; todayDate?: string; todayCount?: number } =
+            popupRaw ? JSON.parse(popupRaw) : {};
+
+          const todayCount = popupData.todayDate === todayKey ? (popupData.todayCount || 0) : 0;
+          const lastShown  = popupData.lastShown || 0;
+          const hoursSinceLast = (now - lastShown) / (1000 * 60 * 60);
+
+          const freqHours = Number(currentPopupConfig.frequencyHours) || 12;
+          const maxDaily = Number(currentPopupConfig.maxDailyLimit) || 2;
+          const delaySec = Number(currentPopupConfig.showDelaySeconds) || 4;
+
+          // Check if frequency interval and daily limit allow showing
+          if (todayCount < maxDaily && (lastShown === 0 || hoursSinceLast >= freqHours)) {
+            setTimeout(() => {
+              setShowSecondVisitPopup(true);
+              localStorage.setItem('moodflip_popup_data', JSON.stringify({
+                lastShown: now,
+                todayDate: todayKey,
+                todayCount: todayCount + 1,
+              }));
+            }, delaySec * 1000);
+          }
         }
       }
 
@@ -453,6 +484,22 @@ export default function HeroSectionExact({
       const dailyData = JSON.parse(localStorage.getItem("moodflip_daily_checkins") || "{}");
       setDailyCheckInCount(dailyData[today] || 0);
     }
+
+    const handlePopupSettingsUpdate = () => {
+      if (typeof window !== "undefined") {
+        const savedPopupCfg = localStorage.getItem("moodflip_popup_settings");
+        if (savedPopupCfg) {
+          try { setPopupSettings(prev => ({ ...prev, ...JSON.parse(savedPopupCfg) })); } catch (e) {}
+        }
+      }
+    };
+
+    window.addEventListener("moodflip_popup_settings_updated", handlePopupSettingsUpdate);
+    window.addEventListener("storage", handlePopupSettingsUpdate);
+    return () => {
+      window.removeEventListener("moodflip_popup_settings_updated", handlePopupSettingsUpdate);
+      window.removeEventListener("storage", handlePopupSettingsUpdate);
+    };
   }, []);
 
   // Update outcome when AI data arrives after flip
@@ -1060,12 +1107,12 @@ export default function HeroSectionExact({
         </div>
       </div>
 
-      {/* ── #19: SECOND-VISIT PROFILE INVITATION POPUP ── */}
-      {showSecondVisitPopup && (
+      {/* ── ADMIN-CONTROLLED PROFILE INVITATION POPUP ── */}
+      {showSecondVisitPopup && popupSettings.enabled && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Welcome back! Create a free profile"
+          aria-label={popupSettings.modalTitle || "Welcome back! Create a free profile"}
           style={{
             position: "fixed", inset: 0, zIndex: 9000,
             background: "rgba(80,60,110,0.45)",
@@ -1090,12 +1137,14 @@ export default function HeroSectionExact({
               aria-label="Close popup"
             >×</button>
             <div style={{ fontSize: 38, marginBottom: 10 }}>🌸</div>
-            <h2 style={{ fontSize: 20, fontWeight: 800, color: "#3D2D5E", marginBottom: 8 }}>Welcome back to MoodFlip!</h2>
+            <h2 style={{ fontSize: 20, fontWeight: 800, color: "#3D2D5E", marginBottom: 8 }}>
+              {popupSettings.modalTitle || "Welcome back to MoodFlip!"}
+            </h2>
             <p style={{ fontSize: 14, color: "#5A4A7A", lineHeight: 1.6, marginBottom: 20 }}>
-              Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report.
+              {popupSettings.modalDescription || "Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report."}
             </p>
             <a
-              href="/register"
+              href={popupSettings.buttonLink || "/register"}
               style={{
                 display: "inline-block",
                 background: "linear-gradient(135deg, #7464AC 0%, #9C6FBF 100%)",
@@ -1105,15 +1154,19 @@ export default function HeroSectionExact({
                 marginBottom: 10,
               }}
             >
-              Create Free Profile
+              {popupSettings.buttonText || "Create Free Profile"}
             </a>
-            <br />
-            <button
-              onClick={() => setShowSecondVisitPopup(false)}
-              style={{ background: "none", border: "none", fontSize: 12, color: "#A899C0", cursor: "pointer", marginTop: 6 }}
-            >
-              Maybe later
-            </button>
+            {popupSettings.showMaybeLater !== false && (
+              <>
+                <br />
+                <button
+                  onClick={() => setShowSecondVisitPopup(false)}
+                  style={{ background: "none", border: "none", fontSize: 12, color: "#A899C0", cursor: "pointer", marginTop: 6 }}
+                >
+                  Maybe later
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

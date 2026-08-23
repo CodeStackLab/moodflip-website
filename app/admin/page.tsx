@@ -285,6 +285,21 @@ export default function AdminDashboardPage() {
   });
   const [cookieSavedMsg, setCookieSavedMsg] = useState('');
 
+  // Profile Invitation Popup Settings (Admin Controlled)
+  const [popupSettings, setPopupSettings] = useState({
+    enabled: true,
+    targetAudience: 'unregistered', // 'unregistered' | 'all'
+    frequencyHours: 12, // 12, 24 (1 day), 48 (2 days), 72 (3 days), custom
+    maxDailyLimit: 2, // 1, 2, 3, 5, 999
+    showDelaySeconds: 4, // 2, 4, 6, 10
+    modalTitle: 'Welcome back to MoodFlip!',
+    modalDescription: 'Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report.',
+    buttonText: 'Create Free Profile',
+    buttonLink: '/register',
+    showMaybeLater: true,
+  });
+  const [popupSavedMsg, setPopupSavedMsg] = useState('');
+
   // Counselor Mood Pairings Database State
   const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(() => {
     if (typeof window !== 'undefined') {
@@ -391,6 +406,11 @@ export default function AdminDashboardPage() {
           setCookieSettings((prev) => ({ ...prev, enabled: flag === 'true' }));
         }
       }
+
+      const savedPopup = localStorage.getItem('moodflip_popup_settings');
+      if (savedPopup) {
+        try { setPopupSettings(prev => ({ ...prev, ...JSON.parse(savedPopup) })); } catch (e) {}
+      }
     }
   }, []);
 
@@ -476,6 +496,26 @@ export default function AdminDashboardPage() {
       window.dispatchEvent(new Event('storage'));
       setCookieSavedMsg(newSettings.enabled ? '✅ Cookie Consent banner ENABLED and saved!' : '✅ Cookie Consent banner TURNED OFF and saved!');
       setTimeout(() => setCookieSavedMsg(''), 4500);
+    }
+  };
+
+  const savePopupSettings = (newSettings: typeof popupSettings) => {
+    setPopupSettings(newSettings);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('moodflip_popup_settings', JSON.stringify(newSettings));
+      window.dispatchEvent(new Event('moodflip_popup_settings_updated'));
+      window.dispatchEvent(new Event('storage'));
+      setPopupSavedMsg(newSettings.enabled ? '✅ Popup settings saved and ENABLED live!' : '✅ Popup turned OFF globally and saved!');
+      setTimeout(() => setPopupSavedMsg(''), 4500);
+    }
+  };
+
+  const resetLocalPopupCooldown = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('moodflip_popup_data');
+      localStorage.removeItem('moodflip_visit_popup_dismissed');
+      setPopupSavedMsg('🔄 Cooldown reset! Popup will show immediately when you open the homepage.');
+      setTimeout(() => setPopupSavedMsg(''), 5000);
     }
   };
 
@@ -579,6 +619,7 @@ export default function AdminDashboardPage() {
                 { name: 'Email Leads', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
                 { name: 'Analytics', icon: 'M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z' },
                 { name: 'Ad Spaces', icon: 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z' },
+                { name: 'Popup Manager', icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9' },
                 { name: 'Blog Manager', icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
                 { name: 'Legal Pages', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
                 { name: 'SEO & Search Console', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' },
@@ -3180,12 +3221,349 @@ export default function AdminDashboardPage() {
             </div>
           )}
 
+          {/* VIEW TAB: POPUP MANAGER */}
+          {activeTab === 'Popup Manager' && (
+            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+              <div className="border-b border-gray-100 pb-5">
+                <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Profile Invitation Popup Manager 🌸</h2>
+                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Control popup visibility, timing rules, daily frequency, target audience, and custom text displayed to visitors.</p>
+              </div>
+
+              {/* CARD: POPUP SETTINGS */}
+              <div className="bg-white border-2 border-[#7464AC]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
+                  <div className="flex items-start sm:items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7464AC] to-[#9C6FBF] flex items-center justify-center text-2xl shrink-0 shadow-md text-white">
+                      🌸
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-serif font-extrabold text-lg text-[#1A1338]">
+                          Profile Invitation Modal &amp; Frequency Control
+                        </h3>
+                        <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${
+                          popupSettings.enabled 
+                            ? 'bg-emerald-100 text-emerald-800 border-emerald-200' 
+                            : 'bg-gray-100 text-gray-700 border-gray-200'
+                        }`}>
+                          {popupSettings.enabled ? '🟢 ENABLED' : '⚪ DISABLED'}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 font-medium mt-0.5">
+                        Shows an engaging invitation modal encouraging users to create a profile and save 7-day reports.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 self-end sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => savePopupSettings({ ...popupSettings, enabled: !popupSettings.enabled })}
+                      className={`relative inline-flex h-7 w-14 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                        popupSettings.enabled ? 'bg-[#7464AC]' : 'bg-gray-300'
+                      }`}
+                    >
+                      <span
+                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                          popupSettings.enabled ? 'translate-x-7' : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${popupSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                      {popupSettings.enabled ? 'ON' : 'OFF'}
+                    </span>
+                  </div>
+                </div>
+
+                {popupSavedMsg && (
+                  <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 animate-in fade-in">
+                    {popupSavedMsg}
+                  </div>
+                )}
+
+                {/* Timing & Audience Rules Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                  {/* Target Audience */}
+                  <div className="p-4 rounded-xl bg-[#FAF8FD] border border-gray-200">
+                    <label className="block font-extrabold text-[#1A1338] mb-1">🎯 Target Audience</label>
+                    <p className="text-[11px] text-gray-500 mb-2.5">Who should see this invitation popup?</p>
+                    <select
+                      value={popupSettings.targetAudience}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, targetAudience: e.target.value as 'unregistered' | 'all' })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-white font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                    >
+                      <option value="unregistered">🔓 Only Unregistered / Non-logged in Users (Recommended)</option>
+                      <option value="all">👥 All Visitors (Including Logged-in Users)</option>
+                    </select>
+                  </div>
+
+                  {/* Frequency Interval (Cooldown) */}
+                  <div className="p-4 rounded-xl bg-[#FAF8FD] border border-gray-200">
+                    <label className="block font-extrabold text-[#1A1338] mb-1">⏱️ Cooldown Interval</label>
+                    <p className="text-[11px] text-gray-500 mb-2.5">Minimum time before showing to same user again</p>
+                    <select
+                      value={popupSettings.frequencyHours}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, frequencyHours: Number(e.target.value) })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-white font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                    >
+                      <option value={6}>Every 6 Hours</option>
+                      <option value={12}>Every 12 Hours (Default — 2x per day)</option>
+                      <option value={24}>Every 24 Hours (Once per day — 1 Day)</option>
+                      <option value={48}>Every 48 Hours (Once every 2 Days)</option>
+                      <option value={72}>Every 72 Hours (Once every 3 Days)</option>
+                      <option value={168}>Every 168 Hours (Once every 7 Days)</option>
+                    </select>
+                  </div>
+
+                  {/* Max Daily Limit */}
+                  <div className="p-4 rounded-xl bg-[#FAF8FD] border border-gray-200">
+                    <label className="block font-extrabold text-[#1A1338] mb-1">📅 Daily Impression Cap</label>
+                    <p className="text-[11px] text-gray-500 mb-2.5">Maximum times shown per calendar day</p>
+                    <select
+                      value={popupSettings.maxDailyLimit}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, maxDailyLimit: Number(e.target.value) })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-white font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                    >
+                      <option value={1}>Max 1 time per day</option>
+                      <option value={2}>Max 2 times per day (Default)</option>
+                      <option value={3}>Max 3 times per day</option>
+                      <option value={5}>Max 5 times per day</option>
+                      <option value={999}>Unlimited (Respects Cooldown)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Second Row: Delay & Content Customization */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Popup Delay (seconds after page load)</label>
+                    <select
+                      value={popupSettings.showDelaySeconds}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, showDelaySeconds: Number(e.target.value) })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                    >
+                      <option value={2}>2 seconds</option>
+                      <option value={3}>3 seconds</option>
+                      <option value={4}>4 seconds (Recommended)</option>
+                      <option value={6}>6 seconds</option>
+                      <option value={10}>10 seconds</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Modal Heading / Title</label>
+                    <input
+                      type="text"
+                      value={popupSettings.modalTitle}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, modalTitle: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      placeholder="Welcome back to MoodFlip!"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block font-bold text-gray-700 mb-1">Modal Description / Value Pitch</label>
+                    <textarea
+                      rows={2}
+                      value={popupSettings.modalDescription}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, modalDescription: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      placeholder="Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report."
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">CTA Button Label</label>
+                    <input
+                      type="text"
+                      value={popupSettings.buttonText}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, buttonText: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      placeholder="Create Free Profile"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">CTA Button Destination URL</label>
+                    <input
+                      type="text"
+                      value={popupSettings.buttonLink}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, buttonLink: e.target.value })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      placeholder="/register"
+                    />
+                  </div>
+                </div>
+
+                {/* Live Preview & Testing Section */}
+                <div className="border border-dashed border-purple-200 rounded-2xl p-5 bg-[#FAF7FD]">
+                  <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#7464AC]">
+                      👁️ Real-Time Live Preview (What visitors see)
+                    </span>
+                    <button
+                      type="button"
+                      onClick={resetLocalPopupCooldown}
+                      className="px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-[#7464AC] text-[11px] font-bold hover:bg-purple-50 transition cursor-pointer shadow-2xs"
+                    >
+                      🔄 Reset My Test Cooldown
+                    </button>
+                  </div>
+
+                  <div className="max-w-sm mx-auto bg-white rounded-2xl p-6 text-center shadow-lg border border-purple-100 relative">
+                    <div className="text-3xl mb-2">🌸</div>
+                    <h4 className="font-serif font-extrabold text-base text-[#3D2D5E] mb-1.5">
+                      {popupSettings.modalTitle || 'Welcome back to MoodFlip!'}
+                    </h4>
+                    <p className="text-xs text-[#5A4A7A] leading-relaxed mb-4">
+                      {popupSettings.modalDescription || 'Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report.'}
+                    </p>
+                    <div className="inline-block bg-gradient-to-r from-[#7464AC] to-[#9C6FBF] text-white rounded-xl px-6 py-2 text-xs font-bold shadow-md cursor-pointer">
+                      {popupSettings.buttonText || 'Create Free Profile'}
+                    </div>
+                    {popupSettings.showMaybeLater !== false && (
+                      <div className="text-[11px] text-[#A899C0] mt-2 font-medium">
+                        Maybe later
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Save Button */}
+                <div className="flex flex-col sm:flex-row justify-end items-center gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => savePopupSettings(popupSettings)}
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#7464AC] to-[#4F438B] hover:opacity-95 text-white px-7 py-3 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
+                  >
+                    💾 Save &amp; Apply Popup Settings
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* VIEW TAB 10: SETTINGS & DEVELOPER OPTIONS */}
           {activeTab === 'Settings' && (
             <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
               <div className="border-b border-gray-100 pb-5">
                 <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Platform System &amp; Developer Settings ⚙️</h2>
-                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure Add to Home Screen App Prompt, Cookie Consent Banner, Admin Login, Email SMTP, and Payment Gateways.</p>
+                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure Profile Invitation Popup, Add to Home Screen App Prompt, Cookie Consent Banner, Admin Login, Email SMTP, and Payment Gateways.</p>
+              </div>
+
+              {/* 0. PROFILE INVITATION POPUP & FREQUENCY CARD IN SETTINGS */}
+              <div className="bg-white border-2 border-[#7464AC]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-5 relative overflow-hidden">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
+                  <div className="flex items-start sm:items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7464AC] to-[#9C6FBF] flex items-center justify-center text-2xl shrink-0 shadow-md text-white">
+                      🌸
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-serif font-extrabold text-lg text-[#1A1338]">
+                          Profile Invitation Popup Manager
+                        </h3>
+                        <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${
+                          popupSettings.enabled 
+                            ? 'bg-emerald-100 text-emerald-800 border-emerald-200' 
+                            : 'bg-gray-100 text-gray-700 border-gray-200'
+                        }`}>
+                          {popupSettings.enabled ? '🟢 ON' : '⚪ OFF'}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 font-medium mt-0.5">
+                        Controls the profile invitation modal, daily limits (1x, 2x, etc.), cooldown interval (12h, 1 day, 2 days), and non-logged-in audience filtering.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 self-end sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => savePopupSettings({ ...popupSettings, enabled: !popupSettings.enabled })}
+                      className={`relative inline-flex h-7 w-14 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                        popupSettings.enabled ? 'bg-[#7464AC]' : 'bg-gray-300'
+                      }`}
+                    >
+                      <span
+                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                          popupSettings.enabled ? 'translate-x-7' : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${popupSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                      {popupSettings.enabled ? '🟢 ACTIVE (ON)' : '⚪ DISABLED (OFF)'}
+                    </span>
+                  </div>
+                </div>
+
+                {popupSavedMsg && (
+                  <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 animate-in fade-in">
+                    {popupSavedMsg}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Target Audience</label>
+                    <select
+                      value={popupSettings.targetAudience}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, targetAudience: e.target.value as 'unregistered' | 'all' })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                    >
+                      <option value="unregistered">🔓 Non-Logged-in Users Only (Recommended)</option>
+                      <option value="all">👥 All Visitors</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Interval / Cooldown</label>
+                    <select
+                      value={popupSettings.frequencyHours}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, frequencyHours: Number(e.target.value) })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                    >
+                      <option value={6}>Every 6 Hours</option>
+                      <option value={12}>Every 12 Hours (Default — 2x/day)</option>
+                      <option value={24}>Every 24 Hours (Once per day — 1 Day)</option>
+                      <option value={48}>Every 48 Hours (Once every 2 Days)</option>
+                      <option value={72}>Every 72 Hours (Once every 3 Days)</option>
+                      <option value={168}>Every 168 Hours (Once every 7 Days)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-gray-700 mb-1">Daily Cap</label>
+                    <select
+                      value={popupSettings.maxDailyLimit}
+                      onChange={(e) => setPopupSettings({ ...popupSettings, maxDailyLimit: Number(e.target.value) })}
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                    >
+                      <option value={1}>Max 1 time per day</option>
+                      <option value={2}>Max 2 times per day (Default)</option>
+                      <option value={3}>Max 3 times per day</option>
+                      <option value={5}>Max 5 times per day</option>
+                      <option value={999}>Unlimited</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-1">
+                  <button
+                    type="button"
+                    onClick={resetLocalPopupCooldown}
+                    className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#FAF7FD] border border-purple-200 text-[#7464AC] text-xs font-bold hover:bg-purple-50 transition cursor-pointer"
+                  >
+                    🔄 Reset My Cooldown for Testing
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => savePopupSettings(popupSettings)}
+                    className="w-full sm:w-auto bg-[#7464AC] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
+                  >
+                    💾 Save Popup Settings
+                  </button>
+                </div>
               </div>
 
               {/* 1. MOBILE "ADD TO HOME SCREEN" / PWA APP PROMPT SETTINGS CARD */}

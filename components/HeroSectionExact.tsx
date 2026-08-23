@@ -350,6 +350,7 @@ export default function HeroSectionExact({
   const [savedMsg, setSavedMsg] = useState("");
   const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(COUNSELOR_MOODS);
   const [freeFlipCount, setFreeFlipCount] = useState<number>(0);
+  const [actionRotationIndex, setActionRotationIndex] = useState<Record<string, number>>({});
 
   // Outcome state that ONLY updates when user clicks "Flip Your Mood" (or on initial load / reset)
   const [flippedOutcome, setFlippedOutcome] = useState<{
@@ -536,24 +537,37 @@ export default function HeroSectionExact({
     setTimerSeconds(60);
     setIsTimerRunning(false);
 
-    // Compute and update outcome ONLY when user clicks Flip Your Mood
+    // Get current mood identifier and rotating action from live Counselor library
+    const currentMoodKey = matchedLibraryMood?.id || activeFeeling.id || selectedMood;
+    const availableActions = matchedLibraryMood?.actions && matchedLibraryMood.actions.length > 0 
+      ? matchedLibraryMood.actions 
+      : (matchedLibraryMood?.actionDesc ? [matchedLibraryMood.actionDesc] : (activeFeeling.actionDesc ? [activeFeeling.actionDesc] : []));
+
+    const currentIndex = actionRotationIndex[currentMoodKey] || 0;
+    const chosenAction = availableActions.length > 0 
+      ? availableActions[currentIndex % availableActions.length]
+      : "Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.";
+
+    // Advance rotation index for subsequent flips
+    if (availableActions.length > 1) {
+      setActionRotationIndex(prev => ({
+        ...prev,
+        [currentMoodKey]: (currentIndex + 1) % availableActions.length
+      }));
+    }
+
+    // Compute and update outcome prioritizing Google Sheet synced library
     const newTargetMood =
-      activeFeeling.targetMood || matchedLibraryMood?.target || "Peaceful";
+      matchedLibraryMood?.target || activeFeeling.targetMood || "Peaceful";
     const newActionTitle =
-      activeFeeling.actionTitle ||
       matchedLibraryMood?.actionTitle ||
+      activeFeeling.actionTitle ||
       "60-sec action to get to a peaceful mood";
-    const newActionDesc =
-      activeFeeling.actionDesc ||
-      matchedLibraryMood?.actionDesc ||
-      (matchedLibraryMood?.actions && matchedLibraryMood.actions.length > 0
-        ? matchedLibraryMood.actions.join(" ")
-        : "Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.");
 
     setFlippedOutcome({
       targetMood: newTargetMood,
       actionTitle: newActionTitle,
-      actionDesc: newActionDesc,
+      actionDesc: chosenAction,
     });
 
     if (onFlipTriggered) {

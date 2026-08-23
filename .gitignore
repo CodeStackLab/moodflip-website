@@ -37,3 +37,8 @@ moodflip_exact_clone.html
 
 # Google OAuth client secret
 client_secret_*.json
+
+# Google Sheets live sync cached data (contains live sheet data, not needed in git)
+scripts/pairings_live.json
+scripts/rotating_live.json
+scripts/sheet_data.xlsx

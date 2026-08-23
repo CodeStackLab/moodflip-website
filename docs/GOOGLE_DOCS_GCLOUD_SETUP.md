@@ -1,6 +1,8 @@
 # Google Cloud CLI & Google Docs API Automation Guide
 
-This guide explains how the Google Cloud SDK (`gcloud`) and Google Docs / Drive API automation is configured for this project, allowing the AI assistant and local scripts to read, update, and post comments directly on Google Docs without opening a browser.
+> 📌 **Master Reference Document:** See [`docs/GOOGLE_INTEGRATION_MASTER_CONFIG.md`](file:///c:/Users/mohda/Documents/moodflip-website/docs/GOOGLE_INTEGRATION_MASTER_CONFIG.md) for full details covering Google Drive, Google Sheets, and Google Docs live API setup.
+
+This guide explains how the Google Cloud SDK (`gcloud`) and Google Docs / Sheets / Drive API automation is configured for this project.
 
 ---
 

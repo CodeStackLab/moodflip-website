@@ -29,22 +29,22 @@ export const defaultBlogPosts: BlogPost[] = [
     id: '1',
     slug: 'how-to-flip-your-mood-in-60-seconds',
     title: 'How to Flip Your Mood in 60 Seconds',
-    excerpt: 'Science-backed micro-actions that rewire your emotional state — no therapy required.',
-    content: `<h2>The 60-Second Mindset Reset</h2>
-<p>Research in cognitive neuroscience shows that the brain can begin shifting emotional state within <strong>60 seconds</strong> of a targeted intervention. Here is how MoodFlip's micro-action system works:</p>
+    excerpt: 'Simple 60-second micro-actions that can help you shift how you feel — one small step at a time.',
+    content: `<h2>The 60-Second Mood Shift</h2>
+<p>MoodFlip is a self-reflection tool. It is <strong>not therapy</strong> and not medical advice. It offers simple 60-second actions designed to help you pause, reflect, and choose a calmer next step.</p>
 
 <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80" alt="Mindfulness Reflection" style="width:100%; border-radius:16px; margin:20px 0;" />
 
 <h3>1. Pattern Interruption</h3>
-<p>When you feel anxious or sad, your brain locks into a predictable loop. A micro-action — like naming 3 things you can touch right now — <em>interrupts</em> that loop at the neural level.</p>
+<p>When you feel overwhelmed or sad, it can help to gently shift your attention. A simple action — like naming 3 things you can touch right now — gives your mind somewhere calm to go.</p>
 
-<h3>2. Somatic Breathing</h3>
-<p>Box breathing (4-4-4-4) activates the parasympathetic nervous system, reducing cortisol within 60 seconds and signaling calm to every cell in your body.</p>
+<h3>2. Slow Breathing</h3>
+<p>Box breathing (4 counts in, hold 4, out 4, hold 4) is a widely used technique to help you feel calmer. Try it for 60 seconds and notice how your body responds.</p>
 
 <h3>3. Gratitude Grounding</h3>
-<p>Naming one thing you are grateful for right now redirects the prefrontal cortex away from threat-detection mode into appreciation mode — a fundamentally different neurological state.</p>
+<p>Naming one small thing you appreciate right now gently redirects your attention from worry to the present moment — a simple shift that many people find helpful.</p>
 
-<blockquote style="border-left: 4px solid #7147E8; padding-left: 16px; font-style: italic; color: #5B5278; margin: 20px 0;">"Small actions practiced daily reshape the neural pathways of emotional resilience." — Dr. Sarah Jenkins</blockquote>
+<blockquote style="border-left: 4px solid #7147E8; padding-left: 16px; font-style: italic; color: #5B5278; margin: 20px 0;">"Small, consistent actions build emotional resilience over time."</blockquote>
 
 <h3>Try It Now</h3>
 <ul>
@@ -52,8 +52,8 @@ export const defaultBlogPosts: BlogPost[] = [
   <li><strong>Step 2:</strong> Name 3 things you can physically feel right now</li>
   <li><strong>Step 3:</strong> Say one thing you appreciate about today</li>
 </ul>
-<p>That's it. 60 seconds. Your emotional state has already shifted.</p>`,
-    category: 'Mindset Science',
+<p>That's it. 60 seconds. A small, gentle reset.</p>`,
+    category: 'Self-Reflection Tips',
     author: 'MoodFlip Team',
     date: 'August 1, 2026',
     readTime: '4 min read',
@@ -104,11 +104,11 @@ export const defaultBlogPosts: BlogPost[] = [
   },
   {
     id: '3',
-    slug: '7-day-mindset-reset-guide',
-    title: 'The Complete 7-Day Mindset Reset Guide',
-    excerpt: 'A structured week-by-week guide to rewiring your thought patterns for lasting emotional wellbeing.',
-    content: `<h2>Your 7-Day Mindset Transformation</h2>
-<p>This structured plan is designed to build new neural pathways — one day at a time. No prior experience needed.</p>
+    slug: '7-day-mood-reset-guide',
+    title: 'A Simple 7-Day Mood Reset Guide',
+    excerpt: 'A practical week-by-week guide to building new emotional habits for everyday wellbeing.',
+    content: `<h2>Your 7-Day Mood Reset</h2>
+<p>This simple plan is designed to build new emotional habits — one small step at a time. No prior experience needed. This is a self-reflection guide, not a medical or therapeutic programme.</p>
 
 <img src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=1200&q=80" alt="Morning Reset Routine" style="width:100%; border-radius:16px; margin:20px 0;" />
 
@@ -143,11 +143,11 @@ export const defaultBlogPosts: BlogPost[] = [
   },
   {
     id: '4',
-    slug: 'anxiety-relief-techniques-that-work',
-    title: 'Anxiety Relief Techniques That Actually Work',
-    excerpt: 'Evidence-based, medication-free strategies for managing anxiety in daily life.',
-    content: `<h2>Mastering Anxiety with Science</h2>
-<p>Anxiety is your nervous system trying to protect you. When it triggers unnecessarily, these evidence-based techniques help signal safety to your brain.</p>
+    slug: 'calming-self-regulation-techniques',
+    title: 'Simple Techniques to Help You Feel Calmer',
+    excerpt: 'Practical, gentle self-regulation techniques to help you pause and feel more grounded in daily life.',
+    content: `<h2>Practical Ways to Help Yourself Feel Calmer</h2>
+<p>These are simple self-regulation techniques that many people find helpful when they feel overwhelmed, nervous, or tense. MoodFlip is a self-reflection tool — not a medical service. If you are struggling with anxiety, please speak to a qualified professional.</p>
 
 <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=1200&q=80" alt="Calming Nature Meditation" style="width:100%; border-radius:16px; margin:20px 0;" />
 
@@ -161,12 +161,12 @@ export const defaultBlogPosts: BlogPost[] = [
   <li><strong>1 thing</strong> you can taste</li>
 </ul>
 
-<h3>2. The Physiological Sigh</h3>
-<p>Discovered by neuroscientists at Stanford, two quick inhales through the nose followed by one long exhale through the mouth rapidly lowers heart rate and offloads carbon dioxide.</p>
+<h3>2. The Double Inhale and Long Exhale</h3>
+<p>Take two quick inhales through the nose, then one long slow exhale through the mouth. Many people find this helps them feel calmer within a minute.</p>
 
-<h3>3. Progressive Muscle Relaxation</h3>
-<p>Tense each muscle group for 5 seconds (shoulders, hands, jaw), then release completely for 10 seconds. Notice the sensation of relaxation flooding the muscles.</p>`,
-    category: 'Anxiety & Stress',
+<h3>3. Gentle Muscle Release</h3>
+<p>Gently tense your shoulders, hands, and jaw for 5 seconds, then slowly release. Notice how the tension softens as you let go.</p>`,
+    category: 'Calm & Grounding',
     author: 'MoodFlip Team',
     date: 'July 10, 2026',
     readTime: '5 min read',
@@ -177,25 +177,25 @@ export const defaultBlogPosts: BlogPost[] = [
   },
   {
     id: '5',
-    slug: 'science-of-micro-actions-neuroplasticity',
-    title: 'The Neuroscience of 60-Second Micro-Actions',
-    excerpt: 'Why small 60-second exercises rewire neural pathways faster than hours of forced positive thinking.',
-    content: `<h2>Neuroplasticity & Micro-Habits</h2>
-<p>Neuroplasticity is your brain’s ability to reorganize itself by forming new neural connections throughout life. But big changes often trigger executive fatigue and resistance.</p>
+    slug: 'why-small-mood-actions-help',
+    title: 'Why Small Actions Can Help Shift Your Mood',
+    excerpt: 'How simple 60-second mood actions can help you feel more present, calm, and in control — one small step at a time.',
+    content: `<h2>Why Small Actions Help</h2>
+<p>When emotions feel big, small actions can help you find your footing again. MoodFlip uses simple 60-second prompts to gently guide you back toward the feelings you want. This is a self-reflection tool, not a medical or psychological service.</p>
 
-<img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=1200&q=80" alt="Neuroscience & Brain Function" style="width:100%; border-radius:16px; margin:20px 0;" />
+<img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=1200&q=80" alt="Small Mood Shifts" style="width:100%; border-radius:16px; margin:20px 0;" />
 
-<h3>Why Micro-Actions Win</h3>
-<p>When you ask yourself to meditate for 60 minutes, the amygdala registers effort and fear of failure. But a <strong>60-second action</strong> bypasses the threat-detection system completely.</p>
+<h3>Why Small Actions Work Better Than Big Plans</h3>
+<p>When you're already feeling overwhelmed, a 60-second action is far easier to start than a 60-minute programme. Small, achievable actions build a sense of progress and calm — one moment at a time.</p>
 
-<h3>Key Biological Benefits:</h3>
+<h3>What People Notice:</h3>
 <ul>
-  <li><strong>Cortisol Reduction:</strong> Controlled breathing drops stress hormones by up to 25% in 60 seconds.</li>
-  <li><strong>Dopamine Micro-Hits:</strong> Completing a tiny task gives an immediate sense of efficacy and pleasure.</li>
-  <li><strong>Vagal Nerve Activation:</strong> Stimulates the vagus nerve to slow down racing heartbeats naturally.</li>
+  <li><strong>Less tension:</strong> Controlled breathing helps many people feel physically calmer.</li>
+  <li><strong>Sense of progress:</strong> Completing a small task can restore a feeling of agency.</li>
+  <li><strong>Grounded presence:</strong> Simple grounding exercises help bring attention back to right now.</li>
 </ul>`,
-    category: 'Mindset Science',
-    author: 'Dr. Elena Rostova',
+    category: 'How MoodFlip Helps',
+    author: 'MoodFlip Team',
     date: 'July 4, 2026',
     readTime: '6 min read',
     emoji: '🔬',
@@ -203,6 +203,7 @@ export const defaultBlogPosts: BlogPost[] = [
     coverColor: 'from-purple-600 to-indigo-800',
     featuredImage: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=1200&q=80',
   },
+
   {
     id: '6',
     slug: 'overcoming-burnout-micro-recovery-rituals',

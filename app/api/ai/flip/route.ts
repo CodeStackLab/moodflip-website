@@ -10,12 +10,12 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.MISTRAL_API_KEY || process.env.NEXT_PUBLIC_MISTRAL_API_KEY || 'Un0oIoMJJSt3pTgqs65EbD9EcPDszYb6';
 
-    const systemPrompt = `You are MoodFlip AI — a warm, compassionate, science-backed emotional wellness coach. 
+    const systemPrompt = `You are MoodFlip — a warm, compassionate emotional wellbeing guide. MoodFlip is a self-reflection tool, not a medical service. 
 When a user shares their current mood and specific feeling, generate a JSON response with:
-1. "reframingQuote": A short, comforting, 1-sentence cognitive reframing insight.
-2. "actionTitle": A catchy 3-6 word title for a 60-second micro-action.
+1. "reframingQuote": A short, comforting, 1-sentence reframing insight to help them feel understood.
+2. "actionTitle": A gentle 3-6 word title for a 60-second micro-action.
 3. "actionSteps": An array of 3 bullet points for a 60-second micro-action (step-by-step instructions).
-4. "scienceInsight": A 1-sentence explanation of why this 60-second action physically helps the brain/body.
+4. "wellbeingNote": A 1-sentence gentle note on why this simple action may help you feel calmer.
 
 Respond ONLY with valid raw JSON (no markdown block wrappers).`;
 
@@ -59,7 +59,8 @@ Respond ONLY with valid raw JSON (no markdown block wrappers).`;
           reframingQuote: rawContent.slice(0, 150),
           actionTitle: "60-Second Mindset Shift",
           actionSteps: ["Take 3 deep box breaths (4s in, 4s hold, 4s out)", "Relax your shoulders and drop your jaw", "Remind yourself: 'This feeling is temporary'"],
-          scienceInsight: "Deep breathing activates your parasympathetic nervous system to lower heart rate."
+          scienceInsight: "Taking slow breaths and gentle movement can help many people feel calmer and more settled.",
+          wellbeingNote: "Taking slow breaths and gentle movement can help many people feel calmer and more settled."
         }
       });
     }

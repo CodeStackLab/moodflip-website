@@ -13,26 +13,29 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-[#FCF5EE] text-[#1A143F] font-sans antialiased flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
       <Header />
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-6">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-6">
         
-        {/* ── TOP HERO WITH VIVID SUNRISE ARTWORK & CRISP GLASS CARD ── */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-md min-h-[260px] sm:min-h-[300px] flex items-center justify-center p-4 sm:p-8 bg-[#FCF5EE]">
-          {/* Full Bright Sunrise Artwork - No Washout / No Opacity Reduction */}
+        {/* ── WIDE SUNRISE BANNER: NO INNER BOX, TEXT DIRECTLY ON TOP OF ARTWORK ── */}
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm min-h-[220px] sm:min-h-[280px] md:min-h-[300px] flex flex-col items-center justify-center text-center p-6 sm:p-10 bg-[#FCF5EE]">
+          {/* Full Sunrise Landscape Artwork covering the whole banner */}
           <img
             src="/peaceful-sunrise-bg.png"
             alt="MoodFlip Peaceful Sunrise"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
           />
+          
+          {/* Subtle soft tint to guarantee perfect contrast without hiding the art */}
+          <div className="absolute inset-0 bg-[#FCF5EE]/20 pointer-events-none" />
 
-          {/* Premium Glassmorphism Card for Crystal Clear Text */}
-          <div className="relative z-10 max-w-2xl w-full mx-auto bg-[#FEFAF8]/85 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/90 shadow-[0_10px_35px_rgba(26,20,63,0.08)] text-center space-y-2">
+          {/* Text directly on top of the image - NO INNER BOX */}
+          <div className="relative z-10 max-w-3xl mx-auto space-y-3 px-2">
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A143F] tracking-tight">
               Privacy Policy
             </h1>
-            <p className="text-xs sm:text-sm text-[#7464AC] font-bold tracking-wide">
+            <p className="text-xs sm:text-sm text-[#533B93] font-extrabold tracking-wide uppercase">
               Last updated: 21 August 2026
             </p>
-            <p className="text-sm sm:text-base md:text-lg text-[#1A143F] font-medium leading-relaxed pt-1">
+            <p className="text-base sm:text-lg md:text-xl text-[#1A143F] font-bold leading-relaxed max-w-2xl mx-auto">
               MoodFlip respects your privacy. This Privacy Policy explains what information we may collect and how it is used.
             </p>
           </div>

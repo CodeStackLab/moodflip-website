@@ -45,108 +45,98 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FCF5EE] text-[#1A143F] font-sans antialiased relative flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
+    <div className="min-h-screen bg-[#FCF5EE] text-[#1A143F] font-sans antialiased flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
       <Header />
 
-      {/* ── BACKGROUND ARTWORK (Peaceful sunrise/sun style - Soft & Faded) ── */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-start justify-center opacity-25">
-        <img
-          src="/peaceful-sunrise-bg.png"
-          alt="Peaceful Sunrise Backdrop"
-          className="w-full max-w-5xl object-cover object-top filter contrast-105"
-        />
-      </div>
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-8">
+        
+        {/* ── WIDE SUNRISE BANNER: TEXT DIRECTLY ON TOP OF ARTWORK ── */}
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm min-h-[230px] sm:min-h-[290px] md:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-10 bg-[#FCF5EE]">
+          {/* Full Natural Sunrise Artwork */}
+          <img
+            src="/peaceful-sunrise-bg.png"
+            alt="MoodFlip Peaceful Sunrise"
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+          />
 
-      {/* ── HERO BANNER ── */}
-      <section className="relative z-10 overflow-hidden py-14 sm:py-18 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-3">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F4EBF5] border border-[#E4DAD7] px-4 py-1 text-xs font-extrabold text-[#7464AC] uppercase tracking-wider shadow-2xs">
-            ✉️ We&apos;re Here to Help
-          </span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-extrabold text-[#1A143F] leading-tight">
-            Contact MoodFlip Support
-          </h1>
-          <p className="text-base sm:text-lg text-[#5C527A] font-medium max-w-xl mx-auto leading-relaxed">
-            Have questions about your 7-Day Plan, account privacy, or need assistance? Send us a message and our team will get back to you promptly.
-          </p>
+          {/* Text directly on top of the image */}
+          <div className="relative z-10 max-w-3xl mx-auto space-y-3 px-2">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A143F] tracking-tight">
+              Contact MoodFlip Support
+            </h1>
+            <p className="text-xs sm:text-sm text-[#533B93] font-extrabold tracking-wide uppercase">
+              ✉️ We&apos;re Here to Help
+            </p>
+            <p className="text-base sm:text-lg md:text-xl text-[#1A143F] font-bold leading-relaxed max-w-2xl mx-auto">
+              Have questions about your 7-Day Plan, account privacy, or need assistance? Send us a message and our team will get back to you promptly.
+            </p>
+          </div>
         </div>
-      </section>
 
-      {/* ── MAIN CONTENT ── */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
-
+        {/* ── MAIN CONTENT GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT COLUMN: CONTACT DETAILS & INFO CARDS (5 cols) */}
-          <div className="lg:col-span-5 space-y-5">
+          <div className="lg:col-span-5 space-y-6">
             
-            {/* Primary Email Card */}
-            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEF9F5] p-6 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#F4EBF5] border border-[#E4DAD7] flex items-center justify-center text-2xl text-[#7464AC]">
-                📬
-              </div>
+            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 sm:p-8 shadow-[0_4px_24px_rgba(26,20,63,0.04)] space-y-6">
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-[#7464AC]">Direct Email</span>
-                <h3 className="font-serif text-lg font-bold text-[#1A143F] mt-0.5">Customer Support</h3>
+                <span className="text-xs font-black uppercase tracking-wider text-[#7464AC]">Direct Channels</span>
+                <h2 className="font-serif text-xl sm:text-2xl font-extrabold text-[#1A143F] mt-1">Get in Touch</h2>
+                <p className="text-xs sm:text-sm text-[#5C527A] mt-1">We respond to all user inquiries within 24 to 48 business hours.</p>
+              </div>
+
+              <div className="space-y-4">
                 <a
                   href="mailto:support@moodflip.coach"
-                  className="text-sm sm:text-base font-extrabold text-[#7464AC] hover:underline block mt-1"
+                  className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FCF5EE] border border-[#E4DAD7] hover:border-[#7464AC] transition group"
                 >
-                  support@moodflip.coach
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F4EBF5] text-[#7464AC] text-lg font-bold group-hover:scale-105 transition">
+                    ✉️
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-[#5C527A]">Email Support</div>
+                    <div className="text-sm font-extrabold text-[#1A143F] group-hover:text-[#7464AC] transition">support@moodflip.coach</div>
+                  </div>
                 </a>
-              </div>
-              <div className="pt-2 border-t border-[#E4DAD7] text-xs text-[#5C527A] space-y-1 font-medium">
-                <div className="flex items-center justify-between">
-                  <span>Average Response Time:</span>
-                  <strong className="text-[#1A143F]">24 – 48 Hours</strong>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span>Support Schedule:</span>
-                  <strong className="text-[#1A143F]">Monday – Friday</strong>
-                </div>
-              </div>
-            </div>
 
-            {/* Quick Assistance Box */}
-            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FCF3E9] p-6 shadow-2xs space-y-3">
-              <span className="text-xs font-black uppercase tracking-wider text-[#7D8164]">Need Urgent Help?</span>
-              <h4 className="font-serif text-base font-bold text-[#1A143F]">Looking for Crisis Helplines?</h4>
-              <p className="text-xs text-[#5C527A] leading-relaxed">
-                MoodFlip is not an emergency service. If you are experiencing a mental health emergency, please call <strong>988</strong> (US) or reach out to your local emergency medical facility immediately.
-              </p>
-              <Link
-                href="/disclaimer"
-                className="inline-block text-xs font-extrabold text-[#7464AC] hover:underline pt-1"
-              >
-                Read Safety &amp; Medical Disclaimer →
-              </Link>
-            </div>
+                <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FCF5EE] border border-[#E4DAD7]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F4EBF5] text-[#7464AC] text-lg font-bold">
+                    ⏱️
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-[#5C527A]">Support Hours</div>
+                    <div className="text-sm font-extrabold text-[#1A143F]">Monday &ndash; Friday (9am &ndash; 6pm EST)</div>
+                  </div>
+                </div>
 
-            {/* 30-Day Guarantee Badge */}
-            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FAF5F6] p-6 shadow-2xs space-y-2">
-              <span className="text-xs font-black uppercase tracking-wider text-[#E49C8C]">Peace of Mind</span>
-              <h4 className="font-serif text-base font-bold text-[#1A143F]">100% 30-Day Refund Guarantee</h4>
-              <p className="text-xs text-[#5C527A] leading-relaxed">
-                Purchased a 7-Day Plan and feeling it wasn&apos;t the right fit? Just email us with your order email and we&apos;ll issue a full refund with no hassle.
-              </p>
+                <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FAF3EC] border border-[#E8DDD8]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FCE8DE] text-[#C45E3D] text-lg font-bold">
+                    🚨
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-[#A84A2A]">Crisis Resources</div>
+                    <div className="text-xs text-[#5C527A] mt-0.5">
+                      Need emergency help? Call or text <strong className="text-[#1A143F]">988</strong> (US/CA) or your local emergency line.
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
 
-          {/* RIGHT COLUMN: INTERACTIVE FORM (7 cols) */}
+          {/* RIGHT COLUMN: CONTACT FORM (7 cols) */}
           <div className="lg:col-span-7">
-            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEF9F5] p-6 sm:p-10 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-6">
+            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 sm:p-10 shadow-[0_4px_24px_rgba(26,20,63,0.04)]">
               
-              <div>
-                <span className="text-xs font-black uppercase tracking-wider text-[#7464AC]">Send a Note</span>
-                <h2 className="font-serif text-2xl font-extrabold text-[#1A143F] mt-0.5">How Can We Help You?</h2>
-                <p className="text-xs sm:text-sm text-[#5C527A] font-medium mt-1">
-                  Fill out the form below and we will respond to your email address within 24-48 hours.
-                </p>
+              <div className="mb-6">
+                <span className="text-xs font-black uppercase tracking-wider text-[#7464AC]">Send a Message</span>
+                <h2 className="font-serif text-xl sm:text-2xl font-extrabold text-[#1A143F] mt-1">How can we assist you?</h2>
               </div>
 
               {submitted ? (
-                <div className="rounded-2xl border border-[#E4DAD7] bg-[#FCF3E9] p-6 text-center space-y-3 animate-in fade-in zoom-in duration-300">
+                <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-8 text-center space-y-3">
                   <span className="text-4xl block">✨</span>
                   <h3 className="font-serif text-xl font-bold text-[#1A143F]">Message Sent Successfully!</h3>
                   <p className="text-xs sm:text-sm text-[#5C527A] leading-relaxed max-w-md mx-auto font-medium">
@@ -178,7 +168,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Emma Johnson"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                     <div>
@@ -191,7 +181,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="emma@example.com"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                   </div>
@@ -204,7 +194,7 @@ export default function ContactPage() {
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       >
                         <option value="General Question">General Question</option>
                         <option value="7-Day Plan Support">7-Day Plan Support</option>
@@ -223,7 +213,7 @@ export default function ContactPage() {
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         placeholder="e.g., 7-Day Plan PDF inquiry"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                   </div>
@@ -238,7 +228,7 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Please write your questions or details here..."
-                      className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium resize-y"
+                      className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium resize-y"
                     />
                   </div>
 
@@ -269,7 +259,7 @@ export default function ContactPage() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="rounded-3xl border border-[#E4DAD7] bg-[#FEF9F5] p-6 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-2"
+                className="rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 shadow-[0_4px_24px_rgba(26,20,63,0.03)] space-y-2"
               >
                 <h3 className="font-serif text-base font-bold text-[#1A143F] flex items-start gap-2">
                   <span className="text-[#7464AC]">Q.</span> {faq.q}

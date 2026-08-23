@@ -15,30 +15,33 @@ export default function PrivacyPage() {
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-6">
         
-        {/* ── TOP SUNRISE ARTWORK BANNER (Exact Mockup Match) ── */}
-        <div className="w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm bg-[#FEFAF8] flex items-center justify-center">
+        {/* ── TOP HERO WITH SUNRISE BACKGROUND & TEXT ON TOP OF IT ── */}
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-[0_4px_20px_rgba(26,20,63,0.04)] bg-[#FEFAF8] min-h-[220px] sm:min-h-[270px] flex flex-col items-center justify-center text-center p-6 sm:p-10">
+          {/* Sunrise Background Image */}
           <img
             src="/peaceful-sunrise-bg.png"
-            alt="MoodFlip Peaceful Sunrise Landscape"
-            className="w-full h-auto max-h-[260px] object-cover object-center"
+            alt="MoodFlip Peaceful Sunrise"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-65 pointer-events-none"
           />
-        </div>
+          {/* Soft warm gradient overlay for crystal clear text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FCF5EE]/30 via-transparent to-[#FCF5EE]/70 pointer-events-none" />
 
-        {/* ── MAIN CONTENT CARD (Exact Google Doc Structure) ── */}
-        <div className="rounded-2xl sm:rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 sm:p-12 shadow-[0_4px_24px_rgba(26,20,63,0.04)] space-y-7 text-[#1A143F]">
-          
-          {/* Header Section */}
-          <div className="space-y-2 border-b border-[#E4DAD7] pb-4">
-            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A143F] tracking-tight">
+          {/* Text ON TOP of the Sunrise Image */}
+          <div className="relative z-10 max-w-2xl mx-auto space-y-2.5">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A143F] tracking-tight drop-shadow-2xs">
               Privacy Policy
             </h1>
-            <p className="text-xs sm:text-sm text-[#7E7096] font-semibold">
+            <p className="text-xs sm:text-sm text-[#7464AC] font-bold tracking-wide">
               Last updated: 21 August 2026
             </p>
-            <p className="text-sm sm:text-base text-[#1A143F] leading-relaxed pt-1">
+            <p className="text-sm sm:text-base md:text-lg text-[#1A143F] font-semibold leading-relaxed max-w-xl mx-auto pt-1">
               MoodFlip respects your privacy. This Privacy Policy explains what information we may collect and how it is used.
             </p>
           </div>
+        </div>
+
+        {/* ── MAIN CONTENT CARD (Exact Google Doc Clauses) ── */}
+        <div className="rounded-2xl sm:rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 sm:p-12 shadow-[0_4px_24px_rgba(26,20,63,0.04)] space-y-8 text-[#1A143F]">
 
           {/* Section 1 */}
           <section className="space-y-2">
@@ -58,14 +61,14 @@ export default function PrivacyPage() {
             </h2>
             <div className="space-y-2 text-sm sm:text-base text-[#1A143F] leading-relaxed pl-1">
               <p>If you create a profile, MoodFlip may store:</p>
-              <ul className="space-y-1 pl-5 list-disc text-[#1A143F]">
+              <ul className="space-y-1.5 pl-5 list-disc text-[#1A143F] font-medium">
                 <li>your email address</li>
                 <li>selected moods and feelings</li>
                 <li>check-in dates</li>
                 <li>actions shown to you</li>
                 <li>purchase history for paid downloads</li>
               </ul>
-              <p className="pt-1">
+              <p className="pt-1 text-[#1A143F]">
                 This information is used to provide saved check-ins, personalised downloads, and relevant MoodFlip offers.
               </p>
             </div>
@@ -105,7 +108,7 @@ export default function PrivacyPage() {
           </section>
 
           {/* Section 6 */}
-          <section className="space-y-2 pt-2 border-t border-[#E4DAD7]">
+          <section className="space-y-2 pt-4 border-t border-[#E4DAD7]">
             <h2 className="text-base sm:text-lg font-bold text-[#4F438B]">
               6. Not medical or crisis support
             </h2>
@@ -114,6 +117,16 @@ export default function PrivacyPage() {
               <p>If you feel unsafe or need urgent help, please contact emergency services or a crisis support service in your country.</p>
             </div>
           </section>
+
+          {/* Return link */}
+          <div className="pt-4 border-t border-[#E4DAD7] flex items-center justify-between">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#7464AC] hover:underline"
+            >
+              ← Back to MoodFlip Home
+            </Link>
+          </div>
 
         </div>
 

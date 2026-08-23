@@ -48,13 +48,13 @@ export default function TermsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5] text-[#1A143F] font-sans antialiased">
+    <div className="min-h-screen bg-[#FEF9F5] text-[#1A143F] font-sans antialiased">
       <Header />
 
       {/* HERO BANNER */}
       <div className="bg-gradient-to-br from-[#7464AC] to-[#4F438B] text-white py-10 sm:py-14 px-4 text-center">
         <div className="max-w-3xl mx-auto space-y-2.5">
-          <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
+          <span className="inline-block text-xs font-black uppercase tracking-widest bg-[#FEF9F5]/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
             ⚖️ Terms of Service
           </span>
           <h1 className="font-serif text-2xl sm:text-4xl font-extrabold leading-tight">{content.title}</h1>
@@ -63,7 +63,7 @@ export default function TermsPage() {
       </div>
 
       <main className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
-        <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-3xl p-5 sm:p-10 shadow-[0_10px_28px_rgba(26,20,63,0.03)]">
+        <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-10 shadow-[0_10px_28px_rgba(26,20,63,0.03)]">
           {renderContent(content.content)}
         </div>
 

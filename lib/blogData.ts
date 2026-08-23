@@ -44,7 +44,7 @@ export const defaultBlogPosts: BlogPost[] = [
 <h3>3. Gratitude Grounding</h3>
 <p>Naming one small thing you appreciate right now gently redirects your attention from worry to the present moment — a simple shift that many people find helpful.</p>
 
-<blockquote style="border-left: 4px solid #7147E8; padding-left: 16px; font-style: italic; color: #5B5278; margin: 20px 0;">"Small, consistent actions build emotional resilience over time."</blockquote>
+<blockquote style="border-left: 4px solid #7464AC; padding-left: 16px; font-style: italic; color: #5B5278; margin: 20px 0;">"Small, consistent actions build emotional resilience over time."</blockquote>
 
 <h3>Try It Now</h3>
 <ul>
@@ -89,7 +89,7 @@ export const defaultBlogPosts: BlogPost[] = [
   <li><strong>P</strong>roceed intentionally</li>
 </ol>
 
-<blockquote style="border-left: 4px solid #7147E8; padding-left: 16px; font-style: italic; color: #5B5278; margin: 20px 0;">"Between stimulus and response there is a space. In that space is our power to choose our response." — Viktor Frankl</blockquote>
+<blockquote style="border-left: 4px solid #7464AC; padding-left: 16px; font-style: italic; color: #5B5278; margin: 20px 0;">"Between stimulus and response there is a space. In that space is our power to choose our response." — Viktor Frankl</blockquote>
 
 <h3>Building a Trigger Journal</h3>
 <p>Keep a simple log: <em>what happened → what I felt → what story I told myself</em>. Over 7 days, patterns emerge that give you enormous power over your own reactions.</p>`,

@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="md:col-span-5 space-y-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 bg-[#FEFAF8] px-3.5 py-1.5 rounded-2xl border border-[#E4DAD7] shadow-xs hover:border-[#7666AB] transition"
+              className="inline-flex items-center gap-2 bg-[#FEF9F5] px-3.5 py-1.5 rounded-2xl border border-[#E4DAD7] shadow-xs hover:border-[#7666AB] transition"
             >
               <img
                 src="/moodflip-logo.png"

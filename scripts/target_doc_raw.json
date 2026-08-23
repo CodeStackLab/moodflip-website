@@ -1,0 +1,4040 @@
+{
+  "title": "MoodFlip_About_Privacy_Policy_Web_Copy",
+  "body": {
+    "content": [
+      {
+        "endIndex": 1,
+        "sectionBreak": {
+          "sectionStyle": {
+            "columnSeparatorStyle": "NONE",
+            "contentDirection": "LEFT_TO_RIGHT",
+            "marginTop": {
+              "magnitude": 39.6,
+              "unit": "PT"
+            },
+            "marginBottom": {
+              "magnitude": 39.6,
+              "unit": "PT"
+            },
+            "marginRight": {
+              "magnitude": 46.8,
+              "unit": "PT"
+            },
+            "marginLeft": {
+              "magnitude": 46.8,
+              "unit": "PT"
+            },
+            "marginHeader": {
+              "magnitude": 36,
+              "unit": "PT"
+            },
+            "marginFooter": {
+              "magnitude": 36,
+              "unit": "PT"
+            },
+            "sectionType": "CONTINUOUS"
+          }
+        }
+      },
+      {
+        "startIndex": 1,
+        "endIndex": 50,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 1,
+              "endIndex": 2,
+              "inlineObjectElement": {
+                "inlineObjectId": "i.0",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 2,
+              "endIndex": 49,
+              "textRun": {
+                "content": "     Website page copy and background direction",
+                "textStyle": {
+                  "bold": true,
+                  "foregroundColor": {
+                    "color": {
+                      "rgbColor": {
+                        "red": 0.29803923,
+                        "green": 0.24313726,
+                        "blue": 0.5294118
+                      }
+                    }
+                  },
+                  "fontSize": {
+                    "magnitude": 10,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 49,
+              "endIndex": 50,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "spaceBelow": {
+              "magnitude": 2,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 50,
+        "endIndex": 52,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 50,
+              "endIndex": 51,
+              "inlineObjectElement": {
+                "inlineObjectId": "i.1",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 51,
+              "endIndex": 52,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "alignment": "CENTER",
+            "direction": "LEFT_TO_RIGHT",
+            "spaceBelow": {
+              "magnitude": 8,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 52,
+        "endIndex": 74,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 52,
+              "endIndex": 73,
+              "textRun": {
+                "content": "MoodFlip Website Copy",
+                "textStyle": {
+                  "bold": true,
+                  "fontSize": {
+                    "magnitude": 24,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 73,
+              "endIndex": 74,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "alignment": "CENTER",
+            "direction": "LEFT_TO_RIGHT"
+          }
+        }
+      },
+      {
+        "startIndex": 74,
+        "endIndex": 102,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 74,
+              "endIndex": 101,
+              "textRun": {
+                "content": "About Page + Privacy Policy",
+                "textStyle": {
+                  "foregroundColor": {
+                    "color": {
+                      "rgbColor": {
+                        "red": 0.29803923,
+                        "green": 0.24313726,
+                        "blue": 0.5294118
+                      }
+                    }
+                  },
+                  "fontSize": {
+                    "magnitude": 15,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 101,
+              "endIndex": 102,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "alignment": "CENTER",
+            "direction": "LEFT_TO_RIGHT"
+          }
+        }
+      },
+      {
+        "startIndex": 102,
+        "endIndex": 414,
+        "table": {
+          "rows": 1,
+          "columns": 1,
+          "tableRows": [
+            {
+              "startIndex": 103,
+              "endIndex": 413,
+              "tableCells": [
+                {
+                  "startIndex": 104,
+                  "endIndex": 413,
+                  "content": [
+                    {
+                      "startIndex": 105,
+                      "endIndex": 135,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 105,
+                            "endIndex": 134,
+                            "textRun": {
+                              "content": "Overall page design direction",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 134,
+                            "endIndex": 135,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT"
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 135,
+                      "endIndex": 413,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 135,
+                            "endIndex": 412,
+                            "textRun": {
+                              "content": "Use the same peaceful sunrise/sun background style across the main pages: About, Privacy Policy, Contact, Login and other simple information pages. Keep the background very soft/faded so the text stays easy to read. Put page text inside clean white or warm-cream content cards.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 412,
+                            "endIndex": 413,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "tableCellStyle": {
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "backgroundColor": {
+                      "color": {
+                        "rgbColor": {
+                          "red": 0.99215686,
+                          "green": 0.972549,
+                          "blue": 0.9607843
+                        }
+                      }
+                    },
+                    "borderLeft": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderRight": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderTop": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderBottom": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    }
+                  }
+                }
+              ],
+              "tableRowStyle": {
+                "minRowHeight": {
+                  "unit": "PT"
+                }
+              }
+            }
+          ],
+          "tableStyle": {
+            "tableColumnProperties": [
+              {
+                "widthType": "FIXED_WIDTH",
+                "width": {
+                  "magnitude": 518.4,
+                  "unit": "PT"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "startIndex": 414,
+        "endIndex": 415,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 414,
+              "endIndex": 415,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT"
+          }
+        }
+      },
+      {
+        "startIndex": 415,
+        "endIndex": 462,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 415,
+              "endIndex": 461,
+              "textRun": {
+                "content": "Approved website copy starts on the next page.",
+                "textStyle": {
+                  "italic": true,
+                  "foregroundColor": {
+                    "color": {
+                      "rgbColor": {
+                        "red": 0.4117647,
+                        "green": 0.34117648,
+                        "blue": 0.5176471
+                      }
+                    }
+                  },
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 461,
+              "endIndex": 462,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "alignment": "CENTER",
+            "direction": "LEFT_TO_RIGHT"
+          }
+        }
+      },
+      {
+        "startIndex": 462,
+        "endIndex": 463,
+        "sectionBreak": {
+          "sectionStyle": {
+            "columnSeparatorStyle": "NONE",
+            "contentDirection": "LEFT_TO_RIGHT",
+            "marginTop": {
+              "magnitude": 39.6,
+              "unit": "PT"
+            },
+            "marginBottom": {
+              "magnitude": 39.6,
+              "unit": "PT"
+            },
+            "marginRight": {
+              "magnitude": 46.8,
+              "unit": "PT"
+            },
+            "marginLeft": {
+              "magnitude": 46.8,
+              "unit": "PT"
+            },
+            "marginHeader": {
+              "magnitude": 36,
+              "unit": "PT"
+            },
+            "marginFooter": {
+              "magnitude": 36,
+              "unit": "PT"
+            },
+            "sectionType": "NEXT_PAGE",
+            "useFirstPageHeaderFooter": false,
+            "flipPageOrientation": false
+          }
+        }
+      },
+      {
+        "startIndex": 463,
+        "endIndex": 480,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 463,
+              "endIndex": 464,
+              "inlineObjectElement": {
+                "inlineObjectId": "i.2",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 464,
+              "endIndex": 479,
+              "textRun": {
+                "content": "     About page",
+                "textStyle": {
+                  "bold": true,
+                  "foregroundColor": {
+                    "color": {
+                      "rgbColor": {
+                        "red": 0.29803923,
+                        "green": 0.24313726,
+                        "blue": 0.5294118
+                      }
+                    }
+                  },
+                  "fontSize": {
+                    "magnitude": 10,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 479,
+              "endIndex": 480,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "spaceBelow": {
+              "magnitude": 2,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 480,
+        "endIndex": 482,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 480,
+              "endIndex": 481,
+              "inlineObjectElement": {
+                "inlineObjectId": "i.3",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 481,
+              "endIndex": 482,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "alignment": "CENTER",
+            "direction": "LEFT_TO_RIGHT",
+            "spaceBelow": {
+              "magnitude": 8,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 482,
+        "endIndex": 1376,
+        "table": {
+          "rows": 1,
+          "columns": 1,
+          "tableRows": [
+            {
+              "startIndex": 483,
+              "endIndex": 1375,
+              "tableCells": [
+                {
+                  "startIndex": 484,
+                  "endIndex": 1375,
+                  "content": [
+                    {
+                      "startIndex": 485,
+                      "endIndex": 486,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 485,
+                            "endIndex": 486,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT"
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 486,
+                      "endIndex": 501,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 486,
+                            "endIndex": 500,
+                            "textRun": {
+                              "content": "About MoodFlip",
+                              "textStyle": {
+                                "bold": true,
+                                "fontSize": {
+                                  "magnitude": 18,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 500,
+                            "endIndex": 501,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 501,
+                      "endIndex": 621,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 501,
+                            "endIndex": 620,
+                            "textRun": {
+                              "content": "MoodFlip helps you notice your current mood, understand the feeling behind it, and make one step toward feeling better.",
+                              "textStyle": {
+                                "bold": true
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 620,
+                            "endIndex": 621,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 621,
+                      "endIndex": 793,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 621,
+                            "endIndex": 792,
+                            "textRun": {
+                              "content": "You start by choosing your current mood, then a more specific feeling. MoodFlip then suggests a better-feeling and a short 60-second action that you can try straight away.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 792,
+                            "endIndex": 793,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 793,
+                      "endIndex": 937,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 793,
+                            "endIndex": 936,
+                            "textRun": {
+                              "content": "MoodFlip is designed for small emotional shifts - not big promises. It is not therapy, medical advice, diagnosis, treatment, or crisis support.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 936,
+                            "endIndex": 937,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 937,
+                      "endIndex": 956,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 937,
+                            "endIndex": 955,
+                            "textRun": {
+                              "content": "Our aim is simple:",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                },
+                                "fontSize": {
+                                  "magnitude": 12,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 955,
+                            "endIndex": 956,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceAbove": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          },
+                          "spaceBelow": {
+                            "magnitude": 3,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 956,
+                      "endIndex": 974,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 956,
+                            "endIndex": 973,
+                            "textRun": {
+                              "content": "Notice your mood.",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 973,
+                            "endIndex": 974,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 1,
+                            "unit": "PT"
+                          },
+                          "indentFirstLine": {
+                            "magnitude": 14.4,
+                            "unit": "PT"
+                          },
+                          "indentStart": {
+                            "magnitude": 14.4,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 974,
+                      "endIndex": 1009,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 974,
+                            "endIndex": 1008,
+                            "textRun": {
+                              "content": "Name the feeling behind your mood.",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1008,
+                            "endIndex": 1009,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 1,
+                            "unit": "PT"
+                          },
+                          "indentFirstLine": {
+                            "magnitude": 14.4,
+                            "unit": "PT"
+                          },
+                          "indentStart": {
+                            "magnitude": 14.4,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1009,
+                      "endIndex": 1046,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1009,
+                            "endIndex": 1045,
+                            "textRun": {
+                              "content": "Take one step toward feeling better.",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1045,
+                            "endIndex": 1046,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 1,
+                            "unit": "PT"
+                          },
+                          "indentFirstLine": {
+                            "magnitude": 14.4,
+                            "unit": "PT"
+                          },
+                          "indentStart": {
+                            "magnitude": 14.4,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1046,
+                      "endIndex": 1206,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1046,
+                            "endIndex": 1205,
+                            "textRun": {
+                              "content": "You can use the basic MoodFlip tool without creating a profile. If you choose to create a profile, you can save check-ins and create personalised mood reports.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1205,
+                            "endIndex": 1206,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1206,
+                      "endIndex": 1375,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1206,
+                            "endIndex": 1375,
+                            "textRun": {
+                              "content": "Your mood does not have to stay where it is. MoodFlip helps you notice what you feel, shows you a direction to feel better, and you can take one small action toward it.\n",
+                              "textStyle": {
+                                "bold": true
+                              }
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "tableCellStyle": {
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "backgroundColor": {
+                      "color": {
+                        "rgbColor": {
+                          "red": 1,
+                          "green": 1,
+                          "blue": 1
+                        }
+                      }
+                    },
+                    "borderLeft": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderRight": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderTop": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderBottom": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    }
+                  }
+                }
+              ],
+              "tableRowStyle": {
+                "minRowHeight": {
+                  "unit": "PT"
+                }
+              }
+            }
+          ],
+          "tableStyle": {
+            "tableColumnProperties": [
+              {
+                "widthType": "FIXED_WIDTH",
+                "width": {
+                  "magnitude": 518.4,
+                  "unit": "PT"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "startIndex": 1376,
+        "endIndex": 1377,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 1376,
+              "endIndex": 1377,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT"
+          }
+        }
+      },
+      {
+        "startIndex": 1377,
+        "endIndex": 1378,
+        "sectionBreak": {
+          "sectionStyle": {
+            "columnSeparatorStyle": "NONE",
+            "contentDirection": "LEFT_TO_RIGHT",
+            "marginTop": {
+              "magnitude": 39.6,
+              "unit": "PT"
+            },
+            "marginBottom": {
+              "magnitude": 39.6,
+              "unit": "PT"
+            },
+            "marginRight": {
+              "magnitude": 46.8,
+              "unit": "PT"
+            },
+            "marginLeft": {
+              "magnitude": 46.8,
+              "unit": "PT"
+            },
+            "marginHeader": {
+              "magnitude": 36,
+              "unit": "PT"
+            },
+            "marginFooter": {
+              "magnitude": 36,
+              "unit": "PT"
+            },
+            "sectionType": "NEXT_PAGE",
+            "useFirstPageHeaderFooter": false,
+            "flipPageOrientation": false
+          }
+        }
+      },
+      {
+        "startIndex": 1378,
+        "endIndex": 1404,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 1378,
+              "endIndex": 1379,
+              "inlineObjectElement": {
+                "inlineObjectId": "i.4",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 1379,
+              "endIndex": 1403,
+              "textRun": {
+                "content": "     Privacy Policy page",
+                "textStyle": {
+                  "bold": true,
+                  "foregroundColor": {
+                    "color": {
+                      "rgbColor": {
+                        "red": 0.29803923,
+                        "green": 0.24313726,
+                        "blue": 0.5294118
+                      }
+                    }
+                  },
+                  "fontSize": {
+                    "magnitude": 10,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 1403,
+              "endIndex": 1404,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "spaceBelow": {
+              "magnitude": 2,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 1404,
+        "endIndex": 1406,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 1404,
+              "endIndex": 1405,
+              "inlineObjectElement": {
+                "inlineObjectId": "i.5",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 1405,
+              "endIndex": 1406,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "alignment": "CENTER",
+            "direction": "LEFT_TO_RIGHT",
+            "spaceBelow": {
+              "magnitude": 8,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 1406,
+        "endIndex": 2899,
+        "table": {
+          "rows": 1,
+          "columns": 1,
+          "tableRows": [
+            {
+              "startIndex": 1407,
+              "endIndex": 2898,
+              "tableCells": [
+                {
+                  "startIndex": 1408,
+                  "endIndex": 2898,
+                  "content": [
+                    {
+                      "startIndex": 1409,
+                      "endIndex": 1410,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1409,
+                            "endIndex": 1410,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT"
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1410,
+                      "endIndex": 1425,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1410,
+                            "endIndex": 1424,
+                            "textRun": {
+                              "content": "Privacy Policy",
+                              "textStyle": {
+                                "bold": true,
+                                "fontSize": {
+                                  "magnitude": 18,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1424,
+                            "endIndex": 1425,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1425,
+                      "endIndex": 1454,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1425,
+                            "endIndex": 1453,
+                            "textRun": {
+                              "content": "Last updated: 21 August 2026",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1453,
+                            "endIndex": 1454,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1454,
+                      "endIndex": 1567,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1454,
+                            "endIndex": 1566,
+                            "textRun": {
+                              "content": "MoodFlip respects your privacy. This Privacy Policy explains what information we may collect and how it is used.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1566,
+                            "endIndex": 1567,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1567,
+                      "endIndex": 1603,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1567,
+                            "endIndex": 1602,
+                            "textRun": {
+                              "content": "1. Using MoodFlip without a profile",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                },
+                                "fontSize": {
+                                  "magnitude": 12,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1602,
+                            "endIndex": 1603,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceAbove": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          },
+                          "spaceBelow": {
+                            "magnitude": 3,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1603,
+                      "endIndex": 1667,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1603,
+                            "endIndex": 1666,
+                            "textRun": {
+                              "content": "You can use the basic MoodFlip tool without creating a profile.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1666,
+                            "endIndex": 1667,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1667,
+                      "endIndex": 1773,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1667,
+                            "endIndex": 1772,
+                            "textRun": {
+                              "content": "If you do not create a profile, MoodFlip does not need to store your email address or saved mood history.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1772,
+                            "endIndex": 1773,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1773,
+                      "endIndex": 1803,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1773,
+                            "endIndex": 1802,
+                            "textRun": {
+                              "content": "2. Information we may collect",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                },
+                                "fontSize": {
+                                  "magnitude": 12,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1802,
+                            "endIndex": 1803,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceAbove": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          },
+                          "spaceBelow": {
+                            "magnitude": 3,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1803,
+                      "endIndex": 1848,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1803,
+                            "endIndex": 1847,
+                            "textRun": {
+                              "content": "If you create a profile, MoodFlip may store:",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1847,
+                            "endIndex": 1848,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1848,
+                      "endIndex": 1869,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1848,
+                            "endIndex": 1868,
+                            "textRun": {
+                              "content": "• your email address",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1868,
+                            "endIndex": 1869,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          },
+                          "indentFirstLine": {
+                            "magnitude": 7.199999999999999,
+                            "unit": "PT"
+                          },
+                          "indentStart": {
+                            "magnitude": 18,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1869,
+                      "endIndex": 1899,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1869,
+                            "endIndex": 1898,
+                            "textRun": {
+                              "content": "• selected moods and feelings",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1898,
+                            "endIndex": 1899,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          },
+                          "indentFirstLine": {
+                            "magnitude": 7.199999999999999,
+                            "unit": "PT"
+                          },
+                          "indentStart": {
+                            "magnitude": 18,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1899,
+                      "endIndex": 1916,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1899,
+                            "endIndex": 1915,
+                            "textRun": {
+                              "content": "• check-in dates",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1915,
+                            "endIndex": 1916,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          },
+                          "indentFirstLine": {
+                            "magnitude": 7.199999999999999,
+                            "unit": "PT"
+                          },
+                          "indentStart": {
+                            "magnitude": 18,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1916,
+                      "endIndex": 1939,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1916,
+                            "endIndex": 1938,
+                            "textRun": {
+                              "content": "• actions shown to you",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1938,
+                            "endIndex": 1939,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          },
+                          "indentFirstLine": {
+                            "magnitude": 7.199999999999999,
+                            "unit": "PT"
+                          },
+                          "indentStart": {
+                            "magnitude": 18,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1939,
+                      "endIndex": 1977,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1939,
+                            "endIndex": 1976,
+                            "textRun": {
+                              "content": "• purchase history for paid downloads",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 1976,
+                            "endIndex": 1977,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          },
+                          "indentFirstLine": {
+                            "magnitude": 7.199999999999999,
+                            "unit": "PT"
+                          },
+                          "indentStart": {
+                            "magnitude": 18,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 1977,
+                      "endIndex": 2084,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 1977,
+                            "endIndex": 2083,
+                            "textRun": {
+                              "content": "This information is used to provide saved check-ins, personalised downloads, and relevant MoodFlip offers.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2083,
+                            "endIndex": 2084,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2084,
+                      "endIndex": 2102,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2084,
+                            "endIndex": 2101,
+                            "textRun": {
+                              "content": "3. Paid downloads",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                },
+                                "fontSize": {
+                                  "magnitude": 12,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2101,
+                            "endIndex": 2102,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceAbove": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          },
+                          "spaceBelow": {
+                            "magnitude": 3,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2102,
+                      "endIndex": 2211,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2102,
+                            "endIndex": 2210,
+                            "textRun": {
+                              "content": "If you buy a paid MoodFlip download, payment may be processed through a secure third-party payment provider.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2210,
+                            "endIndex": 2211,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2211,
+                      "endIndex": 2267,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2211,
+                            "endIndex": 2266,
+                            "textRun": {
+                              "content": "MoodFlip does not need to store your full card details.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2266,
+                            "endIndex": 2267,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2267,
+                      "endIndex": 2296,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2267,
+                            "endIndex": 2295,
+                            "textRun": {
+                              "content": "4. 90-day automatic deletion",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                },
+                                "fontSize": {
+                                  "magnitude": 12,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2295,
+                            "endIndex": 2296,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceAbove": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          },
+                          "spaceBelow": {
+                            "magnitude": 3,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2296,
+                      "endIndex": 2378,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2296,
+                            "endIndex": 2377,
+                            "textRun": {
+                              "content": "Inactive profiles and saved mood history are automatically deleted after 90 days.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2377,
+                            "endIndex": 2378,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2378,
+                      "endIndex": 2435,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2378,
+                            "endIndex": 2434,
+                            "textRun": {
+                              "content": "This helps keep stored information limited and relevant.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2434,
+                            "endIndex": 2435,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2435,
+                      "endIndex": 2453,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2435,
+                            "endIndex": 2452,
+                            "textRun": {
+                              "content": "5. Email messages",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                },
+                                "fontSize": {
+                                  "magnitude": 12,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2452,
+                            "endIndex": 2453,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceAbove": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          },
+                          "spaceBelow": {
+                            "magnitude": 3,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2453,
+                      "endIndex": 2590,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2453,
+                            "endIndex": 2589,
+                            "textRun": {
+                              "content": "If you create a profile, you may receive emails related to your saved check-ins, paid downloads, reminders, or relevant MoodFlip offers.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2589,
+                            "endIndex": 2590,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2590,
+                      "endIndex": 2633,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2590,
+                            "endIndex": 2632,
+                            "textRun": {
+                              "content": "You can unsubscribe from marketing emails.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2632,
+                            "endIndex": 2633,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2633,
+                      "endIndex": 2666,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2633,
+                            "endIndex": 2665,
+                            "textRun": {
+                              "content": "6. Not medical or crisis support",
+                              "textStyle": {
+                                "bold": true,
+                                "foregroundColor": {
+                                  "color": {
+                                    "rgbColor": {
+                                      "red": 0.29803923,
+                                      "green": 0.24313726,
+                                      "blue": 0.5294118
+                                    }
+                                  }
+                                },
+                                "fontSize": {
+                                  "magnitude": 12,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2665,
+                            "endIndex": 2666,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceAbove": {
+                            "magnitude": 6,
+                            "unit": "PT"
+                          },
+                          "spaceBelow": {
+                            "magnitude": 3,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2666,
+                      "endIndex": 2778,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2666,
+                            "endIndex": 2777,
+                            "textRun": {
+                              "content": "MoodFlip is a self-reflection tool. It is not therapy, medical advice, diagnosis, treatment, or crisis support.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2777,
+                            "endIndex": 2778,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2778,
+                      "endIndex": 2897,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2778,
+                            "endIndex": 2896,
+                            "textRun": {
+                              "content": "If you feel unsafe or need urgent help, please contact emergency services or a crisis support service in your country.",
+                              "textStyle": {
+                                "fontSize": {
+                                  "magnitude": 10,
+                                  "unit": "PT"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "startIndex": 2896,
+                            "endIndex": 2897,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "startIndex": 2897,
+                      "endIndex": 2898,
+                      "paragraph": {
+                        "elements": [
+                          {
+                            "startIndex": 2897,
+                            "endIndex": 2898,
+                            "textRun": {
+                              "content": "\n",
+                              "textStyle": {}
+                            }
+                          }
+                        ],
+                        "paragraphStyle": {
+                          "namedStyleType": "NORMAL_TEXT",
+                          "direction": "LEFT_TO_RIGHT",
+                          "spaceBelow": {
+                            "magnitude": 5,
+                            "unit": "PT"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "tableCellStyle": {
+                    "rowSpan": 1,
+                    "columnSpan": 1,
+                    "backgroundColor": {
+                      "color": {
+                        "rgbColor": {
+                          "red": 1,
+                          "green": 1,
+                          "blue": 1
+                        }
+                      }
+                    },
+                    "borderLeft": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderRight": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderTop": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    },
+                    "borderBottom": {
+                      "color": {
+                        "color": {
+                          "rgbColor": {
+                            "red": 0.9098039,
+                            "green": 0.8666667,
+                            "blue": 0.84705883
+                          }
+                        }
+                      },
+                      "width": {
+                        "magnitude": 1,
+                        "unit": "PT"
+                      },
+                      "dashStyle": "SOLID"
+                    }
+                  }
+                }
+              ],
+              "tableRowStyle": {
+                "minRowHeight": {
+                  "unit": "PT"
+                }
+              }
+            }
+          ],
+          "tableStyle": {
+            "tableColumnProperties": [
+              {
+                "widthType": "FIXED_WIDTH",
+                "width": {
+                  "magnitude": 518.4,
+                  "unit": "PT"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "startIndex": 2899,
+        "endIndex": 2900,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 2899,
+              "endIndex": 2900,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT"
+          }
+        }
+      },
+      {
+        "startIndex": 2900,
+        "endIndex": 2901,
+        "sectionBreak": {
+          "sectionStyle": {
+            "columnSeparatorStyle": "NONE",
+            "contentDirection": "LEFT_TO_RIGHT",
+            "marginTop": {
+              "magnitude": 39.6,
+              "unit": "PT"
+            },
+            "marginBottom": {
+              "magnitude": 39.6,
+              "unit": "PT"
+            },
+            "marginRight": {
+              "magnitude": 46.8,
+              "unit": "PT"
+            },
+            "marginLeft": {
+              "magnitude": 46.8,
+              "unit": "PT"
+            },
+            "marginHeader": {
+              "magnitude": 36,
+              "unit": "PT"
+            },
+            "marginFooter": {
+              "magnitude": 36,
+              "unit": "PT"
+            },
+            "sectionType": "NEXT_PAGE",
+            "useFirstPageHeaderFooter": false,
+            "flipPageOrientation": false
+          }
+        }
+      },
+      {
+        "startIndex": 2901,
+        "endIndex": 2923,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 2901,
+              "endIndex": 2902,
+              "inlineObjectElement": {
+                "inlineObjectId": "i.6",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 2902,
+              "endIndex": 2922,
+              "textRun": {
+                "content": "     Developer notes",
+                "textStyle": {
+                  "bold": true,
+                  "foregroundColor": {
+                    "color": {
+                      "rgbColor": {
+                        "red": 0.29803923,
+                        "green": 0.24313726,
+                        "blue": 0.5294118
+                      }
+                    }
+                  },
+                  "fontSize": {
+                    "magnitude": 10,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 2922,
+              "endIndex": 2923,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "spaceBelow": {
+              "magnitude": 2,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 2923,
+        "endIndex": 2925,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 2923,
+              "endIndex": 2924,
+              "inlineObjectElement": {
+                "inlineObjectId": "i.7",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 2924,
+              "endIndex": 2925,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "alignment": "CENTER",
+            "direction": "LEFT_TO_RIGHT",
+            "spaceBelow": {
+              "magnitude": 8,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 2925,
+        "endIndex": 2959,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 2925,
+              "endIndex": 2958,
+              "textRun": {
+                "content": "Background and page styling notes",
+                "textStyle": {
+                  "bold": true,
+                  "fontSize": {
+                    "magnitude": 18,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 2958,
+              "endIndex": 2959,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT"
+          }
+        }
+      },
+      {
+        "startIndex": 2959,
+        "endIndex": 3040,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 2959,
+              "endIndex": 3039,
+              "textRun": {
+                "content": "• Use the peaceful sunrise/sun background style on all simple information pages.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3039,
+              "endIndex": 3040,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 3040,
+        "endIndex": 3112,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 3040,
+              "endIndex": 3111,
+              "textRun": {
+                "content": "• Keep the background soft and faded so the text is never hard to read.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3111,
+              "endIndex": 3112,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 3112,
+        "endIndex": 3173,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 3112,
+              "endIndex": 3172,
+              "textRun": {
+                "content": "• Use white or warm-cream content cards over the background.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3172,
+              "endIndex": 3173,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 3173,
+        "endIndex": 3256,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 3173,
+              "endIndex": 3255,
+              "textRun": {
+                "content": "• Use rounded corners and soft shadow on content cards to match the homepage feel.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3255,
+              "endIndex": 3256,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 3256,
+        "endIndex": 3324,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 3256,
+              "endIndex": 3323,
+              "textRun": {
+                "content": "• Do not make the background busy behind Privacy Policy paragraphs.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3323,
+              "endIndex": 3324,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 3324,
+        "endIndex": 3385,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 3324,
+              "endIndex": 3384,
+              "textRun": {
+                "content": "• Keep the MoodFlip logo in the top-left header, without TM.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3384,
+              "endIndex": 3385,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 3385,
+        "endIndex": 3472,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 3385,
+              "endIndex": 3471,
+              "textRun": {
+                "content": "• Keep the same top navigation order: Home | About | Privacy Policy | Contact | Login.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3471,
+              "endIndex": 3472,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 3472,
+        "endIndex": 3540,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 3472,
+              "endIndex": 3539,
+              "textRun": {
+                "content": "• No affiliate links at launch unless Joy approves them separately.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3539,
+              "endIndex": 3540,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      },
+      {
+        "startIndex": 3540,
+        "endIndex": 3630,
+        "paragraph": {
+          "elements": [
+            {
+              "startIndex": 3540,
+              "endIndex": 3629,
+              "textRun": {
+                "content": "��� MoodFlip should be described as a self-reflection tool, not therapy or medical support.",
+                "textStyle": {
+                  "fontSize": {
+                    "magnitude": 11,
+                    "unit": "PT"
+                  }
+                }
+              }
+            },
+            {
+              "startIndex": 3629,
+              "endIndex": 3630,
+              "textRun": {
+                "content": "\n",
+                "textStyle": {}
+              }
+            }
+          ],
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT",
+            "direction": "LEFT_TO_RIGHT",
+            "indentFirstLine": {
+              "magnitude": 5.050000000000001,
+              "unit": "PT"
+            },
+            "indentStart": {
+              "magnitude": 18,
+              "unit": "PT"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "footers": {
+    "kix.hf0": {
+      "footerId": "kix.hf0",
+      "content": [
+        {
+          "endIndex": 209,
+          "paragraph": {
+            "elements": [
+              {
+                "endIndex": 208,
+                "textRun": {
+                  "content": "MoodFlip website copy draft - About + Privacy PolicyMoodFlip website copy draft - About + Privacy PolicyMoodFlip website copy draft - About + Privacy PolicyMoodFlip website copy draft - About + Privacy Policy",
+                  "textStyle": {
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false,
+                    "smallCaps": false,
+                    "backgroundColor": {},
+                    "foregroundColor": {
+                      "color": {
+                        "rgbColor": {
+                          "red": 0.5882353,
+                          "green": 0.5294118,
+                          "blue": 0.64705884
+                        }
+                      }
+                    },
+                    "fontSize": {
+                      "magnitude": 8,
+                      "unit": "PT"
+                    },
+                    "weightedFontFamily": {
+                      "fontFamily": "Aptos",
+                      "weight": 400
+                    },
+                    "baselineOffset": "NONE"
+                  }
+                }
+              },
+              {
+                "startIndex": 208,
+                "endIndex": 209,
+                "textRun": {
+                  "content": "\n",
+                  "textStyle": {
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false,
+                    "smallCaps": false,
+                    "backgroundColor": {},
+                    "foregroundColor": {
+                      "color": {
+                        "rgbColor": {
+                          "red": 0.101960786,
+                          "green": 0.078431375,
+                          "blue": 0.24705882
+                        }
+                      }
+                    },
+                    "fontSize": {
+                      "magnitude": 10.5,
+                      "unit": "PT"
+                    },
+                    "weightedFontFamily": {
+                      "fontFamily": "Aptos",
+                      "weight": 400
+                    },
+                    "baselineOffset": "NONE"
+                  }
+                }
+              }
+            ],
+            "paragraphStyle": {
+              "namedStyleType": "NORMAL_TEXT",
+              "alignment": "CENTER",
+              "lineSpacing": 100,
+              "direction": "LEFT_TO_RIGHT",
+              "spacingMode": "NEVER_COLLAPSE",
+              "spaceAbove": {
+                "unit": "PT"
+              },
+              "spaceBelow": {
+                "unit": "PT"
+              },
+              "borderBetween": {
+                "color": {},
+                "width": {
+                  "unit": "PT"
+                },
+                "padding": {
+                  "unit": "PT"
+                },
+                "dashStyle": "SOLID"
+              },
+              "borderTop": {
+                "color": {},
+                "width": {
+                  "unit": "PT"
+                },
+                "padding": {
+                  "unit": "PT"
+                },
+                "dashStyle": "SOLID"
+              },
+              "borderBottom": {
+                "color": {},
+                "width": {
+                  "unit": "PT"
+                },
+                "padding": {
+                  "unit": "PT"
+                },
+                "dashStyle": "SOLID"
+              },
+              "borderLeft": {
+                "color": {},
+                "width": {
+                  "unit": "PT"
+                },
+                "padding": {
+                  "unit": "PT"
+                },
+                "dashStyle": "SOLID"
+              },
+              "borderRight": {
+                "color": {},
+                "width": {
+                  "unit": "PT"
+                },
+                "padding": {
+                  "unit": "PT"
+                },
+                "dashStyle": "SOLID"
+              },
+              "indentFirstLine": {
+                "unit": "PT"
+              },
+              "indentStart": {
+                "unit": "PT"
+              },
+              "indentEnd": {
+                "unit": "PT"
+              },
+              "tabStops": [
+                {
+                  "offset": {
+                    "magnitude": 234,
+                    "unit": "PT"
+                  },
+                  "alignment": "CENTER"
+                },
+                {
+                  "offset": {
+                    "magnitude": 468,
+                    "unit": "PT"
+                  },
+                  "alignment": "END"
+                }
+              ],
+              "keepLinesTogether": false,
+              "keepWithNext": false,
+              "avoidWidowAndOrphan": true,
+              "shading": {
+                "backgroundColor": {}
+              },
+              "pageBreakBefore": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  "documentStyle": {
+    "background": {
+      "color": {}
+    },
+    "defaultFooterId": "kix.hf0",
+    "pageNumberStart": 1,
+    "marginTop": {
+      "magnitude": 72,
+      "unit": "PT"
+    },
+    "marginBottom": {
+      "magnitude": 72,
+      "unit": "PT"
+    },
+    "marginRight": {
+      "magnitude": 72,
+      "unit": "PT"
+    },
+    "marginLeft": {
+      "magnitude": 72,
+      "unit": "PT"
+    },
+    "pageSize": {
+      "height": {
+        "magnitude": 792,
+        "unit": "PT"
+      },
+      "width": {
+        "magnitude": 612,
+        "unit": "PT"
+      }
+    },
+    "marginHeader": {
+      "magnitude": 36,
+      "unit": "PT"
+    },
+    "marginFooter": {
+      "magnitude": 36,
+      "unit": "PT"
+    },
+    "useCustomHeaderFooterMargins": true,
+    "documentFormat": {
+      "documentMode": "PAGES"
+    }
+  },
+  "namedStyles": {
+    "styles": [
+      {
+        "namedStyleType": "NORMAL_TEXT",
+        "textStyle": {
+          "bold": false,
+          "italic": false,
+          "underline": false,
+          "strikethrough": false,
+          "smallCaps": false,
+          "backgroundColor": {},
+          "foregroundColor": {
+            "color": {
+              "rgbColor": {
+                "red": 0.101960786,
+                "green": 0.078431375,
+                "blue": 0.24705882
+              }
+            }
+          },
+          "fontSize": {
+            "magnitude": 10.5,
+            "unit": "PT"
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Aptos",
+            "weight": 400
+          },
+          "baselineOffset": "NONE"
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "alignment": "START",
+          "lineSpacing": 115,
+          "direction": "LEFT_TO_RIGHT",
+          "spacingMode": "NEVER_COLLAPSE",
+          "spaceAbove": {
+            "unit": "PT"
+          },
+          "spaceBelow": {
+            "magnitude": 10,
+            "unit": "PT"
+          },
+          "borderBetween": {
+            "color": {},
+            "width": {
+              "unit": "PT"
+            },
+            "padding": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID"
+          },
+          "borderTop": {
+            "color": {},
+            "width": {
+              "unit": "PT"
+            },
+            "padding": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID"
+          },
+          "borderBottom": {
+            "color": {},
+            "width": {
+              "unit": "PT"
+            },
+            "padding": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID"
+          },
+          "borderLeft": {
+            "color": {},
+            "width": {
+              "unit": "PT"
+            },
+            "padding": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID"
+          },
+          "borderRight": {
+            "color": {},
+            "width": {
+              "unit": "PT"
+            },
+            "padding": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID"
+          },
+          "indentFirstLine": {
+            "unit": "PT"
+          },
+          "indentStart": {
+            "unit": "PT"
+          },
+          "indentEnd": {
+            "unit": "PT"
+          },
+          "keepLinesTogether": false,
+          "keepWithNext": false,
+          "avoidWidowAndOrphan": true,
+          "shading": {
+            "backgroundColor": {}
+          },
+          "pageBreakBefore": false
+        }
+      },
+      {
+        "namedStyleType": "HEADING_1",
+        "textStyle": {
+          "bold": true,
+          "fontSize": {
+            "magnitude": 22,
+            "unit": "PT"
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Calibri",
+            "weight": 400
+          }
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "direction": "LEFT_TO_RIGHT",
+          "spaceAbove": {
+            "magnitude": 24,
+            "unit": "PT"
+          },
+          "spaceBelow": {
+            "unit": "PT"
+          },
+          "keepLinesTogether": true,
+          "keepWithNext": true
+        }
+      },
+      {
+        "namedStyleType": "HEADING_2",
+        "textStyle": {
+          "bold": true,
+          "foregroundColor": {
+            "color": {
+              "rgbColor": {
+                "red": 0.30980393,
+                "green": 0.5058824,
+                "blue": 0.7411765
+              }
+            }
+          },
+          "fontSize": {
+            "magnitude": 13,
+            "unit": "PT"
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Calibri",
+            "weight": 400
+          }
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "direction": "LEFT_TO_RIGHT",
+          "spaceAbove": {
+            "magnitude": 10,
+            "unit": "PT"
+          },
+          "spaceBelow": {
+            "unit": "PT"
+          },
+          "keepLinesTogether": true,
+          "keepWithNext": true
+        }
+      },
+      {
+        "namedStyleType": "HEADING_3",
+        "textStyle": {
+          "bold": true,
+          "foregroundColor": {
+            "color": {
+              "rgbColor": {
+                "red": 0.30980393,
+                "green": 0.5058824,
+                "blue": 0.7411765
+              }
+            }
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Calibri",
+            "weight": 400
+          }
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "direction": "LEFT_TO_RIGHT",
+          "spaceAbove": {
+            "magnitude": 10,
+            "unit": "PT"
+          },
+          "spaceBelow": {
+            "unit": "PT"
+          },
+          "keepLinesTogether": true,
+          "keepWithNext": true
+        }
+      },
+      {
+        "namedStyleType": "HEADING_4",
+        "textStyle": {
+          "bold": true,
+          "italic": true,
+          "foregroundColor": {
+            "color": {
+              "rgbColor": {
+                "red": 0.30980393,
+                "green": 0.5058824,
+                "blue": 0.7411765
+              }
+            }
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Calibri",
+            "weight": 400
+          }
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "direction": "LEFT_TO_RIGHT",
+          "spaceAbove": {
+            "magnitude": 10,
+            "unit": "PT"
+          },
+          "spaceBelow": {
+            "unit": "PT"
+          },
+          "keepLinesTogether": true,
+          "keepWithNext": true
+        }
+      },
+      {
+        "namedStyleType": "HEADING_5",
+        "textStyle": {
+          "foregroundColor": {
+            "color": {
+              "rgbColor": {
+                "red": 0.14117648,
+                "green": 0.24705882,
+                "blue": 0.38039216
+              }
+            }
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Calibri",
+            "weight": 400
+          }
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "direction": "LEFT_TO_RIGHT",
+          "spaceAbove": {
+            "magnitude": 10,
+            "unit": "PT"
+          },
+          "spaceBelow": {
+            "unit": "PT"
+          },
+          "keepLinesTogether": true,
+          "keepWithNext": true
+        }
+      },
+      {
+        "namedStyleType": "HEADING_6",
+        "textStyle": {
+          "italic": true,
+          "foregroundColor": {
+            "color": {
+              "rgbColor": {
+                "red": 0.14117648,
+                "green": 0.24705882,
+                "blue": 0.38039216
+              }
+            }
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Calibri",
+            "weight": 400
+          }
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "direction": "LEFT_TO_RIGHT",
+          "spaceAbove": {
+            "magnitude": 10,
+            "unit": "PT"
+          },
+          "spaceBelow": {
+            "unit": "PT"
+          },
+          "keepLinesTogether": true,
+          "keepWithNext": true
+        }
+      },
+      {
+        "namedStyleType": "TITLE",
+        "textStyle": {
+          "foregroundColor": {
+            "color": {
+              "rgbColor": {
+                "red": 0.09019608,
+                "green": 0.21176471,
+                "blue": 0.3647059
+              }
+            }
+          },
+          "fontSize": {
+            "magnitude": 26,
+            "unit": "PT"
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Calibri",
+            "weight": 400
+          }
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "lineSpacing": 100,
+          "direction": "LEFT_TO_RIGHT",
+          "spacingMode": "NEVER_COLLAPSE",
+          "spaceBelow": {
+            "magnitude": 15,
+            "unit": "PT"
+          },
+          "borderBottom": {
+            "color": {
+              "color": {
+                "rgbColor": {
+                  "red": 0.30980393,
+                  "green": 0.5058824,
+                  "blue": 0.7411765
+                }
+              }
+            },
+            "width": {
+              "magnitude": 1,
+              "unit": "PT"
+            },
+            "padding": {
+              "magnitude": 4,
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID"
+          }
+        }
+      },
+      {
+        "namedStyleType": "SUBTITLE",
+        "textStyle": {
+          "italic": true,
+          "foregroundColor": {
+            "color": {
+              "rgbColor": {
+                "red": 0.30980393,
+                "green": 0.5058824,
+                "blue": 0.7411765
+              }
+            }
+          },
+          "fontSize": {
+            "magnitude": 12,
+            "unit": "PT"
+          },
+          "weightedFontFamily": {
+            "fontFamily": "Calibri",
+            "weight": 400
+          }
+        },
+        "paragraphStyle": {
+          "namedStyleType": "NORMAL_TEXT",
+          "direction": "LEFT_TO_RIGHT"
+        }
+      }
+    ]
+  },
+  "revisionId": "AIroW350mi-gOHgaW5NOoQQkVR0an8TDJ0dfbPKTeDNfnGXHQyW2P0MKXwQ_KskH700MiK2auM2dbpg38axZg6I0Peenjhkv9lqtjobWTyM",
+  "suggestionsViewMode": "SUGGESTIONS_INLINE",
+  "inlineObjects": {
+    "i.0": {
+      "objectId": "i.0",
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "imageProperties": {
+            "contentUri": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfvihZDD8sbpKNVBNuC2vDeLBEM-FXoj16Th8xCNC6eR85-QkijShwieapraYzfZYj1n3oQ9HJiNL4Tjo-cM-_P0vbOYpCKhofMXITVuMpIWv2WIw3VyU6SdmW5jFGqI01m8_ed1eti1uVI7Gr16nMk9IviwdkU8vwQe_Up7pPro_yyTHRXlA=s2048?key=UzBgWHgQpp_XfLI4euuPIw",
+            "cropProperties": {}
+          },
+          "embeddedObjectBorder": {
+            "color": {
+              "color": {
+                "rgbColor": {}
+              }
+            },
+            "width": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID",
+            "propertyState": "NOT_RENDERED"
+          },
+          "size": {
+            "height": {
+              "magnitude": 42.656141732283466,
+              "unit": "PT"
+            },
+            "width": {
+              "magnitude": 97.2,
+              "unit": "PT"
+            }
+          },
+          "marginTop": {
+            "unit": "PT"
+          },
+          "marginBottom": {
+            "unit": "PT"
+          },
+          "marginRight": {
+            "unit": "PT"
+          },
+          "marginLeft": {
+            "unit": "PT"
+          }
+        }
+      }
+    },
+    "i.1": {
+      "objectId": "i.1",
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "imageProperties": {
+            "contentUri": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfdKmteqaFfPX0s-JUVLb_35txpX9E5Nm-N4p01kH1t7ouIK6NdtzH6Jkgc2BetCGlJij9kXT9DqMmxkJmrI0JsQEmcgW0JI1Hgl3-d8bedPdbN-D5ATuyBv8S0P592FTJOD843YynP8FGEDfpcv4Ed-DMUBfDD97j9SZ8CXBXGQQ_TyX8rsA=s2048?key=UzBgWHgQpp_XfLI4euuPIw",
+            "cropProperties": {}
+          },
+          "embeddedObjectBorder": {
+            "color": {
+              "color": {
+                "rgbColor": {}
+              }
+            },
+            "width": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID",
+            "propertyState": "NOT_RENDERED"
+          },
+          "size": {
+            "height": {
+              "magnitude": 162.4,
+              "unit": "PT"
+            },
+            "width": {
+              "magnitude": 504,
+              "unit": "PT"
+            }
+          },
+          "marginTop": {
+            "unit": "PT"
+          },
+          "marginBottom": {
+            "unit": "PT"
+          },
+          "marginRight": {
+            "unit": "PT"
+          },
+          "marginLeft": {
+            "unit": "PT"
+          }
+        }
+      }
+    },
+    "i.2": {
+      "objectId": "i.2",
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "imageProperties": {
+            "contentUri": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfvihZDD8sbpKNVBNuC2vDeLBEM-FXoj16Th8xCNC6eR85-QkijShwieapraYzfZYj1n3oQ9HJiNL4Tjo-cM-_P0vbOYpCKhofMXITVuMpIWv2WIw3VyU6SdmW5jFGqI01m8_ed1eti1uVI7Gr16nMk9IviwdkU8vwQe_Up7pPro_yyTHRXlA=s2048?key=UzBgWHgQpp_XfLI4euuPIw",
+            "cropProperties": {}
+          },
+          "embeddedObjectBorder": {
+            "color": {
+              "color": {
+                "rgbColor": {}
+              }
+            },
+            "width": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID",
+            "propertyState": "NOT_RENDERED"
+          },
+          "size": {
+            "height": {
+              "magnitude": 42.656141732283466,
+              "unit": "PT"
+            },
+            "width": {
+              "magnitude": 97.2,
+              "unit": "PT"
+            }
+          },
+          "marginTop": {
+            "unit": "PT"
+          },
+          "marginBottom": {
+            "unit": "PT"
+          },
+          "marginRight": {
+            "unit": "PT"
+          },
+          "marginLeft": {
+            "unit": "PT"
+          }
+        }
+      }
+    },
+    "i.3": {
+      "objectId": "i.3",
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "imageProperties": {
+            "contentUri": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfdKmteqaFfPX0s-JUVLb_35txpX9E5Nm-N4p01kH1t7ouIK6NdtzH6Jkgc2BetCGlJij9kXT9DqMmxkJmrI0JsQEmcgW0JI1Hgl3-d8bedPdbN-D5ATuyBv8S0P592FTJOD843YynP8FGEDfpcv4Ed-DMUBfDD97j9SZ8CXBXGQQ_TyX8rsA=s2048?key=UzBgWHgQpp_XfLI4euuPIw",
+            "cropProperties": {}
+          },
+          "embeddedObjectBorder": {
+            "color": {
+              "color": {
+                "rgbColor": {}
+              }
+            },
+            "width": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID",
+            "propertyState": "NOT_RENDERED"
+          },
+          "size": {
+            "height": {
+              "magnitude": 162.4,
+              "unit": "PT"
+            },
+            "width": {
+              "magnitude": 504,
+              "unit": "PT"
+            }
+          },
+          "marginTop": {
+            "unit": "PT"
+          },
+          "marginBottom": {
+            "unit": "PT"
+          },
+          "marginRight": {
+            "unit": "PT"
+          },
+          "marginLeft": {
+            "unit": "PT"
+          }
+        }
+      }
+    },
+    "i.4": {
+      "objectId": "i.4",
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "imageProperties": {
+            "contentUri": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfvihZDD8sbpKNVBNuC2vDeLBEM-FXoj16Th8xCNC6eR85-QkijShwieapraYzfZYj1n3oQ9HJiNL4Tjo-cM-_P0vbOYpCKhofMXITVuMpIWv2WIw3VyU6SdmW5jFGqI01m8_ed1eti1uVI7Gr16nMk9IviwdkU8vwQe_Up7pPro_yyTHRXlA=s2048?key=UzBgWHgQpp_XfLI4euuPIw",
+            "cropProperties": {}
+          },
+          "embeddedObjectBorder": {
+            "color": {
+              "color": {
+                "rgbColor": {}
+              }
+            },
+            "width": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID",
+            "propertyState": "NOT_RENDERED"
+          },
+          "size": {
+            "height": {
+              "magnitude": 42.656141732283466,
+              "unit": "PT"
+            },
+            "width": {
+              "magnitude": 97.2,
+              "unit": "PT"
+            }
+          },
+          "marginTop": {
+            "unit": "PT"
+          },
+          "marginBottom": {
+            "unit": "PT"
+          },
+          "marginRight": {
+            "unit": "PT"
+          },
+          "marginLeft": {
+            "unit": "PT"
+          }
+        }
+      }
+    },
+    "i.5": {
+      "objectId": "i.5",
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "imageProperties": {
+            "contentUri": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfdKmteqaFfPX0s-JUVLb_35txpX9E5Nm-N4p01kH1t7ouIK6NdtzH6Jkgc2BetCGlJij9kXT9DqMmxkJmrI0JsQEmcgW0JI1Hgl3-d8bedPdbN-D5ATuyBv8S0P592FTJOD843YynP8FGEDfpcv4Ed-DMUBfDD97j9SZ8CXBXGQQ_TyX8rsA=s2048?key=UzBgWHgQpp_XfLI4euuPIw",
+            "cropProperties": {}
+          },
+          "embeddedObjectBorder": {
+            "color": {
+              "color": {
+                "rgbColor": {}
+              }
+            },
+            "width": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID",
+            "propertyState": "NOT_RENDERED"
+          },
+          "size": {
+            "height": {
+              "magnitude": 162.4,
+              "unit": "PT"
+            },
+            "width": {
+              "magnitude": 504,
+              "unit": "PT"
+            }
+          },
+          "marginTop": {
+            "unit": "PT"
+          },
+          "marginBottom": {
+            "unit": "PT"
+          },
+          "marginRight": {
+            "unit": "PT"
+          },
+          "marginLeft": {
+            "unit": "PT"
+          }
+        }
+      }
+    },
+    "i.6": {
+      "objectId": "i.6",
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "imageProperties": {
+            "contentUri": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfvihZDD8sbpKNVBNuC2vDeLBEM-FXoj16Th8xCNC6eR85-QkijShwieapraYzfZYj1n3oQ9HJiNL4Tjo-cM-_P0vbOYpCKhofMXITVuMpIWv2WIw3VyU6SdmW5jFGqI01m8_ed1eti1uVI7Gr16nMk9IviwdkU8vwQe_Up7pPro_yyTHRXlA=s2048?key=UzBgWHgQpp_XfLI4euuPIw",
+            "cropProperties": {}
+          },
+          "embeddedObjectBorder": {
+            "color": {
+              "color": {
+                "rgbColor": {}
+              }
+            },
+            "width": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID",
+            "propertyState": "NOT_RENDERED"
+          },
+          "size": {
+            "height": {
+              "magnitude": 42.656141732283466,
+              "unit": "PT"
+            },
+            "width": {
+              "magnitude": 97.2,
+              "unit": "PT"
+            }
+          },
+          "marginTop": {
+            "unit": "PT"
+          },
+          "marginBottom": {
+            "unit": "PT"
+          },
+          "marginRight": {
+            "unit": "PT"
+          },
+          "marginLeft": {
+            "unit": "PT"
+          }
+        }
+      }
+    },
+    "i.7": {
+      "objectId": "i.7",
+      "inlineObjectProperties": {
+        "embeddedObject": {
+          "imageProperties": {
+            "contentUri": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfdKmteqaFfPX0s-JUVLb_35txpX9E5Nm-N4p01kH1t7ouIK6NdtzH6Jkgc2BetCGlJij9kXT9DqMmxkJmrI0JsQEmcgW0JI1Hgl3-d8bedPdbN-D5ATuyBv8S0P592FTJOD843YynP8FGEDfpcv4Ed-DMUBfDD97j9SZ8CXBXGQQ_TyX8rsA=s2048?key=UzBgWHgQpp_XfLI4euuPIw",
+            "cropProperties": {}
+          },
+          "embeddedObjectBorder": {
+            "color": {
+              "color": {
+                "rgbColor": {}
+              }
+            },
+            "width": {
+              "unit": "PT"
+            },
+            "dashStyle": "SOLID",
+            "propertyState": "NOT_RENDERED"
+          },
+          "size": {
+            "height": {
+              "magnitude": 162.4,
+              "unit": "PT"
+            },
+            "width": {
+              "magnitude": 504,
+              "unit": "PT"
+            }
+          },
+          "marginTop": {
+            "unit": "PT"
+          },
+          "marginBottom": {
+            "unit": "PT"
+          },
+          "marginRight": {
+            "unit": "PT"
+          },
+          "marginLeft": {
+            "unit": "PT"
+          }
+        }
+      }
+    }
+  },
+  "documentId": "1V3_F4pDUAS6H4RF-oRaguwq0qjJWmE3OrMggVVHK9tU"
+}

@@ -75,19 +75,19 @@ export default function BoxBreathingWidget() {
 
   const getPhaseColor = () => {
     if (mode === 'timer') {
-      return 'from-[#7147E8] to-[#9333EA] text-white shadow-purple-300';
+      return 'from-[#7464AC] to-[#9C8CC4] text-white shadow-purple-300';
     }
     switch (currentPhaseIndex) {
       case 0:
-        return 'from-[#8C60F7] to-[#7147E8] text-white shadow-purple-300';
+        return 'from-[#8C60F7] to-[#7464AC] text-white shadow-purple-300';
       case 1:
-        return 'from-[#F472B6] to-[#EC4899] text-white shadow-pink-300';
+        return 'from-[#F472B6] to-[#E49C8C] text-white shadow-pink-300';
       case 2:
         return 'from-[#FBBF24] to-[#F59E0B] text-white shadow-amber-300';
       case 3:
         return 'from-[#34D399] to-[#10B981] text-white shadow-emerald-300';
       default:
-        return 'from-[#8C60F7] to-[#7147E8] text-white shadow-purple-300';
+        return 'from-[#8C60F7] to-[#7464AC] text-white shadow-purple-300';
     }
   };
 
@@ -143,7 +143,7 @@ export default function BoxBreathingWidget() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-3.5 sm:p-7 bg-gradient-to-b from-[#FAF8FD] to-[#F3EFFE] border border-[#EAE3F2] rounded-2xl sm:rounded-3xl my-3 text-center space-y-4 select-none w-full max-w-2xl mx-auto shadow-xs">
+    <div className="flex flex-col items-center justify-center p-3.5 sm:p-7 bg-gradient-to-b from-[#FEF9F5] to-[#F3EFFE] border border-[#E4DAD7] rounded-2xl sm:rounded-3xl my-3 text-center space-y-4 select-none w-full max-w-2xl mx-auto shadow-xs">
       
       {/* ULTRA RESPONSIVE HEADER */}
       <div className="flex flex-col items-center gap-2.5 w-full text-xs font-black text-[#5B5278] border-b border-purple-100/80 pb-3">
@@ -152,11 +152,11 @@ export default function BoxBreathingWidget() {
         </span>
         
         {/* TIMER DURATION PRESET SLIDER PILLS */}
-        <div className="flex items-center justify-center bg-[#EAE3F2] p-1 rounded-2xl gap-1 w-full max-w-full overflow-x-auto">
+        <div className="flex items-center justify-center bg-[#E4DAD7] p-1 rounded-2xl gap-1 w-full max-w-full overflow-x-auto">
           <button
             type="button"
             onClick={() => { setMode('box'); handleReset(); }}
-            className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap font-extrabold text-xs shrink-0 active:scale-95 ${mode === 'box' ? 'bg-[#7147E8] text-white shadow-xs' : 'text-[#5B5278] hover:text-[#1A1338]'}`}
+            className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap font-extrabold text-xs shrink-0 active:scale-95 ${mode === 'box' ? 'bg-[#7464AC] text-white shadow-xs' : 'text-[#5B5278] hover:text-[#1A1338]'}`}
           >
             4-4-4-4 Box
           </button>
@@ -165,7 +165,7 @@ export default function BoxBreathingWidget() {
               key={dur}
               type="button"
               onClick={() => selectTimerPreset(dur)}
-              className={`px-2.5 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap font-extrabold text-xs shrink-0 active:scale-95 ${mode === 'timer' && timerPreset === dur ? 'bg-[#7147E8] text-white shadow-xs' : 'text-[#5B5278] hover:text-[#1A1338]'}`}
+              className={`px-2.5 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap font-extrabold text-xs shrink-0 active:scale-95 ${mode === 'timer' && timerPreset === dur ? 'bg-[#7464AC] text-white shadow-xs' : 'text-[#5B5278] hover:text-[#1A1338]'}`}
             >
               {dur}s
             </button>
@@ -205,7 +205,7 @@ export default function BoxBreathingWidget() {
             className={`w-full sm:w-auto px-6 sm:px-8 py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-md active:scale-95 ${
               isActive
                 ? 'bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100'
-                : 'bg-[#7147E8] text-white hover:bg-[#5f38d4] hover:scale-105'
+                : 'bg-[#7464AC] text-white hover:bg-[#7464AC] hover:scale-105'
             }`}
           >
             {isActive ? '⏸ Pause Breathing' : (mode === 'box' ? '▶ Start 4-4-4-4 Box Breathing' : `▶ Start ${timerPreset}s Action Reset`)}

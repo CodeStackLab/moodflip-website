@@ -11,7 +11,7 @@ const resources = [
     icon: '🧠',
     color: 'from-violet-500 to-purple-700',
     bgLight: 'bg-[#F4EFFC]',
-    textColor: 'text-[#7147E8]',
+    textColor: 'text-[#7464AC]',
     items: [
       { title: 'Instant Mood Flip', desc: 'Select your current mood and receive a targeted 60-second action to shift it.', link: '/#check-in', badge: 'Tool' },
       { title: '7-Day Mindset Plan', desc: 'Structured daily check-ins and micro-actions over 7 days.', link: '/profile?tab=My%207-Day%20Plan', badge: 'Plan' },
@@ -82,27 +82,27 @@ export default function ResourcesPage() {
       <Header />
 
       {/* HERO */}
-      <section className="bg-gradient-to-b from-[#F9F7FD] via-[#F3EEFA] to-[#F8F7FC] border-b border-[#EAE3F2] py-10 sm:py-14 px-4 relative overflow-hidden">
+      <section className="bg-gradient-to-b from-[#F9F7FD] via-[#F3EEFA] to-[#F8F7FC] border-b border-[#E4DAD7] py-10 sm:py-14 px-4 relative overflow-hidden">
         <div className="absolute inset-0 opacity-40 pointer-events-none">
           <div className="absolute -top-10 left-[10%] w-64 h-64 rounded-full bg-[#EAE0FD] blur-3xl" />
           <div className="absolute bottom-0 right-[10%] w-80 h-80 rounded-full bg-[#FCE7F3] blur-3xl" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider bg-[#EAE0FD] border border-[#D8C8F8] text-[#7147E8] px-3.5 py-1.5 rounded-full mb-4">
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider bg-[#EAE0FD] border border-[#D8C8F8] text-[#7464AC] px-3.5 py-1.5 rounded-full mb-4">
             📚 Free Wellness Resources
           </span>
           <h1 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight text-[#15183B] mb-3">
             Your Emotional Wellness<br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7147E8] to-[#D950C0]"> Resource Hub</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7464AC] to-[#D950C0]"> Resource Hub</span>
           </h1>
-          <p className="text-sm sm:text-lg text-[#68607F] font-semibold max-w-2xl mx-auto mb-7">
+          <p className="text-sm sm:text-lg text-[#5C527A] font-semibold max-w-2xl mx-auto mb-7">
             Curated exercises, tools, and plans to help you build lasting emotional resilience — all free.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-sm mx-auto sm:max-w-none">
-            <Link href="/#check-in" className="w-full sm:w-auto bg-[#7147E8] text-white px-6 py-3 rounded-xl font-extrabold text-sm shadow-md hover:bg-[#5f38d4] hover:scale-[1.01] transition-all text-center">
+            <Link href="/#check-in" className="w-full sm:w-auto bg-[#7464AC] text-white px-6 py-3 rounded-xl font-extrabold text-sm shadow-md hover:bg-[#7464AC] hover:scale-[1.01] transition-all text-center">
               ⚡ Try Instant Mood Flip
             </Link>
-            <Link href="/profile?tab=Downloads" className="w-full sm:w-auto bg-white border border-[#EAE3F2] text-[#15183B] px-6 py-3 rounded-xl font-extrabold text-sm hover:bg-[#F4EFFC] hover:border-[#D8C8F8] transition text-center">
+            <Link href="/profile?tab=Downloads" className="w-full sm:w-auto bg-[#FEF9F5] border border-[#E4DAD7] text-[#15183B] px-6 py-3 rounded-xl font-extrabold text-sm hover:bg-[#F4EFFC] hover:border-[#D8C8F8] transition text-center">
               📥 Download Free PDF
             </Link>
           </div>
@@ -113,18 +113,18 @@ export default function ResourcesPage() {
       <section className="max-w-6xl mx-auto px-4 py-14">
         <div className="text-center mb-8">
           <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#1A1338]">Quick Access Tools</h2>
-          <p className="text-sm text-[#68607F] font-semibold mt-1">Jump directly to the tools you need most.</p>
+          <p className="text-sm text-[#5C527A] font-semibold mt-1">Jump directly to the tools you need most.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {quickTools.map((tool, i) => (
             <Link key={i} href={tool.link} className="group block">
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl p-5 hover:shadow-lg hover:border-[#7147E8]/40 transition-all h-full flex flex-col">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 hover:shadow-lg hover:border-[#7464AC]/40 transition-all h-full flex flex-col">
                 <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-2xl mb-4 shadow-sm`}>
                   {tool.icon}
                 </div>
-                <h3 className="font-serif text-base font-extrabold text-[#1A1338] mb-1.5 group-hover:text-[#7147E8] transition">{tool.title}</h3>
-                <p className="text-xs text-[#68607F] font-medium leading-relaxed flex-1 mb-4">{tool.desc}</p>
-                <span className="text-xs font-extrabold text-[#7147E8] group-hover:underline">{tool.cta} →</span>
+                <h3 className="font-serif text-base font-extrabold text-[#1A1338] mb-1.5 group-hover:text-[#7464AC] transition">{tool.title}</h3>
+                <p className="text-xs text-[#5C527A] font-medium leading-relaxed flex-1 mb-4">{tool.desc}</p>
+                <span className="text-xs font-extrabold text-[#7464AC] group-hover:underline">{tool.cta} →</span>
               </div>
             </Link>
           ))}
@@ -135,26 +135,26 @@ export default function ResourcesPage() {
       <section id="crisis" className="max-w-6xl mx-auto px-4 pb-20 space-y-10">
         <div className="text-center mb-2">
           <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#1A1338]">Curated Resource Library</h2>
-          <p className="text-sm text-[#68607F] font-semibold mt-1">Everything you need for emotional wellness in one place.</p>
+          <p className="text-sm text-[#5C527A] font-semibold mt-1">Everything you need for emotional wellness in one place.</p>
         </div>
 
         {resources.map((cat, ci) => (
-          <div key={ci} className="bg-white border border-[#EAE3F2] rounded-3xl overflow-hidden shadow-xs">
+          <div key={ci} className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl overflow-hidden shadow-xs">
             {/* Category header */}
             <div className={`bg-gradient-to-r ${cat.color} px-6 py-4 flex items-center gap-3`}>
               <span className="text-2xl">{cat.icon}</span>
               <h3 className="font-serif text-lg font-extrabold text-white">{cat.category}</h3>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#EAE3F2]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#E4DAD7]">
               {cat.items.map((item, ii) => (
-                <Link key={ii} href={item.link} className="group block p-5 hover:bg-[#FAF8FD] transition-colors">
+                <Link key={ii} href={item.link} className="group block p-5 hover:bg-[#FEF9F5] transition-colors">
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <h4 className="font-serif text-sm font-extrabold text-[#1A1338] group-hover:text-[#7147E8] transition leading-snug">{item.title}</h4>
+                    <h4 className="font-serif text-sm font-extrabold text-[#1A1338] group-hover:text-[#7464AC] transition leading-snug">{item.title}</h4>
                     <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0 ${cat.bgLight} ${cat.textColor}`}>
                       {item.badge}
                     </span>
                   </div>
-                  <p className="text-xs text-[#68607F] font-medium leading-relaxed">{item.desc}</p>
+                  <p className="text-xs text-[#5C527A] font-medium leading-relaxed">{item.desc}</p>
                   <span className={`text-xs font-extrabold mt-3 block ${cat.textColor} group-hover:underline`}>Access →</span>
                 </Link>
               ))}

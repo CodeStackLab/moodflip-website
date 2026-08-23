@@ -19,7 +19,7 @@ const rowResponses = [
   "FIXED & VERIFIED: Central 3D 'FLIP YOUR MOOD' button active with smooth flip animation.",
   "FIXED & VERIFIED: Split result layout in 1 screen (Left: negative mood, Right: positive target + 60s action). Separate pages load individually.",
   "FIXED & VERIFIED: Recreated uplifting pastel watercolor rising sun background behind target mood.",
-  "FIXED & VERIFIED: Applied warm soft ivory (#FDF8F5) and cream (#FCF3E9) palette with serif typography.",
+  "FIXED & VERIFIED: Applied warm soft ivory (#FEF9F5) and cream (#FCF3E9) palette with serif typography.",
   "FIXED & VERIFIED: All 28 approved counselor mood pairings loaded into data/moods.ts.",
   "FIXED & DEMONSTRATED: All 28 pairings loaded and manageable in /admin?tab=Mood+Library and active on Homepage.",
   "FIXED & DEMONSTRATED: Multi-step 60-second micro-actions and breathing exercises loaded for all moods.",

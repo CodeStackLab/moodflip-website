@@ -1,0 +1,65 @@
+     Website page copy and background direction
+
+MoodFlip Website Copy
+About Page + Privacy Policy
+Overall page design direction
+Use the same peaceful sunrise/sun background style across the main pages: About, Privacy Policy, Contact, Login and other simple information pages. Keep the background very soft/faded so the text stays easy to read. Put page text inside clean white or warm-cream content cards.
+
+Approved website copy starts on the next page.
+     About page
+
+
+About MoodFlip
+MoodFlip helps you notice your current mood, understand the feeling behind it, and make one step toward feeling better.
+You start by choosing your current mood, then a more specific feeling. MoodFlip then suggests a better-feeling and a short 60-second action that you can try straight away.
+MoodFlip is designed for small emotional shifts - not big promises. It is not therapy, medical advice, diagnosis, treatment, or crisis support.
+Our aim is simple:
+Notice your mood.
+Name the feeling behind your mood.
+Take one step toward feeling better.
+You can use the basic MoodFlip tool without creating a profile. If you choose to create a profile, you can save check-ins and create personalised mood reports.
+Your mood does not have to stay where it is. MoodFlip helps you notice what you feel, shows you a direction to feel better, and you can take one small action toward it.
+
+     Privacy Policy page
+
+
+Privacy Policy
+Last updated: 21 August 2026
+MoodFlip respects your privacy. This Privacy Policy explains what information we may collect and how it is used.
+1. Using MoodFlip without a profile
+You can use the basic MoodFlip tool without creating a profile.
+If you do not create a profile, MoodFlip does not need to store your email address or saved mood history.
+2. Information we may collect
+If you create a profile, MoodFlip may store:
+• your email address
+• selected moods and feelings
+• check-in dates
+• actions shown to you
+• purchase history for paid downloads
+This information is used to provide saved check-ins, personalised downloads, and relevant MoodFlip offers.
+3. Paid downloads
+If you buy a paid MoodFlip download, payment may be processed through a secure third-party payment provider.
+MoodFlip does not need to store your full card details.
+4. 90-day automatic deletion
+Inactive profiles and saved mood history are automatically deleted after 90 days.
+This helps keep stored information limited and relevant.
+5. Email messages
+If you create a profile, you may receive emails related to your saved check-ins, paid downloads, reminders, or relevant MoodFlip offers.
+You can unsubscribe from marketing emails.
+6. Not medical or crisis support
+MoodFlip is a self-reflection tool. It is not therapy, medical advice, diagnosis, treatment, or crisis support.
+If you feel unsafe or need urgent help, please contact emergency services or a crisis support service in your country.
+
+
+     Developer notes
+
+Background and page styling notes
+• Use the peaceful sunrise/sun background style on all simple information pages.
+• Keep the background soft and faded so the text is never hard to read.
+• Use white or warm-cream content cards over the background.
+• Use rounded corners and soft shadow on content cards to match the homepage feel.
+• Do not make the background busy behind Privacy Policy paragraphs.
+• Keep the MoodFlip logo in the top-left header, without TM.
+• Keep the same top navigation order: Home | About | Privacy Policy | Contact | Login.
+• No affiliate links at launch unless Joy approves them separately.
+��� MoodFlip should be described as a self-reflection tool, not therapy or medical support.

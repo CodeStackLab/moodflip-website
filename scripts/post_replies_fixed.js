@@ -14,7 +14,7 @@ const repliesToOldComments = [
   { id: 'AAACE_4Zf48', reply: '#5 – FIXED & VERIFIED: Full 3-layer mood selection implemented: Layer 1 (5 Main Mood Families) → Layer 2 (Feeling Branches) → Layer 3 (Nuanced Feeling Tiles).' },
   { id: 'AAACE_4Zf5A', reply: '#6 – FIXED & VERIFIED: The 5 required mood families (Sad, Disgusted, Angry, Fearful, Bad) are strictly implemented as the only Layer 1 tiles.' },
   { id: 'AAACE_4Zf5Y', reply: '#10 – FIXED & VERIFIED: Split-screen result layout fits in 1 screen. Left: selected negative mood. Middle: FLIP YOUR MOOD button. Right: positive target mood + 60-second micro-action card.' },
-  { id: 'AAACE_4Zf6Y', reply: '#11-#12 – FIXED & VERIFIED: Pastel watercolor rising sun backdrop on result right panel. Approved colour tokens applied globally: Soft Ivory #FDF8F5, Warm Cream #FCF3E9, Soft Lavender #F4EBF5. Build passed: 0 errors.' },
+  { id: 'AAACE_4Zf6Y', reply: '#11-#12 – FIXED & VERIFIED: Pastel watercolor rising sun backdrop on result right panel. Approved colour tokens applied globally: Soft Ivory #FEF9F5, Warm Cream #FCF3E9, Soft Lavender #F4EBF5. Build passed: 0 errors.' },
   { id: 'AAACE_4Zf7A', reply: '#7-#8 – FIXED & VERIFIED: Layer 1 families in soft cloud-styled cards with bold labels. Secondary branches and 3rd-layer nuanced feeling tiles render interactively before the flip button.' },
   { id: 'AAACE_4Zf7E', reply: '#9 – FIXED & VERIFIED: Central "FLIP YOUR MOOD" 3D-styled action button with smooth flip transition and visual feedback implemented.' },
   { id: 'AAACE_4Zf_o', reply: '#14 – FIXED & DEMONSTRATED: All 28 approved counselor mood pairings loaded and fully manageable in /admin?tab=Mood+Library and dynamically mapped to the Hero Section in real-time.' },

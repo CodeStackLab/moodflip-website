@@ -1,0 +1,186 @@
+{
+  "timestamp": "2026-08-23T15:31:03.677Z",
+  "totalFiles": 51,
+  "changedFiles": 21,
+  "totalChanges": 652,
+  "files": [
+    {
+      "file": "app\\admin\\page.tsx",
+      "changes": 405
+    },
+    {
+      "file": "app\\apple-icon.tsx",
+      "changes": 1
+    },
+    {
+      "file": "app\\disclaimer\\page.tsx",
+      "changes": 8
+    },
+    {
+      "file": "app\\forgot-password\\page.tsx",
+      "changes": 5
+    },
+    {
+      "file": "app\\manifest.ts",
+      "changes": 1
+    },
+    {
+      "file": "app\\not-found.tsx",
+      "changes": 20
+    },
+    {
+      "file": "app\\pricing\\page.tsx",
+      "changes": 2
+    },
+    {
+      "file": "app\\profile\\page.tsx",
+      "changes": 88
+    },
+    {
+      "file": "app\\refund\\page.tsx",
+      "changes": 8
+    },
+    {
+      "file": "app\\resources\\page.tsx",
+      "changes": 20
+    },
+    {
+      "file": "components\\AICoachWidget.tsx",
+      "changes": 22
+    },
+    {
+      "file": "components\\BoxBreathingWidget.tsx",
+      "changes": 12
+    },
+    {
+      "file": "components\\CookieConsent.tsx",
+      "changes": 6
+    },
+    {
+      "file": "components\\MoreForYou.tsx",
+      "changes": 3
+    },
+    {
+      "file": "components\\PWAInstallPrompt.tsx",
+      "changes": 11
+    },
+    {
+      "file": "components\\RichEditor.tsx",
+      "changes": 19
+    },
+    {
+      "file": "components\\SiteLoader.tsx",
+      "changes": 10
+    },
+    {
+      "file": "data\\moods.ts",
+      "changes": 3
+    },
+    {
+      "file": "lib\\blogData.ts",
+      "changes": 2
+    },
+    {
+      "file": "lib\\generatePDF.ts",
+      "changes": 5
+    },
+    {
+      "file": "Work Guide Skill\\app\\page.module.css",
+      "changes": 1
+    }
+  ],
+  "colorMap": [
+    {
+      "from": "/#7147E8/gi",
+      "to": "#7464AC"
+    },
+    {
+      "from": "/#7C3AED/gi",
+      "to": "#7464AC"
+    },
+    {
+      "from": "/#6D28D9/gi",
+      "to": "#7464AC"
+    },
+    {
+      "from": "/#5f38d4/gi",
+      "to": "#7464AC"
+    },
+    {
+      "from": "/#5b21b6/gi",
+      "to": "#4F438B"
+    },
+    {
+      "from": "/#4C1D95/gi",
+      "to": "#4F438B"
+    },
+    {
+      "from": "/#9333EA/gi",
+      "to": "#9C8CC4"
+    },
+    {
+      "from": "/#8B5CF6/gi",
+      "to": "#9C8CC4"
+    },
+    {
+      "from": "/#A78BFA/gi",
+      "to": "#9C8CC4"
+    },
+    {
+      "from": "/#8356F8/gi",
+      "to": "#9C6FBF"
+    },
+    {
+      "from": "/#EC4899/gi",
+      "to": "#E49C8C"
+    },
+    {
+      "from": "/#DB2777/gi",
+      "to": "#E49C8C"
+    },
+    {
+      "from": "/#F43F5E/gi",
+      "to": "#E49C8C"
+    },
+    {
+      "from": "/#F9F5FF/gi",
+      "to": "#FDF8F5"
+    },
+    {
+      "from": "/#FAF5FF/gi",
+      "to": "#FDF8F5"
+    },
+    {
+      "from": "/#FAF8FD/gi",
+      "to": "#FEFAF8"
+    },
+    {
+      "from": "/#F5F3FF/gi",
+      "to": "#F4EBF5"
+    },
+    {
+      "from": "/#EDE9FE/gi",
+      "to": "#F4EBF5"
+    },
+    {
+      "from": "/#F0EBFA/gi",
+      "to": "#F4EBF5"
+    },
+    {
+      "from": "/#EAE3F2/gi",
+      "to": "#E4DAD7"
+    },
+    {
+      "from": "/#EEE9FA/gi",
+      "to": "#EEE0FC"
+    },
+    {
+      "from": "/#170E3B/gi",
+      "to": "#1A143F"
+    },
+    {
+      "from": "/#68607F/gi",
+      "to": "#5C527A"
+    }
+  ]
+}

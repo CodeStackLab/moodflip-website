@@ -89,7 +89,7 @@ export default function MobileBottomNav() {
     <>
       {/* Sleek App Bottom Navigation Bar (Mobile Only) */}
       <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FDF8F5]/96 backdrop-blur-xl border-t border-[#E4DAD7] shadow-[0_-4px_20px_rgba(26,20,63,0.06)] px-2 py-1.5"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FEF9F5]/96 backdrop-blur-xl border-t border-[#E4DAD7] shadow-[0_-4px_20px_rgba(26,20,63,0.06)] px-2 py-1.5"
         style={{ paddingBottom: 'calc(6px + env(safe-area-inset-bottom, 0px))' }}
       >
         <div className="flex items-center justify-around max-w-md mx-auto">
@@ -140,7 +140,7 @@ export default function MobileBottomNav() {
       {/* Mobile Full Menu Drawer */}
       {drawerOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-[#1A143F]/60 backdrop-blur-md flex flex-col justify-end animate-in fade-in duration-200">
-          <div className="w-full bg-[#FEFAF8] rounded-t-[28px] border-t border-[#E4DAD7] shadow-2xl p-6 space-y-4 max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom duration-300">
+          <div className="w-full bg-[#FEF9F5] rounded-t-[28px] border-t border-[#E4DAD7] shadow-2xl p-6 space-y-4 max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom duration-300">
             <div className="flex items-center justify-between border-b border-[#E4DAD7] pb-3">
               <Link href="/" onClick={() => setDrawerOpen(false)} className="inline-flex items-center">
                 <img src="/moodflip-logo.png" alt="MoodFlip" className="h-8 w-auto object-contain mix-blend-multiply" />

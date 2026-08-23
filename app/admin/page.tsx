@@ -561,10 +561,10 @@ export default function AdminDashboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5] text-[#1A143F] font-sans antialiased flex flex-col">
+    <div className="min-h-screen bg-[#FEF9F5] text-[#1A143F] font-sans antialiased flex flex-col">
 
       {/* MOBILE TOP NAVBAR */}
-      <div className="lg:hidden bg-[#FEFAF8] border-b border-[#E4DAD7] px-4 py-2.5 flex items-center justify-between shadow-xs sticky top-0 z-40">
+      <div className="lg:hidden bg-[#FEF9F5] border-b border-[#E4DAD7] px-4 py-2.5 flex items-center justify-between shadow-xs sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2.5 text-decoration-none group">
           <img
             src="/moodflip-logo.png"
@@ -587,12 +587,12 @@ export default function AdminDashboardPage() {
 
         {/* 1. LEFT SIDEBAR */}
         <aside className={`
-          fixed lg:static inset-y-0 left-0 z-50 w-[295px] bg-[#FEFAF8] border-r border-[#E4DAD7] p-5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out overflow-y-auto overflow-x-hidden
+          fixed lg:static inset-y-0 left-0 z-50 w-[295px] bg-[#FEF9F5] border-r border-[#E4DAD7] p-5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out overflow-y-auto overflow-x-hidden
           ${sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div>
             {/* DESKTOP BRAND LOGO */}
-            <div className="hidden lg:flex items-center gap-3 mb-6 px-3 py-2.5 bg-[#FEFAF8] rounded-2xl border border-[#E4DAD7] shadow-2xs">
+            <div className="hidden lg:flex items-center gap-3 mb-6 px-3 py-2.5 bg-[#FEF9F5] rounded-2xl border border-[#E4DAD7] shadow-2xs">
               <Link href="/" className="flex items-center gap-2.5 text-decoration-none group w-full">
                 <img
                   src="/moodflip-logo.png"
@@ -658,7 +658,7 @@ export default function AdminDashboardPage() {
             className="mt-6 relative overflow-hidden rounded-[24px] border border-[#E4DAD7] p-5 shadow-sm flex flex-col justify-between text-center min-h-[260px] bg-cover bg-center"
             style={{ backgroundImage: "url('/login-bg.jpg')" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-[#FEFAF8]/95 via-[#FEFAF8]/50 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#FEF9F5]/95 via-[#FEF9F5]/50 to-transparent pointer-events-none" />
 
             <div className="relative z-10 text-center pt-2">
               <h4 className="font-serif font-extrabold text-base md:text-lg text-[#1A143F] leading-snug mb-1.5 tracking-tight">
@@ -684,10 +684,10 @@ export default function AdminDashboardPage() {
         )}
 
         {/* 2. MAIN DASHBOARD CONTENT AREA */}
-        <main className="flex-1 p-3 sm:p-6 md:p-8 bg-[#FDF8F5] flex flex-col gap-6 overflow-y-auto w-full min-w-0">
+        <main className="flex-1 p-3 sm:p-6 md:p-8 bg-[#FEF9F5] flex flex-col gap-6 overflow-y-auto w-full min-w-0">
 
           {/* TOP SEARCH & PROFILE HEADER BAR */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#FEFAF8] p-3 md:p-4 rounded-2xl border border-[#E4DAD7] shadow-[0_10px_28px_rgba(26,20,63,0.03)]">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#FEF9F5] p-3 md:p-4 rounded-2xl border border-[#E4DAD7] shadow-[0_10px_28px_rgba(26,20,63,0.03)]">
             {/* Search Input */}
             <div className="relative w-full sm:w-[380px] lg:w-[440px]">
               <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#A49BA8] text-sm">🔍</span>
@@ -696,7 +696,7 @@ export default function AdminDashboardPage() {
                 placeholder="Search users, emails, check-ins, plans..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#FEFAF8] border border-[#E4DAD7] rounded-xl pl-10 pr-12 py-2 text-xs text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:border-[#7464AC] focus:bg-white transition-all"
+                className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl pl-10 pr-12 py-2 text-xs text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:border-[#7464AC] focus:bg-[#FEF9F5] transition-all"
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-[#A49BA8] bg-[#F4EBF5] border border-[#E4DAD7] px-1.5 py-0.5 rounded-md hidden sm:inline-block">
                 ⌘K
@@ -752,7 +752,7 @@ export default function AdminDashboardPage() {
                 Overview of users, check-ins, revenue and platform management
               </p>
             </div>
-            <div className="flex items-center gap-2 bg-[#FEFAF8] border border-[#E4DAD7] rounded-xl px-3.5 py-2 shadow-xs cursor-pointer self-start sm:self-auto">
+            <div className="flex items-center gap-2 bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2 shadow-xs cursor-pointer self-start sm:self-auto">
               <span>📅</span>
               <select 
                 value={dateRange}
@@ -780,7 +780,7 @@ export default function AdminDashboardPage() {
                   { label: 'Total Revenue', val: '$18,942', change: '↑ 13.1%', icon: '💵', badgeBg: 'bg-[#F4EBF5]', iconColor: 'text-[#7464AC]' },
                   { label: 'Avg. Daily Visits', val: '5,819', change: '↑ 10.8%', icon: '📈', badgeBg: 'bg-[#FCF3E9]', iconColor: 'text-[#7D8164]' },
                 ].map((stat, idx) => (
-                  <div key={idx} className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:border-[#7666AB] hover:shadow-md transition-all cursor-pointer">
+                  <div key={idx} className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-xs flex flex-col justify-between hover:border-[#7666AB] hover:shadow-md transition-all cursor-pointer">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-[11px] font-extrabold text-[#5C527A] uppercase tracking-wider">{stat.label}</span>
                       <span className={`w-8 h-8 rounded-xl ${stat.badgeBg} ${stat.iconColor} border border-[#E4DAD7] flex items-center justify-center text-sm shadow-2xs shrink-0`}>
@@ -801,7 +801,7 @@ export default function AdminDashboardPage() {
               {/* MIDDLE SECTION GRID */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                 {/* WEEKLY ACTIVITY LINE CHART */}
-                <div className="lg:col-span-5 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="lg:col-span-5 bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <h3 className="font-serif font-bold text-base text-[#1A143F]">Weekly Activity (Check-ins)</h3>
@@ -834,7 +834,7 @@ export default function AdminDashboardPage() {
                         { x: 310, y: 40 },
                         { x: 370, y: 65 },
                       ].map((pt, i) => (
-                        <circle key={i} cx={pt.x} cy={pt.y} r="4.5" fill="#7464AC" stroke="#FEFAF8" strokeWidth="2" />
+                        <circle key={i} cx={pt.x} cy={pt.y} r="4.5" fill="#7464AC" stroke="#FEF9F5" strokeWidth="2" />
                       ))}
                     </svg>
 
@@ -851,7 +851,7 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* MOOD DISTRIBUTION DONUT CHART */}
-                <div className="lg:col-span-4 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="lg:col-span-4 bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <h3 className="font-serif font-bold text-base text-[#1A143F] mb-2">Mood Distribution (All Time)</h3>
 
                   <div className="flex items-center gap-4 my-auto">
@@ -895,7 +895,7 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* QUICK ACTIONS BUTTONS */}
-                <div className="lg:col-span-3 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="lg:col-span-3 bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <h3 className="font-serif font-extrabold text-base text-[#1A143F] mb-3">Quick Actions</h3>
                   <div className="space-y-2.5">
                     <button onClick={exportUsersCSV} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-[#E4DAD7] bg-[#F4EBF5] hover:bg-gradient-to-r hover:from-[#7464AC] hover:to-[#4F438B] hover:text-white text-xs font-extrabold text-[#7464AC] transition-all cursor-pointer shadow-2xs">
@@ -920,7 +920,7 @@ export default function AdminDashboardPage() {
               {/* LOWER SECTION ROW 1 */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                 {/* RECENT USERS TABLE */}
-                <div className="lg:col-span-5 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="lg:col-span-5 bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-serif font-bold text-base text-[#1A143F]">Recent Users</h3>
                     <button onClick={() => changeTab('Users')} className="text-xs font-bold text-[#7464AC] hover:underline cursor-pointer">View All</button>
@@ -956,7 +956,7 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* LATEST CHECK-INS TABLE */}
-                <div className="lg:col-span-4 bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                <div className="lg:col-span-4 bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-serif font-bold text-base text-[#1A143F]">Latest Check-ins</h3>
                     <button onClick={() => changeTab('Check-ins')} className="text-xs font-bold text-[#7464AC] hover:underline cursor-pointer">View All</button>
@@ -973,10 +973,10 @@ export default function AdminDashboardPage() {
                       </thead>
                       <tbody className="divide-y divide-[#E4DAD7] text-[#1A143F] font-medium">
                         {filteredCheckins.slice(0, 5).map((c) => (
-                          <tr key={c.id} className="hover:bg-[#FAF8FD] transition-all">
+                          <tr key={c.id} className="hover:bg-[#FEF9F5] transition-all">
                             <td className="py-2.5 font-bold text-[11px]">{c.user}</td>
                             <td className="py-2.5 text-[11px]">{c.mood}</td>
-                            <td className="py-2.5 text-[11px] font-semibold text-[#7147E8]">{c.action}</td>
+                            <td className="py-2.5 text-[11px] font-semibold text-[#7464AC]">{c.action}</td>
                             <td className="py-2.5 text-[10px] text-gray-400">{c.time}</td>
                           </tr>
                         ))}
@@ -987,22 +987,22 @@ export default function AdminDashboardPage() {
 
                 {/* CONSENT & PRIVACY CARDS */}
                 <div className="lg:col-span-3 space-y-4">
-                  <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-xs">
                     <h4 className="font-serif font-bold text-sm text-[#1A1338] mb-1">Consent &amp; Privacy</h4>
                     <p className="text-xs text-[#5B5278] leading-relaxed mb-2.5">
                       Users must consent to store their mood, moods, dates, actions and purchase history.
                     </p>
-                    <button onClick={() => {}} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
+                    <button onClick={() => {}} className="text-xs font-extrabold text-[#7464AC] hover:underline cursor-pointer">
                       View Consent Logs →
                     </button>
                   </div>
 
-                  <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-xs">
                     <h4 className="font-serif font-bold text-sm text-[#1A1338] mb-1">90-Day Auto Deletion</h4>
                     <p className="text-xs text-[#5B5278] leading-relaxed mb-2.5">
                       User data is automatically deleted 90 days after account deletion.
                     </p>
-                    <button onClick={() => {}} className="text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
+                    <button onClick={() => {}} className="text-xs font-extrabold text-[#7464AC] hover:underline cursor-pointer">
                       View Deletion Logs →
                     </button>
                   </div>
@@ -1013,12 +1013,12 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 2: USERS DATABASE MANAGEMENT */}
           {activeTab === 'Users' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-5 sm:p-8 shadow-2xs space-y-6">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-2xs space-y-6">
               {/* HEADER & FILTER CONTROLS */}
               <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">User Database ({filteredUsers.length}) 👥</h2>
-                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">View, search, manage registered users, edit emails, and monitor engagement.</p>
+                  <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">View, search, manage registered users, edit emails, and monitor engagement.</p>
                 </div>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
                   <div className="relative flex-1 sm:w-64">
@@ -1027,7 +1027,7 @@ export default function AdminDashboardPage() {
                       placeholder="Search user name or email..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl pl-9 pr-3 py-2 text-xs font-bold text-[#1A1338] focus:outline-none focus:border-[#7147E8] focus:bg-white transition shadow-2xs"
+                      className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl pl-9 pr-3 py-2 text-xs font-bold text-[#1A1338] focus:outline-none focus:border-[#7464AC] focus:bg-[#FEF9F5] transition shadow-2xs"
                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">🔍</span>
                   </div>
@@ -1035,13 +1035,13 @@ export default function AdminDashboardPage() {
                     <select 
                       value={statusFilter}
                       onChange={(e) => setStatusFilter(e.target.value)}
-                      className="border border-[#EAE3F2] rounded-xl px-3 py-2 text-xs font-extrabold text-[#1A1338] bg-[#FAF8FD] focus:outline-none cursor-pointer"
+                      className="border border-[#E4DAD7] rounded-xl px-3 py-2 text-xs font-extrabold text-[#1A1338] bg-[#FEF9F5] focus:outline-none cursor-pointer"
                     >
                       <option value="All">All Statuses</option>
                       <option value="Active">Active Only</option>
                       <option value="Inactive">Inactive Only</option>
                     </select>
-                    <button onClick={exportUsersCSV} className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-4 py-2 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer whitespace-nowrap">
+                    <button onClick={exportUsersCSV} className="bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white px-4 py-2 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer whitespace-nowrap">
                       📥 Export CSV
                     </button>
                   </div>
@@ -1051,7 +1051,7 @@ export default function AdminDashboardPage() {
               {/* MOBILE CARDS VIEW (< md screens) */}
               <div className="grid grid-cols-1 gap-3.5 md:hidden">
                 {filteredUsers.map((u) => (
-                  <div key={u.id} className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-4 shadow-2xs space-y-3">
+                  <div key={u.id} className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-2xs space-y-3">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2.5 min-w-0">
                         <span className={`w-9 h-9 rounded-full ${u.avatarBg} font-extrabold flex items-center justify-center text-xs text-white shrink-0 shadow-2xs`}>
@@ -1069,12 +1069,12 @@ export default function AdminDashboardPage() {
 
                     <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-gray-200/60 font-semibold text-[#5B5278]">
                       <div>📅 Joined: <span className="text-[#1A1338] font-bold">{u.joinDate}</span></div>
-                      <div>📊 Check-ins: <span className="text-[#7147E8] font-black">{u.visitCount}</span></div>
+                      <div>📊 Check-ins: <span className="text-[#7464AC] font-black">{u.visitCount}</span></div>
                     </div>
 
                     <button
                       onClick={() => setEditingUser(u)}
-                      className="w-full bg-white border border-[#7147E8]/30 text-[#7147E8] py-2 rounded-xl text-xs font-extrabold hover:bg-[#7147E8] hover:text-white transition shadow-2xs flex items-center justify-center gap-1.5"
+                      className="w-full bg-[#FEF9F5] border border-[#7464AC]/30 text-[#7464AC] py-2 rounded-xl text-xs font-extrabold hover:bg-[#7464AC] hover:text-white transition shadow-2xs flex items-center justify-center gap-1.5"
                     >
                       <span>✏️</span> Edit User Details
                     </button>
@@ -1097,7 +1097,7 @@ export default function AdminDashboardPage() {
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-medium">
                     {filteredUsers.map((u) => (
-                      <tr key={u.id} className="hover:bg-[#FAF8FD] transition-all">
+                      <tr key={u.id} className="hover:bg-[#FEF9F5] transition-all">
                         <td className="py-3.5 px-3 flex items-center gap-3">
                           <span className={`w-9 h-9 rounded-full ${u.avatarBg} font-extrabold flex items-center justify-center text-xs text-white shadow-2xs shrink-0`}>
                             {u.name.charAt(0)}
@@ -1106,16 +1106,16 @@ export default function AdminDashboardPage() {
                         </td>
                         <td className="py-3.5 px-3 text-gray-600 font-bold">{u.email}</td>
                         <td className="py-3.5 px-3 text-gray-500 font-medium">{u.joinDate}</td>
-                        <td className="py-3.5 px-3 font-extrabold text-[#7147E8]">{u.visitCount} check-ins</td>
+                        <td className="py-3.5 px-3 font-extrabold text-[#7464AC]">{u.visitCount} check-ins</td>
                         <td className="py-3.5 px-3">
-                          <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold ${u.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600'}`}>
+                          <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold ${u.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-600'}`}>
                             {u.status}
                           </span>
                         </td>
                         <td className="py-3.5 px-3 text-right">
                           <button
                             onClick={() => setEditingUser(u)}
-                            className="bg-purple-50 text-[#7147E8] hover:bg-[#7147E8] hover:text-white px-3 py-1.5 rounded-xl font-extrabold text-xs transition cursor-pointer inline-flex items-center gap-1 shadow-2xs"
+                            className="bg-purple-50 text-[#7464AC] hover:bg-[#7464AC] hover:text-white px-3 py-1.5 rounded-xl font-extrabold text-xs transition cursor-pointer inline-flex items-center gap-1 shadow-2xs"
                           >
                             <span>✏️</span> Edit User
                           </button>
@@ -1130,18 +1130,18 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 3: CHECK-INS ACTIVITY LOG */}
           {activeTab === 'Check-ins' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-5 sm:p-8 shadow-2xs space-y-6">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-2xs space-y-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Check-ins Activity Log ({filteredCheckins.length}) 📋</h2>
-                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Real-time mindset shifts, initial moods, target positive states, and recommendations.</p>
+                  <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Real-time mindset shifts, initial moods, target positive states, and recommendations.</p>
                 </div>
               </div>
 
               {/* MOBILE CARDS VIEW (< md screens) */}
               <div className="grid grid-cols-1 gap-3.5 md:hidden">
                 {filteredCheckins.map((c) => (
-                  <div key={c.id} className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-4 shadow-2xs space-y-2.5">
+                  <div key={c.id} className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-2xs space-y-2.5">
                     <div className="flex items-center justify-between">
                       <strong className="text-sm font-extrabold text-[#1A1338]">{c.user}</strong>
                       <span className="text-[10px] text-gray-400 font-bold">#{c.id}</span>
@@ -1151,7 +1151,7 @@ export default function AdminDashboardPage() {
                       <span className="text-gray-400 font-bold">➔</span>
                       <span className="bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-extrabold">{c.positiveMood}</span>
                     </div>
-                    <div className="text-xs text-[#7147E8] font-bold">Action: {c.action}</div>
+                    <div className="text-xs text-[#7464AC] font-bold">Action: {c.action}</div>
                     <div className="text-[11px] text-gray-400 font-medium pt-1 border-t border-gray-200/60">🕒 {c.time}</div>
                   </div>
                 ))}
@@ -1172,12 +1172,12 @@ export default function AdminDashboardPage() {
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-medium">
                     {filteredCheckins.map((c) => (
-                      <tr key={c.id} className="hover:bg-[#FAF8FD] transition">
+                      <tr key={c.id} className="hover:bg-[#FEF9F5] transition">
                         <td className="py-3.5 px-3 text-gray-400 font-bold">#{c.id}</td>
                         <td className="py-3.5 px-3 font-extrabold text-sm text-[#1A1338]">{c.user}</td>
                         <td className="py-3.5 px-3"><span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-extrabold text-xs">{c.mood}</span></td>
                         <td className="py-3.5 px-3"><span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-extrabold text-xs">{c.positiveMood}</span></td>
-                        <td className="py-3.5 px-3 font-extrabold text-[#7147E8]">{c.action}</td>
+                        <td className="py-3.5 px-3 font-extrabold text-[#7464AC]">{c.action}</td>
                         <td className="py-3.5 px-3 text-right text-gray-400 font-medium">{c.time}</td>
                       </tr>
                     ))}
@@ -1204,14 +1204,14 @@ export default function AdminDashboardPage() {
             const paginatedMoods = filteredMoods.slice((currentPage - 1) * MOODS_PER_PAGE, currentPage * MOODS_PER_PAGE);
 
             return (
-              <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
                 {/* HEADER & TOP CONTROL BAR */}
                 <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                   <div>
                     <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338] flex items-center gap-2">
                       Mood Library Management 🧠
                     </h2>
-                    <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">
+                    <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">
                       Configure supported moods, feelings tags, 60-second micro-actions, and counterpart shifts.
                     </p>
                   </div>
@@ -1224,7 +1224,7 @@ export default function AdminDashboardPage() {
                         placeholder="Search mood, feeling, action..."
                         value={moodSearchQuery}
                         onChange={(e) => { setMoodSearchQuery(e.target.value); setMoodPage(1); }}
-                        className="w-full bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl pl-9 pr-3 py-2 text-xs font-bold text-[#1A1338] focus:outline-none focus:border-[#7147E8] focus:bg-white transition shadow-2xs"
+                        className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl pl-9 pr-3 py-2 text-xs font-bold text-[#1A1338] focus:outline-none focus:border-[#7464AC] focus:bg-[#FEF9F5] transition shadow-2xs"
                       />
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">🔍</span>
                     </div>
@@ -1248,7 +1248,7 @@ export default function AdminDashboardPage() {
                         });
                         setShowAddMoodModal(true);
                       }}
-                      className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-2xl text-xs font-black shadow-md shadow-[#7147E8]/25 hover:scale-[1.02] active:scale-95 transition cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap"
+                      className="bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white px-5 py-2.5 rounded-2xl text-xs font-black shadow-md shadow-[#7464AC]/25 hover:scale-[1.02] active:scale-95 transition cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap"
                     >
                       <span>+</span> Add New Mood
                     </button>
@@ -1263,8 +1263,8 @@ export default function AdminDashboardPage() {
                       onClick={() => { setMoodCategoryFilter(cat); setMoodPage(1); }}
                       className={`px-3.5 py-1.5 rounded-xl font-extrabold transition cursor-pointer whitespace-nowrap ${
                         moodCategoryFilter === cat
-                          ? 'bg-[#7147E8] text-white shadow-xs'
-                          : 'bg-[#FAF8FD] text-[#5B5278] border border-[#EAE3F2] hover:bg-[#F0EBFA]'
+                          ? 'bg-[#7464AC] text-white shadow-xs'
+                          : 'bg-[#FEF9F5] text-[#5B5278] border border-[#E4DAD7] hover:bg-[#F4EBF5]'
                       }`}
                     >
                       {cat}
@@ -1280,7 +1280,7 @@ export default function AdminDashboardPage() {
                   {paginatedMoods.map((m) => (
                     <div
                       key={m.id}
-                      className="bg-white border border-[#EFE8F8] hover:border-[#7147E8]/40 rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full group"
+                      className="bg-[#FEF9F5] border border-[#EFE8F8] hover:border-[#7464AC]/40 rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full group"
                     >
                       <div className="flex-1 flex flex-col justify-between space-y-3 pb-3">
                         <div className="space-y-2.5">
@@ -1294,7 +1294,7 @@ export default function AdminDashboardPage() {
                               )}
                               <span className="text-[10px] font-black text-gray-400">#{m.serial}</span>
                             </div>
-                            <span className="text-[10px] font-black px-2.5 py-1 rounded-lg bg-[#F0EBFA] text-[#7147E8] shrink-0">
+                            <span className="text-[10px] font-black px-2.5 py-1 rounded-lg bg-[#F4EBF5] text-[#7464AC] shrink-0">
                               {m.category || 'Anxious'}
                             </span>
                           </div>
@@ -1308,7 +1308,7 @@ export default function AdminDashboardPage() {
                           {m.feelings && m.feelings.length > 0 && (
                             <div className="flex flex-wrap gap-1.5">
                               {m.feelings.map(f => (
-                                <span key={f} className="text-[10.5px] bg-[#FAF8FD] border border-[#EAE3F2] px-2.5 py-0.5 rounded-lg text-[#5B5278] font-bold">
+                                <span key={f} className="text-[10.5px] bg-[#FEF9F5] border border-[#E4DAD7] px-2.5 py-0.5 rounded-lg text-[#5B5278] font-bold">
                                   {f}
                                 </span>
                               ))}
@@ -1316,15 +1316,15 @@ export default function AdminDashboardPage() {
                           )}
 
                           {/* 60-Second Micro-Actions List (Support multiple rotating actions) */}
-                          <div className="bg-[#FAF8FD] border border-[#F3EFF8] rounded-xl p-3 space-y-1.5 text-xs text-[#2D264B]">
-                            <div className="text-[10px] font-black uppercase tracking-wider text-[#7147E8] flex items-center justify-between">
+                          <div className="bg-[#FEF9F5] border border-[#F3EFF8] rounded-xl p-3 space-y-1.5 text-xs text-[#2D264B]">
+                            <div className="text-[10px] font-black uppercase tracking-wider text-[#7464AC] flex items-center justify-between">
                               <span>⚡ 60s Micro-Actions ({m.actions ? m.actions.length : 1})</span>
                             </div>
                             {m.actions && m.actions.length > 0 ? (
                               <ul className="space-y-1 text-[11.5px] font-medium leading-snug">
                                 {m.actions.map((act, idx) => (
                                   <li key={idx} className="flex items-start gap-1.5 break-words">
-                                    <span className="text-[#7147E8] font-bold shrink-0">{idx + 1}.</span>
+                                    <span className="text-[#7464AC] font-bold shrink-0">{idx + 1}.</span>
                                     <span>{act}</span>
                                   </li>
                                 ))}
@@ -1337,7 +1337,7 @@ export default function AdminDashboardPage() {
 
                         {/* Counsellor Feedback / Notes (Anchored at bottom of top section) */}
                         {(m.whyHelps || m.reframeQuote) && (
-                          <div className="text-[11px] text-[#68607F] font-semibold italic bg-[#FFFDF5] border border-amber-200/60 rounded-xl p-2.5 leading-snug break-words mt-auto">
+                          <div className="text-[11px] text-[#5C527A] font-semibold italic bg-[#FFFDF5] border border-amber-200/60 rounded-xl p-2.5 leading-snug break-words mt-auto">
                             💬 {m.whyHelps || m.reframeQuote}
                           </div>
                         )}
@@ -1352,10 +1352,10 @@ export default function AdminDashboardPage() {
                       </div>
 
                       {/* Card Action Buttons: Edit ✏️ and Delete 🗑️ (Red Color Accent) */}
-                      <div className="pt-3 border-t border-[#F0EBFA] flex items-center justify-between gap-2.5 shrink-0">
+                      <div className="pt-3 border-t border-[#F4EBF5] flex items-center justify-between gap-2.5 shrink-0">
                         <button
                           onClick={() => setEditingCounselorMoodItem(m)}
-                          className="flex-1 bg-[#F0EBFA] text-[#7147E8] hover:bg-[#7147E8] hover:text-white py-2.5 px-3 rounded-2xl text-xs font-black transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 shadow-2xs active:scale-98"
+                          className="flex-1 bg-[#F4EBF5] text-[#7464AC] hover:bg-[#7464AC] hover:text-white py-2.5 px-3 rounded-2xl text-xs font-black transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 shadow-2xs active:scale-98"
                         >
                           <span>✏️</span> Edit Mood
                         </button>
@@ -1389,7 +1389,7 @@ export default function AdminDashboardPage() {
                       <button
                         onClick={() => setMoodPage(p => Math.max(1, p - 1))}
                         disabled={currentPage === 1}
-                        className="px-3.5 py-2 rounded-xl border border-[#EAE3F2] font-bold text-[#1A1338] hover:bg-[#FAF8FD] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                        className="px-3.5 py-2 rounded-xl border border-[#E4DAD7] font-bold text-[#1A1338] hover:bg-[#FEF9F5] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                       >
                         ← Previous
                       </button>
@@ -1398,7 +1398,7 @@ export default function AdminDashboardPage() {
                           key={p}
                           onClick={() => setMoodPage(p)}
                           className={`w-8 h-8 rounded-xl font-extrabold text-xs transition cursor-pointer ${
-                            currentPage === p ? 'bg-[#7147E8] text-white shadow-xs' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            currentPage === p ? 'bg-[#7464AC] text-white shadow-xs' : 'bg-[#FEF9F5] text-gray-700 hover:bg-gray-200'
                           }`}
                         >
                           {p}
@@ -1407,7 +1407,7 @@ export default function AdminDashboardPage() {
                       <button
                         onClick={() => setMoodPage(p => Math.min(totalPages, p + 1))}
                         disabled={currentPage === totalPages}
-                        className="px-3.5 py-2 rounded-xl border border-[#EAE3F2] font-bold text-[#1A1338] hover:bg-[#FAF8FD] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                        className="px-3.5 py-2 rounded-xl border border-[#E4DAD7] font-bold text-[#1A1338] hover:bg-[#FEF9F5] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                       >
                         Next →
                       </button>
@@ -1418,12 +1418,12 @@ export default function AdminDashboardPage() {
                 {/* EDIT MOOD ITEM MODAL (Wider Container & Sticky Header/Footer) */}
                 {editingCounselorMoodItem && (
                   <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
-                    <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 md:p-8 max-w-2xl md:max-w-3xl w-full shadow-2xl max-h-[90vh] flex flex-col justify-between overflow-hidden">
+                    <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-6 md:p-8 max-w-2xl md:max-w-3xl w-full shadow-2xl max-h-[90vh] flex flex-col justify-between overflow-hidden">
                       
                       {/* STICKY TOP HEADER */}
                       <div className="flex items-center justify-between border-b border-gray-100 pb-3 shrink-0">
                         <div className="flex items-center gap-2">
-                          <span className="text-[#7147E8] text-xl font-black">✏️</span>
+                          <span className="text-[#7464AC] text-xl font-black">✏️</span>
                           <h3 className="font-serif font-extrabold text-lg text-[#1A1338]">
                             Edit Mood: {editingCounselorMoodItem.name}
                           </h3>
@@ -1439,7 +1439,7 @@ export default function AdminDashboardPage() {
                             Mood Logo / Emoji / Custom Image Upload
                           </label>
                           <div className="flex items-center gap-3 mb-2">
-                            <div className="w-12 h-12 rounded-2xl bg-[#FAF8FD] border border-[#EAE3F2] flex items-center justify-center text-2xl shrink-0 overflow-hidden shadow-2xs">
+                            <div className="w-12 h-12 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] flex items-center justify-center text-2xl shrink-0 overflow-hidden shadow-2xs">
                               {editingCounselorMoodItem.iconUrl ? (
                                 <img src={editingCounselorMoodItem.iconUrl} alt="Logo" className="w-full h-full object-contain" />
                               ) : (
@@ -1460,21 +1460,21 @@ export default function AdminDashboardPage() {
                                     reader.readAsDataURL(file);
                                   }
                                 }}
-                                className="text-[11px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#F0EBFA] file:text-[#7147E8]"
+                                className="text-[11px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#F4EBF5] file:text-[#7464AC]"
                               />
                               <p className="text-[10px] text-gray-400">Upload custom logo PNG/SVG or pick an emoji below</p>
                             </div>
                           </div>
 
                           {/* Predefined Emojis Grid */}
-                          <div className="grid grid-cols-7 gap-1.5 p-2 bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl">
+                          <div className="grid grid-cols-7 gap-1.5 p-2 bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl">
                             {PREDEFINED_EMOJIS.map(em => (
                               <button
                                 key={em}
                                 type="button"
                                 onClick={() => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, emoji: em, iconUrl: '' })}
-                                className={`h-8 rounded-lg text-lg flex items-center justify-center hover:bg-white transition ${
-                                  editingCounselorMoodItem.emoji === em && !editingCounselorMoodItem.iconUrl ? 'bg-white border border-[#7147E8] shadow-xs' : ''
+                                className={`h-8 rounded-lg text-lg flex items-center justify-center hover:bg-[#FEF9F5] transition ${
+                                  editingCounselorMoodItem.emoji === em && !editingCounselorMoodItem.iconUrl ? 'bg-[#FEF9F5] border border-[#7464AC] shadow-xs' : ''
                                 }`}
                               >
                                 {em}
@@ -1490,7 +1490,7 @@ export default function AdminDashboardPage() {
                               type="number"
                               value={editingCounselorMoodItem.serial}
                               onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, serial: parseInt(e.target.value) || 1 })}
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-extrabold bg-[#FAF8FD] text-[#7147E8]"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-extrabold bg-[#FEF9F5] text-[#7464AC]"
                             />
                           </div>
                           <div>
@@ -1499,7 +1499,7 @@ export default function AdminDashboardPage() {
                               type="text"
                               value={editingCounselorMoodItem.name}
                               onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, name: e.target.value })}
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-extrabold bg-[#FAF8FD]"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-extrabold bg-[#FEF9F5]"
                             />
                           </div>
                           <div>
@@ -1507,7 +1507,7 @@ export default function AdminDashboardPage() {
                             <select
                               value={editingCounselorMoodItem.category || 'Anxious'}
                               onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, category: e.target.value as any })}
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold bg-[#FAF8FD]"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-bold bg-[#FEF9F5]"
                             >
                               <option value="Low">Low</option>
                               <option value="Anxious">Anxious</option>
@@ -1524,7 +1524,7 @@ export default function AdminDashboardPage() {
                             type="text"
                             value={editingCounselorMoodItem.target}
                             onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, target: e.target.value })}
-                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold text-emerald-700 bg-emerald-50/50"
+                            className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-bold text-emerald-700 bg-emerald-50/50"
                           />
                         </div>
 
@@ -1538,7 +1538,7 @@ export default function AdminDashboardPage() {
                               feelings: e.target.value.split(',').map(s => s.trim()).filter(Boolean)
                             })}
                             placeholder="e.g. Nervous, Uneasy, On edge"
-                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                            className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-medium bg-[#FEF9F5]"
                           />
                         </div>
 
@@ -1550,7 +1550,7 @@ export default function AdminDashboardPage() {
                               value={editingCounselorMoodItem.actionTitle || ''}
                               onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, actionTitle: e.target.value })}
                               placeholder="e.g. Ground Your Feet & Name 5 Things"
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold text-[#7147E8] bg-[#FAF8FD]"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-bold text-[#7464AC] bg-[#FEF9F5]"
                             />
                           </div>
                           <div>
@@ -1560,7 +1560,7 @@ export default function AdminDashboardPage() {
                               value={editingCounselorMoodItem.reframeQuote || ''}
                               onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, reframeQuote: e.target.value })}
                               placeholder="e.g. Right now, I am safe."
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold text-[#3d2f6e] bg-[#FAF8FD]"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-bold text-[#3d2f6e] bg-[#FEF9F5]"
                             />
                           </div>
                         </div>
@@ -1580,7 +1580,7 @@ export default function AdminDashboardPage() {
                                   actions: [...current, '']
                                 });
                               }}
-                              className="text-[10px] font-extrabold text-[#7147E8] bg-[#F0EBFA] px-2.5 py-1 rounded-lg hover:bg-[#7147E8] hover:text-white transition cursor-pointer"
+                              className="text-[10px] font-extrabold text-[#7464AC] bg-[#F4EBF5] px-2.5 py-1 rounded-lg hover:bg-[#7464AC] hover:text-white transition cursor-pointer"
                             >
                               + Add Extra Action
                             </button>
@@ -1588,7 +1588,7 @@ export default function AdminDashboardPage() {
                           <div className="space-y-2">
                             {(editingCounselorMoodItem.actions || [editingCounselorMoodItem.actionDesc]).map((act, idx) => (
                               <div key={idx} className="flex gap-2">
-                                <span className="font-bold text-[#7147E8] pt-2 shrink-0">{idx + 1}.</span>
+                                <span className="font-bold text-[#7464AC] pt-2 shrink-0">{idx + 1}.</span>
                                 <textarea
                                   rows={2}
                                   value={act}
@@ -1601,7 +1601,7 @@ export default function AdminDashboardPage() {
                                       actions: newActions
                                     });
                                   }}
-                                  className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                                  className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-medium bg-[#FEF9F5]"
                                 />
                                 {(editingCounselorMoodItem.actions || []).length > 1 && (
                                   <button
@@ -1631,7 +1631,7 @@ export default function AdminDashboardPage() {
                             value={editingCounselorMoodItem.whyHelps}
                             onChange={e => setEditingCounselorMoodItem({ ...editingCounselorMoodItem, whyHelps: e.target.value })}
                             placeholder="Enter counsellor notes..."
-                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                            className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-medium bg-[#FEF9F5]"
                           />
                         </div>
 
@@ -1657,13 +1657,13 @@ export default function AdminDashboardPage() {
                             window.dispatchEvent(new Event('storage'));
                             setEditingCounselorMoodItem(null);
                           }}
-                          className="flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-3 rounded-2xl text-xs font-extrabold shadow-lg shadow-[#7147E8]/25 hover:opacity-95 transition cursor-pointer active:scale-98"
+                          className="flex-1 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white py-3 rounded-2xl text-xs font-extrabold shadow-lg shadow-[#7464AC]/25 hover:opacity-95 transition cursor-pointer active:scale-98"
                         >
                           💾 Save Changes
                         </button>
                         <button
                           onClick={() => setEditingCounselorMoodItem(null)}
-                          className="px-5 py-3 rounded-2xl border border-[#EAE3F2] text-gray-600 text-xs font-bold hover:bg-gray-50 cursor-pointer"
+                          className="px-5 py-3 rounded-2xl border border-[#E4DAD7] text-gray-600 text-xs font-bold hover:bg-[#FEF9F5] cursor-pointer"
                         >
                           Cancel
                         </button>
@@ -1675,11 +1675,11 @@ export default function AdminDashboardPage() {
                 {/* ADD NEW MOOD PAGE MODAL (Wider Container) */}
                 {showAddMoodModal && (
                   <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
-                    <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 md:p-8 max-w-2xl md:max-w-3xl w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+                    <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-6 md:p-8 max-w-2xl md:max-w-3xl w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
                       {/* Modal Header */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="text-[#7147E8] text-2xl font-black">+</span>
+                          <span className="text-[#7464AC] text-2xl font-black">+</span>
                           <h3 className="font-serif font-extrabold text-xl text-[#1A1338]">
                             Add New Mood Page
                           </h3>
@@ -1697,7 +1697,7 @@ export default function AdminDashboardPage() {
                               type="number"
                               value={newMoodForm.serial}
                               onChange={(e) => setNewMoodForm({ ...newMoodForm, serial: parseInt(e.target.value) || 29 })}
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-extrabold bg-[#FAF8FD] text-[#7147E8]"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-extrabold bg-[#FEF9F5] text-[#7464AC]"
                             />
                           </div>
                           <div>
@@ -1707,7 +1707,7 @@ export default function AdminDashboardPage() {
                             <select
                               value={newMoodForm.category}
                               onChange={e => setNewMoodForm({ ...newMoodForm, category: e.target.value as any })}
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold bg-[#FAF8FD]"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-bold bg-[#FEF9F5]"
                             >
                               <option value="Low">Low</option>
                               <option value="Anxious">Anxious</option>
@@ -1728,7 +1728,7 @@ export default function AdminDashboardPage() {
                               placeholder="e.g. Scared, Anxious, Weak..."
                               value={newMoodForm.name}
                               onChange={(e) => setNewMoodForm({ ...newMoodForm, name: e.target.value })}
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-extrabold bg-[#FAF8FD]"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-extrabold bg-[#FEF9F5]"
                             />
                           </div>
                           <div>
@@ -1740,7 +1740,7 @@ export default function AdminDashboardPage() {
                               placeholder="e.g. Safe / Peaceful, Confident..."
                               value={newMoodForm.target}
                               onChange={(e) => setNewMoodForm({ ...newMoodForm, target: e.target.value })}
-                              className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-bold text-emerald-700 bg-emerald-50/50"
+                              className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-bold text-emerald-700 bg-emerald-50/50"
                             />
                           </div>
                         </div>
@@ -1759,7 +1759,7 @@ export default function AdminDashboardPage() {
                                   actionsList: [...(newMoodForm.actionsList || ['']), '']
                                 });
                               }}
-                              className="text-[10px] font-extrabold text-[#7147E8] bg-[#F0EBFA] px-2.5 py-1 rounded-lg hover:bg-[#7147E8] hover:text-white transition cursor-pointer"
+                              className="text-[10px] font-extrabold text-[#7464AC] bg-[#F4EBF5] px-2.5 py-1 rounded-lg hover:bg-[#7464AC] hover:text-white transition cursor-pointer"
                             >
                               + Add Extra Action
                             </button>
@@ -1767,7 +1767,7 @@ export default function AdminDashboardPage() {
                           <div className="space-y-2">
                             {(newMoodForm.actionsList || ['']).map((act, idx) => (
                               <div key={idx} className="flex gap-2">
-                                <span className="font-bold text-[#7147E8] pt-2 shrink-0">{idx + 1}.</span>
+                                <span className="font-bold text-[#7464AC] pt-2 shrink-0">{idx + 1}.</span>
                                 <textarea
                                   rows={2}
                                   value={act}
@@ -1781,7 +1781,7 @@ export default function AdminDashboardPage() {
                                     });
                                   }}
                                   placeholder={`Action step ${idx + 1}...`}
-                                  className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                                  className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-medium bg-[#FEF9F5]"
                                 />
                                 {(newMoodForm.actionsList || []).length > 1 && (
                                   <button
@@ -1824,7 +1824,7 @@ export default function AdminDashboardPage() {
                             placeholder="e.g. Fearful, Terrified, Panicked, Uneasy"
                             value={newMoodForm.feelingsInput}
                             onChange={e => setNewMoodForm({ ...newMoodForm, feelingsInput: e.target.value })}
-                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD]"
+                            className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-medium bg-[#FEF9F5]"
                           />
                         </div>
 
@@ -1834,7 +1834,7 @@ export default function AdminDashboardPage() {
                             Mood Logo / Emoji / Custom Image Upload
                           </label>
                           <div className="flex items-center gap-3 mb-2">
-                            <div className="w-12 h-12 rounded-2xl bg-[#FAF8FD] border border-[#EAE3F2] flex items-center justify-center text-2xl shrink-0 overflow-hidden shadow-2xs">
+                            <div className="w-12 h-12 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] flex items-center justify-center text-2xl shrink-0 overflow-hidden shadow-2xs">
                               {newMoodForm.iconUrl ? (
                                 <img src={newMoodForm.iconUrl} alt="Logo" className="w-full h-full object-contain" />
                               ) : (
@@ -1855,20 +1855,20 @@ export default function AdminDashboardPage() {
                                     reader.readAsDataURL(file);
                                   }
                                 }}
-                                className="text-[11px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#F0EBFA] file:text-[#7147E8]"
+                                className="text-[11px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#F4EBF5] file:text-[#7464AC]"
                               />
                               <p className="text-[10px] text-gray-400">Upload custom logo PNG/SVG or pick an emoji below</p>
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-7 gap-1.5 p-2 bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl">
+                          <div className="grid grid-cols-7 gap-1.5 p-2 bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl">
                             {PREDEFINED_EMOJIS.slice(0, 14).map(em => (
                               <button
                                 key={em}
                                 type="button"
                                 onClick={() => setNewMoodForm({ ...newMoodForm, emoji: em, iconUrl: '' })}
-                                className={`h-8 rounded-lg text-lg flex items-center justify-center hover:bg-white transition ${
-                                  newMoodForm.emoji === em && !newMoodForm.iconUrl ? 'bg-white border border-[#7147E8] shadow-xs' : ''
+                                className={`h-8 rounded-lg text-lg flex items-center justify-center hover:bg-[#FEF9F5] transition ${
+                                  newMoodForm.emoji === em && !newMoodForm.iconUrl ? 'bg-[#FEF9F5] border border-[#7464AC] shadow-xs' : ''
                                 }`}
                               >
                                 {em}
@@ -1885,7 +1885,7 @@ export default function AdminDashboardPage() {
                             placeholder="Optional counsellor review notes..."
                             value={newMoodForm.whyHelps}
                             onChange={e => setNewMoodForm({ ...newMoodForm, whyHelps: e.target.value })}
-                            className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-medium bg-[#FAF8FD] text-xs"
+                            className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-medium bg-[#FEF9F5] text-xs"
                           />
                         </div>
                       </div>
@@ -1911,7 +1911,7 @@ export default function AdminDashboardPage() {
                               iconUrl: newMoodForm.iconUrl || undefined,
                               category: newMoodForm.category,
                               bgColor: '#F3E8FF',
-                              textColor: '#7147E8',
+                              textColor: '#7464AC',
                               feelings: feelingsArr,
                               target: newMoodForm.target || 'Peaceful',
                               actionTitle: newMoodForm.actionDesc || newMoodForm.name,
@@ -1927,13 +1927,13 @@ export default function AdminDashboardPage() {
                             window.dispatchEvent(new Event('storage'));
                             setShowAddMoodModal(false);
                           }}
-                          className="w-full bg-[#7147E8] hover:bg-[#6035DB] text-white py-3.5 rounded-2xl text-xs font-black shadow-lg shadow-[#7147E8]/25 transition cursor-pointer active:scale-98"
+                          className="w-full bg-[#7464AC] hover:bg-[#6035DB] text-white py-3.5 rounded-2xl text-xs font-black shadow-lg shadow-[#7464AC]/25 transition cursor-pointer active:scale-98"
                         >
                           Save & Publish Mood Page
                         </button>
                         <button
                           onClick={() => setShowAddMoodModal(false)}
-                          className="w-full mt-3 py-3 rounded-2xl border border-[#EAE3F2] text-gray-600 text-xs font-bold hover:bg-gray-50"
+                          className="w-full mt-3 py-3 rounded-2xl border border-[#E4DAD7] text-gray-600 text-xs font-bold hover:bg-[#FEF9F5]"
                         >
                           Cancel
                         </button>
@@ -1947,36 +1947,36 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 5: PLANS & PAYMENTS */}
           {activeTab === 'Plans & Payments' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Plans &amp; Payments Management 💳</h2>
                   <p className="text-xs text-gray-500 font-semibold mt-1">Track 7-Day &amp; 30-Day Plan pricing, sales and revenue metrics.</p>
                 </div>
-                <button onClick={() => setActiveModal('createPlan')} className="w-full sm:w-auto bg-[#7147E8] text-white px-4 py-2.5 rounded-xl text-xs font-extrabold shadow-sm hover:opacity-95 transition text-center shrink-0">
+                <button onClick={() => setActiveModal('createPlan')} className="w-full sm:w-auto bg-[#7464AC] text-white px-4 py-2.5 rounded-xl text-xs font-extrabold shadow-sm hover:opacity-95 transition text-center shrink-0">
                   🎁 Create New Plan
                 </button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] space-y-3">
+                <div className="p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] space-y-3">
                   <div className="flex items-center justify-between">
                     <strong className="text-base font-bold text-[#1A1338]">7-Day Mindset Plan</strong>
                     <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-extrabold">$9.99 / one-time</span>
                   </div>
                   <p className="text-xs text-[#5B5278]">Total Sales: 1,842 units · Total Revenue: $18,401</p>
-                  <button onClick={exportUsersCSV} className="px-3.5 py-2 rounded-xl bg-[#7147E8] text-white text-xs font-bold">
+                  <button onClick={exportUsersCSV} className="px-3.5 py-2 rounded-xl bg-[#7464AC] text-white text-xs font-bold">
                     Export Subscribers List
                   </button>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] space-y-3">
+                <div className="p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] space-y-3">
                   <div className="flex items-center justify-between">
                     <strong className="text-base font-bold text-[#1A1338]">30-Day Transformation Plan</strong>
-                    <span className="px-2.5 py-1 rounded-full bg-purple-100 text-[#7147E8] text-xs font-extrabold">$19.99 (Draft)</span>
+                    <span className="px-2.5 py-1 rounded-full bg-purple-100 text-[#7464AC] text-xs font-extrabold">$19.99 (Draft)</span>
                   </div>
                   <p className="text-xs text-[#5B5278]">Total Sales: 0 units · Launching soon</p>
-                  <button onClick={() => {}} className="px-3.5 py-2 rounded-xl bg-gray-100 text-gray-700 border border-gray-200 text-xs font-bold">
+                  <button onClick={() => {}} className="px-3.5 py-2 rounded-xl bg-[#FEF9F5] text-gray-700 border border-gray-200 text-xs font-bold">
                     Edit Plan Details
                   </button>
                 </div>
@@ -1993,7 +1993,7 @@ export default function AdminDashboardPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {/* STRIPE CARD */}
-                  <div className="p-5 rounded-2xl bg-white border border-[#EAE3F2] shadow-xs space-y-4">
+                  <div className="p-5 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] shadow-xs space-y-4">
                     <div className="flex items-center justify-between border-b border-gray-100 pb-3">
                       <div className="flex items-center gap-2">
                         <span className="text-xl">💳</span>
@@ -2007,9 +2007,9 @@ export default function AdminDashboardPage() {
                           type="checkbox"
                           checked={paymentSettings.stripeEnabled}
                           onChange={(e) => setPaymentSettings({ ...paymentSettings, stripeEnabled: e.target.checked })}
-                          className="w-5 h-5 accent-[#7147E8]"
+                          className="w-5 h-5 accent-[#7464AC]"
                         />
-                        <span className={`text-xs font-extrabold px-2 py-0.5 rounded-md ${paymentSettings.stripeEnabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'}`}>
+                        <span className={`text-xs font-extrabold px-2 py-0.5 rounded-md ${paymentSettings.stripeEnabled ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-400'}`}>
                           {paymentSettings.stripeEnabled ? 'ENABLED' : 'DISABLED'}
                         </span>
                       </label>
@@ -2022,7 +2022,7 @@ export default function AdminDashboardPage() {
                           type="text"
                           value={paymentSettings.stripePubKey}
                           onChange={(e) => setPaymentSettings({ ...paymentSettings, stripePubKey: e.target.value })}
-                          className="w-full border border-gray-200 p-2.5 rounded-xl font-mono text-[11px] bg-[#FAF8FD]"
+                          className="w-full border border-gray-200 p-2.5 rounded-xl font-mono text-[11px] bg-[#FEF9F5]"
                           placeholder="pk_test_..."
                         />
                       </div>
@@ -2032,7 +2032,7 @@ export default function AdminDashboardPage() {
                           type="password"
                           value={paymentSettings.stripeSecretKey}
                           onChange={(e) => setPaymentSettings({ ...paymentSettings, stripeSecretKey: e.target.value })}
-                          className="w-full border border-gray-200 p-2.5 rounded-xl font-mono text-[11px] bg-[#FAF8FD]"
+                          className="w-full border border-gray-200 p-2.5 rounded-xl font-mono text-[11px] bg-[#FEF9F5]"
                           placeholder="sk_test_..."
                         />
                       </div>
@@ -2040,7 +2040,7 @@ export default function AdminDashboardPage() {
                   </div>
 
                   {/* PAYPAL CARD */}
-                  <div className="p-5 rounded-2xl bg-white border border-[#EAE3F2] shadow-xs space-y-4">
+                  <div className="p-5 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] shadow-xs space-y-4">
                     <div className="flex items-center justify-between border-b border-gray-100 pb-3">
                       <div className="flex items-center gap-2">
                         <span className="text-xl">🅿️</span>
@@ -2054,9 +2054,9 @@ export default function AdminDashboardPage() {
                           type="checkbox"
                           checked={paymentSettings.paypalEnabled}
                           onChange={(e) => setPaymentSettings({ ...paymentSettings, paypalEnabled: e.target.checked })}
-                          className="w-5 h-5 accent-[#7147E8]"
+                          className="w-5 h-5 accent-[#7464AC]"
                         />
-                        <span className={`text-xs font-extrabold px-2 py-0.5 rounded-md ${paymentSettings.paypalEnabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'}`}>
+                        <span className={`text-xs font-extrabold px-2 py-0.5 rounded-md ${paymentSettings.paypalEnabled ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-400'}`}>
                           {paymentSettings.paypalEnabled ? 'ENABLED' : 'DISABLED'}
                         </span>
                       </label>
@@ -2069,7 +2069,7 @@ export default function AdminDashboardPage() {
                           type="text"
                           value={paymentSettings.paypalClientId}
                           onChange={(e) => setPaymentSettings({ ...paymentSettings, paypalClientId: e.target.value })}
-                          className="w-full border border-gray-200 p-2.5 rounded-xl font-mono text-[11px] bg-[#FAF8FD]"
+                          className="w-full border border-gray-200 p-2.5 rounded-xl font-mono text-[11px] bg-[#FEF9F5]"
                           placeholder="A21AAH..."
                         />
                       </div>
@@ -2078,7 +2078,7 @@ export default function AdminDashboardPage() {
                         <select
                           value={paymentSettings.paypalMode}
                           onChange={(e) => setPaymentSettings({ ...paymentSettings, paypalMode: e.target.value })}
-                          className="w-full border border-gray-200 p-2.5 rounded-xl font-medium text-xs bg-[#FAF8FD]"
+                          className="w-full border border-gray-200 p-2.5 rounded-xl font-medium text-xs bg-[#FEF9F5]"
                         >
                           <option value="sandbox">Sandbox (Testing)</option>
                           <option value="live">Live (Production)</option>
@@ -2091,7 +2091,7 @@ export default function AdminDashboardPage() {
                 <div className="flex justify-end">
                   <button
                     onClick={() => savePaymentSettings(paymentSettings)}
-                    className="bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-3 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer"
+                    className="bg-[#7464AC] hover:bg-[#7464AC] text-white px-6 py-3 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer"
                   >
                     💾 Save Gateway Settings
                   </button>
@@ -2103,7 +2103,7 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 6: REPORTS */}
           {activeTab === 'Reports' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-2xl p-6 shadow-xs space-y-5">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-6 shadow-xs space-y-5">
               <h2 className="font-serif font-bold text-xl text-[#1A1338]">Reports &amp; Platform Logs</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
@@ -2111,12 +2111,12 @@ export default function AdminDashboardPage() {
                   { name: 'Mood Shift Efficacy Analysis', date: 'May 2026', format: 'CSV' },
                   { name: '90-Day Auto-Deletion Audit Log', date: 'May 2026', format: 'LOG' },
                 ].map((rep, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA] flex items-center justify-between">
+                  <div key={idx} className="p-4 rounded-xl bg-[#FEF9F5] border border-[#F4EBF5] flex items-center justify-between">
                     <div>
                       <strong className="block text-xs font-bold text-[#1A1338]">{rep.name}</strong>
                       <span className="text-[10px] text-gray-400">{rep.date} · {rep.format}</span>
                     </div>
-                    <button onClick={() => {}} className="px-3 py-1.5 rounded-lg bg-[#7147E8] text-white text-xs font-bold">
+                    <button onClick={() => {}} className="px-3 py-1.5 rounded-lg bg-[#7464AC] text-white text-xs font-bold">
                       Download
                     </button>
                   </div>
@@ -2128,13 +2128,13 @@ export default function AdminDashboardPage() {
           {/* VIEW TAB 7: EMAIL LEADS & MARKETING SUITE */}
           {activeTab === 'Email Leads' && (
             <div className="space-y-6">
-              <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                   <div>
                     <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Collected Email Leads ({leads.length}) ✉️</h2>
-                    <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Leads captured through 7-Day Plan popups and daily reminders.</p>
+                    <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Leads captured through 7-Day Plan popups and daily reminders.</p>
                   </div>
-                  <button onClick={exportLeadsCSV} className="w-full sm:w-auto bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center">
+                  <button onClick={exportLeadsCSV} className="w-full sm:w-auto bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center">
                     📥 Export Leads CSV
                   </button>
                 </div>
@@ -2152,12 +2152,12 @@ export default function AdminDashboardPage() {
                     </thead>
                     <tbody className="divide-y divide-gray-100 font-medium">
                       {leads.map((l) => (
-                        <tr key={l.id} className="hover:bg-[#FAF8FD] transition">
+                        <tr key={l.id} className="hover:bg-[#FEF9F5] transition">
                           <td className="py-3.5 px-3 text-gray-400 font-bold">#{l.id}</td>
                           <td className="py-3.5 px-3 font-extrabold text-sm text-[#1A1338]">{l.email}</td>
                           <td className="py-3.5 px-3 text-gray-500 font-medium">{l.date}</td>
                           <td className="py-3.5 px-3">
-                            <span className="bg-purple-100 text-[#7147E8] px-3 py-1 rounded-full text-xs font-extrabold whitespace-nowrap">{l.source}</span>
+                            <span className="bg-purple-100 text-[#7464AC] px-3 py-1 rounded-full text-xs font-extrabold whitespace-nowrap">{l.source}</span>
                           </td>
                           <td className="py-3.5 px-3 text-right">
                             <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-extrabold whitespace-nowrap">Subscribed</span>
@@ -2170,15 +2170,15 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* EMAIL MARKETING BROADCAST CAMPAIGN SUITE */}
-              <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                   <div className="flex items-center gap-3">
-                    <span className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#7147E8] to-[#9333EA] text-white flex items-center justify-center font-extrabold text-lg shadow-xs shrink-0">
+                    <span className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#7464AC] to-[#9C8CC4] text-white flex items-center justify-center font-extrabold text-lg shadow-xs shrink-0">
                       🚀
                     </span>
                     <div>
                       <h3 className="font-serif font-extrabold text-xl text-[#1A1338]">Email Marketing &amp; Broadcast Suite</h3>
-                      <p className="text-xs text-[#68607F] font-semibold">Send promotional newsletters, drip sequences, and 7-day plan offers to user segments.</p>
+                      <p className="text-xs text-[#5C527A] font-semibold">Send promotional newsletters, drip sequences, and 7-day plan offers to user segments.</p>
                     </div>
                   </div>
                   <span className="text-xs font-extrabold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 shrink-0 self-start sm:self-auto">
@@ -2200,7 +2200,7 @@ export default function AdminDashboardPage() {
                     <select
                       value={emailCampaign.audience}
                       onChange={e => setEmailCampaign({ ...emailCampaign, audience: e.target.value })}
-                      className="w-full border border-[#EAE3F2] p-3 rounded-xl bg-[#FAF8FD] font-extrabold text-[#1A1338]"
+                      className="w-full border border-[#E4DAD7] p-3 rounded-xl bg-[#FEF9F5] font-extrabold text-[#1A1338]"
                     >
                       <option>All Registered Users (12,458)</option>
                       <option>Active Paid 7-Day Plan Buyers (3,276)</option>
@@ -2231,7 +2231,7 @@ export default function AdminDashboardPage() {
                           });
                         }
                       }}
-                      className="w-full border border-[#EAE3F2] p-3 rounded-xl bg-[#FAF8FD] font-extrabold text-[#1A1338]"
+                      className="w-full border border-[#E4DAD7] p-3 rounded-xl bg-[#FEF9F5] font-extrabold text-[#1A1338]"
                     >
                       <option value="welcome">Welcome Onboarding Sequence</option>
                       <option value="discount">Special Discount Offer (50% Off)</option>
@@ -2246,7 +2246,7 @@ export default function AdminDashboardPage() {
                     type="text"
                     value={emailCampaign.subject}
                     onChange={e => setEmailCampaign({ ...emailCampaign, subject: e.target.value })}
-                    className="w-full border border-[#EAE3F2] p-3 rounded-xl bg-[#FAF8FD] font-bold text-[#1A1338] text-xs"
+                    className="w-full border border-[#E4DAD7] p-3 rounded-xl bg-[#FEF9F5] font-bold text-[#1A1338] text-xs"
                   />
                 </div>
 
@@ -2256,7 +2256,7 @@ export default function AdminDashboardPage() {
                     rows={4}
                     value={emailCampaign.body}
                     onChange={e => setEmailCampaign({ ...emailCampaign, body: e.target.value })}
-                    className="w-full border border-[#EAE3F2] p-3.5 rounded-xl bg-[#FAF8FD] font-medium text-[#1A1338] text-xs"
+                    className="w-full border border-[#E4DAD7] p-3.5 rounded-xl bg-[#FEF9F5] font-medium text-[#1A1338] text-xs"
                   />
                 </div>
 
@@ -2269,7 +2269,7 @@ export default function AdminDashboardPage() {
                         setCampaignStatus({ type: 'success', text: `✅ Email Broadcast Campaign successfully sent to ${emailCampaign.audience} via SMTP!` });
                       }, 1800);
                     }}
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-6 py-3 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center"
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white px-6 py-3 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center"
                   >
                     🚀 Broadcast Campaign Now
                   </button>
@@ -2280,22 +2280,22 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 8: ANALYTICS */}
           {activeTab === 'Analytics' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-2xl p-6 shadow-xs space-y-5">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-6 shadow-xs space-y-5">
               <h2 className="font-serif font-bold text-xl text-[#1A1338]">Traffic &amp; Engagement Analytics</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="p-4 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA]">
+                <div className="p-4 rounded-xl bg-[#FEF9F5] border border-[#F4EBF5]">
                   <span className="text-[10px] font-bold text-gray-400 uppercase">Daily Active Users</span>
                   <div className="font-serif text-2xl font-extrabold text-[#1A1338]">3,420</div>
                 </div>
-                <div className="p-4 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA]">
+                <div className="p-4 rounded-xl bg-[#FEF9F5] border border-[#F4EBF5]">
                   <span className="text-[10px] font-bold text-gray-400 uppercase">Conversion Rate</span>
                   <div className="font-serif text-2xl font-extrabold text-emerald-600">14.8%</div>
                 </div>
-                <div className="p-4 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA]">
+                <div className="p-4 rounded-xl bg-[#FEF9F5] border border-[#F4EBF5]">
                   <span className="text-[10px] font-bold text-gray-400 uppercase">Bounce Rate</span>
                   <div className="font-serif text-2xl font-extrabold text-sky-600">22.4%</div>
                 </div>
-                <div className="p-4 rounded-xl bg-[#FAF8FD] border border-[#F0EBFA]">
+                <div className="p-4 rounded-xl bg-[#FEF9F5] border border-[#F4EBF5]">
                   <span className="text-[10px] font-bold text-gray-400 uppercase">Avg. Session Time</span>
                   <div className="font-serif text-2xl font-extrabold text-purple-600">4m 12s</div>
                 </div>
@@ -2305,15 +2305,15 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 9: GOOGLE ADSENSE & AD SPACES */}
           {activeTab === 'Ad Spaces' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Google AdSense &amp; Ad Spaces Manager 📢</h2>
-                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Enable global ads, configure Google Auto Ads script, and toggle individual ad placement slots.</p>
+                  <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Enable global ads, configure Google Auto Ads script, and toggle individual ad placement slots.</p>
                 </div>
                 <button
                   onClick={saveAdsSettings}
-                  className="bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer shrink-0"
+                  className="bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer shrink-0"
                 >
                   💾 Save All Ad Settings
                 </button>
@@ -2322,7 +2322,7 @@ export default function AdminDashboardPage() {
               {/* 1. MASTER ADSENSE TOGGLE & MODE SWITCH */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Global Status Switch */}
-                <div className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-5 shadow-2xs space-y-3">
+                <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-2xs space-y-3">
                   <div className="flex items-center justify-between">
                     <div>
                       <strong className="block text-sm font-extrabold text-[#1A1338]">Global Advertisements Status</strong>
@@ -2332,7 +2332,7 @@ export default function AdminDashboardPage() {
                       type="checkbox" 
                       checked={adsSettings.globalEnabled}
                       onChange={e => setAdsSettings({ ...adsSettings, globalEnabled: e.target.checked })}
-                      className="w-5 h-5 accent-[#7147E8] cursor-pointer"
+                      className="w-5 h-5 accent-[#7464AC] cursor-pointer"
                     />
                   </div>
                   <div className="pt-2 border-t border-gray-200/60 flex items-center justify-between text-xs">
@@ -2344,7 +2344,7 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* Ads Mode Switch */}
-                <div className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-5 shadow-2xs space-y-3">
+                <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-2xs space-y-3">
                   <strong className="block text-sm font-extrabold text-[#1A1338]">Ad Placement Mode</strong>
                   <span className="text-xs text-gray-500 font-medium block">Choose between Google Automatic Ads or Manual Ad Units</span>
                   <div className="grid grid-cols-2 gap-2 pt-1">
@@ -2353,8 +2353,8 @@ export default function AdminDashboardPage() {
                       onClick={() => setAdsSettings({ ...adsSettings, mode: 'auto' })}
                       className={`py-2 rounded-xl text-xs font-extrabold border transition cursor-pointer ${
                         adsSettings.mode === 'auto'
-                          ? 'bg-[#7147E8] text-white border-[#7147E8] shadow-xs'
-                          : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                          ? 'bg-[#7464AC] text-white border-[#7464AC] shadow-xs'
+                          : 'bg-[#FEF9F5] text-gray-600 border-gray-200 hover:bg-[#FEF9F5]'
                       }`}
                     >
                       🤖 Auto Ads (Script)
@@ -2364,8 +2364,8 @@ export default function AdminDashboardPage() {
                       onClick={() => setAdsSettings({ ...adsSettings, mode: 'manual' })}
                       className={`py-2 rounded-xl text-xs font-extrabold border transition cursor-pointer ${
                         adsSettings.mode === 'manual'
-                          ? 'bg-[#7147E8] text-white border-[#7147E8] shadow-xs'
-                          : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                          ? 'bg-[#7464AC] text-white border-[#7464AC] shadow-xs'
+                          : 'bg-[#FEF9F5] text-gray-600 border-gray-200 hover:bg-[#FEF9F5]'
                       }`}
                     >
                       📐 Manual Ad Slots
@@ -2375,7 +2375,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 2. ADSENSE PUBLISHER ID & AUTO ADS SCRIPT */}
-              <div className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-5 shadow-2xs space-y-4">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-2xs space-y-4">
                 <h3 className="font-serif font-extrabold text-base text-[#1A1338] flex items-center gap-2">
                   <span>📜</span> AdSense Publisher ID &amp; Script Configuration
                 </h3>
@@ -2388,7 +2388,7 @@ export default function AdminDashboardPage() {
                       value={adsSettings.adSenseClient}
                       onChange={e => setAdsSettings({ ...adsSettings, adSenseClient: e.target.value })}
                       placeholder="ca-pub-XXXXXXXXXXXXXXXX"
-                      className="w-full bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#1A1338] focus:outline-none focus:border-[#7147E8]"
+                      className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#1A1338] focus:outline-none focus:border-[#7464AC]"
                     />
                   </div>
 
@@ -2399,7 +2399,7 @@ export default function AdminDashboardPage() {
                       value={adsSettings.autoAdsScript}
                       onChange={e => setAdsSettings({ ...adsSettings, autoAdsScript: e.target.value })}
                       placeholder="<script async src='...'></script>"
-                      className="w-full bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2 text-[11px] font-mono text-[#1A1338] focus:outline-none focus:border-[#7147E8]"
+                      className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2 text-[11px] font-mono text-[#1A1338] focus:outline-none focus:border-[#7464AC]"
                     />
                   </div>
                 </div>
@@ -2411,7 +2411,7 @@ export default function AdminDashboardPage() {
                   <h3 className="font-serif font-extrabold text-lg sm:text-xl text-[#1A1338] flex items-center gap-2">
                     <span>🎯</span> Manual Ad Slots Enable/Disable &amp; Code Snippets (7 Placements)
                   </h3>
-                  <span className="text-[11px] font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                  <span className="text-[11px] font-bold text-gray-500 bg-[#FEF9F5] px-3 py-1 rounded-full">
                     Responsive Grid Activated
                   </span>
                 </div>
@@ -2428,7 +2428,7 @@ export default function AdminDashboardPage() {
                   ].map((item) => {
                     const slot = (adsSettings.slots as any)[item.key] || { enabled: true, code: item.defaultCode };
                     return (
-                      <div key={item.key} className="bg-white border border-[#EAE3F2] rounded-2xl p-4 sm:p-5 shadow-2xs space-y-3.5 w-full min-w-0 overflow-hidden break-words flex flex-col justify-between hover:border-[#7147E8]/40 transition">
+                      <div key={item.key} className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 sm:p-5 shadow-2xs space-y-3.5 w-full min-w-0 overflow-hidden break-words flex flex-col justify-between hover:border-[#7464AC]/40 transition">
                         <div className="space-y-2">
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0 pr-2">
@@ -2436,7 +2436,7 @@ export default function AdminDashboardPage() {
                               <span className="text-[11px] text-gray-500 font-medium block leading-tight">{item.desc}</span>
                             </div>
                             <div className="flex items-center gap-2 shrink-0">
-                              <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ${slot.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'}`}>
+                              <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ${slot.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-400'}`}>
                                 {slot.enabled ? '🟢 ACTIVE' : '⚪ OFF'}
                               </span>
                               <input 
@@ -2449,7 +2449,7 @@ export default function AdminDashboardPage() {
                                     [item.key]: { ...slot, enabled: e.target.checked }
                                   }
                                 })}
-                                className="w-5 h-5 accent-[#7147E8] cursor-pointer"
+                                className="w-5 h-5 accent-[#7464AC] cursor-pointer"
                               />
                             </div>
                           </div>
@@ -2466,7 +2466,7 @@ export default function AdminDashboardPage() {
                                 }
                               })}
                               placeholder="Paste AdSense <ins ...></ins> code snippet here..."
-                              className="w-full bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl p-3 text-[11px] sm:text-xs font-mono text-[#1A1338] focus:bg-white focus:outline-none focus:border-[#7147E8] transition resize-y min-h-[80px] whitespace-pre-wrap break-all sm:break-normal"
+                              className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl p-3 text-[11px] sm:text-xs font-mono text-[#1A1338] focus:bg-[#FEF9F5] focus:outline-none focus:border-[#7464AC] transition resize-y min-h-[80px] whitespace-pre-wrap break-all sm:break-normal"
                             />
                           </div>
                         </div>
@@ -2477,7 +2477,7 @@ export default function AdminDashboardPage() {
                             onClick={() => {
                               navigator.clipboard?.writeText(slot.code || '');
                             }}
-                            className="text-[#7147E8] font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                            className="text-[#7464AC] font-bold hover:underline flex items-center gap-1 cursor-pointer"
                           >
                             📋 Copy Snippet
                           </button>
@@ -2508,22 +2508,22 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 10: SEO & SEARCH CONSOLE */}
           {activeTab === 'SEO & Search Console' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">SEO &amp; Webmaster Control Center 🔍</h2>
-                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure Meta Titles, Meta Descriptions, Google Search Console Verification, GA4 Analytics, and Traffic Monitoring.</p>
+                  <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Configure Meta Titles, Meta Descriptions, Google Search Console Verification, GA4 Analytics, and Traffic Monitoring.</p>
                 </div>
                 <button
                   onClick={() => saveSeoSettings(seoSettings)}
-                  className="w-full sm:w-auto bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center shrink-0"
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white px-5 py-2.5 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer text-center shrink-0"
                 >
                   💾 Save SEO Settings
                 </button>
               </div>
 
               {/* 1. SITE-WIDE META & HEADINGS CONFIG */}
-              <div className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-5 shadow-2xs space-y-4">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-2xs space-y-4">
                 <h3 className="font-serif font-extrabold text-base text-[#1A1338] flex items-center gap-2">
                   <span>🏷️</span> Website Global Meta Tags &amp; Title Configuration
                 </h3>
@@ -2535,7 +2535,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={seoSettings.metaTitle}
                       onChange={e => setSeoSettings({ ...seoSettings, metaTitle: e.target.value })}
-                      className="w-full bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#1A1338]"
+                      className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#1A1338]"
                     />
                   </div>
 
@@ -2545,7 +2545,7 @@ export default function AdminDashboardPage() {
                       rows={2}
                       value={seoSettings.metaDescription}
                       onChange={e => setSeoSettings({ ...seoSettings, metaDescription: e.target.value })}
-                      className="w-full bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2 text-xs font-medium text-[#1A1338]"
+                      className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2 text-xs font-medium text-[#1A1338]"
                     />
                   </div>
 
@@ -2556,7 +2556,7 @@ export default function AdminDashboardPage() {
                         type="text"
                         value={seoSettings.keywords}
                         onChange={e => setSeoSettings({ ...seoSettings, keywords: e.target.value })}
-                        className="w-full bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 text-xs font-medium text-[#1A1338]"
+                        className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2.5 text-xs font-medium text-[#1A1338]"
                       />
                     </div>
                     <div>
@@ -2565,7 +2565,7 @@ export default function AdminDashboardPage() {
                         type="text"
                         value={seoSettings.canonicalUrl}
                         onChange={e => setSeoSettings({ ...seoSettings, canonicalUrl: e.target.value })}
-                        className="w-full bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#1A1338]"
+                        className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#1A1338]"
                       />
                     </div>
                   </div>
@@ -2573,7 +2573,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 2. GOOGLE SEARCH CONSOLE & ANALYTICS INTEGRATION */}
-              <div className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-5 shadow-2xs space-y-4">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-2xs space-y-4">
                 <h3 className="font-serif font-extrabold text-base text-[#1A1338] flex items-center gap-2">
                   <span>📊</span> Google Search Console &amp; GA4 Analytics Verification
                 </h3>
@@ -2586,7 +2586,7 @@ export default function AdminDashboardPage() {
                       value={seoSettings.googleSearchConsoleTag}
                       onChange={e => setSeoSettings({ ...seoSettings, googleSearchConsoleTag: e.target.value })}
                       placeholder="google-site-verification=..."
-                      className="w-full bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#1A1338]"
+                      className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#1A1338]"
                     />
                   </div>
 
@@ -2597,7 +2597,7 @@ export default function AdminDashboardPage() {
                       value={seoSettings.gaMeasurementId}
                       onChange={e => setSeoSettings({ ...seoSettings, gaMeasurementId: e.target.value })}
                       placeholder="G-XXXXXXXXXX"
-                      className="w-full bg-white border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#1A1338]"
+                      className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#1A1338]"
                     />
                   </div>
                 </div>
@@ -2612,13 +2612,13 @@ export default function AdminDashboardPage() {
           {activeTab === 'Blog Manager' && !editingPost && (
             <div className="space-y-5">
               {/* Header Bar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#FEF9F5] p-4 rounded-2xl border border-[#E4DAD7] shadow-2xs">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Posts 📝</h2>
                   <div className="flex items-center gap-3 mt-1.5 text-xs font-semibold">
                     {(['all', 'published', 'draft'] as const).map(f => (
                       <button key={f} onClick={() => setBlogFilter(f)}
-                        className={`capitalize transition ${blogFilter === f ? 'text-[#7147E8] font-extrabold underline underline-offset-4' : 'text-gray-400 hover:text-[#7147E8]'}`}>
+                        className={`capitalize transition ${blogFilter === f ? 'text-[#7464AC] font-extrabold underline underline-offset-4' : 'text-gray-400 hover:text-[#7464AC]'}`}>
                         {f} ({f === 'all' ? blogPosts.length : blogPosts.filter(p => f === 'published' ? p.published : !p.published).length})
                       </button>
                     ))}
@@ -2630,7 +2630,7 @@ export default function AdminDashboardPage() {
                     <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     <input type="text" value={blogSearch} onChange={e => setBlogSearch(e.target.value)}
                       placeholder="Search posts..."
-                      className="w-full pl-8 pr-3 py-2 text-xs font-semibold border border-[#EAE3F2] rounded-xl bg-[#FAF8FD] focus:bg-white focus:outline-none focus:border-[#7147E8]"
+                      className="w-full pl-8 pr-3 py-2 text-xs font-semibold border border-[#E4DAD7] rounded-xl bg-[#FEF9F5] focus:bg-[#FEF9F5] focus:outline-none focus:border-[#7464AC]"
                     />
                   </div>
                   <button
@@ -2656,7 +2656,7 @@ export default function AdminDashboardPage() {
                       });
                       setEditingPost(newPost);
                     }}
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-4 py-2.5 rounded-xl text-xs font-extrabold shadow-sm hover:opacity-90 transition cursor-pointer text-center shrink-0"
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white px-4 py-2.5 rounded-xl text-xs font-extrabold shadow-sm hover:opacity-90 transition cursor-pointer text-center shrink-0"
                   >
                     + Add New Post
                   </button>
@@ -2669,7 +2669,7 @@ export default function AdminDashboardPage() {
                   .filter(p => blogFilter === 'all' ? true : blogFilter === 'published' ? p.published : !p.published)
                   .filter(p => !blogSearch || p.title.toLowerCase().includes(blogSearch.toLowerCase()) || p.category.toLowerCase().includes(blogSearch.toLowerCase()))
                   .map((post) => (
-                    <div key={post.id} className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-2xs space-y-3">
+                    <div key={post.id} className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-2xs space-y-3">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-start gap-2.5 min-w-0">
                           <span className="text-2xl shrink-0 mt-0.5">{post.emoji}</span>
@@ -2686,7 +2686,7 @@ export default function AdminDashboardPage() {
                       </div>
 
                       <div className="flex flex-wrap items-center gap-2 text-[11px] text-gray-500 font-semibold pt-1 border-t border-gray-100">
-                        <span className="bg-purple-50 text-[#7147E8] px-2.5 py-0.5 rounded-md font-bold">{post.category}</span>
+                        <span className="bg-purple-50 text-[#7464AC] px-2.5 py-0.5 rounded-md font-bold">{post.category}</span>
                         <span>•</span>
                         <span>{post.author}</span>
                         <span>•</span>
@@ -2697,7 +2697,7 @@ export default function AdminDashboardPage() {
                       <div className="flex items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs font-extrabold">
                         <button
                           onClick={() => setEditingPost(post)}
-                          className="flex-1 py-1.5 rounded-lg bg-[#FAF8FD] border border-[#EAE3F2] text-[#7147E8] text-center hover:bg-[#7147E8] hover:text-white transition"
+                          className="flex-1 py-1.5 rounded-lg bg-[#FEF9F5] border border-[#E4DAD7] text-[#7464AC] text-center hover:bg-[#7464AC] hover:text-white transition"
                         >
                           ✏️ Edit
                         </button>
@@ -2705,7 +2705,7 @@ export default function AdminDashboardPage() {
                           href={`/blog/${post.slug}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 py-1.5 rounded-lg bg-[#FAF8FD] border border-[#EAE3F2] text-gray-700 text-center hover:bg-gray-100 transition"
+                          className="flex-1 py-1.5 rounded-lg bg-[#FEF9F5] border border-[#E4DAD7] text-gray-700 text-center hover:bg-[#FEF9F5] transition"
                         >
                           👁️ View
                         </a>
@@ -2715,7 +2715,7 @@ export default function AdminDashboardPage() {
                             setBlogPosts(updated);
                             localStorage.setItem('moodflip_blog_posts', JSON.stringify(updated));
                           }}
-                          className="flex-1 py-1.5 rounded-lg bg-[#FAF8FD] border border-[#EAE3F2] text-amber-600 text-center hover:bg-amber-50 transition"
+                          className="flex-1 py-1.5 rounded-lg bg-[#FEF9F5] border border-[#E4DAD7] text-amber-600 text-center hover:bg-amber-50 transition"
                         >
                           {post.published ? 'Unpublish' : 'Publish'}
                         </button>
@@ -2736,11 +2736,11 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 2. DESKTOP TABLE VIEW (Hidden on mobile) */}
-              <div className="hidden md:block bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
+              <div className="hidden md:block bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl overflow-hidden shadow-xs">
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[700px] text-left text-xs">
                     <thead>
-                      <tr className="bg-[#FAF8FD] border-b border-[#EAE3F2] text-[10px] font-extrabold text-gray-500 uppercase tracking-wider">
+                      <tr className="bg-[#FEF9F5] border-b border-[#E4DAD7] text-[10px] font-extrabold text-gray-500 uppercase tracking-wider">
                         <th className="py-3 px-4">Title</th>
                         <th className="py-3 px-3">Category</th>
                         <th className="py-3 px-3">Author</th>
@@ -2754,20 +2754,20 @@ export default function AdminDashboardPage() {
                         .filter(p => !blogSearch || p.title.toLowerCase().includes(blogSearch.toLowerCase()) || p.category.toLowerCase().includes(blogSearch.toLowerCase()))
                         .map((post, i) => (
                         <tr key={post.id}
-                          className={`hover:bg-[#FAF8FD] transition group ${i % 2 === 0 ? 'bg-white' : 'bg-[#FDFCFF]'}`}
+                          className={`hover:bg-[#FEF9F5] transition group ${i % 2 === 0 ? 'bg-[#FEF9F5]' : 'bg-[#FDFCFF]'}`}
                         >
                           <td className="py-3.5 px-4">
                             <div className="flex items-center gap-2 mb-0.5">
                               <span className="text-lg shrink-0">{post.emoji}</span>
-                              <span className="font-serif font-extrabold text-sm text-[#1A1338] leading-snug line-clamp-1 group-hover:text-[#7147E8] transition">{post.title}</span>
+                              <span className="font-serif font-extrabold text-sm text-[#1A1338] leading-snug line-clamp-1 group-hover:text-[#7464AC] transition">{post.title}</span>
                             </div>
                             <p className="text-[10px] text-gray-400 font-mono ml-7 mb-1.5">/{post.slug}</p>
                             <div className="ml-7 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                               <button onClick={() => setEditingPost(post)}
-                                className="text-[11px] font-extrabold text-[#7147E8] hover:underline cursor-pointer">Edit</button>
+                                className="text-[11px] font-extrabold text-[#7464AC] hover:underline cursor-pointer">Edit</button>
                               <span className="text-gray-300">|</span>
                               <a href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer"
-                                className="text-[11px] font-extrabold text-gray-500 hover:text-[#7147E8] hover:underline">View</a>
+                                className="text-[11px] font-extrabold text-gray-500 hover:text-[#7464AC] hover:underline">View</a>
                               <span className="text-gray-300">|</span>
                               <button
                                 onClick={() => {
@@ -2805,7 +2805,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {blogPosts.filter(p => blogFilter === 'all' ? true : blogFilter === 'published' ? p.published : !p.published).filter(p => !blogSearch || p.title.toLowerCase().includes(blogSearch.toLowerCase())).length === 0 && (
-                <div className="py-16 text-center bg-white border border-[#EAE3F2] rounded-2xl">
+                <div className="py-16 text-center bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl">
                   <span className="text-4xl">📭</span>
                   <p className="mt-3 text-sm font-bold text-gray-400">No posts found</p>
                 </div>
@@ -2817,10 +2817,10 @@ export default function AdminDashboardPage() {
           {activeTab === 'Blog Manager' && editingPost && (
             <div className="space-y-0">
               {/* Editor Top Bar */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs mb-5">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#FEF9F5] p-4 rounded-2xl border border-[#E4DAD7] shadow-2xs mb-5">
                 <div className="flex items-center justify-between sm:justify-start gap-3">
                   <button onClick={() => setEditingPost(null)}
-                    className="flex items-center gap-1.5 text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
+                    className="flex items-center gap-1.5 text-xs font-extrabold text-[#7464AC] hover:underline cursor-pointer">
                     ← All Posts
                   </button>
                   <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full ${
@@ -2830,7 +2830,7 @@ export default function AdminDashboardPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setEditingPost({ ...editingPost, published: false })}
-                    className="flex-1 sm:flex-initial px-3.5 py-2 border border-[#EAE3F2] text-xs font-extrabold text-gray-600 rounded-xl hover:bg-gray-50 transition cursor-pointer text-center"
+                    className="flex-1 sm:flex-initial px-3.5 py-2 border border-[#E4DAD7] text-xs font-extrabold text-gray-600 rounded-xl hover:bg-[#FEF9F5] transition cursor-pointer text-center"
                   >Save Draft</button>
                   <button
                     onClick={() => {
@@ -2842,7 +2842,7 @@ export default function AdminDashboardPage() {
                       localStorage.setItem('moodflip_blog_posts', JSON.stringify(updated));
                       setEditingPost(null);
                     }}
-                    className="flex-1 sm:flex-initial px-4 py-2 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white text-xs font-extrabold rounded-xl shadow-sm hover:opacity-90 transition cursor-pointer text-center"
+                    className="flex-1 sm:flex-initial px-4 py-2 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white text-xs font-extrabold rounded-xl shadow-sm hover:opacity-90 transition cursor-pointer text-center"
                   >
                     {editingPost.published ? '💾 Update' : '🚀 Publish'}
                   </button>
@@ -2860,20 +2860,20 @@ export default function AdminDashboardPage() {
                     value={editingPost.title}
                     onChange={e => setEditingPost({ ...editingPost, title: e.target.value })}
                     placeholder="Add title"
-                    className="w-full text-2xl sm:text-3xl font-serif font-extrabold text-[#1A1338] placeholder-gray-300 border-0 border-b-2 border-[#EAE3F2] focus:border-[#7147E8] focus:outline-none pb-3 bg-transparent transition"
+                    className="w-full text-2xl sm:text-3xl font-serif font-extrabold text-[#1A1338] placeholder-gray-300 border-0 border-b-2 border-[#E4DAD7] focus:border-[#7464AC] focus:outline-none pb-3 bg-transparent transition"
                   />
                   {/* Permalink */}
                   <div className="flex items-center gap-2 text-xs text-gray-400 font-semibold">
                     <span>Permalink:</span>
-                    <span className="font-mono text-[#7147E8]">moodflip.coach/blog/</span>
+                    <span className="font-mono text-[#7464AC]">moodflip.coach/blog/</span>
                     <input
                       type="text"
                       value={editingPost.slug}
                       onChange={e => setEditingPost({ ...editingPost, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-') })}
-                      className="flex-1 border border-[#EAE3F2] rounded-lg px-2 py-1 text-xs font-mono text-[#1A1338] focus:outline-none focus:border-[#7147E8] bg-[#FAF8FD]"
+                      className="flex-1 border border-[#E4DAD7] rounded-lg px-2 py-1 text-xs font-mono text-[#1A1338] focus:outline-none focus:border-[#7464AC] bg-[#FEF9F5]"
                     />
                     <a href={`/blog/${editingPost.slug}`} target="_blank" rel="noopener noreferrer"
-                      className="text-[#7147E8] hover:underline text-[10px] font-extrabold">View ↗</a>
+                      className="text-[#7464AC] hover:underline text-[10px] font-extrabold">View ↗</a>
                   </div>
 
                   {/* Rich Text Editor Component */}
@@ -2885,14 +2885,14 @@ export default function AdminDashboardPage() {
                   />
 
                   {/* Excerpt */}
-                  <div className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-xs">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-xs">
                     <h4 className="font-serif font-extrabold text-sm text-[#1A1338] mb-2">Excerpt / Meta Description</h4>
                     <textarea
                       rows={3}
                       value={editingPost.excerpt}
                       onChange={e => setEditingPost({ ...editingPost, excerpt: e.target.value })}
                       placeholder="Short description shown in blog listings and SEO previews..."
-                      className="w-full text-xs text-[#1A1338] font-medium border border-[#EAE3F2] rounded-xl px-3.5 py-2.5 bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8] resize-y"
+                      className="w-full text-xs text-[#1A1338] font-medium border border-[#E4DAD7] rounded-xl px-3.5 py-2.5 bg-[#FEF9F5] focus:outline-none focus:border-[#7464AC] resize-y"
                     />
                   </div>
                 </div>
@@ -2900,8 +2900,8 @@ export default function AdminDashboardPage() {
                 {/* RIGHT SIDEBAR */}
                 <div className="space-y-4">
                   {/* Publish Box */}
-                  <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
-                    <div className="px-4 py-3 bg-[#FAF8FD] border-b border-[#EAE3F2]">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl overflow-hidden shadow-xs">
+                    <div className="px-4 py-3 bg-[#FEF9F5] border-b border-[#E4DAD7]">
                       <h4 className="font-serif font-extrabold text-sm text-[#1A1338]">Publish</h4>
                     </div>
                     <div className="p-4 space-y-3 text-xs">
@@ -2910,7 +2910,7 @@ export default function AdminDashboardPage() {
                         <select
                           value={editingPost.published ? 'published' : 'draft'}
                           onChange={e => setEditingPost({ ...editingPost, published: e.target.value === 'published' })}
-                          className="border border-[#EAE3F2] rounded-lg px-2 py-1 text-xs font-bold bg-white focus:outline-none focus:border-[#7147E8]"
+                          className="border border-[#E4DAD7] rounded-lg px-2 py-1 text-xs font-bold bg-[#FEF9F5] focus:outline-none focus:border-[#7464AC]"
                         >
                           <option value="draft">Draft</option>
                           <option value="published">Published</option>
@@ -2934,7 +2934,7 @@ export default function AdminDashboardPage() {
                             localStorage.setItem('moodflip_blog_posts', JSON.stringify(updated));
                             setEditingPost(null);
                           }}
-                          className="flex-1 py-2 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold rounded-xl hover:opacity-90 transition cursor-pointer shadow-sm text-xs"
+                          className="flex-1 py-2 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white font-extrabold rounded-xl hover:opacity-90 transition cursor-pointer shadow-sm text-xs"
                         >
                           {editingPost.published ? '💾 Update' : '🚀 Publish'}
                         </button>
@@ -2943,8 +2943,8 @@ export default function AdminDashboardPage() {
                   </div>
 
                   {/* Featured Image Box */}
-                  <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
-                    <div className="px-4 py-3 bg-[#FAF8FD] border-b border-[#EAE3F2] flex items-center justify-between">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl overflow-hidden shadow-xs">
+                    <div className="px-4 py-3 bg-[#FEF9F5] border-b border-[#E4DAD7] flex items-center justify-between">
                       <h4 className="font-serif font-extrabold text-sm text-[#1A1338]">🖼️ Featured Image</h4>
                       {editingPost.featuredImage && (
                         <button
@@ -2956,11 +2956,11 @@ export default function AdminDashboardPage() {
                     </div>
                     <div className="p-4 space-y-3 text-xs">
                       {editingPost.featuredImage ? (
-                        <div className="relative rounded-xl overflow-hidden border border-[#EAE3F2]">
+                        <div className="relative rounded-xl overflow-hidden border border-[#E4DAD7]">
                           <img src={editingPost.featuredImage} alt="Featured Preview" className="w-full h-36 object-cover" />
                         </div>
                       ) : (
-                        <div className="border-2 border-dashed border-[#EAE3F2] rounded-xl p-4 text-center text-gray-400">
+                        <div className="border-2 border-dashed border-[#E4DAD7] rounded-xl p-4 text-center text-gray-400">
                           <span className="text-2xl block mb-1">🖼️</span>
                           <span className="text-[11px] font-semibold">No featured image set</span>
                         </div>
@@ -2972,7 +2972,7 @@ export default function AdminDashboardPage() {
                           value={editingPost.featuredImage || ''}
                           onChange={e => setEditingPost({ ...editingPost, featuredImage: e.target.value })}
                           placeholder="https://images.unsplash.com/..."
-                          className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-mono text-[11px] bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
+                          className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-mono text-[11px] bg-[#FEF9F5] focus:outline-none focus:border-[#7464AC]"
                         />
                       </div>
                       <div>
@@ -2990,19 +2990,19 @@ export default function AdminDashboardPage() {
                               reader.readAsDataURL(file);
                             }
                           }}
-                          className="w-full text-[10px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-[11px] file:font-extrabold file:bg-[#F0EBFA] file:text-[#7147E8] hover:file:bg-[#E8E0F8] cursor-pointer"
+                          className="w-full text-[10px] text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-[11px] file:font-extrabold file:bg-[#F4EBF5] file:text-[#7464AC] hover:file:bg-[#E8E0F8] cursor-pointer"
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* SEO */}
-                  <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
-                    <div className="px-4 py-3 bg-[#FAF8FD] border-b border-[#EAE3F2]">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl overflow-hidden shadow-xs">
+                    <div className="px-4 py-3 bg-[#FEF9F5] border-b border-[#E4DAD7]">
                       <h4 className="font-serif font-extrabold text-sm text-[#1A1338]">🔍 SEO Preview</h4>
                     </div>
                     <div className="p-4 space-y-2">
-                      <div className="bg-white border border-gray-200 rounded-xl p-3 text-xs">
+                      <div className="bg-[#FEF9F5] border border-gray-200 rounded-xl p-3 text-xs">
                         <p className="text-[#1558d6] font-semibold truncate text-sm">{editingPost.title || 'Post Title'}</p>
                         <p className="text-[#006621] text-[10px] font-mono">moodflip.coach/blog/{editingPost.slug}</p>
                         <p className="text-[#545454] mt-1 line-clamp-2 leading-relaxed">{editingPost.excerpt || 'Meta description will appear here...'}</p>
@@ -3037,7 +3037,7 @@ export default function AdminDashboardPage() {
           ═══════════════════════════════════════════════════════════ */}
           {activeTab === 'Legal Pages' && !editingLegalPage && (
             <div className="space-y-5">
-              <div className="bg-white p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs">
+              <div className="bg-[#FEF9F5] p-4 rounded-2xl border border-[#E4DAD7] shadow-2xs">
                 <h2 className="font-serif font-extrabold text-2xl text-[#1A1338]">Pages 📄</h2>
                 <p className="text-xs text-gray-500 font-semibold mt-1">Edit your legal pages. Changes are saved and reflected live on the public pages.</p>
               </div>
@@ -3045,7 +3045,7 @@ export default function AdminDashboardPage() {
               {/* 1. MOBILE CARD VIEW (Block on mobile screens) */}
               <div className="block md:hidden space-y-3">
                 {legalPages.map((page) => (
-                  <div key={page.id} className="bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-2xs space-y-3">
+                  <div key={page.id} className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-2xs space-y-3">
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <h3 className="font-serif font-extrabold text-base text-[#1A1338] leading-snug">{page.title}</h3>
@@ -3062,7 +3062,7 @@ export default function AdminDashboardPage() {
                     <div className="flex items-center justify-between gap-2 pt-2 border-t border-gray-100 text-xs font-extrabold">
                       <button
                         onClick={() => setEditingLegalPage(page)}
-                        className="flex-1 py-2 rounded-xl bg-[#FAF8FD] border border-[#EAE3F2] text-[#7147E8] text-center hover:bg-[#7147E8] hover:text-white transition cursor-pointer"
+                        className="flex-1 py-2 rounded-xl bg-[#FEF9F5] border border-[#E4DAD7] text-[#7464AC] text-center hover:bg-[#7464AC] hover:text-white transition cursor-pointer"
                       >
                         ✏️ Edit Page
                       </button>
@@ -3070,7 +3070,7 @@ export default function AdminDashboardPage() {
                         href={`/${page.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 py-2 rounded-xl bg-[#FAF8FD] border border-[#EAE3F2] text-gray-700 text-center hover:bg-gray-100 transition"
+                        className="flex-1 py-2 rounded-xl bg-[#FEF9F5] border border-[#E4DAD7] text-gray-700 text-center hover:bg-[#FEF9F5] transition"
                       >
                         👁️ Preview ↗
                       </a>
@@ -3080,11 +3080,11 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 2. DESKTOP TABLE VIEW (Hidden on mobile) */}
-              <div className="hidden md:block bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
+              <div className="hidden md:block bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl overflow-hidden shadow-xs">
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[600px] text-left text-xs">
                     <thead>
-                      <tr className="bg-[#FAF8FD] border-b border-[#EAE3F2] text-[10px] font-extrabold text-gray-500 uppercase tracking-wider">
+                      <tr className="bg-[#FEF9F5] border-b border-[#E4DAD7] text-[10px] font-extrabold text-gray-500 uppercase tracking-wider">
                         <th className="py-3 px-4">Title</th>
                         <th className="py-3 px-3">Last Updated</th>
                         <th className="py-3 px-4 text-right">Status</th>
@@ -3093,17 +3093,17 @@ export default function AdminDashboardPage() {
                     <tbody className="divide-y divide-[#F3EFF8]">
                       {legalPages.map((page, i) => (
                         <tr key={page.id}
-                          className={`hover:bg-[#FAF8FD] transition group ${i % 2 === 0 ? 'bg-white' : 'bg-[#FDFCFF]'}`}
+                          className={`hover:bg-[#FEF9F5] transition group ${i % 2 === 0 ? 'bg-[#FEF9F5]' : 'bg-[#FDFCFF]'}`}
                         >
                           <td className="py-4 px-4">
                             <p className="font-serif font-extrabold text-sm text-[#1A1338] mb-0.5">{page.title}</p>
                             <p className="text-[10px] text-gray-400 font-mono mb-1.5">/{page.slug}</p>
                             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                               <button onClick={() => setEditingLegalPage(page)}
-                                className="text-[11px] font-extrabold text-[#7147E8] hover:underline cursor-pointer">Edit</button>
+                                className="text-[11px] font-extrabold text-[#7464AC] hover:underline cursor-pointer">Edit</button>
                               <span className="text-gray-300">|</span>
                               <a href={`/${page.slug}`} target="_blank" rel="noopener noreferrer"
-                                className="text-[11px] font-extrabold text-gray-500 hover:text-[#7147E8] hover:underline">View</a>
+                                className="text-[11px] font-extrabold text-gray-500 hover:text-[#7464AC] hover:underline">View</a>
                             </div>
                           </td>
                           <td className="py-4 px-3 text-xs text-gray-500 font-semibold align-top pt-5">{page.lastUpdated}</td>
@@ -3123,17 +3123,17 @@ export default function AdminDashboardPage() {
           {activeTab === 'Legal Pages' && editingLegalPage && (
             <div className="space-y-0">
               {/* Editor Top Bar */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-[#EAE3F2] shadow-2xs mb-5">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#FEF9F5] p-4 rounded-2xl border border-[#E4DAD7] shadow-2xs mb-5">
                 <div className="flex items-center justify-between sm:justify-start gap-3">
                   <button onClick={() => setEditingLegalPage(null)}
-                    className="flex items-center gap-1.5 text-xs font-extrabold text-[#7147E8] hover:underline cursor-pointer">
+                    className="flex items-center gap-1.5 text-xs font-extrabold text-[#7464AC] hover:underline cursor-pointer">
                     ← All Pages
                   </button>
                   <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">● Published</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <a href={`/${editingLegalPage.slug}`} target="_blank" rel="noopener noreferrer"
-                    className="flex-1 sm:flex-initial px-3.5 py-2 border border-[#EAE3F2] text-xs font-extrabold text-gray-600 rounded-xl hover:bg-gray-50 transition text-center">
+                    className="flex-1 sm:flex-initial px-3.5 py-2 border border-[#E4DAD7] text-xs font-extrabold text-gray-600 rounded-xl hover:bg-[#FEF9F5] transition text-center">
                     Preview ↗
                   </a>
                   <button
@@ -3143,7 +3143,7 @@ export default function AdminDashboardPage() {
                       localStorage.setItem('moodflip_legal_pages', JSON.stringify(updated));
                       setEditingLegalPage(null);
                     }}
-                    className="flex-1 sm:flex-initial px-4 py-2 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white text-xs font-extrabold rounded-xl shadow-sm hover:opacity-90 transition cursor-pointer text-center"
+                    className="flex-1 sm:flex-initial px-4 py-2 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white text-xs font-extrabold rounded-xl shadow-sm hover:opacity-90 transition cursor-pointer text-center"
                   >
                     💾 Update Page
                   </button>
@@ -3158,11 +3158,11 @@ export default function AdminDashboardPage() {
                     type="text"
                     value={editingLegalPage.title}
                     onChange={e => setEditingLegalPage({ ...editingLegalPage, title: e.target.value })}
-                    className="w-full text-2xl sm:text-3xl font-serif font-extrabold text-[#1A1338] placeholder-gray-300 border-0 border-b-2 border-[#EAE3F2] focus:border-[#7147E8] focus:outline-none pb-3 bg-transparent transition"
+                    className="w-full text-2xl sm:text-3xl font-serif font-extrabold text-[#1A1338] placeholder-gray-300 border-0 border-b-2 border-[#E4DAD7] focus:border-[#7464AC] focus:outline-none pb-3 bg-transparent transition"
                   />
                   <div className="flex items-center gap-2 text-xs text-gray-400 font-semibold">
                     <span>URL:</span>
-                    <span className="font-mono text-[#7147E8]">moodflip.coach/{editingLegalPage.slug}</span>
+                    <span className="font-mono text-[#7464AC]">moodflip.coach/{editingLegalPage.slug}</span>
                   </div>
 
                   {/* Rich Text Editor Component for Legal Page */}
@@ -3176,8 +3176,8 @@ export default function AdminDashboardPage() {
 
                 {/* RIGHT SIDEBAR */}
                 <div className="space-y-4">
-                  <div className="bg-white border border-[#EAE3F2] rounded-2xl overflow-hidden shadow-xs">
-                    <div className="px-4 py-3 bg-[#FAF8FD] border-b border-[#EAE3F2]">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl overflow-hidden shadow-xs">
+                    <div className="px-4 py-3 bg-[#FEF9F5] border-b border-[#E4DAD7]">
                       <h4 className="font-serif font-extrabold text-sm text-[#1A1338]">Page Attributes</h4>
                     </div>
                     <div className="p-4 space-y-3 text-xs">
@@ -3193,7 +3193,7 @@ export default function AdminDashboardPage() {
                         <label className="block font-extrabold text-[#1A1338] mb-1">Last Updated</label>
                         <input type="text" value={editingLegalPage.lastUpdated}
                           onChange={e => setEditingLegalPage({ ...editingLegalPage, lastUpdated: e.target.value })}
-                          className="w-full border border-[#EAE3F2] rounded-xl px-3 py-2 font-mono text-xs bg-[#FAF8FD] focus:outline-none focus:border-[#7147E8]"
+                          className="w-full border border-[#E4DAD7] rounded-xl px-3 py-2 font-mono text-xs bg-[#FEF9F5] focus:outline-none focus:border-[#7464AC]"
                         />
                       </div>
                       <div className="pt-2 border-t border-gray-100">
@@ -3204,7 +3204,7 @@ export default function AdminDashboardPage() {
                             localStorage.setItem('moodflip_legal_pages', JSON.stringify(updated));
                             setEditingLegalPage(null);
                           }}
-                          className="w-full py-2.5 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold rounded-xl hover:opacity-90 transition cursor-pointer shadow-sm text-xs"
+                          className="w-full py-2.5 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white font-extrabold rounded-xl hover:opacity-90 transition cursor-pointer shadow-sm text-xs"
                         >
                           💾 Update Page
                         </button>
@@ -3223,14 +3223,14 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB: POPUP MANAGER */}
           {activeTab === 'Popup Manager' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
               <div className="border-b border-gray-100 pb-5">
                 <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Profile Invitation Popup Manager 🌸</h2>
-                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Control popup visibility, timing rules, daily frequency, target audience, and custom text displayed to visitors.</p>
+                <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Control popup visibility, timing rules, daily frequency, target audience, and custom text displayed to visitors.</p>
               </div>
 
               {/* CARD: POPUP SETTINGS */}
-              <div className="bg-white border-2 border-[#7464AC]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-6">
+              <div className="bg-[#FEF9F5] border-2 border-[#7464AC]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                   <div className="flex items-start sm:items-center gap-3">
                     <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7464AC] to-[#9C6FBF] flex items-center justify-center text-2xl shrink-0 shadow-md text-white">
@@ -3244,7 +3244,7 @@ export default function AdminDashboardPage() {
                         <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${
                           popupSettings.enabled 
                             ? 'bg-emerald-100 text-emerald-800 border-emerald-200' 
-                            : 'bg-gray-100 text-gray-700 border-gray-200'
+                            : 'bg-[#FEF9F5] text-gray-700 border-gray-200'
                         }`}>
                           {popupSettings.enabled ? '🟢 ENABLED' : '⚪ DISABLED'}
                         </span>
@@ -3264,12 +3264,12 @@ export default function AdminDashboardPage() {
                       }`}
                     >
                       <span
-                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-[#FEF9F5] shadow-md ring-0 transition duration-200 ease-in-out ${
                           popupSettings.enabled ? 'translate-x-7' : 'translate-x-0'
                         }`}
                       />
                     </button>
-                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${popupSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${popupSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-500'}`}>
                       {popupSettings.enabled ? 'ON' : 'OFF'}
                     </span>
                   </div>
@@ -3284,13 +3284,13 @@ export default function AdminDashboardPage() {
                 {/* Timing & Audience Rules Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                   {/* Target Audience */}
-                  <div className="p-4 rounded-xl bg-[#FAF8FD] border border-gray-200">
+                  <div className="p-4 rounded-xl bg-[#FEF9F5] border border-gray-200">
                     <label className="block font-extrabold text-[#1A1338] mb-1">🎯 Target Audience</label>
                     <p className="text-[11px] text-gray-500 mb-2.5">Who should see this invitation popup?</p>
                     <select
                       value={popupSettings.targetAudience}
                       onChange={(e) => setPopupSettings({ ...popupSettings, targetAudience: e.target.value as 'unregistered' | 'all' })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-white font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                     >
                       <option value="unregistered">🔓 Only Unregistered / Non-logged in Users (Recommended)</option>
                       <option value="all">👥 All Visitors (Including Logged-in Users)</option>
@@ -3298,13 +3298,13 @@ export default function AdminDashboardPage() {
                   </div>
 
                   {/* Frequency Interval (Cooldown) */}
-                  <div className="p-4 rounded-xl bg-[#FAF8FD] border border-gray-200">
+                  <div className="p-4 rounded-xl bg-[#FEF9F5] border border-gray-200">
                     <label className="block font-extrabold text-[#1A1338] mb-1">⏱️ Cooldown Interval</label>
                     <p className="text-[11px] text-gray-500 mb-2.5">Minimum time before showing to same user again</p>
                     <select
                       value={popupSettings.frequencyHours}
                       onChange={(e) => setPopupSettings({ ...popupSettings, frequencyHours: Number(e.target.value) })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-white font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                     >
                       <option value={6}>Every 6 Hours</option>
                       <option value={12}>Every 12 Hours (Default — 2x per day)</option>
@@ -3316,13 +3316,13 @@ export default function AdminDashboardPage() {
                   </div>
 
                   {/* Max Daily Limit */}
-                  <div className="p-4 rounded-xl bg-[#FAF8FD] border border-gray-200">
+                  <div className="p-4 rounded-xl bg-[#FEF9F5] border border-gray-200">
                     <label className="block font-extrabold text-[#1A1338] mb-1">📅 Daily Impression Cap</label>
                     <p className="text-[11px] text-gray-500 mb-2.5">Maximum times shown per calendar day</p>
                     <select
                       value={popupSettings.maxDailyLimit}
                       onChange={(e) => setPopupSettings({ ...popupSettings, maxDailyLimit: Number(e.target.value) })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-white font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                     >
                       <option value={1}>Max 1 time per day</option>
                       <option value={2}>Max 2 times per day (Default)</option>
@@ -3340,7 +3340,7 @@ export default function AdminDashboardPage() {
                     <select
                       value={popupSettings.showDelaySeconds}
                       onChange={(e) => setPopupSettings({ ...popupSettings, showDelaySeconds: Number(e.target.value) })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                     >
                       <option value={2}>2 seconds</option>
                       <option value={3}>3 seconds</option>
@@ -3356,7 +3356,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={popupSettings.modalTitle}
                       onChange={(e) => setPopupSettings({ ...popupSettings, modalTitle: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="Welcome back to MoodFlip!"
                     />
                   </div>
@@ -3367,7 +3367,7 @@ export default function AdminDashboardPage() {
                       rows={2}
                       value={popupSettings.modalDescription}
                       onChange={(e) => setPopupSettings({ ...popupSettings, modalDescription: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report."
                     />
                   </div>
@@ -3378,7 +3378,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={popupSettings.buttonText}
                       onChange={(e) => setPopupSettings({ ...popupSettings, buttonText: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="Create Free Profile"
                     />
                   </div>
@@ -3389,7 +3389,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={popupSettings.buttonLink}
                       onChange={(e) => setPopupSettings({ ...popupSettings, buttonLink: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="/register"
                     />
                   </div>
@@ -3404,13 +3404,13 @@ export default function AdminDashboardPage() {
                     <button
                       type="button"
                       onClick={resetLocalPopupCooldown}
-                      className="px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-[#7464AC] text-[11px] font-bold hover:bg-purple-50 transition cursor-pointer shadow-2xs"
+                      className="px-3 py-1.5 rounded-lg bg-[#FEF9F5] border border-purple-200 text-[#7464AC] text-[11px] font-bold hover:bg-purple-50 transition cursor-pointer shadow-2xs"
                     >
                       🔄 Reset My Test Cooldown
                     </button>
                   </div>
 
-                  <div className="max-w-sm mx-auto bg-white rounded-2xl p-6 text-center shadow-lg border border-purple-100 relative">
+                  <div className="max-w-sm mx-auto bg-[#FEF9F5] rounded-2xl p-6 text-center shadow-lg border border-purple-100 relative">
                     <div className="text-3xl mb-2">🌸</div>
                     <h4 className="font-serif font-extrabold text-base text-[#3D2D5E] mb-1.5">
                       {popupSettings.modalTitle || 'Welcome back to MoodFlip!'}
@@ -3445,14 +3445,14 @@ export default function AdminDashboardPage() {
 
           {/* VIEW TAB 10: SETTINGS & DEVELOPER OPTIONS */}
           {activeTab === 'Settings' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-4 sm:p-8 shadow-2xs space-y-6">
               <div className="border-b border-gray-100 pb-5">
                 <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Platform System &amp; Developer Settings ⚙️</h2>
-                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Configure Profile Invitation Popup, Add to Home Screen App Prompt, Cookie Consent Banner, Admin Login, Email SMTP, and Payment Gateways.</p>
+                <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Configure Profile Invitation Popup, Add to Home Screen App Prompt, Cookie Consent Banner, Admin Login, Email SMTP, and Payment Gateways.</p>
               </div>
 
               {/* 0. PROFILE INVITATION POPUP & FREQUENCY CARD IN SETTINGS */}
-              <div className="bg-white border-2 border-[#7464AC]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-5 relative overflow-hidden">
+              <div className="bg-[#FEF9F5] border-2 border-[#7464AC]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-5 relative overflow-hidden">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                   <div className="flex items-start sm:items-center gap-3">
                     <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7464AC] to-[#9C6FBF] flex items-center justify-center text-2xl shrink-0 shadow-md text-white">
@@ -3466,7 +3466,7 @@ export default function AdminDashboardPage() {
                         <span className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${
                           popupSettings.enabled 
                             ? 'bg-emerald-100 text-emerald-800 border-emerald-200' 
-                            : 'bg-gray-100 text-gray-700 border-gray-200'
+                            : 'bg-[#FEF9F5] text-gray-700 border-gray-200'
                         }`}>
                           {popupSettings.enabled ? '🟢 ON' : '⚪ OFF'}
                         </span>
@@ -3486,12 +3486,12 @@ export default function AdminDashboardPage() {
                       }`}
                     >
                       <span
-                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-[#FEF9F5] shadow-md ring-0 transition duration-200 ease-in-out ${
                           popupSettings.enabled ? 'translate-x-7' : 'translate-x-0'
                         }`}
                       />
                     </button>
-                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${popupSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${popupSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-500'}`}>
                       {popupSettings.enabled ? '🟢 ACTIVE (ON)' : '⚪ DISABLED (OFF)'}
                     </span>
                   </div>
@@ -3509,7 +3509,7 @@ export default function AdminDashboardPage() {
                     <select
                       value={popupSettings.targetAudience}
                       onChange={(e) => setPopupSettings({ ...popupSettings, targetAudience: e.target.value as 'unregistered' | 'all' })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                     >
                       <option value="unregistered">🔓 Non-Logged-in Users Only (Recommended)</option>
                       <option value="all">👥 All Visitors</option>
@@ -3521,7 +3521,7 @@ export default function AdminDashboardPage() {
                     <select
                       value={popupSettings.frequencyHours}
                       onChange={(e) => setPopupSettings({ ...popupSettings, frequencyHours: Number(e.target.value) })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                     >
                       <option value={6}>Every 6 Hours</option>
                       <option value={12}>Every 12 Hours (Default — 2x/day)</option>
@@ -3537,7 +3537,7 @@ export default function AdminDashboardPage() {
                     <select
                       value={popupSettings.maxDailyLimit}
                       onChange={(e) => setPopupSettings({ ...popupSettings, maxDailyLimit: Number(e.target.value) })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                     >
                       <option value={1}>Max 1 time per day</option>
                       <option value={2}>Max 2 times per day (Default)</option>
@@ -3559,7 +3559,7 @@ export default function AdminDashboardPage() {
                   <button
                     type="button"
                     onClick={() => savePopupSettings(popupSettings)}
-                    className="w-full sm:w-auto bg-[#7464AC] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
+                    className="w-full sm:w-auto bg-[#7464AC] hover:bg-[#7464AC] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
                   >
                     💾 Save Popup Settings
                   </button>
@@ -3567,10 +3567,10 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 1. MOBILE "ADD TO HOME SCREEN" / PWA APP PROMPT SETTINGS CARD */}
-              <div className="bg-white border-2 border-[#7147E8]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-5 relative overflow-hidden">
+              <div className="bg-[#FEF9F5] border-2 border-[#7464AC]/30 rounded-2xl p-5 sm:p-7 shadow-md space-y-5 relative overflow-hidden">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                   <div className="flex items-start sm:items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7147E8] to-[#f59e0b] flex items-center justify-center text-2xl shrink-0 shadow-md text-white">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7464AC] to-[#f59e0b] flex items-center justify-center text-2xl shrink-0 shadow-md text-white">
                       📱
                     </div>
                     <div>
@@ -3593,16 +3593,16 @@ export default function AdminDashboardPage() {
                       type="button"
                       onClick={() => savePwaSettings({ ...pwaSettings, enabled: !pwaSettings.enabled })}
                       className={`relative inline-flex h-7 w-14 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                        pwaSettings.enabled ? 'bg-[#7147E8]' : 'bg-gray-300'
+                        pwaSettings.enabled ? 'bg-[#7464AC]' : 'bg-gray-300'
                       }`}
                     >
                       <span
-                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-[#FEF9F5] shadow-md ring-0 transition duration-200 ease-in-out ${
                           pwaSettings.enabled ? 'translate-x-7' : 'translate-x-0'
                         }`}
                       />
                     </button>
-                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${pwaSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${pwaSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-500'}`}>
                       {pwaSettings.enabled ? '🟢 ACTIVE (ON)' : '⚪ DISABLED (OFF)'}
                     </span>
                   </div>
@@ -3643,7 +3643,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={pwaSettings.bannerTitle}
                       onChange={(e) => setPwaSettings({ ...pwaSettings, bannerTitle: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="Install MoodFlip App"
                     />
                   </div>
@@ -3654,7 +3654,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={pwaSettings.buttonText}
                       onChange={(e) => setPwaSettings({ ...pwaSettings, buttonText: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="Add to Home Screen"
                     />
                   </div>
@@ -3665,7 +3665,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={pwaSettings.bannerSubtitle}
                       onChange={(e) => setPwaSettings({ ...pwaSettings, bannerSubtitle: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="Add MoodFlip to your Mobile Home Screen for instant 60-second mindset reset anywhere!"
                     />
                   </div>
@@ -3675,7 +3675,7 @@ export default function AdminDashboardPage() {
                     <select
                       value={pwaSettings.showDelay}
                       onChange={(e) => setPwaSettings({ ...pwaSettings, showDelay: Number(e.target.value) })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                     >
                       <option value={1000}>1 second</option>
                       <option value={2000}>2 seconds (Recommended)</option>
@@ -3690,9 +3690,9 @@ export default function AdminDashboardPage() {
                   <span className="block text-[11px] font-extrabold uppercase tracking-wider text-gray-500 mb-2">
                     👁️ Banner Live Preview (How it looks on mobile/desktop)
                   </span>
-                  <div className="max-w-md bg-[#170E3B] border border-white/20 text-white rounded-2xl p-3.5 shadow-lg">
+                  <div className="max-w-md bg-[#1A143F] border border-white/20 text-white rounded-2xl p-3.5 shadow-lg">
                     <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#7147E8] to-[#f59e0b] flex items-center justify-center text-xl shrink-0 shadow-md">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#7464AC] to-[#f59e0b] flex items-center justify-center text-xl shrink-0 shadow-md">
                         📱
                       </div>
                       <div className="flex-1 min-w-0">
@@ -3706,7 +3706,7 @@ export default function AdminDashboardPage() {
                           {pwaSettings.bannerSubtitle || 'Add MoodFlip to your Mobile Home Screen for instant 60-second mindset reset anywhere!'}
                         </p>
                         <div className="flex items-center gap-2">
-                          <div className="flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-1.5 px-3 rounded-lg text-[11px] font-black text-center shadow-xs">
+                          <div className="flex-1 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white py-1.5 px-3 rounded-lg text-[11px] font-black text-center shadow-xs">
                             📲 {pwaSettings.buttonText || 'Add to Home Screen'}
                           </div>
                           <span className="px-2 py-1 text-[11px] font-bold text-white/60">Later</span>
@@ -3720,7 +3720,7 @@ export default function AdminDashboardPage() {
                   <button
                     type="button"
                     onClick={() => savePwaSettings(pwaSettings)}
-                    className="w-full sm:w-auto bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
+                    className="w-full sm:w-auto bg-[#7464AC] hover:bg-[#7464AC] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
                   >
                     💾 Save PWA &amp; Add to Home Screen Settings
                   </button>
@@ -3728,7 +3728,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 2. COOKIE CONSENT & PRIVACY POLICY BANNER SETTINGS CARD */}
-              <div className="bg-white border-2 border-amber-500/20 rounded-2xl p-5 sm:p-7 shadow-xs space-y-5">
+              <div className="bg-[#FEF9F5] border-2 border-amber-500/20 rounded-2xl p-5 sm:p-7 shadow-xs space-y-5">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                   <div className="flex items-start sm:items-center gap-3">
                     <div className="w-12 h-12 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center text-2xl shrink-0 shadow-xs">
@@ -3754,16 +3754,16 @@ export default function AdminDashboardPage() {
                       type="button"
                       onClick={() => saveCookieSettings({ ...cookieSettings, enabled: !cookieSettings.enabled })}
                       className={`relative inline-flex h-7 w-14 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                        cookieSettings.enabled ? 'bg-[#7147E8]' : 'bg-gray-300'
+                        cookieSettings.enabled ? 'bg-[#7464AC]' : 'bg-gray-300'
                       }`}
                     >
                       <span
-                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                        className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-[#FEF9F5] shadow-md ring-0 transition duration-200 ease-in-out ${
                           cookieSettings.enabled ? 'translate-x-7' : 'translate-x-0'
                         }`}
                       />
                     </button>
-                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${cookieSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                    <span className={`text-xs font-black px-3 py-1 rounded-xl ${cookieSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-500'}`}>
                       {cookieSettings.enabled ? '🟢 ACTIVE (ON)' : '⚪ DISABLED (OFF)'}
                     </span>
                   </div>
@@ -3803,7 +3803,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={cookieSettings.bannerTitle}
                       onChange={(e) => setCookieSettings({ ...cookieSettings, bannerTitle: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="We Value Your Privacy & Cookies"
                     />
                   </div>
@@ -3814,7 +3814,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={cookieSettings.privacyLink}
                       onChange={(e) => setCookieSettings({ ...cookieSettings, privacyLink: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="/privacy"
                     />
                   </div>
@@ -3825,7 +3825,7 @@ export default function AdminDashboardPage() {
                       rows={2}
                       value={cookieSettings.bannerText}
                       onChange={(e) => setCookieSettings({ ...cookieSettings, bannerText: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="MoodFlip uses essential cookies and analytics to enhance your self-reflection experience..."
                     />
                   </div>
@@ -3836,7 +3836,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={cookieSettings.acceptButtonText}
                       onChange={(e) => setCookieSettings({ ...cookieSettings, acceptButtonText: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="✓ Accept All Cookies"
                     />
                   </div>
@@ -3847,7 +3847,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={cookieSettings.essentialButtonText}
                       onChange={(e) => setCookieSettings({ ...cookieSettings, essentialButtonText: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="Essential Only"
                     />
                   </div>
@@ -3858,7 +3858,7 @@ export default function AdminDashboardPage() {
                   <span className="block text-[11px] font-extrabold uppercase tracking-wider text-gray-500 mb-2">
                     👁️ Cookie Banner Live Preview
                   </span>
-                  <div className="max-w-md bg-white border border-[#EAE3F2] rounded-2xl p-4 shadow-sm text-[#1A1338]">
+                  <div className="max-w-md bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 shadow-sm text-[#1A1338]">
                     <div className="flex items-start gap-3">
                       <span className="text-2xl shrink-0">🍪</span>
                       <div className="flex-1 min-w-0">
@@ -3867,13 +3867,13 @@ export default function AdminDashboardPage() {
                         </h4>
                         <p className="text-[11px] text-[#5B5278] leading-tight mb-2.5">
                           {cookieSettings.bannerText || 'MoodFlip uses essential cookies and analytics to enhance your self-reflection experience.'}{' '}
-                          <span className="text-[#7147E8] font-bold underline">Privacy Policy</span>
+                          <span className="text-[#7464AC] font-bold underline">Privacy Policy</span>
                         </p>
                         <div className="flex items-center gap-2">
-                          <div className="flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-1.5 px-3 rounded-lg text-[11px] font-black text-center shadow-xs">
+                          <div className="flex-1 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white py-1.5 px-3 rounded-lg text-[11px] font-black text-center shadow-xs">
                             {cookieSettings.acceptButtonText || '✓ Accept All Cookies'}
                           </div>
-                          <div className="px-2.5 py-1.5 rounded-lg border border-[#EAE3F2] text-[11px] font-bold text-[#5B5278]">
+                          <div className="px-2.5 py-1.5 rounded-lg border border-[#E4DAD7] text-[11px] font-bold text-[#5B5278]">
                             {cookieSettings.essentialButtonText || 'Essential Only'}
                           </div>
                         </div>
@@ -3886,7 +3886,7 @@ export default function AdminDashboardPage() {
                   <button
                     type="button"
                     onClick={() => saveCookieSettings(cookieSettings)}
-                    className="w-full sm:w-auto bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
+                    className="w-full sm:w-auto bg-[#7464AC] hover:bg-[#7464AC] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
                   >
                     💾 Save Cookie Consent Settings
                   </button>
@@ -3894,7 +3894,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 1. ADMIN LOGIN CREDENTIALS CARD */}
-              <div className="bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-4 sm:p-6 shadow-2xs space-y-4">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 sm:p-6 shadow-2xs space-y-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-200/60 pb-3">
                   <div className="flex items-center gap-2.5">
                     <span className="text-2xl shrink-0">🔑</span>
@@ -3903,7 +3903,7 @@ export default function AdminDashboardPage() {
                       <p className="text-xs text-gray-500 font-medium">Change the Admin Email and Admin Password required to log in at /login.</p>
                     </div>
                   </div>
-                  <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-purple-100 text-[#7147E8] shrink-0 self-start sm:self-auto">
+                  <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-purple-100 text-[#7464AC] shrink-0 self-start sm:self-auto">
                     Active: {adminCreds.email}
                   </span>
                 </div>
@@ -3922,7 +3922,7 @@ export default function AdminDashboardPage() {
                       required
                       value={adminCreds.email}
                       onChange={(e) => setAdminCreds({ ...adminCreds, email: e.target.value })}
-                      className="w-full border border-gray-200 p-3 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-3 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="admin@moodflip.coach"
                     />
                   </div>
@@ -3933,14 +3933,14 @@ export default function AdminDashboardPage() {
                       required
                       value={adminCreds.password}
                       onChange={(e) => setAdminCreds({ ...adminCreds, password: e.target.value })}
-                      className="w-full border border-gray-200 p-3 rounded-xl bg-[#FAF8FD] font-mono font-bold text-xs focus:outline-none focus:border-[#7147E8]"
+                      className="w-full border border-gray-200 p-3 rounded-xl bg-[#FEF9F5] font-mono font-bold text-xs focus:outline-none focus:border-[#7464AC]"
                       placeholder="admin123"
                     />
                   </div>
                   <div className="md:col-span-2 flex justify-end pt-1">
                     <button
                       type="submit"
-                      className="w-full sm:w-auto bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
+                      className="w-full sm:w-auto bg-[#7464AC] hover:bg-[#7464AC] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer text-center"
                     >
                       💾 Update Admin Login Credentials
                     </button>
@@ -3949,7 +3949,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 2. EMAIL SMTP & GMAIL CONFIGURATION CARD */}
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl p-6 shadow-xs space-y-5">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-6 shadow-xs space-y-5">
                 <div className="flex items-center justify-between border-b border-gray-100 pb-3">
                   <div className="flex items-center gap-2.5">
                     <span className="text-2xl">📧</span>
@@ -3963,9 +3963,9 @@ export default function AdminDashboardPage() {
                       type="checkbox"
                       checked={smtpSettings.enabled}
                       onChange={(e) => setSmtpSettings({ ...smtpSettings, enabled: e.target.checked })}
-                      className="w-5 h-5 accent-[#7147E8]"
+                      className="w-5 h-5 accent-[#7464AC]"
                     />
-                    <span className={`text-xs font-extrabold px-2.5 py-1 rounded-md ${smtpSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'}`}>
+                    <span className={`text-xs font-extrabold px-2.5 py-1 rounded-md ${smtpSettings.enabled ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-400'}`}>
                       {smtpSettings.enabled ? 'ENABLED' : 'DISABLED'}
                     </span>
                   </label>
@@ -3993,7 +3993,7 @@ export default function AdminDashboardPage() {
                           setSmtpSettings({ ...smtpSettings, provider: 'custom' });
                         }
                       }}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold"
                     >
                       <option value="gmail">Gmail SMTP (smtp.gmail.com)</option>
                       <option value="custom">Custom SMTP Server</option>
@@ -4006,7 +4006,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={smtpSettings.host}
                       onChange={(e) => setSmtpSettings({ ...smtpSettings, host: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-mono text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-mono text-xs"
                       placeholder="smtp.gmail.com"
                     />
                   </div>
@@ -4017,7 +4017,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={smtpSettings.port}
                       onChange={(e) => setSmtpSettings({ ...smtpSettings, port: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-mono text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-mono text-xs"
                       placeholder="587"
                     />
                   </div>
@@ -4028,7 +4028,7 @@ export default function AdminDashboardPage() {
                       type="email"
                       value={smtpSettings.username}
                       onChange={(e) => setSmtpSettings({ ...smtpSettings, username: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs"
                       placeholder="support@moodflip.coach"
                     />
                   </div>
@@ -4039,7 +4039,7 @@ export default function AdminDashboardPage() {
                       type="password"
                       value={smtpSettings.password}
                       onChange={(e) => setSmtpSettings({ ...smtpSettings, password: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-mono text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-mono text-xs"
                       placeholder="••••••••••••••••"
                     />
                   </div>
@@ -4049,7 +4049,7 @@ export default function AdminDashboardPage() {
                     <select
                       value={smtpSettings.security}
                       onChange={(e) => setSmtpSettings({ ...smtpSettings, security: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold"
                     >
                       <option value="TLS">TLS (Recommended - Port 587)</option>
                       <option value="SSL">SSL (Port 465)</option>
@@ -4063,7 +4063,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={smtpSettings.senderName}
                       onChange={(e) => setSmtpSettings({ ...smtpSettings, senderName: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs"
                       placeholder="MoodFlip Support Team"
                     />
                   </div>
@@ -4074,7 +4074,7 @@ export default function AdminDashboardPage() {
                       type="email"
                       value={smtpSettings.senderEmail}
                       onChange={(e) => setSmtpSettings({ ...smtpSettings, senderEmail: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold text-xs"
                       placeholder="support@moodflip.coach"
                     />
                   </div>
@@ -4083,14 +4083,14 @@ export default function AdminDashboardPage() {
                 <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
                   <button
                     onClick={testSmtpConnection}
-                    className="px-4 py-2.5 rounded-xl bg-[#FAF8FD] border border-[#E3D9F8] text-[#7147E8] font-bold text-xs hover:bg-[#F0EBFA] transition cursor-pointer"
+                    className="px-4 py-2.5 rounded-xl bg-[#FEF9F5] border border-[#E3D9F8] text-[#7464AC] font-bold text-xs hover:bg-[#F4EBF5] transition cursor-pointer"
                   >
                     ⚡ Test SMTP Server Connection
                   </button>
 
                   <button
                     onClick={() => saveSmtpSettings(smtpSettings)}
-                    className="bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer"
+                    className="bg-[#7464AC] hover:bg-[#7464AC] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer"
                   >
                     💾 Save Email SMTP Settings
                   </button>
@@ -4098,7 +4098,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* 3. PAYMENT GATEWAY DEVELOPER CARD */}
-              <div className="bg-white border border-[#EAE3F2] rounded-2xl p-6 shadow-xs space-y-5">
+              <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-6 shadow-xs space-y-5">
                 <div className="flex items-center justify-between border-b border-gray-100 pb-3">
                   <div className="flex items-center gap-2.5">
                     <span className="text-2xl">💳</span>
@@ -4116,7 +4116,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={paymentSettings.stripePubKey}
                       onChange={(e) => setPaymentSettings({ ...paymentSettings, stripePubKey: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-mono text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-mono text-xs"
                       placeholder="pk_test_..."
                     />
                   </div>
@@ -4126,7 +4126,7 @@ export default function AdminDashboardPage() {
                       type="password"
                       value={paymentSettings.stripeSecretKey}
                       onChange={(e) => setPaymentSettings({ ...paymentSettings, stripeSecretKey: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-mono text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-mono text-xs"
                       placeholder="sk_test_..."
                     />
                   </div>
@@ -4136,7 +4136,7 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={paymentSettings.paypalClientId}
                       onChange={(e) => setPaymentSettings({ ...paymentSettings, paypalClientId: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-mono text-xs"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-mono text-xs"
                       placeholder="A21AAH_..."
                     />
                   </div>
@@ -4145,7 +4145,7 @@ export default function AdminDashboardPage() {
                     <select
                       value={paymentSettings.paypalMode}
                       onChange={(e) => setPaymentSettings({ ...paymentSettings, paypalMode: e.target.value })}
-                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FAF8FD] font-semibold"
+                      className="w-full border border-gray-200 p-2.5 rounded-xl bg-[#FEF9F5] font-semibold"
                     >
                       <option value="sandbox">Sandbox (Testing)</option>
                       <option value="live">Live (Production)</option>
@@ -4156,7 +4156,7 @@ export default function AdminDashboardPage() {
                 <div className="flex justify-end">
                   <button
                     onClick={() => savePaymentSettings(paymentSettings)}
-                    className="bg-[#7147E8] hover:bg-[#5f38d4] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer"
+                    className="bg-[#7464AC] hover:bg-[#7464AC] text-white px-6 py-2.5 rounded-xl text-xs font-extrabold shadow-md transition cursor-pointer"
                   >
                     💾 Save Payment Gateway Settings
                   </button>
@@ -4171,7 +4171,7 @@ export default function AdminDashboardPage() {
       {/* MODAL DIALOGS FOR QUICK ACTIONS */}
       {activeModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full border border-[#EAE3F2] shadow-2xl space-y-4">
+          <div className="bg-[#FEF9F5] rounded-3xl p-6 max-w-md w-full border border-[#E4DAD7] shadow-2xl space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-serif font-bold text-lg text-[#1A1338]">
                 {activeModal === 'addMood' ? '➕ Add New Mood Page' : '🎁 Create New Plan'}
@@ -4188,7 +4188,7 @@ export default function AdminDashboardPage() {
                   <label className="block font-bold mb-1">Mindset Action</label>
                   <input type="text" placeholder="e.g. 60-Second Breathing Reset" className="w-full border p-2.5 rounded-xl" />
                 </div>
-                <button onClick={() => { setActiveModal(null); }} className="w-full bg-[#7147E8] text-white py-2.5 rounded-xl font-bold">
+                <button onClick={() => { setActiveModal(null); }} className="w-full bg-[#7464AC] text-white py-2.5 rounded-xl font-bold">
                   Save &amp; Publish Mood Page
                 </button>
               </div>
@@ -4202,7 +4202,7 @@ export default function AdminDashboardPage() {
                   <label className="block font-bold mb-1">Price ($)</label>
                   <input type="number" placeholder="29" className="w-full border p-2.5 rounded-xl" />
                 </div>
-                <button onClick={() => { setActiveModal(null); }} className="w-full bg-[#7147E8] text-white py-2.5 rounded-xl font-bold">
+                <button onClick={() => { setActiveModal(null); }} className="w-full bg-[#7464AC] text-white py-2.5 rounded-xl font-bold">
                   Publish Plan
                 </button>
               </div>
@@ -4214,7 +4214,7 @@ export default function AdminDashboardPage() {
       {/* ✏️ EDIT USER MODAL */}
       {editingUser && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-3xl p-6 sm:p-7 max-w-md w-full border border-[#EAE3F2] shadow-2xl space-y-4 relative animate-in fade-in zoom-in duration-200">
+          <div className="bg-[#FEF9F5] rounded-3xl p-6 sm:p-7 max-w-md w-full border border-[#E4DAD7] shadow-2xl space-y-4 relative animate-in fade-in zoom-in duration-200">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
               <h3 className="font-serif font-bold text-lg text-[#1A1338]">✏️ Edit User Details</h3>
               <button onClick={() => setEditingUser(null)} className="text-gray-400 font-bold hover:text-gray-700 text-lg cursor-pointer">✕</button>
@@ -4227,7 +4227,7 @@ export default function AdminDashboardPage() {
                   required
                   value={editingUser.name}
                   onChange={(e) => setEditingUser({ ...editingUser, name: e.target.value })}
-                  className="w-full border border-gray-200 p-3 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                  className="w-full border border-gray-200 p-3 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                 />
               </div>
               <div>
@@ -4237,7 +4237,7 @@ export default function AdminDashboardPage() {
                   required
                   value={editingUser.email}
                   onChange={(e) => setEditingUser({ ...editingUser, email: e.target.value })}
-                  className="w-full border border-gray-200 p-3 rounded-xl bg-[#FAF8FD] font-semibold text-xs focus:outline-none focus:border-[#7147E8]"
+                  className="w-full border border-gray-200 p-3 rounded-xl bg-[#FEF9F5] font-semibold text-xs focus:outline-none focus:border-[#7464AC]"
                 />
               </div>
               <div>
@@ -4245,7 +4245,7 @@ export default function AdminDashboardPage() {
                 <select
                   value={editingUser.status}
                   onChange={(e) => setEditingUser({ ...editingUser, status: e.target.value })}
-                  className="w-full border border-gray-200 p-3 rounded-xl bg-[#FAF8FD] font-semibold text-xs"
+                  className="w-full border border-gray-200 p-3 rounded-xl bg-[#FEF9F5] font-semibold text-xs"
                 >
                   <option value="Active">Active</option>
                   <option value="Inactive">Inactive</option>
@@ -4255,13 +4255,13 @@ export default function AdminDashboardPage() {
                 <button
                   type="button"
                   onClick={() => setEditingUser(null)}
-                  className="w-full py-2.5 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-gray-50 transition cursor-pointer"
+                  className="w-full py-2.5 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-[#FEF9F5] transition cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="w-full py-2.5 rounded-xl bg-[#7147E8] text-white font-extrabold shadow-md hover:bg-[#5f38d4] transition cursor-pointer"
+                  className="w-full py-2.5 rounded-xl bg-[#7464AC] text-white font-extrabold shadow-md hover:bg-[#7464AC] transition cursor-pointer"
                 >
                   Save User Changes
                 </button>

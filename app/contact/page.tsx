@@ -45,11 +45,20 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5] text-[#1A143F] font-sans antialiased">
+    <div className="min-h-screen bg-[#FCF5EE] text-[#1A143F] font-sans antialiased relative flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
       <Header />
 
+      {/* ── BACKGROUND ARTWORK (Peaceful sunrise/sun style - Soft & Faded) ── */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-start justify-center opacity-25">
+        <img
+          src="/peaceful-sunrise-bg.png"
+          alt="Peaceful Sunrise Backdrop"
+          className="w-full max-w-5xl object-cover object-top filter contrast-105"
+        />
+      </div>
+
       {/* ── HERO BANNER ── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#FAF5F6] via-[#FCF3E9] to-[#FDF8F5] border-b border-[#E4DAD7] py-14 sm:py-18 px-4 sm:px-6">
+      <section className="relative z-10 overflow-hidden py-14 sm:py-18 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center space-y-3">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F4EBF5] border border-[#E4DAD7] px-4 py-1 text-xs font-extrabold text-[#7464AC] uppercase tracking-wider shadow-2xs">
             ✉️ We&apos;re Here to Help
@@ -72,7 +81,7 @@ export default function ContactPage() {
           <div className="lg:col-span-5 space-y-5">
             
             {/* Primary Email Card */}
-            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-4">
+            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEF9F5] p-6 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-[#F4EBF5] border border-[#E4DAD7] flex items-center justify-center text-2xl text-[#7464AC]">
                 📬
               </div>
@@ -126,7 +135,7 @@ export default function ContactPage() {
 
           {/* RIGHT COLUMN: INTERACTIVE FORM (7 cols) */}
           <div className="lg:col-span-7">
-            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 sm:p-10 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-6">
+            <div className="rounded-3xl border border-[#E4DAD7] bg-[#FEF9F5] p-6 sm:p-10 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-6">
               
               <div>
                 <span className="text-xs font-black uppercase tracking-wider text-[#7464AC]">Send a Note</span>
@@ -169,7 +178,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Emma Johnson"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                     <div>
@@ -182,7 +191,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="emma@example.com"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                   </div>
@@ -195,7 +204,7 @@ export default function ContactPage() {
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       >
                         <option value="General Question">General Question</option>
                         <option value="7-Day Plan Support">7-Day Plan Support</option>
@@ -214,7 +223,7 @@ export default function ContactPage() {
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         placeholder="e.g., 7-Day Plan PDF inquiry"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                   </div>
@@ -229,7 +238,7 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Please write your questions or details here..."
-                      className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium resize-y"
+                      className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium resize-y"
                     />
                   </div>
 
@@ -260,7 +269,7 @@ export default function ContactPage() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="rounded-3xl border border-[#E4DAD7] bg-[#FEFAF8] p-6 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-2"
+                className="rounded-3xl border border-[#E4DAD7] bg-[#FEF9F5] p-6 shadow-[0_10px_28px_rgba(26,20,63,0.03)] space-y-2"
               >
                 <h3 className="font-serif text-base font-bold text-[#1A143F] flex items-start gap-2">
                   <span className="text-[#7464AC]">Q.</span> {faq.q}

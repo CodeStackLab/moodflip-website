@@ -73,7 +73,7 @@ function drawBrandHeaderLogo(doc: jsPDF, x: number, y: number, scale: number = 1
   doc.setTextColor(21, 24, 59); // #15183B
   doc.text('mood', x + 26 * scale, y + 16 * scale);
 
-  doc.setTextColor(113, 71, 232); // #7147E8
+  doc.setTextColor(113, 71, 232); // #7464AC
   doc.text('flip', x + 62 * scale, y + 16 * scale);
 }
 
@@ -84,7 +84,7 @@ function drawWatermark(doc: jsPDF) {
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(40);
-    doc.setTextColor(113, 71, 232); // #7147E8
+    doc.setTextColor(113, 71, 232); // #7464AC
     doc.text('MOODFLIP  *  OFFICIAL WORKBOOK', 306, 396, {
       align: 'center',
       angle: 35,
@@ -122,7 +122,7 @@ function drawHeader(doc: jsPDF, title: string, subtitle?: string) {
 }
 
 function drawFooter(doc: jsPDF, page: number, total: number, label: string) {
-  // Soft Lilac Footer Bar (#FAF8FD with #EAE3F2 top border line)
+  // Soft Lilac Footer Bar (#FEF9F5 with #E4DAD7 top border line)
   doc.setFillColor(250, 248, 253);
   doc.rect(0, 758, 612, 34, 'F');
 
@@ -153,7 +153,7 @@ function drawBackCoverPage(doc: jsPDF, bookTitle: string, totalPages: number) {
   doc.rect(0, 0, 612, 792, 'F');
 
   // Top Accent Gradient Bar
-  doc.setFillColor(113, 71, 232); // #7147E8
+  doc.setFillColor(113, 71, 232); // #7464AC
   doc.rect(0, 0, 612, 180, 'F');
 
   // Brand Logo Mark Header

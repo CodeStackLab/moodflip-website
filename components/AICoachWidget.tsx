@@ -88,7 +88,7 @@ export default function AICoachWidget() {
       {/* FLOATING TRIGGER BUTTON */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white px-4 py-3 rounded-full shadow-2xl hover:scale-105 transition-all cursor-pointer border border-white/20 group"
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white px-4 py-3 rounded-full shadow-2xl hover:scale-105 transition-all cursor-pointer border border-white/20 group"
         aria-label="Open MoodFlip AI Coach"
       >
         <span className="relative flex h-3 w-3">
@@ -101,11 +101,11 @@ export default function AICoachWidget() {
 
       {/* CHAT MODAL */}
       {isOpen && (
-        <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[calc(100vw-32px)] sm:w-[380px] h-[520px] max-h-[80vh] bg-white rounded-3xl shadow-2xl border border-[#EAE3F2] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
+        <div className="fixed bottom-20 right-4 sm:right-6 z-50 w-[calc(100vw-32px)] sm:w-[380px] h-[520px] max-h-[80vh] bg-[#FEF9F5] rounded-3xl shadow-2xl border border-[#E4DAD7] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
           {/* HEADER */}
-          <div className="bg-gradient-to-r from-[#1A0A3B] via-[#2D1065] to-[#7147E8] p-4 text-white flex items-center justify-between shadow-md">
+          <div className="bg-gradient-to-r from-[#1A0A3B] via-[#2D1065] to-[#7464AC] p-4 text-white flex items-center justify-between shadow-md">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-lg">
+              <div className="w-9 h-9 rounded-xl bg-[#FEF9F5]/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-lg">
                 🤖
               </div>
               <div>
@@ -118,14 +118,14 @@ export default function AICoachWidget() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center text-sm font-bold transition"
+              className="w-7 h-7 rounded-lg bg-[#FEF9F5]/10 hover:bg-[#FEF9F5]/20 text-white/80 hover:text-white flex items-center justify-center text-sm font-bold transition"
             >
               ✕
             </button>
           </div>
 
           {/* MESSAGES BODY */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-[#FAF8FD]/60">
+          <div className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-[#FEF9F5]/60">
             {messages.map((m) => (
               <div
                 key={m.id}
@@ -134,8 +134,8 @@ export default function AICoachWidget() {
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shrink-0 mt-0.5 ${
                     m.role === 'user'
-                      ? 'bg-[#7147E8] text-white font-bold'
-                      : 'bg-gradient-to-br from-[#7147E8] to-[#9333EA] text-white'
+                      ? 'bg-[#7464AC] text-white font-bold'
+                      : 'bg-gradient-to-br from-[#7464AC] to-[#9C8CC4] text-white'
                   }`}
                 >
                   {m.role === 'user' ? '👤' : '🤖'}
@@ -144,8 +144,8 @@ export default function AICoachWidget() {
                   <div
                     className={`p-3 rounded-2xl text-xs leading-relaxed ${
                       m.role === 'user'
-                        ? 'bg-[#7147E8] text-white rounded-tr-xs font-medium shadow-xs'
-                        : 'bg-white border border-[#EAE3F2] text-[#1A1338] rounded-tl-xs shadow-xs font-normal'
+                        ? 'bg-[#7464AC] text-white rounded-tr-xs font-medium shadow-xs'
+                        : 'bg-[#FEF9F5] border border-[#E4DAD7] text-[#1A1338] rounded-tl-xs shadow-xs font-normal'
                     }`}
                   >
                     {m.content}
@@ -159,11 +159,11 @@ export default function AICoachWidget() {
 
             {loading && (
               <div className="flex gap-2.5 max-w-[85%]">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#7147E8] to-[#9333EA] text-white flex items-center justify-center text-xs shrink-0 animate-pulse">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#7464AC] to-[#9C8CC4] text-white flex items-center justify-center text-xs shrink-0 animate-pulse">
                   🤖
                 </div>
-                <div className="bg-white border border-[#EAE3F2] p-3 rounded-2xl rounded-tl-xs text-xs text-[#68607F] flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#7147E8] animate-ping" />
+                <div className="bg-[#FEF9F5] border border-[#E4DAD7] p-3 rounded-2xl rounded-tl-xs text-xs text-[#5C527A] flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#7464AC] animate-ping" />
                   <span>MoodFlip Coach is thinking...</span>
                 </div>
               </div>
@@ -173,10 +173,10 @@ export default function AICoachWidget() {
 
           {/* QUICK SUGGESTIONS */}
           {messages.length <= 2 && !loading && (
-            <div className="px-3 py-2 bg-white border-t border-gray-100 flex gap-1.5 overflow-x-auto text-[10px]">
+            <div className="px-3 py-2 bg-[#FEF9F5] border-t border-gray-100 flex gap-1.5 overflow-x-auto text-[10px]">
               <button
                 onClick={() => sendMessage("I'm feeling overwhelmed today")}
-                className="bg-[#F4EFFC] hover:bg-[#EAE0FD] text-[#7147E8] px-2.5 py-1 rounded-full font-semibold border border-[#D8C8F8] whitespace-nowrap transition cursor-pointer"
+                className="bg-[#F4EFFC] hover:bg-[#EAE0FD] text-[#7464AC] px-2.5 py-1 rounded-full font-semibold border border-[#D8C8F8] whitespace-nowrap transition cursor-pointer"
               >
                 ⚡ Feeling overwhelmed
               </button>
@@ -195,19 +195,19 @@ export default function AICoachWidget() {
               e.preventDefault();
               sendMessage();
             }}
-            className="p-3 bg-white border-t border-[#EAE3F2] flex items-center gap-2"
+            className="p-3 bg-[#FEF9F5] border-t border-[#E4DAD7] flex items-center gap-2"
           >
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask MoodFlip AI anything..."
-              className="flex-1 bg-[#FAF8FD] border border-[#EAE3F2] rounded-xl px-3 py-2 text-xs text-[#1A1338] placeholder-gray-400 focus:outline-none focus:border-[#7147E8] font-medium"
+              className="flex-1 bg-[#FEF9F5] border border-[#E4DAD7] rounded-xl px-3 py-2 text-xs text-[#1A1338] placeholder-gray-400 focus:outline-none focus:border-[#7464AC] font-medium"
             />
             <button
               type="submit"
               disabled={!input.trim() || loading}
-              className="w-9 h-9 rounded-xl bg-[#7147E8] hover:bg-[#5f38d4] disabled:opacity-40 text-white flex items-center justify-center text-sm font-bold transition shadow-xs cursor-pointer shrink-0"
+              className="w-9 h-9 rounded-xl bg-[#7464AC] hover:bg-[#7464AC] disabled:opacity-40 text-white flex items-center justify-center text-sm font-bold transition shadow-xs cursor-pointer shrink-0"
             >
               ➔
             </button>

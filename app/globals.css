@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  /* Exact MoodFlip Brand Color Tokens */
-  --bg-primary: #FDF8F5;          /* Main warm background (soft ivory) */
+  /* Exact MoodFlip Brand Color Tokens from Mockup Spec */
+  --bg-primary: #FEF9F5;          /* Main warm background (soft ivory) */
   --bg-secondary: #FCF3E9;        /* Secondary background / panels (warm cream) */
-  --bg-card: #FEFAF8;             /* Card background (almost white) */
+  --bg-card: #FEF9F5;             /* Card background (almost white) */
   --bg-tint: #F4EBF5;             /* Pale pink/lavender card tint */
   --bg-selected: #EEE0FC;         /* Selected tile / cloud fill (pale lavender) */
   --bg-inactive: #F1ECED;         /* Inactive cloud fill (warm off-white) */
@@ -46,13 +46,13 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  background: var(--bg-primary);
+  background: #FEF9F5;
   color: var(--text-primary);
 }
 
 body {
   margin: 0;
-  background: var(--bg-primary);
+  background: #FEF9F5;
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-optical-sizing: auto;

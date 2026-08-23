@@ -47,9 +47,9 @@ export default function DisclaimerPage() {
       <Header />
 
       {/* HERO BANNER */}
-      <div className="bg-gradient-to-br from-[#7147E8] via-[#8B5CF6] to-[#9333EA] text-white py-10 sm:py-14 px-4 text-center">
+      <div className="bg-gradient-to-br from-[#7464AC] via-[#9C8CC4] to-[#9C8CC4] text-white py-10 sm:py-14 px-4 text-center">
         <div className="max-w-3xl mx-auto space-y-2.5">
-          <span className="inline-block text-xs font-black uppercase tracking-widest bg-white/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
+          <span className="inline-block text-xs font-black uppercase tracking-widest bg-[#FEF9F5]/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
             ⚠️ Medical &amp; Legal Disclaimer
           </span>
           <h1 className="font-serif text-2xl sm:text-4xl font-extrabold leading-tight">{content.title}</h1>
@@ -58,13 +58,13 @@ export default function DisclaimerPage() {
       </div>
 
       <main className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
-        <div className="bg-white border border-[#EAE3F2] rounded-3xl p-5 sm:p-10 shadow-xs space-y-1">
+        <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-10 shadow-xs space-y-1">
           {renderMarkdown(content.content)}
         </div>
-        <div className="mt-8 flex items-center gap-4 text-xs font-bold text-[#68607F] flex-wrap">
-          <Link href="/terms" className="hover:text-[#7147E8] transition">Terms of Service →</Link>
-          <Link href="/privacy" className="hover:text-[#7147E8] transition">Privacy Policy →</Link>
-          <Link href="/refund" className="hover:text-[#7147E8] transition">Refund Policy →</Link>
+        <div className="mt-8 flex items-center gap-4 text-xs font-bold text-[#5C527A] flex-wrap">
+          <Link href="/terms" className="hover:text-[#7464AC] transition">Terms of Service →</Link>
+          <Link href="/privacy" className="hover:text-[#7464AC] transition">Privacy Policy →</Link>
+          <Link href="/refund" className="hover:text-[#7464AC] transition">Refund Policy →</Link>
         </div>
       </main>
 

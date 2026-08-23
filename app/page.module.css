@@ -13,7 +13,7 @@
 /* Section 1: How MoodFlip Works (5-Step Flow) */
 .howSection {
   width: 100%;
-  background: #FEFAF8;
+  background: #FEF9F5;
   border: 1px solid #E4DAD7;
   border-radius: 28px;
   box-shadow: 0 10px 30px rgba(26, 20, 63, 0.03), 0 2px 8px rgba(0, 0, 0, 0.01);
@@ -241,7 +241,7 @@
 }
 
 .priceCard {
-  background: #FEFAF8;
+  background: #FEF9F5;
   border: 1px solid #E4DAD7;
   border-radius: 22px;
   padding: 26px 22px;
@@ -326,7 +326,7 @@
 /* Section 3: Explore Your Feelings / Mood Library */
 .librarySection {
   width: 100%;
-  background: #FEFAF8;
+  background: #FEF9F5;
   border: 1px solid #E4DAD7;
   border-radius: 28px;
   box-shadow: 0 10px 30px rgba(26, 20, 63, 0.03), 0 2px 8px rgba(0, 0, 0, 0.01);
@@ -425,7 +425,7 @@
 /* Section 4: About MoodFlip */
 .aboutSection {
   width: 100%;
-  background: #FEFAF8;
+  background: #FEF9F5;
   border: 1px solid #E4DAD7;
   border-radius: 28px;
   box-shadow: 0 10px 30px rgba(26, 20, 63, 0.03), 0 2px 8px rgba(0, 0, 0, 0.01);
@@ -479,7 +479,7 @@
 }
 
 .aboutFeaturesCard {
-  background: #FEFAF8;
+  background: #FEF9F5;
   border: 1px solid #E4DAD7;
   border-radius: 20px;
   padding: 20px 22px;
@@ -592,7 +592,7 @@
     text-align: left;
     gap: 14px;
     padding: 14px 16px;
-    background: #FEFAF8;
+    background: #FEF9F5;
     border: 1px solid #E4DAD7;
     border-radius: 18px;
     box-shadow: 0 4px 12px rgba(26, 20, 63, 0.02);

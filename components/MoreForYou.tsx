@@ -56,7 +56,7 @@ export default function MoreForYou() {
       </div>
 
       {/* TRACK PROGRESS */}
-      <div className="rounded-2xl border border-[#DDD6FE] bg-[#F5F3FF] p-4 transition hover:-translate-y-0.5 shadow-sm">
+      <div className="rounded-2xl border border-[#DDD6FE] bg-[#F4EBF5] p-4 transition hover:-translate-y-0.5 shadow-sm">
         <div className="flex items-center gap-3 mb-1.5">
           <span className="text-xl">📈</span>
           <h4 className="font-serif font-bold text-base text-[#2D264B]">Track Progress</h4>
@@ -64,15 +64,15 @@ export default function MoreForYou() {
         <p className="text-xs text-[#6B638B] leading-relaxed mb-3">
           See how far you&apos;ve come.
         </p>
-        <Link href="/profile" className="text-xs font-bold text-[#7C3AED] hover:underline">
+        <Link href="/profile" className="text-xs font-bold text-[#7464AC] hover:underline">
           View Profile →
         </Link>
       </div>
 
       {/* PRIVATE CARD */}
-      <div className="rounded-2xl border border-[#EAE3D6] bg-white p-4 shadow-sm">
+      <div className="rounded-2xl border border-[#EAE3D6] bg-[#FEF9F5] p-4 shadow-sm">
         <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F5F3FF] text-base">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F4EBF5] text-base">
             🔒
           </span>
           <div>

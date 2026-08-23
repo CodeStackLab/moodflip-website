@@ -90,7 +90,7 @@ export default function CookieConsent() {
 
   return (
     <div
-      className="fixed bottom-20 left-3 right-3 sm:left-6 sm:bottom-6 sm:right-auto sm:max-w-md bg-white/95 backdrop-blur-2xl border border-[#EAE3F2] rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[0_10px_35px_rgba(0,0,0,0.18)] z-50 animate-in slide-in-from-bottom-4 duration-300 text-[#1A1338]"
+      className="fixed bottom-20 left-3 right-3 sm:left-6 sm:bottom-6 sm:right-auto sm:max-w-md bg-[#FEF9F5]/95 backdrop-blur-2xl border border-[#E4DAD7] rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[0_10px_35px_rgba(0,0,0,0.18)] z-50 animate-in slide-in-from-bottom-4 duration-300 text-[#1A1338]"
       style={{ bottom: 'calc(76px + env(safe-area-inset-bottom, 0px))' }}
     >
       <div className="flex items-start gap-3">
@@ -110,20 +110,20 @@ export default function CookieConsent() {
           </div>
           <p className="text-[11px] sm:text-xs text-[#5B5278] font-medium leading-relaxed mb-3 sm:mb-4">
             {settings.bannerText || 'MoodFlip uses essential cookies and analytics to enhance your self-reflection experience and show personalized wellness insights.'}{' '}
-            <Link href={settings.privacyLink || '/privacy'} className="text-[#7147E8] font-extrabold underline">
+            <Link href={settings.privacyLink || '/privacy'} className="text-[#7464AC] font-extrabold underline">
               Privacy Policy
             </Link>
           </p>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <button
               onClick={() => saveConsent('accepted')}
-              className="w-full sm:flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-2.5 px-4 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer active:scale-95 text-center"
+              className="w-full sm:flex-1 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white py-2.5 px-4 rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition cursor-pointer active:scale-95 text-center"
             >
               {settings.acceptButtonText || '✓ Accept All Cookies'}
             </button>
             <button
               onClick={() => saveConsent('essential_only')}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-[#EAE3F2] text-[#5B5278] hover:bg-[#FAF8FD] text-xs font-bold transition cursor-pointer text-center"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-[#E4DAD7] text-[#5B5278] hover:bg-[#FEF9F5] text-xs font-bold transition cursor-pointer text-center"
             >
               {settings.essentialButtonText || 'Essential Only'}
             </button>

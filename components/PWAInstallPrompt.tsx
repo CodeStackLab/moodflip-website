@@ -137,9 +137,9 @@ export default function PWAInstallPrompt() {
     <>
       {/* Floating PWA Install Banner */}
       {showBanner && (
-        <div className="fixed bottom-20 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 bg-[#170E3B]/95 backdrop-blur-2xl border border-white/20 text-white rounded-3xl p-4 shadow-[0_12px_40px_rgba(0,0,0,0.4)] z-40 animate-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-20 left-4 right-4 sm:left-auto sm:right-6 sm:w-96 bg-[#1A143F]/95 backdrop-blur-2xl border border-white/20 text-white rounded-3xl p-4 shadow-[0_12px_40px_rgba(0,0,0,0.4)] z-40 animate-in slide-in-from-bottom-4 duration-300">
           <div className="flex items-start gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7147E8] to-[#f59e0b] flex items-center justify-center text-2xl shrink-0 shadow-lg border border-white/20">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7464AC] to-[#f59e0b] flex items-center justify-center text-2xl shrink-0 shadow-lg border border-white/20">
               📱
             </div>
             <div className="flex-1 min-w-0">
@@ -161,7 +161,7 @@ export default function PWAInstallPrompt() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleInstallClick}
-                  className="flex-1 bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white py-2.5 px-3 rounded-xl text-xs font-black shadow-md hover:scale-[1.02] transition cursor-pointer flex items-center justify-center gap-1.5"
+                  className="flex-1 bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white py-2.5 px-3 rounded-xl text-xs font-black shadow-md hover:scale-[1.02] transition cursor-pointer flex items-center justify-center gap-1.5"
                 >
                   <span>📲</span>
                   <span>{settings.buttonText || 'Add to Home Screen'}</span>
@@ -181,30 +181,30 @@ export default function PWAInstallPrompt() {
       {/* iOS Installation Helper Modal */}
       {showIOSModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-4">
-          <div className="bg-[#170E3B] border border-white/20 text-white rounded-3xl p-6 max-w-sm w-full space-y-4 text-center animate-in slide-in-from-bottom-6">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#7147E8] to-[#f59e0b] flex items-center justify-center text-3xl mx-auto shadow-lg">
+          <div className="bg-[#1A143F] border border-white/20 text-white rounded-3xl p-6 max-w-sm w-full space-y-4 text-center animate-in slide-in-from-bottom-6">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#7464AC] to-[#f59e0b] flex items-center justify-center text-3xl mx-auto shadow-lg">
               📱
             </div>
             <h3 className="font-serif text-lg font-black text-white">Install on iPhone / iPad</h3>
             
-            <div className="space-y-3 text-left bg-white/5 p-4 rounded-2xl border border-white/10 text-xs font-medium text-white/90">
+            <div className="space-y-3 text-left bg-[#FEF9F5]/5 p-4 rounded-2xl border border-white/10 text-xs font-medium text-white/90">
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 rounded-full bg-[#7147E8] font-bold text-xs flex items-center justify-center shrink-0">1</span>
+                <span className="w-6 h-6 rounded-full bg-[#7464AC] font-bold text-xs flex items-center justify-center shrink-0">1</span>
                 <span>Tap the <strong className="text-[#F59E0B]">Share button ( ⎋ )</strong> at the bottom of Safari.</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 rounded-full bg-[#7147E8] font-bold text-xs flex items-center justify-center shrink-0">2</span>
+                <span className="w-6 h-6 rounded-full bg-[#7464AC] font-bold text-xs flex items-center justify-center shrink-0">2</span>
                 <span>Scroll down and select <strong className="text-[#F59E0B]">"Add to Home Screen ➕"</strong>.</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="w-6 h-6 rounded-full bg-[#7147E8] font-bold text-xs flex items-center justify-center shrink-0">3</span>
+                <span className="w-6 h-6 rounded-full bg-[#7464AC] font-bold text-xs flex items-center justify-center shrink-0">3</span>
                 <span>Tap <strong className="text-[#F59E0B]">"Add"</strong> in the top right corner.</span>
               </div>
             </div>
 
             <button
               onClick={() => setShowIOSModal(false)}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold text-xs shadow-lg cursor-pointer"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white font-extrabold text-xs shadow-lg cursor-pointer"
             >
               Got It!
             </button>

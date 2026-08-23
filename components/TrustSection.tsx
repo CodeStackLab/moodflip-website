@@ -46,7 +46,7 @@ export default function TrustSection() {
       {TRUST_ITEMS.map((item) => (
         <div
           key={item.title}
-          className="flex items-start gap-3 rounded-2xl border border-[#E4DAD7] bg-[#FEFAF8] p-4 shadow-[0_4px_16px_rgba(26,20,63,0.02)] transition-all duration-200 hover:border-[#7666AB] hover:shadow-[0_8px_24px_rgba(116,100,172,0.08)] hover:-translate-y-0.5"
+          className="flex items-start gap-3 rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] p-4 shadow-[0_4px_16px_rgba(26,20,63,0.02)] transition-all duration-200 hover:border-[#7666AB] hover:shadow-[0_8px_24px_rgba(116,100,172,0.08)] hover:-translate-y-0.5"
         >
           <div
             className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg ${item.bgColor} ${item.textColor}`}

@@ -75,7 +75,7 @@ Date: 19 August 2026 | Status: 100% Addressed, Verified & Pushed to GitHub
 SUMMARY OF CORRECTIONS & IMPLEMENTATION:
 
 #1 (Overall Design): FIXED & VERIFIED
-Rebuilt homepage around the approved warm, calming aesthetic (Soft Ivory #FDF8F5, Warm Cream #FCF3E9, Soft Lavender #F4EBF5) with serif typography and watercolor sunrise art. The entire tool fits in 1 screen without scrolling.
+Rebuilt homepage around the approved warm, calming aesthetic (Soft Ivory #FEF9F5, Warm Cream #FCF3E9, Soft Lavender #F4EBF5) with serif typography and watercolor sunrise art. The entire tool fits in 1 screen without scrolling.
 
 #2 (Extra Clutter Removed): FIXED & VERIFIED
 Removed all redundant filler blocks, duplicate promotional cards, and unnecessary widgets. The core 3-layer Mood Tool is the main focus.

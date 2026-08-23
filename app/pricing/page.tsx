@@ -11,7 +11,7 @@ export default function PricingPage() {
       <Header />
       <main className="mx-auto max-w-5xl px-6 py-12">
         <div className="text-center max-w-xl mx-auto mb-12">
-          <span className="inline-block rounded-full bg-[#F5F3FF] border border-[#DDD6FE] px-3.5 py-1 text-xs font-bold text-[#6C5CE7] uppercase tracking-wider mb-2">
+          <span className="inline-block rounded-full bg-[#F4EBF5] border border-[#DDD6FE] px-3.5 py-1 text-xs font-bold text-[#6C5CE7] uppercase tracking-wider mb-2">
             Simple, Transparent Pricing
           </span>
           <h1 className="font-serif text-4xl font-bold mb-3">Start free. Go deeper when it&apos;s useful.</h1>
@@ -22,7 +22,7 @@ export default function PricingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* FREE PLAN */}
-          <div className="rounded-3xl border border-[#EAE3D6] bg-white p-6 shadow-sm flex flex-col justify-between">
+          <div className="rounded-3xl border border-[#EAE3D6] bg-[#FEF9F5] p-6 shadow-sm flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#6C5CE7]">Everyday Tool</span>
               <h3 className="font-serif text-2xl font-bold mt-1">Free</h3>
@@ -34,13 +34,13 @@ export default function PricingPage() {
                 <li>✓ Use whenever you need it</li>
               </ul>
             </div>
-            <Link href="/" className="block w-full text-center rounded-full border border-[#6C5CE7] py-2.5 text-xs font-bold text-[#6C5CE7] hover:bg-[#F5F3FF]">
+            <Link href="/" className="block w-full text-center rounded-full border border-[#6C5CE7] py-2.5 text-xs font-bold text-[#6C5CE7] hover:bg-[#F4EBF5]">
               Use MoodFlip free →
             </Link>
           </div>
 
           {/* 7-DAY PLAN */}
-          <div className="rounded-3xl border-2 border-[#6C5CE7] bg-white p-6 shadow-md flex flex-col justify-between relative">
+          <div className="rounded-3xl border-2 border-[#6C5CE7] bg-[#FEF9F5] p-6 shadow-md flex flex-col justify-between relative">
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#6C5CE7] px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-white">
               Most Popular
             </span>
@@ -61,7 +61,7 @@ export default function PricingPage() {
           </div>
 
           {/* 30-DAY PLAN */}
-          <div className="rounded-3xl border border-[#EAE3D6] bg-white p-6 shadow-sm flex flex-col justify-between">
+          <div className="rounded-3xl border border-[#EAE3D6] bg-[#FEF9F5] p-6 shadow-sm flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#6C5CE7]">Full Support</span>
               <h3 className="font-serif text-2xl font-bold mt-1">30-Day Master</h3>

@@ -46,7 +46,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5] text-[#1A143F]">
+    <div className="min-h-screen bg-[#FEF9F5] text-[#1A143F]">
       {/* Global Brand Header */}
       <Header />
 

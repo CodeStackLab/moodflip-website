@@ -200,17 +200,17 @@ export default function UserDashboardPage() {
 
   const actionsList = [
     { title: 'Try Gratitude Reset', icon: '🍃', category: 'Gratitude', desc: 'Focus on 3 things you are deeply thankful for right now.', color: 'from-emerald-500 to-teal-600' },
-    { title: 'Deep Breathing 4-7-8', icon: '🧘', category: 'Breathing', desc: 'Inhale for 4s, hold for 7s, exhale slowly for 8s to calm your nervous system.', color: 'from-[#7147E8] to-[#9333EA]' },
+    { title: 'Deep Breathing 4-7-8', icon: '🧘', category: 'Breathing', desc: 'Inhale for 4s, hold for 7s, exhale slowly for 8s to calm your nervous system.', color: 'from-[#7464AC] to-[#9C8CC4]' },
     { title: 'Morning Positivity Shift', icon: '☀️', category: 'Mindset', desc: 'Set your daily intention and release negative morning tension.', color: 'from-amber-500 to-orange-600' },
     { title: '5-4-3-2-1 Grounding', icon: '🌱', category: 'Grounding', desc: 'Acknowledge 5 things around you to stop spiraling anxious thoughts.', color: 'from-sky-500 to-blue-600' },
     { title: 'Anger & Frustration Release', icon: '🔥', category: 'Release', desc: 'Unclench your jaw, relax your shoulders, and breathe out anger.', color: 'from-rose-500 to-pink-600' },
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5] text-[#1A143F] font-sans antialiased flex flex-col">
+    <div className="min-h-screen bg-[#FEF9F5] text-[#1A143F] font-sans antialiased flex flex-col">
 
       {/* ── TOP GLOBAL NAVBAR ── */}
-      <header className="bg-[#FEFAF8] border-b border-[#E4DAD7] px-4 lg:px-8 py-3.5 flex items-center justify-between shadow-2xs sticky top-0 z-40">
+      <header className="bg-[#FEF9F5] border-b border-[#E4DAD7] px-4 lg:px-8 py-3.5 flex items-center justify-between shadow-2xs sticky top-0 z-40">
         {/* Left Logo */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button 
@@ -237,7 +237,7 @@ export default function UserDashboardPage() {
             placeholder="Search moods, actions, or insights..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl pl-4 pr-10 py-2.5 text-sm font-medium text-[#1A143F] placeholder-gray-400 focus:outline-none focus:border-[#7464AC] focus:bg-white transition-all shadow-2xs"
+            className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl pl-4 pr-10 py-2.5 text-sm font-medium text-[#1A143F] placeholder-gray-400 focus:outline-none focus:border-[#7464AC] focus:bg-[#FEF9F5] transition-all shadow-2xs"
           />
           <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#A49BA8] text-sm">🔍</span>
         </div>
@@ -260,7 +260,7 @@ export default function UserDashboardPage() {
 
             {/* NOTIFICATION POPUP DROPDOWN */}
             {notifDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-[#FEFAF8] rounded-2xl border border-[#E4DAD7] shadow-2xl z-50 p-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-[#FEF9F5] rounded-2xl border border-[#E4DAD7] shadow-2xl z-50 p-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
                 <div className="flex items-center justify-between border-b border-[#E4DAD7] pb-2.5">
                   <div className="flex items-center gap-2">
                     <span className="font-serif font-extrabold text-base text-[#1A143F]">Notifications 🔔</span>
@@ -288,7 +288,7 @@ export default function UserDashboardPage() {
                       <div
                         key={notif.id}
                         className={`p-3 rounded-xl border text-xs flex items-start gap-2.5 transition-all ${
-                          notif.unread ? 'bg-[#F4EBF5] border-[#E4DAD7]' : 'bg-[#FEFAF8] border-[#E4DAD7]'
+                          notif.unread ? 'bg-[#F4EBF5] border-[#E4DAD7]' : 'bg-[#FEF9F5] border-[#E4DAD7]'
                         }`}
                       >
                         <span className="text-base shrink-0">{notif.icon}</span>
@@ -356,7 +356,7 @@ export default function UserDashboardPage() {
 
         {/* 1. LEFT SIDEBAR */}
         <aside className={`
-          fixed lg:static inset-y-0 left-0 z-50 w-[275px] bg-[#FEFAF8] border-r border-[#E4DAD7] p-4.5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out overflow-y-auto overflow-x-hidden
+          fixed lg:static inset-y-0 left-0 z-50 w-[275px] bg-[#FEF9F5] border-r border-[#E4DAD7] p-4.5 flex flex-col justify-between shrink-0 transition-transform duration-300 ease-in-out overflow-y-auto overflow-x-hidden
           ${sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div>
@@ -481,7 +481,7 @@ export default function UserDashboardPage() {
           </div>
 
           {/* Sidebar 3D Promo Book Card — Direct flex child of aside (justify-between) for TRUE BOTTOM placement & compact height */}
-          <div className="mt-4 mb-2 w-[94%] mx-auto relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#FDF8F5] to-[#FCF3E9] p-3 text-center border border-[#E4DAD7] shadow-sm shrink-0">
+          <div className="mt-4 mb-2 w-[94%] mx-auto relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#FEF9F5] to-[#FCF3E9] p-3 text-center border border-[#E4DAD7] shadow-sm shrink-0">
             <div className="w-28 h-36 mx-auto mb-1 flex items-center justify-center">
               <img 
                 src="/7day-book-cover-3d-v6.png" 
@@ -513,7 +513,7 @@ export default function UserDashboardPage() {
         )}
 
         {/* 2. MAIN DASHBOARD CONTENT AREA */}
-        <main className="flex-1 p-3.5 sm:p-4.5 md:p-6 pb-24 sm:pb-6 bg-[#FDF8F5] overflow-y-auto overflow-x-hidden w-full min-w-0">
+        <main className="flex-1 p-3.5 sm:p-4.5 md:p-6 pb-24 sm:pb-6 bg-[#FEF9F5] overflow-y-auto overflow-x-hidden w-full min-w-0">
 
 
           {/* TAB 1: DASHBOARD OVERVIEW */}
@@ -543,7 +543,7 @@ export default function UserDashboardPage() {
 
                 {/* Top 4 Stat Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-4 gap-2.5 sm:gap-3 min-w-0">
-                  <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-3.5 sm:p-4 shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-md hover:border-[#7666AB] transition-all min-w-0 overflow-hidden">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-3.5 sm:p-4 shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-md hover:border-[#7666AB] transition-all min-w-0 overflow-hidden">
                     <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-[#F4EBF5] text-[#7464AC] flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-2xs">
                       📅
                     </div>
@@ -554,7 +554,7 @@ export default function UserDashboardPage() {
                     </div>
                   </div>
 
-                  <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-3.5 sm:p-4 shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-md hover:border-[#7666AB] transition-all min-w-0 overflow-hidden">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-3.5 sm:p-4 shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-md hover:border-[#7666AB] transition-all min-w-0 overflow-hidden">
                     <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-[#FCF3E9] text-[#7D8164] flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-2xs">
                       📈
                     </div>
@@ -565,7 +565,7 @@ export default function UserDashboardPage() {
                     </div>
                   </div>
 
-                  <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-3.5 sm:p-4 shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-md hover:border-[#7666AB] transition-all min-w-0 overflow-hidden">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-3.5 sm:p-4 shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-md hover:border-[#7666AB] transition-all min-w-0 overflow-hidden">
                     <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-[#FAF5F6] text-[#E49C8C] flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-2xs">
                       ❤️
                     </div>
@@ -576,7 +576,7 @@ export default function UserDashboardPage() {
                     </div>
                   </div>
 
-                  <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-3.5 sm:p-4 shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-md hover:border-[#7666AB] transition-all min-w-0 overflow-hidden">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-3.5 sm:p-4 shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-md hover:border-[#7666AB] transition-all min-w-0 overflow-hidden">
                     <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-[#FDE8C8] text-[#EDAA7A] flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-2xs">
                       ⭐
                     </div>
@@ -592,7 +592,7 @@ export default function UserDashboardPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
                   
                   {/* Recent Check-ins Card */}
-                  <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-3">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-3">
                     <div className="flex items-center justify-between mb-1">
                       <h3 className="font-serif font-extrabold text-lg md:text-xl text-[#1A143F]">Recent Check-ins</h3>
                       <button onClick={() => changeTab('My Check-ins')} className="text-xs md:text-sm font-extrabold text-[#7464AC] hover:underline cursor-pointer">View all</button>
@@ -600,7 +600,7 @@ export default function UserDashboardPage() {
 
                     <div className="space-y-2.5 flex-1 flex flex-col justify-around">
                       {filteredCheckins.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between p-3 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all cursor-pointer">
+                        <div key={item.id} className="flex items-center justify-between p-3 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all cursor-pointer">
                           <div className="flex items-center gap-3">
                             <span className="w-9 h-9 rounded-full bg-[#F4EBF5] border border-[#E4DAD7] flex items-center justify-center text-base shadow-2xs shrink-0">
                               {item.icon}
@@ -624,10 +624,10 @@ export default function UserDashboardPage() {
                   </div>
 
                   {/* Mood Insights Card */}
-                  <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-3">
+                  <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs flex flex-col justify-between space-y-3">
                     <div className="flex items-center justify-between">
                       <h3 className="font-serif font-extrabold text-lg md:text-xl text-[#1A143F]">Mood Insights</h3>
-                      <div className="border border-[#E4DAD7] rounded-xl px-3 py-1.5 text-xs font-bold text-[#5C527A] bg-[#FEFAF8] flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                      <div className="border border-[#E4DAD7] rounded-xl px-3 py-1.5 text-xs font-bold text-[#5C527A] bg-[#FEF9F5] flex items-center gap-1.5 cursor-pointer shadow-2xs">
                         This Month <span className="text-[10px]">˅</span>
                       </div>
                     </div>
@@ -684,7 +684,7 @@ export default function UserDashboardPage() {
                 </div>
 
                 {/* Recommended For You Section */}
-                <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs space-y-4">
+                <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="font-serif font-extrabold text-lg md:text-xl text-[#1A143F]">Recommended For You</h3>
                     <span onClick={() => changeTab('60-Second Actions')} className="text-xs md:text-sm font-extrabold text-[#7464AC] cursor-pointer hover:underline flex items-center gap-1">
@@ -694,7 +694,7 @@ export default function UserDashboardPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 min-w-0">
                     {/* Card 1 */}
-                    <div className="p-3.5 sm:p-4 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] shadow-xs hover:shadow-md hover:border-[#7666AB] transition-all flex flex-col justify-between space-y-2.5 min-w-0 overflow-hidden">
+                    <div className="p-3.5 sm:p-4 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] shadow-xs hover:shadow-md hover:border-[#7666AB] transition-all flex flex-col justify-between space-y-2.5 min-w-0 overflow-hidden">
                       <div className="w-9 h-9 rounded-2xl bg-[#FCF3E9] text-[#7D8164] flex items-center justify-center text-lg shadow-2xs shrink-0">
                         🍃
                       </div>
@@ -709,7 +709,7 @@ export default function UserDashboardPage() {
                     </div>
 
                     {/* Card 2 */}
-                    <div className="p-3.5 sm:p-4 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] shadow-xs hover:shadow-md hover:border-[#7666AB] transition-all flex flex-col justify-between space-y-2.5 min-w-0 overflow-hidden">
+                    <div className="p-3.5 sm:p-4 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] shadow-xs hover:shadow-md hover:border-[#7666AB] transition-all flex flex-col justify-between space-y-2.5 min-w-0 overflow-hidden">
                       <div className="w-9 h-9 rounded-2xl bg-[#F4EBF5] text-[#7464AC] flex items-center justify-center text-lg shadow-2xs shrink-0">
                         🧘
                       </div>
@@ -724,7 +724,7 @@ export default function UserDashboardPage() {
                     </div>
 
                     {/* Card 3 */}
-                    <div className="p-3.5 sm:p-4 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] shadow-xs hover:shadow-md hover:border-[#7666AB] transition-all flex flex-col justify-between space-y-2.5 min-w-0 overflow-hidden">
+                    <div className="p-3.5 sm:p-4 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] shadow-xs hover:shadow-md hover:border-[#7666AB] transition-all flex flex-col justify-between space-y-2.5 min-w-0 overflow-hidden">
                       <div className="w-9 h-9 rounded-2xl bg-[#FDE8C8] text-[#EDAA7A] flex items-center justify-center text-lg shadow-2xs shrink-0">
                         ☀️
                       </div>
@@ -752,7 +752,7 @@ export default function UserDashboardPage() {
               <div className="lg:col-span-12 xl:col-span-4 space-y-5 w-full min-w-0">
 
                 {/* Daily Motivation Card */}
-                <div className="overflow-hidden rounded-2xl border border-[#E4DAD7] shadow-xs bg-[#FEFAF8] flex flex-col">
+                <div className="overflow-hidden rounded-2xl border border-[#E4DAD7] shadow-xs bg-[#FEF9F5] flex flex-col">
                   <div className="w-full overflow-hidden rounded-t-2xl h-[160px]">
                     <img
                       src="/daily-motivation-bg.png"
@@ -761,7 +761,7 @@ export default function UserDashboardPage() {
                       style={{ objectPosition: 'center 30%' }}
                     />
                   </div>
-                  <div className="px-5 py-4.5 text-center flex flex-col items-center bg-[#FEFAF8]">
+                  <div className="px-5 py-4.5 text-center flex flex-col items-center bg-[#FEF9F5]">
                     <h4 className="font-serif font-extrabold text-base text-[#1A143F] mb-1.5 tracking-tight">
                       Daily Motivation
                     </h4>
@@ -772,10 +772,10 @@ export default function UserDashboardPage() {
                 </div>
 
                 {/* Quick Actions Card */}
-                <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs space-y-3">
+                <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-5 shadow-xs space-y-3">
                   <h4 className="font-serif font-extrabold text-base text-[#1A143F] mb-2 px-1">Quick Actions</h4>
                   
-                  <Link href="/#check-in" className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all">
+                  <Link href="/#check-in" className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all">
                     <div className="flex items-center gap-3">
                       <span className="w-9 h-9 rounded-xl bg-[#F4EBF5] text-[#7464AC] flex items-center justify-center text-base font-bold">😊</span>
                       <div>
@@ -786,7 +786,7 @@ export default function UserDashboardPage() {
                     <span className="text-base text-[#A49BA8] font-bold">›</span>
                   </Link>
 
-                  <button onClick={() => changeTab('Mood Library')} className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all text-left cursor-pointer">
+                  <button onClick={() => changeTab('Mood Library')} className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all text-left cursor-pointer">
                     <div className="flex items-center gap-3">
                       <span className="w-9 h-9 rounded-xl bg-[#FDE8C8] text-[#EDAA7A] flex items-center justify-center text-base font-bold">🎛️</span>
                       <div>
@@ -797,7 +797,7 @@ export default function UserDashboardPage() {
                     <span className="text-base text-[#A49BA8] font-bold">›</span>
                   </button>
 
-                  <button onClick={() => changeTab('My 7-Day Plan')} className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all text-left cursor-pointer">
+                  <button onClick={() => changeTab('My 7-Day Plan')} className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all text-left cursor-pointer">
                     <div className="flex items-center gap-3">
                       <span className="w-9 h-9 rounded-xl bg-[#FCF3E9] text-[#7D8164] flex items-center justify-center text-base font-bold">📅</span>
                       <div>
@@ -808,7 +808,7 @@ export default function UserDashboardPage() {
                     <span className="text-base text-[#A49BA8] font-bold">›</span>
                   </button>
 
-                  <button onClick={() => changeTab('Downloads')} className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all text-left cursor-pointer">
+                  <button onClick={() => changeTab('Downloads')} className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition-all text-left cursor-pointer">
                     <div className="flex items-center gap-3">
                       <span className="w-9 h-9 rounded-xl bg-[#FAF5F6] text-[#E49C8C] flex items-center justify-center text-base font-bold">📥</span>
                       <div>
@@ -830,14 +830,14 @@ export default function UserDashboardPage() {
                   </p>
                   <button 
                     onClick={() => openPaymentModal('7-Day Mindset Plan', 7)}
-                    className="w-full py-2.5 sm:py-3 rounded-xl bg-[#FEFAF8] text-[#7464AC] font-extrabold text-xs sm:text-sm shadow-md hover:bg-white transition cursor-pointer hover:scale-[1.01] block truncate"
+                    className="w-full py-2.5 sm:py-3 rounded-xl bg-[#FEF9F5] text-[#7464AC] font-extrabold text-xs sm:text-sm shadow-md hover:bg-[#FEF9F5] transition cursor-pointer hover:scale-[1.01] block truncate"
                   >
                     Upgrade Now ($7)
                   </button>
                 </div>
 
                 {/* Your Current Plan Card */}
-                <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3.5 w-full min-w-0 overflow-hidden">
+                <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3.5 w-full min-w-0 overflow-hidden">
                   <h4 className="font-serif font-extrabold text-base text-[#1A143F]">Your Current Plan</h4>
                   <div className="flex items-center justify-between text-xs sm:text-sm min-w-0 gap-2">
                     <div className="flex items-center gap-2 font-bold text-[#1A143F] min-w-0 shrink">
@@ -870,7 +870,7 @@ export default function UserDashboardPage() {
 
           {/* TAB 2: 60-SECOND ACTIONS PLAYER */}
           {activeTab === '60-Second Actions' && (
-            <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 sm:space-y-8 w-full max-w-4xl mx-auto min-w-0">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 sm:space-y-8 w-full max-w-4xl mx-auto min-w-0">
               <div>
                 <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A143F]">60-Second Actions Player ⏱️</h2>
                 <p className="text-xs md:text-base text-[#5C527A] font-semibold mt-1">Select an action and press Start for a 60-second mindset reset.</p>
@@ -884,12 +884,12 @@ export default function UserDashboardPage() {
                     className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between min-w-0 ${
                       selectedActionIndex === idx
                         ? 'border-[#7666AB] bg-[#EEE0FC] shadow-md scale-[1.02]'
-                        : 'border-[#E4DAD7] bg-[#FEFAF8] hover:border-[#7666AB]'
+                        : 'border-[#E4DAD7] bg-[#FEF9F5] hover:border-[#7666AB]'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-2xl sm:text-3xl">{act.icon}</span>
-                      <span className="text-[10px] sm:text-xs font-extrabold px-2.5 py-1 rounded-full bg-[#FEFAF8] text-[#7464AC] border border-[#E4DAD7] shadow-2xs">{act.category}</span>
+                      <span className="text-[10px] sm:text-xs font-extrabold px-2.5 py-1 rounded-full bg-[#FEF9F5] text-[#7464AC] border border-[#E4DAD7] shadow-2xs">{act.category}</span>
                     </div>
                     <strong className="block text-sm sm:text-base font-extrabold text-[#1A143F]">{act.title}</strong>
                     <p className="text-xs text-[#5C527A] font-medium mt-1 leading-relaxed line-clamp-2">{act.desc}</p>
@@ -906,7 +906,7 @@ export default function UserDashboardPage() {
 
           {/* TAB 3: MY CHECK-INS HISTORY */}
           {activeTab === 'My Check-ins' && (
-            <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E4DAD7] pb-4">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A143F]">My Check-ins History 🔖</h2>
@@ -937,7 +937,7 @@ export default function UserDashboardPage() {
               {/* MOBILE CARDS VIEW (< md) */}
               <div className="block md:hidden space-y-3 min-w-0">
                 {filteredCheckins.map((item) => (
-                  <div key={item.id} className="p-4 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] space-y-2.5 min-w-0 shadow-2xs">
+                  <div key={item.id} className="p-4 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] space-y-2.5 min-w-0 shadow-2xs">
                     <div className="flex items-center justify-between min-w-0 gap-2">
                       <div className="flex items-center gap-2 font-extrabold text-[#1A143F] text-sm sm:text-base min-w-0">
                         <span className="text-xl shrink-0">{item.icon}</span>
@@ -997,7 +997,7 @@ export default function UserDashboardPage() {
 
           {/* TAB 4: MY 7-DAY PLAN */}
           {activeTab === 'My 7-Day Plan' && (
-            <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E4DAD7] pb-4 min-w-0">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A143F]">My 7-Day Mindset Plan 📅</h2>
@@ -1030,7 +1030,7 @@ export default function UserDashboardPage() {
                         ? 'bg-[#FCF3E9] border-[#E4DAD7]'
                         : d.status === 'Active Today'
                         ? 'bg-[#F4EBF5] border-[#7666AB] ring-2 ring-[#7666AB]/20 shadow-sm'
-                        : 'bg-[#FEFAF8] border-[#E4DAD7] opacity-75'
+                        : 'bg-[#FEF9F5] border-[#E4DAD7] opacity-75'
                     }`}
                   >
                     <div>
@@ -1051,7 +1051,7 @@ export default function UserDashboardPage() {
                       className={`px-5 py-2.5 rounded-xl text-xs md:text-sm font-extrabold shrink-0 cursor-pointer ${
                         d.status === 'Active Today'
                           ? 'bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white shadow-sm hover:opacity-95'
-                          : 'bg-[#FEFAF8] border border-[#E4DAD7] text-[#1A143F] hover:bg-[#F4EBF5]'
+                          : 'bg-[#FEF9F5] border border-[#E4DAD7] text-[#1A143F] hover:bg-[#F4EBF5]'
                       }`}
                     >
                       {d.status === 'Completed' ? 'Review Day' : d.status === 'Active Today' ? 'Start Exercise →' : 'Locked'}
@@ -1064,7 +1064,7 @@ export default function UserDashboardPage() {
 
           {/* TAB 5: MY 30-DAY PLAN */}
           {activeTab === 'My 30-Day Plan' && (
-            <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E4DAD7] pb-4 min-w-0">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A143F]">My 30-Day Transformation Plan 🗓️</h2>
@@ -1096,7 +1096,7 @@ export default function UserDashboardPage() {
                             ? 'bg-[#FCF3E9] border-[#E4DAD7] text-[#7D8164]'
                             : isActive
                             ? 'bg-[#7464AC] border-[#7666AB] text-white font-black shadow-md'
-                            : 'bg-[#FEFAF8] border-[#E4DAD7] text-[#7E7096]'
+                            : 'bg-[#FEF9F5] border-[#E4DAD7] text-[#7E7096]'
                         }`}
                       >
                         <span className="text-[9px] sm:text-[10px] uppercase font-black tracking-tighter">Day</span>
@@ -1112,7 +1112,7 @@ export default function UserDashboardPage() {
 
           {/* TAB 6: DOWNLOADS */}
           {activeTab === 'Downloads' && (
-            <div className="bg-[#FEFAF8] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
               <div>
                 <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A143F]">Downloadable Resources 📥</h2>
                 <p className="text-xs md:text-base text-[#5C527A] font-semibold mt-1">Access all your PDF workbooks, 60-second action guides, and printable trackers.</p>
@@ -1125,7 +1125,7 @@ export default function UserDashboardPage() {
                   { title: 'Daily Reflection Printable Journal', size: '2.5 MB', pages: '12 Pages', desc: 'Daily morning & evening mindset prompts.', icon: '📙', badge: 'Journal' },
                   { title: '30-Day Emotional Resilience E-Book', size: '8.1 MB', pages: '16 Pages', desc: 'Comprehensive guide to long-term emotional mastery.', icon: '📕', badge: 'E-Book' },
                 ].map((res, i) => (
-                  <div key={i} className="p-5 rounded-2xl bg-[#FEFAF8] border border-[#E4DAD7] hover:border-[#7666AB] hover:shadow-md transition-all flex flex-col justify-between gap-4 min-w-0 overflow-hidden">
+                  <div key={i} className="p-5 rounded-2xl bg-[#FEF9F5] border border-[#E4DAD7] hover:border-[#7666AB] hover:shadow-md transition-all flex flex-col justify-between gap-4 min-w-0 overflow-hidden">
                     <div className="flex items-start gap-4 min-w-0">
                       <span className="text-4xl shrink-0 p-2.5 rounded-2xl bg-[#F4EBF5] border border-[#E4DAD7] shadow-2xs">{res.icon}</span>
                       <div className="min-w-0 flex-1">
@@ -1155,10 +1155,10 @@ export default function UserDashboardPage() {
 
           {/* TAB 7: PROFILE SETTINGS */}
           {activeTab === 'Profile Settings' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-5 sm:p-8 shadow-2xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-5 sm:p-8 shadow-2xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
               <div>
                 <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Profile Settings 👤</h2>
-                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Manage your account information and preferences.</p>
+                <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Manage your account information and preferences.</p>
               </div>
 
               {profileSuccessMsg && (
@@ -1176,17 +1176,17 @@ export default function UserDashboardPage() {
                 className="space-y-5 text-sm"
               >
                 {/* Profile Picture Upload Card */}
-                <div className="p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] flex flex-col sm:flex-row items-center gap-5 shadow-2xs">
+                <div className="p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] flex flex-col sm:flex-row items-center gap-5 shadow-2xs">
                   <div className="relative group">
                     <img 
                       src={userProfile.avatar} 
                       alt={userProfile.name} 
-                      className="w-24 h-24 rounded-full object-cover border-4 border-[#7147E8] shadow-md group-hover:opacity-90 transition-all"
+                      className="w-24 h-24 rounded-full object-cover border-4 border-[#7464AC] shadow-md group-hover:opacity-90 transition-all"
                     />
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#7147E8] text-white flex items-center justify-center text-xs shadow-md hover:scale-110 transition cursor-pointer"
+                      className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#7464AC] text-white flex items-center justify-center text-xs shadow-md hover:scale-110 transition cursor-pointer"
                       title="Upload New Photo"
                     >
                       📷
@@ -1203,14 +1203,14 @@ export default function UserDashboardPage() {
                       <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
-                        className="px-4 py-2.5 rounded-xl bg-[#7147E8] text-white text-xs font-extrabold shadow-sm hover:bg-[#5f38d4] transition cursor-pointer"
+                        className="px-4 py-2.5 rounded-xl bg-[#7464AC] text-white text-xs font-extrabold shadow-sm hover:bg-[#7464AC] transition cursor-pointer"
                       >
                         📷 Upload New Photo
                       </button>
                       <button
                         type="button"
                         onClick={() => setUserProfile(prev => ({ ...prev, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80' }))}
-                        className="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-600 text-xs font-bold hover:bg-gray-50 transition cursor-pointer"
+                        className="px-4 py-2.5 rounded-xl bg-[#FEF9F5] border border-gray-200 text-gray-600 text-xs font-bold hover:bg-[#FEF9F5] transition cursor-pointer"
                       >
                         Reset Photo
                       </button>
@@ -1231,7 +1231,7 @@ export default function UserDashboardPage() {
                     type="text"
                     value={userProfile.name}
                     onChange={(e) => setUserProfile({ ...userProfile, name: e.target.value })}
-                    className="w-full border border-gray-200 p-3.5 rounded-2xl bg-[#FAF8FD] font-semibold text-sm focus:outline-none focus:border-[#7147E8]"
+                    className="w-full border border-gray-200 p-3.5 rounded-2xl bg-[#FEF9F5] font-semibold text-sm focus:outline-none focus:border-[#7464AC]"
                   />
                 </div>
 
@@ -1241,7 +1241,7 @@ export default function UserDashboardPage() {
                     type="email"
                     value={userProfile.email}
                     onChange={(e) => setUserProfile({ ...userProfile, email: e.target.value })}
-                    className="w-full border border-gray-200 p-3.5 rounded-2xl bg-[#FAF8FD] font-semibold text-sm focus:outline-none focus:border-[#7147E8]"
+                    className="w-full border border-gray-200 p-3.5 rounded-2xl bg-[#FEF9F5] font-semibold text-sm focus:outline-none focus:border-[#7464AC]"
                   />
                 </div>
 
@@ -1251,11 +1251,11 @@ export default function UserDashboardPage() {
                     rows={3}
                     value={userProfile.bio}
                     onChange={(e) => setUserProfile({ ...userProfile, bio: e.target.value })}
-                    className="w-full border border-gray-200 p-3.5 rounded-2xl bg-[#FAF8FD] font-semibold text-sm focus:outline-none focus:border-[#7147E8]"
+                    className="w-full border border-gray-200 p-3.5 rounded-2xl bg-[#FEF9F5] font-semibold text-sm focus:outline-none focus:border-[#7464AC]"
                   />
                 </div>
 
-                <button type="submit" className="px-8 py-3.5 rounded-2xl bg-[#7147E8] text-white font-extrabold text-sm hover:bg-[#5f38d4] transition cursor-pointer shadow-md">
+                <button type="submit" className="px-8 py-3.5 rounded-2xl bg-[#7464AC] text-white font-extrabold text-sm hover:bg-[#7464AC] transition cursor-pointer shadow-md">
                   Save Changes
                 </button>
               </form>
@@ -1264,15 +1264,15 @@ export default function UserDashboardPage() {
 
           {/* TAB 8: NOTIFICATIONS */}
           {activeTab === 'Notifications' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-100 pb-4 min-w-0">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Notifications 🔔</h2>
-                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-0.5">Manage your notification alerts and daily reminders.</p>
+                  <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-0.5">Manage your notification alerts and daily reminders.</p>
                 </div>
                 <button
                   onClick={() => setNotifications(notifications.map(n => ({ ...n, unread: false })))}
-                  className="text-xs md:text-sm font-extrabold text-[#7147E8] hover:underline cursor-pointer self-start sm:self-auto shrink-0"
+                  className="text-xs md:text-sm font-extrabold text-[#7464AC] hover:underline cursor-pointer self-start sm:self-auto shrink-0"
                 >
                   Mark all as read
                 </button>
@@ -1280,7 +1280,7 @@ export default function UserDashboardPage() {
 
               {/* TOGGLES */}
               <div className="space-y-3.5 min-w-0">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] min-w-0">
                   <div className="min-w-0">
                     <strong className="block text-base font-extrabold text-[#1A1338]">Email Daily Mindset Reminders</strong>
                     <span className="text-xs text-gray-500 font-medium leading-relaxed block">Receive gentle daily check-in prompts via email.</span>
@@ -1289,11 +1289,11 @@ export default function UserDashboardPage() {
                     type="checkbox"
                     checked={notifSettings.emailReminders}
                     onChange={(e) => setNotifSettings({ ...notifSettings, emailReminders: e.target.checked })}
-                    className="w-5 h-5 accent-[#7147E8] shrink-0 cursor-pointer self-start sm:self-auto"
+                    className="w-5 h-5 accent-[#7464AC] shrink-0 cursor-pointer self-start sm:self-auto"
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] min-w-0">
                   <div className="min-w-0">
                     <strong className="block text-base font-extrabold text-[#1A1338]">Weekly Progress &amp; Check-in Summary Digest</strong>
                     <span className="text-xs text-gray-500 font-medium leading-relaxed block">Receive a weekly summary email with mood trends and achievement stats.</span>
@@ -1302,11 +1302,11 @@ export default function UserDashboardPage() {
                     type="checkbox"
                     checked={notifSettings.weeklyDigest}
                     onChange={(e) => setNotifSettings({ ...notifSettings, weeklyDigest: e.target.checked })}
-                    className="w-5 h-5 accent-[#7147E8] shrink-0 cursor-pointer self-start sm:self-auto"
+                    className="w-5 h-5 accent-[#7464AC] shrink-0 cursor-pointer self-start sm:self-auto"
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] min-w-0">
                   <div className="min-w-0">
                     <strong className="block text-base font-extrabold text-[#1A1338]">Promotional Discounts &amp; Special Mindset Offers</strong>
                     <span className="text-xs text-gray-500 font-medium leading-relaxed block">Get early access to 50% discount offers and new mindset exercise releases.</span>
@@ -1315,11 +1315,11 @@ export default function UserDashboardPage() {
                     type="checkbox"
                     checked={notifSettings.promotionalOffers}
                     onChange={(e) => setNotifSettings({ ...notifSettings, promotionalOffers: e.target.checked })}
-                    className="w-5 h-5 accent-[#7147E8] shrink-0 cursor-pointer self-start sm:self-auto"
+                    className="w-5 h-5 accent-[#7464AC] shrink-0 cursor-pointer self-start sm:self-auto"
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] min-w-0">
                   <div className="min-w-0">
                     <strong className="block text-base font-extrabold text-[#1A1338]">Account Security &amp; Login Alerts</strong>
                     <span className="text-xs text-gray-500 font-medium leading-relaxed block">Get security alerts whenever your account logs in from a new device.</span>
@@ -1328,11 +1328,11 @@ export default function UserDashboardPage() {
                     type="checkbox"
                     checked={notifSettings.securityAlerts}
                     onChange={(e) => setNotifSettings({ ...notifSettings, securityAlerts: e.target.checked })}
-                    className="w-5 h-5 accent-[#7147E8] shrink-0 cursor-pointer self-start sm:self-auto"
+                    className="w-5 h-5 accent-[#7464AC] shrink-0 cursor-pointer self-start sm:self-auto"
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] min-w-0">
                   <div className="min-w-0">
                     <strong className="block text-base font-extrabold text-[#1A1338]">Browser Push Notifications</strong>
                     <span className="text-xs text-gray-500 font-medium leading-relaxed block">Get instant 60-second action reminders on your device screen.</span>
@@ -1349,7 +1349,7 @@ export default function UserDashboardPage() {
                           });
                         }
                       }}
-                      className="text-xs font-extrabold bg-[#7147E8] text-white px-3 py-1.5 rounded-xl hover:opacity-90 transition"
+                      className="text-xs font-extrabold bg-[#7464AC] text-white px-3 py-1.5 rounded-xl hover:opacity-90 transition"
                     >
                       Enable Permission
                     </button>
@@ -1357,7 +1357,7 @@ export default function UserDashboardPage() {
                       type="checkbox"
                       checked={notifSettings.pushNotifs}
                       onChange={(e) => setNotifSettings({ ...notifSettings, pushNotifs: e.target.checked })}
-                      className="w-5 h-5 accent-[#7147E8] shrink-0 cursor-pointer"
+                      className="w-5 h-5 accent-[#7464AC] shrink-0 cursor-pointer"
                     />
                   </div>
                 </div>
@@ -1367,7 +1367,7 @@ export default function UserDashboardPage() {
               <div className="space-y-2.5 pt-2 min-w-0">
                 <h4 className="font-serif font-extrabold text-base text-[#1A1338]">Recent Activity Feed</h4>
                 {notifications.map((n) => (
-                  <div key={n.id} className={`p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 min-w-0 ${n.unread ? 'bg-[#F4EFFC] border-purple-200' : 'bg-white border-gray-100'}`}>
+                  <div key={n.id} className={`p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 min-w-0 ${n.unread ? 'bg-[#F4EFFC] border-purple-200' : 'bg-[#FEF9F5] border-gray-100'}`}>
                     <div className="flex items-center gap-3.5 min-w-0">
                       <span className="text-2xl shrink-0">{n.icon}</span>
                       <div className="min-w-0">
@@ -1383,10 +1383,10 @@ export default function UserDashboardPage() {
 
           {/* TAB 9: PRIVACY & DATA */}
           {activeTab === 'Privacy & Data' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
               <div>
                 <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Privacy &amp; Data 🔒</h2>
-                <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Your emotional reflection data is 100% private and protected.</p>
+                <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Your emotional reflection data is 100% private and protected.</p>
               </div>
 
               <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm space-y-1 min-w-0">
@@ -1395,7 +1395,7 @@ export default function UserDashboardPage() {
               </div>
 
               <div className="space-y-4 text-sm min-w-0">
-                <div className="p-4.5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] flex flex-col sm:flex-row sm:items-center justify-between gap-4 min-w-0">
+                <div className="p-4.5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] flex flex-col sm:flex-row sm:items-center justify-between gap-4 min-w-0">
                   <div className="min-w-0">
                     <strong className="block font-extrabold text-[#1A1338]">Export My Data</strong>
                     <span className="text-xs text-gray-500 font-medium leading-relaxed block">Download a full JSON file of all check-in history.</span>
@@ -1408,7 +1408,7 @@ export default function UserDashboardPage() {
                       a.download = 'moodflip_user_data.json';
                       a.click();
                     }}
-                    className="px-5 py-2.5 rounded-xl bg-[#7147E8] hover:bg-[#5f38d4] text-white font-extrabold text-xs md:text-sm shadow-xs shrink-0 cursor-pointer self-start sm:self-auto"
+                    className="px-5 py-2.5 rounded-xl bg-[#7464AC] hover:bg-[#7464AC] text-white font-extrabold text-xs md:text-sm shadow-xs shrink-0 cursor-pointer self-start sm:self-auto"
                   >
                     Export JSON
                   </button>
@@ -1447,33 +1447,33 @@ export default function UserDashboardPage() {
 
           {/* TAB 10: HELP & SUPPORT */}
           {activeTab === 'Help & Support' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EAE3F2] pb-4">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6 w-full max-w-4xl mx-auto min-w-0">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E4DAD7] pb-4">
                 <div>
                   <h2 className="font-serif font-extrabold text-2xl md:text-3xl text-[#1A1338]">Help &amp; Support ❓</h2>
-                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Frequently asked questions and direct support line.</p>
+                  <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Frequently asked questions and direct support line.</p>
                 </div>
                 <Link
                   href="/contact"
-                  className="px-5 py-2.5 rounded-2xl bg-[#7147E8] text-white text-xs md:text-sm font-extrabold shadow-sm hover:bg-[#5f38d4] transition self-start sm:self-auto shrink-0 flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-2xl bg-[#7464AC] text-white text-xs md:text-sm font-extrabold shadow-sm hover:bg-[#7464AC] transition self-start sm:self-auto shrink-0 flex items-center gap-2"
                 >
                   <span>✉️</span> Contact Us Page
                 </Link>
               </div>
 
               {/* Direct Contact Support Inquiry Card */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[#FAF8FD] to-[#F3EEFC] border border-[#E0D4F8] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 min-w-0">
+              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[#FEF9F5] to-[#F3EEFC] border border-[#E0D4F8] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 min-w-0">
                 <div className="space-y-1.5 min-w-0">
-                  <div className="flex items-center gap-2 text-sm md:text-base font-extrabold text-[#7147E8]">
+                  <div className="flex items-center gap-2 text-sm md:text-base font-extrabold text-[#7464AC]">
                     <span className="text-xl">📩</span> <span>Need Personal Assistance or Have an Inquiry?</span>
                   </div>
                   <p className="text-xs sm:text-sm text-[#5B5278] font-semibold leading-relaxed">
-                    Have questions about your plan, billing, or technical feedback? Send an inquiry on our official Contact Us page or email <strong className="text-[#7147E8]">support@moodflip.coach</strong>.
+                    Have questions about your plan, billing, or technical feedback? Send an inquiry on our official Contact Us page or email <strong className="text-[#7464AC]">support@moodflip.coach</strong>.
                   </p>
                 </div>
                 <Link
                   href="/contact"
-                  className="px-6 py-3 rounded-2xl bg-[#7147E8] hover:bg-[#5f38d4] text-white text-xs md:text-sm font-extrabold shadow-md hover:scale-[1.02] transition-transform shrink-0 self-start sm:self-auto flex items-center gap-2"
+                  className="px-6 py-3 rounded-2xl bg-[#7464AC] hover:bg-[#7464AC] text-white text-xs md:text-sm font-extrabold shadow-md hover:scale-[1.02] transition-transform shrink-0 self-start sm:self-auto flex items-center gap-2"
                 >
                   <span>💬</span> Contact Us Now →
                 </Link>
@@ -1486,7 +1486,7 @@ export default function UserDashboardPage() {
                   { q: 'Is MoodFlip therapy or medical advice?', a: 'No. MoodFlip is a self-reflection mindset utility designed for daily emotional clarity and stress release.' },
                   { q: 'How do I download the 7-Day Plan PDF?', a: 'Go to the Downloads tab or click Upgrade Now to receive your instant PDF workbook.' },
                 ].map((faq, idx) => (
-                  <div key={idx} className="p-4 sm:p-5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] space-y-1.5 min-w-0">
+                  <div key={idx} className="p-4 sm:p-5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] space-y-1.5 min-w-0">
                     <strong className="block text-base font-extrabold text-[#1A1338]">{faq.q}</strong>
                     <p className="text-xs sm:text-sm text-[#5B5278] font-medium leading-relaxed">{faq.a}</p>
                   </div>
@@ -1497,13 +1497,13 @@ export default function UserDashboardPage() {
 
           {/* TAB 11: MOOD LIBRARY */}
           {activeTab === 'Mood Library' && (
-            <div className="bg-white border border-[#EAE3F2] rounded-3xl p-6 md:p-8 shadow-2xs space-y-6 min-w-0">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EAE3F2] pb-4">
+            <div className="bg-[#FEF9F5] border border-[#E4DAD7] rounded-3xl p-6 md:p-8 shadow-2xs space-y-6 min-w-0">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E4DAD7] pb-4">
                 <div>
                   <h2 className="font-serif text-2xl md:text-3xl font-extrabold text-[#1A1338]">Mood Library 🎛️</h2>
-                  <p className="text-xs md:text-sm text-[#68607F] font-semibold mt-1">Browse all supported mood categories and flip your mindset instantly.</p>
+                  <p className="text-xs md:text-sm text-[#5C527A] font-semibold mt-1">Browse all supported mood categories and flip your mindset instantly.</p>
                 </div>
-                <Link href="/#check-in" className="px-5 py-2.5 rounded-2xl bg-[#7147E8] text-white text-xs md:text-sm font-extrabold shadow-sm hover:opacity-95 self-start sm:self-auto shrink-0">
+                <Link href="/#check-in" className="px-5 py-2.5 rounded-2xl bg-[#7464AC] text-white text-xs md:text-sm font-extrabold shadow-sm hover:opacity-95 self-start sm:self-auto shrink-0">
                   Start New Check-in
                 </Link>
               </div>
@@ -1521,16 +1521,16 @@ export default function UserDashboardPage() {
                   { name: 'Insecure', emoji: '🛡️', tone: 'Anxious', target: 'Confident' },
                   { name: 'Guilty', emoji: '😞', tone: 'Low', target: 'Forgiven & Free' },
                 ].map((item, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] hover:border-[#7147E8] hover:shadow-md transition-all flex flex-col justify-between space-y-3 min-w-0 overflow-hidden">
+                  <div key={idx} className="p-4 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] hover:border-[#7464AC] hover:shadow-md transition-all flex flex-col justify-between space-y-3 min-w-0 overflow-hidden">
                     <div className="flex items-center justify-between">
                       <span className="text-3xl shrink-0">{item.emoji}</span>
-                      <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-purple-100 text-[#7147E8] shrink-0 uppercase tracking-wider">{item.tone}</span>
+                      <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-purple-100 text-[#7464AC] shrink-0 uppercase tracking-wider">{item.tone}</span>
                     </div>
                     <div className="min-w-0">
                       <strong className="block text-base font-extrabold text-[#1A1338] truncate">{item.name}</strong>
                       <span className="text-xs text-emerald-600 font-extrabold block truncate mt-0.5">➔ {item.target}</span>
                     </div>
-                    <Link href="/#check-in" className="w-full text-center py-2 px-3 rounded-xl bg-white border border-[#EAE3F2] text-xs font-extrabold text-[#7147E8] hover:bg-[#F0EBFA] transition shadow-2xs block truncate">
+                    <Link href="/#check-in" className="w-full text-center py-2 px-3 rounded-xl bg-[#FEF9F5] border border-[#E4DAD7] text-xs font-extrabold text-[#7464AC] hover:bg-[#F4EBF5] transition shadow-2xs block truncate">
                       Flip Mood
                     </Link>
                   </div>
@@ -1545,7 +1545,7 @@ export default function UserDashboardPage() {
       {/* 💳 STRIPE PAYMENT MODAL */}
       {paymentModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50 overflow-y-auto">
-          <div className="bg-white rounded-3xl p-5 sm:p-7 md:p-8 max-w-lg w-full border border-[#EAE3F2] shadow-2xl space-y-4 sm:space-y-5 relative animate-in fade-in zoom-in duration-200 my-auto max-h-[92vh] overflow-y-auto min-w-0">
+          <div className="bg-[#FEF9F5] rounded-3xl p-5 sm:p-7 md:p-8 max-w-lg w-full border border-[#E4DAD7] shadow-2xl space-y-4 sm:space-y-5 relative animate-in fade-in zoom-in duration-200 my-auto max-h-[92vh] overflow-y-auto min-w-0">
             <button
               onClick={() => setPaymentModalOpen(false)}
               className="absolute top-4 right-4 sm:top-5 sm:right-5 text-gray-400 hover:text-gray-700 font-bold text-base sm:text-lg cursor-pointer z-10"
@@ -1564,19 +1564,19 @@ export default function UserDashboardPage() {
                   <h3 className="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold text-[#1A1338] mt-2 sm:mt-2.5 leading-tight">
                     Upgrade to {selectedPlan.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#68607F] font-semibold mt-1">
+                  <p className="text-xs sm:text-sm text-[#5C527A] font-semibold mt-1">
                     Get instant access to full daily exercises and downloadable PDF guides.
                   </p>
                 </div>
 
                 {/* ORDER SUMMARY BANNER */}
-                <div className="p-3.5 sm:p-4.5 rounded-2xl bg-gradient-to-r from-[#FAF8FD] to-[#F4EFFC] border border-[#E3D9F8] flex items-center justify-between gap-3 shadow-2xs min-w-0">
+                <div className="p-3.5 sm:p-4.5 rounded-2xl bg-gradient-to-r from-[#FEF9F5] to-[#F4EFFC] border border-[#E3D9F8] flex items-center justify-between gap-3 shadow-2xs min-w-0">
                   <div className="min-w-0 flex-1">
                     <strong className="block text-sm sm:text-base font-extrabold text-[#1A1338] truncate">{selectedPlan.name}</strong>
-                    <span className="text-[11px] sm:text-xs font-extrabold text-[#7147E8] block mt-0.5 truncate">✓ Instant PDF Download Included</span>
+                    <span className="text-[11px] sm:text-xs font-extrabold text-[#7464AC] block mt-0.5 truncate">✓ Instant PDF Download Included</span>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="font-serif text-2xl sm:text-3xl font-extrabold text-[#7147E8]">${selectedPlan.price}</span>
+                    <span className="font-serif text-2xl sm:text-3xl font-extrabold text-[#7464AC]">${selectedPlan.price}</span>
                     <span className="block text-[9px] sm:text-[10px] text-gray-500 uppercase font-black tracking-wider">{selectedPlan.period}</span>
                   </div>
                 </div>
@@ -1584,7 +1584,7 @@ export default function UserDashboardPage() {
                 {/* ACCEPTED CARD CARDS */}
                 <div className="flex items-center justify-between pt-0.5">
                   <span className="text-[11px] sm:text-xs font-extrabold text-gray-700 uppercase tracking-wide">Credit or Debit Card</span>
-                  <div className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs font-bold text-gray-600 bg-gray-100 px-2 sm:px-2.5 py-1 rounded-lg shrink-0">
+                  <div className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs font-bold text-gray-600 bg-[#FEF9F5] px-2 sm:px-2.5 py-1 rounded-lg shrink-0">
                     <span>💳 VISA</span>
                     <span>•</span>
                     <span>MC</span>
@@ -1595,7 +1595,7 @@ export default function UserDashboardPage() {
 
                 {/* STRIPE PAYMENT FORM */}
                 <form onSubmit={processPayment} autoComplete="off" className="space-y-4 text-xs md:text-sm min-w-0">
-                  <div className="space-y-3 sm:space-y-3.5 p-3.5 sm:p-4.5 rounded-2xl bg-[#FAF8FD] border border-[#F0EBFA] shadow-2xs min-w-0">
+                  <div className="space-y-3 sm:space-y-3.5 p-3.5 sm:p-4.5 rounded-2xl bg-[#FEF9F5] border border-[#F4EBF5] shadow-2xs min-w-0">
                     
                     {/* Cardholder Name */}
                     <div>
@@ -1608,7 +1608,7 @@ export default function UserDashboardPage() {
                           required
                           value={cardName}
                           onChange={(e) => setCardName(e.target.value)}
-                          className="w-full border border-gray-200 pl-9 sm:pl-10 pr-3 py-2.5 sm:py-3 rounded-xl bg-white font-semibold text-xs sm:text-sm focus:outline-none focus:border-[#7147E8] focus:ring-2 focus:ring-[#7147E8]/20 transition-all"
+                          className="w-full border border-gray-200 pl-9 sm:pl-10 pr-3 py-2.5 sm:py-3 rounded-xl bg-[#FEF9F5] font-semibold text-xs sm:text-sm focus:outline-none focus:border-[#7464AC] focus:ring-2 focus:ring-[#7464AC]/20 transition-all"
                           placeholder="Emma Johnson"
                         />
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs sm:text-sm">👤</span>
@@ -1626,7 +1626,7 @@ export default function UserDashboardPage() {
                           required
                           value={cardNumber}
                           onChange={(e) => setCardNumber(e.target.value)}
-                          className="w-full border border-gray-200 pl-9 sm:pl-10 pr-3 py-2.5 sm:py-3 rounded-xl bg-white font-mono font-bold text-xs sm:text-sm focus:outline-none focus:border-[#7147E8] focus:ring-2 focus:ring-[#7147E8]/20 transition-all"
+                          className="w-full border border-gray-200 pl-9 sm:pl-10 pr-3 py-2.5 sm:py-3 rounded-xl bg-[#FEF9F5] font-mono font-bold text-xs sm:text-sm focus:outline-none focus:border-[#7464AC] focus:ring-2 focus:ring-[#7464AC]/20 transition-all"
                           placeholder="4532 8890 1234 5678"
                         />
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs sm:text-sm">💳</span>
@@ -1645,7 +1645,7 @@ export default function UserDashboardPage() {
                             required
                             value={cardExpiry}
                             onChange={(e) => setCardExpiry(e.target.value)}
-                            className="w-full border border-gray-200 pl-8 sm:pl-9 pr-2 py-2.5 sm:py-3 rounded-xl bg-white font-mono font-bold text-xs sm:text-sm focus:outline-none focus:border-[#7147E8] focus:ring-2 focus:ring-[#7147E8]/20 transition-all"
+                            className="w-full border border-gray-200 pl-8 sm:pl-9 pr-2 py-2.5 sm:py-3 rounded-xl bg-[#FEF9F5] font-mono font-bold text-xs sm:text-sm focus:outline-none focus:border-[#7464AC] focus:ring-2 focus:ring-[#7464AC]/20 transition-all"
                             placeholder="MM / YY"
                           />
                           <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs">📅</span>
@@ -1662,7 +1662,7 @@ export default function UserDashboardPage() {
                             maxLength={4}
                             value={cardCvc}
                             onChange={(e) => setCardCvc(e.target.value)}
-                            className="w-full border border-gray-200 pl-8 sm:pl-9 pr-2 py-2.5 sm:py-3 rounded-xl bg-white font-mono font-bold text-xs sm:text-sm focus:outline-none focus:border-[#7147E8] focus:ring-2 focus:ring-[#7147E8]/20 transition-all"
+                            className="w-full border border-gray-200 pl-8 sm:pl-9 pr-2 py-2.5 sm:py-3 rounded-xl bg-[#FEF9F5] font-mono font-bold text-xs sm:text-sm focus:outline-none focus:border-[#7464AC] focus:ring-2 focus:ring-[#7464AC]/20 transition-all"
                             placeholder="123"
                           />
                           <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs">🔒</span>
@@ -1676,7 +1676,7 @@ export default function UserDashboardPage() {
                   <button
                     type="submit"
                     disabled={paymentProcessing}
-                    className="w-full py-3.5 sm:py-4 rounded-2xl font-extrabold text-sm sm:text-base text-white bg-gradient-to-r from-[#7147E8] to-[#9333EA] hover:from-[#5f38d4] hover:to-[#7e22ce] shadow-lg shadow-[#7147E8]/25 hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 sm:py-4 rounded-2xl font-extrabold text-sm sm:text-base text-white bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] hover:from-[#7464AC] hover:to-[#7e22ce] shadow-lg shadow-[#7464AC]/25 hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {paymentProcessing ? (
                       <>
@@ -1701,7 +1701,7 @@ export default function UserDashboardPage() {
                 </div>
                 <div>
                   <h3 className="font-serif text-2xl font-extrabold text-[#1A1338]">Payment Successful! 🎉</h3>
-                  <p className="text-sm text-[#68607F] font-semibold mt-1 max-w-xs mx-auto">
+                  <p className="text-sm text-[#5C527A] font-semibold mt-1 max-w-xs mx-auto">
                     Welcome to the <strong>{selectedPlan.name}</strong>. Your printable PDF is now unlocked!
                   </p>
                 </div>
@@ -1711,7 +1711,7 @@ export default function UserDashboardPage() {
                       setPaymentModalOpen(false);
                       triggerPDFDownload(selectedPlan?.name || 'MoodFlip Mindset Guide', userProfile.name);
                     }}
-                    className="px-8 py-3.5 rounded-2xl bg-[#7147E8] text-white font-extrabold text-sm shadow-md hover:bg-[#5f38d4] transition cursor-pointer"
+                    className="px-8 py-3.5 rounded-2xl bg-[#7464AC] text-white font-extrabold text-sm shadow-md hover:bg-[#7464AC] transition cursor-pointer"
                   >
                     Done &amp; Start Exploring →
                   </button>

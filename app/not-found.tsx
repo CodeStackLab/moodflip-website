@@ -46,12 +46,12 @@ export default function NotFound() {
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-200/30 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
       {/* Main card */}
-      <div className="relative z-10 bg-white/90 backdrop-blur-xl border border-[#E8E0F4] rounded-[32px] shadow-2xl shadow-purple-100/60 max-w-2xl w-full p-10 md:p-14 flex flex-col items-center text-center gap-6">
+      <div className="relative z-10 bg-[#FEF9F5]/90 backdrop-blur-xl border border-[#E8E0F4] rounded-[32px] shadow-2xl shadow-purple-100/60 max-w-2xl w-full p-10 md:p-14 flex flex-col items-center text-center gap-6">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 mb-2 group">
           <span className="relative inline-block w-[32px] h-[24px] rounded-b-[19px] bg-gradient-to-br from-[#ff9f8d] via-[#d950c0] to-[#7148e9]">
-            <span className="absolute left-[7px] top-[4px] w-[18px] h-[10px] rounded-b-[12px] bg-white" />
+            <span className="absolute left-[7px] top-[4px] w-[18px] h-[10px] rounded-b-[12px] bg-[#FEF9F5]" />
             <span className="absolute -top-[6px] left-[3px] w-[8px] h-[8px] rounded-full bg-[#ffad64] z-10" />
             <span className="absolute -top-[6px] right-[3px] w-[8px] h-[8px] rounded-full bg-[#ffad64] z-10" />
           </span>
@@ -65,7 +65,7 @@ export default function NotFound() {
           <div
             className="font-serif font-black text-[100px] md:text-[140px] leading-none select-none"
             style={{
-              background: 'linear-gradient(135deg, #7147E8 0%, #d950c0 50%, #ff9f8d 100%)',
+              background: 'linear-gradient(135deg, #7464AC 0%, #d950c0 50%, #ff9f8d 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -86,7 +86,7 @@ export default function NotFound() {
           <h1 className="font-serif text-3xl md:text-4xl font-extrabold text-[#1A1338] tracking-tight leading-tight mb-3">
             This page took a mental break
           </h1>
-          <p className="text-[#68607F] text-base md:text-lg font-semibold leading-relaxed max-w-md mx-auto">
+          <p className="text-[#5C527A] text-base md:text-lg font-semibold leading-relaxed max-w-md mx-auto">
             The page you&apos;re looking for has drifted away — like a thought you can&apos;t quite catch. Let&apos;s help you find your way back.
           </p>
         </div>
@@ -103,19 +103,19 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
           <Link
             href="/"
-            className="flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#7147E8] to-[#9333EA] text-white font-extrabold text-sm shadow-lg shadow-[#7147E8]/30 hover:opacity-90 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+            className="flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#7464AC] to-[#9C8CC4] text-white font-extrabold text-sm shadow-lg shadow-[#7464AC]/30 hover:opacity-90 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
           >
             <span>🏠</span> Back to MoodFlip
           </Link>
           <Link
             href="/login"
-            className="flex-1 py-3.5 px-6 rounded-2xl bg-white border-2 border-[#E3D9F8] text-[#7147E8] font-extrabold text-sm hover:bg-[#F5F0FF] hover:border-[#7147E8] transition-all flex items-center justify-center gap-2"
+            className="flex-1 py-3.5 px-6 rounded-2xl bg-[#FEF9F5] border-2 border-[#E3D9F8] text-[#7464AC] font-extrabold text-sm hover:bg-[#F5F0FF] hover:border-[#7464AC] transition-all flex items-center justify-center gap-2"
           >
             <span>👤</span> Login
           </Link>
           <Link
             href="/#check-in"
-            className="flex-1 py-3.5 px-6 rounded-2xl bg-white border-2 border-[#E3D9F8] text-[#7147E8] font-extrabold text-sm hover:bg-[#F5F0FF] hover:border-[#7147E8] transition-all flex items-center justify-center gap-2"
+            className="flex-1 py-3.5 px-6 rounded-2xl bg-[#FEF9F5] border-2 border-[#E3D9F8] text-[#7464AC] font-extrabold text-sm hover:bg-[#F5F0FF] hover:border-[#7464AC] transition-all flex items-center justify-center gap-2"
           >
             <span>😊</span> Check-in Now
           </Link>
@@ -123,27 +123,27 @@ export default function NotFound() {
 
         {/* Quick links */}
         <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-bold text-[#8A81A8]">
-          <Link href="/" className="hover:text-[#7147E8] transition-colors">Mood Tool</Link>
+          <Link href="/" className="hover:text-[#7464AC] transition-colors">Mood Tool</Link>
           <span>·</span>
-          <Link href="/about" className="hover:text-[#7147E8] transition-colors">About</Link>
+          <Link href="/about" className="hover:text-[#7464AC] transition-colors">About</Link>
           <span>·</span>
-          <Link href="/contact" className="hover:text-[#7147E8] transition-colors">Contact</Link>
+          <Link href="/contact" className="hover:text-[#7464AC] transition-colors">Contact</Link>
           <span>·</span>
-          <Link href="/privacy" className="hover:text-[#7147E8] transition-colors">Privacy Policy</Link>
+          <Link href="/privacy" className="hover:text-[#7464AC] transition-colors">Privacy Policy</Link>
         </div>
 
         {/* 60-second mood action */}
-        <div className="w-full bg-[#FAF8FD] border border-[#EAE3F2] rounded-2xl p-4 flex items-center gap-4 mt-2">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7147E8] to-[#9333EA] flex items-center justify-center text-2xl shrink-0 shadow-md">
+        <div className="w-full bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-4 flex items-center gap-4 mt-2">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7464AC] to-[#9C8CC4] flex items-center justify-center text-2xl shrink-0 shadow-md">
             🌟
           </div>
           <div className="text-left min-w-0">
             <strong className="block text-sm font-extrabold text-[#1A1338]">Feeling lost? Try a 60-Second Reset</strong>
-            <p className="text-xs text-[#68607F] font-medium mt-0.5">Take a breath, pick a mood, and get your mindset back on track.</p>
+            <p className="text-xs text-[#5C527A] font-medium mt-0.5">Take a breath, pick a mood, and get your mindset back on track.</p>
           </div>
           <Link
             href="/#check-in"
-            className="shrink-0 px-4 py-2 rounded-xl bg-[#7147E8] text-white text-xs font-extrabold hover:bg-[#5f38d4] transition shadow-sm"
+            className="shrink-0 px-4 py-2 rounded-xl bg-[#7464AC] text-white text-xs font-extrabold hover:bg-[#7464AC] transition shadow-sm"
           >
             Flip Mood →
           </Link>

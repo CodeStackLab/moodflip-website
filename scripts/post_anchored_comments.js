@@ -9,7 +9,7 @@ const token = execSync('powershell -Command "$env:Path = [System.Environment]::G
 const itemsToComment = [
   {
     quote: "Overall design is not clean, simple, calm or easy to use.",
-    content: "✅ FIXED & VERIFIED: Rebuilt homepage into a single-screen utility without scrolling. Focused strictly around the approved Mood Tool with soft ivory (#FDF8F5) and warm cream (#FCF3E9) calming aesthetics."
+    content: "✅ FIXED & VERIFIED: Rebuilt homepage into a single-screen utility without scrolling. Focused strictly around the approved Mood Tool with soft ivory (#FEF9F5) and warm cream (#FCF3E9) calming aesthetics."
   },
   {
     quote: "Too much junk/clutter appears to have been added.",

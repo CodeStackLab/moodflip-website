@@ -97,7 +97,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B]">
+    <div className="min-h-screen bg-[#FEF9F5] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B]">
       <Header />
 
       <main className="flex-1 flex items-center justify-center p-4 md:p-8 py-8 md:py-12 pb-24 sm:pb-12">
@@ -111,7 +111,7 @@ export default function RegisterPage() {
               style={{ backgroundImage: "url('/login-bg.jpg')" }}
             >
               {/* Gradient overlays */}
-              <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-[#FDF8F5]/95 via-[#FDF8F5]/70 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-[#FEF9F5]/95 via-[#FEF9F5]/70 to-transparent pointer-events-none" />
               <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#1A143F]/30 to-transparent pointer-events-none" />
 
               {/* Headline */}
@@ -143,7 +143,7 @@ export default function RegisterPage() {
               </div>
 
               {/* Feature pills */}
-              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 bg-[#FEFAF8]/95 backdrop-blur-md rounded-[20px] p-3.5 sm:p-4 border border-[#E4DAD7] shadow-sm mt-6">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 bg-[#FEF9F5]/95 backdrop-blur-md rounded-[20px] p-3.5 sm:p-4 border border-[#E4DAD7] shadow-sm mt-6">
                 {[
                   { icon: '🛡️', bg: '#F4EBF5', title: 'Private & Secure', sub: 'Data is encrypted' },
                   { icon: '👤', bg: '#FCF3E9', title: 'Free Profile', sub: 'Instant access' },
@@ -164,7 +164,7 @@ export default function RegisterPage() {
             </div>
 
             {/* ── RIGHT FORM ── */}
-            <div className="rounded-[24px] border border-[#E4DAD7] bg-[#FEFAF8] p-6 md:p-8 shadow-[0_10px_28px_rgba(26,20,63,0.03)] flex flex-col justify-center order-1 lg:order-2">
+            <div className="rounded-[24px] border border-[#E4DAD7] bg-[#FEF9F5] p-6 md:p-8 shadow-[0_10px_28px_rgba(26,20,63,0.03)] flex flex-col justify-center order-1 lg:order-2">
 
               {/* ── OTP VERIFICATION SCREEN ── */}
               {showOtp ? (
@@ -192,7 +192,7 @@ export default function RegisterPage() {
                       value={otpInput}
                       onChange={(e) => { setOtpInput(e.target.value.replace(/\D/g, '')); setOtpError(''); }}
                       placeholder="123456"
-                      className="text-center text-xl font-extrabold tracking-[0.3em] w-48 h-12 rounded-xl border bg-[#FEFAF8] text-[#1A143F] focus:outline-none transition"
+                      className="text-center text-xl font-extrabold tracking-[0.3em] w-48 h-12 rounded-xl border bg-[#FEF9F5] text-[#1A143F] focus:outline-none transition"
                       style={{ borderColor: otpError ? '#E49C8C' : '#E4DAD7' }}
                       onFocus={(e) => e.target.style.borderColor = '#7464AC'}
                       onBlur={(e) => e.target.style.borderColor = otpError ? '#E49C8C' : '#E4DAD7'}
@@ -252,7 +252,7 @@ export default function RegisterPage() {
 
                   {/* Backend loading steps */}
                   {isLoading && (
-                    <div className="mb-3 rounded-xl p-3 border border-[#E4DAD7] bg-[#FDF8F5] text-xs space-y-1.5">
+                    <div className="mb-3 rounded-xl p-3 border border-[#E4DAD7] bg-[#FEF9F5] text-xs space-y-1.5">
                       {[
                         { step: 1, label: '📝 Validating your information...' },
                         { step: 2, label: '🔐 Setting up secure profile...' },
@@ -287,7 +287,7 @@ export default function RegisterPage() {
                         <span className="absolute left-3.5 top-3 text-[#A49BA8] text-sm">👤</span>
                         <input type="text" required value={fullName} onChange={(e) => setFullName(e.target.value)}
                           placeholder="Enter your full name" disabled={isLoading}
-                          className="w-full h-10 pl-10 pr-4 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                          className="w-full h-10 pl-10 pr-4 rounded-xl border bg-[#FEF9F5] text-sm text-[#1A143F] focus:outline-none transition"
                           style={{ borderColor: '#E4DAD7' }}
                           onFocus={(e) => e.target.style.borderColor = '#7464AC'}
                           onBlur={(e) => e.target.style.borderColor = '#E4DAD7'} />
@@ -301,7 +301,7 @@ export default function RegisterPage() {
                         <span className="absolute left-3.5 top-3 text-[#A49BA8] text-sm">✉</span>
                         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
                           placeholder="Enter your email address" disabled={isLoading}
-                          className="w-full h-10 pl-10 pr-4 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                          className="w-full h-10 pl-10 pr-4 rounded-xl border bg-[#FEF9F5] text-sm text-[#1A143F] focus:outline-none transition"
                           style={{ borderColor: '#E4DAD7' }}
                           onFocus={(e) => e.target.style.borderColor = '#7464AC'}
                           onBlur={(e) => e.target.style.borderColor = '#E4DAD7'} />
@@ -315,7 +315,7 @@ export default function RegisterPage() {
                         <span className="absolute left-3.5 top-3 text-[#A49BA8] text-sm">🔒</span>
                         <input type={showPassword ? 'text' : 'password'} required value={password}
                           onChange={(e) => setPassword(e.target.value)} placeholder="Create a strong password" disabled={isLoading}
-                          className="w-full h-10 pl-10 pr-10 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                          className="w-full h-10 pl-10 pr-10 rounded-xl border bg-[#FEF9F5] text-sm text-[#1A143F] focus:outline-none transition"
                           style={{ borderColor: '#E4DAD7' }}
                           onFocus={(e) => e.target.style.borderColor = '#7464AC'}
                           onBlur={(e) => e.target.style.borderColor = '#E4DAD7'} />
@@ -348,7 +348,7 @@ export default function RegisterPage() {
                         <span className="absolute left-3.5 top-3 text-[#A49BA8] text-sm">🔒</span>
                         <input type={showConfirmPassword ? 'text' : 'password'} required value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" disabled={isLoading}
-                          className="w-full h-10 pl-10 pr-10 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                          className="w-full h-10 pl-10 pr-10 rounded-xl border bg-[#FEF9F5] text-sm text-[#1A143F] focus:outline-none transition"
                           style={{ borderColor: confirmPassword && confirmPassword !== password ? '#E49C8C' : '#E4DAD7' }}
                           onFocus={(e) => e.target.style.borderColor = '#7464AC'}
                           onBlur={(e) => e.target.style.borderColor = confirmPassword && confirmPassword !== password ? '#E49C8C' : '#E4DAD7'} />
@@ -415,7 +415,7 @@ export default function RegisterPage() {
           </div>
 
           {/* SECURITY STRIP */}
-          <section className="p-4 sm:p-5 rounded-2xl border border-[#E4DAD7] bg-[#FEFAF8] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#5C527A] shadow-[0_4px_16px_rgba(26,20,63,0.03)]">
+          <section className="p-4 sm:p-5 rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#5C527A] shadow-[0_4px_16px_rgba(26,20,63,0.03)]">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0 bg-[#F4EBF5] text-[#7464AC] border border-[#E4DAD7]">🛡️</div>
               <span className="font-medium text-[#1A143F] text-[12px]">Industry-standard encryption keeps your data safe and private.</span>

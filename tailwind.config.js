@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'brand-ivory': '#FDF8F5',
+        'brand-ivory': '#FEF9F5',      /* Main warm background (soft ivory) */
         'brand-cream': '#FCF3E9',
-        'brand-card': '#FEFAF8',
+        'brand-card': '#FEF9F5',
         'brand-tint': '#F4EBF5',
         'brand-selected': '#EEE0FC',
         'brand-inactive': '#F1ECED',

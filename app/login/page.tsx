@@ -72,10 +72,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF8F5] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B]">
+    <div className="min-h-screen bg-[#FCF5EE] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B] relative">
       <Header />
 
-      <main className="flex-1 flex items-center justify-center p-4 md:p-8 py-8 md:py-12 pb-24 sm:pb-12">
+      {/* ── BACKGROUND ARTWORK (Peaceful sunrise/sun style - Soft & Faded) ── */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-start justify-center opacity-20">
+        <img
+          src="/peaceful-sunrise-bg.png"
+          alt="Peaceful Sunrise Backdrop"
+          className="w-full max-w-5xl object-cover object-top filter contrast-105"
+        />
+      </div>
+
+      <main className="relative z-10 flex-1 flex items-center justify-center p-4 md:p-8 py-8 md:py-12 pb-24 sm:pb-12">
         <div className="w-full max-w-4xl mx-auto space-y-6">
           
           {/* Main Card Container */}
@@ -87,7 +96,7 @@ export default function LoginPage() {
               style={{ backgroundImage: "url('/login-bg.jpg')" }}
             >
               {/* Gradient overlays */}
-              <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-[#FDF8F5]/95 via-[#FDF8F5]/70 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-[#FEF9F5]/95 via-[#FEF9F5]/70 to-transparent pointer-events-none" />
               <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#1A143F]/30 to-transparent pointer-events-none" />
 
               {/* Headline */}
@@ -119,7 +128,7 @@ export default function LoginPage() {
               </div>
 
               {/* Bottom feature pills */}
-              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 bg-[#FEFAF8]/95 backdrop-blur-md rounded-[20px] p-4 border border-[#E4DAD7] shadow-sm mt-6">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 bg-[#FEF9F5]/95 backdrop-blur-md rounded-[20px] p-4 border border-[#E4DAD7] shadow-sm mt-6">
                 {[
                   { icon: '🛡️', color: '#7464AC', bg: '#F4EBF5', title: 'Private & Secure', sub: 'Your data is encrypted' },
                   { icon: '🔐', color: '#7D8164', bg: '#FCF3E9', title: 'Encrypted Access', sub: 'Privacy-first security' },
@@ -140,7 +149,7 @@ export default function LoginPage() {
             </div>
 
             {/* ── RIGHT LOGIN FORM ── */}
-            <div className="rounded-[24px] border border-[#E4DAD7] bg-[#FEFAF8] p-6 md:p-9 shadow-[0_10px_28px_rgba(26,20,63,0.03)] flex flex-col justify-center order-1 lg:order-2">
+            <div className="rounded-[24px] border border-[#E4DAD7] bg-[#FEF9F5] p-6 md:p-9 shadow-[0_10px_28px_rgba(26,20,63,0.03)] flex flex-col justify-center order-1 lg:order-2">
 
               {/* Avatar + Titles */}
               <div className="text-center mb-5">
@@ -162,7 +171,7 @@ export default function LoginPage() {
 
               {/* Step indicator */}
               {isLoading && (
-                <div className="mb-4 bg-[#FDF8F5] border border-[#E4DAD7] rounded-2xl p-3.5 space-y-2 animate-in fade-in duration-200">
+                <div className="mb-4 bg-[#FEF9F5] border border-[#E4DAD7] rounded-2xl p-3.5 space-y-2 animate-in fade-in duration-200">
                   {[
                     { step: 1, text: 'Verifying email & credentials...', icon: '🔍' },
                     { step: 2, text: 'Authenticating secure session...', icon: '🔐' },
@@ -224,7 +233,7 @@ export default function LoginPage() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="admin@example.com"
                       disabled={isLoading}
-                      className="w-full h-11 pl-10 pr-4 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                      className="w-full h-11 pl-10 pr-4 rounded-xl border bg-[#FEF9F5] text-sm text-[#1A143F] focus:outline-none transition"
                       style={{ borderColor: '#E4DAD7' }}
                       onFocus={(e) => e.target.style.borderColor = '#7464AC'}
                       onBlur={(e) => e.target.style.borderColor = '#E4DAD7'}
@@ -246,7 +255,7 @@ export default function LoginPage() {
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
                       disabled={isLoading}
-                      className="w-full h-11 pl-10 pr-11 rounded-xl border bg-[#FEFAF8] text-sm text-[#1A143F] focus:outline-none transition"
+                      className="w-full h-11 pl-10 pr-11 rounded-xl border bg-[#FEF9F5] text-sm text-[#1A143F] focus:outline-none transition"
                       style={{ borderColor: '#E4DAD7' }}
                       onFocus={(e) => e.target.style.borderColor = '#7464AC'}
                       onBlur={(e) => e.target.style.borderColor = '#E4DAD7'}
@@ -344,7 +353,7 @@ export default function LoginPage() {
           </div>
 
           {/* SECURITY STRIP */}
-          <section className="p-4 rounded-2xl border border-[#E4DAD7] bg-[#FEFAF8] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#5C527A] shadow-[0_4px_16px_rgba(26,20,63,0.03)]">
+          <section className="p-4 rounded-2xl border border-[#E4DAD7] bg-[#FEF9F5] flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#5C527A] shadow-[0_4px_16px_rgba(26,20,63,0.03)]">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base flex-shrink-0 bg-[#F4EBF5] text-[#7464AC] border border-[#E4DAD7]">
                 🛡️

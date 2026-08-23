@@ -64,11 +64,6 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/resources" className="hover:text-[#7464AC] transition block py-0.5">
-                    Resources
-                  </Link>
-                </li>
-                <li>
                   <Link href="/contact" className="hover:text-[#7464AC] transition block py-0.5">
                     Contact
                   </Link>

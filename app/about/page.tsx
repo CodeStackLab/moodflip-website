@@ -15,23 +15,21 @@ export default function AboutPage() {
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-6">
         
-        {/* ── TOP HERO WITH SUNRISE BACKGROUND & TEXT ON TOP OF IT ── */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-[0_4px_20px_rgba(26,20,63,0.04)] bg-[#FEFAF8] min-h-[220px] sm:min-h-[270px] flex flex-col items-center justify-center text-center p-6 sm:p-10">
-          {/* Sunrise Background Image */}
+        {/* ── TOP HERO WITH VIVID SUNRISE ARTWORK & CRISP GLASS CARD ── */}
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-md min-h-[260px] sm:min-h-[300px] flex items-center justify-center p-4 sm:p-8 bg-[#FCF5EE]">
+          {/* Full Bright Sunrise Artwork - No Washout / No Opacity Reduction */}
           <img
             src="/peaceful-sunrise-bg.png"
             alt="MoodFlip Peaceful Sunrise"
-            className="absolute inset-0 w-full h-full object-cover object-center opacity-65 pointer-events-none"
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
-          {/* Soft warm gradient overlay for crystal clear text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#FCF5EE]/30 via-transparent to-[#FCF5EE]/70 pointer-events-none" />
 
-          {/* Text ON TOP of the Sunrise Image */}
-          <div className="relative z-10 max-w-2xl mx-auto space-y-2.5">
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A143F] tracking-tight drop-shadow-2xs">
+          {/* Premium Glassmorphism Card for Crystal Clear Text */}
+          <div className="relative z-10 max-w-2xl w-full mx-auto bg-[#FEFAF8]/85 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/90 shadow-[0_10px_35px_rgba(26,20,63,0.08)] text-center space-y-2.5">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A143F] tracking-tight">
               About MoodFlip
             </h1>
-            <p className="text-base sm:text-lg md:text-xl font-bold text-[#1A143F] leading-relaxed max-w-xl mx-auto pt-1">
+            <p className="text-base sm:text-lg md:text-xl font-bold text-[#1A143F] leading-relaxed pt-1">
               MoodFlip helps you notice your current mood, understand the feeling behind it, and make one step toward feeling better.
             </p>
           </div>

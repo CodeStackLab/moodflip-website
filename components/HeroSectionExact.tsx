@@ -419,12 +419,33 @@ export default function HeroSectionExact({
       const savedCount = parseInt(localStorage.getItem("moodflip_free_flip_count") || "0", 10);
       setFreeFlipCount(savedCount);
 
-      // ── #19: Second-Visit Profile Invitation Popup ──
-      const visits = parseInt(localStorage.getItem("moodflip_visit_count") || "0", 10) + 1;
-      localStorage.setItem("moodflip_visit_count", String(visits));
-      const alreadyDismissed = localStorage.getItem("moodflip_visit_popup_dismissed") === "1";
-      if (visits >= 2 && !alreadyDismissed) {
-        setTimeout(() => setShowSecondVisitPopup(true), 3000);
+      // ── Profile Invitation Popup: every 12 hrs, max 2x/day, ONLY for non-logged-in users ──
+      const isLoggedIn =
+        localStorage.getItem('userLoggedIn') === 'true' ||
+        localStorage.getItem('isLoggedIn') === 'true';
+
+      if (!isLoggedIn) {
+        const now = Date.now();
+        const todayKey = new Date().toISOString().split('T')[0];
+        const popupRaw = localStorage.getItem('moodflip_popup_data');
+        const popupData: { lastShown?: number; todayDate?: string; todayCount?: number } =
+          popupRaw ? JSON.parse(popupRaw) : {};
+
+        const todayCount = popupData.todayDate === todayKey ? (popupData.todayCount || 0) : 0;
+        const lastShown  = popupData.lastShown || 0;
+        const hoursSinceLast = (now - lastShown) / (1000 * 60 * 60);
+
+        // Show if: < 2 times shown today AND at least 12 hours since last
+        if (todayCount < 2 && (lastShown === 0 || hoursSinceLast >= 12)) {
+          setTimeout(() => {
+            setShowSecondVisitPopup(true);
+            localStorage.setItem('moodflip_popup_data', JSON.stringify({
+              lastShown: now,
+              todayDate: todayKey,
+              todayCount: todayCount + 1,
+            }));
+          }, 4000);
+        }
       }
 
       // ── #21: Load today's check-in count ──
@@ -1051,7 +1072,7 @@ export default function HeroSectionExact({
             display: "flex", alignItems: "center", justifyContent: "center",
             padding: 20,
           }}
-          onClick={(e) => { if (e.target === e.currentTarget) { setShowSecondVisitPopup(false); localStorage.setItem("moodflip_visit_popup_dismissed", "1"); } }}
+          onClick={(e) => { if (e.target === e.currentTarget) setShowSecondVisitPopup(false); }}
         >
           <div style={{
             background: "#FAF7FD",
@@ -1064,7 +1085,7 @@ export default function HeroSectionExact({
             position: "relative",
           }}>
             <button
-              onClick={() => { setShowSecondVisitPopup(false); localStorage.setItem("moodflip_visit_popup_dismissed", "1"); }}
+              onClick={() => setShowSecondVisitPopup(false)}
               style={{ position: "absolute", top: 14, right: 18, background: "none", border: "none", fontSize: 20, cursor: "pointer", color: "#A899C0" }}
               aria-label="Close popup"
             >×</button>
@@ -1088,7 +1109,7 @@ export default function HeroSectionExact({
             </a>
             <br />
             <button
-              onClick={() => { setShowSecondVisitPopup(false); localStorage.setItem("moodflip_visit_popup_dismissed", "1"); }}
+              onClick={() => setShowSecondVisitPopup(false)}
               style={{ background: "none", border: "none", fontSize: 12, color: "#A899C0", cursor: "pointer", marginTop: 6 }}
             >
               Maybe later

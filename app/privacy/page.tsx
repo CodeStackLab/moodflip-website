@@ -15,19 +15,16 @@ export default function PrivacyPage() {
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-6">
         
-        {/* ── WIDE SUNRISE BANNER: NO INNER BOX, TEXT DIRECTLY ON TOP OF ARTWORK ── */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm min-h-[220px] sm:min-h-[280px] md:min-h-[300px] flex flex-col items-center justify-center text-center p-6 sm:p-10 bg-[#FCF5EE]">
-          {/* Full Sunrise Landscape Artwork covering the whole banner */}
+        {/* ── WIDE SUNRISE BANNER: FULL NATURAL VIBRANCY (NO WASHED-OUT OVERLAYS) ── */}
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm min-h-[230px] sm:min-h-[290px] md:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-10 bg-[#FCF5EE]">
+          {/* 100% Crisp Natural Sunrise Artwork */}
           <img
             src="/peaceful-sunrise-bg.png"
             alt="MoodFlip Peaceful Sunrise"
             className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
           />
-          
-          {/* Subtle soft tint to guarantee perfect contrast without hiding the art */}
-          <div className="absolute inset-0 bg-[#FCF5EE]/20 pointer-events-none" />
 
-          {/* Text directly on top of the image - NO INNER BOX */}
+          {/* Text directly on top of the vibrant background */}
           <div className="relative z-10 max-w-3xl mx-auto space-y-3 px-2">
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A143F] tracking-tight">
               Privacy Policy

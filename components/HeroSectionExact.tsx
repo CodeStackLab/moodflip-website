@@ -348,8 +348,9 @@ export default function HeroSectionExact({
   const [timerSeconds, setTimerSeconds] = useState(60);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [savedMsg, setSavedMsg] = useState("");
-  const [hasFlipped, setHasFlipped] = useState(false); // true after first flip — shows Save button prominently
-  const [isSaving, setIsSaving] = useState(false); // loading state for save button
+  const [hasFlipped, setHasFlipped] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSavedForCurrentFlip, setIsSavedForCurrentFlip] = useState(false);
   const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(COUNSELOR_MOODS);
   const [freeFlipCount, setFreeFlipCount] = useState<number>(0);
   const [actionRotationIndex, setActionRotationIndex] = useState<Record<string, number>>({});
@@ -683,17 +684,22 @@ export default function HeroSectionExact({
 
       setSavedMsg(progressNote);
       setProgressMsg(progressNote);
+      setIsSavedForCurrentFlip(true);
       setTimeout(() => setSavedMsg(""), 7000);
     } catch (e) {
       setSavedMsg("Saved locally!");
+      setIsSavedForCurrentFlip(true);
       setTimeout(() => setSavedMsg(""), 3000);
+    } finally {
+      setIsSaving(false);
     }
   };
 
   const handleFlip = () => {
     syncMoodLibrary();
 
-    setHasFlipped(true); // Show Save My Profile button prominently after flip
+    setHasFlipped(true);
+    setIsSavedForCurrentFlip(false); // Reset button back to purple '💾 Save My Profile' for the new flip
     setIsFlipping(true);
     setTimerSeconds(60);
     setIsTimerRunning(false);
@@ -1052,77 +1058,64 @@ export default function HeroSectionExact({
               </div>
             </div>
 
-            {/* ── #20: SAVE MY PROFILE button — appears after every flip ── */}
+            {/* ── #20: SAVE MY PROFILE button (Clean pill style matching original design) ── */}
             <div style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: 8,
-              marginTop: 16,
-              padding: "12px 16px",
-              borderRadius: 16,
-              background: hasFlipped ? "rgba(116,100,172,0.07)" : "transparent",
-              border: hasFlipped ? "1.5px solid rgba(116,100,172,0.18)" : "1.5px solid transparent",
-              transition: "all 0.4s ease",
+              gap: 10,
+              marginTop: 14,
             }}>
-              {/* Label shown only after flip */}
-              {hasFlipped && (
-                <div style={{ fontSize: 11, color: "#9C8CC4", fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>
-                  📌 Save this check-in
-                </div>
-              )}
-
               <button
                 type="button"
                 onClick={handleSaveToProfile}
                 disabled={isSaving}
                 style={{
-                  background: hasFlipped
-                    ? "linear-gradient(135deg, #7464AC 0%, #9C6FBF 100%)"
-                    : "linear-gradient(135deg, #b0a8cc 0%, #c8b8d8 100%)",
-                  color: "#fff",
+                  background: isSavedForCurrentFlip
+                    ? "linear-gradient(135deg, #52A078 0%, #68B88E 100%)"
+                    : "linear-gradient(135deg, #7E6BB0 0%, #9C7EC2 100%)",
+                  color: "#ffffff",
                   border: "none",
-                  borderRadius: 14,
-                  padding: "11px 32px",
+                  borderRadius: 24,
+                  padding: "10px 30px",
                   fontSize: 14,
                   fontWeight: 700,
                   cursor: isSaving ? "not-allowed" : "pointer",
-                  letterSpacing: 0.3,
-                  boxShadow: hasFlipped
-                    ? "0 4px 18px rgba(116,100,172,0.35)"
-                    : "0 2px 8px rgba(116,100,172,0.12)",
-                  transition: "all 0.3s ease",
-                  // Pulse animation after flip
-                  animation: hasFlipped && !isSaving ? "savePulse 2s ease-in-out 3" : "none",
-                  opacity: isSaving ? 0.7 : 1,
+                  letterSpacing: 0.2,
+                  boxShadow: isSavedForCurrentFlip
+                    ? "0 4px 14px rgba(82, 160, 120, 0.3)"
+                    : "0 4px 14px rgba(116, 100, 172, 0.28)",
+                  transition: "all 0.25s ease",
+                  opacity: isSaving ? 0.75 : 1,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
                 }}
-                onMouseOver={(e) => { if (!isSaving) e.currentTarget.style.transform = "scale(1.04)"; }}
+                onMouseOver={(e) => { if (!isSaving) e.currentTarget.style.transform = "scale(1.03)"; }}
                 onMouseOut={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
                 aria-label="Save this mood check-in to your profile"
               >
-                {isSaving ? "⏳ Saving..." : "💾 Save My Profile"}
+                {isSaving ? (
+                  "⏳ Saving..."
+                ) : isSavedForCurrentFlip ? (
+                  "✓ Saved!"
+                ) : (
+                  "💾 Save My Profile"
+                )}
               </button>
-
-              {/* CSS animation for pulse effect */}
-              <style>{`
-                @keyframes savePulse {
-                  0%, 100% { box-shadow: 0 4px 18px rgba(116,100,172,0.35); }
-                  50% { box-shadow: 0 4px 28px rgba(116,100,172,0.7), 0 0 0 6px rgba(116,100,172,0.12); }
-                }
-              `}</style>
 
               {savedMsg && (
                 <div style={{
                   fontSize: 12,
                   color: "#5A4A7A",
                   textAlign: "center",
-                  maxWidth: 260,
+                  maxWidth: 280,
                   lineHeight: 1.5,
                   fontWeight: 600,
-                  background: "rgba(116,100,172,0.07)",
-                  padding: "8px 12px",
-                  borderRadius: 10,
-                  marginTop: 4,
+                  background: "rgba(116,100,172,0.08)",
+                  padding: "8px 14px",
+                  borderRadius: 12,
                 }}>
                   ✅ {savedMsg}
                 </div>

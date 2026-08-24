@@ -302,7 +302,7 @@ export const MOOD_HIERARCHY: Record<MainMoodFamily, MoodFamilyConfig> = {
   },
   Bad: {
     name: "Bad",
-    label: "Stressed",
+    label: "Bad",
     feelings: [
       { id: "tired", name: "Tired", targetMood: "Energized & Rested", actionTitle: "60-sec Energy Palm Warmth", actionDesc: "Gently close your eyes, take 4 slow breaths, and give yourself permission to rest guilt-free.", icon: LonelyHuddledIcon, chips: ["Exhausted", "Depleted", "Fatigued", "Weary"] },
       { id: "stressed", name: "Stressed", targetMood: "Decompressed", actionTitle: "60-sec Progressive Muscle Release", actionDesc: "Shrug shoulders to ears, hold 5s, drop them completely with a deep exhale.", icon: RejectedSadFaceIcon, chips: ["Overloaded", "Pressured", "Strained", "Frazzled"] },
@@ -348,6 +348,8 @@ export default function HeroSectionExact({
   const [timerSeconds, setTimerSeconds] = useState(60);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [savedMsg, setSavedMsg] = useState("");
+  const [hasFlipped, setHasFlipped] = useState(false); // true after first flip — shows Save button prominently
+  const [isSaving, setIsSaving] = useState(false); // loading state for save button
   const [counselorMoods, setCounselorMoods] = useState<CounselorPromptItem[]>(COUNSELOR_MOODS);
   const [freeFlipCount, setFreeFlipCount] = useState<number>(0);
   const [actionRotationIndex, setActionRotationIndex] = useState<Record<string, number>>({});
@@ -374,8 +376,9 @@ export default function HeroSectionExact({
     frequencyHours: 12,
     maxDailyLimit: 2,
     showDelaySeconds: 4,
-    modalTitle: "Welcome back to MoodFlip!",
-    modalDescription: "Create a free profile to save your mood check-ins, track your progress over 7 days, and receive your personalised mood report.",
+    // Spec §16 Popup #8 — exact wording
+    modalTitle: "Save your MoodFlip check-ins?",
+    modalDescription: "Create a free profile to save your moods, actions, and progress toward your 7-Day MoodFlip Report.",
     buttonText: "Create Free Profile",
     buttonLink: "/register",
     showMaybeLater: true,
@@ -442,6 +445,7 @@ export default function HeroSectionExact({
       }
 
       // ── Admin-Controlled Profile Invitation Popup ──
+      // Spec §10: Show popup ONLY on the 2nd site visit and beyond
       if (currentPopupConfig.enabled) {
         const isLoggedIn =
           localStorage.getItem('userLoggedIn') === 'true' ||
@@ -451,30 +455,39 @@ export default function HeroSectionExact({
         const shouldTarget = currentPopupConfig.targetAudience === 'all' || !isLoggedIn;
 
         if (shouldTarget) {
-          const now = Date.now();
-          const todayKey = new Date().toISOString().split('T')[0];
-          const popupRaw = localStorage.getItem('moodflip_popup_data');
-          const popupData: { lastShown?: number; todayDate?: string; todayCount?: number } =
-            popupRaw ? JSON.parse(popupRaw) : {};
+          // Track site visit count — spec §10: popup only on 2nd+ visit
+          const visitCountRaw = localStorage.getItem('moodflip_site_visit_count');
+          const visitCount = visitCountRaw ? parseInt(visitCountRaw, 10) : 0;
+          const newVisitCount = visitCount + 1;
+          localStorage.setItem('moodflip_site_visit_count', String(newVisitCount));
 
-          const todayCount = popupData.todayDate === todayKey ? (popupData.todayCount || 0) : 0;
-          const lastShown  = popupData.lastShown || 0;
-          const hoursSinceLast = (now - lastShown) / (1000 * 60 * 60);
+          // Only show popup from the 2nd visit onward
+          if (newVisitCount >= 2) {
+            const now = Date.now();
+            const todayKey = new Date().toISOString().split('T')[0];
+            const popupRaw = localStorage.getItem('moodflip_popup_data');
+            const popupData: { lastShown?: number; todayDate?: string; todayCount?: number } =
+              popupRaw ? JSON.parse(popupRaw) : {};
 
-          const freqHours = Number(currentPopupConfig.frequencyHours) || 12;
-          const maxDaily = Number(currentPopupConfig.maxDailyLimit) || 2;
-          const delaySec = Number(currentPopupConfig.showDelaySeconds) || 4;
+            const todayCount = popupData.todayDate === todayKey ? (popupData.todayCount || 0) : 0;
+            const lastShown  = popupData.lastShown || 0;
+            const hoursSinceLast = (now - lastShown) / (1000 * 60 * 60);
 
-          // Check if frequency interval and daily limit allow showing
-          if (todayCount < maxDaily && (lastShown === 0 || hoursSinceLast >= freqHours)) {
-            setTimeout(() => {
-              setShowSecondVisitPopup(true);
-              localStorage.setItem('moodflip_popup_data', JSON.stringify({
-                lastShown: now,
-                todayDate: todayKey,
-                todayCount: todayCount + 1,
-              }));
-            }, delaySec * 1000);
+            const freqHours = Number(currentPopupConfig.frequencyHours) || 12;
+            const maxDaily = Number(currentPopupConfig.maxDailyLimit) || 2;
+            const delaySec = Number(currentPopupConfig.showDelaySeconds) || 4;
+
+            // Check if frequency interval and daily limit allow showing
+            if (todayCount < maxDaily && (lastShown === 0 || hoursSinceLast >= freqHours)) {
+              setTimeout(() => {
+                setShowSecondVisitPopup(true);
+                localStorage.setItem('moodflip_popup_data', JSON.stringify({
+                  lastShown: now,
+                  todayDate: todayKey,
+                  todayCount: todayCount + 1,
+                }));
+              }, delaySec * 1000);
+            }
           }
         }
       }
@@ -589,18 +602,21 @@ export default function HeroSectionExact({
     setIsTimerRunning(false);
   };
 
-  const handleSaveToProfile = () => {
+  const handleSaveToProfile = async () => {
     if (typeof window === "undefined") return;
+    if (isSaving) return; // Prevent double-click
 
     // ── Spec v4: Enforce max 3 saved check-ins per calendar day ──
     const today = new Date().toISOString().split("T")[0];
     const dailyData = JSON.parse(localStorage.getItem("moodflip_daily_checkins") || "{}");
     const todayCount = dailyData[today] || 0;
     if (todayCount >= 3) {
-      setSavedMsg("You’ve saved today’s 3 check-ins. You can still use the free MoodFlip tool. You can save more check-ins tomorrow.");
+      setSavedMsg("You've saved today's 3 check-ins. You can still use the free MoodFlip tool. You can save more check-ins tomorrow.");
       setTimeout(() => setSavedMsg(""), 6000);
       return;
     }
+
+    setIsSaving(true);
 
     const checkin = {
       id: Date.now().toString(),
@@ -614,6 +630,7 @@ export default function HeroSectionExact({
     };
 
     try {
+      // ── Save to localStorage (always works, even offline) ──
       const existing = JSON.parse(localStorage.getItem("moodflip_checkin_history") || "[]");
       const updated = [checkin, ...existing.slice(0, 49)];
       localStorage.setItem("moodflip_checkin_history", JSON.stringify(updated));
@@ -624,17 +641,41 @@ export default function HeroSectionExact({
       localStorage.setItem("moodflip_daily_checkins", JSON.stringify(dailyData));
       setDailyCheckInCount(newCount);
 
+      // ── Also save to Supabase if user email is stored ──
+      const userEmail = localStorage.getItem("moodflip_user_email");
+      if (userEmail) {
+        try {
+          await fetch("/api/user/activity", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: userEmail,
+              checkin: {
+                mood: selectedMood,
+                feeling: `${activeFeeling.name} (${selectedChip})`,
+                target_mood: displayedTransformedMood,
+                action_title: displayedActionTitle,
+                action_desc: displayedActionDesc,
+                saved_at: today,
+              }
+            })
+          });
+        } catch {
+          // Supabase save failed silently — localStorage already saved
+        }
+      }
+
       // ── Spec v4: 7-Day Report Progress Messages ──
       const savedDays = new Set<string>(
         (updated as {date:string}[]).map((c) => c.date.split("T")[0])
       );
       const daysSaved = savedDays.size;
 
-      let progressNote = `Saved. Today’s check-ins: [${newCount}/3] 7-Day Report progress: Day [${Math.min(daysSaved, 7)}] of 7`;
+      let progressNote = `Saved. Today's check-ins: [${newCount}/3] 7-Day Report progress: Day [${Math.min(daysSaved, 7)}] of 7`;
 
       if (updated.length === 1) {
         // Message 1: After first saved check-in
-        progressNote = "Your first MoodFlip check-in is saved. You can save up to 3 check-ins per day. After 7 days, you’ll be able to download your personalised 7-Day MoodFlip Report.";
+        progressNote = "Your first MoodFlip check-in is saved. You can save up to 3 check-ins per day. After 7 days, you'll be able to download your personalised 7-Day MoodFlip Report.";
       } else if (daysSaved >= 7) {
         // Message 5: 7-day report ready
         progressNote = "Your 7-Day MoodFlip Report is ready. Download your personalised report with your saved moods, positive moods, 60-second actions, and mood pattern summary. Download for US$7";
@@ -652,9 +693,11 @@ export default function HeroSectionExact({
   const handleFlip = () => {
     syncMoodLibrary();
 
+    setHasFlipped(true); // Show Save My Profile button prominently after flip
     setIsFlipping(true);
     setTimerSeconds(60);
     setIsTimerRunning(false);
+    setSavedMsg(""); // Clear previous save message on new flip
 
     // Get current mood identifier and rotating action from live Counselor library
     const currentMoodKey = matchedLibraryMood?.id || activeFeeling.id || selectedMood;
@@ -833,7 +876,7 @@ export default function HeroSectionExact({
                       {mood === "Bad" && <StressedCloudSvg />}
                     </div>
                     <span className={styles.cloudName}>
-                      {mood === "Bad" ? "Stressed" : mood}
+                      {mood}
                     </span>
                   </button>
                 );
@@ -1009,33 +1052,79 @@ export default function HeroSectionExact({
               </div>
             </div>
 
-            {/* ── #20: SAVE MY PROFILE button under the 60-second action ── */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, marginTop: 12 }}>
+            {/* ── #20: SAVE MY PROFILE button — appears after every flip ── */}
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+              marginTop: 16,
+              padding: "12px 16px",
+              borderRadius: 16,
+              background: hasFlipped ? "rgba(116,100,172,0.07)" : "transparent",
+              border: hasFlipped ? "1.5px solid rgba(116,100,172,0.18)" : "1.5px solid transparent",
+              transition: "all 0.4s ease",
+            }}>
+              {/* Label shown only after flip */}
+              {hasFlipped && (
+                <div style={{ fontSize: 11, color: "#9C8CC4", fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase" }}>
+                  📌 Save this check-in
+                </div>
+              )}
+
               <button
                 type="button"
                 onClick={handleSaveToProfile}
+                disabled={isSaving}
                 style={{
-                  background: "linear-gradient(135deg, #7464AC 0%, #9C6FBF 100%)",
+                  background: hasFlipped
+                    ? "linear-gradient(135deg, #7464AC 0%, #9C6FBF 100%)"
+                    : "linear-gradient(135deg, #b0a8cc 0%, #c8b8d8 100%)",
                   color: "#fff",
                   border: "none",
                   borderRadius: 14,
-                  padding: "10px 28px",
-                  fontSize: 13,
+                  padding: "11px 32px",
+                  fontSize: 14,
                   fontWeight: 700,
-                  cursor: "pointer",
+                  cursor: isSaving ? "not-allowed" : "pointer",
                   letterSpacing: 0.3,
-                  boxShadow: "0 2px 12px rgba(116,100,172,0.22)",
-                  transition: "transform 0.15s",
+                  boxShadow: hasFlipped
+                    ? "0 4px 18px rgba(116,100,172,0.35)"
+                    : "0 2px 8px rgba(116,100,172,0.12)",
+                  transition: "all 0.3s ease",
+                  // Pulse animation after flip
+                  animation: hasFlipped && !isSaving ? "savePulse 2s ease-in-out 3" : "none",
+                  opacity: isSaving ? 0.7 : 1,
                 }}
-                onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
-                onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-                aria-label="Save My Profile Check-in"
+                onMouseOver={(e) => { if (!isSaving) e.currentTarget.style.transform = "scale(1.04)"; }}
+                onMouseOut={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
+                aria-label="Save this mood check-in to your profile"
               >
-                💾 Save My Profile
+                {isSaving ? "⏳ Saving..." : "💾 Save My Profile"}
               </button>
+
+              {/* CSS animation for pulse effect */}
+              <style>{`
+                @keyframes savePulse {
+                  0%, 100% { box-shadow: 0 4px 18px rgba(116,100,172,0.35); }
+                  50% { box-shadow: 0 4px 28px rgba(116,100,172,0.7), 0 0 0 6px rgba(116,100,172,0.12); }
+                }
+              `}</style>
+
               {savedMsg && (
-                <div style={{ fontSize: 12, color: "#5A4A7A", textAlign: "center", maxWidth: 240, lineHeight: 1.4, fontWeight: 600 }}>
-                  {savedMsg}
+                <div style={{
+                  fontSize: 12,
+                  color: "#5A4A7A",
+                  textAlign: "center",
+                  maxWidth: 260,
+                  lineHeight: 1.5,
+                  fontWeight: 600,
+                  background: "rgba(116,100,172,0.07)",
+                  padding: "8px 12px",
+                  borderRadius: 10,
+                  marginTop: 4,
+                }}>
+                  ✅ {savedMsg}
                 </div>
               )}
               <div style={{ fontSize: 11, color: "#A899C0", textAlign: "center", maxWidth: 220 }}>

@@ -45,13 +45,13 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FCF5EE] text-[#1A143F] font-sans antialiased flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
+    <div className="min-h-screen bg-[#FDF8F5] text-[#1A143F] font-sans antialiased flex flex-col justify-between selection:bg-[#F4EBF5] selection:text-[#7464AC]">
       <Header />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full space-y-8">
         
         {/* ── WIDE SUNRISE BANNER: TEXT DIRECTLY ON TOP OF ARTWORK ── */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm min-h-[230px] sm:min-h-[290px] md:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-10 bg-[#FCF5EE]">
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E4DAD7] shadow-sm min-h-[230px] sm:min-h-[290px] md:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-10 bg-[#FDF8F5]">
           {/* Full Natural Sunrise Artwork */}
           <img
             src="/peaceful-sunrise-bg.png"
@@ -89,7 +89,7 @@ export default function ContactPage() {
               <div className="space-y-4">
                 <a
                   href="mailto:support@moodflip.coach"
-                  className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FCF5EE] border border-[#E4DAD7] hover:border-[#7464AC] transition group"
+                  className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FDF8F5] border border-[#E4DAD7] hover:border-[#7464AC] transition group"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F4EBF5] text-[#7464AC] text-lg font-bold group-hover:scale-105 transition">
                     ✉️
@@ -100,7 +100,7 @@ export default function ContactPage() {
                   </div>
                 </a>
 
-                <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FCF5EE] border border-[#E4DAD7]">
+                <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#FDF8F5] border border-[#E4DAD7]">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F4EBF5] text-[#7464AC] text-lg font-bold">
                     ⏱️
                   </div>
@@ -168,7 +168,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Emma Johnson"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                     <div>
@@ -181,7 +181,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="emma@example.com"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                   </div>
@@ -194,7 +194,7 @@ export default function ContactPage() {
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       >
                         <option value="General Question">General Question</option>
                         <option value="7-Day Plan Support">7-Day Plan Support</option>
@@ -213,7 +213,7 @@ export default function ContactPage() {
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         placeholder="e.g., 7-Day Plan PDF inquiry"
-                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
+                        className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium"
                       />
                     </div>
                   </div>
@@ -228,7 +228,7 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Please write your questions or details here..."
-                      className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FCF5EE] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium resize-y"
+                      className="w-full rounded-2xl border border-[#E4DAD7] bg-[#FDF8F5] px-4 py-3 text-sm text-[#1A143F] placeholder-[#A49BA8] focus:outline-none focus:ring-2 focus:ring-[#7464AC]/40 focus:border-[#7464AC] transition font-medium resize-y"
                     />
                   </div>
 

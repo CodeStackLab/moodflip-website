@@ -27,7 +27,7 @@ export default function SiteLoader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-[#FCF5EE]/90 backdrop-blur-md flex flex-col items-center justify-center p-4 transition-opacity duration-300 ${
+      className={`fixed inset-0 z-[9999] bg-[#FDF8F5]/90 backdrop-blur-md flex flex-col items-center justify-center p-4 transition-opacity duration-300 ${
         fade ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
@@ -38,7 +38,7 @@ export default function SiteLoader() {
 
         {/* Outer Rotating Dual-Tone Gradient Ring */}
         <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-[#7464AC] via-[#EDAA7A] to-[#E49C8C] animate-spin shadow-lg shadow-[#7464AC]/20">
-          <div className="w-full h-full rounded-full bg-[#FCF5EE]" />
+          <div className="w-full h-full rounded-full bg-[#FDF8F5]" />
         </div>
 
         {/* Inner Glowing Gradient Sphere with Floating Hearts (No Silver, Pure Warm Brand Tones) */}

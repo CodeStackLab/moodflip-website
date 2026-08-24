@@ -72,7 +72,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FCF5EE] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B] relative">
+    <div className="min-h-screen bg-[#FDF8F5] flex flex-col justify-between selection:bg-[#EEE0FC] selection:text-[#4F438B] relative">
       <Header />
 
       {/* ── BACKGROUND ARTWORK (Peaceful sunrise/sun style - Soft & Faded) ── */}

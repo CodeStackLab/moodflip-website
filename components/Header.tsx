@@ -12,7 +12,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#E4DAD7] bg-[#FCF5EE]/95 backdrop-blur-md" suppressHydrationWarning>
+    <header className="sticky top-0 z-50 border-b border-[#E4DAD7] bg-[#FDF8F5]/95 backdrop-blur-md" suppressHydrationWarning>
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-4">
         
         {/* LOGO (without TM) */}
@@ -79,7 +79,7 @@ export default function Header() {
 
       {/* MOBILE DROPDOWN: Home | About | Privacy Policy | Contact | Login */}
       {mounted && menuOpen && (
-        <nav className="md:hidden flex flex-col p-4 bg-[#FCF5EE]/98 backdrop-blur-xl border-t border-[#E4DAD7] shadow-xl animate-in slide-in-from-top-2 duration-200 gap-1.5" suppressHydrationWarning>
+        <nav className="md:hidden flex flex-col p-4 bg-[#FDF8F5]/98 backdrop-blur-xl border-t border-[#E4DAD7] shadow-xl animate-in slide-in-from-top-2 duration-200 gap-1.5" suppressHydrationWarning>
           <div className="flex flex-col gap-1">
             <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl text-[#1A143F] font-bold text-sm hover:bg-[#F4EBF5] hover:text-[#7464AC] transition">
               <span className="w-6 text-center text-lg">🏠</span> Home

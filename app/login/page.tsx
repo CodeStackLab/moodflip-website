@@ -328,26 +328,7 @@ export default function LoginPage() {
                 </Link>
               </div>
 
-              {/* Quick Admin Test Login */}
-              <div className="mt-4 pt-3 border-t border-[#E4DAD7] text-center">
-                <p className="text-[10.5px] text-[#7E7096] mb-1.5 font-medium">Quick Credentials Fill:</p>
-                <div className="flex flex-wrap items-center justify-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => { setEmail('admin@moodflip.coach'); setPassword('admin123'); }}
-                    className="px-2.5 py-1 rounded-lg border border-[#E4DAD7] bg-[#F4EBF5] text-[#7464AC] text-[10.5px] font-bold hover:bg-[#EEE0FC] transition cursor-pointer"
-                  >
-                    👑 Fill Admin Login
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => { setEmail('user@example.com'); setPassword('user123'); }}
-                    className="px-2.5 py-1 rounded-lg border border-[#E4DAD7] bg-[#FCF3E9] text-[#5C527A] text-[10.5px] font-bold hover:bg-[#FDE8C8] transition cursor-pointer"
-                  >
-                    👤 Fill User Login
-                  </button>
-                </div>
-              </div>
+
 
             </div>
           </div>

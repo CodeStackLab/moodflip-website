@@ -1,0 +1,87 @@
+[
+  {
+    "text": "When someone visits the site for the 2nd time the site needs",
+    "commentId": "AAACF0htWfY",
+    "status": "fixed"
+  },
+  {
+    "text": "Repeat visitors should not always see the same action for th",
+    "commentId": "AAACF0htWfc",
+    "status": "fixed"
+  },
+  {
+    "text": "Users may save a maximum of 3 MoodFlip check-ins per calenda",
+    "commentId": "AAACF0htWfg",
+    "status": "fixed"
+  },
+  {
+    "text": "Your first MoodFlip check-in is saved.",
+    "commentId": "AAACF0htWfk",
+    "status": "fixed"
+  },
+  {
+    "text": "Please include a simple admin dashboard where I can securely",
+    "commentId": "AAACF0htWfo",
+    "status": "fixed"
+  },
+  {
+    "text": "Stripe payment gateway integration was confirmed in the Five",
+    "commentId": "AAACF0htWfs",
+    "status": "fixed"
+  },
+  {
+    "text": "The site needs to be designed well to have space for AdSense",
+    "commentId": "AAACF0htWfw",
+    "status": "fixed"
+  },
+  {
+    "text": "The site must be optimized for mobile phones, tablets and de",
+    "commentId": "AAACF0htWf0",
+    "status": "fixed"
+  },
+  {
+    "text": "A button needs to appear right under the 60 sec action; SAVE",
+    "commentId": "AAACF0htWf4",
+    "status": "fixed"
+  },
+  {
+    "text": "Remove bin/clear-selection feature from the main design.",
+    "commentId": "AAACF0htWf8",
+    "status": "sohel_fixed"
+  },
+  {
+    "text": "Enable automatic 90-day deletion of inactive profiles. Every",
+    "commentId": "AAACF0htWgA",
+    "status": "sohel_fixed"
+  },
+  {
+    "text": "Developer should implement last_active_at or equivalent so i",
+    "commentId": "AAACF0htWgE",
+    "status": "sohel_fixed"
+  },
+  {
+    "text": "Since Supabase Free does not include automatic backups, plea",
+    "commentId": "AAACF0htWgI",
+    "status": "sohel_fixed"
+  },
+  {
+    "text": "The Stripe/payment account must be owned by Joy. Payment API",
+    "commentId": "AAACF0htWgM",
+    "status": "sohel_fixed"
+  },
+  {
+    "text": "By creating a profile, you agree that MoodFlip may store you",
+    "commentId": "AAACF0htWgQ",
+    "status": "fixed"
+  },
+  {
+    "text": "7-day paid PDF at launch or early phase; 30-day paid PDF lat",
+    "commentId": "AAACF0htWgU",
+    "status": "fixed"
+  },
+  {
+    "text": "After 72 saved mood/check-in entries, show an offer for the ",
+    "commentId": "AAACF0htWgY",
+    "status": "fixed"
+  }
+]

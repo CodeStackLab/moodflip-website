@@ -1,0 +1,3376 @@
+[
+  {
+    "type": "paragraph",
+    "startIndex": 1,
+    "endIndex": 24,
+    "style": "NORMAL_TEXT",
+    "text": "BUSINESS SPECIFICATION"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24,
+    "endIndex": 61,
+    "style": "NORMAL_TEXT",
+    "text": "MoodFlip - Self-Help Utility Website"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 61,
+    "endIndex": 174,
+    "style": "NORMAL_TEXT",
+    "text": "Prepared by Joy | Working specification for developer quote, build scope, launch plan, and content requirements."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 174,
+    "endIndex": 220,
+    "style": "NORMAL_TEXT",
+    "text": "27 July 2026 / v3 - Sohel comments integrated"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 220,
+    "endIndex": 281,
+    "style": "NORMAL_TEXT",
+    "text": "____________________________________________________________"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 281,
+    "endIndex": 290,
+    "style": "HEADING_1",
+    "text": "CONTENTS"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 290,
+    "endIndex": 312,
+    "style": "NORMAL_TEXT",
+    "text": "1. Project Overview\t2"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 312,
+    "endIndex": 353,
+    "style": "NORMAL_TEXT",
+    "text": "2. Business Objective and Target Users\t2"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 353,
+    "endIndex": 392,
+    "style": "NORMAL_TEXT",
+    "text": "3. Product Scope and Launch Strategy\t2"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 392,
+    "endIndex": 427,
+    "style": "NORMAL_TEXT",
+    "text": "4. Domain, Brand and Positioning\t3"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 427,
+    "endIndex": 460,
+    "style": "NORMAL_TEXT",
+    "text": "5. Website Pages and User Flow\t3"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 460,
+    "endIndex": 487,
+    "style": "NORMAL_TEXT",
+    "text": "6. Mood Selection Design\t3"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 487,
+    "endIndex": 525,
+    "style": "NORMAL_TEXT",
+    "text": "7. Mood Pairings and Action Content\t4"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 525,
+    "endIndex": 557,
+    "style": "NORMAL_TEXT",
+    "text": "8. Rotating 60-Second Actions\t4"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 557,
+    "endIndex": 593,
+    "style": "NORMAL_TEXT",
+    "text": "9. Paid Products and Monetisation\t4"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 593,
+    "endIndex": 645,
+    "style": "NORMAL_TEXT",
+    "text": "10. User Profiles, Email Capture and Data Storage\t6"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 645,
+    "endIndex": 691,
+    "style": "NORMAL_TEXT",
+    "text": "11. Privacy, Consent and Automatic Deletion\t6"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 691,
+    "endIndex": 734,
+    "style": "NORMAL_TEXT",
+    "text": "12. SEO, Google Setup and Traffic Growth\t6"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 734,
+    "endIndex": 748,
+    "style": "NORMAL_TEXT",
+    "text": "13. AdSense\t7"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 748,
+    "endIndex": 789,
+    "style": "NORMAL_TEXT",
+    "text": "14. Technical Architecture and Hosting\t7"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 789,
+    "endIndex": 833,
+    "style": "NORMAL_TEXT",
+    "text": "15. Security, Performance and Reliability\t7"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 833,
+    "endIndex": 870,
+    "style": "NORMAL_TEXT",
+    "text": "16. Design Direction and Animation\t8"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 870,
+    "endIndex": 922,
+    "style": "NORMAL_TEXT",
+    "text": "17. Ownership, Handover and Intellectual Property\t8"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 922,
+    "endIndex": 959,
+    "style": "NORMAL_TEXT",
+    "text": "18. Maintenance and Future Updates\t8"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 959,
+    "endIndex": 1016,
+    "style": "NORMAL_TEXT",
+    "text": "19. Developer Offer Review and Required Clarifications\t9"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1016,
+    "endIndex": 1033,
+    "style": "NORMAL_TEXT",
+    "text": "20. Migration\t10"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1033,
+    "endIndex": 1064,
+    "style": "NORMAL_TEXT",
+    "text": "21. Test Mode / Maintenance\t10"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1064,
+    "endIndex": 1094,
+    "style": "NORMAL_TEXT",
+    "text": "22. Live Launch / Handover\t10"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1095,
+    "endIndex": 1115,
+    "style": "HEADING_1",
+    "text": "1. Project Overview"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1116,
+    "endIndex": 1381,
+    "style": "NORMAL_TEXT",
+    "text": "MoodFlip is a simple self-reflection utility website. Users choose a negative mood from fixed visual options and receive a positive direction plus a short, practical 60-second action. The website is not therapy, not mental health treatment, and not medical advice."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1381,
+    "endIndex": 1455,
+    "style": "NORMAL_TEXT",
+    "text": "Core concept: negative mood -> positive target state -> 60-second action."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1455,
+    "endIndex": 1568,
+    "style": "NORMAL_TEXT",
+    "text": "Primary use case: a user wants a quick, gentle emotional shift without typing free text or reading long content."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1568,
+    "endIndex": 1669,
+    "style": "NORMAL_TEXT",
+    "text": "The first version should be useful, fast, mobile-friendly and able to support future paid downloads."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1669,
+    "endIndex": 1813,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Business Specification v3 is confirmed as the single master reference document from now on. All communication stays on Fiverr."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1814,
+    "endIndex": 1853,
+    "style": "HEADING_1",
+    "text": "2. Business Objective and Target Users"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 1854,
+    "endIndex": 2058,
+    "style": "NORMAL_TEXT",
+    "text": "The business objective is to create a utility site that can generate traffic, collect email leads with consent, sell personalised 7-day and 30-day MoodFlip downloads, and also display Google AdSense ads."
+  },
+  {
+    "type": "table",
+    "startIndex": 2058,
+    "endIndex": 2592,
+    "rows": 5,
+    "columns": 3
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2061,
+    "endIndex": 2073,
+    "style": "NORMAL_TEXT",
+    "text": "Target user"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2074,
+    "endIndex": 2079,
+    "style": "NORMAL_TEXT",
+    "text": "Need"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2080,
+    "endIndex": 2098,
+    "style": "NORMAL_TEXT",
+    "text": "MoodFlip response"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2100,
+    "endIndex": 2122,
+    "style": "NORMAL_TEXT",
+    "text": "General adult visitor"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2123,
+    "endIndex": 2188,
+    "style": "NORMAL_TEXT",
+    "text": "Quick support when feeling low, angry, anxious, lonely or stuck."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2189,
+    "endIndex": 2237,
+    "style": "NORMAL_TEXT",
+    "text": "Clickable mood choice and one 60-second action."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2239,
+    "endIndex": 2257,
+    "style": "NORMAL_TEXT",
+    "text": "Returning visitor"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2258,
+    "endIndex": 2289,
+    "style": "NORMAL_TEXT",
+    "text": "Variety and repeat usefulness."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2290,
+    "endIndex": 2362,
+    "style": "NORMAL_TEXT",
+    "text": "Rotating actions so the same mood does not always show the same action."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2364,
+    "endIndex": 2377,
+    "style": "NORMAL_TEXT",
+    "text": "Profile user"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2378,
+    "endIndex": 2436,
+    "style": "NORMAL_TEXT",
+    "text": "Save check-ins and receive personalised downloads/offers."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2437,
+    "endIndex": 2488,
+    "style": "NORMAL_TEXT",
+    "text": "Email-based profile and saved mood/action history."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2490,
+    "endIndex": 2500,
+    "style": "NORMAL_TEXT",
+    "text": "Paid user"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2501,
+    "endIndex": 2526,
+    "style": "NORMAL_TEXT",
+    "text": "A structured short plan."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2527,
+    "endIndex": 2591,
+    "style": "NORMAL_TEXT",
+    "text": "7-day paid PDF at launch or early phase; 30-day paid PDF later."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2593,
+    "endIndex": 2704,
+    "style": "NORMAL_TEXT",
+    "text": "When someone visits the site for the 2nd time the site needs to offer creating a profile, in a pop-up window."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2705,
+    "endIndex": 2742,
+    "style": "HEADING_1",
+    "text": "3. Product Scope and Launch Strategy"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2743,
+    "endIndex": 2888,
+    "style": "NORMAL_TEXT",
+    "text": "The preferred strategy is a practical staged launch, while ensuring the technical structure supports the full future product from the beginning."
+  },
+  {
+    "type": "table",
+    "startIndex": 2888,
+    "endIndex": 3866,
+    "rows": 4,
+    "columns": 3
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2891,
+    "endIndex": 2897,
+    "style": "NORMAL_TEXT",
+    "text": "Phase"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2898,
+    "endIndex": 2907,
+    "style": "NORMAL_TEXT",
+    "text": "Included"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2908,
+    "endIndex": 2925,
+    "style": "NORMAL_TEXT",
+    "text": "Timing / purpose"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2927,
+    "endIndex": 2957,
+    "style": "NORMAL_TEXT",
+    "text": "Phase 1 - Free website launch"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2958,
+    "endIndex": 2979,
+    "style": "NORMAL_TEXT",
+    "text": "Free MoodFlip tool,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 2979,
+    "endIndex": 3028,
+    "style": "NORMAL_TEXT",
+    "text": "28 mood pairings, 10 rotating actions per mood,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3028,
+    "endIndex": 3041,
+    "style": "NORMAL_TEXT",
+    "text": "core pages,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3041,
+    "endIndex": 3058,
+    "style": "NORMAL_TEXT",
+    "text": "SEO mood pages,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3058,
+    "endIndex": 3073,
+    "style": "NORMAL_TEXT",
+    "text": "Google setup,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3073,
+    "endIndex": 3127,
+    "style": "NORMAL_TEXT",
+    "text": "Option to save profile and/or provide e-mail address."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3127,
+    "endIndex": 3153,
+    "style": "NORMAL_TEXT",
+    "text": "Provide test environment."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3154,
+    "endIndex": 3189,
+    "style": "NORMAL_TEXT",
+    "text": "Launch the free MoodFlip website."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3189,
+    "endIndex": 3234,
+    "style": "NORMAL_TEXT",
+    "text": "Test the core functions in test environment."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3234,
+    "endIndex": 3348,
+    "style": "NORMAL_TEXT",
+    "text": "Submit the site to Google Search Console, submit the XML sitemap, and request Google indexing for the main pages."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3350,
+    "endIndex": 3380,
+    "style": "NORMAL_TEXT",
+    "text": "Phase 1 - 7-day paid download"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3381,
+    "endIndex": 3405,
+    "style": "NORMAL_TEXT",
+    "text": "Profile/email capture,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3405,
+    "endIndex": 3428,
+    "style": "NORMAL_TEXT",
+    "text": "saved mood check-ins,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3428,
+    "endIndex": 3456,
+    "style": "NORMAL_TEXT",
+    "text": "paid 7-day PDF generation,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3456,
+    "endIndex": 3474,
+    "style": "NORMAL_TEXT",
+    "text": "payment gateway,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3474,
+    "endIndex": 3498,
+    "style": "NORMAL_TEXT",
+    "text": "automatic PDF delivery."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3499,
+    "endIndex": 3543,
+    "style": "NORMAL_TEXT",
+    "text": "Early monetisation and email/list building."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3545,
+    "endIndex": 3576,
+    "style": "NORMAL_TEXT",
+    "text": "Phase 2 - 30-day paid download"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3577,
+    "endIndex": 3601,
+    "style": "NORMAL_TEXT",
+    "text": "30-day mood check-ins,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3601,
+    "endIndex": 3631,
+    "style": "NORMAL_TEXT",
+    "text": "30-day PDF/download product,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3631,
+    "endIndex": 3661,
+    "style": "NORMAL_TEXT",
+    "text": "30+ actions per mood support."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3661,
+    "endIndex": 3679,
+    "style": "NORMAL_TEXT",
+    "text": "AdSense activated"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3680,
+    "endIndex": 3742,
+    "style": "NORMAL_TEXT",
+    "text": "2 months after launch or earlier if traffic/sales justify it."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3742,
+    "endIndex": 3865,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Phase 2 is included in the paid order at no extra cost, including 30-day tracking and PDF product launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 3867,
+    "endIndex": 4067,
+    "style": "NORMAL_TEXT",
+    "text": "Important build requirement: even if Phase 2 is launched later, the database/content structure must be ready for at least 30 actions per mood and 30-day paid downloads without rebuilding the website."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4067,
+    "endIndex": 4373,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Both Phase 1 and Phase 2 are included in the original order already paid for. No additional payment is required to develop and launch Phase 2, including 30-day tracking, the 30-day PDF product, 30+ actions per mood using Joy-supplied content, and AdSense activation after Google approval."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4373,
+    "endIndex": 4499,
+    "style": "NORMAL_TEXT",
+    "text": "The site needs to be designed well to have space for AdSense ads. My suggestion is to put them on the top and on the bottom."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4500,
+    "endIndex": 4533,
+    "style": "HEADING_1",
+    "text": "4. Domain, Brand and Positioning"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4533,
+    "endIndex": 4578,
+    "style": "NORMAL_TEXT",
+    "text": "Domain chosen: moodflip.coach on NameCheap."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4579,
+    "endIndex": 4610,
+    "style": "HEADING_1",
+    "text": "5. Website Pages and User Flow"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4611,
+    "endIndex": 4704,
+    "style": "NORMAL_TEXT",
+    "text": "The developer quote includes the core pages required. These should be considered mandatory."
+  },
+  {
+    "type": "table",
+    "startIndex": 4704,
+    "endIndex": 5806,
+    "rows": 9,
+    "columns": 2
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4707,
+    "endIndex": 4712,
+    "style": "NORMAL_TEXT",
+    "text": "Page"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4713,
+    "endIndex": 4725,
+    "style": "NORMAL_TEXT",
+    "text": "Requirement"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4727,
+    "endIndex": 4748,
+    "style": "NORMAL_TEXT",
+    "text": "Homepage / Mood Tool"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4749,
+    "endIndex": 4851,
+    "style": "NORMAL_TEXT",
+    "text": "Clickable mood family cards, exact feeling tiles, positive target mood and rotating 60-second action."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4853,
+    "endIndex": 4859,
+    "style": "NORMAL_TEXT",
+    "text": "About"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4860,
+    "endIndex": 4912,
+    "style": "NORMAL_TEXT",
+    "text": "Explain MoodFlip as a self-reflection utility site."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 4912,
+    "endIndex": 4998,
+    "style": "NORMAL_TEXT",
+    "text": "Clearly state not therapy, not medical advice and not for emergencies/crisis support."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5000,
+    "endIndex": 5008,
+    "style": "NORMAL_TEXT",
+    "text": "Contact"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5009,
+    "endIndex": 5058,
+    "style": "NORMAL_TEXT",
+    "text": "Basic contact page or form with spam protection."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5060,
+    "endIndex": 5075,
+    "style": "NORMAL_TEXT",
+    "text": "Privacy Policy"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5076,
+    "endIndex": 5167,
+    "style": "NORMAL_TEXT",
+    "text": "Explain profile data, mood/action storage, purchase history and automatic 90-day deletion."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5169,
+    "endIndex": 5184,
+    "style": "NORMAL_TEXT",
+    "text": "SEO mood pages"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5185,
+    "endIndex": 5262,
+    "style": "NORMAL_TEXT",
+    "text": "20-30 original mood pages for search traffic, internally linked to the tool."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5264,
+    "endIndex": 5303,
+    "style": "NORMAL_TEXT",
+    "text": "Profile / Login / Saved Check-ins area"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5304,
+    "endIndex": 5419,
+    "style": "NORMAL_TEXT",
+    "text": "Optional user profile area for saving MoodFlip check-ins, selected moods/dates, actions shown and purchase status."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5421,
+    "endIndex": 5455,
+    "style": "NORMAL_TEXT",
+    "text": "Paid PDF checkout / delivery flow"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5456,
+    "endIndex": 5586,
+    "style": "NORMAL_TEXT",
+    "text": "Secure checkout flow for the US$7 7-day PDF, with automatic PDF generation, download and email delivery after successful payment."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5588,
+    "endIndex": 5612,
+    "style": "NORMAL_TEXT",
+    "text": "Private Admin Dashboard"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5613,
+    "endIndex": 5805,
+    "style": "NORMAL_TEXT",
+    "text": "Secure admin area for Joy to view registered user emails, saved moods/check-ins, purchase status, and export user/email data to CSV/Excel. No complex email campaign system required at launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5809,
+    "endIndex": 5834,
+    "style": "HEADING_1",
+    "text": "6. Mood Selection Design"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5835,
+    "endIndex": 5989,
+    "style": "NORMAL_TEXT",
+    "text": "Users should not type their mood. The mood selection must use clickable choices only. This avoids spelling, slang, translation and interpretation errors."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 5989,
+    "endIndex": 6124,
+    "style": "NORMAL_TEXT",
+    "text": "Step 1: user chooses a broad mood family card. The feeling appears in a cloud. Use one of these sad face looking clouds as animation;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 6124,
+    "endIndex": 6206,
+    "style": "NORMAL_TEXT",
+    "text": "https://www.magnific.com/free-vector/cartoon-style-cloud-collection_15694444.htm"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 6206,
+    "endIndex": 6339,
+    "style": "NORMAL_TEXT",
+    "text": "The 5 main bad feelings are; Sad / Disgusted / Angry / Fearful / Bad. Write the feeling into the cloud using capital, bold letters."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 6339,
+    "endIndex": 6595,
+    "style": "NORMAL_TEXT",
+    "text": "Step 2: After the user chose a 1st layer bad feeling, the 2nd layer appears underneath, displaying the 2nd layer of feelings from the mood wheel; https://feelingswheel.app/ . These are displayed like cards, showing a small drawing and the feeling`s name."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 6595,
+    "endIndex": 6742,
+    "style": "NORMAL_TEXT",
+    "text": "Step 3: When the user clicks on a feeling from the 2nd layer, a 3rd layer appears showing more feelings. The user chooses one feeling from these."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 6742,
+    "endIndex": 6999,
+    "style": "NORMAL_TEXT",
+    "text": "Step 4: User clicks on a `Flip My Mood` button which is in the middle of the screen. The button should be large, highly visible, and attention-catching, using a soft glow, pulse, or subtle animation rather than harsh flashing. The user has to click on it."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 6999,
+    "endIndex": 7222,
+    "style": "NORMAL_TEXT",
+    "text": "Step 5: The site displays the selected negative moods on the left side of the screen, positive target mood and one 60-second action on the right side of the screen. On the right side in a Sun background there`s a writing;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7222,
+    "endIndex": 7245,
+    "style": "NORMAL_TEXT",
+    "text": "Your positive mood is:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7245,
+    "endIndex": 7305,
+    "style": "NORMAL_TEXT",
+    "text": "Peaceful (this is an example, display the appropriate mood)"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7306,
+    "endIndex": 7342,
+    "style": "HEADING_1",
+    "text": "7. Mood Pairings and Action Content"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7343,
+    "endIndex": 7495,
+    "style": "NORMAL_TEXT",
+    "text": "The current working content file contains 28 bad mood / good mood pairings, with 10 rotating actions per mood. The site should show a 60-second action."
+  },
+  {
+    "type": "table",
+    "startIndex": 7495,
+    "endIndex": 7739,
+    "rows": 4,
+    "columns": 2
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7498,
+    "endIndex": 7510,
+    "style": "NORMAL_TEXT",
+    "text": "Requirement"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7511,
+    "endIndex": 7518,
+    "style": "NORMAL_TEXT",
+    "text": "Status"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7520,
+    "endIndex": 7553,
+    "style": "NORMAL_TEXT",
+    "text": "28 bad mood / good mood pairings"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7554,
+    "endIndex": 7574,
+    "style": "NORMAL_TEXT",
+    "text": "Required at launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7576,
+    "endIndex": 7615,
+    "style": "NORMAL_TEXT",
+    "text": "10 rotating 60-second actions per mood"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7616,
+    "endIndex": 7636,
+    "style": "NORMAL_TEXT",
+    "text": "Required at launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7638,
+    "endIndex": 7666,
+    "style": "NORMAL_TEXT",
+    "text": "30 actions per mood support"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7667,
+    "endIndex": 7738,
+    "style": "NORMAL_TEXT",
+    "text": "Required in the structure/database for Phase 2, 2 months after launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7740,
+    "endIndex": 7770,
+    "style": "HEADING_1",
+    "text": "8. Rotating 60-Second Actions"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7771,
+    "endIndex": 7892,
+    "style": "NORMAL_TEXT",
+    "text": "Repeat visitors should not always see the same action for the same mood. The site should rotate among available actions."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7892,
+    "endIndex": 7947,
+    "style": "NORMAL_TEXT",
+    "text": "At launch: each mood should have 10 available actions."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 7947,
+    "endIndex": 8034,
+    "style": "NORMAL_TEXT",
+    "text": "Future-ready: each mood should support 30 or more actions without rebuilding the site."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8034,
+    "endIndex": 8206,
+    "style": "NORMAL_TEXT",
+    "text": "Suggested simple implementation: store the last action shown per mood in the visitor browser/local storage or user profile, then show a different or next action next time."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8206,
+    "endIndex": 8312,
+    "style": "NORMAL_TEXT",
+    "text": "For profile users, action history may be stored with the user record so paid downloads can avoid repeats."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8312,
+    "endIndex": 8414,
+    "style": "NORMAL_TEXT",
+    "text": "For paid 7-day and 30-day downloads, the PDF should not repeat the same action within that paid plan."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8415,
+    "endIndex": 8449,
+    "style": "HEADING_1",
+    "text": "9. Paid Products and Monetisation"
+  },
+  {
+    "type": "table",
+    "startIndex": 8449,
+    "endIndex": 11149,
+    "rows": 9,
+    "columns": 2
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8452,
+    "endIndex": 8482,
+    "style": "NORMAL_TEXT",
+    "text": "Product / monetisation method"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8483,
+    "endIndex": 8495,
+    "style": "NORMAL_TEXT",
+    "text": "Requirement"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8497,
+    "endIndex": 8507,
+    "style": "NORMAL_TEXT",
+    "text": "Free tool"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8508,
+    "endIndex": 8544,
+    "style": "NORMAL_TEXT",
+    "text": "Available without profile creation."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8546,
+    "endIndex": 8574,
+    "style": "NORMAL_TEXT",
+    "text": "US$7 seven-day PDF/download"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8575,
+    "endIndex": 8682,
+    "style": "NORMAL_TEXT",
+    "text": "Personalised 7-day MoodFlip plan based on saved moods/check-ins. Automatic payment and delivery in e-mail."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8682,
+    "endIndex": 8926,
+    "style": "NORMAL_TEXT",
+    "text": "JK>> After the user has saved check-ins across 7 calendar days, show an offer for the US$7 paid 7-day PDF/download. Users may save a maximum of 3 check-ins per calendar day toward the report. The 7-day PDF may include up to 21 saved check-ins."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 8926,
+    "endIndex": 9081,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Payment/PDF fallback confirmed: paid purchases must be recorded even if PDF generation/email fails, with admin resend/download available."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 9083,
+    "endIndex": 9113,
+    "style": "NORMAL_TEXT",
+    "text": "US$19 thirty-day PDF/download"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 9114,
+    "endIndex": 9200,
+    "style": "NORMAL_TEXT",
+    "text": "Later product with 30-day tracking/check-ins and no repeated actions within the plan."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 9200,
+    "endIndex": 9339,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: The 30-day PDF product is included as Phase 2 at no additional cost. It can be launched later using Joy-supplied content."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 9341,
+    "endIndex": 9369,
+    "style": "NORMAL_TEXT",
+    "text": "Sales prompts / paid offers"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 9370,
+    "endIndex": 9555,
+    "style": "NORMAL_TEXT",
+    "text": "Sales prompts / paid 7-day report offer\u000bAfter the user saves their first MoodFlip check-in, show a friendly message explaining that they can build a personalised 7-Day MoodFlip Report."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 9555,
+    "endIndex": 9781,
+    "style": "NORMAL_TEXT",
+    "text": "Users may save a maximum of 3 MoodFlip check-ins per calendar day toward their report. They may continue using the free MoodFlip tool more than 3 times per day, but only 3 saved check-ins per day count toward the paid report."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 9781,
+    "endIndex": 10038,
+    "style": "NORMAL_TEXT",
+    "text": "From the 2nd saved calendar day onward, show a daily reminder/popup explaining that the user is building a personalised 7-Day MoodFlip Report, available for US$7 once the 7-day requirement is complete. This reminder should appear no more than once per day."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10038,
+    "endIndex": 10181,
+    "style": "NORMAL_TEXT",
+    "text": "The 7-day PDF becomes available after the user has saved check-ins across 7 calendar days. The 7-day PDF may include up to 21 saved check-ins."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10181,
+    "endIndex": 10289,
+    "style": "NORMAL_TEXT",
+    "text": "Once the 7-day requirement is reached, show the final purchase prompt for the US$7 paid 7-day PDF/download."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10292,
+    "endIndex": 10300,
+    "style": "NORMAL_TEXT",
+    "text": "AdSense"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10301,
+    "endIndex": 10378,
+    "style": "NORMAL_TEXT",
+    "text": "Site should be AdSense-ready, but approval and ranking cannot be guaranteed."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10380,
+    "endIndex": 10393,
+    "style": "NORMAL_TEXT",
+    "text": "Email offers"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10394,
+    "endIndex": 10467,
+    "style": "NORMAL_TEXT",
+    "text": "Please include a simple admin dashboard where I can securely log in and;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10467,
+    "endIndex": 10497,
+    "style": "NORMAL_TEXT",
+    "text": "view registered users names,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10497,
+    "endIndex": 10521,
+    "style": "NORMAL_TEXT",
+    "text": "their email addresses,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10521,
+    "endIndex": 10545,
+    "style": "NORMAL_TEXT",
+    "text": "saved moods/check-ins,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10545,
+    "endIndex": 10641,
+    "style": "NORMAL_TEXT",
+    "text": "purchase status (active when they bought the PDF already, inactive when they haven`t yet), and"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10641,
+    "endIndex": 10670,
+    "style": "NORMAL_TEXT",
+    "text": "export users/emails to CSV."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10670,
+    "endIndex": 10727,
+    "style": "NORMAL_TEXT",
+    "text": "I do not need a complex email campaign system at launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10729,
+    "endIndex": 10745,
+    "style": "NORMAL_TEXT",
+    "text": "Affiliate links"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10746,
+    "endIndex": 10933,
+    "style": "NORMAL_TEXT",
+    "text": "Not required at launch. Earlier correspondence mentioned affiliate integration, but current requirement is to focus on MoodFlip’s own paid products and avoid third-party affiliate links."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10935,
+    "endIndex": 10962,
+    "style": "NORMAL_TEXT",
+    "text": "Sales popups / paid offers"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 10963,
+    "endIndex": 11148,
+    "style": "NORMAL_TEXT",
+    "text": "After 72 saved mood/check-in entries, show an offer for the US$7 paid 7-day PDF/download. Later, the same structure should support a 30-day offer when the 30-day product is introduced."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 11150,
+    "endIndex": 11200,
+    "style": "HEADING_1",
+    "text": "10. User Profiles, Email Capture and Data Storage"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 11200,
+    "endIndex": 11380,
+    "style": "NORMAL_TEXT",
+    "text": "Creating a profile is optional. The free basic tool must work without a profile. A profile is used for saving check-ins, creating personalized downloads and making future offers."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 11380,
+    "endIndex": 11454,
+    "style": "NORMAL_TEXT",
+    "text": "A button needs to appear right under the 60 sec action; SAVE MY PROFILE."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 11454,
+    "endIndex": 11951,
+    "style": "NORMAL_TEXT",
+    "text": "We need to keep track/store the user`s login date and site visit number. The site should track anonymous repeat visits using browser storage/cookies where appropriate. When a visitor returns for the second time, show a pop-up inviting them to create a profile. When the visit number reaches 2 (meaning they visit the site for the 2nd time) the site pops up a pop-up window asking if the user wanted to create a profile which allows them to save the action prompts. Approved short consent wording:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 11951,
+    "endIndex": 12141,
+    "style": "NORMAL_TEXT",
+    "text": "By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history so we can create and offer personalized downloads."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12141,
+    "endIndex": 12310,
+    "style": "NORMAL_TEXT",
+    "text": "The system should use the saved check-in count to trigger the 7-day paid PDF offer and should be ready to trigger a 30-day offer later when the 30-day product is added."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12310,
+    "endIndex": 12522,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: If payment succeeds but PDF generation or email delivery fails, the purchase is still recorded. The admin dashboard must allow Joy to regenerate/resend the PDF or provide a secure download link."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12523,
+    "endIndex": 12545,
+    "style": "NORMAL_TEXT",
+    "text": "Profile data fields;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12545,
+    "endIndex": 12553,
+    "style": "NORMAL_TEXT",
+    "text": "email,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12553,
+    "endIndex": 12580,
+    "style": "NORMAL_TEXT",
+    "text": "selected moods and dates,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12580,
+    "endIndex": 12596,
+    "style": "NORMAL_TEXT",
+    "text": "actions shown,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12596,
+    "endIndex": 12614,
+    "style": "NORMAL_TEXT",
+    "text": "purchase status,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12614,
+    "endIndex": 12635,
+    "style": "NORMAL_TEXT",
+    "text": "last activity date,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12635,
+    "endIndex": 12655,
+    "style": "NORMAL_TEXT",
+    "text": "and check-in count."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12656,
+    "endIndex": 12802,
+    "style": "NORMAL_TEXT",
+    "text": "Enable automatic 90-day deletion of inactive profiles. Every profile which has been inactive for at least 90 days will be automatically deleted."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12803,
+    "endIndex": 12847,
+    "style": "HEADING_1",
+    "text": "11. Privacy, Consent and Automatic Deletion"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12847,
+    "endIndex": 12931,
+    "style": "NORMAL_TEXT",
+    "text": "Users must be told they can use the basic MoodFlip tool without creating a profile."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 12931,
+    "endIndex": 13045,
+    "style": "NORMAL_TEXT",
+    "text": "Profile creation must be voluntary and connected to saving check-ins and receiving personalised downloads/offers."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13045,
+    "endIndex": 13165,
+    "style": "NORMAL_TEXT",
+    "text": "Automatic deletion requirement: inactive profiles and saved mood history should be deleted after 90 days of inactivity."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13165,
+    "endIndex": 13230,
+    "style": "NORMAL_TEXT",
+    "text": "No complex manual user deletion dashboard is required at launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13230,
+    "endIndex": 13319,
+    "style": "NORMAL_TEXT",
+    "text": "Developer should implement last_active_at or equivalent so inactivity can be calculated."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13319,
+    "endIndex": 13510,
+    "style": "NORMAL_TEXT",
+    "text": "The privacy policy should be written carefully because selected moods are personal and wellbeing-related. The website should avoid collecting unnecessary data beyond the fields listed above."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13511,
+    "endIndex": 13552,
+    "style": "HEADING_1",
+    "text": "12. SEO, Google Setup and Traffic Growth"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13552,
+    "endIndex": 13689,
+    "style": "NORMAL_TEXT",
+    "text": "The quote includes a strong SEO foundation. This should be treated as required, but no ranking guarantee should be accepted or expected."
+  },
+  {
+    "type": "table",
+    "startIndex": 13689,
+    "endIndex": 14265,
+    "rows": 9,
+    "columns": 2
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13692,
+    "endIndex": 13701,
+    "style": "NORMAL_TEXT",
+    "text": "SEO item"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13702,
+    "endIndex": 13714,
+    "style": "NORMAL_TEXT",
+    "text": "Requirement"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13716,
+    "endIndex": 13737,
+    "style": "NORMAL_TEXT",
+    "text": "20-30 SEO mood pages"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13738,
+    "endIndex": 13825,
+    "style": "NORMAL_TEXT",
+    "text": "Original, helpful pages targeting specific mood searches and linking back to the tool."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13827,
+    "endIndex": 13836,
+    "style": "NORMAL_TEXT",
+    "text": "Metadata"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13837,
+    "endIndex": 13886,
+    "style": "NORMAL_TEXT",
+    "text": "Unique title and meta description for key pages."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13888,
+    "endIndex": 13902,
+    "style": "NORMAL_TEXT",
+    "text": "Schema markup"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13903,
+    "endIndex": 13954,
+    "style": "NORMAL_TEXT",
+    "text": "Appropriate structured data where useful and safe."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13956,
+    "endIndex": 13973,
+    "style": "NORMAL_TEXT",
+    "text": "Internal linking"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 13974,
+    "endIndex": 14027,
+    "style": "NORMAL_TEXT",
+    "text": "Related mood pages and tool pages connected clearly."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14029,
+    "endIndex": 14041,
+    "style": "NORMAL_TEXT",
+    "text": "XML sitemap"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14042,
+    "endIndex": 14065,
+    "style": "NORMAL_TEXT",
+    "text": "Created and submitted."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14067,
+    "endIndex": 14089,
+    "style": "NORMAL_TEXT",
+    "text": "Google Search Console"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14090,
+    "endIndex": 14126,
+    "style": "NORMAL_TEXT",
+    "text": "Set up and connected to the domain."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14128,
+    "endIndex": 14145,
+    "style": "NORMAL_TEXT",
+    "text": "Google Analytics"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14146,
+    "endIndex": 14192,
+    "style": "NORMAL_TEXT",
+    "text": "Set up to track usage, conversions and pages."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14194,
+    "endIndex": 14214,
+    "style": "NORMAL_TEXT",
+    "text": "Indexing submission"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14215,
+    "endIndex": 14264,
+    "style": "NORMAL_TEXT",
+    "text": "Initial indexing request submitted after launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14268,
+    "endIndex": 14281,
+    "style": "HEADING_1",
+    "text": "13. AdSense"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14281,
+    "endIndex": 14349,
+    "style": "NORMAL_TEXT",
+    "text": "Developer should prepare the site for a future AdSense application."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14349,
+    "endIndex": 14412,
+    "style": "NORMAL_TEXT",
+    "text": "AdSense approval is not guaranteed and should not be promised."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14412,
+    "endIndex": 14526,
+    "style": "NORMAL_TEXT",
+    "text": "Ads should appear in Phase 2; the primary early monetisation should be email/profile capture and paid downloads."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14526,
+    "endIndex": 14711,
+    "style": "NORMAL_TEXT",
+    "text": "The site should be designed with ad spaces from the beginning, my suggestion is on the top and on the bottom. AdSense ads should only be activated after the site is approved and ready."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14711,
+    "endIndex": 14904,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: The site will be AdSense-ready at launch. Once Google approves the site, adding the approved AdSense code is included in the free 1-year maintenance window as part of Phase 2."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14905,
+    "endIndex": 14937,
+    "style": "NORMAL_TEXT",
+    "text": "Best ad placement for MoodFlip:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14937,
+    "endIndex": 14945,
+    "style": "NORMAL_TEXT",
+    "text": "Desktop"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14946,
+    "endIndex": 14951,
+    "style": "NORMAL_TEXT",
+    "text": "Use:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14951,
+    "endIndex": 14971,
+    "style": "NORMAL_TEXT",
+    "text": "Right-side ad space"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 14971,
+    "endIndex": 15080,
+    "style": "NORMAL_TEXT",
+    "text": "Place one ad on the right side, probably beside or below the Peaceful/action card, not above the whole page."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15080,
+    "endIndex": 15124,
+    "style": "NORMAL_TEXT",
+    "text": "Best size: 300×250 or responsive rectangle."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15124,
+    "endIndex": 15140,
+    "style": "NORMAL_TEXT",
+    "text": "Bottom ad space"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15140,
+    "endIndex": 15238,
+    "style": "NORMAL_TEXT",
+    "text": "Place one horizontal ad below the main MoodFlip tool, before the footer/supportive message strip."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15238,
+    "endIndex": 15268,
+    "style": "NORMAL_TEXT",
+    "text": "Best size: 728×90 on desktop."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15269,
+    "endIndex": 15276,
+    "style": "NORMAL_TEXT",
+    "text": "Tablet"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15277,
+    "endIndex": 15282,
+    "style": "NORMAL_TEXT",
+    "text": "Use:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15282,
+    "endIndex": 15329,
+    "style": "NORMAL_TEXT",
+    "text": "One ad after the main mood tool/result section"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15329,
+    "endIndex": 15377,
+    "style": "NORMAL_TEXT",
+    "text": "Not beside it, because tablet width is tighter."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15377,
+    "endIndex": 15400,
+    "style": "NORMAL_TEXT",
+    "text": "One ad near the bottom"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15400,
+    "endIndex": 15444,
+    "style": "NORMAL_TEXT",
+    "text": "Before the footer/supportive message strip."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15445,
+    "endIndex": 15599,
+    "style": "NORMAL_TEXT",
+    "text": "Use responsive ads so Google can adjust the size to screen width. Google’s own example uses 468×60 for medium-width screens and 728×90 for wider screens."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15600,
+    "endIndex": 15607,
+    "style": "NORMAL_TEXT",
+    "text": "Mobile"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15608,
+    "endIndex": 15618,
+    "style": "NORMAL_TEXT",
+    "text": "Use only:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15618,
+    "endIndex": 15663,
+    "style": "NORMAL_TEXT",
+    "text": "One ad after the user gets the result/action"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15663,
+    "endIndex": 15701,
+    "style": "NORMAL_TEXT",
+    "text": "Maybe one bottom ad before the footer"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15702,
+    "endIndex": 15877,
+    "style": "NORMAL_TEXT",
+    "text": "Do not put ads between the mood selection steps and the Flip Your Mood button. That risks ruining the user flow and could cause accidental clicks, which Google warns against."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 15878,
+    "endIndex": 16146,
+    "style": "NORMAL_TEXT",
+    "text": "Google allows responsive ads that adapt to device size, and says responsive sizing can increase revenue potential because more ads may be eligible to fill the space. But more ad spaces do not automatically mean more money. The page still has to feel clean and useful."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 16148,
+    "endIndex": 16187,
+    "style": "HEADING_1",
+    "text": "14. Technical Architecture and Hosting"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 16188,
+    "endIndex": 16410,
+    "style": "NORMAL_TEXT",
+    "text": "The developer proposed free platforms: Vercel for frontend, Render for backend/server logic, and Supabase for database/user data. This can work for launch, but the build should avoid unnecessary complexity where possible."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 16410,
+    "endIndex": 16435,
+    "style": "NORMAL_TEXT",
+    "text": "Technical confirmations:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 16435,
+    "endIndex": 16636,
+    "style": "NORMAL_TEXT",
+    "text": "Updated offer/correspondence confirms a scalable Supabase + Vercel architecture. Render should only be used if genuinely needed; the free MoodFlip tool should not depend on a sleeping backend service."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 16636,
+    "endIndex": 16756,
+    "style": "NORMAL_TEXT",
+    "text": "Stripe payment gateway integration was confirmed in the Fiverr correspondence unless Joy later chooses another gateway."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 16756,
+    "endIndex": 16881,
+    "style": "NORMAL_TEXT",
+    "text": "Automatic PDF generation, download, and email delivery after successful payment were confirmed in the Fiverr correspondence."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 16881,
+    "endIndex": 16908,
+    "style": "NORMAL_TEXT",
+    "text": "Developer should provide;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 16908,
+    "endIndex": 17270,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Hosting upgrade costs are Joy-owned subscription costs only: Vercel Pro approx. US$20/month and Supabase Pro approx. US$25/month if needed. No upgrade will happen without Joy’s prior approval. DigitalWorkify will not charge a separate fee just to facilitate the upgrade unless real migration work is required, in which case he will quote first."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17270,
+    "endIndex": 17485,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Monitoring schedule confirmed: weekly checks during month 1 after launch, then monthly checks while stable, plus immediate checks any time there is a payment, PDF, profile, or website-access issue."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17485,
+    "endIndex": 17514,
+    "style": "NORMAL_TEXT",
+    "text": "hosting capacity estimates,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17514,
+    "endIndex": 17536,
+    "style": "NORMAL_TEXT",
+    "text": "monitoring guidance,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17536,
+    "endIndex": 17551,
+    "style": "NORMAL_TEXT",
+    "text": "upgrade path,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17551,
+    "endIndex": 17568,
+    "style": "NORMAL_TEXT",
+    "text": "expected costs,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17568,
+    "endIndex": 17634,
+    "style": "NORMAL_TEXT",
+    "text": "and graceful handling if paid/profile services experience issues."
+  },
+  {
+    "type": "table",
+    "startIndex": 17635,
+    "endIndex": 18909,
+    "rows": 6,
+    "columns": 3
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17638,
+    "endIndex": 17647,
+    "style": "NORMAL_TEXT",
+    "text": "Platform"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17648,
+    "endIndex": 17661,
+    "style": "NORMAL_TEXT",
+    "text": "Proposed use"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17662,
+    "endIndex": 17684,
+    "style": "NORMAL_TEXT",
+    "text": "Requirement / concern"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17686,
+    "endIndex": 17693,
+    "style": "NORMAL_TEXT",
+    "text": "Vercel"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17694,
+    "endIndex": 17722,
+    "style": "NORMAL_TEXT",
+    "text": "Frontend / website hosting."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17723,
+    "endIndex": 17826,
+    "style": "NORMAL_TEXT",
+    "text": "Good for static and fast public pages. Free tool should remain available even if backend has an issue."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17828,
+    "endIndex": 17835,
+    "style": "NORMAL_TEXT",
+    "text": "Render"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17836,
+    "endIndex": 17860,
+    "style": "NORMAL_TEXT",
+    "text": "Backend / server logic."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17861,
+    "endIndex": 17969,
+    "style": "NORMAL_TEXT",
+    "text": "Free tier may sleep or be slower. Avoid relying on it for critical payment/PDF user experience if possible."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17971,
+    "endIndex": 17980,
+    "style": "NORMAL_TEXT",
+    "text": "Supabase"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 17981,
+    "endIndex": 18013,
+    "style": "NORMAL_TEXT",
+    "text": "Database / users / saved moods."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18014,
+    "endIndex": 18109,
+    "style": "NORMAL_TEXT",
+    "text": "Store only required profile, mood/action, purchase and activity data. Support 90-day deletion."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18109,
+    "endIndex": 18158,
+    "style": "HEADING_3",
+    "text": "Supabase Free does not include automatic backups"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18158,
+    "endIndex": 18443,
+    "style": "NORMAL_TEXT",
+    "text": "This is important. Supabase Free includes the 500 MB database, 50,000 monthly active users, 5 GB egress, 1 GB storage and 500,000 Edge Function invocations, but its pricing table says automatic backups are not included on Free. Supabase Pro is US$25/month and includes 7-day backups."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18443,
+    "endIndex": 18448,
+    "style": "NORMAL_TEXT",
+    "text": "Add:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18448,
+    "endIndex": 18702,
+    "style": "NORMAL_TEXT",
+    "text": "Since Supabase Free does not include automatic backups, please explain the backup plan while we are on the Free plan. At minimum, please provide a manual database/content export at launch and explain how Joy can export/backup mood data and user records."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18705,
+    "endIndex": 18722,
+    "style": "NORMAL_TEXT",
+    "text": "Namecheap domain"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18723,
+    "endIndex": 18744,
+    "style": "NORMAL_TEXT",
+    "text": "Domain registration."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18745,
+    "endIndex": 18791,
+    "style": "NORMAL_TEXT",
+    "text": "Domain owned by Joy and connected to hosting."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18793,
+    "endIndex": 18809,
+    "style": "NORMAL_TEXT",
+    "text": "Payment gateway"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18810,
+    "endIndex": 18828,
+    "style": "NORMAL_TEXT",
+    "text": "Paid PDF payment."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18829,
+    "endIndex": 18908,
+    "style": "NORMAL_TEXT",
+    "text": "Must be confirmed: Stripe or other. Automatic delivery after payment required."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18910,
+    "endIndex": 18952,
+    "style": "HEADING_1",
+    "text": "15. Security, Performance and Reliability"
+  },
+  {
+    "type": "table",
+    "startIndex": 18952,
+    "endIndex": 19547,
+    "rows": 9,
+    "columns": 2
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18955,
+    "endIndex": 18960,
+    "style": "NORMAL_TEXT",
+    "text": "Area"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18961,
+    "endIndex": 18973,
+    "style": "NORMAL_TEXT",
+    "text": "Requirement"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18975,
+    "endIndex": 18985,
+    "style": "NORMAL_TEXT",
+    "text": "HTTPS/SSL"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 18986,
+    "endIndex": 19015,
+    "style": "NORMAL_TEXT",
+    "text": "Required for the whole site."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19017,
+    "endIndex": 19033,
+    "style": "NORMAL_TEXT",
+    "text": "Spam protection"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19034,
+    "endIndex": 19070,
+    "style": "NORMAL_TEXT",
+    "text": "Required for contact/profile forms."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19072,
+    "endIndex": 19093,
+    "style": "NORMAL_TEXT",
+    "text": "Secure configuration"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19094,
+    "endIndex": 19155,
+    "style": "NORMAL_TEXT",
+    "text": "No exposed API keys. Environment variables handled securely."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19157,
+    "endIndex": 19176,
+    "style": "NORMAL_TEXT",
+    "text": "User data security"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19177,
+    "endIndex": 19232,
+    "style": "NORMAL_TEXT",
+    "text": "Secure Supabase/Render setup and minimal data storage."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19234,
+    "endIndex": 19250,
+    "style": "NORMAL_TEXT",
+    "text": "Core Web Vitals"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19251,
+    "endIndex": 19299,
+    "style": "NORMAL_TEXT",
+    "text": "Fast mobile performance and image optimisation."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19301,
+    "endIndex": 19313,
+    "style": "NORMAL_TEXT",
+    "text": "Reliability"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19314,
+    "endIndex": 19392,
+    "style": "NORMAL_TEXT",
+    "text": "Free tool should still work even if profile/payment/PDF backend has an issue."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19394,
+    "endIndex": 19412,
+    "style": "NORMAL_TEXT",
+    "text": "Capacity planning"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19413,
+    "endIndex": 19495,
+    "style": "NORMAL_TEXT",
+    "text": "Developer should explain free hosting limits and upgrade path when traffic grows."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19497,
+    "endIndex": 19514,
+    "style": "NORMAL_TEXT",
+    "text": "Test environment"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19515,
+    "endIndex": 19546,
+    "style": "NORMAL_TEXT",
+    "text": "Required before public launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19548,
+    "endIndex": 19604,
+    "style": "HEADING_1",
+    "text": "16. Design Direction, and  Animation and Popup Messages"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19604,
+    "endIndex": 19675,
+    "style": "NORMAL_TEXT",
+    "text": "The design direction is based on the approved homepage mockup concept."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19675,
+    "endIndex": 19768,
+    "style": "NORMAL_TEXT",
+    "text": "Left side: strong black/dark background with readable mood selection tiles and family cards."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19768,
+    "endIndex": 19896,
+    "style": "NORMAL_TEXT",
+    "text": "Right side: soft, uplifting sun/rising light design with calming pastel colours. This section is liked and should be preserved."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19896,
+    "endIndex": 19997,
+    "style": "NORMAL_TEXT",
+    "text": "Mood family cards and specific feeling tiles should be visual, mobile-friendly and not overwhelming."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 19997,
+    "endIndex": 20054,
+    "style": "NORMAL_TEXT",
+    "text": "Remove bin/clear-selection feature from the main design."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20054,
+    "endIndex": 20160,
+    "style": "NORMAL_TEXT",
+    "text": "Include lightweight animation, such as result card fade/slide/flip after clicking the mood change button."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20160,
+    "endIndex": 20231,
+    "style": "NORMAL_TEXT",
+    "text": "Design must be clean, modern, professional and emotionally supportive."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20231,
+    "endIndex": 20317,
+    "style": "NORMAL_TEXT",
+    "text": "The site must be optimized for mobile phones, tablets and desktop computers as well."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20318,
+    "endIndex": 20359,
+    "style": "NORMAL_TEXT",
+    "text": "Popup Messages displayed by the website;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20360,
+    "endIndex": 20390,
+    "style": "HEADING_3",
+    "text": "1. After first saved check-in"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20390,
+    "endIndex": 20551,
+    "style": "NORMAL_TEXT",
+    "text": "Your first MoodFlip check-in is saved.\u000bYou can save up to 3 check-ins per day. After 7 days, you’ll be able to download your personalised 7-Day MoodFlip Report."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20551,
+    "endIndex": 20608,
+    "style": "HEADING_3",
+    "text": "2. From the 2nd saved calendar day onward — once per day"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20608,
+    "endIndex": 20750,
+    "style": "NORMAL_TEXT",
+    "text": "You’re building your 7-Day MoodFlip Report.\u000bSave up to 3 check-ins per day. Your personalised report will be available after 7 days for US$7."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20750,
+    "endIndex": 20794,
+    "style": "HEADING_3",
+    "text": "3. Progress message after saving a check-in"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20794,
+    "endIndex": 20862,
+    "style": "NORMAL_TEXT",
+    "text": "Saved.\u000bToday’s check-ins: [1/3]\u000b7-Day Report progress: Day [X] of 7"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20862,
+    "endIndex": 20890,
+    "style": "HEADING_3",
+    "text": "4. Daily save limit reached"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 20890,
+    "endIndex": 21004,
+    "style": "NORMAL_TEXT",
+    "text": "You’ve saved today’s 3 check-ins.\u000bYou can still use the free MoodFlip tool. You can save more check-ins tomorrow."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21004,
+    "endIndex": 21026,
+    "style": "HEADING_3",
+    "text": "5. 7-day report ready"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21026,
+    "endIndex": 21199,
+    "style": "NORMAL_TEXT",
+    "text": "Your 7-Day MoodFlip Report is ready.\u000bDownload your personalised report with your saved moods, positive moods, 60-second actions, and mood pattern summary.\u000bDownload for US$7"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21199,
+    "endIndex": 21221,
+    "style": "HEADING_3",
+    "text": "6. Payment successful"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21221,
+    "endIndex": 21321,
+    "style": "NORMAL_TEXT",
+    "text": "Payment successful.\u000bYour MoodFlip Report is ready to download. A copy has also been emailed to you."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21321,
+    "endIndex": 21363,
+    "style": "HEADING_3",
+    "text": "7. Payment successful but PDF/email issue"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21363,
+    "endIndex": 21493,
+    "style": "NORMAL_TEXT",
+    "text": "Payment received.\u000bYour report is being prepared. If it does not arrive, you can download it from your profile or contact support."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21493,
+    "endIndex": 21533,
+    "style": "HEADING_3",
+    "text": "8. Profile invitation on 2nd site visit"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21533,
+    "endIndex": 21662,
+    "style": "NORMAL_TEXT",
+    "text": "Save your MoodFlip check-ins?\u000bCreate a free profile to save your moods, actions, and progress toward your 7-Day MoodFlip Report."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21662,
+    "endIndex": 21690,
+    "style": "HEADING_3",
+    "text": "9. Consent checkbox wording"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21690,
+    "endIndex": 21880,
+    "style": "NORMAL_TEXT",
+    "text": "By creating a profile, you agree that MoodFlip may store your email address, selected moods and dates, actions shown, and purchase history so we can create and offer personalised downloads."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21880,
+    "endIndex": 21894,
+    "style": "NORMAL_TEXT",
+    "text": "FONTS to use:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 21895,
+    "endIndex": 22052,
+    "style": "NORMAL_TEXT",
+    "text": "The mockup is a generated design, so the exact font files are not embedded. The list below gives the closest practical font styles for the developer to use."
+  },
+  {
+    "type": "table",
+    "startIndex": 22052,
+    "endIndex": 22860,
+    "rows": 6,
+    "columns": 3
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22055,
+    "endIndex": 22060,
+    "style": "NORMAL_TEXT",
+    "text": "Area"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22061,
+    "endIndex": 22086,
+    "style": "NORMAL_TEXT",
+    "text": "Suggested character type"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22087,
+    "endIndex": 22093,
+    "style": "NORMAL_TEXT",
+    "text": "Notes"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22095,
+    "endIndex": 22109,
+    "style": "NORMAL_TEXT",
+    "text": "MoodFlip logo"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22110,
+    "endIndex": 22167,
+    "style": "NORMAL_TEXT",
+    "text": "Custom wordmark (approved logo art, not a standard font)"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22168,
+    "endIndex": 22248,
+    "style": "NORMAL_TEXT",
+    "text": "Use the approved logo artwork shown above. Do not retype it with a normal font."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22250,
+    "endIndex": 22291,
+    "style": "NORMAL_TEXT",
+    "text": "Top navigation / step labels / body text"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22292,
+    "endIndex": 22342,
+    "style": "NORMAL_TEXT",
+    "text": "Closest match: Nunito Sans or Avenir Next Rounded"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22343,
+    "endIndex": 22432,
+    "style": "NORMAL_TEXT",
+    "text": "Rounded, friendly sans-serif. Use semi-bold for nav and headings; regular for body text."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22434,
+    "endIndex": 22469,
+    "style": "NORMAL_TEXT",
+    "text": "Mood result word (e.g. “Peaceful”)"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22470,
+    "endIndex": 22524,
+    "style": "NORMAL_TEXT",
+    "text": "Closest match: Cormorant Garamond or DM Serif Display"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22525,
+    "endIndex": 22588,
+    "style": "NORMAL_TEXT",
+    "text": "Elegant serif for the large positive target mood on the right."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22590,
+    "endIndex": 22621,
+    "style": "NORMAL_TEXT",
+    "text": "Button text (“Flip Your Mood”)"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22622,
+    "endIndex": 22654,
+    "style": "NORMAL_TEXT",
+    "text": "Closest match: Nunito Sans Bold"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22655,
+    "endIndex": 22723,
+    "style": "NORMAL_TEXT",
+    "text": "Use a clear, soft, rounded sans-serif so the button stays readable."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22725,
+    "endIndex": 22746,
+    "style": "NORMAL_TEXT",
+    "text": "Small chips / labels"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22747,
+    "endIndex": 22791,
+    "style": "NORMAL_TEXT",
+    "text": "Closest match: Nunito Sans Regular/SemiBold"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22792,
+    "endIndex": 22859,
+    "style": "NORMAL_TEXT",
+    "text": "Keep chips and microcopy simple and consistent with the body font."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22862,
+    "endIndex": 22912,
+    "style": "HEADING_1",
+    "text": "17. Ownership, Handover and Intellectual Property"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22913,
+    "endIndex": 22968,
+    "style": "NORMAL_TEXT",
+    "text": "Joy must own the domain separately from the developer."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 22968,
+    "endIndex": 23113,
+    "style": "NORMAL_TEXT",
+    "text": "Developer must confirm full ownership of source code, design, written content, mood/action database/content and commercial rights after payment."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 23113,
+    "endIndex": 23224,
+    "style": "NORMAL_TEXT",
+    "text": "Developer must provide full source code, files, deployment details, documentation and account/access handover."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 23224,
+    "endIndex": 23605,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: The code will live in a private GitHub repository. At handover, Joy will be added as Owner of that repository or the repository will be transferred to a GitHub account Joy controls. DigitalWorkify will then be removed or kept only as a temporary collaborator if Joy wants ongoing support. Environment variables and settings will be documented as part of handover."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 23605,
+    "endIndex": 23714,
+    "style": "NORMAL_TEXT",
+    "text": "Developer should not reuse, resell, copy or publish the project or use it in a portfolio without permission."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 23714,
+    "endIndex": 23798,
+    "style": "NORMAL_TEXT",
+    "text": "Website should include copyright notice, e.g. © 2026 MoodFlip. All rights reserved."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 23798,
+    "endIndex": 23888,
+    "style": "NORMAL_TEXT",
+    "text": "Future brand protection may include trade mark registration if the project proves viable."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 23888,
+    "endIndex": 24201,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Full ownership of source code, design, written content, the mood/action database, all commercial rights, documentation, and full deployment/account access is confirmed. The earlier phrase “final payment” refers to the Fiverr order already paid in full on 19 July, not a new or additional charge."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24202,
+    "endIndex": 24235,
+    "style": "NORMAL_TEXT",
+    "text": "17.1. Vercel Ownership Transfer"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24236,
+    "endIndex": 24488,
+    "style": "NORMAL_TEXT",
+    "text": "Yes, Vercel can transfer projects/ownership, but it usually works through teams/projects and roles. Vercel says a team owner can transfer ownership by adding another user with the Owner role, and Vercel also has project transfer options between teams."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24489,
+    "endIndex": 24522,
+    "style": "NORMAL_TEXT",
+    "text": "After transfer Joy must confirm:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24523,
+    "endIndex": 24557,
+    "style": "NORMAL_TEXT",
+    "text": "you are Owner, not just “Member”;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24557,
+    "endIndex": 24618,
+    "style": "NORMAL_TEXT",
+    "text": "the MoodFlip project is inside your own Vercel account/team;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24618,
+    "endIndex": 24682,
+    "style": "NORMAL_TEXT",
+    "text": "DiditalWorkify is removed or reduced to temporary collaborator;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24682,
+    "endIndex": 24742,
+    "style": "NORMAL_TEXT",
+    "text": "- environment variables/settings are visible or documented."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24743,
+    "endIndex": 24777,
+    "style": "NORMAL_TEXT",
+    "text": "17.2. Supabase Ownership Transfer"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 24778,
+    "endIndex": 25073,
+    "style": "NORMAL_TEXT",
+    "text": "Supabase can transfer projects and organisation ownership, but it is not just “send to Gmail and one click” in every case. Supabase’s docs say project transfers happen between organisations, and ownership transfer involves inviting/promoting the other user as Owner before the old owner leaves."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25074,
+    "endIndex": 25085,
+    "style": "NORMAL_TEXT",
+    "text": "Joy needs;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25086,
+    "endIndex": 25112,
+    "style": "NORMAL_TEXT",
+    "text": "her own Supabase account;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25112,
+    "endIndex": 25160,
+    "style": "NORMAL_TEXT",
+    "text": "Joy  becomes Owner of the organisation/project;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25160,
+    "endIndex": 25275,
+    "style": "NORMAL_TEXT",
+    "text": "the database, auth, storage, scheduled deletion job, API settings and billing/settings are all under your control;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25275,
+    "endIndex": 25351,
+    "style": "NORMAL_TEXT",
+    "text": "- DigitalWorkify remains only as a temporary support user if Joy allows it."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25352,
+    "endIndex": 25389,
+    "style": "NORMAL_TEXT",
+    "text": "17.3. Source Code Ownership Transfer"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25390,
+    "endIndex": 25461,
+    "style": "NORMAL_TEXT",
+    "text": "If you use GitHub/GitLab, Joy also needs ownership of that repository,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25461,
+    "endIndex": 25496,
+    "style": "HEADING_1",
+    "text": "18. Maintenance and Future Updates"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25497,
+    "endIndex": 25523,
+    "style": "NORMAL_TEXT",
+    "text": "Maintenance confirmation:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25523,
+    "endIndex": 25610,
+    "style": "NORMAL_TEXT",
+    "text": "Digital Workify confirmed 1 year of free website maintenance and support after launch."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25610,
+    "endIndex": 25892,
+    "style": "NORMAL_TEXT",
+    "text": "He stated maintenance requests are usually completed within 48 hours, but in some cases may take up to 1 week. Joy is asking for more responsive live support, fixing high priority live bugs within 24 hrs, low priority live issues within 48 hrs – pls confirm possibility and price."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 25892,
+    "endIndex": 26071,
+    "style": "NORMAL_TEXT",
+    "text": "After the first free year, there is no fixed monthly commitment. Maintenance is optional and charged only in months when Joy needs updates/fixes/support, at US$50 for that month."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26071,
+    "endIndex": 26287,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Bug fixes after launch are included at no additional cost for the first year. After that, maintenance is optional at US$50 for any month Joy needs updates or fixes, with no fixed monthly commitment."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26287,
+    "endIndex": 26506,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: High-priority live bugs such as site down or payment not working will be fixed within 24 hours, and low-priority live issues within 48 hours, at no extra cost during the free 1-year maintenance period."
+  },
+  {
+    "type": "table",
+    "startIndex": 26507,
+    "endIndex": 27948,
+    "rows": 8,
+    "columns": 2
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26510,
+    "endIndex": 26527,
+    "style": "NORMAL_TEXT",
+    "text": "Maintenance item"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26528,
+    "endIndex": 26551,
+    "style": "NORMAL_TEXT",
+    "text": "Clarify with developer"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26553,
+    "endIndex": 26578,
+    "style": "NORMAL_TEXT",
+    "text": "Monthly maintenance cost"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26579,
+    "endIndex": 26623,
+    "style": "NORMAL_TEXT",
+    "text": "Exact price after launch. US50 when needed."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26625,
+    "endIndex": 26635,
+    "style": "NORMAL_TEXT",
+    "text": "Bug fixes"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26636,
+    "endIndex": 26684,
+    "style": "NORMAL_TEXT",
+    "text": "Whether included after launch and for how long."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26684,
+    "endIndex": 26776,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Confirmed: included after launch at no additional cost for the first year."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26778,
+    "endIndex": 26798,
+    "style": "NORMAL_TEXT",
+    "text": "Adding more actions"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26799,
+    "endIndex": 26843,
+    "style": "NORMAL_TEXT",
+    "text": "Cost to add 25 more actions per mood later."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26843,
+    "endIndex": 26979,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Confirmed: loading +25 actions per mood is included as part of Phase 2 at no extra cost once Joy supplies the content."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 26981,
+    "endIndex": 26999,
+    "style": "NORMAL_TEXT",
+    "text": "30-day PDF launch"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27000,
+    "endIndex": 27040,
+    "style": "NORMAL_TEXT",
+    "text": "Cost and timeframe if not included now."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27040,
+    "endIndex": 27119,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Confirmed: included as part of Phase 2 at no additional cost."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27121,
+    "endIndex": 27143,
+    "style": "NORMAL_TEXT",
+    "text": "Search Console issues"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27144,
+    "endIndex": 27206,
+    "style": "NORMAL_TEXT",
+    "text": "Whether he will monitor/fix indexing or technical SEO errors."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27206,
+    "endIndex": 27447,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Confirmed: Search Console setup, sitemap and indexing request are included; reported post-launch Search Console errors will be checked/fixed under the free 1-year maintenance. Proactive daily SEO monitoring is not included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27449,
+    "endIndex": 27475,
+    "style": "NORMAL_TEXT",
+    "text": "AdSense integration later"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27476,
+    "endIndex": 27529,
+    "style": "NORMAL_TEXT",
+    "text": "Whether adding AdSense code is included or separate."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27529,
+    "endIndex": 27683,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Confirmed: after Google approval, adding the approved AdSense code is included in the free 1-year maintenance window as part of Phase 2."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27685,
+    "endIndex": 27702,
+    "style": "NORMAL_TEXT",
+    "text": "Hosting upgrades"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27703,
+    "endIndex": 27762,
+    "style": "NORMAL_TEXT",
+    "text": "Cost to migrate/upgrade if free tiers become insufficient."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27762,
+    "endIndex": 27947,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Confirmed: Vercel/Supabase upgrade costs are Joy-owned subscription costs only. No separate DigitalWorkify fee unless real migration work is required and quoted first."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 27950,
+    "endIndex": 28005,
+    "style": "HEADING_1",
+    "text": "19. Developer Offer Review and Required Clarifications"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28006,
+    "endIndex": 28022,
+    "style": "NORMAL_TEXT",
+    "text": "Accepted order:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28022,
+    "endIndex": 28140,
+    "style": "NORMAL_TEXT",
+    "text": "Accepted MoodFlip offer: A$395.69 including Fiverr service fees, 18 days delivery, accepted/paid on Fiverr on Jul 19."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28140,
+    "endIndex": 28329,
+    "style": "NORMAL_TEXT",
+    "text": "Digital Workify stated that he noted the requested updates and would incorporate the changes into the build, including mood tiles, 90-day cleanup, Stripe, PDF delivery and hosting details."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28329,
+    "endIndex": 28469,
+    "style": "NORMAL_TEXT",
+    "text": "The technical details for payment gateway, hosting limits and related setup should be confirmed in the first couple of days of development."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28470,
+    "endIndex": 28499,
+    "style": "NORMAL_TEXT",
+    "text": "Requirements below included;"
+  },
+  {
+    "type": "table",
+    "startIndex": 28499,
+    "endIndex": 30065,
+    "rows": 14,
+    "columns": 2
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28502,
+    "endIndex": 28520,
+    "style": "NORMAL_TEXT",
+    "text": "Included in quote"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28521,
+    "endIndex": 28528,
+    "style": "NORMAL_TEXT",
+    "text": "Status"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28530,
+    "endIndex": 28577,
+    "style": "NORMAL_TEXT",
+    "text": "Custom responsive MoodFlip site and core pages"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28578,
+    "endIndex": 28588,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28590,
+    "endIndex": 28637,
+    "style": "NORMAL_TEXT",
+    "text": "20-30 SEO mood pages and strong SEO foundation"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28638,
+    "endIndex": 28648,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28650,
+    "endIndex": 28716,
+    "style": "NORMAL_TEXT",
+    "text": "Google Search Console, Analytics, sitemap and indexing submission"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28717,
+    "endIndex": 28727,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28729,
+    "endIndex": 28791,
+    "style": "NORMAL_TEXT",
+    "text": "Mobile/tablet/desktop optimization and lightweight animations"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28792,
+    "endIndex": 28802,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28804,
+    "endIndex": 28852,
+    "style": "NORMAL_TEXT",
+    "text": "Security best practices and staging environment"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28853,
+    "endIndex": 28863,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28865,
+    "endIndex": 28916,
+    "style": "NORMAL_TEXT",
+    "text": "Source code, documentation and deployment handover"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28917,
+    "endIndex": 28927,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 28929,
+    "endIndex": 29024,
+    "style": "NORMAL_TEXT",
+    "text": "User registration, email capture, 7-day tracking, paid PDF, payment gateway and secure storage"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29025,
+    "endIndex": 29035,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29037,
+    "endIndex": 29119,
+    "style": "NORMAL_TEXT",
+    "text": "30-day readiness. Future-ready database for 30-day mood tracking and PDF reports."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29120,
+    "endIndex": 29131,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29131,
+    "endIndex": 29223,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Sohel confirms full Phase 2 launch is included, not just future-readiness."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29225,
+    "endIndex": 29335,
+    "style": "NORMAL_TEXT",
+    "text": "10 rotating actions per mood at launch using local storage; launch content still needs to be supplied/loaded."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29336,
+    "endIndex": 29347,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29349,
+    "endIndex": 29384,
+    "style": "NORMAL_TEXT",
+    "text": "30+ actions per mood support later"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29385,
+    "endIndex": 29396,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29396,
+    "endIndex": 29531,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Sohel confirms support/loading for 30+ actions per mood is included as part of Phase 2 once Joy supplies the content."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29533,
+    "endIndex": 29576,
+    "style": "NORMAL_TEXT",
+    "text": "Automatic 90-day inactive profile deletion"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29577,
+    "endIndex": 29589,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29591,
+    "endIndex": 29633,
+    "style": "NORMAL_TEXT",
+    "text": "Automatic paid PDF delivery after payment"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29634,
+    "endIndex": 29644,
+    "style": "NORMAL_TEXT",
+    "text": "Included."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29644,
+    "endIndex": 29781,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: If payment succeeds but PDF/email fails, the purchase must remain recorded and admin resend/download must be available."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29783,
+    "endIndex": 29801,
+    "style": "NORMAL_TEXT",
+    "text": "Maintenance price"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29802,
+    "endIndex": 29922,
+    "style": "NORMAL_TEXT",
+    "text": "1 year free support; after that, US$50 only for any month when maintenance is needed, with no fixed monthly commitment."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 29922,
+    "endIndex": 30064,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: High-priority live bugs fixed within 24 hours and low-priority issues within 48 hours during the free 1-year support period."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30065,
+    "endIndex": 30261,
+    "style": "NORMAL_TEXT",
+    "text": "JK>> The Stripe/payment account must be owned by Joy. Payment API keys should be connected securely through environment variables. No customer payments should go through DigitalWorkify’s account."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30262,
+    "endIndex": 30273,
+    "style": "NORMAL_TEXT",
+    "text": "JK>> Rule:"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30273,
+    "endIndex": 30428,
+    "style": "NORMAL_TEXT",
+    "text": "Users can use the free MoodFlip tool as often as they like, but profile users can save a maximum of 3 check-ins per calendar day toward their paid report."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30428,
+    "endIndex": 30442,
+    "style": "NORMAL_TEXT",
+    "text": "That results:"
+  },
+  {
+    "type": "table",
+    "startIndex": 30442,
+    "endIndex": 30621,
+    "rows": 3,
+    "columns": 3
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30445,
+    "endIndex": 30453,
+    "style": "NORMAL_TEXT",
+    "text": "Product"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30454,
+    "endIndex": 30459,
+    "style": "NORMAL_TEXT",
+    "text": "Rule"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30460,
+    "endIndex": 30482,
+    "style": "NORMAL_TEXT",
+    "text": "Maximum saved entries"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30484,
+    "endIndex": 30494,
+    "style": "NORMAL_TEXT",
+    "text": "7-day PDF"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30495,
+    "endIndex": 30538,
+    "style": "NORMAL_TEXT",
+    "text": "up to 3 saved check-ins per day for 7 days"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30539,
+    "endIndex": 30550,
+    "style": "NORMAL_TEXT",
+    "text": "21 entries"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30552,
+    "endIndex": 30563,
+    "style": "NORMAL_TEXT",
+    "text": "30-day PDF"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30564,
+    "endIndex": 30608,
+    "style": "NORMAL_TEXT",
+    "text": "up to 3 saved check-ins per day for 30 days"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30609,
+    "endIndex": 30620,
+    "style": "NORMAL_TEXT",
+    "text": "90 entries"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30621,
+    "endIndex": 30699,
+    "style": "NORMAL_TEXT",
+    "text": "The 7-day PDF should be based on 7 calendar days, not simply 7 saved entries."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30699,
+    "endIndex": 30856,
+    "style": "NORMAL_TEXT",
+    "text": "Profile users may save a maximum of 3 MoodFlip check-ins per calendar day toward their report. These can represent morning, afternoon and evening check-ins."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 30856,
+    "endIndex": 31024,
+    "style": "NORMAL_TEXT",
+    "text": "Users may still use the free MoodFlip tool more than 3 times per day, but only the first 3 saved check-ins per day should count toward the paid 7-day or 30-day report."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 31024,
+    "endIndex": 31198,
+    "style": "NORMAL_TEXT",
+    "text": "The 7-day paid PDF should include up to 21 saved check-ins: selected moods, dates/times, positive target moods, actions shown, and a simple non-medical mood pattern summary."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 31198,
+    "endIndex": 31265,
+    "style": "NORMAL_TEXT",
+    "text": "The 30-day paid PDF should later support up to 90 saved check-ins."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 31265,
+    "endIndex": 31475,
+    "style": "NORMAL_TEXT",
+    "text": "If a user tries to save more than 3 check-ins in one day, show a friendly message:\u000b“You’ve saved your 3 MoodFlip check-ins for today. You can still use the free tool, and you can save more check-ins tomorrow.”"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 31476,
+    "endIndex": 31491,
+    "style": "HEADING_1",
+    "text": "20. Migration"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 31492,
+    "endIndex": 31663,
+    "style": "NORMAL_TEXT",
+    "text": "Digital Workify, check how much traffic the free hosting backend can take. The site needs to be prepared for migration when the user number is close to reaching maximum."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 31663,
+    "endIndex": 31902,
+    "style": "NORMAL_TEXT",
+    "text": "Developer correspondence says hosting guidance, monitoring and upgrade recommendations are included. This should include approximate user/traffic thresholds, which service would be upgraded first, and the expected first paid upgrade cost."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 31902,
+    "endIndex": 32069,
+    "style": "NORMAL_TEXT",
+    "text": "A separate future hosting upgrade quote for Vercel Pro/Supabase Pro was requested and should not be included in the initial project cost unless Joy approves it later."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 32069,
+    "endIndex": 32097,
+    "style": "HEADING_1",
+    "text": "21. Test Mode / Maintenance"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 32098,
+    "endIndex": 32168,
+    "style": "NORMAL_TEXT",
+    "text": "Fixing bugs during Test Mode needs to be done within 2 working days."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 32168,
+    "endIndex": 32447,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: Development is complete only after the test version is delivered, Joy has approximately one week to test and send one consolidated bug/feedback report, and DigitalWorkify corrects all reported issues and modifications that fall within Business Specification v3."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 32448,
+    "endIndex": 32712,
+    "style": "NORMAL_TEXT",
+    "text": "The live website`s maintenance requires high priority bug fixing (like the website is not accessible, the payment gateway is not working etc.) within 1 working day, for low priority bug fixing more days are acceptable but they need to be less than 5 working day."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 32713,
+    "endIndex": 32740,
+    "style": "HEADING_1",
+    "text": "22. Live Launch / Handover"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 32741,
+    "endIndex": 32839,
+    "style": "NORMAL_TEXT",
+    "text": "The development is considered finished and ready to launch when all reported bugs are corrected."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 32839,
+    "endIndex": 32949,
+    "style": "NORMAL_TEXT",
+    "text": "Sohel's comment: moodflip.coach will go live only after the testing process is completed and approved by Joy."
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 32949,
+    "endIndex": 33018,
+    "style": "NORMAL_TEXT",
+    "text": "Digital Workify provides all files of the website to Joy, including;"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 33018,
+    "endIndex": 33032,
+    "style": "NORMAL_TEXT",
+    "text": "source code,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 33032,
+    "endIndex": 33052,
+    "style": "NORMAL_TEXT",
+    "text": "deployment access,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 33052,
+    "endIndex": 33070,
+    "style": "NORMAL_TEXT",
+    "text": "database access,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 33070,
+    "endIndex": 33084,
+    "style": "NORMAL_TEXT",
+    "text": "admin login,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 33084,
+    "endIndex": 33100,
+    "style": "NORMAL_TEXT",
+    "text": "documentation,"
+  },
+  {
+    "type": "paragraph",
+    "startIndex": 33100,
+    "endIndex": 33133,
+    "style": "NORMAL_TEXT",
+    "text": "instructions for future updates."
+  }
+]

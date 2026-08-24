@@ -40,7 +40,7 @@ export default function Footer() {
               <ul className="space-y-2 text-sm font-semibold">
                 <li>
                   <Link href="/" className="hover:text-[#7464AC] transition block py-0.5">
-                    Mood Tool
+                    Home
                   </Link>
                 </li>
                 <li>
@@ -49,23 +49,18 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#how" className="hover:text-[#7464AC] transition block py-0.5">
-                    How It Works
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#library" className="hover:text-[#7464AC] transition block py-0.5">
-                    Mood Library
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/pricing" className="hover:text-[#7464AC] transition block py-0.5">
-                    Pricing
-                  </Link>
-                </li>
-                <li>
                   <Link href="/contact" className="hover:text-[#7464AC] transition block py-0.5">
                     Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy" className="hover:text-[#7464AC] transition block py-0.5">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/login" className="hover:text-[#7464AC] transition block py-0.5">
+                    Login
                   </Link>
                 </li>
               </ul>
@@ -102,16 +97,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 30-Day Guarantee Callout */}
-        <div className="pt-4 pb-2">
-          <div className="p-3.5 rounded-2xl bg-[#FCF3E9] border border-[#E4DAD7] text-xs text-[#5C527A] leading-relaxed max-w-xl">
-            <span className="font-bold text-[#1A143F]">🛡️ 30-Day Money-Back Guarantee:</span> 100% refund available on all paid plans within 30 days.
-          </div>
-        </div>
+
 
         {/* BOTTOM COPYRIGHT ROW */}
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-[#7E7096] gap-2">
-          <div>© {new Date().getFullYear()} MoodFlip.coach 💜 All rights reserved.</div>
+          <div>© {new Date().getFullYear()} MoodFlip. All rights reserved.</div>
           <div className="text-center sm:text-right">Self-reflection utility · Not therapy or medical advice</div>
         </div>
       </div>

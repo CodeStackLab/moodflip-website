@@ -548,7 +548,7 @@
   position: absolute;
   left: calc(145px + ((100% - 145px) * (1.32 / 2.7)));
   top: 47%;
-  transform: translate(-58%, -50%);
+  transform: translate(-35%, -50%);
   z-index: 10;
   background: transparent;
   border: none;
@@ -1068,7 +1068,7 @@
   }
 
   .mainCard {
-    grid-template-columns: 115px 1.2fr 1.2fr;
+    grid-template-columns: 115px 1.22fr 1.18fr;
     border-radius: 24px;
   }
 
@@ -1111,7 +1111,7 @@
   }
 
   .feelingsGrid {
-    width: calc(100% - 60px);
+    width: calc(100% - 75px);
     gap: 8px;
   }
 
@@ -1120,15 +1120,21 @@
   }
 
   .chipsBoxContainer {
-    width: calc(100% - 60px);
+    width: calc(100% - 75px);
   }
 
-  .dividerHeartTop, .dividerHeartBottom, .flipMoodArrowBtn {
-    left: calc(115px + ((100% - 115px) * (1.2 / 2.4)));
+  .dividerHeartTop, .dividerHeartBottom {
+    left: calc(115px + ((100% - 115px) * (1.22 / 2.4)));
+  }
+
+  .flipMoodArrowBtn {
+    left: calc(115px + ((100% - 115px) * (1.22 / 2.4)));
+    top: 48%;
+    transform: translate(-22%, -50%) !important;
   }
 
   .flipMoodArrowImg {
-    width: 155px;
+    width: 128px;
     height: auto;
   }
 
@@ -1167,7 +1173,7 @@
   }
 
   .mainCard {
-    grid-template-columns: 105px 1.15fr 1.15fr;
+    grid-template-columns: 100px 1.22fr 1.12fr;
     border-radius: 22px;
   }
 
@@ -1244,7 +1250,7 @@
   }
 
   .feelingsGrid {
-    width: calc(100% - 40px);
+    width: calc(100% - 68px);
     gap: 5px;
   }
 
@@ -1263,7 +1269,7 @@
   }
 
   .chipsBoxContainer {
-    width: calc(100% - 40px);
+    width: calc(100% - 68px);
     padding: 6px 8px;
   }
 
@@ -1281,18 +1287,18 @@
   }
 
   .dividerHeartTop, .dividerHeartBottom {
-    left: calc(105px + ((100% - 105px) * (1.15 / 2.3)));
+    left: calc(100px + ((100% - 100px) * (1.22 / 2.34)));
     font-size: 18px;
   }
 
   .flipMoodArrowBtn {
-    left: calc(105px + ((100% - 105px) * (1.15 / 2.3)));
+    left: calc(100px + ((100% - 100px) * (1.22 / 2.34)));
     top: 48%;
-    transform: translate(-50%, -50%);
+    transform: translate(-18%, -50%) !important;
   }
 
   .flipMoodArrowImg {
-    width: 130px;
+    width: 112px;
     height: auto;
   }
 
@@ -1371,6 +1377,55 @@
 
   .motivationalSub {
     font-size: 11px;
+  }
+}
+
+/* Mobile Devices in Landscape Mode (Height <= 520px or Width <= 767px in landscape) */
+@media screen and (max-height: 520px) and (orientation: landscape), (max-width: 767px) and (orientation: landscape) {
+  .heroWrapper {
+    padding: 6px 10px 16px 10px;
+    gap: 8px;
+  }
+
+  .mainCard {
+    grid-template-columns: 90px 1.2fr 1.1fr;
+    border-radius: 18px;
+  }
+
+  .leftStepsCol {
+    padding: 12px 4px 10px 4px;
+    gap: 3px;
+  }
+
+  .feelingsGrid {
+    width: calc(100% - 58px);
+    gap: 4px;
+  }
+
+  .feelingCard {
+    min-height: 60px;
+    padding: 3px 2px;
+  }
+
+  .chipsBoxContainer {
+    width: calc(100% - 58px);
+    padding: 4px 6px;
+  }
+
+  .dividerHeartTop, .dividerHeartBottom {
+    left: calc(90px + ((100% - 90px) * (1.2 / 2.3)));
+    font-size: 16px;
+  }
+
+  .flipMoodArrowBtn {
+    left: calc(90px + ((100% - 90px) * (1.2 / 2.3)));
+    top: 48%;
+    transform: translate(-18%, -50%) !important;
+  }
+
+  .flipMoodArrowImg {
+    width: 104px;
+    height: auto;
   }
 }
 

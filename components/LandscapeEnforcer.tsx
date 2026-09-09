@@ -16,15 +16,15 @@ export default function LandscapeEnforcer() {
     setMounted(true);
 
     const checkOrientation = () => {
-      // Only enforce landscape on screens <= 1024px (mobile phones and tablets)
-      const isNarrowOrTouch = window.innerWidth <= 1024;
+      // Enforce landscape orientation on mobile phones (< 700px)
+      const isPhoneScreen = window.innerWidth < 700;
       const isHeightGreater = window.innerHeight > window.innerWidth;
       
       // Check standard media query orientation
       const mql = window.matchMedia('(orientation: portrait)');
       const portraitByMql = mql.matches;
 
-      setIsPortrait(isNarrowOrTouch && (isHeightGreater || portraitByMql));
+      setIsPortrait(isPhoneScreen && (isHeightGreater || portraitByMql));
     };
 
     checkOrientation();

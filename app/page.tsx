@@ -43,7 +43,7 @@ export default function HomePage() {
       <main className={styles.homeContainer}>
         
         {/* Exact Reference-Matched Hero Section */}
-        <section id="home" className="w-full pt-2 sm:pt-4">
+        <section id="home" className="w-full pt-1 sm:pt-2">
           <HeroSectionExact
             onFlipTriggered={(mood, feeling) => {
               fetchAiFlip(mood, feeling);

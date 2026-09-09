@@ -548,7 +548,7 @@
   position: absolute;
   left: calc(145px + ((100% - 145px) * (1.32 / 2.7)));
   top: 47%;
-  transform: translate(-35%, -50%);
+  transform: translate(-50%, -50%);
   z-index: 10;
   background: transparent;
   border: none;
@@ -563,10 +563,10 @@
 }
 
 .flipMoodArrowImg {
-  width: 185px;
-  height: 98px;
+  width: 130px;
+  height: auto;
   object-fit: fill;
-  filter: drop-shadow(0 10px 28px rgba(79, 67, 139, 0.48));
+  filter: drop-shadow(0 8px 22px rgba(79, 67, 139, 0.45));
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
   display: block;
 }
@@ -1050,131 +1050,344 @@
 /* Large Desktop / Compact (1200px - 1400px) */
 @media (max-width: 1400px) {
   .heroWrapper {
-    padding: 12px 20px 28px 20px;
+    padding: 8px 18px 14px 18px;
+    gap: 12px;
   }
   .mainCard {
-    grid-template-columns: 125px 1.22fr 1.28fr;
+    grid-template-columns: 120px 1.22fr 1.24fr;
   }
-  .dividerHeartTop, .dividerHeartBottom, .flipMoodArrowBtn {
-    left: calc(125px + ((100% - 125px) * (1.22 / 2.5)));
+  .feelingsGrid {
+    width: calc(100% - 75px) !important;
+    max-width: calc(100% - 75px) !important;
+    align-self: flex-start !important;
+  }
+  .chipsBoxContainer {
+    width: calc(100% - 75px) !important;
+    max-width: calc(100% - 75px) !important;
+    align-self: flex-start !important;
+  }
+  .dividerHeartTop, .dividerHeartBottom {
+    left: calc(120px + ((100% - 120px) * (1.22 / 2.46)));
+  }
+  .flipMoodArrowBtn {
+    left: calc(120px + ((100% - 120px) * (1.22 / 2.46)));
+    top: 48%;
+    transform: translate(-50%, -50%) !important;
+  }
+  .flipMoodArrowImg {
+    width: 116px;
+    height: auto;
   }
 }
 
 /* Tablet Landscape (992px - 1200px) */
-@media (max-width: 1200px) {
+@media (min-width: 992px) and (max-width: 1200px) {
   .heroWrapper {
-    padding: 10px 16px 24px 16px;
-    gap: 16px;
+    padding: 6px 14px 10px 14px;
+    gap: 10px;
   }
 
   .mainCard {
-    grid-template-columns: 115px 1.22fr 1.18fr;
-    border-radius: 24px;
+    grid-template-columns: 115px 1.24fr 1.16fr;
+    border-radius: 22px;
+    min-height: 420px;
   }
 
   .leftStepsCol {
-    padding: 20px 8px 16px 8px;
-    gap: 6px;
+    padding: 14px 6px 10px 6px;
+    gap: 4px;
   }
 
   .stepBadge {
-    font-size: 11px;
-    padding: 3px 10px;
+    font-size: 10.5px;
+    padding: 2.5px 9px;
   }
 
   .stepTitle {
-    font-size: 12px;
+    font-size: 11.5px;
   }
 
   .stepSub {
-    font-size: 10px;
-  }
-
-  .clearSelectionBtn {
-    max-width: 105px;
-    padding: 5px 6px;
-    gap: 4px;
-    margin-top: 10px;
-  }
-
-  .clearTitle {
     font-size: 9.5px;
   }
 
+  .clearSelectionBtn {
+    max-width: 100px;
+    padding: 4px 6px;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .clearTitle {
+    font-size: 9px;
+  }
+
   .clearSub {
-    font-size: 8.5px;
+    font-size: 8px;
   }
 
   .centerMoodCol {
-    padding: 22px 14px 18px 14px;
-    gap: 12px;
-  }
-
-  .feelingsGrid {
-    width: calc(100% - 75px);
+    padding: 14px 10px 10px 10px;
     gap: 8px;
   }
 
+  .cloudRow {
+    gap: 4px;
+    padding-top: 0;
+  }
+
+  .cloudBtn {
+    min-height: 72px;
+    padding: 2px;
+  }
+
+  .cloudSvgWrap {
+    height: 44px;
+  }
+
+  .cloudSvgWrap img, .cloudSvgWrap svg {
+    max-height: 42px;
+  }
+
+  .cloudName {
+    font-size: 11px;
+  }
+
+  .feelingsGrid {
+    width: calc(100% - 72px) !important;
+    max-width: calc(100% - 72px) !important;
+    align-self: flex-start !important;
+    gap: 6px;
+  }
+
   .feelingCard {
-    min-height: 74px;
+    min-height: 64px;
+    padding: 3px 2px;
   }
 
   .chipsBoxContainer {
-    width: calc(100% - 75px);
+    width: calc(100% - 72px) !important;
+    max-width: calc(100% - 72px) !important;
+    align-self: flex-start !important;
+    padding: 5px 6px;
   }
 
   .dividerHeartTop, .dividerHeartBottom {
-    left: calc(115px + ((100% - 115px) * (1.22 / 2.4)));
+    left: calc(115px + ((100% - 115px) * (1.24 / 2.4)));
+    font-size: 17px;
   }
 
   .flipMoodArrowBtn {
-    left: calc(115px + ((100% - 115px) * (1.22 / 2.4)));
+    left: calc(115px + ((100% - 115px) * (1.24 / 2.4)));
     top: 48%;
-    transform: translate(-22%, -50%) !important;
+    transform: translate(-50%, -50%) !important;
   }
 
   .flipMoodArrowImg {
-    width: 128px;
+    width: 104px;
     height: auto;
   }
 
   .rightOutcomeCol {
-    padding: 22px 20px 18px 20px;
+    padding: 14px 16px 10px 22px;
+    min-height: 420px;
   }
 
   .outcomeTopHeader {
-    margin-top: 85px;
+    margin-top: 42px;
+    gap: 2px;
   }
 
   .outcomeMoodHeading {
-    font-size: 32px;
+    font-size: 27px;
   }
 
   .actionFloatingCard {
-    padding: 14px 16px;
+    padding: 10px 14px;
+    margin-left: auto;
+    margin-right: 0;
+    width: calc(100% - 24px);
+    margin-top: 10px;
   }
 
   .actionCardBotanical {
-    width: 50px;
-    height: 100px;
+    width: 42px;
+    height: 84px;
   }
 
   .botanicalBranchImg {
-    width: 50px;
-    height: 100px;
+    width: 42px;
+    height: 84px;
+  }
+
+  .bottomMotivationalBar {
+    padding: 8px 24px !important;
+    gap: 16px !important;
+  }
+
+  .motivationalIconCircle, .motivationalOrbImg {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .motivationalTitle {
+    font-size: 12px !important;
+  }
+
+  .motivationalSub {
+    font-size: 10.5px !important;
+  }
+
+  .desktopHeartSvg {
+    height: 38px !important;
   }
 }
 
-/* Tablet Portrait & iPad (768px - 991px) */
-@media (min-width: 768px) and (max-width: 991px) {
+/* Compact Landscape Viewports (Height <= 860px) to guarantee bottomMotivationalBar is never pushed below the fold */
+@media screen and (max-height: 860px) and (min-width: 900px) {
   .heroWrapper {
-    padding: 10px 12px 22px 12px;
-    gap: 14px;
+    padding: 4px 14px 8px 14px !important;
+    gap: 8px !important;
   }
 
   .mainCard {
-    grid-template-columns: 100px 1.22fr 1.12fr;
-    border-radius: 22px;
+    border-radius: 20px !important;
+    min-height: 410px !important;
+  }
+
+  .leftStepsCol {
+    padding: 12px 6px 8px 6px !important;
+    gap: 3px !important;
+  }
+
+  .centerMoodCol {
+    padding: 12px 8px 8px 8px !important;
+    gap: 6px !important;
+  }
+
+  .cloudBtn {
+    min-height: 68px !important;
+    padding: 1px !important;
+  }
+
+  .cloudSvgWrap {
+    height: 40px !important;
+  }
+
+  .cloudSvgWrap img, .cloudSvgWrap svg {
+    max-height: 38px !important;
+  }
+
+  .cloudName {
+    font-size: 10.5px !important;
+  }
+
+  .feelingsGrid {
+    gap: 5px !important;
+  }
+
+  .feelingCard {
+    min-height: 60px !important;
+    padding: 2px 1px !important;
+  }
+
+  .feelingIconWrap {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .feelingIconWrap svg, .feelingIconWrap img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .feelingName {
+    font-size: 8.5px !important;
+  }
+
+  .chipsBoxContainer {
+    padding: 4px 6px !important;
+  }
+
+  .chipPill {
+    font-size: 8.5px !important;
+    padding: 2.5px 3px !important;
+  }
+
+  .chipsExplanationNote {
+    font-size: 8.5px !important;
+  }
+
+  .rightOutcomeCol {
+    padding: 12px 14px 8px 20px !important;
+    min-height: 410px !important;
+  }
+
+  .outcomeTopHeader {
+    margin-top: 36px !important;
+    gap: 2px !important;
+  }
+
+  .outcomeMoodHeading {
+    font-size: 25px !important;
+  }
+
+  .actionFloatingCard {
+    padding: 9px 12px !important;
+    margin-top: 8px !important;
+  }
+
+  .actionZenBadge, .zenMascotSvg, .zenMascotImg {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .actionCardTitle {
+    font-size: 11.5px !important;
+  }
+
+  .actionCardDesc {
+    font-size: 10px !important;
+  }
+
+  .actionCardBotanical, .botanicalBranchImg {
+    width: 34px !important;
+    height: 68px !important;
+  }
+
+  .bottomMotivationalBar {
+    padding: 7px 22px !important;
+    gap: 14px !important;
+  }
+
+  .motivationalIconCircle, .motivationalOrbImg {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .motivationalTitle {
+    font-size: 11.5px !important;
+  }
+
+  .motivationalSub {
+    font-size: 10px !important;
+  }
+
+  .desktopHeartSvg {
+    height: 34px !important;
+  }
+}
+
+/* Tablet Portrait & iPad (700px - 991px) */
+@media (min-width: 700px) and (max-width: 991px) {
+  .heroWrapper {
+    padding: 6px 12px 12px 12px;
+    gap: 10px;
+  }
+
+  .mainCard {
+    grid-template-columns: 100px 1.24fr 1.12fr;
+    border-radius: 20px;
   }
 
   .leftStepsCol {
@@ -1223,7 +1436,7 @@
   }
 
   .centerMoodCol {
-    padding: 18px 12px 14px 12px;
+    padding: 18px 8px 14px 8px;
     gap: 10px;
   }
 
@@ -1250,75 +1463,86 @@
   }
 
   .feelingsGrid {
-    width: calc(100% - 68px);
-    gap: 5px;
+    width: calc(100% - 64px) !important;
+    max-width: calc(100% - 64px) !important;
+    align-self: flex-start !important;
+    gap: 4px !important;
   }
 
   .feelingCard {
-    min-height: 68px;
-    padding: 4px 2px;
+    min-height: 66px !important;
+    padding: 4px 2px !important;
   }
 
   .feelingIconWrap {
-    width: 26px;
-    height: 26px;
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .feelingIconWrap svg,
+  .feelingIconWrap img {
+    width: 24px !important;
+    height: 24px !important;
   }
 
   .feelingName {
-    font-size: 9.5px;
+    font-size: 9px !important;
+    line-height: 1.1 !important;
   }
 
   .chipsBoxContainer {
-    width: calc(100% - 68px);
-    padding: 6px 8px;
+    width: calc(100% - 64px) !important;
+    max-width: calc(100% - 64px) !important;
+    align-self: flex-start !important;
+    padding: 6px 8px !important;
   }
 
   .chipsRow {
-    gap: 3px;
+    gap: 3px !important;
   }
 
   .chipPill {
-    font-size: 9.5px;
-    padding: 3px 4px;
+    font-size: 9px !important;
+    padding: 3px 4px !important;
   }
 
   .chipsExplanationNote {
-    font-size: 9.5px;
+    font-size: 9px !important;
   }
 
   .dividerHeartTop, .dividerHeartBottom {
-    left: calc(100px + ((100% - 100px) * (1.22 / 2.34)));
+    left: calc(100px + ((100% - 100px) * (1.24 / 2.36)));
     font-size: 18px;
   }
 
   .flipMoodArrowBtn {
-    left: calc(100px + ((100% - 100px) * (1.22 / 2.34)));
+    left: calc(100px + ((100% - 100px) * (1.24 / 2.36)));
     top: 48%;
-    transform: translate(-18%, -50%) !important;
+    transform: translate(-50%, -50%) !important;
   }
 
   .flipMoodArrowImg {
-    width: 112px;
+    width: 92px;
     height: auto;
   }
 
   .rightOutcomeCol {
-    padding: 16px 14px;
+    padding: 16px 14px 16px 24px;
     min-height: 460px;
   }
 
   .outcomeTopHeader {
-    margin-top: 55px;
+    margin-top: 50px;
     gap: 2px;
   }
 
   .outcomeSubtitle {
-    font-size: 12.5px;
+    font-size: 12px;
   }
 
   .outcomeMoodHeading {
-    font-size: 26px;
-    max-width: 240px;
+    font-size: 25px;
+    max-width: 230px;
   }
 
   .headingLeafImg {
@@ -1329,7 +1553,10 @@
   .actionFloatingCard {
     padding: 10px 12px;
     border-radius: 16px;
-    margin-top: 8px;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: 0;
+    width: calc(100% - 20px);
   }
 
   .actionCardInner {
@@ -1337,51 +1564,56 @@
   }
 
   .actionZenBadge {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
   }
 
   .zenMascotSvg, .zenMascotImg {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
   }
 
   .actionCardTitle {
-    font-size: 13px;
+    font-size: 12.5px;
   }
 
   .actionCardDesc {
-    font-size: 11px;
+    font-size: 10.5px;
     line-height: 1.35;
   }
 
   .actionCardBotanical {
-    width: 38px;
-    height: 76px;
+    width: 36px;
+    height: 72px;
     display: flex;
   }
 
   .botanicalBranchImg {
-    width: 38px;
-    height: 76px;
+    width: 36px;
+    height: 72px;
   }
 
   .bottomMotivationalBar {
-    padding: 12px 20px;
-    gap: 16px;
+    padding: 8px 20px !important;
+    gap: 14px !important;
+  }
+
+  .motivationalIconCircle, .motivationalOrbImg {
+    width: 36px !important;
+    height: 36px !important;
   }
 
   .motivationalTitle {
-    font-size: 12px;
+    font-size: 12px !important;
   }
 
   .motivationalSub {
-    font-size: 11px;
+    font-size: 10.5px !important;
   }
 }
 
-/* Mobile Devices in Landscape Mode (Height <= 520px or Width <= 767px in landscape) */
-@media screen and (max-height: 520px) and (orientation: landscape), (max-width: 767px) and (orientation: landscape) {
+/* Mobile Devices in Landscape Mode (Height <= 520px or Width <= 699px in landscape) */
+@media screen and (max-height: 520px) and (orientation: landscape), (max-width: 699px) and (orientation: landscape) {
   .heroWrapper {
     padding: 6px 10px 16px 10px;
     gap: 8px;
@@ -1429,8 +1661,8 @@
   }
 }
 
-/* Mobile Devices (<768px in portrait) - Stacked tab-toggle view */
-@media (max-width: 767px) and (orientation: portrait) {
+/* Mobile Devices (<700px in portrait) - Stacked tab-toggle view */
+@media (max-width: 699px) and (orientation: portrait) {
   .heroWrapper {
     gap: 12px;
     padding: 4px 8px 24px 8px;

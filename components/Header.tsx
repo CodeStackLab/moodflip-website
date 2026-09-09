@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#E4DAD7] bg-[#FDF8F5]/95 backdrop-blur-md" suppressHydrationWarning>
-      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-4">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-4">
         
         {/* LOGO (without TM) */}
         <Link href="/" className="flex items-center gap-2.5 text-decoration-none shrink-0 group">
@@ -25,7 +25,7 @@ export default function Header() {
         </Link>
 
         {/* DESKTOP NAV: Home | About | Privacy Policy | Contact */}
-        <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-[#5C527A]">
+        <nav className="hidden sm:flex items-center gap-4 md:gap-6 lg:gap-8 text-sm font-semibold text-[#5C527A]">
           <Link href="/" className="text-[#1A143F] font-bold pb-1 border-b-2 border-[#7464AC] hover:text-[#7464AC] transition-all">
             Home
           </Link>
@@ -57,7 +57,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl border border-[#E4DAD7] bg-[#FEFAF8] text-[#7464AC] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition shadow-xs cursor-pointer"
+            className="sm:hidden flex items-center justify-center w-10 h-10 rounded-xl border border-[#E4DAD7] bg-[#FEFAF8] text-[#7464AC] hover:bg-[#F4EBF5] hover:border-[#7666AB] transition shadow-xs cursor-pointer"
             aria-label="Toggle Navigation Menu"
             aria-expanded={menuOpen}
           >

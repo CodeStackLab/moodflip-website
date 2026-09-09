@@ -65,6 +65,37 @@
   color: #A49BA8;
 }
 
+/* ── AD SPACES (Auto Ads / Google AdSense Slots) ── */
+.desktopRightAdSpace {
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.tabletInCardAdSpace {
+  display: none;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.bottomBannerAdSpace {
+  width: 100%;
+  max-width: 1140px;
+  margin: 10px auto 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .desktopRightAdSpace {
+    display: none !important;
+  }
+  .tabletInCardAdSpace {
+    display: flex !important;
+  }
+}
+
 /* ── 2. MAIN WORKSPACE ROW ── */
 .workspaceRow {
   display: flex;
@@ -1343,8 +1374,8 @@
   }
 }
 
-/* Mobile Devices (<768px) - COMPLETE VISIBILITY OF ALL SECTIONS */
-@media (max-width: 767px) {
+/* Mobile Devices (<768px in portrait) - Stacked tab-toggle view */
+@media (max-width: 767px) and (orientation: portrait) {
   .heroWrapper {
     gap: 12px;
     padding: 4px 8px 24px 8px;

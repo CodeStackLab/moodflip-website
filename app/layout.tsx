@@ -5,6 +5,7 @@ import SiteLoader from '@/components/SiteLoader';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 import CookieConsent from '@/components/CookieConsent';
 import MobileBottomNav from '@/components/MobileBottomNav';
+import LandscapeEnforcer from '@/components/LandscapeEnforcer';
 
 export const metadata: Metadata = {
   title: 'MoodFlip | Self-Reflection & Mindset Utility',
@@ -61,6 +62,7 @@ export default function RootLayout({
         <PWAInstallPrompt />
         <CookieConsent />
         <MobileBottomNav />
+        <LandscapeEnforcer />
       </body>
     </html>
   );

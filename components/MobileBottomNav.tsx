@@ -87,9 +87,9 @@ export default function MobileBottomNav() {
 
   return (
     <>
-      {/* Sleek App Bottom Navigation Bar (Mobile Only) */}
+      {/* Sleek App Bottom Navigation Bar (Mobile Only - Hidden in Landscape to give full room to MoodFlip tool) */}
       <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FEF9F5]/96 backdrop-blur-xl border-t border-[#E4DAD7] shadow-[0_-4px_20px_rgba(26,20,63,0.06)] px-2 py-1.5"
+        className="md:hidden landscape:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FEF9F5]/96 backdrop-blur-xl border-t border-[#E4DAD7] shadow-[0_-4px_20px_rgba(26,20,63,0.06)] px-2 py-1.5"
         style={{ paddingBottom: 'calc(6px + env(safe-area-inset-bottom, 0px))' }}
       >
         <div className="flex items-center justify-around max-w-md mx-auto">

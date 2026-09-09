@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./HeroSectionExact.module.css";
 import { COUNSELOR_MOODS, CounselorPromptItem } from "@/data/moods";
+import AdBanner from "@/components/AdBanner";
 
 export type MainMoodFamily = "Sad" | "Fearful" | "Angry" | "Disgusted" | "Bad";
 
@@ -757,11 +758,10 @@ export default function HeroSectionExact({
   return (
     <section className={styles.heroWrapper} id="hero-section">
 
-      {/* ── TOP AD BANNER (Controlled by Admin / Backend - Disabled by default) ── */}
+      {/* ── TOP AD BANNER (Auto Ads Slot - hidden when ads disabled) ── */}
       {adsEnabled && (
-        <div className={styles.topAdBanner}>
-          <span className={styles.adBannerTitle}>Google Ad Space</span>
-          <span className={styles.adBannerDimensions}>728 x 90</span>
+        <div className={styles.topAdBanner} aria-label="Advertisement">
+          <AdBanner placement="headerBanner" />
         </div>
       )}
 
@@ -1058,6 +1058,13 @@ export default function HeroSectionExact({
               </div>
             </div>
 
+            {/* ── TABLET IN-CARD AD SPACE (Auto Ads Slot - hidden when ads disabled) ── */}
+            {adsEnabled && (
+              <div className={styles.tabletInCardAdSpace} aria-label="Advertisement">
+                <AdBanner placement="planPageAd" />
+              </div>
+            )}
+
             {/* ── #20: SAVE MY PROFILE button (Clean pill style matching original design) ── */}
             <div style={{
               display: "flex",
@@ -1138,15 +1145,14 @@ export default function HeroSectionExact({
           </div>
         </div>
 
-      </div>
+        {/* ── DESKTOP RIGHT AD SPACE (Auto Ads Slot - hidden when ads disabled) ── */}
+        {adsEnabled && (
+          <aside className={styles.desktopRightAdSpace} aria-label="Advertisement">
+            <AdBanner placement="sidebarAd" />
+          </aside>
+        )}
 
-      {/* ── BOTTOM AD BANNER (Controlled by Admin / Backend - Disabled by default) ── */}
-      {adsEnabled && (
-        <div className={styles.bottomAdResponsiveBanner}>
-          <span className={styles.adBannerTitle}>Google Ad Space</span>
-          <span className={styles.adBannerDimensions}>728 x 90</span>
-        </div>
-      )}
+      </div>
 
       {/* ── MOTIVATIONAL BAR (Exact Sketch Match) ── */}
       <div className={styles.bottomMotivationalBar}>
@@ -1190,6 +1196,13 @@ export default function HeroSectionExact({
           </div>
         </div>
       </div>
+
+      {/* ── BOTTOM RESPONSIVE BANNER (Auto Ads Slot - hidden when ads disabled) ── */}
+      {adsEnabled && (
+        <div className={styles.bottomBannerAdSpace} aria-label="Advertisement">
+          <AdBanner placement="footerBanner" />
+        </div>
+      )}
 
       {/* ── ADMIN-CONTROLLED PROFILE INVITATION POPUP ── */}
       {showSecondVisitPopup && popupSettings.enabled && (

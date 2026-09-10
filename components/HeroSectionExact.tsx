@@ -1240,6 +1240,11 @@ export default function HeroSectionExact({
         </div>
       </div>
 
+      {/* ── DISCREET COPYRIGHT NOTICE (Spec §17 compliant, zero clutter) ── */}
+      <div style={{ textAlign: "center", fontSize: "11px", color: "#A899C0", marginTop: "14px", paddingBottom: "10px" }}>
+        © 2026 MoodFlip. All rights reserved. · Self-reflection utility · Not medical advice
+      </div>
+
       {/* ── BOTTOM RESPONSIVE BANNER (Auto Ads Slot - hidden when ads disabled) ── */}
       {adsEnabled && (
         <div className={styles.bottomBannerAdSpace} aria-label="Advertisement">

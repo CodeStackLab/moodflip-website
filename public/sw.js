@@ -1,53 +1,39 @@
-// MoodFlip Service Worker for PWA Caching & Push Notifications
-const CACHE_NAME = 'moodflip-v1';
-const ASSETS_TO_CACHE = [
-  '/',
-  '/about',
-  '/contact',
-  '/terms',
-  '/privacy',
-  '/manifest.json',
-];
+// MoodFlip Service Worker - Always Network-First (Zero Stale Cache)
+const CACHE_NAME = 'moodflip-v2-live';
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
-  );
+  // Force active immediately
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
+  // Purge all old caches (including moodflip-v1) immediately
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
+          return caches.delete(key);
         })
       );
+    }).then(() => {
+      return self.clients.claim();
     })
   );
-  self.clients.claim();
 });
 
+// Always Network-First: Always fetch the latest live updates from Vercel
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return (
-        cached ||
-        fetch(event.request).then((response) => {
-          if (response.status === 200) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-          }
-          return response;
-        }).catch(() => cached)
-      );
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        return networkResponse;
+      })
+      .catch(() => {
+        // Fallback to cache ONLY if user is completely offline without internet
+        return caches.match(event.request);
+      })
   );
 });
 

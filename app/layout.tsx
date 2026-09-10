@@ -31,6 +31,35 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
+        {/* ── Client Cache Busting: Ensures live domain https://moodflip.coach always gets fresh updates ── */}
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
+        <script dangerouslySetInnerHTML={{__html: `
+          (function() {
+            if (typeof window !== 'undefined') {
+              // 1. Force update and purge stale service workers
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(regs) {
+                  for (var i = 0; i < regs.length; i++) {
+                    regs[i].update();
+                  }
+                });
+              }
+              // 2. Delete old cache storage (moodflip-v1) immediately
+              if ('caches' in window) {
+                caches.keys().then(function(names) {
+                  for (var i = 0; i < names.length; i++) {
+                    if (names[i].indexOf('v1') !== -1 || names[i].indexOf('moodflip-v1') !== -1) {
+                      caches.delete(names[i]);
+                    }
+                  }
+                });
+              }
+            }
+          })();
+        `}} />
+
         {/* ── #34: Google Search Console Verification ── */}
         <meta name="google-site-verification" content="REPLACE_WITH_GSC_VERIFICATION_CODE" />
 

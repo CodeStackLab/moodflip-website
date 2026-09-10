@@ -57,11 +57,13 @@ export default function PWAInstallPrompt() {
       };
     }
 
-    // 2. Register Service Worker
+    // 2. Register Service Worker & Immediately Update to Bust Cache
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
-        .then(() => {})
+        .then((reg) => {
+          reg.update();
+        })
         .catch(() => {});
     }
 

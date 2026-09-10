@@ -480,26 +480,25 @@ export default function UserDashboardPage() {
             </nav>
           </div>
 
-          {/* Sidebar 3D Promo Book Card — Direct flex child of aside (justify-between) for TRUE BOTTOM placement & compact height */}
-          <div className="mt-4 mb-2 w-[94%] mx-auto relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#FEF9F5] to-[#FCF3E9] p-3 text-center border border-[#E4DAD7] shadow-sm shrink-0">
-            <div className="w-28 h-36 mx-auto mb-1 flex items-center justify-center">
-              <img 
-                src="/7day-book-cover-3d-v6.png" 
-                alt="MoodFlip 7-Day Plan Book" 
-                className="w-full h-full object-contain drop-shadow-md hover:scale-105 transition-transform"
-              />
+          {/* Sidebar 7-Day Plan Promo Card — Clean on-brand styling */}
+          <div className="mt-4 mb-2 w-[94%] mx-auto relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#FEF9F5] to-[#FCF3E9] p-4 text-center border border-[#E4DAD7] shadow-sm shrink-0">
+            <div className="w-14 h-14 mx-auto mb-2.5 rounded-2xl bg-gradient-to-br from-[#7464AC] to-[#4F438B] flex items-center justify-center text-white text-2xl shadow-sm">
+              ✨
             </div>
-            <h4 className="font-serif font-extrabold text-sm text-[#1A143F] mb-0.5 tracking-tight">
+            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#F4EBF5] text-[#7464AC] border border-[#E4DAD7] mb-1.5">
+              Personalized Plan
+            </span>
+            <h4 className="font-serif font-extrabold text-sm text-[#1A143F] mb-1 tracking-tight">
               Build a Better Mindset
             </h4>
-            <p className="text-[10.5px] text-[#5C527A] leading-tight mb-2 font-semibold">
-              Get your personalized 7-Day plan &amp; start transforming your days.
+            <p className="text-[11px] text-[#5C527A] leading-relaxed mb-3 font-medium">
+              Save check-ins across 7 days to download your personalized report.
             </p>
             <button 
               onClick={() => openPaymentModal('7-Day Mindset Plan', 7)}
-              className="w-full block py-2 px-3 rounded-xl bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white text-xs font-extrabold shadow-sm hover:opacity-95 transition-transform cursor-pointer"
+              className="w-full block py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white text-xs font-extrabold shadow-sm hover:opacity-95 transition-transform cursor-pointer"
             >
-              Upgrade Now ($7)
+              Get 7-Day Plan ($7)
             </button>
           </div>
         </aside>

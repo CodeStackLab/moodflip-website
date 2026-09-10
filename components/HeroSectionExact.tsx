@@ -358,6 +358,7 @@ export default function HeroSectionExact({
   const [showSecondVisitPopup, setShowSecondVisitPopup] = useState(false);
   const [dailyCheckInCount, setDailyCheckInCount] = useState(0);
   const [progressMsg, setProgressMsg] = useState("");
+  const [day2Reminder, setDay2Reminder] = useState<string>("");
 
   // Outcome state that ONLY updates when user clicks "Flip Your Mood" (or on initial load / reset)
   const [flippedOutcome, setFlippedOutcome] = useState<{
@@ -498,6 +499,32 @@ export default function HeroSectionExact({
       const today = new Date().toISOString().split("T")[0];
       const dailyData = JSON.parse(localStorage.getItem("moodflip_daily_checkins") || "{}");
       setDailyCheckInCount(dailyData[today] || 0);
+
+      // ── Section 8: Load saved action rotation indexes ──
+      try {
+        const savedRotations = localStorage.getItem("moodflip_action_rotations");
+        if (savedRotations) {
+          setActionRotationIndex(JSON.parse(savedRotations));
+        }
+      } catch (e) {}
+
+      // ── Spec §16 Popup #2: Daily reminder from 2nd saved day onward (once per day) ──
+      try {
+        const historyRaw = localStorage.getItem("moodflip_checkin_history");
+        if (historyRaw) {
+          const history = JSON.parse(historyRaw);
+          if (Array.isArray(history)) {
+            const uniqueDays = new Set(history.map((c: { date?: string }) => c.date?.split("T")[0]).filter(Boolean));
+            if (uniqueDays.size >= 2 && uniqueDays.size < 7) {
+              const lastShownDay2 = localStorage.getItem("moodflip_day2_reminder_last_date");
+              if (lastShownDay2 !== today) {
+                setDay2Reminder("You’re building your 7-Day MoodFlip Report. Save up to 3 check-ins per day. Your personalised report will be available after 7 days for US$7.");
+                localStorage.setItem("moodflip_day2_reminder_last_date", today);
+              }
+            }
+          }
+        }
+      } catch (e) {}
     }
 
     const handlePopupSettingsUpdate = () => {
@@ -589,19 +616,6 @@ export default function HeroSectionExact({
 
   const handleChipSelect = (chip: string) => {
     setSelectedChip(chip);
-  };
-
-  const handleClearSelection = () => {
-    setSelectedMood("Sad");
-    setSelectedFeelingId("rejected");
-    setSelectedChip("Excluded");
-    setFlippedOutcome({
-      targetMood: "Accepted & Valued",
-      actionTitle: "60-sec Self-Validation Grounding",
-      actionDesc: "Place both feet flat, inhale worthiness, and say: 'My value is intrinsic and unchanged.'"
-    });
-    setTimerSeconds(60);
-    setIsTimerRunning(false);
   };
 
   const handleSaveToProfile = async () => {
@@ -717,12 +731,19 @@ export default function HeroSectionExact({
       ? availableActions[currentIndex % availableActions.length]
       : "Breathe in for 4, breathe out for 6. Repeat 6 times while relaxing your jaw and shoulders.";
 
-    // Advance rotation index for subsequent flips
+    // Advance rotation index for subsequent flips (persisted to localStorage)
     if (availableActions.length > 1) {
-      setActionRotationIndex(prev => ({
-        ...prev,
-        [currentMoodKey]: (currentIndex + 1) % availableActions.length
-      }));
+      const nextIndex = (currentIndex + 1) % availableActions.length;
+      setActionRotationIndex(prev => {
+        const nextState = {
+          ...prev,
+          [currentMoodKey]: nextIndex
+        };
+        try {
+          localStorage.setItem("moodflip_action_rotations", JSON.stringify(nextState));
+        } catch (e) {}
+        return nextState;
+      });
     }
 
     // Compute and update outcome prioritizing Google Sheet synced library
@@ -762,6 +783,47 @@ export default function HeroSectionExact({
       {adsEnabled && (
         <div className={styles.topAdBanner} aria-label="Advertisement">
           <AdBanner placement="headerBanner" />
+        </div>
+      )}
+
+      {/* ── Spec §16 Popup #2: Daily reminder from 2nd saved day onward ── */}
+      {day2Reminder && (
+        <div style={{
+          maxWidth: 900,
+          margin: "0 auto 16px auto",
+          background: "#F2ECFB",
+          border: "1px solid #D8C7F0",
+          borderRadius: 16,
+          padding: "12px 20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 14,
+          color: "#3D2D5E",
+          fontSize: 13.5,
+          lineHeight: 1.45,
+          fontWeight: 600,
+          boxShadow: "0 2px 10px rgba(116, 100, 172, 0.08)"
+        }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontSize: 18 }}>🌱</span>
+            {day2Reminder}
+          </span>
+          <button
+            type="button"
+            onClick={() => setDay2Reminder("")}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: 18,
+              cursor: "pointer",
+              color: "#7666AB",
+              padding: "2px 6px",
+              lineHeight: 1,
+              flexShrink: 0
+            }}
+            aria-label="Dismiss reminder"
+          >×</button>
         </div>
       )}
 
@@ -838,25 +900,6 @@ export default function HeroSectionExact({
                 <div className={styles.stepSub}>Click a chip</div>
               </div>
             </div>
-
-            {/* Clear Selection Button */}
-            <button
-              type="button"
-              className={styles.clearSelectionBtn}
-              onClick={handleClearSelection}
-              aria-label="Clear selection and start over"
-            >
-              <div className={styles.clearIconWrap}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7464AC" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                  <path d="M3 3v5h5" />
-                </svg>
-              </div>
-              <div className={styles.clearTextWrap}>
-                <span className={styles.clearTitle}>Clear selection</span>
-                <span className={styles.clearSub}>Start over</span>
-              </div>
-            </button>
           </div>
 
           {/* 2. MIDDLE COLUMN: Interactive Mood Tool */}
@@ -982,7 +1025,7 @@ export default function HeroSectionExact({
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                 </svg>
               </div>
-              <div className={styles.outcomeSubtitle}>You can change your mood to be:</div>
+              <div className={styles.outcomeSubtitle}>Your positive mood is:</div>
               <h2 className={styles.outcomeMoodHeading}>
                 {displayedTransformedMood.includes(" & ") ? (
                   <>

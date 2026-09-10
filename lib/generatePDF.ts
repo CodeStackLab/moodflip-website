@@ -1,10 +1,10 @@
 import jsPDF from 'jspdf';
-import { COVER_IMAGE_BASE64, BRAND_GIRL_BASE64, BRAND_LOGO_ICON_BASE64 } from './coverImage';
+import { COVER_IMAGE_BASE64, BRAND_LOGO_ICON_BASE64 } from './coverImage';
 
 // ════════════════════════════════════════════════════════════════════
 // MOODFLIP ULTIMATE BRANDED PDF ENGINE (jsPDF Powered)
 // * Official Site Logo & Vector Marks Throughout
-// * Full-Bleed Cover Artwork & Official Girl Illustration (about-girl.png)
+// * Full-Bleed Cover Artwork & Official Brand Badges
 // * 100% Exact Match to Website UI/UX Design System
 // * Ultra-Transparent (4% Opacity) Copyright Watermark
 // * Prominent Back-Cover Branding Section with Site Badges & Domain
@@ -171,16 +171,18 @@ function drawBackCoverPage(doc: jsPDF, bookTitle: string, totalPages: number) {
   doc.setTextColor(230, 220, 255);
   doc.text('Self-reflection utility for real life', 306, 142, { align: 'center' });
 
-  // Official Girl Illustration in Center Box
+  // Official Logo in Center Box
   try {
-    if (BRAND_GIRL_BASE64) {
-      doc.setFillColor(255, 255, 255);
-      doc.roundedRect(216, 195, 180, 180, 90, 90, 'F');
-      doc.setDrawColor(212, 171, 255);
-      doc.setLineWidth(2);
-      doc.roundedRect(216, 195, 180, 180, 90, 90, 'S');
+    doc.setFillColor(255, 255, 255);
+    doc.roundedRect(216, 195, 180, 180, 90, 90, 'F');
+    doc.setDrawColor(212, 171, 255);
+    doc.setLineWidth(2);
+    doc.roundedRect(216, 195, 180, 180, 90, 90, 'S');
 
-      doc.addImage(BRAND_GIRL_BASE64, 'PNG', 226, 205, 160, 160);
+    if (BRAND_LOGO_ICON_BASE64) {
+      doc.addImage(BRAND_LOGO_ICON_BASE64, 'PNG', 246, 225, 120, 120);
+    } else {
+      drawBrandLogoIcon(doc, 256, 235, 100);
     }
   } catch (e) {}
 
@@ -317,7 +319,7 @@ function buildBook1(doc: jsPDF, userName: string) {
   doc.setTextColor(113, 71, 232);
   doc.text('* Self-reflection utility for real life * Not medical advice', 60, 718);
 
-  // ── Page 2: Welcome Page with Girl Illustration ──
+  // ── Page 2: Welcome Page ──
   doc.addPage();
   drawHeader(doc, 'moodflip | 7-Day Mindset Guide');
   drawWatermark(doc);
@@ -329,19 +331,12 @@ function buildBook1(doc: jsPDF, userName: string) {
   doc.setTextColor(255, 255, 255);
   doc.text('Welcome to Your 7-Day Journey', 56, 74);
 
-  // Embed Girl Illustration on Welcome Page
-  try {
-    if (BRAND_GIRL_BASE64) {
-      doc.addImage(BRAND_GIRL_BASE64, 'PNG', 430, 105, 130, 130);
-    }
-  } catch (e) {}
-
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10);
   doc.setTextColor(26, 19, 56);
-  const wWidth = BRAND_GIRL_BASE64 ? 370 : 500;
+  const wWidth = 532;
   doc.text(doc.splitTextToSize('This guide helps you build a sustainable daily mindset practice through small, proven 60-second actions.', wWidth), 40, 115);
-  doc.text(doc.splitTextToSize('You do not need to be perfect. You only need to show up each day with curiosity and gentleness.', wWidth), 40, 150);
+  doc.text(doc.splitTextToSize('You do not need to be perfect. You only need to show up each day with curiosity and gentleness.', wWidth), 40, 145);
 
   doc.setFillColor(234, 227, 242);
   doc.rect(40, 242, 532, 1, 'F');

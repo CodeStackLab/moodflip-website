@@ -11,20 +11,16 @@ export default function MoreForYou() {
         <span>More for You</span>
       </div>
 
-      {/* 7-DAY PLAN WITH 3D BOOK COVER IMAGE */}
-      <div className="rounded-2xl border border-[#BFDBFE] bg-[#EFF6FF] p-4 transition hover:-translate-y-0.5 shadow-sm text-center">
-        <div className="w-24 h-32 mx-auto mb-2 flex items-center justify-center">
-          <img 
-            src="/7day-book-cover-3d-v6.png" 
-            alt="MoodFlip 7-Day Plan Book" 
-            className="w-full h-full object-contain drop-shadow-md hover:scale-105 transition-transform"
-          />
+      {/* 7-DAY PLAN CARD */}
+      <div className="rounded-2xl border border-[#E4DAD7] bg-[#FEFAF8] p-4 transition hover:-translate-y-0.5 shadow-sm text-center">
+        <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-gradient-to-br from-[#7464AC] to-[#4F438B] flex items-center justify-center text-white text-xl shadow-xs">
+          📄
         </div>
-        <h4 className="font-serif font-bold text-base text-[#2D264B] mb-1">7-Day Plan</h4>
-        <p className="text-xs text-[#6B638B] leading-relaxed mb-3">
+        <h4 className="font-serif font-bold text-base text-[#1A143F] mb-1">7-Day Plan</h4>
+        <p className="text-xs text-[#5C527A] leading-relaxed mb-3">
           Build a better mindset starting today.
         </p>
-        <Link href="/register" className="inline-block px-4 py-1.5 rounded-xl bg-[#2563EB] text-white text-xs font-bold shadow-xs hover:bg-[#1D4ED8] transition">
+        <Link href="/register" className="inline-block px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#7464AC] to-[#4F438B] text-white text-xs font-bold shadow-xs hover:opacity-95 transition">
           View 7-Day Plan →
         </Link>
       </div>

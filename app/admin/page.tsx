@@ -68,12 +68,12 @@ export default function AdminDashboardPage() {
 
   // Full Interactive Dummy Users Data
   const [users, setUsers] = useState([
-    { id: 1, name: 'Admin User', email: 'admin@moodflip.coach', joinDate: 'May 15, 2026', visitCount: 42, status: 'Active', avatarBg: 'bg-purple-600 text-white' },
-    { id: 2, name: 'Sarah Johnson', email: 'sarah.johnson@example.com', joinDate: 'May 15, 2026', visitCount: 24, status: 'Active', avatarBg: 'bg-purple-100 text-purple-700' },
-    { id: 3, name: 'Michael Chen', email: 'michael.chen@example.com', joinDate: 'May 15, 2026', visitCount: 18, status: 'Active', avatarBg: 'bg-blue-100 text-blue-700' },
-    { id: 4, name: 'Aisha Patel', email: 'aisha.patel@example.com', joinDate: 'May 14, 2026', visitCount: 31, status: 'Active', avatarBg: 'bg-pink-100 text-pink-700' },
-    { id: 5, name: 'Daniel Kim', email: 'daniel.kim@example.com', joinDate: 'May 14, 2026', visitCount: 12, status: 'Inactive', avatarBg: 'bg-indigo-100 text-indigo-700' },
-    { id: 6, name: 'Emily Davis', email: 'emily.davis@example.com', joinDate: 'May 13, 2026', visitCount: 27, status: 'Active', avatarBg: 'bg-emerald-100 text-emerald-700' },
+    { id: 1, name: 'Admin User', email: 'admin@moodflip.coach', joinDate: 'May 15, 2026', visitCount: 42, checkinCount: 18, purchaseStatus: 'Active', lastActive: 'May 15, 2026', status: 'Active', avatarBg: 'bg-purple-600 text-white' },
+    { id: 2, name: 'Sarah Johnson', email: 'sarah.johnson@example.com', joinDate: 'May 15, 2026', visitCount: 24, checkinCount: 12, purchaseStatus: 'Active', lastActive: 'May 15, 2026', status: 'Active', avatarBg: 'bg-purple-100 text-purple-700' },
+    { id: 3, name: 'Michael Chen', email: 'michael.chen@example.com', joinDate: 'May 15, 2026', visitCount: 18, checkinCount: 7, purchaseStatus: 'Active', lastActive: 'May 15, 2026', status: 'Active', avatarBg: 'bg-blue-100 text-blue-700' },
+    { id: 4, name: 'Aisha Patel', email: 'aisha.patel@example.com', joinDate: 'May 14, 2026', visitCount: 31, checkinCount: 21, purchaseStatus: 'Active', lastActive: 'May 14, 2026', status: 'Active', avatarBg: 'bg-pink-100 text-pink-700' },
+    { id: 5, name: 'Daniel Kim', email: 'daniel.kim@example.com', joinDate: 'May 14, 2026', visitCount: 12, checkinCount: 3, purchaseStatus: 'Inactive', lastActive: 'May 14, 2026', status: 'Inactive', avatarBg: 'bg-indigo-100 text-indigo-700' },
+    { id: 6, name: 'Emily Davis', email: 'emily.davis@example.com', joinDate: 'May 13, 2026', visitCount: 27, checkinCount: 15, purchaseStatus: 'Active', lastActive: 'May 13, 2026', status: 'Active', avatarBg: 'bg-emerald-100 text-emerald-700' },
   ]);
 
   const [editingUser, setEditingUser] = useState<{ id: number; name: string; email: string; status: string } | null>(null);
@@ -520,10 +520,10 @@ export default function AdminDashboardPage() {
   };
 
 
-  // Export Users CSV
+  // Export Users CSV (Spec §9 & §10 compliant)
   const exportUsersCSV = () => {
     const csvContent = "data:text/csv;charset=utf-8," 
-      + ["ID,Name,Email,Join Date,Visit Count,Status", ...users.map(u => `${u.id},"${u.name}",${u.email},${u.joinDate},${u.visitCount},${u.status}`)].join("\n");
+      + ["ID,Name,Email,Join Date,Last Active Date,Check-in Count,Purchase Status", ...users.map(u => `${u.id},"${u.name}",${u.email},${u.joinDate},${u.lastActive || u.joinDate},${u.checkinCount || u.visitCount},"${u.purchaseStatus || (u.status === 'Active' ? 'Active' : 'Inactive')}"`)].join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
@@ -1069,7 +1069,13 @@ export default function AdminDashboardPage() {
 
                     <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-gray-200/60 font-semibold text-[#5B5278]">
                       <div>📅 Joined: <span className="text-[#1A1338] font-bold">{u.joinDate}</span></div>
-                      <div>📊 Check-ins: <span className="text-[#7464AC] font-black">{u.visitCount}</span></div>
+                      <div>📊 Check-ins: <span className="text-[#7464AC] font-black">{u.checkinCount || u.visitCount}</span></div>
+                    </div>
+                    <div className="text-xs font-semibold text-[#5B5278] flex items-center justify-between pt-1 border-t border-gray-100">
+                      <span>Purchase Status:</span>
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${u.purchaseStatus === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                        {u.purchaseStatus === 'Active' ? '✓ Active (Paid $7)' : '○ Inactive'}
+                      </span>
                     </div>
 
                     <button
@@ -1091,6 +1097,7 @@ export default function AdminDashboardPage() {
                       <th className="py-3.5 px-3">Email Address</th>
                       <th className="py-3.5 px-3">Joined Date</th>
                       <th className="py-3.5 px-3">Check-ins</th>
+                      <th className="py-3.5 px-3">Purchase Status</th>
                       <th className="py-3.5 px-3">Status</th>
                       <th className="py-3.5 px-3 text-right">Action</th>
                     </tr>
@@ -1106,7 +1113,12 @@ export default function AdminDashboardPage() {
                         </td>
                         <td className="py-3.5 px-3 text-gray-600 font-bold">{u.email}</td>
                         <td className="py-3.5 px-3 text-gray-500 font-medium">{u.joinDate}</td>
-                        <td className="py-3.5 px-3 font-extrabold text-[#7464AC]">{u.visitCount} check-ins</td>
+                        <td className="py-3.5 px-3 font-extrabold text-[#7464AC]">{u.checkinCount || u.visitCount} check-ins</td>
+                        <td className="py-3.5 px-3">
+                          <span className={`px-2.5 py-1 rounded-full text-[11px] font-extrabold ${u.purchaseStatus === 'Active' ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' : 'bg-amber-100 text-amber-700 border border-amber-200'}`}>
+                            {u.purchaseStatus === 'Active' ? '✓ Active (Paid $7)' : '○ Inactive'}
+                          </span>
+                        </td>
                         <td className="py-3.5 px-3">
                           <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold ${u.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-[#FEF9F5] text-gray-600'}`}>
                             {u.status}

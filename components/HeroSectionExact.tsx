@@ -1151,7 +1151,7 @@ export default function HeroSectionExact({
                 ) : isSavedForCurrentFlip ? (
                   "✓ Saved!"
                 ) : (
-                  "💾 Save My Profile"
+                  "SAVE MY PROFILE"
                 )}
               </button>
 

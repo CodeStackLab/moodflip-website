@@ -46,11 +46,11 @@ export default function RootLayout({
                   }
                 });
               }
-              // 2. Delete old cache storage (moodflip-v1) immediately
+              // 2. Delete old cache storage immediately
               if ('caches' in window) {
                 caches.keys().then(function(names) {
                   for (var i = 0; i < names.length; i++) {
-                    if (names[i].indexOf('v1') !== -1 || names[i].indexOf('moodflip-v1') !== -1) {
+                    if (names[i] !== 'moodflip-v2-live') {
                       caches.delete(names[i]);
                     }
                   }
